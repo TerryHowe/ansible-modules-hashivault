@@ -10,7 +10,15 @@ options:
     url:
         description:
             - url for vault
-        default: False
+        default: to environment variable VAULT_ADDR
+    authtype:
+        description:
+            - authentication type to use: token, userpass, github, ldap
+        default: token
+    token:
+        description:
+            - token for vault
+        default: to environment variable VAULT_TOKEN
     username:
         description:
             - username to login to vault.
@@ -21,15 +29,23 @@ options:
         default: False
     secret:
         description:
-            - secret to operate on.
+            - secret to read.
         default: False
-    field:
+    key:
         description:
-            - secret field to operate on.
+            - secret key to read.
+        default: False
+    register:
+        description:
+            - variable to register result.
         default: False
 '''
 EXAMPLES = '''
-- action: hashivault_read secret=foo field=bar
+---
+- hosts: localhost
+  tasks:
+    - hashivault_read: secret='giant' key='fie' register='fie'
+    - debug: msg="Value is {{fie.value}}"
 '''
 
 

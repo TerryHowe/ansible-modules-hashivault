@@ -1,16 +1,24 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: vault_write
+module: hashivault_write
 version_added: "0.1"
-short_description: Vault write module
+short_description: Hashicorp Vault write module
 description:
-    - Module to write vault.
+    - Module to write to Hashicorp Vault.
 options:
     url:
         description:
             - url for vault
-        default: False
+        default: to environment variable VAULT_ADDR
+    authtype:
+        description:
+            - authentication type to use: token, userpass, github, ldap
+        default: token
+    token:
+        description:
+            - token for vault
+        default: to environment variable VAULT_TOKEN
     username:
         description:
             - username to login to vault.
@@ -21,15 +29,26 @@ options:
         default: False
     secret:
         description:
-            - secret to operate on.
+            - secret to read.
         default: False
-    field:
+    data:
         description:
-            - secret field to operate on.
+            - Keys and values to write.
+        default: False
+    update:
+        description:
+            - Update rather than overwrite.
         default: False
 '''
 EXAMPLES = '''
-- action: vault_write secret=foo field=bar
+---
+- hosts: localhost
+  tasks:
+    - hashivault_write:
+        secret: giant
+        data:
+            foo: foe
+            fie: fum
 '''
 
 
