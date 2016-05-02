@@ -1,0 +1,20 @@
+*.py[cod]
+.venv
+.cache
+
+# Packages
+.eggs
+*.egg
+*.egg-info
+dist
+build
+eggs
+sdist
+
+# Test
+.tox
+.testrepository
+
+# Editors
+*~
+.*.swp
