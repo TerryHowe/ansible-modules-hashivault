@@ -3,7 +3,9 @@ Ansible Modules Hashivault
 
 Ansible modules for Hashicorp Vault.
 
-[![Latest Version](https://img.shields.io/pypi/v/ansible-modules-hashivault.svg)](https://pypi.python.org/pypi/ansible-modules-hashivault/)
+.. image:: https://img.shields.io/pypi/v/ansible-modules-hashivault.svg
+   :alt: Latest version
+   :target: https://pypi.python.org/pypi/ansible-modules-hashivault/
 
 Usage
 -----
