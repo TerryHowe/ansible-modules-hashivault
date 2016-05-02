@@ -10,6 +10,7 @@ dist
 build
 eggs
 sdist
+MANIFEST
 
 # Test
 .tox
