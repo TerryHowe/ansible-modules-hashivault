@@ -7,10 +7,10 @@ files = [
 ]
 
 setup(name='ansible-modules-hashivault',
-      version='0.7',
+      version='0.8',
       description='Ansible Modules for Hashicorp Vault',
       author='Terry Howe',
       author_email='terrylhowe@example.com',
-      url='https://terryhowe.wordpress.com/',
+      url='https://github.com/TerryHowe/ansible-modules-hashivault',
       packages=files,
 )
