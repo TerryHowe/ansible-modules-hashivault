@@ -11,6 +11,10 @@ options:
         description:
             - url for vault
         default: to environment variable VAULT_ADDR
+    verify:
+        description:
+            - verify TLS certificate
+        default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
             - authentication type to use: token, userpass, github, ldap

@@ -4,6 +4,7 @@ import hvac
 def hashivault_init(readonly=True):
     argument_spec = dict(
         url = dict(required=False, default=os.environ.get('VAULT_ADDR', ''), type='str'),
+        verify = dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
         authtype = dict(required=False, default='token', type='str'),
         token = dict(required=False, default=os.environ.get('VAULT_TOKEN', ''), type='str'),
         username = dict(required=False, type='str'),
@@ -21,12 +22,13 @@ def hashivault_init(readonly=True):
 
 def hashivault_client(params):
     url = params.get('url')
+    verify = params.get('verify')
     token = params.get('token')
     authtype = params.get('authtype')
     token = params.get('token')
     username = params.get('username')
     password = params.get('password')
-    client = hvac.Client(url=url)
+    client = hvac.Client(url=url, verify=verify)
     if authtype == 'github':
         client.auth_github(token)
     elif authtype == 'userpass':
