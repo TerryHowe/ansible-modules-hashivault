@@ -1,3 +1,5 @@
+import warnings
+
 import hvac
 
 
@@ -28,15 +30,17 @@ def hashivault_client(params):
     token = params.get('token')
     username = params.get('username')
     password = params.get('password')
-    client = hvac.Client(url=url, verify=verify)
-    if authtype == 'github':
-        client.auth_github(token)
-    elif authtype == 'userpass':
-        client.auth_userpass(username, password)
-    elif authtype == 'ldap':
-        client.auth_ldap(username, password)
-    else:
-        client.token = token
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        client = hvac.Client(url=url, verify=verify)
+        if authtype == 'github':
+            client.auth_github(token)
+        elif authtype == 'userpass':
+            client.auth_userpass(username, password)
+        elif authtype == 'ldap':
+            client.auth_ldap(username, password)
+        else:
+            client.token = token
     return client
 
 
@@ -46,7 +50,9 @@ def hashivault_read(params):
         client = hashivault_client(params)
         secret = params.get('secret')
         key = params.get('key')
-        data = client.read('secret/%s' % secret)['data']
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            data = client.read('secret/%s' % secret)['data']
         value = data[key]
         result['value'] = value
     except Exception as e:
@@ -63,15 +69,17 @@ def hashivault_write(params):
         client = hashivault_client(params)
         secret = params.get('secret')
         data = params.get('data')
-        if params.get('update'):
-            write_data = client.read('secret/%s' % secret)
-            write_data  = write_data['data']
-            write_data.update(data)
-            client.write(('secret/%s' % secret), **write_data)
-            result['msg'] = "Secret %s updated" % secret
-        else:
-            client.write(('secret/%s' % secret), **data)
-            result['msg'] = "Secret %s written" % secret
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            if params.get('update'):
+                write_data = client.read('secret/%s' % secret)
+                write_data  = write_data['data']
+                write_data.update(data)
+                client.write(('secret/%s' % secret), **write_data)
+                result['msg'] = "Secret %s updated" % secret
+            else:
+                client.write(('secret/%s' % secret), **data)
+                result['msg'] = "Secret %s written" % secret
         result['changed'] = True
     except Exception as e:
         result['rc'] = 1
