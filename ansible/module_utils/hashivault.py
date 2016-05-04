@@ -53,8 +53,13 @@ def hashivault_read(params):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             data = client.read('secret/%s' % secret)['data']
-        value = data[key]
-        result['value'] = value
+        if key not in data:
+            result['rc'] = 1
+            result['failed'] = True
+            result['msg'] = "Key %s is not in secret %s" % (key, secret)
+        else:
+            value = data[key]
+            result['value'] = value
     except Exception as e:
         result['rc'] = 1
         result['failed'] = True
