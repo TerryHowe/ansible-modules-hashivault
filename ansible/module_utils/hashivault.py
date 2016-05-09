@@ -61,6 +61,7 @@ def hashivault_read(params):
             value = data[key]
             result['value'] = value
     except Exception as e:
+        import traceback
         result['rc'] = 1
         result['failed'] = True
         result['msg'] = "Exception: " + str(e)
@@ -87,6 +88,7 @@ def hashivault_write(params):
                 result['msg'] = "Secret %s written" % secret
         result['changed'] = True
     except Exception as e:
+        import traceback
         result['rc'] = 1
         result['failed'] = True
         result['msg'] = "Exception: " + str(e)
