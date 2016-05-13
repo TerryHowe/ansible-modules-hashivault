@@ -52,14 +52,20 @@ def hashivault_read(params):
         key = params.get('key')
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            data = client.read('secret/%s' % secret)['data']
+            response = client.read('secret/%s' % secret)
+            if not response:
+                result['rc'] = 1
+                result['failed'] = True
+                result['msg'] = "Secret %s is not in vault" % secret
+                return result
+            data = response['data']
         if key not in data:
             result['rc'] = 1
             result['failed'] = True
             result['msg'] = "Key %s is not in secret %s" % (key, secret)
-        else:
-            value = data[key]
-            result['value'] = value
+            return result
+        value = data[key]
+        result['value'] = value
     except Exception as e:
         import traceback
         result['rc'] = 1
