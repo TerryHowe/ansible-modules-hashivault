@@ -84,8 +84,11 @@ def hashivault_write(params):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             if params.get('update'):
-                write_data = client.read('secret/%s' % secret)
-                write_data  = write_data['data']
+                read_data = client.read('secret/%s' % secret)
+                if 'data' in read_data:
+                    write_data  = read_data['data']
+                else
+                    write_data  = {}
                 write_data.update(data)
                 client.write(('secret/%s' % secret), **write_data)
                 result['msg'] = "Secret %s updated" % secret
