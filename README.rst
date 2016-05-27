@@ -10,8 +10,8 @@ Ansible modules for Hashicorp Vault.
 Usage
 -----
 
-The following example simply connects to Quay and lists the organization in
-the repository.::
+The following example writes the giant secret with two values and then
+reads the fie value::
 
     ---
     - hosts: localhost
