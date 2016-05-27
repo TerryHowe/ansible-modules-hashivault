@@ -87,7 +87,7 @@ def hashivault_write(params):
                 read_data = client.read('secret/%s' % secret)
                 if 'data' in read_data:
                     write_data  = read_data['data']
-                else
+                else:
                     write_data  = {}
                 write_data.update(data)
                 client.write(('secret/%s' % secret), **write_data)
