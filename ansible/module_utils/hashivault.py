@@ -85,7 +85,7 @@ def hashivault_write(params):
             warnings.simplefilter("ignore")
             if params.get('update'):
                 read_data = client.read('secret/%s' % secret)
-                if 'data' in read_data:
+                if read_data and 'data' in read_data:
                     write_data  = read_data['data']
                 else:
                     write_data  = {}

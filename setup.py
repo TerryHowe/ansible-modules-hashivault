@@ -34,7 +34,7 @@ be some somewhat similar to this `example action plugin <https://terryhowe.wordp
 """
 
 setup(name='ansible-modules-hashivault',
-    version='1.1.6',
+    version='1.1.7',
     description='Ansible Modules for Hashicorp Vault',
     long_description=long_description,
     author='Terry Howe',
