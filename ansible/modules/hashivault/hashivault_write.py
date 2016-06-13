@@ -65,7 +65,6 @@ def main():
         module.exit_json(**result)
 
 
-from ansible.module_utils.basic import *
 from ansible.module_utils.hashivault import *
 
 if __name__ == '__main__':

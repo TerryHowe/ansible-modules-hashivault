@@ -1,6 +1,8 @@
+import os
 import warnings
 
 import hvac
+from ansible.module_utils.basic import AnsibleModule
 
 
 def hashivault_init(readonly=True):
