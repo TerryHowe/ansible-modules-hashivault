@@ -48,7 +48,10 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_read: secret='giant' key='fie' register='fie'
+    - hashivault_read:
+        secret: 'giant'
+        key: 'fie'
+      register: 'fie'
     - debug: msg="Value is {{fie.value}}"
 '''
 

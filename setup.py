@@ -24,7 +24,10 @@ reads the fie value::
             data:
                 foo: foe
                 fie: fum
-        - hashivault_read: secret='giant' key='fie' register='fie'
+        - hashivault_read:
+            secret: 'giant'
+            key: 'fie'
+          register: 'fie'
         - debug: msg="Value is {{fie.value}}"
 
 If you are not using the VAULT_ADDR and VAULT_TOKEN environment variables,
