@@ -13,19 +13,11 @@ Usage
 The following example writes the giant secret with two values and then
 reads the fie value::
 
-    ---
-    - hosts: localhost
-      tasks:
-        - hashivault_write:
-            secret: giant
-            data:
-                foo: foe
-                fie: fum
-        - hashivault_read:
-            secret: 'giant'
-            key: 'fie'
-          register: 'fie'
-        - debug: msg="Value is {{fie.value}}"
+    .. include:: test.yml
+
+You may also, seal and unseal the vault::
+
+    .. include:: test_seal.yml
 
 If you are not using the VAULT_ADDR and VAULT_TOKEN environment variables,
 you may be able to simplify your playbooks with an action plugin.  This can
