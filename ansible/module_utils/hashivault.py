@@ -57,6 +57,38 @@ def hashivault_status(params):
     return result
 
 
+def hashivault_seal(params):
+    result = { "changed": False, "rc" : 0}
+    try:
+        key = params.get('key')
+        client = hashivault_client(params)
+        result['status'] = client.seal()
+        result['changed'] = True
+    except Exception as e:
+        import traceback
+        result['rc'] = 1
+        result['failed'] = True
+        result['msg'] = "Exception: " + str(e)
+        result['stack_trace'] = traceback.format_exc()
+    return result
+
+
+def hashivault_unseal(params):
+    result = { "changed": False, "rc" : 0}
+    try:
+        key = params.get('key')
+        client = hashivault_client(params)
+        result['status'] = client.unseal(key)
+        result['changed'] = True
+    except Exception as e:
+        import traceback
+        result['rc'] = 1
+        result['failed'] = True
+        result['msg'] = "Exception: " + str(e)
+        result['stack_trace'] = traceback.format_exc()
+    return result
+
+
 def hashivault_read(params):
     result = { "changed": False, "rc" : 0}
     try:

@@ -4,13 +4,20 @@
     foo_value: 'fum'
     fie_value: 'fum'
   tasks:
+    - hashivault_status:
+      register: 'vault_status'
+    - assert: { that: "{{vault_status.changed}} == False" }
+    - assert: { that: "{{vault_status.status.progress}} == 0" }
+    - assert: { that: "{{vault_status.status.sealed}} == False" }
+    - assert: { that: "{{vault_status.rc}} == 0" }
+
     - hashivault_write:
         secret: 'giant'
         data:
             foo: '{{foo_value}}'
             fie: '{{fie_value}}'
       register: 'vault_write'
-    - assert: { that: "{{vault_write.changed}} == true" }
+    - assert: { that: "{{vault_write.changed}} == True" }
     - assert: { that: "'{{vault_write.msg}}' == 'Secret giant written'" }
     - assert: { that: "{{vault_write.rc}} == 0" }
 
@@ -18,13 +25,6 @@
         secret: 'giant'
         key: 'fie'
       register: 'vault_read'
-    - assert: { that: "{{vault_read.changed}} == false" }
+    - assert: { that: "{{vault_read.changed}} == False" }
     - assert: { that: "'{{vault_read.value}}' == '{{fie_value}}'" }
     - assert: { that: "{{vault_read.rc}} == 0" }
-
-    - hashivault_status:
-      register: 'vault_status'
-    - assert: { that: "{{vault_status.changed}} == false" }
-    - assert: { that: "{{vault_status.status.progress}} == 0" }
-    - assert: { that: "{{vault_status.status.sealed}} == false" }
-    - assert: { that: "{{vault_status.rc}} == 0" }

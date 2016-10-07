@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_status
+module: hashivault_seal
 version_added: "1.2.0"
-short_description: Hashicorp Vault status module
+short_description: Hashicorp Vault seal module
 description:
-    - Module to get status of Hashicorp Vault.
+    - Module to seal Hashicorp Vault.
 options:
     url:
         description:
@@ -36,16 +36,16 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_status:
-      register: 'vault_status'
-    - debug: msg="Seal progress is {{vault_status.status.progress}}"
+    - hashivault_seal:
+      register: 'vault_seal'
+    - debug: msg="Seal return is {{vault_seal.rc}}"
 '''
 
 
 def main():
     argspec = hashivault_argspec()
     module = hashivault_init(argspec)
-    result = hashivault_status(module.params)
+    result = hashivault_seal(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:

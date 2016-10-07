@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_status
+module: hashivault_unseal
 version_added: "1.2.0"
-short_description: Hashicorp Vault status module
+short_description: Hashicorp Vault unseal module
 description:
-    - Module to get status of Hashicorp Vault.
+    - Module to unseal Hashicorp Vault.
 options:
     url:
         description:
@@ -31,21 +31,25 @@ options:
         description:
             - password to login to vault.
         default: False
+    key:
+        description:
+            - vault key shard.
+        default: False
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_status:
-      register: 'vault_status'
-    - debug: msg="Seal progress is {{vault_status.status.progress}}"
+    - hashivault_unseal:
+      key: '{{vault_key}}'
 '''
 
 
 def main():
     argspec = hashivault_argspec()
+    argspec['key'] = dict(required=True, type='str')
     module = hashivault_init(argspec)
-    result = hashivault_status(module.params)
+    result = hashivault_unseal(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
