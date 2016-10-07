@@ -13,11 +13,44 @@ Usage
 The following example writes the giant secret with two values and then
 reads the fie value::
 
-    .. include:: test.yml
+    ---
+    - hosts: localhost
+      vars:
+        foo_value: 'fum'
+        fie_value: 'fum'
+      tasks:
+        - hashivault_status:
+          register: 'vault_status'
+        - hashivault_write:
+            secret: 'giant'
+            data:
+                foo: '{{foo_value}}'
+                fie: '{{fie_value}}'
+          register: 'vault_write'
+        - hashivault_read:
+            secret: 'giant'
+            key: 'fie'
+          register: 'vault_read'
 
 You may also, seal and unseal the vault::
 
-    .. include:: test_seal.yml
+    ---
+    - hosts: localhost
+      vars:
+        vault_keys:  "{{ lookup('env','VAULT_KEYS').split(' ')[0:3] }}"
+      tasks:
+        - hashivault_status:
+          register: 'vault_status'
+        - block:
+            - hashivault_seal:
+              register: 'vault_seal'
+            - assert: { that: "{{vault_seal.changed}} == True" }
+            - assert: { that: "{{vault_seal.rc}} == 0" }
+          when: "{{vault_status.status.sealed}} == False"
+        - hashivault_unseal:
+            key: '{{item}}'
+          register: 'vault_unseal'
+          with_items: "{{vault_keys}}"
 
 If you are not using the VAULT_ADDR and VAULT_TOKEN environment variables,
 you may be able to simplify your playbooks with an action plugin.  This can
