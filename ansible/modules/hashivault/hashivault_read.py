@@ -57,7 +57,11 @@ EXAMPLES = '''
 
 
 def main():
-    module = hashivault_init()
+    argspec = hashivault_argspec()
+    argspec['secret'] = dict(required=True, type='str')
+    argspec['key'] = dict(required=True, type='str')
+    argspec['register'] = dict(required=False, type='str')
+    module = hashivault_init(argspec)
     result = hashivault_read(module.params)
     if result.get('failed'):
         module.fail_json(**result)

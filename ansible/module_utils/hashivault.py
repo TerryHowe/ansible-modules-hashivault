@@ -5,22 +5,19 @@ import hvac
 from ansible.module_utils.basic import AnsibleModule
 
 
-def hashivault_init(readonly=True):
+def hashivault_argspec():
     argument_spec = dict(
         url = dict(required=False, default=os.environ.get('VAULT_ADDR', ''), type='str'),
         verify = dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
         authtype = dict(required=False, default='token', type='str'),
         token = dict(required=False, default=os.environ.get('VAULT_TOKEN', ''), type='str'),
         username = dict(required=False, type='str'),
-        password = dict(required=False, type='str'),
-        secret = dict(required=True, type='str'),
+        password = dict(required=False, type='str')
     )
-    if readonly:
-        argument_spec['key'] = dict(required=True, type='str')
-        argument_spec['register'] = dict(required=False, type='str')
-    else:
-        argument_spec['update'] = dict(required=False, default=False, type='bool')
-        argument_spec['data'] = dict(required=False, default={}, type='dict')
+    return argument_spec
+
+
+def hashivault_init(argument_spec):
     return AnsibleModule(argument_spec=argument_spec)
 
 
@@ -44,6 +41,20 @@ def hashivault_client(params):
         else:
             client.token = token
     return client
+
+
+def hashivault_status(params):
+    result = { "changed": False, "rc" : 0}
+    try:
+        client = hashivault_client(params)
+        result['status'] = client.seal_status
+    except Exception as e:
+        import traceback
+        result['rc'] = 1
+        result['failed'] = True
+        result['msg'] = "Exception: " + str(e)
+        result['stack_trace'] = traceback.format_exc()
+    return result
 
 
 def hashivault_read(params):

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_write
-version_added: "0.1"
-short_description: Hashicorp Vault write module
+module: hashivault_status
+version_added: "1.1.8"
+short_description: Hashicorp Vault status module
 description:
-    - Module to write to Hashicorp Vault.
+    - Module to get status of Hashicorp Vault.
 options:
     url:
         description:
@@ -31,44 +31,32 @@ options:
         description:
             - password to login to vault.
         default: False
-    secret:
+    register:
         description:
-            - secret to read.
-        default: False
-    data:
-        description:
-            - Keys and values to write.
-        default: False
-    update:
-        description:
-            - Update rather than overwrite.
+            - variable to register result.
         default: False
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_write:
-        secret: giant
-        data:
-            foo: foe
-            fie: fum
+    - hashivault_status:
+      register: 'fie'
+    - debug: msg="Seal progress is {{fie.status.progress}}"
 '''
 
 
 def main():
     argspec = hashivault_argspec()
-    argspec['secret'] = dict(required=True, type='str')
-    argspec['update'] = dict(required=False, default=False, type='bool')
-    argspec['data'] = dict(required=False, default={}, type='dict')
     module = hashivault_init(argspec)
-    result = hashivault_write(module.params)
+    result = hashivault_status(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
 
 
+from ansible.module_utils.basic import *
 from ansible.module_utils.hashivault import *
 
 if __name__ == '__main__':
