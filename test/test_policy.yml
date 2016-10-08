@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  vars:
+    name: 'terry'
+    policy_contents: >
+        path "secret/{{name}}/*" {
+          capabilities = ["create", "read", "update", "delete", "list"]
+        } 
+        path "secret/{{name}}" {
+          capabilities = ["list"]
+        } 
+  tasks:
+    - hashivault_policy_set:
+      files: "{{policy_contents}}"
+#    - hashivault_policy_get:
+#        name: 'terrytest'
+#      register: 'vault_policy_get'
+#    - assert: { that: "{{vault_policy_get.changed}} == False" }
+#    - assert: { that: "{{vault_policy_get.rc}} == 0" }

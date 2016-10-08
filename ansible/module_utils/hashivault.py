@@ -89,6 +89,21 @@ def hashivault_unseal(params):
     return result
 
 
+def hashivault_policy_get(params):
+    result = { "changed": False, "rc" : 0}
+    try:
+        client = hashivault_client(params)
+        name = params.get('name')
+        result['policy'] = client.get_policy(name)
+    except Exception as e:
+        import traceback
+        result['rc'] = 1
+        result['failed'] = True
+        result['msg'] = "Exception: " + str(e)
+        result['stack_trace'] = traceback.format_exc()
+    return result
+
+
 def hashivault_read(params):
     result = { "changed": False, "rc" : 0}
     try:

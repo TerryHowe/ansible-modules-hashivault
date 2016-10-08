@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  tasks:
+    - hashivault_status:
+      register: 'vault_status'
+    - assert: { that: "{{vault_status.changed}} == False" }
+    - assert: { that: "{{vault_status.rc}} == 0" }
