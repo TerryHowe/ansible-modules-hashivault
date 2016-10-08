@@ -76,9 +76,9 @@ def hashivault_seal(params):
 def hashivault_unseal(params):
     result = { "changed": False, "rc" : 0}
     try:
-        key = params.get('key')
+        keys = params.get('keys')
         client = hashivault_client(params)
-        result['status'] = client.unseal(key)
+        result['status'] = client.unseal_multi(keys.split())
         result['changed'] = True
     except Exception as e:
         import traceback

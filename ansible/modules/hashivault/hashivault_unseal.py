@@ -31,9 +31,9 @@ options:
         description:
             - password to login to vault.
         default: False
-    key:
+    keys:
         description:
-            - vault key shard.
+            - vault key shard(s).
         default: False
 '''
 EXAMPLES = '''
@@ -41,13 +41,13 @@ EXAMPLES = '''
 - hosts: localhost
   tasks:
     - hashivault_unseal:
-      key: '{{vault_key}}'
+      keys: '{{vault_keys}}'
 '''
 
 
 def main():
     argspec = hashivault_argspec()
-    argspec['key'] = dict(required=True, type='str')
+    argspec['keys'] = dict(required=True, type='str')
     module = hashivault_init(argspec)
     result = hashivault_unseal(module.params)
     if result.get('failed'):

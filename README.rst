@@ -37,20 +37,16 @@ You may also, seal and unseal the vault::
     ---
     - hosts: localhost
       vars:
-        vault_keys:  "{{ lookup('env','VAULT_KEYS').split(' ')[0:3] }}"
+        vault_keys:  "{{ lookup('env','VAULT_KEYS') }}"
       tasks:
         - hashivault_status:
           register: 'vault_status'
         - block:
             - hashivault_seal:
               register: 'vault_seal'
-            - assert: { that: "{{vault_seal.changed}} == True" }
-            - assert: { that: "{{vault_seal.rc}} == 0" }
           when: "{{vault_status.status.sealed}} == False"
         - hashivault_unseal:
-            key: '{{item}}'
-          register: 'vault_unseal'
-          with_items: "{{vault_keys}}"
+            keys: '{{vault_keys}}'
 
 If you are not using the VAULT_ADDR and VAULT_TOKEN environment variables,
 you may be able to simplify your playbooks with an action plugin.  This can

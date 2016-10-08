@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   vars:
-    vault_keys:  "{{ lookup('env','VAULT_KEYS').split(' ')[0:3] }}"
+    vault_keys:  "{{ lookup('env','VAULT_KEYS') }}"
   tasks:
     - hashivault_status:
       register: 'vault_status'
@@ -16,10 +16,9 @@
       when: "{{vault_status.status.sealed}} == False"
 
     - hashivault_unseal:
-        key: '{{item}}'
+        keys: '{{vault_keys}}'
       register: 'vault_unseal'
-      with_items: "{{vault_keys}}"
     - assert: { that: "{{vault_unseal.changed}} == True" }
-    - assert: { that: "{{vault_unseal.results[-1].status.progress}} == 0" }
-    - assert: { that: "{{vault_unseal.results[-1].status.sealed}} == False" }
-    - assert: { that: "{{vault_unseal.results[-1].rc}} == 0" }
+    - assert: { that: "{{vault_unseal.status.progress}} == 0" }
+    - assert: { that: "{{vault_unseal.status.sealed}} == False" }
+    - assert: { that: "{{vault_unseal.rc}} == 0" }
