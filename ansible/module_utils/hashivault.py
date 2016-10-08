@@ -104,6 +104,20 @@ def hashivault_policy_get(params):
     return result
 
 
+def hashivault_policy_list(params):
+    result = { "changed": False, "rc" : 0}
+    try:
+        client = hashivault_client(params)
+        result['policies'] = client.list_policies()
+    except Exception as e:
+        import traceback
+        result['rc'] = 1
+        result['failed'] = True
+        result['msg'] = "Exception: " + str(e)
+        result['stack_trace'] = traceback.format_exc()
+    return result
+
+
 def hashivault_policy_set(params):
     result = { "changed": False, "rc" : 0}
     try:
