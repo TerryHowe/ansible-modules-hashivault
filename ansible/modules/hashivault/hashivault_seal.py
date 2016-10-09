@@ -59,7 +59,7 @@ from ansible.module_utils.hashivault import *
 @hashiwrapper
 def hashivault_seal(params):
     key = params.get('key')
-    client = hashivault_client(params)
+    client = hashivault_auth_client(params)
     return {'status': client.seal(), 'changed': True}
 
 

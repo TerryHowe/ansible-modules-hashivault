@@ -56,7 +56,7 @@ from ansible.module_utils.hashivault import *
 
 @hashiwrapper
 def hashivault_audit_list(params):
-    client = hashivault_client(params)
+    client = hashivault_auth_client(params)
     return {'changed': True, 'backends': client.list_audit_backends()}
 
 

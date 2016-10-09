@@ -25,23 +25,30 @@ def hashivault_init(argument_spec):
 def hashivault_client(params):
     url = params.get('url')
     verify = params.get('verify')
+    client = hvac.Client(url=url, verify=verify)
+    return client
+
+
+def hashivault_auth(client, params):
     token = params.get('token')
     authtype = params.get('authtype')
     token = params.get('token')
     username = params.get('username')
     password = params.get('password')
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        client = hvac.Client(url=url, verify=verify)
-        if authtype == 'github':
-            client.auth_github(token)
-        elif authtype == 'userpass':
-            client.auth_userpass(username, password)
-        elif authtype == 'ldap':
-            client.auth_ldap(username, password)
-        else:
-            client.token = token
+    if authtype == 'github':
+        client.auth_github(token)
+    elif authtype == 'userpass':
+        client.auth_userpass(username, password)
+    elif authtype == 'ldap':
+        client.auth_ldap(username, password)
+    else:
+        client.token = token
     return client
+
+
+def hashivault_auth_client(params):
+    client = hashivault_client(params)
+    return hashivault_auth(client, params)
 
 
 def hashiwrapper(function):

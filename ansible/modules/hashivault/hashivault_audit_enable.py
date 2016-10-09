@@ -72,7 +72,7 @@ from ansible.module_utils.hashivault import *
 
 @hashiwrapper
 def hashivault_audit_enable(params):
-    client = hashivault_client(params)
+    client = hashivault_auth_client(params)
     name = params.get('name')
     description = params.get('description')
     options = params.get('options')

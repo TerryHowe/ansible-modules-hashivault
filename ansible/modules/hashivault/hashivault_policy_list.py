@@ -58,7 +58,7 @@ from ansible.module_utils.hashivault import *
 
 @hashiwrapper
 def hashivault_policy_list(params):
-    client = hashivault_client(params)
+    client = hashivault_auth_client(params)
     return {'policies': client.list_policies()}
 
 

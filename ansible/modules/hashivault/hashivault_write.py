@@ -75,7 +75,7 @@ from ansible.module_utils.hashivault import *
 @hashiwrapper
 def hashivault_write(params):
     result = { "changed": False, "rc" : 0}
-    client = hashivault_client(params)
+    client = hashivault_auth_client(params)
     secret = params.get('secret')
     data = params.get('data')
     with warnings.catch_warnings():

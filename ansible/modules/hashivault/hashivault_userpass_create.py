@@ -74,7 +74,7 @@ from ansible.module_utils.hashivault import *
 
 @hashiwrapper
 def hashivault_userpass_create(params):
-    client = hashivault_client(params)
+    client = hashivault_auth_client(params)
     name = params.get('name')
     password = params.get('pass')
     policies = params.get('policies')
