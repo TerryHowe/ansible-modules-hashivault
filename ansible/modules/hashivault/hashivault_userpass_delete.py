@@ -62,10 +62,10 @@ from ansible.module_utils.hashivault import *
 
 @hashiwrapper
 def hashivault_userpass_delete(params):
-   client = hashivault_client(params)
-   username = params.get('name')
-   client.delete_userpass(username)
-   return {'changed': True}
+    client = hashivault_client(params)
+    username = params.get('name')
+    client.delete_userpass(username)
+    return {'changed': True}
 
 
 if __name__ == '__main__':

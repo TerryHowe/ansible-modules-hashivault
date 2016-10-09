@@ -74,12 +74,12 @@ from ansible.module_utils.hashivault import *
 
 @hashiwrapper
 def hashivault_userpass_create(params):
-   client = hashivault_client(params)
-   name = params.get('name')
-   password = params.get('pass')
-   policies = params.get('policies')
-   client.create_userpass(name, password, policies)
-   return {'changed': True}
+    client = hashivault_client(params)
+    name = params.get('name')
+    password = params.get('pass')
+    policies = params.get('policies')
+    client.create_userpass(name, password, policies)
+    return {'changed': True}
 
 
 if __name__ == '__main__':

@@ -63,11 +63,11 @@ from ansible.module_utils.hashivault import *
 
 @hashiwrapper
 def hashivault_policy_set(params):
-   client = hashivault_client(params)
-   name = params.get('name')
-   rules = params.get('rules')
-   client.set_policy(name, rules)
-   return {'changed': True}
+    client = hashivault_client(params)
+    name = params.get('name')
+    rules = params.get('rules')
+    client.set_policy(name, rules)
+    return {'changed': True}
 
 
 if __name__ == '__main__':
