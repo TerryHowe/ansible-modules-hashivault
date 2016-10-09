@@ -72,6 +72,24 @@ Policy support::
         - hashivault_policy_list:
           register: 'vault_policy_list'
 
+Add and delete users for userpass::
+
+    ---
+    - hosts: localhost
+      vars:
+        username: 'portugal'
+        userpass: 'Th3m@n!!'
+      tasks:
+        - hashivault_userpass_create:
+            name: "{{username}}"
+            pass: "{{userpass}}"
+            policies: "{{username}}"
+          register: 'vault_userpass_create'
+    
+        - hashivault_userpass_delete:
+            name: "{{username}}"
+          register: 'vault_userpass_delete'
+
 If you are not using the VAULT_ADDR and VAULT_TOKEN environment variables,
 you may be able to simplify your playbooks with an action plugin.  This can
 be some somewhat similar to this `example action plugin <https://terryhowe.wordpress.com/2016/05/02/setting-ansible-module-defaults-using-action-plugins/>`_.
