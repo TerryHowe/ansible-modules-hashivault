@@ -61,5 +61,13 @@ def main():
 from ansible.module_utils.basic import *
 from ansible.module_utils.hashivault import *
 
+
+@hashiwrapper
+def hashivault_policy_get(params):
+    name = params.get('name')
+    client = hashivault_client(params)
+    return {'rules': client.get_policy(name)}
+
+
 if __name__ == '__main__':
     main()

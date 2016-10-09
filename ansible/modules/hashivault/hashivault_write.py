@@ -71,5 +71,30 @@ def main():
 
 from ansible.module_utils.hashivault import *
 
+
+@hashiwrapper
+def hashivault_write(params):
+    result = { "changed": False, "rc" : 0}
+    client = hashivault_client(params)
+    secret = params.get('secret')
+    data = params.get('data')
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        if params.get('update'):
+            read_data = client.read('secret/%s' % secret)
+            if read_data and 'data' in read_data:
+                write_data  = read_data['data']
+            else:
+                write_data  = {}
+            write_data.update(data)
+            client.write(('secret/%s' % secret), **write_data)
+            result['msg'] = "Secret %s updated" % secret
+        else:
+            client.write(('secret/%s' % secret), **data)
+            result['msg'] = "Secret %s written" % secret
+    result['changed'] = True
+    return result
+
+
 if __name__ == '__main__':
     main()

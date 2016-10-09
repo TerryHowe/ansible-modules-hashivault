@@ -55,5 +55,12 @@ def main():
 from ansible.module_utils.basic import *
 from ansible.module_utils.hashivault import *
 
+
+@hashiwrapper
+def hashivault_status(params):
+    client = hashivault_client(params)
+    return {'status': client.seal_status}
+
+
 if __name__ == '__main__':
     main()
