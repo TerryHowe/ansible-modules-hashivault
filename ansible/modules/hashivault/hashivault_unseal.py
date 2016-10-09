@@ -63,7 +63,7 @@ from ansible.module_utils.hashivault import *
 @hashiwrapper
 def hashivault_unseal(params):
     keys = params.get('keys')
-    client = hashivault_auth_client(params)
+    client = hashivault_client(params)
     return {'status': client.unseal_multi(keys.split()), 'changed': True}
 
 
