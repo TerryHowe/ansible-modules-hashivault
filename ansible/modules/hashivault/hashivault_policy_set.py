@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_policy_set
-version_added: "1.2.0"
+version_added: "2.1.0"
 short_description: Hashicorp Vault policy set module
 description:
     - Module to set a policy in Hashicorp Vault.

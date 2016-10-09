@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_policy_get
-version_added: "1.2.0"
+version_added: "2.1.0"
 short_description: Hashicorp Vault policy get module
 description:
     - Module to get a policy from Hashicorp Vault.
