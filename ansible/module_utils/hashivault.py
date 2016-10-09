@@ -1,5 +1,6 @@
 import os
 import warnings
+from hvac import exceptions
 
 import hvac
 from ansible.module_utils.basic import AnsibleModule
@@ -49,10 +50,8 @@ def hashiwrapper(function):
         try:
             result.update(function(*args, **kwargs))
         except Exception as e:
-            import traceback
             result['rc'] = 1
             result['failed'] = True
             result['msg'] = "Exception: " + str(e)
-            result['stack_trace'] = traceback.format_exc()
         return result
     return wrapper
