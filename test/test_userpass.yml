@@ -1,0 +1,39 @@
+---
+- hosts: localhost
+  vars:
+    username: 'portugal'
+    userpass: 'Th3m@n!!'
+    rules: >
+        path "secret/{{username}}/*" {
+          capabilities = ["create", "read", "update", "delete", "list"]
+        } 
+        path "secret/{{username}}" {
+          capabilities = ["list"]
+        } 
+  tasks:
+    - hashivault_policy_set:
+        name: "{{username}}"
+        rules: "{{rules}}"
+      register: 'vault_policy_set'
+    - assert: { that: "{{vault_policy_set.changed}} == True" }
+    - assert: { that: "{{vault_policy_set.rc}} == 0" }
+
+    - hashivault_userpass_create:
+        name: "{{username}}"
+        pass: "{{userpass}}"
+        policies: "{{username}}"
+      register: 'vault_userpass_create'
+    - assert: { that: "{{vault_userpass_create.changed}} == True" }
+    - assert: { that: "{{vault_userpass_create.rc}} == 0" }
+
+    - hashivault_userpass_delete:
+        name: "{{username}}"
+      register: 'vault_userpass_delete'
+    - assert: { that: "{{vault_userpass_delete.changed}} == True" }
+    - assert: { that: "{{vault_userpass_delete.rc}} == 0" }
+
+    - hashivault_policy_delete:
+        name: '{{username}}'
+      register: 'vault_policy_delete'
+    - assert: { that: "{{vault_policy_delete.changed}} == True" }
+    - assert: { that: "{{vault_policy_delete.rc}} == 0" }
