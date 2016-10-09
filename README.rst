@@ -90,6 +90,32 @@ Add and delete users for userpass::
             name: "{{username}}"
           register: 'vault_userpass_delete'
 
+Handle auth backends::
+
+    ---
+    - hosts: localhost
+      tasks:
+        - hashivault_auth_list:
+          register: 'vault_auth_list'
+        - block:
+          - hashivault_auth_enable:
+              name: "userpass"
+            register: 'vault_auth_enable'
+          when: "'userpass/' not in vault_auth_list.backends"
+
+Handle audit backends::
+
+    ---
+    - hosts: localhost
+      tasks:
+        - hashivault_audit_list:
+          register: 'vault_audit_list'
+        - block:
+          - hashivault_audit_enable:
+              name: "syslog"
+            register: 'vault_audit_enable'
+          when: "'syslog/' not in vault_audit_list.backends"
+
 If you are not using the VAULT_ADDR and VAULT_TOKEN environment variables,
 you may be able to simplify your playbooks with an action plugin.  This can
 be some somewhat similar to this `example action plugin <https://terryhowe.wordpress.com/2016/05/02/setting-ansible-module-defaults-using-action-plugins/>`_.
