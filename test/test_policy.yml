@@ -30,3 +30,16 @@
     - fail: msg="policy {{name}} not in list"
       when: name not in vault_policy_list.policies
     - assert: { that: "{{vault_policy_list.rc}} == 0" }
+
+    - hashivault_policy_delete:
+        name: '{{name}}'
+      register: 'vault_policy_delete'
+    - assert: { that: "{{vault_policy_delete.changed}} == True" }
+    - assert: { that: "{{vault_policy_delete.rc}} == 0" }
+
+    - hashivault_policy_list:
+      register: 'vault_policy_list'
+    - assert: { that: "{{vault_policy_list.changed}} == False" }
+    - fail: msg="policy {{name}} in list"
+      when: name in vault_policy_list.policies
+    - assert: { that: "{{vault_policy_list.rc}} == 0" }
