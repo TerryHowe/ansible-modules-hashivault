@@ -32,7 +32,19 @@ reads the fie value::
             key: 'fie'
           register: 'vault_read'
 
-You may also, seal and unseal the vault::
+The lookup plugin::
+
+    looky: "{{lookup('hashivault', 'giant', 'foo')}}"
+
+You may init the vault::
+
+    ---
+    - hosts: localhost
+      tasks:
+        - hashivault_init:
+          register: 'vault_init'
+
+You may also seal and unseal the vault::
 
     ---
     - hosts: localhost

@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   vars:
-    foo_value: 'fum'
+    foo_value: 'foe'
     fie_value: 'fum'
   tasks:
     - hashivault_status:
@@ -28,3 +28,7 @@
     - assert: { that: "{{vault_read.changed}} == False" }
     - assert: { that: "'{{vault_read.value}}' == '{{fie_value}}'" }
     - assert: { that: "{{vault_read.rc}} == 0" }
+
+    - set_fact:
+        looky: "{{lookup('hashivault', 'giant', 'foo')}}"
+    - assert: { that: "'{{looky}}' == '{{foo_value}}'" }
