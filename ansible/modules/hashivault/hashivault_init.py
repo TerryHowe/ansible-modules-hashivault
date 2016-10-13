@@ -60,7 +60,7 @@ def hashivault_initialize(params):
     if client.is_initialized():
         return {'changed': False}
     result =  {'changed': True}
-    result.update(client.is_initialized())
+    result.update(client.initialize())
     return result
 
 
