@@ -84,10 +84,22 @@ def hashivault_mount_secret_backend(params):
     description = params.get('description')
     max_lease_ttl = params.get('max_lease_ttl')
 
-    client.enable_secret_backend(backend_type,
-                                 description=description,
-                                 mount_point=path,
-                                 config={'max_lease_ttl': max_lease_ttl})
+    try:
+        client.enable_secret_backend(backend_type,
+                                     description=description,
+                                     mount_point=path,
+                                     config={'max_lease_ttl': max_lease_ttl})
+    except Exception, e:
+        if "existing mount at {path}".format(path=path) in e.message:
+            params = {
+            'max_lease_ttle': max_lease_ttl
+            }
+
+            result = client._post('/v1/sys/mounts/{path}/tune'.format(path=path), json=params)
+            return result
+        else:
+            raise e
+
     return {'changed': True}
 
 
