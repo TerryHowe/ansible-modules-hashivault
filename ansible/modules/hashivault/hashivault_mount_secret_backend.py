@@ -96,7 +96,7 @@ def hashivault_mount_secret_backend(params):
             }
 
             result = client._post('/v1/sys/mounts/{path}/tune'.format(path=path), json=params)
-            return result
+            return {'changed': True}
         else:
             raise e
 
