@@ -3,9 +3,9 @@ DOCUMENTATION = '''
 ---
 module: hashivault_mount_secret_backend
 version_added: "2.7.0"
-short_description: Hashicorp Vault auth enable module
+short_description: Hashicorp Vault secret enable module
 description:
-    - Module to enable authentication backends in Hashicorp Vault.
+    - Module to enable secret backends in Hashicorp Vault.
 options:
     url:
         description:
@@ -53,7 +53,10 @@ EXAMPLES = '''
 - hosts: localhost
   tasks:
     - hashivault_mount_secret_backend:
-        name: "userpass"
+        backend_type: "pki"
+        path: "my_mount_point"
+        description: "A desription of your mountpoint"
+        max_lease_ttl: "Max lease allowed by your mount"
 '''
 
 
@@ -84,19 +87,16 @@ def hashivault_mount_secret_backend(params):
     description = params.get('description')
     max_lease_ttl = params.get('max_lease_ttl')
 
+    lease_dict = {'max_lease_ttl': max_lease_ttl}
+
     try:
         client.enable_secret_backend(backend_type,
                                      description=description,
                                      mount_point=path,
-                                     config={'max_lease_ttl': max_lease_ttl})
+                                     config=lease_dict)
     except Exception, e:
         if "existing mount at {path}".format(path=path) in e.message:
-            params = {
-            'max_lease_ttle': max_lease_ttl
-            }
-
-            result = client._post('/v1/sys/mounts/{path}/tune'.format(path=path), json=params)
-            return {'changed': True}
+            client._post('/v1/sys/mounts/{path}/tune'.format(path=path), json=lease_dict)
         else:
             raise e
 
