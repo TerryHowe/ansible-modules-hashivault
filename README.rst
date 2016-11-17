@@ -36,6 +36,21 @@ The lookup plugin::
 
     looky: "{{lookup('hashivault', 'giant', 'foo')}}"
 
+By default, the hashivaul_write, hashivault_read and the lookup plugin assume the /secret mount point.  If you are accessing another mount point, start the secret with a '/'::
+
+    ---
+    - hosts: localhost
+      tasks:
+        - hashivault_write:
+            secret: '/stories/stuart'
+            data:
+                last: 'little'
+        - hashivault_read:
+            secret: '/stories/charlotte'
+            key: 'web'
+        - set_fact:
+            book: "{{lookup('hashivault', '/stories/charlotte', 'web')}}"
+
 You may init the vault::
 
     ---
