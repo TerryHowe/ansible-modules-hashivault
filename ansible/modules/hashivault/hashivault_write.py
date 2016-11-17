@@ -77,20 +77,24 @@ def hashivault_write(params):
     result = { "changed": False, "rc" : 0}
     client = hashivault_auth_client(params)
     secret = params.get('secret')
+    if secret.startswith('/'):
+        secret = secret.lstrip('/')
+    else:
+        secret = ('secret/%s' % secret)
     data = params.get('data')
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         if params.get('update'):
-            read_data = client.read('secret/%s' % secret)
+            read_data = client.read(secret)
             if read_data and 'data' in read_data:
                 write_data  = read_data['data']
             else:
                 write_data  = {}
             write_data.update(data)
-            client.write(('secret/%s' % secret), **write_data)
+            client.write((secret), **write_data)
             result['msg'] = "Secret %s updated" % secret
         else:
-            client.write(('secret/%s' % secret), **data)
+            client.write((secret), **data)
             result['msg'] = "Secret %s written" % secret
     result['changed'] = True
     return result

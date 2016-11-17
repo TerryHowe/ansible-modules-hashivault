@@ -81,7 +81,11 @@ def hashivault_read(params):
     key = params.get('key')
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        response = client.read('secret/%s' % secret)
+        if secret.startswith('/'):
+            secret = secret.lstrip('/')
+            response = client.read(secret)
+        else:
+            response = client.read('secret/%s' % secret)
         if not response:
             result['rc'] = 1
             result['failed'] = True
