@@ -21,6 +21,33 @@
     - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/giant written'" }
     - assert: { that: "{{vault_write.rc}} == 0" }
 
+    - hashivault_write:
+        secret: stalks/bean
+        data:
+          height: tall
+      register: vault_write
+    - assert: { that: vault_write.rc == 0 }
+
+    - hashivault_list: {}
+      register: vault_list
+    - assert: { that: "vault_list.rc == 0" }
+    - assert: { that: "'giant' in vault_list.secrets" }
+    - assert: { that: "'stalks/' in vault_list.secrets" }
+
+    # This reads the secrets _underneath_ /secret/giant, e.g.,
+    # /secret/giant/color.  If none have been written returns empty.
+    - hashivault_list:
+        secret: 'giant'
+      register: vault_list
+    - assert: { that: "vault_list.rc == 0" }
+    - assert: { that: "vault_list.secrets|length == 0" }
+
+    - hashivault_list:
+        secret: stalks
+      register: vault_list
+    - assert: { that: vault_list.rc == 0 }
+    - assert: { that: "'bean' in vault_list.secrets" }
+
     - hashivault_read:
         secret: 'giant'
         key: 'fie'
