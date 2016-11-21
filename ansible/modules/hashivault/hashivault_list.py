@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_list
-version_added: "0.1"
+version_added: "2.9"
 short_description: Hashicorp Vault list
 description:
     - The M(hashivault_list) module lists keys in Hashicorp Vault.  By
