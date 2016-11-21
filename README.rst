@@ -51,6 +51,15 @@ By default, the hashivaul_write, hashivault_read and the lookup plugin assume th
         - set_fact:
             book: "{{lookup('hashivault', '/stories/charlotte', 'web')}}"
 
+Get a list of secrets::
+
+    ---
+    - hosts: localhost
+      tasks:
+        - hashivault_list:
+            secret: '/stories'
+          register: vault
+
 You may init the vault::
 
     ---
