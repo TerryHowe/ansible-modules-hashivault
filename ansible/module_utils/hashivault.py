@@ -11,9 +11,9 @@ def hashivault_argspec():
         url = dict(required=False, default=os.environ.get('VAULT_ADDR', ''), type='str'),
         verify = dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
         authtype = dict(required=False, default='token', type='str'),
-        token = dict(required=False, default=os.environ.get('VAULT_TOKEN', ''), type='str'),
+        token = dict(required=False, default=os.environ.get('VAULT_TOKEN', ''), type='str', no_log=True),
         username = dict(required=False, type='str'),
-        password = dict(required=False, type='str')
+        password = dict(required=False, type='str',no_log=True)
     )
     return argument_spec
 
