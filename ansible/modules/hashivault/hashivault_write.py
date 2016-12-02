@@ -92,11 +92,13 @@ def hashivault_write(params):
                 write_data  = {}
             write_data.update(data)
             returned_data = client.write((secret), **write_data)
-            result['data'] = returned_data
+            if returned_data:
+                result['data'] = returned_data
             result['msg'] = "Secret %s updated" % secret
         else:
             returned_data = client.write((secret), **data)
-            result['data'] = returned_data
+            if returned_data:
+                result['data'] = returned_data
             result['msg'] = "Secret %s written" % secret
     result['changed'] = True
     return result
