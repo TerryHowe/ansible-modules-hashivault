@@ -13,7 +13,7 @@ long_description=open('README.rst', 'r').read()
 
 setup(
     name='ansible-modules-hashivault',
-    version='2.10.0',
+    version='2.11.0',
     description='Ansible Modules for Hashicorp Vault',
     long_description=long_description,
     author='Terry Howe',
