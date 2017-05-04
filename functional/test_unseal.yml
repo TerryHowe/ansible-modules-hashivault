@@ -13,8 +13,9 @@
           register: 'vault_seal'
         - assert: { that: "{{vault_seal.changed}} == True" }
         - assert: { that: "{{vault_seal.rc}} == 0" }
-      when: "{{vault_status.status.sealed}} == False"
+      when: "vault_status.status.sealed == False"
 
+    - assert: { that: "'{{vault_keys}}' != ''" }
     - hashivault_unseal:
         keys: '{{vault_keys}}'
       register: 'vault_unseal'
