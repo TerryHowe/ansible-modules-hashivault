@@ -11,7 +11,7 @@ def hashivault_argspec():
         url = dict(required=False, default=os.environ.get('VAULT_ADDR', ''), type='str'),
         verify = dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
         authtype = dict(required=False, default='token', type='str'),
-        token = dict(required=False, default=os.environ.get('VAULT_TOKEN', ''), type='str', no_log=True),
+        token = dict(required=False, default=hashivault_default_token(), type='str', no_log=True),
         username = dict(required=False, type='str'),
         password = dict(required=False, type='str',no_log=True)
     )
@@ -62,3 +62,14 @@ def hashiwrapper(function):
             result['msg'] = "Exception: " + str(e)
         return result
     return wrapper
+
+
+def hashivault_default_token():
+    """Get a default Vault token from an environment variable or a file."""
+    if 'VAULT_TOKEN' in os.environ:
+        return os.environ['VAULT_TOKEN']
+    token_file = os.path.expanduser('~/.vault-token')
+    if os.path.exists(token_file):
+        with open(token_file, 'r') as f:
+            return f.read()
+    return ''

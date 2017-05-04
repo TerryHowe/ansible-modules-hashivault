@@ -22,6 +22,7 @@ import warnings
 from ansible.errors import AnsibleError
 from ansible.plugins.lookup import LookupBase
 from ansible.modules.hashivault import hashivault_read
+from ansible.module_utils.hashivault import hashivault_default_token
 
 
 class LookupModule(LookupBase):
@@ -44,7 +45,7 @@ class LookupModule(LookupBase):
     def run(self, terms, variables, **kwargs):
         path = terms[0]
         key = terms[1]
-        token = os.getenv('VAULT_TOKEN')
+        token = hashivault_default_token()
         authtype = 'token'
         params = {
             'url': self.get_url(),
