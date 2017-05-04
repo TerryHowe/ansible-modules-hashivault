@@ -1,4 +1,10 @@
 #!/bin/bash -ex
+#
+# Make sure you have a minimal set of environment variables set.  For example:
+#VAULT_ADDR=http://172.17.0.2:8200
+#VAULT_TOKEN=da20ff3b-3b56-82f9-19bb-56be55b77c92
+#VAULT_KEYS=DsGodBlDavvj4GSKO7HlD5RqVYuywBFWdGGziAOyPi8=
+#
 ansible-playbook -v test_init.yml
 ansible-playbook -v test.yml
 ansible-playbook -v test_auth.yml
