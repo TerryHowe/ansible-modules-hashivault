@@ -17,7 +17,7 @@ options:
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
-            - authentication type to use: token, userpass, github, ldap
+            - "authentication type to use: token, userpass, github, ldap"
         default: token
     token:
         description:
