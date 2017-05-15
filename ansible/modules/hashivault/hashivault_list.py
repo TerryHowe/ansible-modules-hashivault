@@ -20,7 +20,7 @@ options:
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
-            - authentication type to use: token, userpass, github, ldap
+            - "authentication type to use: token, userpass, github, ldap"
         default: token
     token:
         description:
@@ -36,12 +36,12 @@ options:
         default: False
     secret:
         description:
-            - secret path to list.  If this does not begin with a C(/)
+            - 'secret path to list.  If this does not begin with a C(/)
               then it is interpreted as a subpath of C(/secret).  This
               is always interpreted as a "directory": if a key C(/secret/foo)
               exists, and you pass C(/secret/foo) as I(secret), then the key
               itself will not be returned, but subpaths like
-              C(/secret/foo/bar) will.
+              C(/secret/foo/bar) will.'
         default: ''
 '''
 RETURN = '''
