@@ -36,7 +36,7 @@ The lookup plugin::
 
     looky: "{{lookup('hashivault', 'giant', 'foo')}}"
 
-By default, the hashivaul_write, hashivault_read and the lookup plugin assume the /secret mount point.  If you are accessing another mount point, start the secret with a '/'::
+By default, the hashivault_write, hashivault_read and the lookup plugin assume the /secret mount point.  If you are accessing another mount point, start the secret with a '/'::
 
     ---
     - hosts: localhost
@@ -159,4 +159,4 @@ be some somewhat similar to this `example action plugin <https://terryhowe.wordp
 License
 -------
 
-MIT
+[MIT](https://github.com/TerryHowe/ansible-modules-hashivault/blob/master/LICENSE)
