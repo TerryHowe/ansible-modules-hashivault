@@ -6,6 +6,9 @@ Ansible modules for Hashicorp Vault.
 .. image:: https://img.shields.io/pypi/v/ansible-modules-hashivault.svg
    :alt: Latest version
    :target: https://pypi.python.org/pypi/ansible-modules-hashivault/
+.. image:: https://img.shields.io/badge/License-MIT-yellow.svg
+   :alt: License: MIT
+   :target: https://opensource.org/licenses/MIT
 
 Usage
 -----
