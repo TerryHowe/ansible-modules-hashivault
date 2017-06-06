@@ -1,25 +1,18 @@
 ---
+- include: test_status.yml
+
 - hosts: localhost
-  vars:
-    vault_keys:  "{{ lookup('env','VAULT_KEYS') }}"
+  gather_facts: no
   tasks:
-    - hashivault_status:
-      register: 'vault_status'
-    - assert: { that: "{{vault_status.changed}} == False" }
-    - assert: { that: "{{vault_status.rc}} == 0" }
-
-    - block:
-        - hashivault_seal:
-          register: 'vault_seal'
-        - assert: { that: "{{vault_seal.changed}} == True" }
-        - assert: { that: "{{vault_seal.rc}} == 0" }
-      when: "vault_status.status.sealed == False"
-
-    - assert: { that: "'{{vault_keys}}' != ''" }
-    - hashivault_unseal:
+    - name: "Unseal vault"
+      hashivault_unseal:
         keys: '{{vault_keys}}'
       register: 'vault_unseal'
-    - assert: { that: "{{vault_unseal.changed}} == True" }
-    - assert: { that: "{{vault_unseal.status.progress}} == 0" }
-    - assert: { that: "{{vault_unseal.status.sealed}} == False" }
-    - assert: { that: "{{vault_unseal.rc}} == 0" }
+
+    - name: "Check that vault is now unsealed"
+      assert:
+        that:
+          - "{{vault_unseal.changed}} == True"
+          - "{{vault_unseal.status.progress}} == 0"
+          - "{{vault_unseal.status.sealed}} == False"
+          - "{{vault_unseal.rc}} == 0"
