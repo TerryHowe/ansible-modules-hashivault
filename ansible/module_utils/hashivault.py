@@ -21,18 +21,14 @@ def hashivault_argspec():
 def hashivault_init(argument_spec):
     return AnsibleModule(argument_spec=argument_spec)
 
-
 def hashivault_client(params):
-    url = params.get('url')
-    verify = params.get('verify')
-    client = hvac.Client(url=url, verify=verify)
+    client = hvac.Client(params)
     return client
 
 
 def hashivault_auth(client, params):
     token = params.get('token')
     authtype = params.get('authtype')
-    token = params.get('token')
     username = params.get('username')
     password = params.get('password')
     if authtype == 'github':
