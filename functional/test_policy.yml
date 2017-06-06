@@ -1,45 +1,68 @@
 ---
 - hosts: localhost
+  gather_facts: no
   vars:
-    name: 'terry'
-    rules: >
-        path "secret/{{name}}/*" {
+    deleteme_name: 'terry'
+    deleteme_rules: >
+        path "secret/{{deleteme_name}}/*" {
           capabilities = ["create", "read", "update", "delete", "list"]
         } 
-        path "secret/{{name}}" {
+        path "secret/{{deleteme_name}}" {
           capabilities = ["list"]
         } 
   tasks:
-    - hashivault_policy_set:
-        name: "{{name}}"
-        rules: "{{rules}}"
+    - name: "Create a policy"
+      hashivault_policy_set:
+        name: "{{deleteme_name}}"
+        rules: "{{deleteme_rules}}"
+        token: "{{ vault_root_token }}"
       register: 'vault_policy_set'
-    - assert: { that: "{{vault_policy_set.changed}} == True" }
-    - assert: { that: "{{vault_policy_set.rc}} == 0" }
+    - assert:
+        that:
+          - "{{vault_policy_set.changed}} == True"
+          - "{{vault_policy_set.rc}} == 0"
 
-    - hashivault_policy_get:
-        name: '{{name}}'
+    - name: "Get '{{deleteme_name}}' policy"
+      hashivault_policy_get:
+        name: '{{deleteme_name}}'
+        token: "{{ vault_root_token }}"
       register: 'vault_policy_get'
-    - assert: { that: "{{vault_policy_get.changed}} == False" }
-    - assert: { that: "'{{vault_policy_get.rules}}' == '{{rules}}'" }
-    - assert: { that: "{{vault_policy_get.rc}} == 0" }
+    - assert:
+        that:
+          - "{{vault_policy_get.changed}} == False"
+          - "'{{vault_policy_get.rules}}' == '{{deleteme_rules}}'"
+          - "{{vault_policy_get.rc}} == 0"
 
-    - hashivault_policy_list:
+    - name: "List the policies, check if '{{deleteme_name}}' policy is listed"
+      hashivault_policy_list:
+        token: "{{ vault_root_token }}"
       register: 'vault_policy_list'
-    - assert: { that: "{{vault_policy_list.changed}} == False" }
-    - fail: msg="policy {{name}} not in list"
-      when: name not in vault_policy_list.policies
-    - assert: { that: "{{vault_policy_list.rc}} == 0" }
+    - assert:
+        that:
+          - "{{vault_policy_list.changed}} == False"
+          - "{{vault_policy_list.rc}} == 0"
+    - fail:
+        msg: "policy {{deleteme_name}} not in list"
+      when: deleteme_name not in vault_policy_list.policies
 
-    - hashivault_policy_delete:
-        name: '{{name}}'
+    - name: "Delete '{{deleteme_name}}' policy"
+      hashivault_policy_delete:
+        name: '{{deleteme_name}}'
+        token: "{{ vault_root_token }}"
       register: 'vault_policy_delete'
-    - assert: { that: "{{vault_policy_delete.changed}} == True" }
-    - assert: { that: "{{vault_policy_delete.rc}} == 0" }
+    - assert:
+        that:
+          - "{{vault_policy_delete.changed}} == True"
+          - "{{vault_policy_delete.rc}} == 0"
 
-    - hashivault_policy_list:
+    - name: "List the policies, check that '{{deleteme_name}}' is no longer listed"
+      hashivault_policy_list:
+        token: "{{ vault_root_token }}"
       register: 'vault_policy_list'
-    - assert: { that: "{{vault_policy_list.changed}} == False" }
-    - fail: msg="policy {{name}} in list"
-      when: name in vault_policy_list.policies
-    - assert: { that: "{{vault_policy_list.rc}} == 0" }
+    - assert:
+        that:
+          - "{{vault_policy_list.changed}} == False"
+          - "{{vault_policy_list.rc}} == 0"
+    - fail:
+        msg: "policy {{deleteme_name}} in list"
+      when: deleteme_name in vault_policy_list.policies
