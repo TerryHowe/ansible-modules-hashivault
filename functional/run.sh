@@ -5,7 +5,10 @@
 #VAULT_TOKEN=da20ff3b-3b56-82f9-19bb-56be55b77c92
 #VAULT_KEYS=DsGodBlDavvj4GSKO7HlD5RqVYuywBFWdGGziAOyPi8=
 #
-ansible-playbook -v test_init.yml
+# For now run the init test manually since this currently does
+# not capture the keys for later use
+#
+#ansible-playbook -v test_init.yml
 ansible-playbook -v test.yml
 ansible-playbook -v test_auth.yml
 ansible-playbook -v test_policy.yml
