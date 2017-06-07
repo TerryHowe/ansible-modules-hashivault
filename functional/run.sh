@@ -15,5 +15,6 @@ ansible-playbook -v test_policy.yml
 ansible-playbook -v test_status.yml
 ansible-playbook -v test_userpass.yml
 ansible-playbook -v test_secret.yml
+ansible-playbook -v test_complex.yml
 # do last
 ansible-playbook -v test_unseal.yml
