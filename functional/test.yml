@@ -20,6 +20,12 @@
 
 # Provision policies.
 - include: test_policy.yml
+- include: test_policy_w_tokens.yml
+
+   # Auth with the admin token and use from now on
+   # How do I get the token info I need to stop using the root token?
+
+
 
           #- hosts: localhost
           #  gather_facts: no
