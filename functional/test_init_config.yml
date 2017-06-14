@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  tasks:
+    - hashivault_init:
+        secret_shares: 6
+        secret_threshold: 2
+      register: 'vault_init'
+    - block:
+      - assert: { that: "{{vault_init.rc}} == 0" }
+      when: "vault_init.changed == False"
+    - block:
+      - assert: { that: "'keys' in vault_init" }
+      - assert: { that: "'root_token' in vault_init" }
+      - assert: { that: "{{vault_init.rc}} == 0" }
+      - assert: { that: "vault_init['keys'] | length == 6" }
+      when: "vault_init.changed == True"
