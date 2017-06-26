@@ -39,6 +39,10 @@ options:
         description:
             - specifies the number of shares required to reconstruct the master key.
         default: 3
+    pgp_keys:
+        description:
+            - specifies an array of PGP public keys used to encrypt the output unseal keys.
+        default: []
 '''
 EXAMPLES = '''
 ---
@@ -58,6 +62,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['secret_shares'] = dict(required=False, type='int', default=5)
     argspec['secret_threshold'] = dict(required=False, type='int', default=3)
+    argspec['pgp_keys'] = dict(required=False, type='list', default=[])
     module = hashivault_init(argspec)    
     result = hashivault_initialize(module.params)
     if result.get('failed'):
@@ -78,10 +83,12 @@ def hashivault_initialize(params):
     result =  {'changed': True}
     secret_shares = params.get('secret_shares')
     secret_threshold = params.get('secret_threshold')
+    pgp_keys = params.get('pgp_keys')
     result.update(
         client.initialize(
             secret_shares=secret_shares,
-            secret_threshold=secret_threshold
+            secret_threshold=secret_threshold,
+            pgp_keys=pgp_keys
         )
     )
     return result
