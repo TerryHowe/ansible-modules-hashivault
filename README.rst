@@ -10,8 +10,8 @@ Ansible modules for Hashicorp Vault.
    :alt: License: MIT
    :target: https://opensource.org/licenses/MIT
 
-Usage
------
+Reading and Writing
+-------------------
 
 The following example writes the giant secret with two values and then
 reads the fie value::
