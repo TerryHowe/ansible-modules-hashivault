@@ -177,4 +177,4 @@ be some somewhat similar to this `example action plugin <https://terryhowe.wordp
 License
 -------
 
-[MIT](https://github.com/TerryHowe/ansible-modules-hashivault/blob/master/LICENSE)
+`MIT <https://github.com/TerryHowe/ansible-modules-hashivault/blob/master/LICENSE>`_.
