@@ -77,6 +77,10 @@ def hashivault_secret_enable(params):
     backend = params.get('backend')
     description = params.get('description')
     config = params.get('config')
+    secrets = client.list_secret_backends()
+    path = name + "/"
+    if path in secrets:
+        return {'changed': False}
     client.enable_secret_backend(backend, description=description, mount_point=name, config=config)
     return {'changed': True}
 
