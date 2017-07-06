@@ -20,6 +20,14 @@
     - assert: { that: "{{vault_policy_set.changed}} == True" }
     - assert: { that: "{{vault_policy_set.rc}} == 0" }
 
+    - name: Set policy again and check that it doesn't change
+      hashivault_policy_set:
+        name: "{{namespace}}"
+        rules: "{{rules}}"
+      register: 'vault_policy_set_twice'
+    - assert: { that: "{{vault_policy_set_twice.changed}} == False" }
+    - assert: { that: "{{vault_policy_set_twice.rc}} == 0" }
+
     - name: Get policy and make sure it set properly
       hashivault_policy_get:
         name: '{{namespace}}'
