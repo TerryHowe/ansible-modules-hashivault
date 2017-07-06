@@ -12,6 +12,13 @@
         } 
     expected: "{{rules | regex_replace('\n', '')}}"
   tasks:
+    - name: Delete a policy that doesn't exist and check that doesn't change or fail
+      hashivault_policy_delete:
+        name: '{{namespace}}'
+      register: 'vault_policy_delete'
+    - assert: { that: "{{vault_policy_delete.changed}} == False" }
+    - assert: { that: "{{vault_policy_delete.rc}} == 0" }
+
     - name: Set new policy
       hashivault_policy_set:
         name: "{{namespace}}"
