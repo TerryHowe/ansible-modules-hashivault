@@ -10,8 +10,8 @@ Ansible modules for Hashicorp Vault.
    :alt: License: MIT
    :target: https://opensource.org/licenses/MIT
 
-Usage
------
+Reading and Writing
+-------------------
 
 The following example writes the giant secret with two values and then
 reads the fie value::
@@ -63,6 +63,9 @@ Get a list of secrets::
             secret: '/stories'
           register: vault
 
+Initialization, Seal, and Unseal
+--------------------------------
+
 You may init the vault::
 
     ---
@@ -86,6 +89,9 @@ You may also seal and unseal the vault::
           when: "{{vault_status.status.sealed}} == False"
         - hashivault_unseal:
             keys: '{{vault_keys}}'
+
+Policy
+------
 
 Policy support::
 
@@ -111,6 +117,9 @@ Policy support::
         - hashivault_policy_list:
           register: 'vault_policy_list'
 
+User Management
+---------------
+
 Add and delete users for userpass::
 
     ---
@@ -129,6 +138,9 @@ Add and delete users for userpass::
             name: "{{username}}"
           register: 'vault_userpass_delete'
 
+Authentication Backends
+-----------------------
+
 Handle auth backends::
 
     ---
@@ -141,6 +153,9 @@ Handle auth backends::
               name: "userpass"
             register: 'vault_auth_enable'
           when: "'userpass/' not in vault_auth_list.backends"
+
+Audit Backends
+--------------
 
 Handle audit backends::
 
@@ -162,4 +177,4 @@ be some somewhat similar to this `example action plugin <https://terryhowe.wordp
 License
 -------
 
-[MIT](https://github.com/TerryHowe/ansible-modules-hashivault/blob/master/LICENSE)
+`MIT <https://github.com/TerryHowe/ansible-modules-hashivault/blob/master/LICENSE>`_.

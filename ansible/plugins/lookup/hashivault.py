@@ -59,7 +59,7 @@ class LookupModule(LookupBase):
 
         if 'value' not in result:
             raise AnsibleError('Error reading vault %s/%s: %s\n%s' % (path, key, result.get('msg', 'msg not set'), result.get('stack_trace', '')))
-        return [str(result['value'])]
+        return [result['value']]
 
 
 def main(argv=sys.argv[1:]):
