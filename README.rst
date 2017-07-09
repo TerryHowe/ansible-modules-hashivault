@@ -181,7 +181,7 @@ One of the complicated problems with development and testing of this module is
 in my opinion is a problem with ansible.  Because of this limitation with
 ansible, :code:`pip install -e .` does not work like it would for other
 projects.  Two potential ways to work around this issue are either use the
-:code:`link.sh` script in the top level directory or run for every change:
+:code:`link.sh` script in the top level directory or run for every change::
 
     rm -rf dist; python setup.py sdist
     pip install ./dist/ansible-modules-hashivault-*.tar.gz
