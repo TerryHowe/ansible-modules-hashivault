@@ -9,6 +9,7 @@
         path "secret/{{name}}" {
           capabilities = ["list"]
         } 
+    expected: "{{rules | regex_replace('\n', '')}}"
   tasks:
     - hashivault_policy_set:
         name: "{{name}}"
@@ -21,7 +22,9 @@
         name: '{{name}}'
       register: 'vault_policy_get'
     - assert: { that: "{{vault_policy_get.changed}} == False" }
-    - assert: { that: "'{{vault_policy_get.rules}}' == '{{rules}}'" }
+    - set_fact:
+        actual: "{{vault_policy_get.rules | regex_replace('\n', '')}}"
+    - assert: { that: "'{{expected}}' == '{{actual}}'" }
     - assert: { that: "{{vault_policy_get.rc}} == 0" }
 
     - hashivault_policy_list:
