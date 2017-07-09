@@ -2,6 +2,8 @@
 - hosts: localhost
   tasks:
     - hashivault_init:
+        secret_shares: 1
+        secret_threshold: 1
       register: 'vault_init'
     - block:
       - assert: { that: "{{vault_init.rc}} == 0" }
@@ -19,8 +21,8 @@
       - assert: { that: "{{vault_unseal.status.progress}} == 0" }
       - assert: { that: "{{vault_unseal.status.sealed}} == False" }
       - assert: { that: "{{vault_unseal.rc}} == 0" }
-      - debug:
-          msg: export VAULT_TOKEN='{{vault_init['root_token']}}'
-      - debug:
-          msg: export VAULT_KEYS='{{vault_init['keys'] | join(' ')}}'
+      - copy:
+          dest: "./vaultenv.sh"
+          mode: 0700
+          content: "export VAULT_TOKEN='{{vault_init['root_token']}}'\nexport VAULT_KEYS='{{vault_init['keys'] | join(' ')}}'"
       when: "vault_init.changed == True"
