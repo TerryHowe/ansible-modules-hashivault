@@ -1,4 +1,5 @@
 #!/bin/bash -ex
+rm -rf .venv
 virtualenv .venv
 source .venv/bin/activate
 rm -rf dist

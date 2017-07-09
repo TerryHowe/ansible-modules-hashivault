@@ -4,4 +4,8 @@ python:
   - "2.7"
 services:
   - docker
+before_install:
+  - docker pull vault:latest
+  - docker ps -a
+  - pip install virtualenv
 script: ./build.sh
