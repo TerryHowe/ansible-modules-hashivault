@@ -3,6 +3,9 @@
   vars:
     vault_keys:  "{{ lookup('env','VAULT_KEYS') }}"
   tasks:
+    - assert:
+        that: "'{{vault_keys}}' != ''"
+        msg: "VAULT_KEYS must be set to run this test"
     - hashivault_status:
       register: 'vault_status'
     - assert: { that: "{{vault_status.changed}} == False" }
@@ -15,7 +18,6 @@
         - assert: { that: "{{vault_seal.rc}} == 0" }
       when: "vault_status.status.sealed == False"
 
-    - assert: { that: "'{{vault_keys}}' != ''" }
     - hashivault_unseal:
         keys: '{{vault_keys}}'
       register: 'vault_unseal'
