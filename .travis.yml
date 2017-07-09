@@ -4,5 +4,4 @@ python:
   - "2.7"
 services:
   - docker
-before_script: cd functional
-script: ./run.sh
+script: ./build.sh
