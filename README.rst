@@ -174,6 +174,16 @@ If you are not using the VAULT_ADDR and VAULT_TOKEN environment variables,
 you may be able to simplify your playbooks with an action plugin.  This can
 be some somewhat similar to this `example action plugin <https://terryhowe.wordpress.com/2016/05/02/setting-ansible-module-defaults-using-action-plugins/>`_.
 
+Developer Note
+--------------
+One of the complicated problems with development and testing of this module is
+`ansible/module_utils/hashivault.py` is not a directory in itself which in my
+opinion is a problem with ansible.  Because of this limitation with ansible,
+`pip install -e .` does not work like it would for other projects.  If anyone
+has a workaround for that issue, let me know.  Two potential ways to solve this
+problem are either use the `link.sh` script in the top level directory or run
+`rm -rf dist; python setup.py sdist` and `pip install ./dist/ansible-modules-hashivault-*.tar.gz` for every change.
+
 License
 -------
 
