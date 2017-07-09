@@ -19,3 +19,5 @@ MANIFEST
 # Editors
 *~
 .*.swp
+
+functional/vaultenv.sh
