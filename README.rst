@@ -177,12 +177,14 @@ be some somewhat similar to this `example action plugin <https://terryhowe.wordp
 Developer Note
 --------------
 One of the complicated problems with development and testing of this module is
-`ansible/module_utils/hashivault.py` is not a directory in itself which in my
-opinion is a problem with ansible.  Because of this limitation with ansible,
-`pip install -e .` does not work like it would for other projects.  If anyone
-has a workaround for that issue, let me know.  Two potential ways to solve this
-problem are either use the `link.sh` script in the top level directory or run
-`rm -rf dist; python setup.py sdist` and `pip install ./dist/ansible-modules-hashivault-*.tar.gz` for every change.
+:code:`ansible/module_utils/hashivault.py` is not a directory in itself which
+in my opinion is a problem with ansible.  Because of this limitation with
+ansible, :code:`pip install -e .` does not work like it would for other
+projects.  Two potential ways to work around this issue are either use the
+:code:`link.sh` script in the top level directory or run for every change:
+
+    rm -rf dist; python setup.py sdist
+    pip install ./dist/ansible-modules-hashivault-*.tar.gz
 
 License
 -------
