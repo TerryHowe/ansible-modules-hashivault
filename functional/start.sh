@@ -2,25 +2,52 @@
 #
 # Start the test vault container
 #
-export NAME=test_vault
-export PORT=8201
+DOCKER_NAME=test_vault
+PORT=8201
 export VAULT_ADDR="http://127.0.0.1:${PORT}"
 
-docker stop $NAME 2>/dev/null || true
-docker rm $NAME 2>/dev/null || true
-docker run --name $NAME -h $NAME -d --cap-add=IPC_LOCK -p 127.0.0.1:${PORT}:${PORT} -e 'VAULT_LOCAL_CONFIG={"backend": {"file": {"path": "/vault/file"}}, "listener": {"tcp": {"address": "0.0.0.0:8201", "tls_disable": 1}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h"}' vault server
+TMP_CONFIG=$(mktemp)
+trap "rm $TMP_CONFIG" EXIT
+
+chmod a+r $TMP_CONFIG
+cat <<EOF > $TMP_CONFIG
+{
+	"backend": {
+		"file": {
+			"path": "/vault/file"
+		}
+	},
+	"listener": {
+		"tcp": {
+			"address": "0.0.0.0:${PORT}",
+			"tls_disable": 1
+		}
+	},
+	"default_lease_ttl": "168h",
+	"max_lease_ttl": "720h",
+	"disable_mlock": true
+}
+EOF
+
+docker stop $DOCKER_NAME 2>/dev/null || true
+docker rm $DOCKER_NAME 2>/dev/null || true
+docker run --name $DOCKER_NAME -h $DOCKER_NAME -d \
+	-p 127.0.0.1:${PORT}:${PORT} \
+	-v $TMP_CONFIG:/etc/vault/config.json:ro \
+	vault server -config /etc/vault/config.json
 
 #
 # Wait for vault to come up
 #
 CNT=0
-while ! nc -z localhost ${PORT}; do   
-  sleep 0.1
-  CNT=$(expr $CNT + 1)
-  if [ $CNT -gt 20 ]
-  then
-    exit 1
-  fi
+while ! curl -sI "$VAULT_ADDR/v1/sys/health" > /dev/null; do
+	sleep 0.1
+	CNT=$(expr $CNT + 1)
+	if [ $CNT -gt 20 ]
+	then
+		docker logs $DOCKER_NAME
+		exit 1
+	fi
 done
 
 #
