@@ -12,6 +12,7 @@ ansible-playbook -v test_status.yml
 ansible-playbook -v test_userpass.yml
 ansible-playbook -v test_secret.yml
 ansible-playbook -v test_complex.yml
+ansible-playbook -v test_secrets_w_policy_tokens.yml
 ansible-playbook -v test_unseal.yml
 
 ./stop.sh
