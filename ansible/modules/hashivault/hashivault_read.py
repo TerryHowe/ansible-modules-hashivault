@@ -59,7 +59,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['secret'] = dict(required=True, type='str')
-    argspec['key'] = dict(required=True, type='str')
+    argspec['key'] = dict(required=False, type='str')
     argspec['register'] = dict(required=False, type='str')
     module = hashivault_init(argspec)
     result = hashivault_read(module.params)
@@ -92,12 +92,15 @@ def hashivault_read(params):
             result['msg'] = "Secret %s is not in vault" % secret
             return result
         data = response['data']
-    if key not in data:
+    if key and key not in data:
         result['rc'] = 1
         result['failed'] = True
         result['msg'] = "Key %s is not in secret %s" % (key, secret)
         return result
-    value = data[key]
+    if key:
+        value = data[key]
+    else:
+        value = data
     result['value'] = value
     return result
 

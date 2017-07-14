@@ -3,6 +3,9 @@
   vars:
     foo_value: 'foe'
     fie_value: 'fum'
+    dict_value:
+      foo: 'bar'
+      baz: 'stuff'
   tasks:
     - hashivault_status:
       register: 'vault_status'
@@ -59,3 +62,12 @@
     - set_fact:
         looky: "{{lookup('hashivault', 'giant', 'foo')}}"
     - assert: { that: "'{{looky}}' == '{{foo_value}}'" }
+
+    - hashivault_write:
+        secret: 'some_dict'
+        data: "{{ dict_value }}"
+    - hashivault_read:
+        secret: 'some_dict'
+      register: 'vault_read_dict'
+    - assert: { that: "vault_read_dict.value == dict_value" }
+    - assert: { that: "{{vault_read_dict.rc}} == 0" }
