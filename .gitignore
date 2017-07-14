@@ -1,7 +1,6 @@
 *.py[cod]
 .venv
 .cache
-*.retry
 
 # Packages
 .eggs
@@ -20,3 +19,5 @@ MANIFEST
 # Editors
 *~
 .*.swp
+
+functional/vaultenv.sh

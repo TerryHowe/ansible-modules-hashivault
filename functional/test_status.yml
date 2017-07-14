@@ -2,11 +2,7 @@
 - hosts: localhost
   gather_facts: no
   tasks:
-    - name: "Get Vault status"
-      hashivault_status:
+    - hashivault_status:
       register: 'vault_status'
-    - name: "Check exit code and changed status"
-      assert:
-        that:
-          - "{{vault_status.changed}} == False"
-          - "{{vault_status.rc}} == 0"
+    - assert: { that: "{{vault_status.changed}} == False" }
+    - assert: { that: "{{vault_status.rc}} == 0" }

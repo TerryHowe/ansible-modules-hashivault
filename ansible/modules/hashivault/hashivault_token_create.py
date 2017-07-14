@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_token_create
-version_added: "2.2.0"
+version_added: "3.2.0"
 short_description: Hashicorp Vault token create module
 description:
     - Module to create tokens in Hashicorp Vault.
@@ -31,29 +31,61 @@ options:
         description:
             - password to login to vault.
         default: False
-    name:
+    role:
         description:
-            - user name to create.
-        default: False
-    pass:
+            - If set, the token will be created against the named role
+    id:
         description:
-            - user to create password.
-        default: False
+            - The token value that clients will use to authenticate with vault
     policies:
         description:
-            - user policies.
-        default: default
+            - List of Policy to associate with this token.
+    metadata:
+        description:
+            - Metadata to associate with the token
+    no_parent:
+        description:
+            - If specified, the token will have no parent
+    lease:
+        description:
+            - If specified, the lease time will be this value. (e.g. 1h)
+    display_name:
+        description:
+            - A display name to associate with this token
+    num_uses:
+        description:
+            - The number of times this token can be used until it is automatically revoked
+    no_default_policy:
+        description:
+            - If specified, the token will not have the "default" policy included in its policy set
+        default: False
+    ttl:
+        description:
+            - Initial TTL to associate with the token; renewals can extend this value.
+    wrap_ttl:
+        description:
+            - Indicates that the response should be wrapped in a cubbyhole token with the requested TTL.
+    orphan:
+        description:
+            - If specified, the token will have no parent. Only This prevents the new token from being revoked with your token.
+    renewable:
+        description:
+            - Whether or not the token is renewable to extend its TTL up to Vault's configured maximum TTL for tokens
+    explicit_max_ttl:
+        description:
+            - An explicit maximum lifetime for the token
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_token_create:
-      policies: ['stan', 'kyle']
-      lease: '1h'
-      orphan: yes
-      renewable: yes 
-      token: {{ 
+    - name: "Create a {{admin_name}} token, and stop using root token"
+      hashivault_token_create:
+        display_name: "{{admin_name}}"
+        policies: ["{{admin_name}}"]
+        renewable: True
+        token: "{{vault_root_token}}"
+      register: "vault_token_admin"
 '''
 
 

@@ -1,83 +1,62 @@
 ---
-
-# Initialize vault
-- include: test_init.yml
-
 - hosts: localhost
   gather_facts: no
+  vars:
+    foo_value: 'foe'
+    fie_value: 'fum'
   tasks:
-    - debug: msg="{{ vault_init }}"
+    - hashivault_status:
+      register: 'vault_status'
+    - assert: { that: "{{vault_status.changed}} == False" }
+    - assert: { that: "{{vault_status.status.progress}} == 0" }
+    - assert: { that: "{{vault_status.status.sealed}} == False" }
+    - assert: { that: "{{vault_status.rc}} == 0" }
 
-    - name: "Get Vault keys"
-      set_fact:
-        vault_keys: "{{ vault_init['keys'] | join(' ') }}"
-    - name: "Get Root token"
-      set_fact:
-        vault_root_token: "{{ vault_init['root_token'] }}"
+    - hashivault_write:
+        secret: 'giant'
+        data:
+            foo: '{{foo_value}}'
+            fie: '{{fie_value}}'
+      register: 'vault_write'
+    - assert: { that: "{{vault_write.changed}} == True" }
+    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/giant written'" }
+    - assert: { that: "{{vault_write.rc}} == 0" }
 
-# Unseal vault
-- include: test_unseal.yml
+    - hashivault_write:
+        secret: stalks/bean
+        data:
+          height: tall
+      register: vault_write
+    - assert: { that: vault_write.rc == 0 }
 
-# Provision policies.
-- include: test_policy.yml
-- include: test_policy_w_tokens.yml
+    - hashivault_list: {}
+      register: vault_list
+    - assert: { that: "vault_list.rc == 0" }
+    - assert: { that: "'giant' in vault_list.secrets" }
+    - assert: { that: "'stalks/' in vault_list.secrets" }
 
-   # Auth with the admin token and use from now on
-   # How do I get the token info I need to stop using the root token?
+    # This reads the secrets _underneath_ /secret/giant, e.g.,
+    # /secret/giant/color.  If none have been written returns empty.
+    - hashivault_list:
+        secret: 'giant'
+      register: vault_list
+    - assert: { that: "vault_list.rc == 0" }
+    - assert: { that: "vault_list.secrets|length == 0" }
 
+    - hashivault_list:
+        secret: stalks
+      register: vault_list
+    - assert: { that: vault_list.rc == 0 }
+    - assert: { that: "'bean' in vault_list.secrets" }
 
+    - hashivault_read:
+        secret: 'giant'
+        key: 'fie'
+      register: 'vault_read'
+    - assert: { that: "{{vault_read.changed}} == False" }
+    - assert: { that: "'{{vault_read.value}}' == '{{fie_value}}'" }
+    - assert: { that: "{{vault_read.rc}} == 0" }
 
-          #- hosts: localhost
-          #  gather_facts: no
-          #  vars:
-          #    foo_value: 'foe'
-          #    fie_value: 'fum'
-          #  tasks:
-          #    - hashivault_write:
-          #        secret: 'giant'
-          #        data:
-          #            foo: '{{foo_value}}'
-          #            fie: '{{fie_value}}'
-          #      register: 'vault_write'
-          #    - assert: { that: "{{vault_write.changed}} == True" }
-          #    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/giant written'" }
-          #    - assert: { that: "{{vault_write.rc}} == 0" }
-          #    
-          #    - hashivault_write:
-          #        secret: stalks/bean
-          #        data:
-          #          height: tall
-          #      register: vault_write
-          #    - assert: { that: vault_write.rc == 0 }
-          #    
-          #    - hashivault_list: {}
-          #      register: vault_list
-          #    - assert: { that: "vault_list.rc == 0" }
-          #    - assert: { that: "'giant' in vault_list.secrets" }
-          #    - assert: { that: "'stalks/' in vault_list.secrets" }
-          #    
-          #    # This reads the secrets _underneath_ /secret/giant, e.g.,
-          #    # /secret/giant/color.  If none have been written returns empty.
-          #    - hashivault_list:
-          #        secret: 'giant'
-          #      register: vault_list
-          #    - assert: { that: "vault_list.rc == 0" }
-          #    - assert: { that: "vault_list.secrets|length == 0" }
-          #    
-          #    - hashivault_list:
-          #        secret: stalks
-          #      register: vault_list
-          #    - assert: { that: vault_list.rc == 0 }
-          #    - assert: { that: "'bean' in vault_list.secrets" }
-          #    
-          #    - hashivault_read:
-          #        secret: 'giant'
-          #        key: 'fie'
-          #      register: 'vault_read'
-          #    - assert: { that: "{{vault_read.changed}} == False" }
-          #    - assert: { that: "'{{vault_read.value}}' == '{{fie_value}}'" }
-          #    - assert: { that: "{{vault_read.rc}} == 0" }
-          #    
-          #    - set_fact:
-          #        looky: "{{lookup('hashivault', 'giant', 'foo')}}"
-          #    - assert: { that: "'{{looky}}' == '{{foo_value}}'" }
+    - set_fact:
+        looky: "{{lookup('hashivault', 'giant', 'foo')}}"
+    - assert: { that: "'{{looky}}' == '{{foo_value}}'" }

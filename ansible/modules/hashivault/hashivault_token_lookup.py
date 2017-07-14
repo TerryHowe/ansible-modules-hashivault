@@ -3,7 +3,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_token_lookup
-version_added: "2.2.0"
+version_added: "3.2.0"
 short_description: Hashicorp Vault token create module
 description:
     - Module to create tokens in Hashicorp Vault.
@@ -24,9 +24,6 @@ options:
         description:
             - token for vault
         default: to environment variable VAULT_TOKEN
-    accessor:
-        description:
-            - accessor-token for vault
     username:
         description:
             - username to login to vault.
@@ -35,19 +32,20 @@ options:
         description:
             - password to login to vault.
         default: False
-    name:
+    accessor:
         description:
-            - user name to create.
-        default: False
-    pass:
+            - If set, lookups will use the this accessor token
+    wrap_ttl:
         description:
-            - user to create password.
-        default: False
+            - Indicates that the response should be wrapped in a cubbyhole token with the requested TTL.
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
+      hashivault_token_lookup:
+        token: "{{vault_root_token}}"
+      register: "vault_token_lookup"
 '''
 
 

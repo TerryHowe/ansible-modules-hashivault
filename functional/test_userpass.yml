@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  gather_facts: no
   vars:
     username: 'portugal'
     userpass: 'Th3m@n!!'
