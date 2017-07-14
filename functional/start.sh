@@ -6,7 +6,7 @@ DOCKER_NAME=test_vault
 PORT=8201
 export VAULT_ADDR="http://127.0.0.1:${PORT}"
 
-TMP_CONFIG=$(mktemp)
+TMP_CONFIG=$(mktemp -q /tmp/$0.XXXXXX)
 trap "rm $TMP_CONFIG" EXIT
 
 chmod a+r $TMP_CONFIG
