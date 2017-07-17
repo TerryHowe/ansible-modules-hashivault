@@ -12,7 +12,6 @@ else
   pip install ./dist/ansible-modules-hashivault-*.tar.gz
 fi
 
-pip install ./dist/ansible-modules-hashivault-*.tar.gz
 cd functional
 ./run.sh
 rm -rf .testenv
