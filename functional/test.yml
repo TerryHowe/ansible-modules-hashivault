@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  gather_facts: no
   vars:
     foo_value: 'foe'
     fie_value: 'fum'

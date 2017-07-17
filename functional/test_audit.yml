@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  gather_facts: no
   tasks:
     - hashivault_audit_list:
       register: 'vault_audit_list'

@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  gather_facts: no
   vars:
     name: 'terry'
     rules: >

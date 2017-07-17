@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  gather_facts: no
   vars:
     vault_keys:  "{{ lookup('env','VAULT_KEYS') }}"
   tasks:
