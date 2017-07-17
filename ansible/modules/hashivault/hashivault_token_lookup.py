@@ -3,7 +3,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_token_lookup
-version_added: "3.2.0"
+version_added: "3.3.0"
 short_description: Hashicorp Vault token create module
 description:
     - Module to create tokens in Hashicorp Vault.
@@ -51,8 +51,8 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['accessor'] = dict(required=False, type='str')
-    argspec['wrap_ttl'] = dict(required=False, type='str')
+    argspec['accessor'] = dict(required=False, type='bool', default=False)
+    argspec['wrap_ttl'] = dict(required=False, type='int')
     module = hashivault_init(argspec)
     result = hashivault_token_lookup(module.params)
     if result.get('failed'):
