@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_rekey_init
-version_added: "1.3.2"
+version_added: "3.3.0"
 short_description: Hashicorp Vault rekey init module
 description:
     - Module to start rekey Hashicorp Vault.

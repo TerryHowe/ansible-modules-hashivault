@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_rekey
-version_added: "1.3.2"
+version_added: "3.3.0"
 short_description: Hashicorp Vault rekey module
 description:
     - Module to (update) rekey Hashicorp Vault. Requires that a rekey

@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_rekey_cancel
-version_added: "1.3.2"
+version_added: "3.3.0"
 short_description: Hashicorp Vault rekey cancel module
 description:
     - Module to cancel rekey Hashicorp Vault.
