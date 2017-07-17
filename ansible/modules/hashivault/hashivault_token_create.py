@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_token_create
-version_added: "3.2.0"
+version_added: "3.3.0"
 short_description: Hashicorp Vault token create module
 description:
     - Module to create tokens in Hashicorp Vault.
@@ -95,7 +95,7 @@ def main():
     argspec['id'] = dict(required=False, type='str')
     argspec['policies'] = dict(required=True, type='list')
     argspec['metadata'] = dict(required=False, type='str')
-    argspec['no_parent'] = dict(required=False, type='str')
+    argspec['no_parent'] = dict(required=False, type='bool', default=False)
     argspec['lease'] = dict(required=False, type='str')
     argspec['display_name'] = dict(required=True, type='str')
     argspec['num_uses'] = dict(required=False, type='str')
