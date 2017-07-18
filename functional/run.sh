@@ -13,5 +13,9 @@ ansible-playbook -v test_userpass.yml
 ansible-playbook -v test_secret.yml
 ansible-playbook -v test_complex.yml
 ansible-playbook -v test_unseal.yml
+ansible-playbook -v test_rekey.yml
+# test_rekey.yml changes unseal keys, need to update VAULT_KEYS
+# for further test, if any.
+source ./vaultenv.sh
 
 ./stop.sh
