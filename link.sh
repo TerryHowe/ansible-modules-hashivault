@@ -1,6 +1,6 @@
 DEST=${VIRTUAL_ENV}/lib/python2.7/site-packages/ansible/
 
-rm -f $DEST/modules/hashivault
+rm -rf $DEST/modules/hashivault
 rm -f $DEST/module_utils/hashivault.py
 rm -f $DEST/plugins/lookup/hashivault.py
 
