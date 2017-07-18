@@ -8,14 +8,16 @@
       foo: 'bar'
       baz: 'stuff'
   tasks:
-    - hashivault_status:
+    - name: Get vault status and make sure it is unsealed
+      hashivault_status:
       register: 'vault_status'
     - assert: { that: "{{vault_status.changed}} == False" }
     - assert: { that: "{{vault_status.status.progress}} == 0" }
     - assert: { that: "{{vault_status.status.sealed}} == False" }
     - assert: { that: "{{vault_status.rc}} == 0" }
 
-    - hashivault_write:
+    - name: Write basic secret and verify it succeeds
+      hashivault_write:
         secret: 'giant'
         data:
             foo: '{{foo_value}}'
@@ -25,34 +27,37 @@
     - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/giant written'" }
     - assert: { that: "{{vault_write.rc}} == 0" }
 
-    - hashivault_write:
+    - name: Write single secret in folder
+      hashivault_write:
         secret: stalks/bean
         data:
           height: tall
       register: vault_write
     - assert: { that: vault_write.rc == 0 }
 
-    - hashivault_list: {}
+    - name: Make sure we got our two secrets in list
+      hashivault_list: {}
       register: vault_list
     - assert: { that: "vault_list.rc == 0" }
     - assert: { that: "'giant' in vault_list.secrets" }
     - assert: { that: "'stalks/' in vault_list.secrets" }
 
-    # This reads the secrets _underneath_ /secret/giant, e.g.,
-    # /secret/giant/color.  If none have been written returns empty.
-    - hashivault_list:
+    - name: List secrets not in folder
+      hashivault_list:
         secret: 'giant'
       register: vault_list
     - assert: { that: "vault_list.rc == 0" }
     - assert: { that: "vault_list.secrets|length == 0" }
 
-    - hashivault_list:
+    - name: List secrets in folder
+      hashivault_list:
         secret: stalks
       register: vault_list
     - assert: { that: vault_list.rc == 0 }
     - assert: { that: "'bean' in vault_list.secrets" }
 
-    - hashivault_read:
+    - name: Read single secret
+      hashivault_read:
         secret: 'giant'
         key: 'fie'
       register: 'vault_read'
@@ -60,14 +65,18 @@
     - assert: { that: "'{{vault_read.value}}' == '{{fie_value}}'" }
     - assert: { that: "{{vault_read.rc}} == 0" }
 
-    - set_fact:
+    - name: Test lookup plugin
+      set_fact:
         looky: "{{lookup('hashivault', 'giant', 'foo')}}"
     - assert: { that: "'{{looky}}' == '{{foo_value}}'" }
 
-    - hashivault_write:
+    - name: Write secret dictionary
+      hashivault_write:
         secret: 'some_dict'
         data: "{{ dict_value }}"
-    - hashivault_read:
+
+    - name: Read secret dictionary
+      hashivault_read:
         secret: 'some_dict'
       register: 'vault_read_dict'
     - assert: { that: "vault_read_dict.value == dict_value" }
