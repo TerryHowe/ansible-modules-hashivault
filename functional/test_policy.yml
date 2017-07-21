@@ -12,14 +12,16 @@
         } 
     expected: "{{rules | regex_replace('\n', '')}}"
   tasks:
-    - hashivault_policy_set:
+    - name: Set new policy
+      hashivault_policy_set:
         name: "{{namespace}}"
         rules: "{{rules}}"
       register: 'vault_policy_set'
     - assert: { that: "{{vault_policy_set.changed}} == True" }
     - assert: { that: "{{vault_policy_set.rc}} == 0" }
 
-    - hashivault_policy_get:
+    - name: Get policy and make sure it set properly
+      hashivault_policy_get:
         name: '{{namespace}}'
       register: 'vault_policy_get'
     - assert: { that: "{{vault_policy_get.changed}} == False" }
@@ -28,20 +30,23 @@
     - assert: { that: "'{{expected}}' == '{{actual}}'" }
     - assert: { that: "{{vault_policy_get.rc}} == 0" }
 
-    - hashivault_policy_list:
+    - name: Make sure our new policy is in list
+      hashivault_policy_list:
       register: 'vault_policy_list'
     - assert: { that: "{{vault_policy_list.changed}} == False" }
     - fail: msg="policy {{namespace}} not in list"
       when: namespace not in vault_policy_list.policies
     - assert: { that: "{{vault_policy_list.rc}} == 0" }
 
-    - hashivault_policy_delete:
+    - name: Get rid of our new policy
+      hashivault_policy_delete:
         name: '{{namespace}}'
       register: 'vault_policy_delete'
     - assert: { that: "{{vault_policy_delete.changed}} == True" }
     - assert: { that: "{{vault_policy_delete.rc}} == 0" }
 
-    - hashivault_policy_list:
+    - name: Make sure our new policy is gone
+      hashivault_policy_list:
       register: 'vault_policy_list'
     - assert: { that: "{{vault_policy_list.changed}} == False" }
     - fail: msg="policy {{namespace}} in list"
