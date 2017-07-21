@@ -26,11 +26,9 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     role:
         description:
             - If set, the token will be created against the named role

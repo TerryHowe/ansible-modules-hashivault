@@ -26,19 +26,15 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     name:
         description:
             - name of authenticator
-        default: False
     description:
         description:
             - description of authenticator
-        default: False
 '''
 EXAMPLES = '''
 ---

@@ -26,23 +26,18 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     secret:
         description:
             - secret to read.
-        default: False
     key:
         description:
             - secret key to read.
-        default: False
     register:
         description:
             - variable to register result.
-        default: False
 '''
 EXAMPLES = '''
 ---

@@ -26,23 +26,18 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     name:
         description:
             - name of auditor
-        default: False
     description:
         description:
             - description of auditor
-        default: False
     options:
         description:
             - options for auditor
-        default: False
 '''
 EXAMPLES = '''
 ---

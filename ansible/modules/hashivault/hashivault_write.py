@@ -26,19 +26,15 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     secret:
         description:
             - secret to read.
-        default: False
     data:
         description:
             - Keys and values to write.
-        default: False
     update:
         description:
             - Update rather than overwrite.

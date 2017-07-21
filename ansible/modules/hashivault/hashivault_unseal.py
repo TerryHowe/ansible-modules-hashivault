@@ -26,15 +26,12 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     keys:
         description:
             - vault key shard(s).
-        default: False
 '''
 EXAMPLES = '''
 ---

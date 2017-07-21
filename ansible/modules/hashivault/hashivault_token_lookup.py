@@ -27,11 +27,9 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     accessor:
         description:
             - If set, lookups will use the this accessor token

@@ -26,27 +26,21 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     name:
         description:
             - name of secret backend
-        default: False
     backend:
         description:
             - type of secret backend
-        default: False
     description:
         description:
             - description of secret backend
-        default: False
     config:
         description:
             - config of secret backend
-        default: False
 '''
 EXAMPLES = '''
 ---

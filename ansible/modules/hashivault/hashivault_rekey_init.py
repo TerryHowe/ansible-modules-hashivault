@@ -26,11 +26,9 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     secret_shares:
         description:
             - specifies the number of shares to split the master key into.

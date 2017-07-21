@@ -27,19 +27,15 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     key:
         description:
             - vault key shard (aka unseal key).
-        default: False
     nonce:
         description:
             - rekey nonce.
-        default: False
 '''
 EXAMPLES = '''
 ---
