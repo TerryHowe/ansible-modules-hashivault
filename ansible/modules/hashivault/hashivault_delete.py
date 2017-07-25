@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_delete
-version_added: "3.2.0"
+version_added: "3.4.0"
 short_description: Hashicorp Vault delete module
 description:
     - Module to delete from Hashicorp Vault.
