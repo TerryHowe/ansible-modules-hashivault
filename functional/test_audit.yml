@@ -6,18 +6,22 @@
       register: 'vault_audit_list'
     - block:
       - hashivault_audit_enable:
-          name: "syslog"
+          name: "file"
+          options:
+            file_path: "/tmp/audit.log"
         failed_when: False
         register: 'vault_audit_enable'
       - assert: { that: "{{vault_audit_enable.changed}} == False" }
       - assert: { that: "{{vault_audit_enable.failed}} == False" }
       - assert: { that: "'{{vault_audit_enable.msg}}' == 'Exception: path already in use'" }
       - assert: { that: "{{vault_audit_enable.rc}} == 1" }
-      when: "'syslog/' in vault_audit_list.backends"
+      when: "'file/' in vault_audit_list.backends"
     - block:
       - hashivault_audit_enable:
-          name: "syslog"
+          name: "file"
+          options:
+            file_path: "/tmp/audit.log"
         register: 'vault_audit_enable'
       - assert: { that: "{{vault_audit_enable.changed}} == True" }
       - assert: { that: "{{vault_audit_enable.rc}} == 0" }
-      when: "'syslog/' not in vault_audit_list.backends"
+      when: "'file/' not in vault_audit_list.backends"

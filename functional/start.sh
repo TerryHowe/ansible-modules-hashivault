@@ -32,6 +32,7 @@ chmod a+r $TMP_CONFIG
 docker stop $DOCKER_NAME 2>/dev/null || true
 docker rm $DOCKER_NAME 2>/dev/null || true
 docker run --name $DOCKER_NAME -h $DOCKER_NAME -d \
+    --privileged \
 	-p 127.0.0.1:${PORT}:${PORT} \
 	-v $TMP_CONFIG:/etc/vault/config.json:ro \
 	vault server -config /etc/vault/config.json
