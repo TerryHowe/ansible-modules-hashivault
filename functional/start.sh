@@ -9,7 +9,6 @@ export VAULT_ADDR="http://127.0.0.1:${PORT}"
 TMP_CONFIG=$(mktemp -q /tmp/$0.XXXXXX)
 trap "rm $TMP_CONFIG" EXIT
 
-chmod a+r $TMP_CONFIG
 cat <<EOF > $TMP_CONFIG
 {
 	"backend": {
@@ -28,6 +27,7 @@ cat <<EOF > $TMP_CONFIG
 	"disable_mlock": true
 }
 EOF
+chmod a+r $TMP_CONFIG
 
 docker stop $DOCKER_NAME 2>/dev/null || true
 docker rm $DOCKER_NAME 2>/dev/null || true
