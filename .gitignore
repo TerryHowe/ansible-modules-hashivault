@@ -19,5 +19,6 @@ MANIFEST
 # Editors
 *~
 .*.swp
+.idea
 
 functional/vaultenv.sh
