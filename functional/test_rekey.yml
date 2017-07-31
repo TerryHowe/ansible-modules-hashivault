@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  gather_facts: no
   vars:
     unseal_key:  "{{ lookup('env','VAULT_KEYS') }}"
   tasks:
