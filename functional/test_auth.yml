@@ -24,3 +24,9 @@
       - assert: { that: "{{vault_auth_enable.changed}} == True" }
       - assert: { that: "{{vault_auth_enable.rc}} == 0" }
       when: "'userpass/' not in vault_auth_list.backends"
+    - block:
+      - hashivault_auth_enable:
+          name: "userpass"
+        register: 'vault_auth_enable_twice'
+      - assert: { that: "{{vault_auth_enable_twice.changed}} == False" }
+      - assert: { that: "{{vault_auth_enable_twice.rc}} == 0" }

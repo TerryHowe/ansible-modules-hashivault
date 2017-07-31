@@ -66,6 +66,10 @@ def hashivault_auth_enable(params):
     client = hashivault_auth_client(params)
     name = params.get('name')
     description = params.get('description')
+    backends = client.list_auth_backends()
+    path = name + "/"
+    if path in backends:
+        return {'changed': False}
     client.enable_auth_backend(name, description=description)
     return {'changed': True}
 
