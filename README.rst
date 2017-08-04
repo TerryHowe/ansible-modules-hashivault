@@ -175,6 +175,57 @@ Handle audit backends::
             register: 'vault_audit_enable'
           when: "'syslog/' not in vault_audit_list.backends"
 
+Rekey Vault
+-----------
+
+Various rekey vault operations::
+
+    ---
+    - hashivault_rekey_init:
+        secret_shares: 7
+        secret_threshold: 4
+    - hashivault_rekey:
+      key: '{{vault_key}}'
+      nonce: '{{nonce}}'
+    - hashivault_rekey_status:
+      register: "vault_rekey_status"
+    - hashivault_rekey_cancel:
+      register: "vault_rekey_cancel"
+
+Secret Backends
+---------------
+
+Enable and disable various secret backends::
+
+    ---
+    - hashivault_secret_list:
+      register: 'hashivault_secret_list'
+    - hashivault_secret_enable:
+        name: "ephemeral"
+        backend: "generic"
+    - hashivault_secret_disable:
+        name: "ephemeral"
+        backend: "generic"
+
+Token Manipulation
+------------------
+
+Various token manipulation modules::
+
+    ---
+    - hashivault_token_create:
+        display_name: "syadm"
+        policies: ["sysadm"]
+        renewable: True
+        token: "{{vault_root_token}}"
+      register: "vault_token_admin"
+    - hashivault_token_lookup:
+        lookup_token: "{{client_token}}"
+      register: "vault_token_lookup"
+
+Action Plugin
+-------------
+
 If you are not using the VAULT_ADDR and VAULT_TOKEN environment variables,
 you may be able to simplify your playbooks with an action plugin.  This can
 be some somewhat similar to this `example action plugin <https://terryhowe.wordpress.com/2016/05/02/setting-ansible-module-defaults-using-action-plugins/>`_.

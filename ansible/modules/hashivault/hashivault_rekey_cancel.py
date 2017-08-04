@@ -35,6 +35,7 @@ EXAMPLES = '''
 - hosts: localhost
   tasks:
     - hashivault_rekey_cancel:
+      register: "vault_rekey_cancel"
 '''
 
 

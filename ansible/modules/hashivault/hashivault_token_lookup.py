@@ -45,6 +45,7 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
+    - name: "Lookup token"
       hashivault_token_lookup:
         lookup_token: "{{client_token}}"
       register: "vault_token_lookup"

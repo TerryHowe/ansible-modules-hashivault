@@ -35,6 +35,7 @@ EXAMPLES = '''
 - hosts: localhost
   tasks:
     - hashivault_rekey_status:
+      register: "vault_rekey_status"
 '''
 
 def main():
