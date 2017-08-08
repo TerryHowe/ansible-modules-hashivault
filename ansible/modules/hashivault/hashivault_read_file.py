@@ -43,7 +43,7 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_read:
+    - hashivault_read_file:
         secret: 'giant'
         file: 'foo.dat'
         dest: '/tmp/foo.dat'
