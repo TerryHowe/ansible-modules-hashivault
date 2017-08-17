@@ -46,7 +46,7 @@ def hashivault_auth(client, params):
     elif authtype == 'ldap':
         client.auth_ldap(username, password)
     elif authtype == 'approle':
-        resp = client.auth_approle(role_id)
+        resp = client.auth_approle(role_id,secret_id)
         client.token= str(resp['auth']['client_token'])
         print(client.token)
     else:
