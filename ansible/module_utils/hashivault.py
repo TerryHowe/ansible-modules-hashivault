@@ -48,7 +48,6 @@ def hashivault_auth(client, params):
     elif authtype == 'approle':
         resp = client.auth_approle(role_id,secret_id)
         client.token= str(resp['auth']['client_token'])
-        print(client.token)
     else:
         client.token = token
     return client
