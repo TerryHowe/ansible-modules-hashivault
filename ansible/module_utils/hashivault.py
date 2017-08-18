@@ -36,8 +36,12 @@ def hashivault_auth(client, params):
     authtype = params.get('authtype')
     username = params.get('username')
     password = params.get('password')
-    role_id = params.get('role_id')
     secret_id = params.get('secret_id')
+
+    role_id = params.get('role_id')
+    
+    if role_id == '' or role_id is None:
+        role_id = os.environ.get('VAULT_ROLE_ID')
 
     if authtype == 'github':
         client.auth_github(token)
