@@ -50,8 +50,7 @@ def hashivault_auth(client, params):
     elif authtype == 'ldap':
         client.auth_ldap(username, password)
     elif authtype == 'approle':
-        resp = client.auth_approle(role_id,secret_id)
-        client.token= str(resp['auth']['client_token'])
+        client = AppRoleClient(client,role_id,secret_id)
     else:
         client.token = token
     return client
@@ -84,3 +83,22 @@ def hashivault_default_token():
         with open(token_file, 'r') as f:
             return f.read()
     return ''
+
+
+class AppRoleClient(object):
+    """
+    hvac.Client decorator which generates and sets a new token on every function
+    call. This is to allow multiple calls to Vault without having to manually
+    generate and set a token on every Vault call.
+    """
+    def __init__(self, client, role_id, secret_id):
+        self.client = client 
+        self.role_id = role_id
+        self.secret_id = secret_id
+
+    def __getattr__ (self,name):
+        attr = object.__getattribute__(self.client,name)
+        if (callable(attr)):
+            resp = self.client.auth_approle(self.role_id,self.secret_id)
+            self.client.token = str(resp['auth']['client_token'])
+        return attr
