@@ -87,18 +87,35 @@ def hashivault_default_token():
 
 class AppRoleClient(object):
     """
-    hvac.Client decorator which generates and sets a new token on every function
-    call. This is to allow multiple calls to Vault without having to manually
+    hvac.Client decorator which generates and sets a new approle token on every
+    function call. This allows multiple calls to Vault without having to manually
     generate and set a token on every Vault call.
     """
-    def __init__(self, client, role_id, secret_id):
-        self.client = client 
-        self.role_id = role_id
-        self.secret_id = secret_id
 
-    def __getattr__ (self,name):
-        attr = object.__getattribute__(self.client,name)
+    def __init__(self, client, role_id, secret_id):
+        object.__setattr__(self,'client',client)
+        object.__setattr__(self,'role_id',role_id)
+        object.__setattr__(self,'secret_id',secret_id)
+
+
+    def __setattr__(self,name,val):
+        """
+        sets attribute in decorated class (Client)
+        """
+        client = object.__getattribute__(self,'client')
+        client.__setattr__(name,val)
+
+
+    def __getattribute__ (self,name):
+        """
+        generates and sets new approle token in decorated class (Client)
+        returns decorated class (Client) attribute
+        """
+        client = object.__getattribute__(self,'client')
+        attr = client.__getattribute__(name)
         if (callable(attr)):
-            resp = self.client.auth_approle(self.role_id,self.secret_id)
-            self.client.token = str(resp['auth']['client_token'])
+            role_id = object.__getattribute__(self,'role_id')
+            secret_id = object.__getattribute__(self,'secret_id')
+            resp = client.auth_approle(role_id,secret_id)
+            client.token = str(resp['auth']['client_token'])
         return attr
