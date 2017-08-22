@@ -17,7 +17,7 @@ options:
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
-            - "authentication type to use: token, userpass, github, ldap"
+            - "authentication type to use: token, userpass, github, ldap, approle"
         default: token
     token:
         description:
@@ -38,6 +38,10 @@ options:
     path:
         description:
             - path of file to write
+    update:
+        description:
+            - Update secret rather than overwrite.
+        default: True
 '''
 EXAMPLES = '''
 ---
@@ -55,6 +59,7 @@ def main():
     argspec['secret'] = dict(required=True, type='str')
     argspec['file'] = dict(required=True, type='str')
     argspec['path'] = dict(required=True, type='str')
+    argspec['update'] = dict(required=False, default=True, type='bool')
     module = hashivault_init(argspec)
     result = hashivault_write_file(module.params)
     if result.get('failed'):
@@ -83,10 +88,19 @@ def hashivault_write_file(params):
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
+        if params.get('update'):
+            read_data = client.read(secret)
+            if read_data and 'data' in read_data:
+                data.update(read_data['data'])
+            msg = "Secret %s updated" % secret
+        else:
+            msg = "Secret %s written" % secret
+
         returned_data = client.write((secret), **data)
+
         if returned_data:
             result['data'] = returned_data
-            result['msg'] = "Secret %s written" % secret
+            result['msg'] = msg
 
     result['changed'] = True
     return result

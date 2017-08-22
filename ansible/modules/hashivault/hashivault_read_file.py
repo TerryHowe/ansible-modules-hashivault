@@ -17,7 +17,7 @@ options:
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
-            - "authentication type to use: token, userpass, github, ldap"
+            - "authentication type to use: token, userpass, github, ldap, approle"
         default: token
     token:
         description:
@@ -83,9 +83,9 @@ def hashivault_read(params):
         warnings.simplefilter("ignore")
         if secret.startswith('/'):
             secret = secret.lstrip('/')
-            response = client.read(secret)
         else:
-            response = client.read('secret/%s' % secret)
+            secret = ('secret/%s' % secret)
+        response = client.read(secret)
         if not response:
             result['rc'] = 1
             result['failed'] = True
