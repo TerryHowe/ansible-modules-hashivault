@@ -12,8 +12,8 @@ class ActionModule(ActionBase):
 
         args = self._task.args.copy()
 
-        file_ = args.pop('file',None)
-        path = args.pop('path',None)
+        key = args.pop('key')
+        path = args.pop('path')
 
         new_module_args = {
             'src':path
@@ -29,13 +29,16 @@ class ActionModule(ActionBase):
             return(results)
 
         #already base64 encoded from slurp
-        content = results.pop('value',None)
+        content = results.pop('content')
 
-        args['key'] = file_
+
+        args['data'] = { key:content }
 
         results = merge_hash(
             results,
             self._execute_module(module_name='hashivault_write', tmp=tmp, task_vars=task_vars, module_args=args)
         )
+
+        results['invocation']['module_args']['data'] = 'VALUE_SPECIFIED_IN_NO_LOG_PARAMETER'
 
         return(results)

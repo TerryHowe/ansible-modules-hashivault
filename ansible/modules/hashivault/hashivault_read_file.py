@@ -46,6 +46,7 @@ options:
         description:
             - file permissions of file to write on remote host.
             - in octal, don't forget leading zero!
+        default: 0777
 '''
 EXAMPLES = '''
 ---

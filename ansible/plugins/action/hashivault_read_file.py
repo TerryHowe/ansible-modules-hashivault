@@ -24,9 +24,9 @@ class ActionModule(ActionBase):
 
         args = self._task.args.copy()
 
-        dest = args.pop('dest',None)
+        dest = args.pop('dest')
         mode = args.pop('mode',None)
-        force = args.pop('force',None)
+        force = args.pop('force',False)
 
         results = merge_hash(
             results,
@@ -36,10 +36,17 @@ class ActionModule(ActionBase):
         if 'failed' in results and results['failed'] == True:
             return results
 
-        content = results.pop('value',None).decode('base64')
+        content = results.pop('value')
+
+        if content == None:
+            results['failed'] = True
+            results['msg'] = 'Could not find file `%s` in secret `%s`'%(args['key'],args['secret'])
+            return(results)
+
+
         new_module_args = {
             'dest':dest,
-            'content':content,
+            'content':content.decode('base64'),
             'force':force,
             'mode':mode
         }
@@ -56,6 +63,6 @@ class ActionModule(ActionBase):
 
         if force == False and results['changed'] == False:
             results['failed'] = True
-            results['msg'] = 'File %s already exists. Use `force: true`'%path
+            results['msg'] = 'File %s already exists. Use `force: true` to overwrite'%dest
 
         return(results)
