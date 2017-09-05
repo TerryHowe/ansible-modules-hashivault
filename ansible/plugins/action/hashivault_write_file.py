@@ -43,7 +43,10 @@ class ActionModule(ActionBase):
 
 
         self._connection = self._shared_loader_obj.connection_loader.get('local',self._play_context,self._connection._new_stdin)
+        
         args['data'] = { key:content }
+        if 'update' not in args:
+            args['update'] = True
 
         results = merge_hash(
             results,
