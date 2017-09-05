@@ -1,3 +1,12 @@
+########################################################################
+#
+# Action plugin for hashivault_write_file module.
+#
+# Reads file from remote host using slurp module. (base64 encoded)
+# Stores file/secret to Vault using hashivault_read module on localhost.
+#
+########################################################################
+
 from ansible.plugins.action import ActionBase
 from ansible.utils.vars import merge_hash
 
