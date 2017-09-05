@@ -22,20 +22,23 @@ class ActionModule(ActionBase):
 
         results = merge_hash(
             results,
+            # executes slurp module on remote host
             self._execute_module(module_name='slurp', tmp=tmp, task_vars=task_vars, module_args=new_module_args)
         )
 
         if 'failed' in results and results['failed'] == True:
             return(results)
 
-        #already base64 encoded from slurp
+        # already base64 encoded from slurp
         content = results.pop('content')
 
 
+        self._connection = self._shared_loader_obj.connection_loader.get('local',self._play_context,self._connection._new_stdin)
         args['data'] = { key:content }
 
         results = merge_hash(
             results,
+            # executes hashivault_write module on localhost
             self._execute_module(module_name='hashivault_write', tmp=tmp, task_vars=task_vars, module_args=args)
         )
 

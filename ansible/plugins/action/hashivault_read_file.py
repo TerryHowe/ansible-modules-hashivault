@@ -3,12 +3,13 @@ from ansible.utils.vars import merge_hash
 
 class ActionModule(ActionBase):
 
-    # copied from `ansible.plugins.action.template`
-    def _get_copy_action_plugin(self):
+    # load and return ansible copy action plugin
+    # copied from `ansible/plugins/action/template.py`
+    def _get_copy_action_plugin(self,connection):
         return (self._shared_loader_obj.action_loader.get(
             'copy',
             task=self._task.copy(),
-            connection=self._connection,
+            connection=connection,
             play_context=self._play_context,
             loader=self._loader,
             templar=self._templar,
@@ -28,8 +29,12 @@ class ActionModule(ActionBase):
         mode = args.pop('mode',None)
         force = args.pop('force',False)
 
+        old_connection = self._connection
+        self._connection = self._shared_loader_obj.connection_loader.get('local',self._play_context,old_connection._new_stdin)
+
         results = merge_hash(
             results,
+            # executes hashivault_read module on localhost
             self._execute_module(module_name='hashivault_read', tmp=tmp, task_vars=task_vars, module_args=args)
         )
 
@@ -54,10 +59,11 @@ class ActionModule(ActionBase):
 
         # `copy` module uses an action plugin, so we have to execute
         # the plugin instead of directly executing the module
-        copy_action = self._get_copy_action_plugin()
+        copy_action = self._get_copy_action_plugin(old_connection)
         copy_action._task.args = new_module_args
         results = merge_hash(
             results,
+            # executes copy action plugin/module on remote host
             copy_action.run(task_vars=task_vars)
         )
 
