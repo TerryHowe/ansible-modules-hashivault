@@ -10,12 +10,12 @@ def hashivault_argspec():
     argument_spec = dict(
         url = dict(required=False, default=os.environ.get('VAULT_ADDR', ''), type='str'),
         verify = dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
-        authtype = dict(required=False, default='token', type='str'),
+        authtype = dict(required=False, default=os.environ.get('VAULT_AUTHTYPE', 'token'), type='str'),
         token = dict(required=False, default=hashivault_default_token(), type='str', no_log=True),
         username = dict(required=False, type='str'),
         password = dict(required=False, type='str',no_log=True),
-        role_id = dict(required=False, type='str',no_log=True),
-        secret_id = dict(required=False, type='str',no_log=True)
+        role_id = dict(required=False, default=os.environ.get('VAULT_ROLE_ID', ''), type='str', no_log=True),
+        secret_id = dict(required=False, default=os.environ.get('VAULT_SECRET_ID', ''), type='str', no_log=True)
     )
     return argument_spec
 
@@ -37,11 +37,7 @@ def hashivault_auth(client, params):
     username = params.get('username')
     password = params.get('password')
     secret_id = params.get('secret_id')
-
     role_id = params.get('role_id')
-    
-    if role_id == '' or role_id is None:
-        role_id = os.environ.get('VAULT_ROLE_ID')
 
     if authtype == 'github':
         client.auth_github(token)
