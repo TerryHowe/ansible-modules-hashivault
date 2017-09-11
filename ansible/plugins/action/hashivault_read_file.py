@@ -36,7 +36,7 @@ class ActionModule(ActionBase):
 
         dest = args.pop('dest',None)
         mode = args.pop('mode',None)
-        force = args.pop('force',False)
+        force = args.pop('force',True)
         become = self._play_context.become
         become_method = self._play_context.become_method
 
