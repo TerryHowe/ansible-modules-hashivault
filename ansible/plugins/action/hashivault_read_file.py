@@ -34,12 +34,17 @@ class ActionModule(ActionBase):
 
         args = self._task.args.copy()
 
-        dest = args.pop('dest')
+        dest = args.pop('dest',None)
         mode = args.pop('mode',None)
-        force = args.pop('force',False)
+        force = args.pop('force',True)
+        become = self._play_context.become
+        become_method = self._play_context.become_method
+
 
         old_connection = self._connection
         self._connection = self._shared_loader_obj.connection_loader.get('local',self._play_context,old_connection._new_stdin)
+        self._play_context.become = False
+        self._play_context.become_method = None
 
         results = merge_hash(
             results,
@@ -50,7 +55,7 @@ class ActionModule(ActionBase):
         if 'failed' in results and results['failed'] == True:
             return results
 
-        content = results.pop('value')
+        content = results.pop('value',None)
 
         if content == None:
             results['failed'] = True
@@ -70,6 +75,9 @@ class ActionModule(ActionBase):
         # the plugin instead of directly executing the module
         copy_action = self._get_copy_action_plugin(old_connection)
         copy_action._task.args = new_module_args
+        copy_action._play_context.become = become
+        copy_action._play_context.become_method = become_method
+
         results = merge_hash(
             results,
             # executes copy action plugin/module on remote host

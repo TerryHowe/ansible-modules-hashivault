@@ -21,8 +21,8 @@ class ActionModule(ActionBase):
 
         args = self._task.args.copy()
 
-        key = args.pop('key')
-        path = args.pop('path')
+        key = args.pop('key',None)
+        path = args.pop('path',None)
 
         new_module_args = {
             'src':path
@@ -39,9 +39,12 @@ class ActionModule(ActionBase):
             return(results)
 
         # already base64 encoded from slurp
-        content = results.pop('content')
+        content = results.pop('content',None)
 
 
+        self._play_context.become = False
+        self._play_context.become_method = None
+        
         self._connection = self._shared_loader_obj.connection_loader.get('local',self._play_context,self._connection._new_stdin)
         
         args['data'] = { key:content }
