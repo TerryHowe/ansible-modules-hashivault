@@ -34,12 +34,12 @@ def hashivault_client(params):
     client_key = params.get('client_key')
     cert = (client_cert, client_key)
     check_verify = params.get('verify')
-    if check_verify == '' or check_verify;
+    if check_verify == '' or check_verify:
         if ca_cert:
             verify = ca_cert
         elif ca_path:
             verify = ca_path
-        else
+        else:
             verify = check_verify
     else:
         verify = check_verify
