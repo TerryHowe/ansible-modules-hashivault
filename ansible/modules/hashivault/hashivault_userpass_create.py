@@ -26,19 +26,15 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     name:
         description:
             - user name to create.
-        default: False
     pass:
         description:
             - user to create password.
-        default: False
     policies:
         description:
             - user policies.

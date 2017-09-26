@@ -26,27 +26,21 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     name:
         description:
             - name of secret backend
-        default: False
     backend:
         description:
             - type of secret backend
-        default: False
     description:
         description:
             - description of secret backend
-        default: False
     config:
         description:
             - config of secret backend
-        default: False
 '''
 EXAMPLES = '''
 ---
@@ -83,6 +77,10 @@ def hashivault_secret_enable(params):
     backend = params.get('backend')
     description = params.get('description')
     config = params.get('config')
+    secrets = client.list_secret_backends()
+    path = name + "/"
+    if path in secrets:
+        return {'changed': False}
     client.enable_secret_backend(backend, description=description, mount_point=name, config=config)
     return {'changed': True}
 

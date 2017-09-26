@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  gather_facts: no
   vars:
     username: 'portugal'
     userpass: 'Th3m@n!!'
@@ -11,14 +12,16 @@
           capabilities = ["list"]
         } 
   tasks:
-    - hashivault_policy_set:
+    - name: Set policy for userpass
+      hashivault_policy_set:
         name: "{{username}}"
         rules: "{{rules}}"
       register: 'vault_policy_set'
     - assert: { that: "{{vault_policy_set.changed}} == True" }
     - assert: { that: "{{vault_policy_set.rc}} == 0" }
 
-    - hashivault_userpass_create:
+    - name: Create user pass with policy
+      hashivault_userpass_create:
         name: "{{username}}"
         pass: "{{userpass}}"
         policies: "{{username}}"

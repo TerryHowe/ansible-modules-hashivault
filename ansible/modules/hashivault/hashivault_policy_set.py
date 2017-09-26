@@ -26,15 +26,12 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     name:
         description:
             - policy name.
-        default: False
 '''
 EXAMPLES = '''
 ---
@@ -66,6 +63,9 @@ def hashivault_policy_set(params):
     client = hashivault_auth_client(params)
     name = params.get('name')
     rules = params.get('rules')
+    current = client.get_policy(name)
+    if current == rules:
+        return {'changed': False}
     client.set_policy(name, rules)
     return {'changed': True}
 

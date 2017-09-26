@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  gather_facts: no
   tasks:
     - hashivault_status:
       register: 'vault_status'

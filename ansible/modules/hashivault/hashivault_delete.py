@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_seal
-version_added: "1.2.0"
-short_description: Hashicorp Vault seal module
+module: hashivault_delete
+version_added: "3.4.0"
+short_description: Hashicorp Vault delete module
 description:
-    - Module to seal Hashicorp Vault.
+    - Module to delete from Hashicorp Vault.
 options:
     url:
         description:
@@ -29,36 +29,50 @@ options:
     password:
         description:
             - password to login to vault.
+    secret:
+        description:
+            - secret to delete.
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_seal:
-      register: 'vault_seal'
-    - debug: msg="Seal return is {{vault_seal.rc}}"
+    - hashivault_delete:
+        secret: giant
 '''
 
 
 def main():
     argspec = hashivault_argspec()
+    argspec['secret'] = dict(required=True, type='str')
     module = hashivault_init(argspec)
-    result = hashivault_seal(module.params)
+    result = hashivault_delete(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
 
 
-from ansible.module_utils.basic import *
 from ansible.module_utils.hashivault import *
 
 
 @hashiwrapper
-def hashivault_seal(params):
-    key = params.get('key')
+def hashivault_delete(params):
+    result = { "changed": False, "rc" : 0}
     client = hashivault_auth_client(params)
-    return {'status': client.seal(), 'changed': True}
+    secret = params.get('secret')
+    if secret.startswith('/'):
+        secret = secret.lstrip('/')
+    else:
+        secret = ('secret/%s' % secret)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        returned_data = client.delete(secret)
+        if returned_data:
+            result['data'] = returned_data
+        result['msg'] = "Secret %s deleted" % secret
+    result['changed'] = True
+    return result
 
 
 if __name__ == '__main__':

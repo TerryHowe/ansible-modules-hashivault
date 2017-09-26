@@ -1,7 +1,9 @@
 ---
 - hosts: localhost
+  gather_facts: no
   tasks:
-    - hashivault_write:
+    - name: Write a dict type secret
+      hashivault_write:
         secret: 'array'
         data:
             value:
@@ -14,7 +16,8 @@
           - 'one'
           - 'two'
           - 'three'
-    - hashivault_read:
+    - name: Read the dict type secret and make sure it matches
+      hashivault_read:
         secret: 'array'
         key: 'value'
       register: 'vault_read'

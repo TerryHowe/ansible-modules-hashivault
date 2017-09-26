@@ -26,15 +26,12 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     name:
         description:
             - policy name.
-        default: False
 '''
 EXAMPLES = '''
 ---
@@ -66,6 +63,8 @@ from ansible.module_utils.hashivault import *
 def hashivault_policy_delete(params):
     name = params.get('name')
     client = hashivault_auth_client(params)
+    if name not in client.list_policies():
+        return {'changed': False}
     client.delete_policy(name)
     return {'changed': True}
 

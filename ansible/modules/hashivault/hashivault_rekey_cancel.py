@@ -26,17 +26,16 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
     - hashivault_rekey_cancel:
+      register: "vault_rekey_cancel"
 '''
 
 

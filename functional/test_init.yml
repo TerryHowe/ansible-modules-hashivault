@@ -1,7 +1,9 @@
 ---
 - hosts: localhost
+  gather_facts: no
   tasks:
-    - hashivault_init:
+    - name: Initialize vault
+      hashivault_init:
         secret_shares: 1
         secret_threshold: 1
       register: 'vault_init'
@@ -14,7 +16,8 @@
       - assert: { that: "{{vault_init.rc}} == 0" }
       - set_fact:
           vault_keys: "{{vault_init['keys'] | join(' ')}}"
-      - hashivault_unseal:
+      - name: Unseal the vault
+        hashivault_unseal:
           keys: '{{vault_keys}}'
         register: 'vault_unseal'
       - assert: { that: "{{vault_unseal.changed}} == True" }

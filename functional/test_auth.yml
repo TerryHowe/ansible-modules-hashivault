@@ -1,10 +1,13 @@
 ---
 - hosts: localhost
+  gather_facts: no
   tasks:
-    - hashivault_auth_list:
+    - name: List the authentications backends
+      hashivault_auth_list:
       register: 'vault_auth_list'
     - block:
-      - hashivault_auth_enable:
+      - name: Enable userpass when it is already enabled
+        hashivault_auth_enable:
           name: "userpass"
         failed_when: False
         register: 'vault_auth_enable'
@@ -14,9 +17,16 @@
       - assert: { that: "{{vault_auth_enable.rc}} == 1" }
       when: "'userpass/' in vault_auth_list.backends"
     - block:
-      - hashivault_auth_enable:
+      - name: Enable userpass auth for the first time
+        hashivault_auth_enable:
           name: "userpass"
         register: 'vault_auth_enable'
       - assert: { that: "{{vault_auth_enable.changed}} == True" }
       - assert: { that: "{{vault_auth_enable.rc}} == 0" }
       when: "'userpass/' not in vault_auth_list.backends"
+    - block:
+      - hashivault_auth_enable:
+          name: "userpass"
+        register: 'vault_auth_enable_twice'
+      - assert: { that: "{{vault_auth_enable_twice.changed}} == False" }
+      - assert: { that: "{{vault_auth_enable_twice.rc}} == 0" }

@@ -1,22 +1,22 @@
 ---
 - hosts: localhost
+  gather_facts: no
   tasks:
     - hashivault_audit_list:
       register: 'vault_audit_list'
-    - block:
-      - hashivault_audit_enable:
-          name: "syslog"
-        failed_when: False
-        register: 'vault_audit_enable'
-      - assert: { that: "{{vault_audit_enable.changed}} == False" }
-      - assert: { that: "{{vault_audit_enable.failed}} == False" }
-      - assert: { that: "'{{vault_audit_enable.msg}}' == 'Exception: path already in use'" }
-      - assert: { that: "{{vault_audit_enable.rc}} == 1" }
-      when: "'syslog/' in vault_audit_list.backends"
-    - block:
-      - hashivault_audit_enable:
-          name: "syslog"
-        register: 'vault_audit_enable'
-      - assert: { that: "{{vault_audit_enable.changed}} == True" }
-      - assert: { that: "{{vault_audit_enable.rc}} == 0" }
-      when: "'syslog/' not in vault_audit_list.backends"
+
+    - hashivault_audit_enable:
+        name: "file"
+        options:
+          file_path: "/tmp/vault.log"
+      register: 'vault_audit_enable'
+    - assert: { that: "{{vault_audit_enable.changed}} == True" }
+    - assert: { that: "{{vault_audit_enable.rc}} == 0" }
+
+    - hashivault_audit_enable:
+        name: "file"
+        options:
+          file_path: "/tmp/vault.log"
+      register: 'vault_audit_enable_twice'
+    - assert: { that: "{{vault_audit_enable_twice.changed}} == False" }
+    - assert: { that: "{{vault_audit_enable_twice.rc}} == 0" }

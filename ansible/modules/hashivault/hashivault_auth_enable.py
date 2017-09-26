@@ -26,19 +26,15 @@ options:
     username:
         description:
             - username to login to vault.
-        default: False
     password:
         description:
             - password to login to vault.
-        default: False
     name:
         description:
             - name of authenticator
-        default: False
     description:
         description:
             - description of authenticator
-        default: False
 '''
 EXAMPLES = '''
 ---
@@ -70,6 +66,10 @@ def hashivault_auth_enable(params):
     client = hashivault_auth_client(params)
     name = params.get('name')
     description = params.get('description')
+    backends = client.list_auth_backends()
+    path = name + "/"
+    if path in backends:
+        return {'changed': False}
     client.enable_auth_backend(name, description=description)
     return {'changed': True}
 
