@@ -7,6 +7,7 @@
 #
 ########################################################################
 
+import tempfile, os
 from ansible.plugins.action import ActionBase
 from ansible.utils.vars import merge_hash
 from ansible.playbook.play_context import PlayContext
@@ -64,12 +65,18 @@ class ActionModule(ActionBase):
             return(results)
 
 
+        #write to temp file on ansible host to copy to remote host
+        local_tmp = tempfile.NamedTemporaryFile(delete=False)
+        local_tmp.write(content.decode('base64'))
+        local_tmp.close()
+
         new_module_args = {
             'dest':dest,
-            'content':content.decode('base64'),
+            'src':local_tmp.name,
             'force':force,
             'mode':mode
         }
+
         self._update_module_args('copy',new_module_args,task_vars)
 
         # `copy` module uses an action plugin, so we have to execute
@@ -84,6 +91,9 @@ class ActionModule(ActionBase):
             # executes copy action plugin/module on remote host
             copy_action.run(task_vars=task_vars)
         )
+
+        #remove temp file
+        os.unlink(local_tmp.name)
 
         if force == False and results['changed'] == False:
             results['failed'] = True
