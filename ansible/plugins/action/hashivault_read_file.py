@@ -43,9 +43,7 @@ class ActionModule(ActionBase):
 
 
         old_connection = self._connection
-        self._connection = self._shared_loader_obj.connection_loader.get('local',self._play_context,old_connection._new_stdin)
-        pc = PlayContext()
-        self._connection = self._shared_loader_obj.connection_loader.get('local',pc,old_connection._new_stdin)
+        self._connection = self._shared_loader_obj.connection_loader.get('local',PlayContext(),old_connection._new_stdin)
         self._play_context.become = False
         self._play_context.become_method = None
 
