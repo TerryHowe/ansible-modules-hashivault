@@ -51,6 +51,9 @@ options:
     description:
         description:
             - description of authenticator
+    mount_point
+        description:
+            - location where this auth backend will be mounted 
 '''
 EXAMPLES = '''
 ---
@@ -65,6 +68,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
     argspec['description'] = dict(required=False, type='str')
+    argspec['mount_point'] = dict(required=False, type='str', default=None)
     module = hashivault_init(argspec)
     result = hashivault_auth_enable(module.params)
     if result.get('failed'):
@@ -82,11 +86,12 @@ def hashivault_auth_enable(params):
     client = hashivault_auth_client(params)
     name = params.get('name')
     description = params.get('description')
+    mount_point = params.get('mount_point')
     backends = client.list_auth_backends()
-    path = name + "/"
+    path = (mount_point or name) + "/"
     if path in backends:
         return {'changed': False}
-    client.enable_auth_backend(name, description=description)
+    client.enable_auth_backend(name, description=description, mount_point=mount_point)
     return {'changed': True}
 
 
