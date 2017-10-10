@@ -30,3 +30,12 @@
         register: 'vault_auth_enable_twice'
       - assert: { that: "{{vault_auth_enable_twice.changed}} == False" }
       - assert: { that: "{{vault_auth_enable_twice.rc}} == 0" }
+    - block:
+      - name: Enable userpass at a different mount point
+        hashivault_auth_enable:
+          name: "userpass"
+          mount_point: "another-userpass"
+        register: 'vault_auth_mount_point'
+      - assert: { that: "{{vault_auth_mount_point.changed}} == True" }
+      - assert: { that: "{{vault_auth_mount_point.rc}} == 0" }
+        
