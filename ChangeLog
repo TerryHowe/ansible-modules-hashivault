@@ -1,4 +1,4 @@
-# 1.6.0
+# 3.6.0
 * added support for approle authentication
 * added module for writing file
 * added module for reading file
