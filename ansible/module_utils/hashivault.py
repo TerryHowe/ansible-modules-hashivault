@@ -14,10 +14,12 @@ def hashivault_argspec():
         client_cert = dict(required=False, default=os.environ.get('VAULT_CLIENT_CERT', ''), type='str'),
         client_key = dict(required=False, default=os.environ.get('VAULT_CLIENT_KEY', ''), type='str'),
         verify = dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
-        authtype = dict(required=False, default='token', type='str'),
+        authtype = dict(required=False, default=os.environ.get('VAULT_AUTHTYPE', 'token'), type='str'),
         token = dict(required=False, default=hashivault_default_token(), type='str', no_log=True),
         username = dict(required=False, type='str'),
-        password = dict(required=False, type='str',no_log=True)
+        password = dict(required=False, type='str',no_log=True),
+        role_id = dict(required=False, default=os.environ.get('VAULT_ROLE_ID', ''), type='str', no_log=True),
+        secret_id = dict(required=False, default=os.environ.get('VAULT_SECRET_ID', ''), type='str', no_log=True)
     )
     return argument_spec
 
@@ -52,12 +54,17 @@ def hashivault_auth(client, params):
     authtype = params.get('authtype')
     username = params.get('username')
     password = params.get('password')
+    secret_id = params.get('secret_id')
+    role_id = params.get('role_id')
+
     if authtype == 'github':
         client.auth_github(token)
     elif authtype == 'userpass':
         client.auth_userpass(username, password)
     elif authtype == 'ldap':
         client.auth_ldap(username, password)
+    elif authtype == 'approle':
+        client = AppRoleClient(client,role_id,secret_id)
     else:
         client.token = token
     return client
@@ -90,3 +97,39 @@ def hashivault_default_token():
         with open(token_file, 'r') as f:
             return f.read()
     return ''
+
+
+class AppRoleClient(object):
+    """
+    hvac.Client decorator which generates and sets a new approle token on every
+    function call. This allows multiple calls to Vault without having to manually
+    generate and set a token on every Vault call.
+    """
+
+    def __init__(self, client, role_id, secret_id):
+        object.__setattr__(self,'client',client)
+        object.__setattr__(self,'role_id',role_id)
+        object.__setattr__(self,'secret_id',secret_id)
+
+
+    def __setattr__(self,name,val):
+        """
+        sets attribute in decorated class (Client)
+        """
+        client = object.__getattribute__(self,'client')
+        client.__setattr__(name,val)
+
+
+    def __getattribute__ (self,name):
+        """
+        generates and sets new approle token in decorated class (Client)
+        returns decorated class (Client) attribute
+        """
+        client = object.__getattribute__(self,'client')
+        attr = client.__getattribute__(name)
+        if (callable(attr)):
+            role_id = object.__getattribute__(self,'role_id')
+            secret_id = object.__getattribute__(self,'secret_id')
+            resp = client.auth_approle(role_id,secret_id)
+            client.token = str(resp['auth']['client_token'])
+        return attr

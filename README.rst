@@ -40,6 +40,30 @@ reads the fie value::
             key: 'fie'
           register: 'vault_read'
 
+The following example writes the giant secret with file '/tmp/foo.dat' and then
+reads the file::
+
+    ---
+    - hosts: localhost
+      vars:
+        foo_value: 'fum'
+        fie_value: 'fum'
+      tasks:
+        - hashivault_status:
+          register: 'vault_status'
+        - hashivault_write_file:
+            secret: giant
+            file: foo.dat
+            path: /tmp/foo.dat
+          register: 'vault_write_file'
+      - hashivault_read_file:
+          secret: 'giant'
+          file: 'foo.dat'
+          dest: '/tmp/foo.dat'
+          overwrite: false
+          register: 'vault_read'
+
+
 The lookup plugin::
 
     looky: "{{lookup('hashivault', 'giant', 'foo')}}"
