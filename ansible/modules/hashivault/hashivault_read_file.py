@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
+author: Developed for AT&T by Nicholas Gibson, August 2017
 module: hashivault_read_file
-version_added: "3.4.2"
+version_added: "3.6.0"
 short_description: Hashicorp Vault read module
 description:
     - Reads and deocdes a base64 encoded file from Hashicorp Vault. Implementation in `/plugins/action/hashivault_read_file.py`.

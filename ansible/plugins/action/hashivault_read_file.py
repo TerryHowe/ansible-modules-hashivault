@@ -1,5 +1,7 @@
 ########################################################################
 #
+# Developed for AT&T by Nicholas Gibson, August 2017
+#
 # Action plugin for hashivault_read_file module.
 #
 # Reads file/secret from Vault  on localhost using hashivault_read module.

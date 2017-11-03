@@ -1,5 +1,7 @@
 ########################################################################
 #
+# Developed for AT&T by Nicholas Gibson, August 2017
+#
 # Action plugin for hashivault_write_file module.
 #
 # Reads file from remote host using slurp module. (base64 encoded)
