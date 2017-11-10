@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_auth_enable
+module: hashivault_mount_tune
 version_added: "3.5.2"
-short_description: Hashicorp Vault auth enable module
+short_description: Hashicorp Vault tune backend
 description:
-    - Module to enable authentication backends in Hashicorp Vault.
+    - Module to enable tuning of backends in HashiCorp Vault.
 options:
     url:
         description:
@@ -45,15 +45,15 @@ options:
     password:
         description:
             - password to login to vault.
-    name:
-        description:
-            - name of authenticator
-    description:
-        description:
-            - description of authenticator
     mount_point
         description:
-            - location where this auth backend will be mounted 
+            - location where this auth backend will be mounted
+    default_lease_ttl:
+        description:
+            - Configures the default lease duration for tokens and secrets. This is an integer value in seconds.
+    max_lease_ttl:
+        description:
+            - Configures the maximum lease duration for tokens and secrets. This is an integer value in seconds.
 '''
 EXAMPLES = '''
 ---
