@@ -26,6 +26,7 @@
         pass: "{{userpass}}"
         policies: "{{username}}"
       register: 'vault_userpass_create'
+      no_log: True
     - assert: { that: "{{vault_userpass_create.changed}} == True" }
     - assert: { that: "{{vault_userpass_create.rc}} == 0" }
 
