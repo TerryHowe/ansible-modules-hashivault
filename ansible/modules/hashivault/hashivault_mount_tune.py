@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_mount_tune
-version_added: "3.5.2"
+version_added: "3.7.0"
 short_description: Hashicorp Vault tune backend
 description:
     - Module to enable tuning of backends in HashiCorp Vault.
@@ -59,8 +59,9 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_auth_enable:
-        name: "userpass"
+    - hashivault_mount_tune:
+        mount_point: ephemeral
+        default_lease_ttl: 3600
 '''
 
 
