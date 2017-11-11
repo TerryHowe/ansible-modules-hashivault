@@ -159,6 +159,17 @@ Handle auth backends::
             register: 'vault_auth_enable'
           when: "'userpass/' not in vault_auth_list.backends"
 
+Tune auth backends::
+
+    ---
+    - hosts: localhost
+      tasks:
+        - name: Tune ephermal secret store
+          hashivault_mount_tune:
+            mount_point: ephemeral
+            default_lease_ttl: 3600
+            max_lease_ttl: 8600
+
 Audit Backends
 --------------
 
