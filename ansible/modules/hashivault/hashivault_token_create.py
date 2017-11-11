@@ -135,7 +135,7 @@ from ansible.module_utils.hashivault import *
 def hashivault_token_create(params):
     client = hashivault_auth_client(params)
     role = params.get('role')
-    id = params.get('id')
+    token_id = params.get('id')
     policies = params.get('policies')
     metadata = params.get('metadata')
     no_parent = params.get('no_parent')
@@ -151,7 +151,7 @@ def hashivault_token_create(params):
 
     token = client.create_token(
         role=role,
-        id=id,
+        token_id=token_id,
         policies=policies,
         meta=metadata,
         no_parent=no_parent,
