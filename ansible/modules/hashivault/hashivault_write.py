@@ -86,7 +86,7 @@ from ansible.module_utils.hashivault import *
 
 @hashiwrapper
 def hashivault_write(params):
-    result = { "changed": False, "rc" : 0}
+    result = {"changed": False, "rc": 0}
     client = hashivault_auth_client(params)
     secret = params.get('secret')
     if secret.startswith('/'):
@@ -96,23 +96,19 @@ def hashivault_write(params):
     data = params.get('data')
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        if params.get('update'):
-            read_data = client.read(secret)
-            if read_data and 'data' in read_data:
-                write_data  = read_data['data']
-            else:
-                write_data  = {}
-            write_data.update(data)
+        read_data = client.read(secret)
+        if params.get('update') and read_data and 'data' in read_data:
+            write_data = dict(read_data['data'])
+        else:
+            write_data = {}
+        write_data.update(data)
+        changed = not read_data or 'data' not in read_data or write_data != read_data['data']
+        if changed:
             returned_data = client.write((secret), **write_data)
             if returned_data:
                 result['data'] = returned_data
-            result['msg'] = "Secret %s updated" % secret
-        else:
-            returned_data = client.write((secret), **data)
-            if returned_data:
-                result['data'] = returned_data
             result['msg'] = "Secret %s written" % secret
-    result['changed'] = True
+        result['changed'] = changed
     return result
 
 
