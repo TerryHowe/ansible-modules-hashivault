@@ -100,6 +100,8 @@ def hashivault_write(params):
         write_data = data
         if params.get('update'):
             read_data = client.read(secret)
+            if read_data is None:
+                read_data = {}
             if read_data and 'data' in read_data:
                 read_data = read_data['data']
             write_data = dict(read_data)
