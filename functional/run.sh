@@ -5,6 +5,7 @@
 ./start.sh
 
 source ./vaultenv.sh
+ansible-playbook -v test.yml --check
 ansible-playbook -v test.yml
 ansible-playbook -v test_auth.yml
 ansible-playbook -v test_policy.yml
