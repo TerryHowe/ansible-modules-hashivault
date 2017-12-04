@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Write a dict type secret
+      hashivault_write:
+        secret: 'array'
+        data:
+            value:
+              - 'one'
+              - 'two'
+              - 'three'
+
+    - set_fact:
+        expected_value:
+          - 'one'
+          - 'two'
+          - 'three'
+    - name: Read the dict type secret and make sure it matches
+      hashivault_read:
+        secret: 'array'
+        key: 'value'
+      register: 'vault_read'
+    - assert: { that: "'{{vault_read.value[0]}}' == '{{expected_value[0]}}'" }
+    - assert: { that: "'{{vault_read.value[1]}}' == '{{expected_value[1]}}'" }
+    - assert: { that: "'{{vault_read.value[2]}}' == '{{expected_value[2]}}'" }
+
+    - set_fact:
+        looky_secret: "{{lookup('hashivault', 'array', 'value') | first}}"
+    - assert: { that: "'{{looky_secret}}' == 'one'" }

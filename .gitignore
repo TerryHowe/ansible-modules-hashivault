@@ -1,0 +1,27 @@
+*.py[cod]
+.venv
+.cache
+
+# Packages
+.eggs
+*.egg
+*.egg-info
+dist
+build
+eggs
+sdist
+MANIFEST
+
+# Test
+.tox
+.testrepository
+
+# Editors
+*~
+.*.swp
+.idea
+
+functional/vaultenv.sh
+
+# Git
+*.orig

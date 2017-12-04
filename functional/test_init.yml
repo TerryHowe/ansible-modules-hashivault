@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Initialize vault
+      hashivault_init:
+        secret_shares: 1
+        secret_threshold: 1
+      register: 'vault_init'
+    - block:
+      - assert: { that: "{{vault_init.rc}} == 0" }
+      when: "vault_init.changed == False"
+    - block:
+      - assert: { that: "'keys' in vault_init" }
+      - assert: { that: "'root_token' in vault_init" }
+      - assert: { that: "{{vault_init.rc}} == 0" }
+      - set_fact:
+          vault_keys: "{{vault_init['keys'] | join(' ')}}"
+      - name: Unseal the vault
+        hashivault_unseal:
+          keys: '{{vault_keys}}'
+        register: 'vault_unseal'
+      - assert: { that: "{{vault_unseal.changed}} == True" }
+      - assert: { that: "{{vault_unseal.status.progress}} == 0" }
+      - assert: { that: "{{vault_unseal.status.sealed}} == False" }
+      - assert: { that: "{{vault_unseal.rc}} == 0" }
+      - copy:
+          dest: "./vaultenv.sh"
+          mode: 0700
+          content: "export VAULT_ADDR='{{lookup('env','VAULT_ADDR')}}'\nexport VAULT_TOKEN='{{vault_init['root_token']}}'\nexport VAULT_KEYS='{{vault_init['keys'] | join(' ')}}'"
+      when: "vault_init.changed == True"

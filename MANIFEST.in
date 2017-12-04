@@ -1,0 +1,7 @@
+include AUTHORS
+include ChangeLog
+include LICENSE
+include README.rst
+exclude .gitignore
+
+global-exclude *.pyc

@@ -1,0 +1,69 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    namespace: 'terry'
+    rules: >
+        path "secret/{{namespace}}/*" {
+          capabilities = ["create", "read", "update", "delete", "list"]
+        } 
+        path "secret/{{namespace}}" {
+          capabilities = ["list"]
+        } 
+    expected: "{{rules | regex_replace('\n', '')}}"
+  tasks:
+    - name: Delete a policy that doesn't exist and check that doesn't change or fail
+      hashivault_policy_delete:
+        name: '{{namespace}}'
+      register: 'vault_policy_delete'
+    - assert: { that: "{{vault_policy_delete.changed}} == False" }
+    - assert: { that: "{{vault_policy_delete.rc}} == 0" }
+
+    - name: Set new policy
+      hashivault_policy_set:
+        name: "{{namespace}}"
+        rules: "{{rules}}"
+      register: 'vault_policy_set'
+    - assert: { that: "{{vault_policy_set.changed}} == True" }
+    - assert: { that: "{{vault_policy_set.rc}} == 0" }
+
+    - name: Set policy again and check that it doesn't change
+      hashivault_policy_set:
+        name: "{{namespace}}"
+        rules: "{{rules}}"
+      register: 'vault_policy_set_twice'
+    - assert: { that: "{{vault_policy_set_twice.changed}} == False" }
+    - assert: { that: "{{vault_policy_set_twice.rc}} == 0" }
+
+    - name: Get policy and make sure it set properly
+      hashivault_policy_get:
+        name: '{{namespace}}'
+      register: 'vault_policy_get'
+    - assert: { that: "{{vault_policy_get.changed}} == False" }
+    - set_fact:
+        actual: "{{vault_policy_get.rules | regex_replace('\n', '')}}"
+    - assert: { that: "'{{expected}}' == '{{actual}}'" }
+    - assert: { that: "{{vault_policy_get.rc}} == 0" }
+
+    - name: Make sure our new policy is in list
+      hashivault_policy_list:
+      register: 'vault_policy_list'
+    - assert: { that: "{{vault_policy_list.changed}} == False" }
+    - fail: msg="policy {{namespace}} not in list"
+      when: namespace not in vault_policy_list.policies
+    - assert: { that: "{{vault_policy_list.rc}} == 0" }
+
+    - name: Get rid of our new policy
+      hashivault_policy_delete:
+        name: '{{namespace}}'
+      register: 'vault_policy_delete'
+    - assert: { that: "{{vault_policy_delete.changed}} == True" }
+    - assert: { that: "{{vault_policy_delete.rc}} == 0" }
+
+    - name: Make sure our new policy is gone
+      hashivault_policy_list:
+      register: 'vault_policy_list'
+    - assert: { that: "{{vault_policy_list.changed}} == False" }
+    - fail: msg="policy {{namespace}} in list"
+      when: namespace in vault_policy_list.policies
+    - assert: { that: "{{vault_policy_list.rc}} == 0" }

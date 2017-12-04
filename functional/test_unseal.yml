@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    vault_keys:  "{{ lookup('env','VAULT_KEYS') }}"
+  tasks:
+    - assert:
+        that: "'{{vault_keys}}' != ''"
+        msg: "VAULT_KEYS must be set to run this test"
+    - name: Get status of vault before unseal
+      hashivault_status:
+      register: 'vault_status'
+    - assert: { that: "{{vault_status.changed}} == False" }
+    - assert: { that: "{{vault_status.rc}} == 0" }
+
+    - block:
+        - name: Vault is not sealed so seal it
+          hashivault_seal:
+          register: 'vault_seal'
+        - assert: { that: "{{vault_seal.changed}} == True" }
+        - assert: { that: "{{vault_seal.rc}} == 0" }
+      when: "vault_status.status.sealed == False"
+
+    - name: Unseal the vault
+      hashivault_unseal:
+        keys: '{{vault_keys}}'
+      register: 'vault_unseal'
+    - assert: { that: "{{vault_unseal.changed}} == True" }
+    - assert: { that: "{{vault_unseal.status.progress}} == 0" }
+    - assert: { that: "{{vault_unseal.status.sealed}} == False" }
+    - assert: { that: "{{vault_unseal.rc}} == 0" }

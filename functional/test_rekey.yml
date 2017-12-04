@@ -1,0 +1,67 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    unseal_key:  "{{ lookup('env','VAULT_KEYS') }}"
+  tasks:
+    - name: Check rekey status
+      hashivault_rekey_status:
+      register: 'vault_rekey_status'
+    - assert: { that: "{{vault_rekey_status.changed}} == False" }
+    - assert: { that: "{{vault_rekey_status.rc}} == 0" }
+
+    - block:
+        - name: Cancel the rekey if one was started
+          hashivault_rekey_cancel:
+          register: 'vault_rekey_cancel'
+        - assert: { that: "{{vault_rekey_cancel.changed}} == True" }
+        - assert: { that: "{{vault_rekey_cancel.rc}} == 0" }
+      when: "vault_rekey_status.status.started == True"
+
+    - name: Start a rekey
+      hashivault_rekey_init:
+        secret_shares: 1
+        secret_threshold: 1
+      register: 'vault_rekey_init'
+    - assert: { that: "{{vault_rekey_init.changed}} == True" }
+    - assert: { that: "{{vault_rekey_init.status.progress}} == 0" }
+    - assert: { that: "{{vault_rekey_init.status.started}} == True" }
+    - assert: { that: "{{vault_rekey_init.rc}} == 0" }
+
+    - name: Make sure the rekey started
+      hashivault_rekey_status:
+      register: 'vault_rekey_status'
+    - assert: { that: "{{vault_rekey_status.changed}} == False" }
+    - assert: { that: "{{vault_rekey_status.rc}} == 0" }
+    - assert: { that: "{{vault_rekey_init.status.progress}} == 0" }
+    - assert: { that: "{{vault_rekey_status.status.started}} == True" }
+
+    - name: Canel the rekey
+      hashivault_rekey_cancel:
+      register: 'vault_rekey_cancel'
+    - assert: { that: "{{vault_rekey_cancel.changed}} == True" }
+    - assert: { that: "{{vault_rekey_cancel.rc}} == 0" }
+
+    - name: Restart taht rekey again
+      hashivault_rekey_init:
+        secret_shares: 1
+        secret_threshold: 1
+      register: 'vault_rekey_init'
+    - assert: { that: "{{vault_rekey_init.changed}} == True" }
+    - assert: { that: "{{vault_rekey_init.status.progress}} == 0" }
+    - assert: { that: "{{vault_rekey_init.status.started}} == True" }
+    - assert: { that: "{{vault_rekey_init.rc}} == 0" }
+
+    - name: Update the rekey
+      hashivault_rekey:
+        key: "{{ unseal_key }}"
+        nonce: "{{ vault_rekey_init.status.nonce }}"
+      register: 'vault_rekey'
+    - assert: { that: "{{vault_rekey.changed}} == True" }
+    - assert: { that: "{{vault_rekey.rc}} == 0" }
+
+    - name: Update vaultenv.sh with new keys
+      lineinfile:
+        name: vaultenv.sh
+        regexp: '^export VAULT_KEYS='
+        line: export VAULT_KEYS='{{ vault_rekey['status']['keys'][0] }}'
