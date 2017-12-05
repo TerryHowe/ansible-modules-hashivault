@@ -22,3 +22,6 @@ MANIFEST
 .idea
 
 functional/vaultenv.sh
+
+# Git
+*.orig
