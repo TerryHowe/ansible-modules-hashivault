@@ -46,6 +46,7 @@ class LookupModule(LookupBase):
         path = terms[0]
         key = terms[1]
         token = hashivault_default_token()
+        okifmissing = variables.get('okifmissing')
         authtype = 'token'
         params = {
             'url': self.get_url(),
@@ -54,6 +55,7 @@ class LookupModule(LookupBase):
             'authtype': 'token',
             'secret': path,
             'key': key,
+            'okifmissing': okifmissing,
         }
         result = hashivault_read.hashivault_read(params)
 

@@ -72,6 +72,7 @@ def main():
     argspec['secret'] = dict(required=True, type='str')
     argspec['key'] = dict(required=False, type='str')
     argspec['register'] = dict(required=False, type='str')
+    argspec['okifmissing'] = dict(required=False, default=False, type='str')
     module = hashivault_init(argspec)
     result = hashivault_read(module.params)
     if result.get('failed'):
@@ -90,6 +91,7 @@ def hashivault_read(params):
     client = hashivault_auth_client(params)
     secret = params.get('secret')
     key = params.get('key')
+    okifmissing = params.get('okifmissing')
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         if secret.startswith('/'):
@@ -98,12 +100,18 @@ def hashivault_read(params):
         else:
             response = client.read('secret/%s' % secret)
         if not response:
+            if okifmissing:
+                result['value'] = None
+                return result
             result['rc'] = 1
             result['failed'] = True
             result['msg'] = "Secret %s is not in vault" % secret
             return result
         data = response['data']
     if key and key not in data:
+        if okifmissing:
+            result['value'] = None
+            return result
         result['rc'] = 1
         result['failed'] = True
         result['msg'] = "Key %s is not in secret %s" % (key, secret)
