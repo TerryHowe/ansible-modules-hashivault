@@ -21,4 +21,8 @@ ansible-playbook -v test_rekey.yml
 # for further test, if any.
 source ./vaultenv.sh
 
+ansible-playbook -v test_approle.yml
+# test_approle.yml changes authentication, reload env for future tests
+source ./vaultenv.sh
+
 ./stop.sh

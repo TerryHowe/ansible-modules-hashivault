@@ -1,0 +1,113 @@
+# configures approle authentication and runs secret_tasks.yml
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    approle_secret: 'secret/approle_test'
+    rules: >
+        path "secret/name" {
+          capabilities = ["create", "read", "update", "delete", "list"]
+        } 
+    vault_addr: "{{ lookup('env','VAULT_ADDR') }}"
+    vault_token: "{{ lookup('env','VAULT_TOKEN') }}"
+  tasks:
+    - name: Set approle policy
+      hashivault_policy_set:
+        name: "approle_test_policy"
+        rules: "{{rules}}"
+      register: 'vault_policy_set'
+    - assert: { that: "{{vault_policy_set.changed}} == True" }
+    - assert: { that: "{{vault_policy_set.rc}} == 0" }
+
+    - name: enable approle authentication
+      hashivault_auth_enable:
+        name: approle
+
+    - name: create role-id
+      uri:
+        url: "{{ vault_addr }}/v1/auth/approle/role/testrole"
+        method: POST
+        headers:
+          X-Vault-Token: "{{ vault_token }}"
+        body: '{"policies":"approle_test_policy"}'
+        status_code: 204
+
+    - name: get role-id
+      uri:
+        url: "{{ vault_addr }}/v1/auth/approle/role/testrole/role-id"
+        headers:
+          X-Vault-Token: "{{ vault_token }}"
+        return_content: true
+      register: role_id_raw
+
+
+    - name: create secret-id
+      uri:
+        url: "{{ vault_addr }}/v1/auth/approle/role/testrole/secret-id"
+        method: POST
+        headers:
+          X-Vault-Token: "{{ vault_token }}"
+        return_content: true
+      register: secret_id_raw
+
+    - name: extract role-id
+      set_fact:
+        role_id: "{{ (role_id_raw.content | from_json)['data']['role_id'] }}"
+
+    - name: extract secret-id
+      set_fact:
+        secret_id: "{{ (secret_id_raw.content | from_json)['data']['secret_id'] }}"
+
+    - name: save role-id
+      lineinfile:
+        path: ./vaultenv.sh
+        regexp: "export VAULT_ROLE_ID=.*"
+        line: "export VAULT_ROLE_ID={{ role_id }}"
+
+    - name: save secret-id
+      lineinfile:
+        path: ./vaultenv.sh
+        regexp: "export VAULT_SECRET_ID=.*"
+        line: "export VAULT_SECRET_ID={{ secret_id }}"
+
+    - name: save auth type
+      lineinfile:
+        path: ./vaultenv.sh
+        regexp: "export VAULT_AUTH_TYPE=.*"
+        line: "export VAULT_AUTH_TYPE=approle"
+
+    - name: remove token from env
+      lineinfile:
+        path: ./vaultenv.sh
+        regexp: "export VAULT_TOKEN=.*"
+        state: absent
+
+    - name: source new env vars
+      shell: "./vaultenv.sh"
+
+    - name: run test_secret.yml
+      include: ./secret_tasks.yml
+
+    - name: add token back to env
+      lineinfile:
+        path: ./vaultenv.sh
+        regexp: "export VAULT_TOKEN=.*"
+        line: "export VAULT_TOKEN={{ vault_token }}"
+
+    - name: remove role-id from env
+      lineinfile:
+        path: ./vaultenv.sh
+        regexp: "export VAULT_ROLE_ID=.*"
+        state: absent
+
+    - name: remove secret-id from env
+      lineinfile:
+        path: ./vaultenv.sh
+        line: "export VAULT_SECRET_ID={{ secret_id }}"
+        state: absent
+
+    - name: remove auth type from env
+      lineinfile:
+        path: ./vaultenv.sh
+        regexp: "export VAULT_AUTH_TYPE=.*"
+        state: absent
