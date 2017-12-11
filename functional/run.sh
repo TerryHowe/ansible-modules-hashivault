@@ -25,4 +25,6 @@ ansible-playbook -v test_approle.yml
 # test_approle.yml changes authentication, reload env for future tests
 source ./vaultenv.sh
 
+ansible-playbook -v test_read_write_file.yml
+
 ./stop.sh
