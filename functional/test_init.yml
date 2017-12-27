@@ -24,8 +24,8 @@
       - assert: { that: "{{vault_unseal.status.progress}} == 0" }
       - assert: { that: "{{vault_unseal.status.sealed}} == False" }
       - assert: { that: "{{vault_unseal.rc}} == 0" }
-      - copy:
+      - template:
+          src: "./templates/vaultenv.sh.j2"
           dest: "./vaultenv.sh"
           mode: 0700
-          content: "export VAULT_ADDR='{{lookup('env','VAULT_ADDR')}}'\nexport VAULT_TOKEN='{{vault_init['root_token']}}'\nexport VAULT_KEYS='{{vault_init['keys'] | join(' ')}}'\nunset VAULT_AUTHTYPE\nunset VAULT_ROLE_ID\nunset VAULT_SECRET_ID\n"
       when: "vault_init.changed == True"

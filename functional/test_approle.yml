@@ -60,7 +60,7 @@
       set_fact:
         secret_id: "{{ (secret_id_raw.content | from_json)['data']['secret_id'] }}"
 
-    - copy:
+    - template:
+        src: "./templates/approlenv.sh.j2"
         dest: "./approlenv.sh"
         mode: 0700
-        content: "export VAULT_ADDR='{{lookup('env','VAULT_ADDR')}}'\nexport VAULT_AUTHTYPE=approle\nexport VAULT_ROLE_ID={{ role_id }}\nexport VAULT_SECRET_ID={{ secret_id }}\nunset VAULT_TOKEN\nunset VAULT_KEYS\n"
