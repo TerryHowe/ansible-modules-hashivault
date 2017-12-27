@@ -1,4 +1,3 @@
-# configures approle authentication and runs secret_tasks.yml
 ---
 - hosts: localhost
   gather_facts: no
@@ -58,56 +57,7 @@
       set_fact:
         secret_id: "{{ (secret_id_raw.content | from_json)['data']['secret_id'] }}"
 
-    - name: save role-id
-      lineinfile:
-        path: ./vaultenv.sh
-        regexp: "export VAULT_ROLE_ID=.*"
-        line: "export VAULT_ROLE_ID={{ role_id }}"
-
-    - name: save secret-id
-      lineinfile:
-        path: ./vaultenv.sh
-        regexp: "export VAULT_SECRET_ID=.*"
-        line: "export VAULT_SECRET_ID={{ secret_id }}"
-
-    - name: save auth type
-      lineinfile:
-        path: ./vaultenv.sh
-        regexp: "export VAULT_AUTH_TYPE=.*"
-        line: "export VAULT_AUTH_TYPE=approle"
-
-    - name: remove token from env
-      lineinfile:
-        path: ./vaultenv.sh
-        regexp: "export VAULT_TOKEN=.*"
-        state: absent
-
-    - name: source new env vars
-      shell: "./vaultenv.sh"
-
-    - name: run test_secret.yml
-      include: ./secret_tasks.yml
-
-    - name: add token back to env
-      lineinfile:
-        path: ./vaultenv.sh
-        regexp: "export VAULT_TOKEN=.*"
-        line: "export VAULT_TOKEN={{ vault_token }}"
-
-    - name: remove role-id from env
-      lineinfile:
-        path: ./vaultenv.sh
-        regexp: "export VAULT_ROLE_ID=.*"
-        state: absent
-
-    - name: remove secret-id from env
-      lineinfile:
-        path: ./vaultenv.sh
-        line: "export VAULT_SECRET_ID={{ secret_id }}"
-        state: absent
-
-    - name: remove auth type from env
-      lineinfile:
-        path: ./vaultenv.sh
-        regexp: "export VAULT_AUTH_TYPE=.*"
-        state: absent
+    - copy:
+        dest: "./approlenv.sh"
+        mode: 0700
+        content: "export VAULT_ADDR='{{lookup('env','VAULT_ADDR')}}'\nexport VAULT_AUTHTYPE=approle\nexport VAULT_ROLE_ID={{ role_id }}\nexport VAULT_SECRET_ID={{ secret_id }}\nunset VAULT_TOKEN\nunset VAULT_KEYS\n"
