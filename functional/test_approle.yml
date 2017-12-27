@@ -2,11 +2,14 @@
 - hosts: localhost
   gather_facts: no
   vars:
-    approle_secret: 'secret/approle_test'
+    namespace: 'application'
     rules: >
-        path "secret/name" {
+        path "secret/{{namespace}}/*" {
           capabilities = ["create", "read", "update", "delete", "list"]
-        } 
+        }
+        path "secret/{{namespace}}" {
+          capabilities = ["list"]
+        }
     vault_addr: "{{ lookup('env','VAULT_ADDR') }}"
     vault_token: "{{ lookup('env','VAULT_TOKEN') }}"
   tasks:

@@ -21,10 +21,10 @@ ansible-playbook -v test_rekey.yml
 # for further test, if any.
 source ./vaultenv.sh
 
+# approle
 ansible-playbook -v test_approle.yml
 source ./approlenv.sh
-ansible-playbook -v test_secret.yml
-# test_approle.yml changes authentication, reload env for future tests
+ansible-playbook -v --extra-vars='namespace=application' test_secret.yml
 source ./vaultenv.sh
 
 ./stop.sh
