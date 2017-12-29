@@ -2,6 +2,7 @@
 - hosts: localhost
   gather_facts: no
   vars:
+    testrole: 'testrole'
     namespace: 'application'
     rules: >
         path "secret/{{namespace}}/*" {
@@ -18,47 +19,62 @@
         name: "approle_test_policy"
         rules: "{{rules}}"
       register: 'vault_policy_set'
-    - assert: { that: "{{vault_policy_set.changed}} == True" }
     - assert: { that: "{{vault_policy_set.rc}} == 0" }
 
     - name: enable approle authentication
       hashivault_auth_enable:
         name: approle
 
-    - name: create role-id
-      uri:
-        url: "{{ vault_addr }}/v1/auth/approle/role/testrole"
-        method: POST
-        headers:
-          X-Vault-Token: "{{ vault_token }}"
-        body: '{"policies":"approle_test_policy"}'
-        status_code: 204
+    - name: create role
+      hashivault_approle_role_create:
+        name: testrole
+        policies:
+          - approle_test_policy
+      register: 'vault_role_create'
+    - assert: { that: "{{vault_role_create.changed}} == True" }
+    - assert: { that: "{{vault_role_create.rc}} == 0" }
 
-    - name: get role-id
-      uri:
-        url: "{{ vault_addr }}/v1/auth/approle/role/testrole/role-id"
-        headers:
-          X-Vault-Token: "{{ vault_token }}"
-        return_content: true
-      register: role_id_raw
+    - name: list roles
+      hashivault_approle_role_list:
+      register: 'vault_role_list'
+    - assert: { that: "{{vault_role_list.changed}} == False" }
+    - assert: { that: "{{vault_role_list.rc}} == 0" }
+    - fail: msg="role {{testrole}} not in list"
+      when: testrole not in vault_role_list.roles
 
+    - name: get role
+      hashivault_approle_role_get:
+        name: testrole
+      register: 'vault_role'
+    - assert: { that: "{{vault_role.changed}} == False" }
+    - assert: { that: "{{vault_role.rc}} == 0" }
+    - fail: msg="role {{testrole}} not in list"
+      when: testrole not in vault_role_list.roles
 
-    - name: create secret-id
-      uri:
-        url: "{{ vault_addr }}/v1/auth/approle/role/testrole/secret-id"
-        method: POST
-        headers:
-          X-Vault-Token: "{{ vault_token }}"
-        return_content: true
-      register: secret_id_raw
+    - name: get role id
+      hashivault_approle_role_id:
+        name: testrole
+      register: 'vault_role_id'
+    - assert: { that: "{{vault_role_id.changed}} == False" }
+    - assert: { that: "{{vault_role_id.rc}} == 0" }
+    - assert:
+        that:
+          - vault_role_id.id|default('') != ''
+    - set_fact:
+        role_id: "{{vault_role_id.id}}"
 
-    - name: extract role-id
-      set_fact:
-        role_id: "{{ (role_id_raw.content | from_json)['data']['role_id'] }}"
-
-    - name: extract secret-id
-      set_fact:
-        secret_id: "{{ (secret_id_raw.content | from_json)['data']['secret_id'] }}"
+    - name: create role secret id
+      hashivault_approle_role_secret_create:
+        name: testrole
+      register: 'vault_role_secret_create'
+    - assert: { that: "{{vault_role_secret_create.changed}} == False" }
+    - assert: { that: "{{vault_role_secret_create.rc}} == 0" }
+    - assert:
+        that:
+          - vault_role_secret_create.secret_id_accessor|default('') != ''
+          - vault_role_secret_create.secret_id|default('') != ''
+    - set_fact:
+        secret_id: "{{vault_role_secret_create.secret_id}}"
 
     - template:
         src: "./templates/approlenv.sh.j2"
