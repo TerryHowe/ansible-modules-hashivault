@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_approle_role_secret_create
+module: hashivault_approle_role_secret_accessor_get
 version_added: "3.8.0"
-short_description: Hashicorp Vault approle role secret id get module
+short_description: Hashicorp Vault approle role secret accessor get module
 description:
-    - Module to get a approle role secret id from Hashicorp Vault.
+    - Module to get a approle role secret accessor from Hashicorp Vault.
 options:
     url:
         description:
@@ -47,24 +47,29 @@ options:
             - password to login to vault.
     name:
         description:
-            - secret name.
+            - role name.
+    accessor:
+        description:
+            - accessor id.
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_approle_role_secret_create:
+    - hashivault_approle_role_secret_accessor_get:
         name: 'ashley'
-      register: 'vault_approle_role_secret_create'
-    - debug: msg="Role secret id is {{vault_approle_role_secret_create.id}}"
+        accessor: 'ec4bedee-e44b-c096-9ac8-1600e52ed8f8'
+      register: 'vault_approle_role_secret_accessor_get'
+    - debug: msg="Role secret is {{vault_approle_role_secret_accessor_get.secret}}"
 '''
 
 
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
+    argspec['accessor'] = dict(required=True, type='str')
     module = hashivault_init(argspec)
-    result = hashivault_approle_role_secret_create(module.params)
+    result = hashivault_approle_role_secret_accessor_get(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -76,11 +81,11 @@ from ansible.module_utils.hashivault import *
 
 
 @hashiwrapper
-def hashivault_approle_role_secret_create(params):
+def hashivault_approle_role_secret_accessor_get(params):
     name = params.get('name')
+    accessor = params.get('accessor')
     client = hashivault_auth_client(params)
-    result = client.create_role_secret_id(name)
-    return result['data']
+    return {'secret': client.get_role_secret_id_accessor(name, accessor)['data']}
 
 
 if __name__ == '__main__':

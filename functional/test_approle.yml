@@ -75,8 +75,55 @@
           - vault_role_secret_create.secret_id|default('') != ''
     - set_fact:
         secret_id: "{{vault_role_secret_create.secret_id}}"
+    - set_fact:
+        secret_id_accessor: "{{vault_role_secret_create.secret_id_accessor}}"
 
     - template:
         src: "./templates/approlenv.sh.j2"
         dest: "./approlenv.sh"
         mode: 0700
+
+    - name: list secrets
+      hashivault_approle_role_secret_list:
+        name: testrole
+      register: 'vault_role_secret_list'
+    - assert: { that: "{{vault_role_secret_list.changed}} == False" }
+    - assert: { that: "{{vault_role_secret_list.rc}} == 0" }
+    - fail: msg="secret {{secret_id_accessor}} not in list"
+      when: secret_id_accessor not in vault_role_secret_list.secrets
+
+    - name: get secret
+      hashivault_approle_role_secret_get:
+        name: testrole
+        secret: "{{secret_id}}"
+      register: 'vault_role_secret_get'
+    - assert: { that: "{{vault_role_secret_get.changed}} == False" }
+    - assert: { that: "{{vault_role_secret_get.rc}} == 0" }
+    - assert: { that: "'{{vault_role_secret_get.secret.secret_id_accessor}}' == '{{secret_id_accessor}}'" }
+
+# unsupported by docker image
+#    - name: get secret accessor
+#      hashivault_approle_role_secret_accessor_get:
+#        name: testrole
+#        accessor: "{{secret_id_accessor}}"
+#      register: 'vault_role_secret_accessor_get'
+#    - assert: { that: "{{vault_role_secret_accessor_get.changed}} == False" }
+#    - assert: { that: "{{vault_role_secret_accessor_get.rc}} == 0" }
+#    - assert: { that: "'{{vault_role_secret_accessor_get.secret.secret_id}}' == '{{secret_id}}'" }
+
+    - name: delete secret
+      hashivault_approle_role_secret_delete:
+        name: testrole
+        secret: "{{secret_id}}"
+      register: 'vault_role_secret_delete'
+    - assert: { that: "{{vault_role_secret_delete.changed}} == True" }
+    - assert: { that: "{{vault_role_secret_delete.rc}} == 0" }
+
+    - name: make sure secret is gone
+      hashivault_approle_role_secret_list:
+        name: testrole
+      register: 'vault_role_secret_list'
+    - assert: { that: "{{vault_role_secret_list.changed}} == False" }
+    - assert: { that: "{{vault_role_secret_list.rc}} == 0" }
+    - fail: msg="secret {{secret_id_accessor}} shoud not be in list"
+      when: secret_id_accessor in vault_role_secret_list.secrets

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_approle_role_secret_create
+module: hashivault_approle_role_secret_delete
 version_added: "3.8.0"
-short_description: Hashicorp Vault approle role secret id get module
+short_description: Hashicorp Vault approle role secret id delete module
 description:
-    - Module to get a approle role secret id from Hashicorp Vault.
+    - Module to delete a approle role secret id from Hashicorp Vault.
 options:
     url:
         description:
@@ -47,24 +47,27 @@ options:
             - password to login to vault.
     name:
         description:
-            - secret name.
+            - role name.
+    secret:
+        description:
+            - secret id.
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_approle_role_secret_create:
+    - hashivault_approle_role_secret_delete:
         name: 'ashley'
-      register: 'vault_approle_role_secret_create'
-    - debug: msg="Role secret id is {{vault_approle_role_secret_create.id}}"
+        secret: 'ec4bedee-e44b-c096-9ac8-1600e52ed8f8'
 '''
 
 
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
+    argspec['secret'] = dict(required=True, type='str')
     module = hashivault_init(argspec)
-    result = hashivault_approle_role_secret_create(module.params)
+    result = hashivault_approle_role_secret_delete(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -76,11 +79,12 @@ from ansible.module_utils.hashivault import *
 
 
 @hashiwrapper
-def hashivault_approle_role_secret_create(params):
+def hashivault_approle_role_secret_delete(params):
     name = params.get('name')
+    secret = params.get('secret')
     client = hashivault_auth_client(params)
-    result = client.create_role_secret_id(name)
-    return result['data']
+    client.delete_role_secret_id(name, secret)
+    return {'changed': True}
 
 
 if __name__ == '__main__':
