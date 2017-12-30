@@ -234,6 +234,23 @@ Various token manipulation modules::
         lookup_token: "{{client_token}}"
       register: "vault_token_lookup"
 
+Approle
+-------
+
+Approle modules::
+
+    ---
+    - hashivault_approle_role_create:
+        name: testrole
+        policies:
+          - approle_test_policy
+    - hashivault_approle_role_id:
+        name: testrole
+      register: 'vault_role_id'
+    - hashivault_approle_role_secret_create:
+        name: testrole
+      register: 'vault_role_secret_create'
+
 Action Plugin
 -------------
 
