@@ -111,10 +111,19 @@
 #    - assert: { that: "{{vault_role_secret_accessor_get.rc}} == 0" }
 #    - assert: { that: "'{{vault_role_secret_accessor_get.secret.secret_id}}' == '{{secret_id}}'" }
 
+    - name: create deletable secret id
+      hashivault_approle_role_secret_create:
+        name: testrole
+      register: 'vault_role_secret_create'
+    - set_fact:
+        delete_secret_id: "{{vault_role_secret_create.secret_id}}"
+    - set_fact:
+        delete_secret_id_accessor: "{{vault_role_secret_create.secret_id_accessor}}"
+
     - name: delete secret
       hashivault_approle_role_secret_delete:
         name: testrole
-        secret: "{{secret_id}}"
+        secret: "{{delete_secret_id}}"
       register: 'vault_role_secret_delete'
     - assert: { that: "{{vault_role_secret_delete.changed}} == True" }
     - assert: { that: "{{vault_role_secret_delete.rc}} == 0" }
@@ -125,5 +134,5 @@
       register: 'vault_role_secret_list'
     - assert: { that: "{{vault_role_secret_list.changed}} == False" }
     - assert: { that: "{{vault_role_secret_list.rc}} == 0" }
-    - fail: msg="secret {{secret_id_accessor}} shoud not be in list"
-      when: secret_id_accessor in vault_role_secret_list.secrets
+    - fail: msg="secret {{delete_secret_id_accessor}} shoud not be in list"
+      when: delete_secret_id_accessor in vault_role_secret_list.secrets

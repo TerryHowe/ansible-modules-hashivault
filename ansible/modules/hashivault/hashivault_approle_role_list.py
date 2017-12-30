@@ -73,7 +73,9 @@ from ansible.module_utils.hashivault import *
 @hashiwrapper
 def hashivault_approle_role_list(params):
     client = hashivault_auth_client(params)
-    return {'roles': client.list_roles()['data']['keys']}
+    roles = client.list_roles()
+    roles = roles.get('data', {}).get('keys', [])
+    return {'roles': roles}
 
 
 if __name__ == '__main__':
