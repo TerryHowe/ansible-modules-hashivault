@@ -42,9 +42,11 @@ options:
     username:
         description:
             - username to login to vault.
+        default: to environment variable VAULT_USER
     password:
         description:
             - password to login to vault.
+        default: to environment variable VAULT_PASSWORD
 '''
 EXAMPLES = '''
 ---
