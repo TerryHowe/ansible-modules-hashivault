@@ -21,8 +21,9 @@ MANIFEST
 .*.swp
 .idea
 
-functional/vaultenv.sh
 functional/approlenv.sh
+functional/userpassenv.sh
+functional/vaultenv.sh
 
 # Git
 *.orig
