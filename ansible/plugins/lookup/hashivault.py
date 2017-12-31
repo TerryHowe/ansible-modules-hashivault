@@ -45,6 +45,9 @@ class LookupModule(LookupBase):
         if authtype == 'approle':
             params['role_id'] = os.getenv('VAULT_ROLE_ID')
             params['secret_id'] = os.getenv('VAULT_SECRET_ID')
+        elif authtype == 'userpass' or authtype == 'ldap':
+            params['username'] = os.getenv('VAULT_USER')
+            params['password'] = os.getenv('VAULT_PASSWORD')
         else:
             params['token'] = hashivault_default_token()
 

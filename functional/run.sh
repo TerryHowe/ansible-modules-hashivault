@@ -9,7 +9,6 @@ ansible-playbook -v test.yml
 ansible-playbook -v test_auth.yml
 ansible-playbook -v test_policy.yml
 ansible-playbook -v test_status.yml
-ansible-playbook -v test_userpass.yml
 ansible-playbook -v test_secret.yml
 ansible-playbook -v test_ephemeral.yml
 ansible-playbook -v test_complex.yml
@@ -25,6 +24,12 @@ source ./vaultenv.sh
 ansible-playbook -v test_approle.yml
 source ./approlenv.sh
 ansible-playbook -v --extra-vars='namespace=application' test_secret.yml
+source ./vaultenv.sh
+
+# userpass
+ansible-playbook -v test_userpass.yml
+source ./userpassenv.sh
+ansible-playbook -v --extra-vars='namespace=userpass' test_secret.yml
 source ./vaultenv.sh
 
 ./stop.sh

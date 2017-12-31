@@ -16,8 +16,8 @@ def hashivault_argspec():
         verify = dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
         authtype = dict(required=False, default=os.environ.get('VAULT_AUTHTYPE', 'token'), type='str'),
         token = dict(required=False, default=hashivault_default_token(), type='str', no_log=True),
-        username = dict(required=False, type='str'),
-        password = dict(required=False, type='str',no_log=True),
+        username = dict(required=False, default=os.environ.get('VAULT_USER', ''), type='str'),
+        password = dict(required=False, default=os.environ.get('VAULT_PASSWORD', ''), type='str', no_log=True),
         role_id = dict(required=False, default=os.environ.get('VAULT_ROLE_ID', ''), type='str', no_log=True),
         secret_id = dict(required=False, default=os.environ.get('VAULT_SECRET_ID', ''), type='str', no_log=True)
     )
