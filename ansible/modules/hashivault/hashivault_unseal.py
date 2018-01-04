@@ -79,7 +79,10 @@ from ansible.module_utils.hashivault import *
 def hashivault_unseal(params):
     keys = params.get('keys')
     client = hashivault_client(params)
-    return {'status': client.unseal_multi(keys.split()), 'changed': True}
+    if client.is_sealed():
+        return {'status': client.unseal_multi(keys.split()), 'changed': True}
+    else:
+        return {'changed': False}
 
 
 if __name__ == '__main__':

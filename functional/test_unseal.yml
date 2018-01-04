@@ -21,6 +21,12 @@
         - assert: { that: "{{vault_seal.rc}} == 0" }
       when: "vault_status.status.sealed == False"
 
+    - name: Seal the vault but it is already sealed
+      hashivault_seal:
+      register: 'vault_seal_st'
+    - assert: { that: "{{vault_seal_st.changed}} == False" }
+    - assert: { that: "{{vault_seal_st.rc}} == 0" }
+
     - name: Unseal the vault
       hashivault_unseal:
         keys: '{{vault_keys}}'
@@ -29,3 +35,10 @@
     - assert: { that: "{{vault_unseal.status.progress}} == 0" }
     - assert: { that: "{{vault_unseal.status.sealed}} == False" }
     - assert: { that: "{{vault_unseal.rc}} == 0" }
+
+    - name: Unseal the vault but it is not sealed
+      hashivault_unseal:
+        keys: '{{vault_keys}}'
+      register: 'vault_unseal_st'
+    - assert: { that: "{{vault_unseal_st.changed}} == False" }
+    - assert: { that: "{{vault_unseal_st.rc}} == 0" }
