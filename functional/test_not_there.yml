@@ -4,9 +4,8 @@
   vars:
     namespace: 'fourofour'
   tasks:
-    - set_fact:
-        looky_secret: "{{lookup('hashivault', '{{namespace}}/nothome', 'value', default='headrest')}}"
-    - assert: { that: "'{{looky_secret}}' == 'headrest'" }
+    - hashivault_delete:
+        secret: '{{namespace}}/nothome'
 
     - name: Read nonexistent secret value ignoring error
       hashivault_read:
@@ -18,7 +17,7 @@
     - assert: { that: "{{vault_read.rc}} == 1" }
     - assert: { that: "'{{vault_read.msg}}' == 'Secret fourofour/nothome is not in vault'" }
 
-    - name: Read nonexistent secret value with default
+    - name: Nonexistent secret path with empty default
       hashivault_read:
         secret: '{{namespace}}/nothome'
         key: 'value'
@@ -28,10 +27,36 @@
     - assert: { that: "{{vault_read.failed}} == False" }
     - assert: { that: "{{vault_read.rc}} == 0" }
 
-    - name: Read nonexistent secret value with something defaulted
+    - name: Nonexistent secret path with default
       hashivault_read:
         secret: '{{namespace}}/nothome'
         key: 'value'
         default: 'carseat'
       register: 'vault_read'
     - assert: { that: "'{{vault_read.value}}' == 'carseat'" }
+
+    - set_fact:
+        looky_secret: "{{lookup('hashivault', '{{namespace}}/nothome', 'value', default='headrest')}}"
+    - assert: { that: "'{{looky_secret}}' == 'headrest'" }
+
+    - name: Write new different value to secret store
+      hashivault_write:
+        secret: '{{namespace}}/nothome'
+        data:
+            othervalue: 'one'
+
+    - name: Nonexistent key with default
+      hashivault_read:
+        secret: '{{namespace}}/nothome'
+        key: 'value'
+        default: 'better'
+      register: 'vault_read'
+    - assert: { that: "'{{vault_read.value}}' == 'better'" }
+
+    - set_fact:
+        looky_secret: "{{lookup('hashivault', '{{namespace}}/nothome', 'othervalue', default='noob')}}"
+    - assert: { that: "'{{looky_secret}}' == 'one'" }
+
+    - set_fact:
+        looky_secret: "{{lookup('hashivault', '{{namespace}}/nothome', 'value', default='noob')}}"
+    - assert: { that: "'{{looky_secret}}' == 'noob'" }
