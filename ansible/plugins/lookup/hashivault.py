@@ -33,12 +33,16 @@ class LookupModule(LookupBase):
             return url.rstrip('/')
         return "https://127.0.0.1:8200"
 
-    def get_params(self, path, key):
+    def get_params(self, terms, variables):
+        path = terms[0]
+        key = terms[1]
+        okifmissing = variables.get('okifmissing')
         params = {
             'url': self.get_url(),
             'verify': self.get_verify(),
             'secret': path,
             'key': key,
+            'okifmissing': okifmissing,
         }
         authtype = os.getenv('VAULT_AUTHTYPE', 'token')
         params['authtype'] = authtype
@@ -62,10 +66,7 @@ class LookupModule(LookupBase):
         return True
 
     def run(self, terms, variables, **kwargs):
-        path = terms[0]
-        key = terms[1]
-        result = hashivault_read.hashivault_read(self.get_params(path, key))
-
+        result = hashivault_read.hashivault_read(self.get_params(terms, variables))
         if 'value' not in result:
             raise AnsibleError('Error reading vault %s/%s: %s\n%s' % (path, key, result.get('msg', 'msg not set'), result.get('stack_trace', '')))
         return [result['value']]
