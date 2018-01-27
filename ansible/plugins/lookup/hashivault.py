@@ -27,22 +27,22 @@ from ansible.module_utils.hashivault import hashivault_default_token
 
 class LookupModule(LookupBase):
 
-    def get_url(self):
+    def _get_url(self):
         url = os.getenv('VAULT_ADDR')
         if url:
             return url.rstrip('/')
         return "https://127.0.0.1:8200"
 
-    def get_params(self, terms, variables):
+    def _get_params(self, terms, kwargs):
         path = terms[0]
         key = terms[1]
-        okifmissing = variables.get('okifmissing')
+        default = kwargs.get('default', None)
         params = {
-            'url': self.get_url(),
-            'verify': self.get_verify(),
+            'url': self._get_url(),
+            'verify': self._get_verify(),
             'secret': path,
             'key': key,
-            'okifmissing': okifmissing,
+            'default': default,
         }
         authtype = os.getenv('VAULT_AUTHTYPE', 'token')
         params['authtype'] = authtype
@@ -57,7 +57,7 @@ class LookupModule(LookupBase):
 
         return params
 
-    def get_verify(self):
+    def _get_verify(self):
         capath = os.getenv('VAULT_CAPATH')
         if capath:
             return capath
@@ -66,8 +66,10 @@ class LookupModule(LookupBase):
         return True
 
     def run(self, terms, variables, **kwargs):
-        result = hashivault_read.hashivault_read(self.get_params(terms, variables))
+        result = hashivault_read.hashivault_read(self._get_params(terms, kwargs))
         if 'value' not in result:
+            path = terms[0]
+            key = terms[1]
             raise AnsibleError('Error reading vault %s/%s: %s\n%s' % (path, key, result.get('msg', 'msg not set'), result.get('stack_trace', '')))
         return [result['value']]
 
