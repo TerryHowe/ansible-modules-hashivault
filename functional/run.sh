@@ -10,6 +10,7 @@ ansible-playbook -v test_auth.yml
 ansible-playbook -v test_policy.yml
 ansible-playbook -v test_status.yml
 ansible-playbook -v test_secret.yml
+ansible-playbook -v test_not_there.yml
 ansible-playbook -v test_ephemeral.yml
 ansible-playbook -v test_complex.yml
 ansible-playbook -v test_secrets_w_policy_tokens.yml
