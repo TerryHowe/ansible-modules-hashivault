@@ -2,11 +2,11 @@
 DOCUMENTATION = '''
 ---
 author: Developed for AT&T by Nicholas Gibson, August 2017
-module: hashivault_write_file
+module: hashivault_write_from_file
 version_added: "3.7.0"
 short_description: Hashicorp Vault write file module
 description:
-    - Writes a file encoded in base64 to Hashicorp Vault. Implementation in `/plugins/action/hashivault_write_file.py`.
+    - Writes a file encoded in base64 to Hashicorp Vault. Implementation in `/plugins/action/hashivault_write_from_file.py`.
 options:
     url:
         description:
@@ -48,7 +48,7 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_write_file:
+    - hashivault_write_from_file:
         secret: giant
         key: foo.dat
         path: /tmp/foo.dat

@@ -2,7 +2,7 @@
 #
 # Developed for AT&T by Nicholas Gibson, August 2017
 #
-# Action plugin for hashivault_write_file module.
+# Action plugin for hashivault_write_from_file module.
 #
 # Reads file from remote host using slurp module. (base64 encoded)
 # Stores file/secret to Vault using hashivault_read module on localhost.
