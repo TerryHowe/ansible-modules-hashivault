@@ -68,6 +68,18 @@ Get a list of secrets::
             secret: '/stories'
           register: vault
 
+Ansible does not handle binary data well, so these modules are provided for convenience to read/write files::
+
+    ---
+    - hashivault_read_to_file:
+        secret: 'ssl_certs'
+        key: 'der_format'
+        dest: 'ssl_cert.cer'
+    - hashivault_write_from_file:
+        secret: 'ssl_certs'
+        key: 'der_format'
+        path: 'ssl_cert.cer'
+
 Initialization, Seal, and Unseal
 --------------------------------
 
