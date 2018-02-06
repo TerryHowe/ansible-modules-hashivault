@@ -1,4 +1,4 @@
-DEST=${VIRTUAL_ENV}/lib/python2.7/site-packages/ansible/
+DEST=$(echo ${VIRTUAL_ENV}/lib/python*/site-packages/ansible/)
 
 rm -rf $DEST/modules/hashivault
 rm -f $DEST/module_utils/hashivault.py

@@ -16,7 +16,6 @@ import json
 import os
 import requests
 import sys
-from urlparse import urljoin
 import warnings
 
 from ansible.errors import AnsibleError
@@ -78,7 +77,7 @@ def main(argv=sys.argv[1:]):
     if len(argv) != 2:
         print("Usage: hashivault.py path key")
         return -1
-    print LookupModule().run(argv, None)[0]
+    print(LookupModule().run(argv, None)[0])
     return 0
 
 if __name__ == "__main__":

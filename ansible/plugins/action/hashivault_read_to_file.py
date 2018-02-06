@@ -9,6 +9,7 @@
 #
 ########################################################################
 
+import base64
 import tempfile, os
 from ansible.plugins.action import ActionBase
 from ansible.utils.vars import merge_hash
@@ -69,7 +70,7 @@ class ActionModule(ActionBase):
 
         #write to temp file on ansible host to copy to remote host
         local_tmp = tempfile.NamedTemporaryFile(delete=False)
-        local_tmp.write(content.decode('base64'))
+        local_tmp.write(base64.b64decode(content))
         local_tmp.close()
 
         new_module_args = {
