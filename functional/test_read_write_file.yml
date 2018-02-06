@@ -19,7 +19,7 @@
 
     - name: read generated file
       slurp:
-        src: "./{{ gen_file }}"
+        src: "{{ gen_file }}"
       register: gen_file_encoded # base64 encoded
     ########################################################
 
@@ -33,7 +33,7 @@
       hashivault_write_from_file:
         secret: "{{ new_secret }}"
         key: "{{ new_key }}"
-        path: "./{{ gen_file }}"
+        path: "{{ gen_file }}"
       register: vault_write_from_file
 
     - assert:
@@ -61,12 +61,12 @@
       hashivault_read_to_file:
         secret: "{{ new_secret }}"
         key: "{{ new_key }}"
-        dest: "./{{ read_to_file }}"
+        dest: "{{ read_to_file }}"
 
     # diff exit code is 0 if files are equal
     # ansible script will stop if exit code is not 0
-    - name: diff generated file and read file
-      shell: "diff ./{{ gen_file }} ./{{ read_to_file }}"
+    - name: cmp generated file and read file
+      shell: "cmp {{ gen_file }} {{ read_to_file }}"
       register: files_equal
     ########################################################
 
@@ -137,7 +137,7 @@
       hashivault_write_from_file:
         secret: "{{ old_secret }}"
         key: "{{ new_key }}"
-        path: "./{{ gen_file }}"
+        path: "{{ gen_file }}"
       register: vault_write_from_file
 
     - assert:
@@ -173,7 +173,7 @@
       hashivault_write_from_file:
         secret: "{{ new_secret }}"
         key: "{{ old_key }}"
-        path: "./{{ gen_file }}"
+        path: "{{ gen_file }}"
       register: vault_write_from_file
 
     - assert:
@@ -184,7 +184,7 @@
       hashivault_write_from_file:
         secret: "{{ new_secret }}"
         key: "{{ new_key }}"
-        path: "./{{ gen_file }}"
+        path: "{{ gen_file }}"
         update: false
       register: vault_write_from_file
 

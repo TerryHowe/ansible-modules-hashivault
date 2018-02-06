@@ -4,8 +4,8 @@ from setuptools import setup
 py_files = [
     "ansible/module_utils/hashivault",
     "ansible/plugins/lookup/hashivault",
-    "ansible/plugins/action/hashivault_read_file",
-    "ansible/plugins/action/hashivault_write_file",
+    "ansible/plugins/action/hashivault_read_to_file",
+    "ansible/plugins/action/hashivault_write_from_file",
 ]
 files = [
     "ansible/modules/hashivault",
