@@ -3,7 +3,7 @@ DOCUMENTATION = '''
 ---
 author: Developed for AT&T by Nicholas Gibson, August 2017
 module: hashivault_read_to_file
-version_added: "3.7.0"
+version_added: "3.8.3"
 short_description: Hashicorp Vault read module
 description:
     - Reads and deocdes a base64 encoded file from Hashicorp Vault and saves it to disk. Implementation in `/plugins/action/hashivault_read_to_file.py`.
