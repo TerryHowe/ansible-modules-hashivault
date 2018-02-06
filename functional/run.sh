@@ -32,4 +32,6 @@ source ./userpassenv.sh
 ansible-playbook -v --extra-vars='namespace=userpass' test_secret.yml
 source ./vaultenv.sh
 
+ansible-playbook -v test_read_write_file.yml
+
 ./stop.sh
