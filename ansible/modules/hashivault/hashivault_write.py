@@ -103,17 +103,19 @@ def hashivault_write(module):
         warnings.simplefilter("ignore")
         changed = True
         write_data = data
+
+        read_data = client.read(secret) or {}
+        read_data = read_data.get('data', {})
+        
         if params.get('update'):
-            read_data = client.read(secret)
-            if read_data is None:
-                read_data = {}
-            if read_data and 'data' in read_data:
-                read_data = read_data['data']
             write_data = dict(read_data)
+            write_data.update(data)
+
             result['write_data'] = write_data
             result['read_data'] = read_data
-            write_data.update(data)
-            changed = write_data != read_data
+
+        changed = write_data != read_data
+
         if changed:
             if not module.check_mode:
                 returned_data = client.write((secret), **write_data)

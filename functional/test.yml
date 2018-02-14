@@ -31,6 +31,16 @@
     - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/giant written'" }
     - assert: { that: "{{vault_write.rc}} == 0" }
 
+    - name: Write basic secret again and verify it isn't changed
+      hashivault_write:
+        secret: 'giant'
+        data:
+          foo: '{{foo_value}}'
+          fie: '{{fie_value}}'
+      register: 'vault_write'
+    - assert: { that: "{{vault_write.changed}} == False" }
+    - assert: { that: "{{vault_write.rc}} == 0" }
+
     - name: Write single secret in folder
       hashivault_write:
         secret: stalks/bean
