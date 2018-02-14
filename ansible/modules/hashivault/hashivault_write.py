@@ -75,7 +75,7 @@ def main():
     argspec['secret'] = dict(required=True, type='str')
     argspec['update'] = dict(required=False, default=False, type='bool')
     argspec['data'] = dict(required=False, default={}, type='dict')
-    module = hashivault_init(argspec)
+    module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_write(module)
     if result.get('failed'):
         module.fail_json(**result)

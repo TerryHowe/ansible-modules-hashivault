@@ -24,8 +24,8 @@ def hashivault_argspec():
     return argument_spec
 
 
-def hashivault_init(argument_spec):
-    return AnsibleModule(argument_spec=argument_spec, supports_check_mode=True)
+def hashivault_init(argument_spec, supports_check_mode=False):
+    return AnsibleModule(argument_spec=argument_spec, supports_check_mode=supports_check_mode)
 
 
 def hashivault_client(params):
