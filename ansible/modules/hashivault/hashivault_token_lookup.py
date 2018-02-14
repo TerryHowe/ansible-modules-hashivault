@@ -43,9 +43,11 @@ options:
     username:
         description:
             - username to login to vault.
+        default: to environment variable VAULT_USER
     password:
         description:
             - password to login to vault.
+        default: to environment variable VAULT_PASSWORD
     lookup_token:
         description:
             - token to lookup if different from auth token

@@ -2,7 +2,7 @@
 #
 # Start the test vault container
 #
-DOCKER_NAME=test_vault
+DOCKER_NAME=testvault
 PORT=8201
 export VAULT_ADDR="http://127.0.0.1:${PORT}"
 

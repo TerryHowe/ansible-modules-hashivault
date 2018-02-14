@@ -42,9 +42,11 @@ options:
     username:
         description:
             - username to login to vault.
+        default: to environment variable VAULT_USER
     password:
         description:
             - password to login to vault.
+        default: to environment variable VAULT_PASSWORD
     secret:
         description:
             - secret to read.
@@ -72,6 +74,7 @@ def main():
     argspec['secret'] = dict(required=True, type='str')
     argspec['key'] = dict(required=False, type='str')
     argspec['register'] = dict(required=False, type='str')
+    argspec['default'] = dict(required=False, default=None, type='str')
     module = hashivault_init(argspec)
     result = hashivault_read(module.params)
     if result.get('failed'):
@@ -90,6 +93,7 @@ def hashivault_read(params):
     client = hashivault_auth_client(params)
     secret = params.get('secret')
     key = params.get('key')
+    default = params.get('default')
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         if secret.startswith('/'):
@@ -98,12 +102,18 @@ def hashivault_read(params):
         else:
             response = client.read('secret/%s' % secret)
         if not response:
+            if default is not None:
+                result['value'] = default
+                return result
             result['rc'] = 1
             result['failed'] = True
             result['msg'] = "Secret %s is not in vault" % secret
             return result
         data = response['data']
     if key and key not in data:
+        if default is not None:
+            result['value'] = default
+            return result
         result['rc'] = 1
         result['failed'] = True
         result['msg'] = "Key %s is not in secret %s" % (key, secret)

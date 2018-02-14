@@ -42,9 +42,11 @@ options:
     username:
         description:
             - username to login to vault.
+        default: to environment variable VAULT_USER
     password:
         description:
             - password to login to vault.
+        default: to environment variable VAULT_PASSWORD
 '''
 EXAMPLES = '''
 ---
@@ -74,7 +76,11 @@ from ansible.module_utils.hashivault import *
 def hashivault_seal(params):
     key = params.get('key')
     client = hashivault_auth_client(params)
-    return {'status': client.seal(), 'changed': True}
+    if not client.is_sealed():
+        return {'status': client.seal(), 'changed': True}
+    else:
+        return {'changed': False}
+
 
 
 if __name__ == '__main__':
