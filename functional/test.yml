@@ -27,11 +27,9 @@
             foo: '{{foo_value}}'
             fie: '{{fie_value}}'
       register: 'vault_write'
-
     - assert: { that: "{{vault_write.changed}} == True" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
     - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/giant written'" }
-      when: not ansible_check_mode
+    - assert: { that: "{{vault_write.rc}} == 0" }
 
     - name: Write single secret in folder
       hashivault_write:
@@ -45,11 +43,8 @@
       hashivault_list: {}
       register: vault_list
     - assert: { that: "vault_list.rc == 0" }
-    
-    - block:
-      - assert: { that: "'giant' in vault_list.secrets" }
-      - assert: { that: "'stalks/' in vault_list.secrets" }
-      when: not ansible_check_mode
+    - assert: { that: "'giant' in vault_list.secrets" }
+    - assert: { that: "'stalks/' in vault_list.secrets" }
 
     - name: List secrets not in folder
       hashivault_list:
@@ -64,40 +59,29 @@
       register: vault_list
     - assert: { that: vault_list.rc == 0 }
     - assert: { that: "'bean' in vault_list.secrets" }
-      when: not ansible_check_mode
 
-    - block:
-      - name: Read single secret
-        hashivault_read:
-          secret: 'giant'
-          key: 'fie'
-        register: 'vault_read'
-      - assert: { that: "{{vault_read.changed}} == False" }
-      - assert: { that: "{{vault_read.rc}} == 0" }
-      when: not ansible_check_mode
-      
+    - name: Read single secret
+      hashivault_read:
+        secret: 'giant'
+        key: 'fie'
+      register: 'vault_read'
+    - assert: { that: "{{vault_read.changed}} == False" }
     - assert: { that: "'{{vault_read.value}}' == '{{fie_value}}'" }
-      when: not ansible_check_mode
-          
-    - block:
-      - name: Test lookup plugin
-        set_fact:
-          looky: "{{lookup('hashivault', 'giant', 'foo')}}"
+    - assert: { that: "{{vault_read.rc}} == 0" }
 
-      - assert: { that: "'{{looky}}' == '{{foo_value}}'" }
-      when: not ansible_check_mode
-      
+    - name: Test lookup plugin
+      set_fact:
+        looky: "{{lookup('hashivault', 'giant', 'foo')}}"
+    - assert: { that: "'{{looky}}' == '{{foo_value}}'" }
+
     - name: Write secret dictionary
       hashivault_write:
         secret: 'some_dict'
         data: "{{ dict_value }}"
 
-    - block:
-      - name: Read secret dictionary
-        hashivault_read:
-          secret: 'some_dict'
-        register: 'vault_read_dict'
-
-      - assert: { that: "vault_read_dict.value == dict_value" }
-      - assert: { that: "{{vault_read_dict.rc}} == 0" }
-      when: not ansible_check_mode
+    - name: Read secret dictionary
+      hashivault_read:
+        secret: 'some_dict'
+      register: 'vault_read_dict'
+    - assert: { that: "vault_read_dict.value == dict_value" }
+    - assert: { that: "{{vault_read_dict.rc}} == 0" }
