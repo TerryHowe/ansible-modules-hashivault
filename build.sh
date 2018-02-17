@@ -21,7 +21,8 @@ rm -rf .testenv
 
 # Python 3
 rm -rf .testpy3
-virtualenv -p python3.5 .testpy3 2>/dev/null || virtualenv -p python3.6 .testpy3
+PVER=$(python3 --version 2>&1 | sed -e 's/Python //')
+virtualenv -p python${PVER} .testpy3
 source .testpy3/bin/activate
 runtests
 rm -rf .testpy3
