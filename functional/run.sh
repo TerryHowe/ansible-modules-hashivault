@@ -5,6 +5,7 @@
 cd "$(dirname "$0")"
 HOMEDIR=$(dirname $(dirname $PWD))
 HOME=${HOME:-${HOMEDIR}}
+export HOME
 ./start.sh
 
 source ./vaultenv.sh
