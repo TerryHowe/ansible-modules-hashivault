@@ -3,6 +3,7 @@
 # This test runs a vault container on the host network port 8201.
 #
 set -e
+cd "$(dirname "$0")"
 ./start.sh
 
 source ./vaultenv.sh
