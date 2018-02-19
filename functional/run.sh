@@ -3,6 +3,9 @@
 # This test runs a vault container on the host network port 8201.
 #
 cd "$(dirname "$0")"
+echo '*****************************************************'
+env
+echo '*****************************************************'
 ./start.sh
 
 source ./vaultenv.sh
