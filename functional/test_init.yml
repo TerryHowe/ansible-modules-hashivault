@@ -25,7 +25,7 @@
       - assert: { that: "{{vault_unseal.status.sealed}} == False" }
       - assert: { that: "{{vault_unseal.rc}} == 0" }
       - template:
-          src: "./templates/vaultenv.sh.j2"
-          dest: "./vaultenv.sh"
+          src: "vaultenv.sh.j2"
+          dest: "{{playbook_dir}}/vaultenv.sh"
           mode: 0700
       when: "vault_init.changed == True"

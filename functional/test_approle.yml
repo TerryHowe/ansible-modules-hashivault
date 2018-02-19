@@ -79,8 +79,8 @@
         secret_id_accessor: "{{vault_role_secret_create.secret_id_accessor}}"
 
     - template:
-        src: "./templates/approlenv.sh.j2"
-        dest: "./approlenv.sh"
+        src: "approlenv.sh.j2"
+        dest: "{{playbook_dir}}/approlenv.sh"
         mode: 0700
 
     - name: list secrets
