@@ -79,7 +79,7 @@
         secret_id_accessor: "{{vault_role_secret_create.secret_id_accessor}}"
 
     - template:
-        src: "approlenv.sh.j2"
+        src: "{{playbook_dir}}/templates/approlenv.sh.j2"
         dest: "{{playbook_dir}}/approlenv.sh"
         mode: 0700
 

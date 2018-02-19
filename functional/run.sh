@@ -3,9 +3,8 @@
 # This test runs a vault container on the host network port 8201.
 #
 cd "$(dirname "$0")"
-echo '*****************************************************'
-env
-echo '*****************************************************'
+HOMEDIR=$(dirname $(dirname $PWD))
+HOME=${HOME:-${HOMEDIR}}
 ./start.sh
 
 source ./vaultenv.sh

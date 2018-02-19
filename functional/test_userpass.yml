@@ -54,6 +54,6 @@
     - assert: { that: "{{vault_userpass_delete.rc}} == 0" }
 
     - template:
-        src: "userpassenv.sh.j2"
+        src: "{{playbook_dir}}/templates/userpassenv.sh.j2"
         dest: "{{playbook_dir}}/userpassenv.sh"
         mode: 0700
