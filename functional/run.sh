@@ -2,6 +2,7 @@
 #
 # This test runs a vault container on the host network port 8201.
 #
+set -e
 ./start.sh
 
 source ./vaultenv.sh

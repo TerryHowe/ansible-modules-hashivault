@@ -2,6 +2,7 @@
 #
 # Start the test vault container
 #
+set -e
 DOCKER_NAME=testvault
 PORT=8201
 export VAULT_ADDR="http://127.0.0.1:${PORT}"
@@ -55,3 +56,4 @@ done
 # Initialize the vault
 #
 ansible-playbook -v test_init.yml
+exit $?
