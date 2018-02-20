@@ -13,6 +13,10 @@ Ansible modules for Hashicorp Vault.
    :alt: License: MIT
    :target: https://opensource.org/licenses/MIT
 
+Install this Ansible module with::
+
+    pip install ansible-modules-hashivault
+
 In most cases the Hashicorp Vault modules should be run on localhost.
 
 Reading and Writing
