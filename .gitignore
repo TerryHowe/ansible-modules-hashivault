@@ -1,6 +1,7 @@
 *.py[cod]
 .venv
 .cache
+.testenv
 
 # Packages
 .eggs
@@ -20,6 +21,7 @@ MANIFEST
 *~
 .*.swp
 .idea
+.vscode
 
 functional/approlenv.sh
 functional/userpassenv.sh

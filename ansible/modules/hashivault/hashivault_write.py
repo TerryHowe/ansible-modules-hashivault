@@ -75,8 +75,8 @@ def main():
     argspec['secret'] = dict(required=True, type='str')
     argspec['update'] = dict(required=False, default=False, type='bool')
     argspec['data'] = dict(required=False, default={}, type='dict')
-    module = hashivault_init(argspec)
-    result = hashivault_write(module.params)
+    module = hashivault_init(argspec, supports_check_mode=True)
+    result = hashivault_write(module)
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -87,10 +87,13 @@ from ansible.module_utils.hashivault import *
 
 
 @hashiwrapper
-def hashivault_write(params):
+def hashivault_write(module):
     result = {"changed": False, "rc": 0}
+    params = module.params
     client = hashivault_auth_client(params)
     secret = params.get('secret')
+    returned_data = None
+    
     if secret.startswith('/'):
         secret = secret.lstrip('/')
     else:
@@ -100,19 +103,23 @@ def hashivault_write(params):
         warnings.simplefilter("ignore")
         changed = True
         write_data = data
+
+        read_data = client.read(secret) or {}
+        read_data = read_data.get('data', {})
+        
         if params.get('update'):
-            read_data = client.read(secret)
-            if read_data is None:
-                read_data = {}
-            if read_data and 'data' in read_data:
-                read_data = read_data['data']
             write_data = dict(read_data)
+            write_data.update(data)
+
             result['write_data'] = write_data
             result['read_data'] = read_data
-            write_data.update(data)
-            changed = write_data != read_data
+
+        changed = write_data != read_data
+
         if changed:
-            returned_data = client.write((secret), **write_data)
+            if not module.check_mode:
+                returned_data = client.write((secret), **write_data)
+
             if returned_data:
                 result['data'] = returned_data
             result['msg'] = "Secret %s written" % secret
