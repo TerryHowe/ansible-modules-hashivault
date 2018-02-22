@@ -104,17 +104,18 @@ def hashivault_write(module):
         changed = True
         write_data = data
 
-        read_data = client.read(secret) or {}
-        read_data = read_data.get('data', {})
-        
-        if params.get('update'):
+        changed = True
+        if params.get('update') or module.check_mode:
+            # Do not move this read outside of the update
+            read_data = client.read(secret) or {}
+            read_data = read_data.get('data', {})
+
             write_data = dict(read_data)
             write_data.update(data)
 
             result['write_data'] = write_data
             result['read_data'] = read_data
-
-        changed = write_data != read_data
+            changed = write_data != read_data
 
         if changed:
             if not module.check_mode:
