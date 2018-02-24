@@ -10,8 +10,6 @@
     - name: Get status of vault before unseal
       hashivault_status:
       register: 'vault_status'
-    - assert: { that: "{{vault_status.changed}} == False" }
-    - assert: { that: "{{vault_status.rc}} == 0" }
 
     - block:
         - name: Vault is not sealed so seal it

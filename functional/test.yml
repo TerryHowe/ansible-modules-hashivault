@@ -8,14 +8,6 @@
       foo: 'bar'
       baz: 'stuff'
   tasks:
-    - name: Get vault status and make sure it is unsealed
-      hashivault_status:
-      register: 'vault_status'
-    - assert: { that: "{{vault_status.changed}} == False" }
-    - assert: { that: "{{vault_status.status.progress}} == 0" }
-    - assert: { that: "{{vault_status.status.sealed}} == False" }
-    - assert: { that: "{{vault_status.rc}} == 0" }
-
     - name: List secret stores
       hashivault_secret_list:
       register: 'vault_secret_list'
