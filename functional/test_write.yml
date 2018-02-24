@@ -1,96 +1,63 @@
 ---
 - hosts: localhost
   gather_facts: no
-  vars:
-    foo_value: 'foe'
-    fie_value: 'fum'
-    dict_value:
-      foo: 'bar'
-      baz: 'stuff'
   tasks:
-    - name: Write basic secret and verify it succeeds
+    - hashivault_delete:
+        secret: 'giant'
+    - name: Write verify it succeeds
       hashivault_write:
         secret: 'giant'
         data:
-            foo: '{{foo_value}}'
-            fie: '{{fie_value}}'
+            foo: 'foe'
+            fie: 'fum'
       register: 'vault_write'
     - assert: { that: "{{vault_write.changed}} == True" }
     - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/giant written'" }
     - assert: { that: "{{vault_write.rc}} == 0" }
 
-    - name: Write basic secret again and verify we don't detect change
+    - name: Write again no update verify changed
       hashivault_write:
         secret: 'giant'
         data:
-          foo: '{{foo_value}}'
-          fie: '{{fie_value}}'
+          foo: 'foe'
+          fie: 'fum'
       register: 'vault_write'
     - assert: { that: "{{vault_write.changed}} == True" }
+    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/giant written'" }
     - assert: { that: "{{vault_write.rc}} == 0" }
 
-    - name: Update basic secret again and verify we detect change
+    - name: Update again and verify no change
       hashivault_write:
         update: True
         secret: 'giant'
         data:
-          foo: '{{foo_value}}'
-          fie: '{{fie_value}}'
+          foo: 'foe'
+          fie: 'fum'
       register: 'vault_write'
     - assert: { that: "{{vault_write.changed}} == False" }
     - assert: { that: "{{vault_write.rc}} == 0" }
 
-    - name: Write single secret in folder
+    - name: Update new value and detect change
       hashivault_write:
+        update: True
+        secret: 'giant'
+        data:
+          foo: 'new'
+          fie: 'fum'
+      register: 'vault_write'
+    - assert: { that: "{{vault_write.changed}} == True" }
+    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/giant written'" }
+    - assert: { that: "{{vault_write.rc}} == 0" }
+
+    - hashivault_delete:
+        secret: stalks/bean
+    - name: Update a brand new secret in folder
+      hashivault_write:
+        update: True
         secret: stalks/bean
         data:
           height: tall
       register: vault_write
-    - assert: { that: vault_write.rc == 0 }
-
-    - name: Make sure we got our two secrets in list
-      hashivault_list: {}
-      register: vault_list
-    - assert: { that: "vault_list.rc == 0" }
-    - assert: { that: "'giant' in vault_list.secrets" }
-    - assert: { that: "'stalks/' in vault_list.secrets" }
-
-    - name: List secrets not in folder
-      hashivault_list:
-        secret: 'giant'
-      register: vault_list
-    - assert: { that: "vault_list.rc == 0" }
-    - assert: { that: "vault_list.secrets|length == 0" }
-
-    - name: List secrets in folder
-      hashivault_list:
-        secret: stalks
-      register: vault_list
-    - assert: { that: vault_list.rc == 0 }
-    - assert: { that: "'bean' in vault_list.secrets" }
-
-    - name: Read single secret
-      hashivault_read:
-        secret: 'giant'
-        key: 'fie'
-      register: 'vault_read'
-    - assert: { that: "{{vault_read.changed}} == False" }
-    - assert: { that: "'{{vault_read.value}}' == '{{fie_value}}'" }
-    - assert: { that: "{{vault_read.rc}} == 0" }
-
-    - name: Test lookup plugin
-      set_fact:
-        looky: "{{lookup('hashivault', 'giant', 'foo')}}"
-    - assert: { that: "'{{looky}}' == '{{foo_value}}'" }
-
-    - name: Write secret dictionary
-      hashivault_write:
-        secret: 'some_dict'
-        data: "{{ dict_value }}"
-
-    - name: Read secret dictionary
-      hashivault_read:
-        secret: 'some_dict'
-      register: 'vault_read_dict'
-    - assert: { that: "vault_read_dict.value == dict_value" }
-    - assert: { that: "{{vault_read_dict.rc}} == 0" }
+    - assert: { that: "{{vault_write.changed}} == True" }
+    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/stalks/bean written'" }
+    - assert: { that: "{{vault_write.rc}} == 0" }
