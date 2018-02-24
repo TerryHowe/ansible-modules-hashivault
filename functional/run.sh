@@ -14,6 +14,7 @@ ansible-playbook -v test.yml
 ansible-playbook -v test_auth.yml
 ansible-playbook -v test_policy.yml
 ansible-playbook -v test_status.yml
+ansible-playbook -v test_secret_list.yml
 ansible-playbook -v test_secret.yml
 ansible-playbook -v test_not_there.yml
 ansible-playbook -v test_ephemeral.yml

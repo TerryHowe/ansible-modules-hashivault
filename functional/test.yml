@@ -8,10 +8,6 @@
       foo: 'bar'
       baz: 'stuff'
   tasks:
-    - name: List secret stores
-      hashivault_secret_list:
-      register: 'vault_secret_list'
-
     - name: Write basic secret and verify it succeeds
       hashivault_write:
         secret: 'giant'

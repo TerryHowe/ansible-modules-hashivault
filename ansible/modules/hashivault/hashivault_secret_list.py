@@ -74,7 +74,7 @@ from ansible.module_utils.hashivault import *
 @hashiwrapper
 def hashivault_secret_list(params):
     client = hashivault_auth_client(params)
-    return {'changed': True, 'backends': client.list_secret_backends()}
+    return {'changed': False, 'backends': client.list_secret_backends()}
 
 
 if __name__ == '__main__':
