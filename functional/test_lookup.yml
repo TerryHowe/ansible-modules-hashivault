@@ -1,0 +1,22 @@
+#   
+# This test depends on successful test_write run
+#
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+     basic_foo: "{{lookup('hashivault', 'basic', 'foo')}}"
+  tasks:
+    - assert: { that: "'{{basic_foo}}' == 'new'" }
+
+    - set_fact:
+        basic_fum: "{{lookup('hashivault', 'basic', 'fie')}}"
+    - assert: { that: "'{{basic_fum}}' == 'fum'" }
+
+    - set_fact:
+        basic_dict_foo: "{{lookup('hashivault', 'basic_dict', 'foo')}}"
+    - assert: { that: "'{{basic_dict_foo}}' == 'bar'" }
+
+    - set_fact:
+        looky_secret: "{{lookup('hashivault', 'basic_array', 'value') | first}}"
+    - assert: { that: "'{{looky_secret}}' == 'one'" }
