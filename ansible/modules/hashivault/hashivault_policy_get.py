@@ -79,9 +79,17 @@ from ansible.module_utils.hashivault import *
 
 @hashiwrapper
 def hashivault_policy_get(params):
+    result = { "changed": False, "rc" : 0}
     name = params.get('name')
     client = hashivault_auth_client(params)
-    return {'rules': client.get_policy(name)}
+    policy = client.get_policy(name)
+    if policy is None:
+      result['rc'] = 1
+      result['failed'] = True
+      result['msg'] = "Policy \"%s\" does not exist." % (name)
+      return result
+    else:
+      return {'rules': policy}
 
 
 if __name__ == '__main__':
