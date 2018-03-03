@@ -5,18 +5,27 @@
 - hosts: localhost
   gather_facts: no
   vars:
-     basic_foo: "{{lookup('hashivault', 'basic', 'foo')}}"
+    namespace: ''
+    name_root: '{{namespace}}basic'
+    name_folder: '{{namespace}}stalks/bean'
+    name_dict: '{{namespace}}_dict'
+    name_array: '{{namespace}}_array'
+    vars_foo: "{{lookup('hashivault', '{{name_root}}', 'foo')}}"
   tasks:
-    - assert: { that: "'{{basic_foo}}' == 'new'" }
+    - assert: { that: "'{{vars_foo}}' == 'new'" }
 
     - set_fact:
-        basic_fum: "{{lookup('hashivault', 'basic', 'fie')}}"
-    - assert: { that: "'{{basic_fum}}' == 'fum'" }
+        a_set_fie: "{{lookup('hashivault', '{{name_root}}', 'fie')}}"
+    - assert: { that: "'{{a_set_fie}}' == 'fum'" }
 
     - set_fact:
-        basic_dict_foo: "{{lookup('hashivault', 'basic_dict', 'foo')}}"
-    - assert: { that: "'{{basic_dict_foo}}' == 'bar'" }
+        a_set_fie: "{{lookup('hashivault', '{{name_folder}}', 'height')}}"
+    - assert: { that: "'{{a_set_fie}}' == 'tall'" }
 
     - set_fact:
-        looky_secret: "{{lookup('hashivault', 'basic_array', 'value') | first}}"
-    - assert: { that: "'{{looky_secret}}' == 'one'" }
+        a_set_dict: "{{lookup('hashivault', '{{name_dict}}', 'foo')}}"
+    - assert: { that: "'{{a_set_dict}}' == 'bar'" }
+
+    - set_fact:
+        a_set_array: "{{lookup('hashivault', '{{name_array}}', 'value') | first}}"
+    - assert: { that: "'{{a_set_array}}' == 'one'" }

@@ -33,13 +33,13 @@ source ./vaultenv.sh
 # approle
 ansible-playbook -v test_approle.yml
 source ./approlenv.sh
-ansible-playbook -v --extra-vars='namespace=application' test_write.yml test_read.yml
+ansible-playbook -v --extra-vars='namespace=application/' test_write.yml test_read.yml test_lookup.yml
 source ./vaultenv.sh
 
 # userpass
 ansible-playbook -v test_userpass.yml
 source ./userpassenv.sh
-ansible-playbook -v --extra-vars='namespace=userpass' test_write.yml test_read.yml
+ansible-playbook -v --extra-vars='namespace=userpass/' test_write.yml test_read.yml test_lookup.yml
 source ./vaultenv.sh
 
 ./stop.sh
