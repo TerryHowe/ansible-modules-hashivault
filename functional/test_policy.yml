@@ -72,7 +72,8 @@
       hashivault_policy_get:
         name: '{{namespace}}bogus'
       register: 'vault_policy_get'
+      failed_when: False
     - assert: { that: "{{vault_policy_get.changed}} == False" }
-    - assert: { that: "{{vault_policy_get.rc}} == 0" }
+    - assert: { that: "{{vault_policy_get.rc}} == 1" }
     - assert: { that: "{{vault_policy_get.failed}} == False" }
-    - assert: { that: "'{{vault_policy_get.rules}}' == ''" }
+    - assert: { that: "'{{vault_policy_get.msg}}' == 'Policy \"terrybogus\" does not exist.'" }
