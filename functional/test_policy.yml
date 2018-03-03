@@ -67,3 +67,12 @@
     - fail: msg="policy {{namespace}} in list"
       when: namespace in vault_policy_list.policies
     - assert: { that: "{{vault_policy_list.rc}} == 0" }
+
+    - name: Get bogus policy
+      hashivault_policy_get:
+        name: '{{namespace}}bogus'
+      register: 'vault_policy_get'
+    - assert: { that: "{{vault_policy_get.changed}} == False" }
+    - assert: { that: "{{vault_policy_get.rc}} == 0" }
+    - assert: { that: "{{vault_policy_get.failed}} == False" }
+    - assert: { that: "'{{vault_policy_get.rules}}' == ''" }
