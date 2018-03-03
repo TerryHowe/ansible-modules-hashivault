@@ -10,15 +10,17 @@ export HOME
 
 source ./vaultenv.sh
 ansible-playbook -v test_check.yml --check
-ansible-playbook -v test.yml
+ansible-playbook -v test_write.yml
+ansible-playbook -v test_read.yml
+ansible-playbook -v test_list.yml
+ansible-playbook -v test_lookup.yml
+ansible-playbook -v test_delete.yml
 ansible-playbook -v test_auth.yml
+ansible-playbook -v test_secret_list.yml
 ansible-playbook -v test_policy.yml
 ansible-playbook -v test_status.yml
-ansible-playbook -v test_secret_list.yml
-ansible-playbook -v test_secret.yml
 ansible-playbook -v test_not_there.yml
 ansible-playbook -v test_ephemeral.yml
-ansible-playbook -v test_complex.yml
 ansible-playbook -v test_secrets_w_policy_tokens.yml
 ansible-playbook -v test_audit.yml
 ansible-playbook -v test_read_write_file.yml
@@ -31,13 +33,13 @@ source ./vaultenv.sh
 # approle
 ansible-playbook -v test_approle.yml
 source ./approlenv.sh
-ansible-playbook -v --extra-vars='namespace=application' test_secret.yml
+ansible-playbook -v --extra-vars='namespace=application' test_write.yml test_read.yml
 source ./vaultenv.sh
 
 # userpass
 ansible-playbook -v test_userpass.yml
 source ./userpassenv.sh
-ansible-playbook -v --extra-vars='namespace=userpass' test_secret.yml
+ansible-playbook -v --extra-vars='namespace=userpass' test_write.yml test_read.yml
 source ./vaultenv.sh
 
 ./stop.sh
