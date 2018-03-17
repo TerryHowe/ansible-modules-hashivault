@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+3.9.1 (2018-03-17)
+------------------
+- Add change log and gitchangelog. [Terry Howe]
+
+
 3.9.0 (2018-03-03)
 ------------------
 - Test refactor. [Terry Howe]
