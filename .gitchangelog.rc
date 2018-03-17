@@ -1,0 +1,13 @@
+include_merge = False
+OUTPUT_FILE = "CHANGELOG.rst"
+INSERT_POINT = r"(?P<rev>[0-9]+\.[0-9]+(\.[0-9]+))\s+\([0-9]+-[0-9]{2}-[0-9]{2}\)\n--+\n"
+revs = [
+        Caret(FileFirstRegexMatch(OUTPUT_FILE, INSERT_POINT)),
+        "HEAD"
+]
+
+publish = FileInsertAtFirstRegexMatch(
+    OUTPUT_FILE,
+    INSERT_POINT,
+    idx=lambda m: m.start(1)
+)

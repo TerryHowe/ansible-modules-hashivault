@@ -1,5 +1,5 @@
 include AUTHORS
-include ChangeLog
+include CHANGELOG.rst
 include LICENSE
 include README.rst
 exclude .gitignore
