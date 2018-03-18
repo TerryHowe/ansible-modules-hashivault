@@ -7,6 +7,7 @@
     name_folder: '{{namespace}}stalks/bean'
     name_dict: '{{namespace}}_dict'
     name_array: '{{namespace}}_array'
+    name_ttls: '{{namespace}}_ttls'
     dict_value:
       foo: 'bar'
       baz: 'stuff'
@@ -19,6 +20,8 @@
         secret: '{{name_root}}'
     - hashivault_delete:
         secret: '{{name_folder}}'
+    - hashivault_delete:
+        secret: '{{name_ttls}}'
     - name: Write verify it succeeds
       hashivault_write:
         secret: '{{name_root}}'
@@ -87,3 +90,58 @@
         secret: '{{name_array}}'
         data:
             value: "{{array_value}}"
+
+    - name: Initial ttl values
+      hashivault_write:
+        update: True
+        secret: '{{name_ttls}}'
+        data:
+          ttl:      36000s
+          max_ttl: 480s
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == True" }
+
+    - name: Update minute ttl secret
+      hashivault_write:
+        update: True
+        secret: '{{name_ttls}}'
+        data:
+          ttl:      600m
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == False" }
+
+    - name: Update hour ttl secret
+      hashivault_write:
+        update: True
+        secret: '{{name_ttls}}'
+        data:
+          ttl:      10h
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == False" }
+
+    - name: Update second ttl secret
+      hashivault_write:
+        update: True
+        secret: '{{name_ttls}}'
+        data:
+          ttl:      36000s
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == False" }
+
+    - name: Update second ttl secret no s
+      hashivault_write:
+        update: True
+        secret: '{{name_ttls}}'
+        data:
+          ttl:      36000
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == False" }
+
+    - name: Update second ttl secret new value
+      hashivault_write:
+        update: True
+        secret: '{{name_ttls}}'
+        data:
+          ttl:      36001s
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == True" }

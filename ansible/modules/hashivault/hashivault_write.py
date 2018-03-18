@@ -83,6 +83,43 @@ def main():
         module.exit_json(**result)
 
 
+def _convert_to_seconds(original_value):
+    try:
+        value = str(original_value)
+        seconds = 0
+        if 'h' in value:
+            ray = value.split('h')
+            seconds = int(ray.pop(0)) * 3600
+            value = ''.join(ray)
+        if 'm' in value:
+            ray = value.split('m')
+            seconds += int(ray.pop(0)) * 60
+            value = ''.join(ray)
+        if value:
+            ray = value.split('s')
+            seconds += int(ray.pop(0))
+        return seconds
+    except Exception:
+        pass
+    return original_value
+
+def hashivault_changed(old_data, new_data):
+    if old_data.keys() != new_data.keys():
+        return True
+    for key in old_data:
+        old_value = old_data[key]
+        new_value = new_data[key]
+        if old_value == new_value:
+            continue
+        if key != 'ttl' and key != 'max_ttl':
+            return True
+        old_value = _convert_to_seconds(old_value)
+        new_value = _convert_to_seconds(new_value)
+        if old_value != new_value:
+            return True
+    return False
+
+
 from ansible.module_utils.hashivault import *
 
 
@@ -104,7 +141,6 @@ def hashivault_write(module):
         changed = True
         write_data = data
 
-        changed = True
         if params.get('update') or module.check_mode:
             # Do not move this read outside of the update
             read_data = client.read(secret) or {}
@@ -115,7 +151,7 @@ def hashivault_write(module):
 
             result['write_data'] = write_data
             result['read_data'] = read_data
-            changed = write_data != read_data
+            changed = hashivault_changed(read_data, write_data)
 
         if changed:
             if not module.check_mode:
