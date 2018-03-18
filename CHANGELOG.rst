@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+3.9.2 (2018-03-18)
+------------------
+- Mark ttl and max_ttl changed if parsed values differ. [Terry Howe]
+
+
 3.9.1 (2018-03-17)
 ------------------
 - Add change log and gitchangelog. [Terry Howe]
