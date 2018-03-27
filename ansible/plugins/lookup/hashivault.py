@@ -16,7 +16,6 @@ import json
 import os
 import requests
 import sys
-from urlparse import urljoin
 import warnings
 
 from ansible.errors import AnsibleError
@@ -27,14 +26,37 @@ from ansible.module_utils.hashivault import hashivault_default_token
 
 class LookupModule(LookupBase):
 
-    def get_url(self):
+    def _get_url(self):
         url = os.getenv('VAULT_ADDR')
         if url:
             return url.rstrip('/')
         return "https://127.0.0.1:8200"
 
+    def _get_params(self, terms, kwargs):
+        path = terms[0]
+        key = terms[1]
+        default = kwargs.get('default', None)
+        params = {
+            'url': self._get_url(),
+            'verify': self._get_verify(),
+            'secret': path,
+            'key': key,
+            'default': default,
+        }
+        authtype = os.getenv('VAULT_AUTHTYPE', 'token')
+        params['authtype'] = authtype
+        if authtype == 'approle':
+            params['role_id'] = os.getenv('VAULT_ROLE_ID')
+            params['secret_id'] = os.getenv('VAULT_SECRET_ID')
+        elif authtype == 'userpass' or authtype == 'ldap':
+            params['username'] = os.getenv('VAULT_USER')
+            params['password'] = os.getenv('VAULT_PASSWORD')
+        else:
+            params['token'] = hashivault_default_token()
 
-    def get_verify(self):
+        return params
+
+    def _get_verify(self):
         capath = os.getenv('VAULT_CAPATH')
         if capath:
             return capath
@@ -43,21 +65,10 @@ class LookupModule(LookupBase):
         return True
 
     def run(self, terms, variables, **kwargs):
-        path = terms[0]
-        key = terms[1]
-        token = hashivault_default_token()
-        authtype = 'token'
-        params = {
-            'url': self.get_url(),
-            'verify': self.get_verify(),
-            'token': token,
-            'authtype': 'token',
-            'secret': path,
-            'key': key,
-        }
-        result = hashivault_read.hashivault_read(params)
-
+        result = hashivault_read.hashivault_read(self._get_params(terms, kwargs))
         if 'value' not in result:
+            path = terms[0]
+            key = terms[1]
             raise AnsibleError('Error reading vault %s/%s: %s\n%s' % (path, key, result.get('msg', 'msg not set'), result.get('stack_trace', '')))
         return [result['value']]
 
@@ -66,7 +77,7 @@ def main(argv=sys.argv[1:]):
     if len(argv) != 2:
         print("Usage: hashivault.py path key")
         return -1
-    print LookupModule().run(argv, None)[0]
+    print(LookupModule().run(argv, None)[0])
     return 0
 
 if __name__ == "__main__":

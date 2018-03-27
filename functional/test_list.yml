@@ -1,0 +1,34 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - hashivault_write:
+        secret: 'listone'
+        data:
+            monday: 'one'
+            tuesday: 'two'
+    - hashivault_write:
+        secret: 'list/two'
+        data:
+          wednesday: 'threde'
+
+    - name: Make sure we got our two secrets in list
+      hashivault_list: {}
+      register: vault_list
+    - assert: { that: "vault_list.rc == 0" }
+    - assert: { that: "'listone' in vault_list.secrets" }
+    - assert: { that: "'list/' in vault_list.secrets" }
+
+    - name: List secrets not in folder
+      hashivault_list:
+        secret: 'whatutalkinbout'
+      register: vault_list
+    - assert: { that: "vault_list.rc == 0" }
+    - assert: { that: "vault_list.secrets|length == 0" }
+
+    - name: List secrets in folder
+      hashivault_list:
+        secret: list
+      register: vault_list
+    - assert: { that: vault_list.rc == 0 }
+    - assert: { that: "'two' in vault_list.secrets" }

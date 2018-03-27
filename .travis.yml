@@ -2,10 +2,11 @@ sudo: required
 language: python
 python:
   - "2.7"
+  - "3.6"
 services:
   - docker
 before_install:
   - docker pull vault:latest
   - docker ps -a
-  - pip install virtualenv
-script: ./build.sh
+install: pip install tox-travis
+script: tox

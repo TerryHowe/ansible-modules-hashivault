@@ -2,7 +2,8 @@
 #
 # Start the test vault container
 #
-DOCKER_NAME=test_vault
+set -e
+DOCKER_NAME=testvault
 PORT=8201
 export VAULT_ADDR="http://127.0.0.1:${PORT}"
 
@@ -32,7 +33,7 @@ chmod a+r $TMP_CONFIG
 docker stop $DOCKER_NAME 2>/dev/null || true
 docker rm $DOCKER_NAME 2>/dev/null || true
 docker run --name $DOCKER_NAME -h $DOCKER_NAME -d \
-    --privileged \
+    --cap-add IPC_LOCK \
 	-p 127.0.0.1:${PORT}:${PORT} \
 	-v $TMP_CONFIG:/etc/vault/config.json:ro \
 	vault server -config /etc/vault/config.json
@@ -55,3 +56,4 @@ done
 # Initialize the vault
 #
 ansible-playbook -v test_init.yml
+exit $?

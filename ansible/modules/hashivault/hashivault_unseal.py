@@ -11,13 +11,29 @@ options:
         description:
             - url for vault
         default: to environment variable VAULT_ADDR
+    ca_cert:
+        description:
+            - "path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate"
+        default: to environment variable VAULT_CACERT
+    ca_path:
+        description:
+            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence"
+        default: to environment variable VAULT_CAPATH
+    client_cert:
+        description:
+            - "path to a PEM-encoded client certificate for TLS authentication to the Vault server"
+        default: to environment variable VAULT_CLIENT_CERT
+    client_key:
+        description:
+            - "path to an unencrypted PEM-encoded private key matching the client certificate"
+        default: to environment variable VAULT_CLIENT_KEY
     verify:
         description:
-            - verify TLS certificate
+            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing"
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
-            - "authentication type to use: token, userpass, github, ldap"
+            - "authentication type to use: token, userpass, github, ldap, approle"
         default: token
     token:
         description:
@@ -26,9 +42,11 @@ options:
     username:
         description:
             - username to login to vault.
+        default: to environment variable VAULT_USER
     password:
         description:
             - password to login to vault.
+        default: to environment variable VAULT_PASSWORD
     keys:
         description:
             - vault key shard(s).
@@ -61,7 +79,10 @@ from ansible.module_utils.hashivault import *
 def hashivault_unseal(params):
     keys = params.get('keys')
     client = hashivault_client(params)
-    return {'status': client.unseal_multi(keys.split()), 'changed': True}
+    if client.is_sealed():
+        return {'status': client.unseal_multi(keys.split()), 'changed': True}
+    else:
+        return {'changed': False}
 
 
 if __name__ == '__main__':

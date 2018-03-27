@@ -1,0 +1,220 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    gen_file: './generated_file'
+    read_to_file: './read_to_file'
+    new_secret: 'new_secret'
+    old_secret: 'old_secret'
+    new_key: 'new_key'
+    old_key: 'old_key'
+
+  tasks:
+    ########################################################
+    # Generate small binary file and store contents in
+    # memory as base64 encdoded string.
+    ########################################################
+    - name: generate small binary file (1kb)
+      shell: "dd if=/dev/urandom of={{ gen_file }} bs=128 count=8"
+
+    - name: read generated file
+      slurp:
+        src: "{{ gen_file }}"
+      register: gen_file_encoded # base64 encoded
+    ########################################################
+
+
+    ########################################################
+    # Assert hashivault_write_from_file can create a new secret
+    # and succesfully store the file contents to vault as a
+    # base64 encoded string.
+    ########################################################
+    - name: write file to new secret
+      hashivault_write_from_file:
+        secret: "{{ new_secret }}"
+        key: "{{ new_key }}"
+        path: "{{ gen_file }}"
+      register: vault_write_from_file
+
+    - assert:
+        that:
+          - "{{vault_write_from_file.changed}} == True"
+
+    - name: read file with hashivault_read
+      hashivault_read: 
+        secret: "{{ new_secret }}"
+        key: "{{ new_key }}"
+      register: secret_contents # base64 encoded
+
+    - assert:
+        that:
+          - "'{{ gen_file_encoded.content }}' == '{{ secret_contents.value }}'"
+    ########################################################
+
+
+    ########################################################
+    # Assert hashivault_read_to_file succesfully reads a file
+    # secret from vault and stores decoded string as a file
+    # on disk.
+    ########################################################
+    - name: read file with hashivault_read_to_file 
+      hashivault_read_to_file:
+        secret: "{{ new_secret }}"
+        key: "{{ new_key }}"
+        dest: "{{ read_to_file }}"
+
+    # diff exit code is 0 if files are equal
+    # ansible script will stop if exit code is not 0
+    - name: cmp generated file and read file
+      shell: "cmp {{ gen_file }} {{ read_to_file }}"
+      register: files_equal
+    ########################################################
+
+
+    ########################################################
+    # Assert force flag works for hashivault_read_to_file.
+    ########################################################
+    - name: read file with hashivault_read_to_file 
+      hashivault_read_to_file:
+        secret: "{{ new_secret }}"
+        key: "{{ new_key }}"
+        dest: "./{{ read_to_file }}"
+        force: false
+      register: results
+      ignore_errors: true
+
+    - assert:
+        that:
+          - "{{ results.failed }} == True"
+
+    - name: read file with hashivault_read_to_file 
+      hashivault_read_to_file:
+        secret: "{{ new_secret }}"
+        key: "{{ new_key }}"
+        dest: "./{{ read_to_file }}"
+        force: true
+      register: results
+
+    - assert:
+        that:
+          - "{{ results.rc }} == 0"
+    ########################################################
+
+
+    ########################################################
+    # Assert mode flag works for hashivault_read_to_file.
+    ########################################################
+    - name: read file with hashivault_read_to_file with permissions 0777
+      hashivault_read_to_file:
+        secret: "{{ new_secret }}"
+        key: "{{ new_key }}"
+        dest: "./{{ read_to_file }}"
+        mode: 0777
+      register: results
+
+    - assert:
+        that:
+          - "'{{ results.mode }}' == '0777'"
+    ########################################################
+
+
+    ########################################################
+    # Assert that old secret keys don't get overwritten by
+    # hashivaullt_write_from_file.
+    ########################################################
+    - name: "create 'old' secret"
+      hashivault_write:
+        secret: "{{ old_secret }}"
+        data: "{{ old_key }}=foo"
+      register: 'vault_write'
+
+    - assert:
+        that:
+          - "{{vault_write.changed}} == True"
+          - "'{{vault_write.msg}}' == 'Secret secret/{{ old_secret }} written'"
+
+    - name: write file to old secret
+      hashivault_write_from_file:
+        secret: "{{ old_secret }}"
+        key: "{{ new_key }}"
+        path: "{{ gen_file }}"
+      register: vault_write_from_file
+
+    - assert:
+        that:
+          - "{{vault_write_from_file.changed}} == True"
+
+    - name: read file with hashivault_read
+      hashivault_read: 
+        secret: "{{ old_secret }}"
+        key: "{{ new_key }}"
+      register: secret_contents # base64 encoded
+
+    - assert:
+        that:
+          - "'{{ gen_file_encoded.content }}' == '{{ secret_contents.value }}'"
+
+    - name: read old key with hashivault_read
+      hashivault_read: 
+        secret: "{{ old_secret }}"
+        key: "{{ old_key }}"
+      register: secret_contents
+
+    - assert:
+        that:
+          - "'{{ secret_contents.value }}' == 'foo'"
+    ########################################################
+
+
+    ########################################################
+    # Assert update flag works for hashivault_write_from_file.
+    ########################################################
+    - name: write key that should dissappear later
+      hashivault_write_from_file:
+        secret: "{{ new_secret }}"
+        key: "{{ old_key }}"
+        path: "{{ gen_file }}"
+      register: vault_write_from_file
+
+    - assert:
+        that:
+          - "{{vault_write_from_file.changed}} == True"
+
+    - name: write key with update == false (should remove old_key)
+      hashivault_write_from_file:
+        secret: "{{ new_secret }}"
+        key: "{{ new_key }}"
+        path: "{{ gen_file }}"
+        update: false
+      register: vault_write_from_file
+
+    - assert:
+        that:
+          - "{{vault_write_from_file.changed}} == True"
+
+    - name: read missing key
+      hashivault_read: 
+        secret: "{{ new_secret }}"
+        key: "{{ old_key }}"
+      register: results # base64 encoded
+      ignore_errors: true
+
+    - assert:
+        that:
+          - "{{ results.failed }} == True"
+    ########################################################
+
+
+    ########################################################
+    # Clean up test files.
+    ########################################################
+    - name: remove generated file
+      file:
+        path: "{{ gen_file }}"
+        state: absent
+
+    - name: remove read file
+      file:
+        path: "{{ read_to_file }}"
+        state: absent
+    ########################################################

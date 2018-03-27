@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - hashivault_write:
+        secret: 'giant'
+        data:
+            foo: 'I smell the blood'
+
+- hosts: sandbox
+  gather_facts: no
+  tasks:
+    - copy:
+        content: "{{lookup('hashivault', 'giant', 'foo')}}\n"
+        dest: /giant.txt

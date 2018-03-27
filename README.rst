@@ -13,6 +13,10 @@ Ansible modules for Hashicorp Vault.
    :alt: License: MIT
    :target: https://opensource.org/licenses/MIT
 
+Install this Ansible module with::
+
+    pip install ansible-modules-hashivault
+
 In most cases the Hashicorp Vault modules should be run on localhost.
 
 Reading and Writing
@@ -67,6 +71,18 @@ Get a list of secrets::
         - hashivault_list:
             secret: '/stories'
           register: vault
+
+Ansible does not handle binary data well, so these modules are provided for convenience to read/write files::
+
+    ---
+    - hashivault_read_to_file:
+        secret: 'ssl_certs'
+        key: 'der_format'
+        dest: 'ssl_cert.cer'
+    - hashivault_write_from_file:
+        secret: 'ssl_certs'
+        key: 'der_format'
+        path: 'ssl_cert.cer'
 
 Initialization, Seal, and Unseal
 --------------------------------
@@ -159,6 +175,17 @@ Handle auth backends::
             register: 'vault_auth_enable'
           when: "'userpass/' not in vault_auth_list.backends"
 
+Tune auth backends::
+
+    ---
+    - hosts: localhost
+      tasks:
+        - name: Tune ephermal secret store
+          hashivault_mount_tune:
+            mount_point: ephemeral
+            default_lease_ttl: 3600
+            max_lease_ttl: 8600
+
 Audit Backends
 --------------
 
@@ -222,6 +249,23 @@ Various token manipulation modules::
     - hashivault_token_lookup:
         lookup_token: "{{client_token}}"
       register: "vault_token_lookup"
+
+Approle
+-------
+
+Approle modules::
+
+    ---
+    - hashivault_approle_role_create:
+        name: testrole
+        policies:
+          - approle_test_policy
+    - hashivault_approle_role_id:
+        name: testrole
+      register: 'vault_role_id'
+    - hashivault_approle_role_secret_create:
+        name: testrole
+      register: 'vault_role_secret_create'
 
 Action Plugin
 -------------

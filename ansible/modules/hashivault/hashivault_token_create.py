@@ -11,13 +11,29 @@ options:
         description:
             - url for vault
         default: to environment variable VAULT_ADDR
+    ca_cert:
+        description:
+            - "path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate"
+        default: to environment variable VAULT_CACERT
+    ca_path:
+        description:
+            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence"
+        default: to environment variable VAULT_CAPATH
+    client_cert:
+        description:
+            - "path to a PEM-encoded client certificate for TLS authentication to the Vault server"
+        default: to environment variable VAULT_CLIENT_CERT
+    client_key:
+        description:
+            - "path to an unencrypted PEM-encoded private key matching the client certificate"
+        default: to environment variable VAULT_CLIENT_KEY
     verify:
         description:
-            - verify TLS certificate
+            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing"
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
-            - "authentication type to use: token, userpass, github, ldap"
+            - "authentication type to use: token, userpass, github, ldap, approle"
         default: token
     token:
         description:
@@ -26,9 +42,11 @@ options:
     username:
         description:
             - username to login to vault.
+        default: to environment variable VAULT_USER
     password:
         description:
             - password to login to vault.
+        default: to environment variable VAULT_PASSWORD
     role:
         description:
             - If set, the token will be created against the named role
@@ -119,7 +137,7 @@ from ansible.module_utils.hashivault import *
 def hashivault_token_create(params):
     client = hashivault_auth_client(params)
     role = params.get('role')
-    id = params.get('id')
+    token_id = params.get('id')
     policies = params.get('policies')
     metadata = params.get('metadata')
     no_parent = params.get('no_parent')
@@ -135,7 +153,7 @@ def hashivault_token_create(params):
 
     token = client.create_token(
         role=role,
-        id=id,
+        token_id=token_id,
         policies=policies,
         meta=metadata,
         no_parent=no_parent,
