@@ -4,9 +4,9 @@ DOCUMENTATION = '''
 ---
 module: hashivault_token_lookup
 version_added: "3.3.0"
-short_description: Hashicorp Vault token create module
+short_description: Hashicorp Vault token lookup module
 description:
-    - Module to create tokens in Hashicorp Vault.
+    - Module to look up / check for existence of tokens in Hashicorp Vault.
 options:
     url:
         description:
