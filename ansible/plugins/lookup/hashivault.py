@@ -71,8 +71,11 @@ class LookupModule(LookupBase):
         result = hashivault_read.hashivault_read(self._get_params(terms, kwargs))
         if 'value' not in result:
             path = terms[0]
-            key = terms[1]
-            raise AnsibleError('Error reading vault %s/%s: %s\n%s' % (path, key, result.get('msg', 'msg not set'), result.get('stack_trace', '')))
+            try:
+                key = '/' + terms[1]
+            except IndexError:
+                key = ''
+            raise AnsibleError('Error reading vault %s%s: %s\n%s' % (path, key, result.get('msg', 'msg not set'), result.get('stack_trace', '')))
         return [result['value']]
 
 
