@@ -34,7 +34,10 @@ class LookupModule(LookupBase):
 
     def _get_params(self, terms, kwargs):
         path = terms[0]
-        key = terms[1]
+        try:
+            key = terms[1]
+        except IndexError:
+            key = None
         default = kwargs.get('default', None)
         params = {
             'url': self._get_url(),
@@ -74,8 +77,8 @@ class LookupModule(LookupBase):
 
 
 def main(argv=sys.argv[1:]):
-    if len(argv) != 2:
-        print("Usage: hashivault.py path key")
+    if len(argv) < 1:
+        print("Usage: hashivault.py path [key]")
         return -1
     print(LookupModule().run(argv, None)[0])
     return 0
