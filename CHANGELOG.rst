@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+3.9.3 (2018-04-12)
+------------------
+- Make key optional for lookup plugin [Marcin Wolny]
+
+
 3.9.2 (2018-03-18)
 ------------------
 - Mark ttl and max_ttl changed if parsed values differ. [Terry Howe]
