@@ -2,6 +2,10 @@ Changelog
 =========
 
 
+3.9.4 (2018-04-25)
+------------------
+- TLS auth option [Christopher Valles]
+
 3.9.3 (2018-04-12)
 ------------------
 - Make key optional for lookup plugin [Marcin Wolny]
