@@ -50,9 +50,36 @@ options:
     name:
         description:
             - role name.
+    bind_secret_id:
+        description:
+            - Require secret_id to be presented when logging in using this AppRole.
+    bound_cidr_list:
+        description:
+            - Comma-separated string or list of CIDR blocks.
     policies:
         description:
             - policies for the role.
+    secret_id_num_uses:
+        description:
+            - Number of times any particular SecretID can be used.
+    secret_id_ttl:
+        description:
+            - Duration after which any SecretID expires.
+    token_num_uses:
+        description:
+            - Number of times issued tokens can be used. A value of 0 means unlimited uses.
+    token_ttl:
+        description:
+            - Duration to set as the TTL for issued tokens and at renewal time.
+    token_max_ttl:
+        description:
+            - Duration after which the issued token can no longer be renewed.
+    period:
+        description:
+            - Duration of the token generated.
+    enable_local_secret_ids:
+        description:
+            - If set, the secret IDs generated using this role will be cluster local.
 '''
 EXAMPLES = '''
 ---
@@ -66,7 +93,16 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
+    argspec['bind_secret_id'] = dict(required=False, type='bool')
+    argspec['bound_cidr_list'] = dict(required=False, type='list')
     argspec['policies'] = dict(required=True, type='list')
+    argspec['secret_id_num_uses'] = dict(required=False, type='str')
+    argspec['secret_id_ttl'] = dict(required=False, type='str')
+    argspec['token_num_uses'] = dict(required=False, type='int')
+    argspec['token_ttl'] = dict(required=False, type='str')
+    argspec['token_max_ttl'] = dict(required=False, type='str')
+    argspec['period'] = dict(required=False, type='str')
+    argspec['enable_local_secret_ids'] = dict(required=False, type='bool')
     module = hashivault_init(argspec)
     result = hashivault_approle_role_create(module.params)
     if result.get('failed'):
@@ -81,10 +117,28 @@ from ansible.module_utils.hashivault import *
 
 @hashiwrapper
 def hashivault_approle_role_create(params):
+    ARGS = [
+        'bind_secret_id',
+        'bound_cidr_list',
+        'secret_id_num_uses',
+        'secret_id_ttl',
+        'token_num_uses',
+        'token_ttl',
+        'token_max_ttl',
+        'period',
+        'enable_local_secret_ids',
+    ]
     name = params.get('name')
     policies = params.get('policies')
     client = hashivault_auth_client(params)
-    client.create_role(name, policies=policies)
+    kwargs = {
+        'policies': policies,
+    }
+    for arg in ARGS:
+        value = params.get(arg)
+        if value is not None:
+            kwargs[arg] = value
+    client.create_role(name, **kwargs)
     return {'changed': True}
 
 
