@@ -63,6 +63,9 @@ class LookupModule(LookupBase):
         capath = os.getenv('VAULT_CAPATH')
         if capath:
             return capath
+        cacert = os.getenv('VAULT_CACERT')
+        if cacert:
+            return cacert
         if os.getenv('VAULT_SKIP_VERIFY'):
             return False
         return True
