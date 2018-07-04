@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+3.9.6 (2018-07-04)
+------------------
+- Support VAULT_CACERT for lookup plugin. [Terry Howe]
+- Improved documentation about export variables. [Ivan N]
+
+
 3.9.5 (2018-05-19)
 ------------------
 - Strip whitespace from vault token file contents. [George Pchelkin]
