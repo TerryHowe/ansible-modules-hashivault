@@ -48,6 +48,10 @@ class LookupModule(LookupBase):
         }
         authtype = os.getenv('VAULT_AUTHTYPE', 'token')
         params['authtype'] = authtype
+        params['ca_cert'] = os.getenv('VAULT_CACERT')
+        params['ca_path'] = os.getenv('VAULT_CAPATH')
+        params['client_cert'] = os.getenv('VAULT_CLIENT_CERT')
+        params['client_key'] = os.getenv('VAULT_CLIENT_KEY')
         if authtype == 'approle':
             params['role_id'] = os.getenv('VAULT_ROLE_ID')
             params['secret_id'] = os.getenv('VAULT_SECRET_ID')
