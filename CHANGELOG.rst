@@ -2,6 +2,14 @@ Changelog
 =========
 
 
+3.9.7 (2018-08-29)
+------------------
+- Secrets enable options support. [kevin2seedlink]
+- Fix readme. [Clinton Judy]
+- Comment out readonly token for now. [Terry Howe]
+- Little better upload script. [Terry Howe]
+
+
 3.9.6 (2018-07-04)
 ------------------
 - Support VAULT_CACERT for lookup plugin. [Terry Howe]
