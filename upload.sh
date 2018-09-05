@@ -13,7 +13,7 @@ fi
 git tag -a $VERSION -m v$VERSION
 gitchangelog
 vi CHANGELOG.rst
-echo 'Ready to push $VERSION?'
+echo "Ready to push $VERSION (cntrl-c to quit)?"
 read ANS
 git commit -m "Version $VERSION" CHANGELOG.rst setup.py
 git push origin master

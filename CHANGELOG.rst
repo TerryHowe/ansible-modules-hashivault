@@ -2,9 +2,31 @@ Changelog
 =========
 
 
+3.9.7 (2018-08-29)
+------------------
+- Secrets enable options support. [kevin2seedlink]
+- Fix readme. [Clinton Judy]
+- Comment out readonly token for now. [Terry Howe]
+- Little better upload script. [Terry Howe]
+
+
+3.9.6 (2018-07-04)
+------------------
+- Support VAULT_CACERT for lookup plugin. [Terry Howe]
+- Improved documentation about export variables. [Ivan N]
+
+
+3.9.5 (2018-05-19)
+------------------
+- Strip whitespace from vault token file contents. [George Pchelkin]
+- Add parameters to approle create role secret. [Terry Howe]
+- Add parameters to approle create role. [Terry Howe]
+
+
 3.9.4 (2018-04-25)
 ------------------
 - TLS auth option [Christopher Valles]
+
 
 3.9.3 (2018-04-12)
 ------------------

@@ -97,7 +97,7 @@ def hashivault_default_token():
     token_file = os.path.expanduser('~/.vault-token')
     if os.path.exists(token_file):
         with open(token_file, 'r') as f:
-            return f.read()
+            return f.read().strip()
     return ''
 
 

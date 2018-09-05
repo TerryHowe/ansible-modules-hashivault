@@ -15,7 +15,7 @@ long_description=open('README.rst', 'r').read()
 
 setup(
     name='ansible-modules-hashivault',
-    version='3.9.4',
+    version='3.9.7',
     description='Ansible Modules for Hashicorp Vault',
     long_description=long_description,
     author='Terry Howe',
@@ -25,6 +25,6 @@ setup(
     packages=files,
     install_requires = [
         'ansible>=2.0.0',
-        'hvac>=0.3.0',
+        'hvac>=0.6.1',
     ],
 )
