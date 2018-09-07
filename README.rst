@@ -161,6 +161,8 @@ Policy support::
 Policy From A file
 ------------------
 
+Policy from a file support::
+
     ---
     - hosts: localhost
       vars:
