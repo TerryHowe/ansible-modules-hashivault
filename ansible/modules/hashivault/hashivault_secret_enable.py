@@ -101,6 +101,7 @@ def hashivault_secret_enable(params):
     config = params.get('config')
     options = params.get('options')
     secrets = client.list_secret_backends()
+    secrets = secrets.get('data', secrets)
     path = name + "/"
     if path in secrets:
         return {'changed': False}
