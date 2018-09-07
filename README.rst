@@ -167,7 +167,7 @@ Policy From A file
         name: 'drew'
 
       tasks:
-        - hashivault_policy_set:
+        - hashivault_policy_set_file:
             name: "{{name}}"
             rules_file: /home/drew/my_policy.hcl
           register: 'vault_policy_set'
