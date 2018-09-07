@@ -55,7 +55,7 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_policy_set:
+    - hashivault_policy_set_file:
       rules_file: /path/to/policy_file.hcl
 '''
 
