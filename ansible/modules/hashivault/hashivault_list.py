@@ -59,6 +59,10 @@ options:
               itself will not be returned, but subpaths like
               C(/secret/foo/bar) will.'
         default: ''
+    recursive:
+        description:
+            - get back all entries recursively
+        default: False
 '''
 RETURN = '''
 ---
@@ -82,6 +86,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['secret'] = dict(default='', type='str')
+    argspec['recursive'] = dict(required=False, default=False, type='bool')
     module = hashivault_init(argspec)
     result = hashivault_list(module.params)
     if result.get('failed'):
@@ -105,10 +110,20 @@ def hashivault_list(params):
         secret = 'secret/' + secret
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        response = client.list(secret)
-        if not response:
+        result['secrets'] = recurse(client, params, secret)
+    return result
+
+def recurse(client, params, path):
+    result = []
+    response = client.list(path)
+    if not response:
             response = {}
-        result['secrets'] = response.get('data', {}).get('keys', [])
+    secrets = response.get('data', {}).get('keys', [])
+    for secret in secrets:
+        if params.get('recursive') and secret.endswith('/'):
+            result += recurse(client, params, path+secret)
+        else:
+            result.append(path+secret)
     return result
 
 
