@@ -24,6 +24,7 @@ ansible-playbook -v test_ephemeral.yml
 ansible-playbook -v test_secrets_w_policy_tokens.yml
 ansible-playbook -v test_audit.yml
 ansible-playbook -v test_read_write_file.yml
+ansible-playbook -v test_environment_lookup.yml
 ansible-playbook -v test_unseal.yml
 ansible-playbook -v test_rekey.yml
 # test_rekey.yml changes unseal keys, need to update VAULT_KEYS
