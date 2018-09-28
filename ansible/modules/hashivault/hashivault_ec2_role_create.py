@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_aws_role_create
+module: hashivault_ec2_role_create
 version_added: "3.8.0"
-short_description: Hashicorp Vault aws create role module
+short_description: Hashicorp Vault aws ec2 create role module
 description:
-    - Module to create an aws role from Hashicorp Vault.
+    - Module to create a aws ec2 backed vault role
 options:
     url:
         description:
@@ -102,7 +102,7 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_aws_role_create:
+    - hashivault_ec2_role_create:
         name: myrole
         auth_type: iam
         inferred_entity_type: ec2_instance
@@ -131,7 +131,7 @@ def main():
     argspec['token_max_ttl'] = dict(required=False, type='int')
     argspec['token_ttl'] = dict(required=False, type='int')
     module = hashivault_init(argspec)
-    result = hashivault_iam_role_create(module.params)
+    result = hashivault_ec2_role_create(module.params)
 
     if result.get('failed'):
         module.fail_json(**result)
@@ -144,7 +144,7 @@ from ansible.module_utils.hashivault import *
 
 
 @hashiwrapper
-def hashivault_iam_role_create(params):
+def hashivault_ec2_role_create(params):
     ARGS = [
         'bound_ami_id',
         'bound_vpc_id',
