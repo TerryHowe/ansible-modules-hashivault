@@ -48,6 +48,7 @@ options:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
 
+
     name:
         description:
             - role name.
@@ -94,6 +95,8 @@ options:
         description:
             - The TTL period of tokens issued using this role, provided as a number of seconds
 
+    
+
 '''
 EXAMPLES = '''
 ---
@@ -127,17 +130,18 @@ def main():
     argspec['resolve_aws_unique_ids'] = dict(required=False, type='str')
     argspec['token_max_ttl'] = dict(required=False, type='str')
     argspec['token_ttl'] = dict(required=False, type='str')
-    
     module = hashivault_init(argspec)
     result = hashivault_iam_role_create(module.params)
-    
+
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
 
+
 from ansible.module_utils.basic import *
 from ansible.module_utils.hashivault import *
+
 
 @hashiwrapper
 def hashivault_iam_role_create(params):
@@ -166,13 +170,16 @@ def hashivault_iam_role_create(params):
         value = params.get(arg)
         if value is not None:
             kwargs[arg] = value
-            
+
+    if not 'aws/' in client.list_auth_backends().keys():
+        return { 'failed' : True , 'msg' : 'aws auth backend is not enabled', 'rc' : 1}
+        
     try:
         if client.get_role(name, 'aws'):
             return {'changed': False}
     except exceptions.InvalidPath:
         client.create_role(name, mount_point='aws', **kwargs)
         return {'changed': True}
-
+   
 if __name__ == '__main__':
     main()
