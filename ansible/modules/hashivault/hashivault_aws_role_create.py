@@ -107,6 +107,8 @@ EXAMPLES = '''
         bound_iam_role_arn: arn:aws:iam::12345678:root/ec2-role
 '''
 
+from hvac import exceptions
+
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
