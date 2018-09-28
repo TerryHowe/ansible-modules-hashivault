@@ -164,10 +164,11 @@ def hashivault_iam_role_create(params):
         value = params.get(arg)
         if value is not None:
             kwargs[arg] = value
-    
-    if client.get_role(role_name=name, mount_point='aws'):
-        return {'changed': False}
-    else:
+            
+    try:
+        if client.get_role(name, 'aws'):
+            return {'changed': False}
+    except exceptions.InvalidPath:
         client.create_role(name, mount_point='aws', **kwargs)
         return {'changed': True}
 
