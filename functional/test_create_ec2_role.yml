@@ -7,7 +7,6 @@
 
     - hashivault_auth_enable:
         name: "aws"
-      register: auth_list
       when: "{{'aws/' not in auth_list.backends}}"
 
     - hashivault_ec2_role_create:
