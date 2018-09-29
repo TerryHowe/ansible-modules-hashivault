@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_aws_role_create
+module: hashivault_ec2_role_create
 version_added: "3.8.0"
-short_description: Hashicorp Vault aws create role module
+short_description: Hashicorp Vault aws ec2 create role module
 description:
-    - Module to create an aws role from Hashicorp Vault.
+    - Module to create a aws ec2 backed vault role
 options:
     url:
         description:
@@ -47,6 +47,7 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
+
 
     name:
         description:
@@ -94,12 +95,14 @@ options:
         description:
             - The TTL period of tokens issued using this role, provided as a number of seconds
 
+    
+
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_aws_role_create:
+    - hashivault_ec2_role_create:
         name: myrole
         auth_type: iam
         inferred_entity_type: ec2_instance
@@ -107,38 +110,41 @@ EXAMPLES = '''
         bound_iam_role_arn: arn:aws:iam::12345678:root/ec2-role
 '''
 
+from hvac import exceptions
+
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
     argspec['bound_ami_id'] = dict(required=False, type='str')
     argspec['bound_vpc_id'] = dict(required=False, type='str')
-    argspec['inferred_entity_type'] = dict(required=False, type='str')
+    argspec['inferred_entity_type'] = dict(required=True, type='str')
     argspec['inferred_aws_region'] = dict(required=False, type='str')
-    argspec['auth_type'] = dict(required=False, type='str')
+    argspec['auth_type'] = dict(required=True, type='str')
     argspec['bound_account_id'] = dict(required=False, type='str')
-    argspec['bound_iam_role_arn'] = dict(required=True, type='str')
+    argspec['bound_iam_role_arn'] = dict(required=False, type='str')
     argspec['bound_iam_instance_profile_arn'] = dict(required=False, type='str')
     argspec['bound_ec2_instance_id'] = dict(required=False, type='str')
     argspec['bound_subnet_id'] = dict(required=False, type='str')
     argspec['allow_instance_migration'] = dict(required=False, type='bool')
     argspec['disallow_reauthentication'] = dict(required=False, type='bool')
-    argspec['resolve_aws_unique_ids'] = dict(required=False, type='str')
-    argspec['token_max_ttl'] = dict(required=False, type='str')
-    argspec['token_ttl'] = dict(required=False, type='str')
-    
+    argspec['resolve_aws_unique_ids'] = dict(required=False, type='bool')
+    argspec['token_max_ttl'] = dict(required=False, type='int')
+    argspec['token_ttl'] = dict(required=False, type='int')
     module = hashivault_init(argspec)
-    result = hashivault_iam_role_create(module.params)
-    
+    result = hashivault_ec2_role_create(module.params)
+
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
 
+
 from ansible.module_utils.basic import *
 from ansible.module_utils.hashivault import *
 
+
 @hashiwrapper
-def hashivault_iam_role_create(params):
+def hashivault_ec2_role_create(params):
     ARGS = [
         'bound_ami_id',
         'bound_vpc_id',
@@ -164,12 +170,16 @@ def hashivault_iam_role_create(params):
         value = params.get(arg)
         if value is not None:
             kwargs[arg] = value
-    
-    if client.get_role(role_name=name, mount_point='aws'):
-        return {'changed': False}
-    else:
+
+    if not 'aws/' in client.list_auth_backends().keys():
+        return { 'failed' : True , 'msg' : 'aws auth backend is not enabled', 'rc' : 1}
+        
+    try:
+        if client.get_role(name, 'aws'):
+            return {'changed': False}
+    except exceptions.InvalidPath:
         client.create_role(name, mount_point='aws', **kwargs)
         return {'changed': True}
-
+   
 if __name__ == '__main__':
     main()
