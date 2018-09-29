@@ -2,6 +2,14 @@
 - hosts: localhost
   gather_facts: false
   tasks:
+    - hashivault_auth_list:
+      register: auth_list
+
+    - hashivault_auth_enable:
+        name: "aws"
+      register: auth_list
+      when: "{{'aws/' not in auth_list.backends}}"
+
     - hashivault_ec2_role_create:
         name: ec2-role
         auth_type: iam
@@ -13,8 +21,3 @@
         that: "{{result.changed}}"
     - assert:
         that: "{{result.rc == 0 }}"
-
-    - hashivault_auth_list:
-      register: auth_list
-    - assert:
-        that: "{{ 'aws/' in auth_list.backends.keys() }}"
