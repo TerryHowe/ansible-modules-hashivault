@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - hashivault_ec2_role_create:
+        name: ec2-role
+        auth_type: iam
+        inferred_entity_type: ec2_instance
+        inferred_aws_region: eu-west-1
+        bound_iam_role_arn: arn:aws:iam::12345678:role/ec2-role
+      register: result
+    - assert:
+        that: "{{result.changed}}"
+    - assert:
+        that: "{{result.rc == 0 }}"
+
+    - hashivault_auth_list:
+      register: auth_list
+    - assert:
+        that: "{{ 'aws/' in auth_list.backends.keys() }}"
