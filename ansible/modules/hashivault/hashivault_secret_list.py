@@ -75,7 +75,8 @@ from ansible.module_utils.hashivault import *
 def hashivault_secret_list(params):
     client = hashivault_auth_client(params)
     current_backends = client.list_secret_backends()
-    current_backends = current_backends.get('data', current_backends)
+    if isinstance(current_backends, dict):
+        current_backends = current_backends.get('data', current_backends)
     return {'changed': False, 'backends': current_backends}
 
 

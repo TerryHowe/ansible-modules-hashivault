@@ -85,7 +85,7 @@ def hashiwrapper(function):
         except Exception as e:
             result['rc'] = 1
             result['failed'] = True
-            result['msg'] = "Exception: " + str(e)
+            result['msg'] = u"Exception: " + str(e)
         return result
     return wrapper
 

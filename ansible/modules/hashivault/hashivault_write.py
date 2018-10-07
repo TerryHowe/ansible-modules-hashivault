@@ -159,7 +159,7 @@ def hashivault_write(module):
 
             if returned_data:
                 result['data'] = returned_data
-            result['msg'] = "Secret %s written" % secret
+            result['msg'] = u"Secret %s written" % secret
         result['changed'] = changed
     return result
 
