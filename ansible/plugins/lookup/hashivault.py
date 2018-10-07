@@ -26,13 +26,19 @@ from ansible.module_utils.hashivault import hashivault_default_token
 
 class LookupModule(LookupBase):
 
-    def _get_url(self):
-        url = os.getenv('VAULT_ADDR')
+    def _get_environment(self, environments, name, default_value=None):
+        for env in environments:
+            if name in env:
+                return env.get(name)
+        return os.getenv(name, default_value)
+
+    def _get_url(self, environments):
+        url = self._get_environment(environments, 'VAULT_ADDR')
         if url:
             return url.rstrip('/')
         return "https://127.0.0.1:8200"
 
-    def _get_params(self, terms, kwargs):
+    def _get_params(self, terms, environments, kwargs):
         path = terms[0]
         try:
             key = terms[1]
@@ -40,38 +46,39 @@ class LookupModule(LookupBase):
             key = None
         default = kwargs.get('default', None)
         params = {
-            'url': self._get_url(),
-            'verify': self._get_verify(),
+            'url': self._get_url(environments),
+            'verify': self._get_verify(environments),
             'secret': path,
             'key': key,
             'default': default,
         }
-        authtype = os.getenv('VAULT_AUTHTYPE', 'token')
+        authtype = self._get_environment(environments, 'VAULT_AUTHTYPE', 'token')
         params['authtype'] = authtype
         if authtype == 'approle':
-            params['role_id'] = os.getenv('VAULT_ROLE_ID')
-            params['secret_id'] = os.getenv('VAULT_SECRET_ID')
+            params['role_id'] = self._get_environment(environments, 'VAULT_ROLE_ID')
+            params['secret_id'] = self._get_environment(environments, 'VAULT_SECRET_ID')
         elif authtype == 'userpass' or authtype == 'ldap':
-            params['username'] = os.getenv('VAULT_USER')
-            params['password'] = os.getenv('VAULT_PASSWORD')
+            params['username'] = self._get_environment(environments, 'VAULT_USER')
+            params['password'] = self._get_environment(environments, 'VAULT_PASSWORD')
         else:
-            params['token'] = hashivault_default_token()
+            params['token'] = self._get_environment(environments, 'VAULT_TOKEN', hashivault_default_token())
 
         return params
 
-    def _get_verify(self):
-        capath = os.getenv('VAULT_CAPATH')
+    def _get_verify(self, environments):
+        capath = self._get_environment(environments, 'VAULT_CAPATH')
         if capath:
             return capath
-        cacert = os.getenv('VAULT_CACERT')
+        cacert = self._get_environment(environments, 'VAULT_CACERT')
         if cacert:
             return cacert
-        if os.getenv('VAULT_SKIP_VERIFY'):
+        if self._get_environment(environments, 'VAULT_SKIP_VERIFY'):
             return False
         return True
 
     def run(self, terms, variables, **kwargs):
-        result = hashivault_read.hashivault_read(self._get_params(terms, kwargs))
+        environments = variables.get('environment', [])
+        result = hashivault_read.hashivault_read(self._get_params(terms, environments, kwargs))
         if 'value' not in result:
             path = terms[0]
             try:
