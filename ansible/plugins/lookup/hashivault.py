@@ -61,7 +61,7 @@ class LookupModule(LookupBase):
             params['username'] = self._get_environment(environments, 'VAULT_USER')
             params['password'] = self._get_environment(environments, 'VAULT_PASSWORD')
         else:
-            params['token'] = hashivault_default_token()
+            params['token'] = self._get_environment(environments, 'VAULT_TOKEN', hashivault_default_token())
 
         return params
 
