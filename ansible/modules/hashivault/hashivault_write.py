@@ -130,7 +130,7 @@ def hashivault_write(module):
     client = hashivault_auth_client(params)
     secret = params.get('secret')
     returned_data = None
-    
+
     if secret.startswith('/'):
         secret = secret.lstrip('/')
     else:
