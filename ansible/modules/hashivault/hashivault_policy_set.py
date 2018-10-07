@@ -50,6 +50,9 @@ options:
     name:
         description:
             - policy name.
+    rules:
+        description:
+            - policy rules.
 '''
 EXAMPLES = '''
 ---
