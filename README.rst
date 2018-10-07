@@ -158,6 +158,27 @@ Policy support::
         - hashivault_policy_list:
           register: 'vault_policy_list'
 
+Policy From A file
+------------------
+
+Policy from a file support::
+
+    ---
+    - hosts: localhost
+      vars:
+        name: 'drew'
+
+      tasks:
+        - hashivault_policy_set_file:
+            name: "{{name}}"
+            rules_file: /home/drew/my_policy.hcl
+          register: 'vault_policy_set'
+        - hashivault_policy_get:
+            name: '{{name}}'
+          register: 'vault_policy_get'
+        - hashivault_policy_list:
+          register: 'vault_policy_list'
+
 User Management
 ---------------
 
