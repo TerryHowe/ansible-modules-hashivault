@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_aws_ec2_role_create
-version_added: "3.8.0"
+version_added: "3.9.8"
 short_description: Hashicorp Vault aws ec2 create role module
 description:
     - Module to create a aws ec2 backed vault role
