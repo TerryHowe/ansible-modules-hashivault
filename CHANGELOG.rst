@@ -2,6 +2,25 @@ Changelog
 =========
 
 
+3.9.8 (2018-10-11)
+------------------
+- Added AWS create role module. [Simon Macklin]
+- Ad wrap_ttl support to approle secret create. [Terry Howe]
+- Rename hashivault_policy_set_from_file and test. [Terry Howe]
+- Update hashivault_policy_set_file.py. [drewmullen]
+- Update README.rst. [drewmullen]
+- New param, rules_file and set rules to open( rules_file content )
+  [Drew Mullen]
+- Add some unicode support. [Terry Howe]
+- Add support of token from ansible environment. [Terry Howe]
+- Override environment variables with ansible variables. [Terry Howe]
+- Fix tests again. [Terry Howe]
+- Get rid of extraneous spaces. [Terry Howe]
+- Fix tests for list audit backends, list secret backends. [Terry Howe]
+- Fix list policy tests and list auth backends test. [Terry Howe]
+- Add period parameter on token creation. [Konstantin Privezentsev]
+
+
 3.9.7 (2018-08-29)
 ------------------
 - Secrets enable options support. [kevin2seedlink]
