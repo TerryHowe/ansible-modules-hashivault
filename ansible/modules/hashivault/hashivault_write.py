@@ -49,7 +49,7 @@ options:
         default: to environment variable VAULT_PASSWORD
     secret:
         description:
-            - secret to read.
+            - vault secret to write.
     data:
         description:
             - Keys and values to write.
@@ -102,6 +102,7 @@ def _convert_to_seconds(original_value):
     except Exception:
         pass
     return original_value
+
 
 def hashivault_changed(old_data, new_data):
     if sorted(old_data.keys()) != sorted(new_data.keys()):
