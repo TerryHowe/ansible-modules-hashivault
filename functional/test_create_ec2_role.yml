@@ -9,7 +9,7 @@
         name: "aws"
       when: "{{'aws/' not in auth_list.backends}}"
 
-    - hashivault_ec2_role_create:
+    - hashivault_aws_ec2_role_create:
         name: ec2-role
         auth_type: iam
         inferred_entity_type: ec2_instance
