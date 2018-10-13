@@ -54,6 +54,10 @@ class LookupModule(LookupBase):
         }
         authtype = self._get_environment(environments, 'VAULT_AUTHTYPE', 'token')
         params['authtype'] = authtype
+        params['ca_cert'] = os.getenv('VAULT_CACERT')
+        params['ca_path'] = os.getenv('VAULT_CAPATH')
+        params['client_cert'] = os.getenv('VAULT_CLIENT_CERT')
+        params['client_key'] = os.getenv('VAULT_CLIENT_KEY')
         if authtype == 'approle':
             params['role_id'] = self._get_environment(environments, 'VAULT_ROLE_ID')
             params['secret_id'] = self._get_environment(environments, 'VAULT_SECRET_ID')
