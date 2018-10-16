@@ -1,6 +1,8 @@
 import os
 import warnings
 from hvac import exceptions
+import requests
+from requests.exceptions import RequestException
 
 import hvac
 from ansible.module_utils.basic import AnsibleModule
@@ -27,6 +29,22 @@ def hashivault_argspec():
 def hashivault_init(argument_spec, supports_check_mode=False):
     return AnsibleModule(argument_spec=argument_spec, supports_check_mode=supports_check_mode)
 
+
+def get_ec2_iam_role():
+    """ retreives the iam role name from the ec2 metadata url """
+    return 'HubCustomer-prd-Role'
+
+def get_ec2_iam_credentials():
+    """ returns aws accces key, secret and aws token required to get a vault token """
+    role_name = get_ec2_iam_role()
+    metadata_url = '{base}/latest/meta-data/iam/security-credentials/{role}'.format(
+        base='http://169.254.169.254',
+        role=role_name,
+    )
+    response = requests.get(url=metadata_url)
+    response.raise_for_status()
+    security_credentials = response.json()
+    return security_credentials
 
 def hashivault_client(params):
     url = params.get('url')
@@ -67,6 +85,9 @@ def hashivault_auth(client, params):
         client = AppRoleClient(client,role_id,secret_id)
     elif authtype == 'tls':
         client.auth_tls()
+    elif authtype == 'ec2':
+        credentials = get_ec2_iam_credentials()
+        client.auth_aws_iam(credentials['AccessKeyId'], credentials['SecretAccessKey'], credentials['Token'], role=role_id)
     else:
         client.token = token
     return client
@@ -85,7 +106,7 @@ def hashiwrapper(function):
         except Exception as e:
             result['rc'] = 1
             result['failed'] = True
-            result['msg'] = "Exception: " + str(e)
+            result['msg'] = u"Exception: " + str(e)
         return result
     return wrapper
 
