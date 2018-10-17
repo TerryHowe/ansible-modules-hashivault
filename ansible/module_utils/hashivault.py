@@ -32,7 +32,7 @@ def hashivault_init(argument_spec, supports_check_mode=False):
 
 def get_ec2_iam_role():
     """ retreives the iam role name from the ec2 metadata url """
-    return 'HubCustomer-prd-Role'
+    return 'test'
 
 def get_ec2_iam_credentials():
     """ returns aws accces key, secret and aws token required to get a vault token """
