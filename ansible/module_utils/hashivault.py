@@ -1,11 +1,12 @@
 import os
 import warnings
 from hvac import exceptions
-import requests
-from requests.exceptions import RequestException
 
 import hvac
 from ansible.module_utils.basic import AnsibleModule
+
+import requests
+from requests.exceptions import RequestException
 
 
 def hashivault_argspec():
@@ -31,15 +32,14 @@ def hashivault_init(argument_spec, supports_check_mode=False):
 
 
 def get_ec2_iam_role():
-    """ retreives the iam role name from the ec2 metadata url """
-    return 'test'
+    request = requests.get(url='http://169.254.169.254/latest/meta-data/iam/security-credentials/')
+    request.raise_for_status()
+    return request.content
 
 def get_ec2_iam_credentials():
-    """ returns aws accces key, secret and aws token required to get a vault token """
     role_name = get_ec2_iam_role()
-    metadata_url = '{base}/latest/meta-data/iam/security-credentials/{role}'.format(
-        base='http://169.254.169.254',
-        role=role_name,
+    metadata_url = 'http://169.254.169.254/latest/meta-data/iam/security-credentials/{role}'.format(
+        role=role_name
     )
     response = requests.get(url=metadata_url)
     response.raise_for_status()
@@ -85,7 +85,7 @@ def hashivault_auth(client, params):
         client = AppRoleClient(client,role_id,secret_id)
     elif authtype == 'tls':
         client.auth_tls()
-    elif authtype == 'ec2':
+    elif authtype == 'aws':
         credentials = get_ec2_iam_credentials()
         client.auth_aws_iam(credentials['AccessKeyId'], credentials['SecretAccessKey'], credentials['Token'], role=role_id)
     else:
