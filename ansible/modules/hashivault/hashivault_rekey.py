@@ -86,7 +86,7 @@ def hashivault_rekey(params):
     key = params.get('key')
     nonce = params.get('nonce')
     client = hashivault_client(params)
-    return {'status': client.rekey(key, nonce), 'changed': True}
+    return {'status': client.sys.rekey(key, nonce), 'changed': True}
 
 
 if __name__ == '__main__':
