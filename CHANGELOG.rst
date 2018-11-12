@@ -2,6 +2,18 @@ Changelog
 =========
 
 
+3.10.0 (2018-11-12)
+-------------------
+- Stop using deprecated methods. [Terry Howe]
+- Fix for hvac 0.7.0. [Terry Howe]
+- Added method to get iam role from ec2 metadata. [simonmacklin]
+- Added methods for iam auth. [Simon Macklin]
+- Only set cacert and capath if env set. [Terry Howe]
+- Fix missing cert info for lookups. [Clinton Judy]
+- Fix hashivault_write secret parameter description. [Manuel Tiago
+  Pereira]
+
+
 3.9.8 (2018-10-11)
 ------------------
 - Added AWS create role module. [Simon Macklin]
