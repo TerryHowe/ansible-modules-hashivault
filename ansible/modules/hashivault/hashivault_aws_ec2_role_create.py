@@ -171,7 +171,7 @@ def hashivault_aws_ec2_role_create(params):
         if value is not None:
             kwargs[arg] = value
 
-    if not 'aws/' in client.list_auth_backends().keys():
+    if not 'aws/' in client.sys.list_auth_methods().keys():
         return { 'failed' : True , 'msg' : 'aws auth backend is not enabled', 'rc' : 1}
         
     try:

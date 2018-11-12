@@ -74,7 +74,7 @@ from ansible.module_utils.hashivault import *
 @hashiwrapper
 def hashivault_auth_list(params):
     client = hashivault_auth_client(params)
-    result = client.list_auth_backends()
+    result = client.sys.list_auth_methods()
     if isinstance(result, dict):
         result = result.get('data', result)
     return {'changed': True, 'backends': result}

@@ -94,14 +94,14 @@ from ansible.module_utils.hashivault import *
 @hashiwrapper
 def hashivault_initialize(params):
     client = hashivault_client(params)
-    if client.is_initialized():
+    if client.sys.is_initialized():
         return {'changed': False}
     result =  {'changed': True}
     secret_shares = params.get('secret_shares')
     secret_threshold = params.get('secret_threshold')
     pgp_keys = params.get('pgp_keys')
     result.update(
-        client.initialize(
+        client.sys.initialize(
             secret_shares=secret_shares,
             secret_threshold=secret_threshold,
             pgp_keys=pgp_keys

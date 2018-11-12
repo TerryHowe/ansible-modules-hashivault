@@ -91,7 +91,7 @@ def hashivault_mount_tune(module):
     max_lease_ttl = module.params.get('max_lease_ttl')
 
     changed = False
-    current_tuning = client.get_secret_backend_tuning(None, mount_point=mount_point)
+    current_tuning = client.sys.read_mount_configuration(mount_point)
     current_tuning = current_tuning.get('data', current_tuning)
     current_default_lease_ttl = current_tuning.get('default_lease_ttl')
     current_max_lease_ttl = current_tuning.get('max_lease_ttl')
@@ -100,7 +100,7 @@ def hashivault_mount_tune(module):
         changed = True
 
     if not module.check_mode:
-        client.tune_secret_backend(None, mount_point=mount_point, default_lease_ttl=default_lease_ttl, max_lease_ttl=max_lease_ttl)
+        client.sys.tune_mount_configuration(mount_point, default_lease_ttl=default_lease_ttl, max_lease_ttl=max_lease_ttl)
 
     return {'changed': changed}
 

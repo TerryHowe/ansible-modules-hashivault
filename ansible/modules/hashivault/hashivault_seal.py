@@ -76,8 +76,9 @@ from ansible.module_utils.hashivault import *
 def hashivault_seal(params):
     key = params.get('key')
     client = hashivault_auth_client(params)
-    if not client.is_sealed():
-        return {'status': client.seal(), 'changed': True}
+    if not client.sys.is_sealed():
+        status = client.sys.seal().ok
+        return {'status': status, 'changed': True}
     else:
         return {'changed': False}
 

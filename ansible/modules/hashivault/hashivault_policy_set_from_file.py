@@ -87,7 +87,7 @@ def hashivault_policy_set_from_file(params):
     current = client.get_policy(name)
     if current == rules:
         return {'changed': False}
-    client.set_policy(name, rules)
+    client.sys.create_or_update_policy(name, rules)
     return {'changed': True}
 
 
