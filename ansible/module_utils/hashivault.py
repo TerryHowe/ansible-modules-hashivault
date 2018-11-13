@@ -76,11 +76,11 @@ def hashivault_auth(client, params):
     role_id = params.get('role_id')
 
     if authtype == 'github':
-        client.auth_methods.Github.login(token)
+        client.auth.github.login(token)
     elif authtype == 'userpass':
         client.auth_userpass(username, password)
     elif authtype == 'ldap':
-        client.auth_methods.Ldap.login(username, password)
+        client.auth.ldap.login(username, password)
     elif authtype == 'approle':
         client = AppRoleClient(client,role_id,secret_id)
     elif authtype == 'tls':
