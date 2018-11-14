@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+3.10.1 (2018-11-14)
+-------------------
+- Fix auth_methods for LDAP and GitHub. [Eugene Kossyak]
+
+
 3.10.0 (2018-11-12)
 -------------------
 - Stop using deprecated methods. [Terry Howe]
