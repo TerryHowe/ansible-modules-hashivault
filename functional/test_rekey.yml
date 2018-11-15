@@ -42,7 +42,7 @@
     - assert: { that: "{{vault_rekey_cancel.changed}} == True" }
     - assert: { that: "{{vault_rekey_cancel.rc}} == 0" }
 
-    - name: Restart taht rekey again
+    - name: Restart that rekey again
       hashivault_rekey_init:
         secret_shares: 1
         secret_threshold: 1

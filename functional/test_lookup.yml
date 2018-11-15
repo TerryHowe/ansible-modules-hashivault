@@ -11,6 +11,13 @@
     name_dict: '{{namespace}}_dict'
     name_array: '{{namespace}}_array'
     vars_foo: "{{lookup('hashivault', '{{name_root}}', 'foo')}}"
+    dict_value:
+      foo: 'bar'
+      baz: 'stuff'
+    array_value:
+      - 'one'
+      - 'two'
+      - 'three'
   tasks:
     - assert: { that: "'{{vars_foo}}' == 'new'" }
 
@@ -29,3 +36,11 @@
     - set_fact:
         a_set_array: "{{lookup('hashivault', '{{name_array}}', 'value') | first}}"
     - assert: { that: "'{{a_set_array}}' == 'one'" }
+
+    - set_fact:
+        a_set_dict_all: "{{lookup('hashivault', '{{name_dict}}')}}"
+    - assert: { that: "a_set_dict_all == dict_value" }
+
+    - set_fact:
+        a_set_array_all: "{{lookup('hashivault', '{{name_array}}')['value']}}"
+    - assert: { that: "a_set_array_all == array_value" }

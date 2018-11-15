@@ -59,6 +59,9 @@ options:
     config:
         description:
             - config of secret backend
+    options:
+        description:
+            - options of secret backend
 '''
 EXAMPLES = '''
 ---
@@ -76,6 +79,7 @@ def main():
     argspec['backend'] = dict(required=True, type='str')
     argspec['description'] = dict(required=False, type='str')
     argspec['config'] = dict(required=False, type='dict')
+    argspec['options'] = dict(required=False, type='dict')
     module = hashivault_init(argspec)
     result = hashivault_secret_enable(module.params)
     if result.get('failed'):
@@ -95,11 +99,13 @@ def hashivault_secret_enable(params):
     backend = params.get('backend')
     description = params.get('description')
     config = params.get('config')
-    secrets = client.list_secret_backends()
+    options = params.get('options')
+    secrets = client.sys.list_mounted_secrets_engines()
+    secrets = secrets.get('data', secrets)
     path = name + "/"
     if path in secrets:
         return {'changed': False}
-    client.enable_secret_backend(backend, description=description, mount_point=name, config=config)
+    client.sys.enable_secrets_engine(backend, description=description, path=name, config=config, options=options)
     return {'changed': True}
 
 

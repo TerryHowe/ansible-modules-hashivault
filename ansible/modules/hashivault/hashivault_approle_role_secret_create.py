@@ -50,6 +50,15 @@ options:
     name:
         description:
             - secret name.
+    cidr_list:
+        description:
+            - Comma-separated string or list of CIDR blocks.
+    metadata:
+        description:
+            - Metadata to be tied to the secret.
+    wrap_ttl:
+        description:
+            - Wrap TTL.
 '''
 EXAMPLES = '''
 ---
@@ -65,6 +74,9 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
+    argspec['cidr_list'] = dict(required=False, type='str')
+    argspec['metadata'] = dict(required=False, type='dict')
+    argspec['wrap_ttl'] = dict(required=False, type='str')
     module = hashivault_init(argspec)
     result = hashivault_approle_role_secret_create(module.params)
     if result.get('failed'):
@@ -80,8 +92,18 @@ from ansible.module_utils.hashivault import *
 @hashiwrapper
 def hashivault_approle_role_secret_create(params):
     name = params.get('name')
+    cidr_list = params.get('cidr_list')
+    metadata = params.get('metadata')
+    wrap_ttl = params.get('wrap_ttl')
+    kwargs = {}
+    if cidr_list is not None:
+        kwargs['cidr_list'] = cidr_list
+    if metadata is not None:
+        kwargs['meta'] = metadata
+    if wrap_ttl is not None:
+        kwargs['wrap_ttl'] = wrap_ttl
     client = hashivault_auth_client(params)
-    result = client.create_role_secret_id(name)
+    result = client.create_role_secret_id(name, **kwargs)
     return result['data']
 
 

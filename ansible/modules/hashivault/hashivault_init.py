@@ -78,7 +78,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['secret_shares'] = dict(required=False, type='int', default=5)
     argspec['secret_threshold'] = dict(required=False, type='int', default=3)
-    argspec['pgp_keys'] = dict(required=False, type='list', default=[])
+    argspec['pgp_keys'] = dict(required=False, type='list', default=None)
     module = hashivault_init(argspec)
     result = hashivault_initialize(module.params)
     if result.get('failed'):
@@ -94,14 +94,14 @@ from ansible.module_utils.hashivault import *
 @hashiwrapper
 def hashivault_initialize(params):
     client = hashivault_client(params)
-    if client.is_initialized():
+    if client.sys.is_initialized():
         return {'changed': False}
     result =  {'changed': True}
     secret_shares = params.get('secret_shares')
     secret_threshold = params.get('secret_threshold')
     pgp_keys = params.get('pgp_keys')
     result.update(
-        client.initialize(
+        client.sys.initialize(
             secret_shares=secret_shares,
             secret_threshold=secret_threshold,
             pgp_keys=pgp_keys

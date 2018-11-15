@@ -49,7 +49,7 @@ options:
         default: to environment variable VAULT_PASSWORD
     secret:
         description:
-            - secret to read.
+            - vault secret to write.
     data:
         description:
             - Keys and values to write.
@@ -103,6 +103,7 @@ def _convert_to_seconds(original_value):
         pass
     return original_value
 
+
 def hashivault_changed(old_data, new_data):
     if sorted(old_data.keys()) != sorted(new_data.keys()):
         return True
@@ -130,7 +131,7 @@ def hashivault_write(module):
     client = hashivault_auth_client(params)
     secret = params.get('secret')
     returned_data = None
-    
+
     if secret.startswith('/'):
         secret = secret.lstrip('/')
     else:
@@ -159,7 +160,7 @@ def hashivault_write(module):
 
             if returned_data:
                 result['data'] = returned_data
-            result['msg'] = "Secret %s written" % secret
+            result['msg'] = u"Secret %s written" % secret
         result['changed'] = changed
     return result
 

@@ -64,7 +64,7 @@ class ActionModule(ActionBase):
 
         if content == None:
             results['failed'] = True
-            results['msg'] = 'Could not find file `%s` in secret `%s`'%(args['key'],args['secret'])
+            results['msg'] = u'Could not find file `%s` in secret `%s`'%(args['key'],args['secret'])
             return(results)
 
 
@@ -100,6 +100,6 @@ class ActionModule(ActionBase):
 
         if force == False and results['changed'] == False:
             results['failed'] = True
-            results['msg'] = 'File %s already exists. Use `force: true` to overwrite'%dest
+            results['msg'] = u'File %s already exists. Use `force: true` to overwrite'%dest
 
         return(results)

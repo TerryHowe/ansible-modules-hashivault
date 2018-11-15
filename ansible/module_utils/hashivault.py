@@ -5,6 +5,9 @@ from hvac import exceptions
 import hvac
 from ansible.module_utils.basic import AnsibleModule
 
+import requests
+from requests.exceptions import RequestException
+
 
 def hashivault_argspec():
     argument_spec = dict(
@@ -27,6 +30,21 @@ def hashivault_argspec():
 def hashivault_init(argument_spec, supports_check_mode=False):
     return AnsibleModule(argument_spec=argument_spec, supports_check_mode=supports_check_mode)
 
+
+def get_ec2_iam_role():
+    request = requests.get(url='http://169.254.169.254/latest/meta-data/iam/security-credentials/')
+    request.raise_for_status()
+    return request.content
+
+def get_ec2_iam_credentials():
+    role_name = get_ec2_iam_role()
+    metadata_url = 'http://169.254.169.254/latest/meta-data/iam/security-credentials/{role}'.format(
+        role=role_name
+    )
+    response = requests.get(url=metadata_url)
+    response.raise_for_status()
+    security_credentials = response.json()
+    return security_credentials
 
 def hashivault_client(params):
     url = params.get('url')
@@ -58,13 +76,18 @@ def hashivault_auth(client, params):
     role_id = params.get('role_id')
 
     if authtype == 'github':
-        client.auth_github(token)
+        client.auth.github.login(token)
     elif authtype == 'userpass':
         client.auth_userpass(username, password)
     elif authtype == 'ldap':
-        client.auth_ldap(username, password)
+        client.auth.ldap.login(username, password)
     elif authtype == 'approle':
         client = AppRoleClient(client,role_id,secret_id)
+    elif authtype == 'tls':
+        client.auth_tls()
+    elif authtype == 'aws':
+        credentials = get_ec2_iam_credentials()
+        client.auth_aws_iam(credentials['AccessKeyId'], credentials['SecretAccessKey'], credentials['Token'], role=role_id)
     else:
         client.token = token
     return client
@@ -83,7 +106,7 @@ def hashiwrapper(function):
         except Exception as e:
             result['rc'] = 1
             result['failed'] = True
-            result['msg'] = "Exception: " + str(e)
+            result['msg'] = u"Exception: " + str(e)
         return result
     return wrapper
 
@@ -95,7 +118,7 @@ def hashivault_default_token():
     token_file = os.path.expanduser('~/.vault-token')
     if os.path.exists(token_file):
         with open(token_file, 'r') as f:
-            return f.read()
+            return f.read().strip()
     return ''
 
 

@@ -19,6 +19,26 @@ Install this Ansible module with::
 
 In most cases the Hashicorp Vault modules should be run on localhost.
 
+Environmental Variables
+-------------------
+
+The following variables need to be exported to the environment where you run ansible
+in order to authenticate to your HashiCorp Vault instance:
+
+  * `VAULT_ADDR`: url for vault
+  * `VAULT_SKIP_VERIFY=true`: if set, do not verify presented TLS certificate before communicating with Vault server. Setting this variable is not recommended except during testing
+  * `VAULT_AUTHTYPE`: authentication type to use: `token`, `userpass`, `github`, `ldap`, `approle`
+  * `VAULT_TOKEN`: token for vault
+  * `VAULT_ROLE_ID`: (required by `approle`)
+  * `VAULT_SECRET_ID`: (required by `approle`)
+  * `VAULT_USER`: username to login to vault
+  * `VAULT_PASSWORD`: password to login to vault
+  * `VAULT_CLIENT_KEY`: path to an unencrypted PEM-encoded private key matching the client certificate
+  * `VAULT_CLIENT_CERT`: path to a PEM-encoded client certificate for TLS authentication to the Vault server
+  * `VAULT_CACERT`: path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate
+  * `VAULT_CAPATH`: path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate
+
+
 Reading and Writing
 -------------------
 
@@ -123,14 +143,35 @@ Policy support::
         rules: >
             path "secret/{{name}}/*" {
               capabilities = ["create", "read", "update", "delete", "list"]
-            } 
+            }
             path "secret/{{name}}" {
               capabilities = ["list"]
-            } 
+            }
       tasks:
         - hashivault_policy_set:
             name: "{{name}}"
             rules: "{{rules}}"
+          register: 'vault_policy_set'
+        - hashivault_policy_get:
+            name: '{{name}}'
+          register: 'vault_policy_get'
+        - hashivault_policy_list:
+          register: 'vault_policy_list'
+
+Policy From A file
+------------------
+
+Policy from a file support::
+
+    ---
+    - hosts: localhost
+      vars:
+        name: 'drew'
+
+      tasks:
+        - hashivault_policy_set_from_file:
+            name: "{{name}}"
+            rules_file: /home/drew/my_policy.hcl
           register: 'vault_policy_set'
         - hashivault_policy_get:
             name: '{{name}}'
@@ -154,7 +195,7 @@ Add and delete users for userpass::
             pass: "{{userpass}}"
             policies: "{{username}}"
           register: 'vault_userpass_create'
-    
+
         - hashivault_userpass_delete:
             name: "{{username}}"
           register: 'vault_userpass_delete'

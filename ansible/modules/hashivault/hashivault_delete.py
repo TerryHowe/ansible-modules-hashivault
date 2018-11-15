@@ -82,13 +82,13 @@ def hashivault_delete(params):
     if secret.startswith('/'):
         secret = secret.lstrip('/')
     else:
-        secret = ('secret/%s' % secret)
+        secret = (u'secret/%s' % secret)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         returned_data = client.delete(secret)
         if returned_data:
             result['data'] = returned_data
-        result['msg'] = "Secret %s deleted" % secret
+        result['msg'] = u"Secret %s deleted" % secret
     result['changed'] = True
     return result
 

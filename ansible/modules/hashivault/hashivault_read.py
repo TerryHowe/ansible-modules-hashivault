@@ -100,14 +100,14 @@ def hashivault_read(params):
             secret = secret.lstrip('/')
             response = client.read(secret)
         else:
-            response = client.read('secret/%s' % secret)
+            response = client.read(u'secret/%s' % secret)
         if not response:
             if default is not None:
                 result['value'] = default
                 return result
             result['rc'] = 1
             result['failed'] = True
-            result['msg'] = "Secret %s is not in vault" % secret
+            result['msg'] = u"Secret %s is not in vault" % secret
             return result
         data = response['data']
     if key and key not in data:
@@ -116,7 +116,7 @@ def hashivault_read(params):
             return result
         result['rc'] = 1
         result['failed'] = True
-        result['msg'] = "Key %s is not in secret %s" % (key, secret)
+        result['msg'] = u"Key %s is not in secret %s" % (key, secret)
         return result
     if key:
         value = data[key]

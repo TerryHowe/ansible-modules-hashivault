@@ -84,7 +84,7 @@ def hashivault_policy_get(params):
     policy = client.get_policy(name)
     if policy is None:
         result = { "changed": False, "rc" : 1, "failed": True}
-        result['msg'] = "Policy \"%s\" does not exist." % (name)
+        result['msg'] = u"Policy \"%s\" does not exist." % (name)
         return result
     else:
         return {'rules': policy}
