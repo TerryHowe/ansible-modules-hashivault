@@ -87,44 +87,5 @@ from ansible.module_utils.basic import *
 from ansible.module_utils.hashivault import *
 
 
-@hashiwrapper
-def hashivault_read(params):
-    result = { "changed": False, "rc" : 0}
-    client = hashivault_auth_client(params)
-    secret = params.get('secret')
-    key = params.get('key')
-    default = params.get('default')
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        if secret.startswith('/'):
-            secret = secret.lstrip('/')
-            response = client.read(secret)
-        else:
-            response = client.read(u'secret/%s' % secret)
-        if not response:
-            if default is not None:
-                result['value'] = default
-                return result
-            result['rc'] = 1
-            result['failed'] = True
-            result['msg'] = u"Secret %s is not in vault" % secret
-            return result
-        data = response['data']
-    if key and key not in data:
-        if default is not None:
-            result['value'] = default
-            return result
-        result['rc'] = 1
-        result['failed'] = True
-        result['msg'] = u"Key %s is not in secret %s" % (key, secret)
-        return result
-    if key:
-        value = data[key]
-    else:
-        value = data
-    result['value'] = value
-    return result
-
-
 if __name__ == '__main__':
     main()

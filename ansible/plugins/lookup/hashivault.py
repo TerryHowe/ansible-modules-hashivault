@@ -20,8 +20,10 @@ import warnings
 
 from ansible.errors import AnsibleError
 from ansible.plugins.lookup import LookupBase
-from ansible.modules.hashivault import hashivault_read
-from ansible.module_utils.hashivault import hashivault_default_token
+from ansible.module_utils.hashivault import (
+    hashivault_default_token,
+    hashivault_read,
+)
 
 
 class LookupModule(LookupBase):
@@ -86,7 +88,7 @@ class LookupModule(LookupBase):
 
     def run(self, terms, variables, **kwargs):
         environments = variables.get('environment', [])
-        result = hashivault_read.hashivault_read(self._get_params(terms, environments, kwargs))
+        result = hashivault_read(self._get_params(terms, environments, kwargs))
         if 'value' not in result:
             path = terms[0]
             try:
