@@ -27,6 +27,11 @@ Install this Ansible module:
 
   ansible-galaxy install 'git+https://github.com/TerryHowe/ansible-modules-hashivault.git'
 
+..
+
+  Note: The ``hashicorp`` lookup plugin does not work with this last install method (`ansible/ansible#28770 <https://github.com/ansible/ansible/issues/28770>`_).
+  You can fallback to the build-in lookup plugin: `hashi_vault <https://docs.ansible.com/ansible/latest/plugins/lookup/hashi_vault.html>`_
+
 In most cases the Hashicorp Vault modules should be run on localhost.
 
 Environmental Variables
