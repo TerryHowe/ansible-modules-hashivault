@@ -290,6 +290,12 @@ Various token manipulation modules::
     - hashivault_token_lookup:
         lookup_token: "{{client_token}}"
       register: "vault_token_lookup"
+    - hashivault_token_revoke:
+        revoke_token: "{{client_token}}"
+      register: "vault_token_revoke"
+    - hashivault_token_renew:
+        renew_token: "{{client_token}}"
+      register: "vault_token_renew"
 
 Approle
 -------
