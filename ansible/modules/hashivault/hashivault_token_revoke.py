@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_token_revoke
-version_added: "3.4.0"
+version_added: "3.11.0"
 short_description: Hashicorp Vault token revoke module
 description:
     - Module to revoke tokens in Hashicorp Vault.
@@ -93,7 +93,7 @@ def hashivault_token_revoke(params):
     if revoke_token is None:
         revoke_token = params.get('token')
     revoke = client.revoke_token(token=revoke_token, orphan=orphan, accessor=accessor)
-    return {'changed': False, 'revoke': revoke}
+    return {'changed': True, 'revoke': revoke}
 
 if __name__ == '__main__':
     main()

@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_token_renew
-version_added: "3.4.0"
+version_added: "3.11.0"
 short_description: Hashicorp Vault token renew module
 description:
     - Module to renew tokens in Hashicorp Vault.
@@ -94,7 +94,7 @@ def hashivault_token_renew(params):
         renew_token = params.get('token')
     wrap_ttl = params.get('wrap_ttl')
     renew = client.renew_token(token=renew_token, increment=increment, wrap_ttl=wrap_ttl)
-    return {'changed': False, 'renew': renew}
+    return {'changed': True, 'renew': renew}
 
 if __name__ == '__main__':
     main()
