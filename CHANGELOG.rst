@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+3.11.0 (2018-12-17)
+-------------------
+- Add tests for revoke and renew token. [Terry Howe]
+- Added token renew and token revoke functions. [Charles Bevan]
+
+
 3.10.1 (2018-11-14)
 -------------------
 - Fix auth_methods for LDAP and GitHub. [Eugene Kossyak]
