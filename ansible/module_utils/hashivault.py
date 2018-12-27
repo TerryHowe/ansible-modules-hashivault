@@ -19,7 +19,8 @@ def hashivault_argspec():
         username = dict(required=False, default=os.environ.get('VAULT_USER', ''), type='str'),
         password = dict(required=False, default=os.environ.get('VAULT_PASSWORD', ''), type='str', no_log=True),
         role_id = dict(required=False, default=os.environ.get('VAULT_ROLE_ID', ''), type='str', no_log=True),
-        secret_id = dict(required=False, default=os.environ.get('VAULT_SECRET_ID', ''), type='str', no_log=True)
+        secret_id = dict(required=False, default=os.environ.get('VAULT_SECRET_ID', ''), type='str', no_log=True),
+        namespace = dict(required=False, default=os.environ.get('VAULT_NAMESPACE', None), type='str')
     )
     return argument_spec
 
@@ -36,6 +37,7 @@ def hashivault_client(params):
     client_key = params.get('client_key')
     cert = (client_cert, client_key)
     check_verify = params.get('verify')
+    namespace = params.get('namespace', None)
     if check_verify == '' or check_verify:
         if ca_cert:
             verify = ca_cert
@@ -45,7 +47,7 @@ def hashivault_client(params):
             verify = check_verify
     else:
         verify = check_verify
-    client = hvac.Client(url=url, cert=cert, verify=verify)
+    client = hvac.Client(url=url, cert=cert, verify=verify, namespace=namespace)
     return client
 
 
