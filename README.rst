@@ -169,7 +169,7 @@ Policy from a file support::
         name: 'drew'
 
       tasks:
-        - hashivault_policy_set_file:
+        - hashivault_policy_set_from_file:
             name: "{{name}}"
             rules_file: /home/drew/my_policy.hcl
           register: 'vault_policy_set'
@@ -290,6 +290,12 @@ Various token manipulation modules::
     - hashivault_token_lookup:
         lookup_token: "{{client_token}}"
       register: "vault_token_lookup"
+    - hashivault_token_revoke:
+        revoke_token: "{{client_token}}"
+      register: "vault_token_revoke"
+    - hashivault_token_renew:
+        renew_token: "{{client_token}}"
+      register: "vault_token_renew"
 
 Approle
 -------

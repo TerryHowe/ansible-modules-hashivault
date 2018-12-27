@@ -89,11 +89,12 @@ def hashivault_audit_enable(params):
     name = params.get('name')
     description = params.get('description')
     options = params.get('options')
-    backends = client.list_audit_backends()
+    backends = client.sys.list_enabled_audit_devices()
+    backends = backends.get('data', backends)
     path = name + "/"
     if path in backends and backends[path]["options"] == options:
         return {'changed': False}
-    client.enable_audit_backend(name, description=description, options=options)
+    client.sys.enable_audit_device(name, description=description, options=options)
     return {'changed': True }
 
 

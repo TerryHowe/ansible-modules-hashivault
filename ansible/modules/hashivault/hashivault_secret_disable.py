@@ -89,7 +89,7 @@ from ansible.module_utils.hashivault import *
 def hashivault_secret_disable(params):
     client = hashivault_auth_client(params)
     name = params.get('name')
-    client.disable_secret_backend(name)
+    client.sys.disable_secrets_engine(name)
     return {'changed': True}
 
 

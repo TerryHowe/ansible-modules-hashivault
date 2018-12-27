@@ -75,7 +75,11 @@ from ansible.module_utils.hashivault import *
 @hashiwrapper
 def hashivault_policy_list(params):
     client = hashivault_auth_client(params)
-    return {'policies': client.list_policies()}
+    current_policies = client.sys.list_policies()
+    if isinstance(current_policies, dict):
+        current_policies = current_policies.get('data', current_policies)
+        current_policies = current_policies.get('policies', current_policies)
+    return {'policies': current_policies}
 
 
 if __name__ == '__main__':

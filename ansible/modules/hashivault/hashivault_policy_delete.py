@@ -81,9 +81,13 @@ from ansible.module_utils.hashivault import *
 def hashivault_policy_delete(params):
     name = params.get('name')
     client = hashivault_auth_client(params)
-    if name not in client.list_policies():
+    current_policies = client.sys.list_policies()
+    if isinstance(current_policies, dict):
+        current_policies = current_policies.get('data', current_policies)
+        current_policies = current_policies.get('policies', current_policies)
+    if name not in current_policies:
         return {'changed': False}
-    client.delete_policy(name)
+    client.sys.delete_policy(name)
     return {'changed': True}
 
 

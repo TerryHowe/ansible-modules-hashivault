@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_mount_tune
-version_added: "3.7.0"
-short_description: Hashicorp Vault tune backend
+module: hashivault_token_renew
+version_added: "3.11.0"
+short_description: Hashicorp Vault token renew module
 description:
-    - Module to enable tuning of backends in HashiCorp Vault.
+    - Module to renew tokens in Hashicorp Vault.
 options:
     url:
         description:
@@ -47,62 +47,54 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-    mount_point
+    renew_token:
         description:
-            - location where this auth backend will be mounted
-    default_lease_ttl:
+            - token to renew if different from auth token
+        default: to authentication token
+    increment:
         description:
-            - Configures the default lease duration for tokens and secrets. This is an integer value in seconds.
-    max_lease_ttl:
+            - Request a specific increment for renewal. Vault is not required to honor this request. If not supplied, Vault will use the default TTL.
+    wrap_ttl:
         description:
-            - Configures the maximum lease duration for tokens and secrets. This is an integer value in seconds.
+            - Indicates that the response should be wrapped in a cubbyhole token with the requested TTL.
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_mount_tune:
-        mount_point: ephemeral
-        default_lease_ttl: 3600
+    - name: "Renew token"
+      hashivault_token_renew:
+        renew_token: "{{client_token}}"
+        increment: "5m"
+      register: "vault_token_renew"
 '''
-
 
 def main():
     argspec = hashivault_argspec()
-    argspec['mount_point'] = dict(required=True, type='str')
-    argspec['default_lease_ttl'] = dict(required=False, type='int', default=None)
-    argspec['max_lease_ttl'] = dict(required=False, type='int', default=None)
+    argspec['renew_token'] = dict(required=False, type='str')
+    argspec['increment'] = dict(required=False, type='str', default=None)
+    argspec['wrap_ttl'] = dict(required=False, type='int')
     module = hashivault_init(argspec)
-    result = hashivault_mount_tune(module)
+    result = hashivault_token_renew(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
 
-
 from ansible.module_utils.basic import *
 from ansible.module_utils.hashivault import *
 
+
 @hashiwrapper
-def hashivault_mount_tune(module):
-    client = hashivault_auth_client(module.params)
-    mount_point = module.params.get('mount_point')
-    default_lease_ttl = module.params.get('default_lease_ttl')
-    max_lease_ttl = module.params.get('max_lease_ttl')
-
-    changed = False
-    current_tuning = client.sys.read_mount_configuration(mount_point)
-    current_tuning = current_tuning.get('data', current_tuning)
-    current_default_lease_ttl = current_tuning.get('default_lease_ttl')
-    current_max_lease_ttl = current_tuning.get('max_lease_ttl')
-
-    if (current_default_lease_ttl != default_lease_ttl) or (current_max_lease_ttl != max_lease_ttl):
-        changed = True
-
-    if not module.check_mode:
-        client.sys.tune_mount_configuration(mount_point, default_lease_ttl=default_lease_ttl, max_lease_ttl=max_lease_ttl)
-
-    return {'changed': changed}
+def hashivault_token_renew(params):
+    client = hashivault_auth_client(params)
+    renew_token = params.get('renew_token')
+    increment = params.get('increment')
+    if renew_token is None:
+        renew_token = params.get('token')
+    wrap_ttl = params.get('wrap_ttl')
+    renew = client.renew_token(token=renew_token, increment=increment, wrap_ttl=wrap_ttl)
+    return {'changed': True, 'renew': renew}
 
 if __name__ == '__main__':
     main()

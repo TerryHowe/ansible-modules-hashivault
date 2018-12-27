@@ -87,6 +87,9 @@ options:
     renewable:
         description:
             - Whether or not the token is renewable to extend its TTL up to Vault's configured maximum TTL for tokens
+    period:
+        description:
+            -  If specified, every renewal will use the given period. Periodic tokens do not expire (unless explicit_max_ttl is also provided).
     explicit_max_ttl:
         description:
             - An explicit maximum lifetime for the token
@@ -121,6 +124,7 @@ def main():
     argspec['orphan'] = dict(required=False, type='bool', default=False)
     argspec['renewable'] = dict(required=False, type='bool')
     argspec['explicit_max_ttl'] = dict(required=False, type='str')
+    argspec['period'] = dict(required=False, type='str')
     module = hashivault_init(argspec)
     result = hashivault_token_create(module.params)
     if result.get('failed'):
@@ -149,6 +153,7 @@ def hashivault_token_create(params):
     wrap_ttl = params.get('wrap_ttl')
     orphan = params.get('orphan')
     renewable = params.get('renewable')
+    period = params.get('period')
     explicit_max_ttl = params.get('explicit_max_ttl')
 
     token = client.create_token(
@@ -165,7 +170,8 @@ def hashivault_token_create(params):
         wrap_ttl=wrap_ttl,
         orphan=orphan,
         renewable=renewable,
-        explicit_max_ttl=explicit_max_ttl
+        explicit_max_ttl=explicit_max_ttl,
+        period=period
         )
 
     return {'changed': True, 'token': token}

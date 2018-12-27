@@ -1,0 +1,27 @@
+#   
+# This test depends on successful test_write run
+#
+---
+- hosts: localhost
+  gather_facts: no
+  environment:
+      VAULT_ADDR: 'http://127.0.0.1:8201'
+      BOGUS: 'asdf'
+  vars:
+    namespace: ''
+    name_root: '{{namespace}}basic'
+    name_folder: '{{namespace}}stalks/bean'
+    name_dict: '{{namespace}}_dict'
+    name_array: '{{namespace}}_array'
+    vars_foo: "{{lookup('hashivault', '{{name_root}}', 'foo')}}"
+    dict_value:
+      foo: 'bar'
+      baz: 'stuff'
+    array_value:
+      - 'one'
+      - 'two'
+      - 'three'
+  tasks:
+    - set_fact:
+        a_set_fie: "{{lookup('hashivault', '{{name_root}}', 'fie')}}"
+    - assert: { that: "'{{a_set_fie}}' == 'fum'" }

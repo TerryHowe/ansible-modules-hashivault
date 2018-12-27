@@ -100,11 +100,12 @@ def hashivault_secret_enable(params):
     description = params.get('description')
     config = params.get('config')
     options = params.get('options')
-    secrets = client.list_secret_backends()
+    secrets = client.sys.list_mounted_secrets_engines()
+    secrets = secrets.get('data', secrets)
     path = name + "/"
     if path in secrets:
         return {'changed': False}
-    client.enable_secret_backend(backend, description=description, mount_point=name, config=config, options=options)
+    client.sys.enable_secrets_engine(backend, description=description, path=name, config=config, options=options)
     return {'changed': True}
 
 

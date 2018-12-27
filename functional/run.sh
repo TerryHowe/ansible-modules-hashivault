@@ -12,6 +12,7 @@ source ./vaultenv.sh
 ansible-playbook -v test_check.yml --check
 ansible-playbook -v test_write.yml
 ansible-playbook -v test_read.yml
+ansible-playbook -v test_create_ec2_role.yml
 ansible-playbook -v test_list.yml
 ansible-playbook -v test_lookup.yml
 ansible-playbook -v test_delete.yml
@@ -21,9 +22,10 @@ ansible-playbook -v test_policy.yml
 ansible-playbook -v test_status.yml
 ansible-playbook -v test_not_there.yml
 ansible-playbook -v test_ephemeral.yml
-ansible-playbook -v test_secrets_w_policy_tokens.yml
+ansible-playbook -v test_tokens.yml
 ansible-playbook -v test_audit.yml
 ansible-playbook -v test_read_write_file.yml
+ansible-playbook -v test_environment_lookup.yml
 ansible-playbook -v test_unseal.yml
 ansible-playbook -v test_rekey.yml
 # test_rekey.yml changes unseal keys, need to update VAULT_KEYS

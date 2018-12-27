@@ -50,6 +50,9 @@ options:
     name:
         description:
             - policy name.
+    rules_file:
+        description:
+            - policy rules file.
 '''
 EXAMPLES = '''
 ---
@@ -65,7 +68,7 @@ def main():
     argspec['name'] = dict(required=True, type='str')
     argspec['rules_file'] = dict(required=True, type='str')
     module = hashivault_init(argspec)
-    result = hashivault_policy_set_file(module.params)
+    result = hashivault_policy_set_from_file(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -77,14 +80,14 @@ from ansible.module_utils.hashivault import *
 
 
 @hashiwrapper
-def hashivault_policy_set_file(params):
+def hashivault_policy_set_from_file(params):
     client = hashivault_auth_client(params)
     name = params.get('name')
     rules = open(params.get('rules_file'), 'r').read()
     current = client.get_policy(name)
     if current == rules:
         return {'changed': False}
-    client.set_policy(name, rules)
+    client.sys.create_or_update_policy(name, rules)
     return {'changed': True}
 
 

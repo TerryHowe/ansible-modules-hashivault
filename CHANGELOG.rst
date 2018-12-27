@@ -2,6 +2,48 @@ Changelog
 =========
 
 
+3.11.0 (2018-12-17)
+-------------------
+- Add tests for revoke and renew token. [Terry Howe]
+- Added token renew and token revoke functions. [Charles Bevan]
+
+
+3.10.1 (2018-11-14)
+-------------------
+- Fix auth_methods for LDAP and GitHub. [Eugene Kossyak]
+
+
+3.10.0 (2018-11-12)
+-------------------
+- Stop using deprecated methods. [Terry Howe]
+- Fix for hvac 0.7.0. [Terry Howe]
+- Added method to get iam role from ec2 metadata. [simonmacklin]
+- Added methods for iam auth. [Simon Macklin]
+- Only set cacert and capath if env set. [Terry Howe]
+- Fix missing cert info for lookups. [Clinton Judy]
+- Fix hashivault_write secret parameter description. [Manuel Tiago
+  Pereira]
+
+
+3.9.8 (2018-10-11)
+------------------
+- Added AWS create role module. [Simon Macklin]
+- Ad wrap_ttl support to approle secret create. [Terry Howe]
+- Rename hashivault_policy_set_from_file and test. [Terry Howe]
+- Update hashivault_policy_set_file.py. [drewmullen]
+- Update README.rst. [drewmullen]
+- New param, rules_file and set rules to open( rules_file content )
+  [Drew Mullen]
+- Add some unicode support. [Terry Howe]
+- Add support of token from ansible environment. [Terry Howe]
+- Override environment variables with ansible variables. [Terry Howe]
+- Fix tests again. [Terry Howe]
+- Get rid of extraneous spaces. [Terry Howe]
+- Fix tests for list audit backends, list secret backends. [Terry Howe]
+- Fix list policy tests and list auth backends test. [Terry Howe]
+- Add period parameter on token creation. [Konstantin Privezentsev]
+
+
 3.9.7 (2018-08-29)
 ------------------
 - Secrets enable options support. [kevin2seedlink]

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_mount_tune
-version_added: "3.7.0"
-short_description: Hashicorp Vault tune backend
+module: hashivault_token_revoke
+version_added: "3.11.0"
+short_description: Hashicorp Vault token revoke module
 description:
-    - Module to enable tuning of backends in HashiCorp Vault.
+    - Module to revoke tokens in Hashicorp Vault.
 options:
     url:
         description:
@@ -47,62 +47,53 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-    mount_point
+    revoke_token:
         description:
-            - location where this auth backend will be mounted
-    default_lease_ttl:
+            - token to revoke if different from auth token
+        default: to authentication token
+    accessor:
         description:
-            - Configures the default lease duration for tokens and secrets. This is an integer value in seconds.
-    max_lease_ttl:
+            - If set, lookups will use the this accessor token
+    orphan:
         description:
-            - Configures the maximum lease duration for tokens and secrets. This is an integer value in seconds.
+            - If set, Vault will revoke only the token, leaving the children as orphans.
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_mount_tune:
-        mount_point: ephemeral
-        default_lease_ttl: 3600
+    - name: "revoke token"
+      hashivault_token_revoke:
+        revoke_token: "{{client_token}}"
+      register: "vault_token_revoke"
 '''
-
 
 def main():
     argspec = hashivault_argspec()
-    argspec['mount_point'] = dict(required=True, type='str')
-    argspec['default_lease_ttl'] = dict(required=False, type='int', default=None)
-    argspec['max_lease_ttl'] = dict(required=False, type='int', default=None)
+    argspec['revoke_token'] = dict(required=False, type='str')
+    argspec['accessor'] = dict(required=False, type='bool', default=False)
+    argspec['orphan'] = dict(required=False, type='bool', default=False)
     module = hashivault_init(argspec)
-    result = hashivault_mount_tune(module)
+    result = hashivault_token_revoke(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
 
-
 from ansible.module_utils.basic import *
 from ansible.module_utils.hashivault import *
 
+
 @hashiwrapper
-def hashivault_mount_tune(module):
-    client = hashivault_auth_client(module.params)
-    mount_point = module.params.get('mount_point')
-    default_lease_ttl = module.params.get('default_lease_ttl')
-    max_lease_ttl = module.params.get('max_lease_ttl')
-
-    changed = False
-    current_tuning = client.sys.read_mount_configuration(mount_point)
-    current_tuning = current_tuning.get('data', current_tuning)
-    current_default_lease_ttl = current_tuning.get('default_lease_ttl')
-    current_max_lease_ttl = current_tuning.get('max_lease_ttl')
-
-    if (current_default_lease_ttl != default_lease_ttl) or (current_max_lease_ttl != max_lease_ttl):
-        changed = True
-
-    if not module.check_mode:
-        client.sys.tune_mount_configuration(mount_point, default_lease_ttl=default_lease_ttl, max_lease_ttl=max_lease_ttl)
-
-    return {'changed': changed}
+def hashivault_token_revoke(params):
+    client = hashivault_auth_client(params)
+    accessor = params.get('accessor')
+    orphan = params.get('orphan')
+    revoke_token = params.get('revoke_token')
+    if revoke_token is None:
+        revoke_token = params.get('token')
+    revoke = client.revoke_token(token=revoke_token, orphan=orphan, accessor=accessor)
+    return {'changed': True, 'revoke': revoke}
 
 if __name__ == '__main__':
     main()
