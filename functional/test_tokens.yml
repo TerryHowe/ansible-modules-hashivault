@@ -51,26 +51,37 @@
         that:
           - "{{vault_token_admin.changed}} == True"
           - "{{vault_token_admin.rc}} == 0"
+    - set_fact:
+        new_root_token: "{{vault_token_admin['token']['auth']['client_token']}}"
 
-    - name: "Create a read-only policy"
-      hashivault_policy_set:
-        name: "{{readonly_name}}"
-        rules: "{{readonly_rules}}"
-        token: "{{vault_token_admin['token']['auth']['client_token']}}"
-      register: 'vault_policy_set'
-    - assert:
-        that:
-          - "{{vault_policy_set.changed}} == True"
-          - "{{vault_policy_set.rc}} == 0"
-
-    - name: "List the policies"
+    - name: "List the policies with new root token"
       hashivault_policy_list:
-        token: "{{vault_token_admin['token']['auth']['client_token']}}"
+        token: "{{new_root_token}}"
       register: 'vault_policy_list'
     - assert:
         that:
           - "{{vault_policy_list.changed}} == False"
           - "{{vault_policy_list.rc}} == 0"
+
+    - name: "Lookup with root token"
+      hashivault_token_lookup:
+        lookup_token: "{{new_root_token}}"
+      register: "vault_token_lookup"
+    - assert:
+        that:
+          - "{{vault_token_lookup.changed}} == False"
+          - "{{vault_token_lookup.rc}} == 0"
+
+    - name: "Create a read-only policy"
+      hashivault_policy_set:
+        name: "{{readonly_name}}"
+        rules: "{{readonly_rules}}"
+        token: "{{new_root_token}}"
+      register: 'vault_policy_set'
+    - assert:
+        that:
+          - "{{vault_policy_set.changed}} == True"
+          - "{{vault_policy_set.rc}} == 0"
 
     - name: "Create a {{readonly_name}} token"
       hashivault_token_create:
@@ -78,27 +89,38 @@
         policies: ["{{readonly_name}}"]
         no_default_policy: True
         orphan: True
-        token: "{{vault_token_admin['token']['auth']['client_token']}}"
+        token: "{{new_root_token}}"
       register: "vault_token_readonly"
     - assert:
         that:
           - "{{vault_token_readonly.changed}} == True"
           - "{{vault_token_readonly.rc}} == 0"
+    - set_fact:
+        read_only_token: "{{vault_token_admin['token']['auth']['client_token']}}"
 
-    - name: "Lookup with root token"
-      hashivault_token_lookup:
-        lookup_token: "{{vault_token_admin['token']['auth']['client_token']}}"
-      register: "vault_token_lookup"
+    - name: "List the policies with new readonly token"
+      hashivault_policy_list:
+        token: "{{read_only_token}}"
+      register: 'vault_policy_list'
     - assert:
         that:
-          - "{{vault_token_lookup.changed}} == False"
-          - "{{vault_token_lookup.rc}} == 0"
+          - "{{vault_policy_list.changed}} == False"
+          - "{{vault_policy_list.rc}} == 0"
 
-#    - name: "Lookup with {{readonly_name}} token"
-#      hashivault_token_lookup:
-#        token: "{{vault_token_admin['token']['auth']['client_token']}}"
-#      register: "vault_token_lookup"
-#    - assert:
-#        that:
-#          - "{{vault_token_lookup.changed}} == False"
-#          - "{{vault_token_lookup.rc}} == 0"
+    - name: "Renew root token"
+      hashivault_token_renew:
+        renew_token: "{{new_root_token}}"
+      register: "vault_token_renew"
+    - assert:
+        that:
+          - "{{vault_token_renew.changed}} == True"
+          - "{{vault_token_renew.rc}} == 0"
+
+    - name: "Revoke root token"
+      hashivault_token_renew:
+        renew_token: "{{new_root_token}}"
+      register: "vault_token_revoke"
+    - assert:
+        that:
+          - "{{vault_token_revoke.changed}} == True"
+          - "{{vault_token_revoke.rc}} == 0"

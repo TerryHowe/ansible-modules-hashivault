@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_token_revoke
+module: hashivault_token_renew
 version_added: "3.11.0"
-short_description: Hashicorp Vault token revoke module
+short_description: Hashicorp Vault token renew module
 description:
-    - Module to revoke tokens in Hashicorp Vault.
+    - Module to renew tokens in Hashicorp Vault.
 options:
     url:
         description:
@@ -47,34 +47,35 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-    revoke_token:
+    renew_token:
         description:
-            - token to revoke if different from auth token
+            - token to renew if different from auth token
         default: to authentication token
-    accessor:
+    increment:
         description:
-            - If set, lookups will use the this accessor token
-    orphan:
+            - Request a specific increment for renewal. Vault is not required to honor this request. If not supplied, Vault will use the default TTL.
+    wrap_ttl:
         description:
-            - If set, Vault will revoke only the token, leaving the children as orphans.
+            - Indicates that the response should be wrapped in a cubbyhole token with the requested TTL.
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - name: "revoke token"
-      hashivault_token_revoke:
-        revoke_token: "{{client_token}}"
-      register: "vault_token_revoke"
+    - name: "Renew token"
+      hashivault_token_renew:
+        renew_token: "{{client_token}}"
+        increment: "5m"
+      register: "vault_token_renew"
 '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['revoke_token'] = dict(required=False, type='str')
-    argspec['accessor'] = dict(required=False, type='bool', default=False)
-    argspec['orphan'] = dict(required=False, type='bool', default=False)
+    argspec['renew_token'] = dict(required=False, type='str')
+    argspec['increment'] = dict(required=False, type='str', default=None)
+    argspec['wrap_ttl'] = dict(required=False, type='int')
     module = hashivault_init(argspec)
-    result = hashivault_token_revoke(module.params)
+    result = hashivault_token_renew(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -85,15 +86,15 @@ from ansible.module_utils.hashivault import *
 
 
 @hashiwrapper
-def hashivault_token_revoke(params):
+def hashivault_token_renew(params):
     client = hashivault_auth_client(params)
-    accessor = params.get('accessor')
-    orphan = params.get('orphan')
-    revoke_token = params.get('revoke_token')
-    if revoke_token is None:
-        revoke_token = params.get('token')
-    revoke = client.revoke_token(token=revoke_token, orphan=orphan, accessor=accessor)
-    return {'changed': True, 'revoke': revoke}
+    renew_token = params.get('renew_token')
+    increment = params.get('increment')
+    if renew_token is None:
+        renew_token = params.get('token')
+    wrap_ttl = params.get('wrap_ttl')
+    renew = client.renew_token(token=renew_token, increment=increment, wrap_ttl=wrap_ttl)
+    return {'changed': True, 'renew': renew}
 
 if __name__ == '__main__':
     main()
