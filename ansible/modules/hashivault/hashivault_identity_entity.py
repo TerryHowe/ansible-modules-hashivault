@@ -59,11 +59,9 @@ options:
     disabled:
         description:
             - whether the entity is disabled
-        default: false
     policies:
         description:
             - entity policies.
-        default: default
     state:
         description:
             - whether crete/update or delete the entity
@@ -82,9 +80,9 @@ def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=False, type='str', default=None)
     argspec['id'] = dict(required=False, type='str', default=None)
-    argspec['metadata'] = dict(required=False, type='dict', default={})
-    argspec['disabled'] = dict(required=False, type='bool', default=False)
-    argspec['policies'] = dict(required=False, type='list', default=[])
+    argspec['metadata'] = dict(required=False, type='dict', default=None)
+    argspec['disabled'] = dict(required=False, type='bool', default=None)
+    argspec['policies'] = dict(required=False, type='list', default=None)
     argspec['state'] = dict(required=False, type='str', default='present')
     module = hashivault_init(argspec)
     result = hashivault_identity_entity(module.params)
@@ -97,30 +95,34 @@ def main():
 from ansible.module_utils.basic import *
 from ansible.module_utils.hashivault import *
 
-def hashivault_identity_entity_update(
-    entity_details,
-    client,
-    entity_id,
-    entity_name,
-    entity_metadata,
-    entity_disabled,
-    entity_policies ):
-    if  entity_details['data']['name'] != entity_name or \
-        entity_details['data']['disabled'] != entity_disabled or \
-        cmp(entity_details['data']['metadata'], entity_metadata) or \
-        set(entity_details['data']['policies']) !=  set(entity_policies):
-        client.secrets.identity.update_entity(
-            entity_id=entity_id,
-            name=entity_name,
-            metadata=entity_metadata,
-            policies=entity_policies,
-            disabled=entity_disabled
-        )
-        return {'changed': True}
-    else:
-        return {'changed': False}
+def hashivault_identity_entity_update(entity_details, client, entity_id, entity_name, entity_metadata, entity_disabled, entity_policies ):
+    if entity_metadata is None:
+        entity_metadata = entity_details['metadata']
+    if entity_policies is None:
+        entity_policies = entity_details['policies']
+    if entity_disabled is None:
+        entity_disabled = entity_details['disabled']
 
-def hashivault_identity_entity_create(params):
+    if  entity_details['name'] != entity_name or \
+        entity_details['disabled'] != entity_disabled or \
+        cmp(entity_details['metadata'], entity_metadata) or \
+        set(entity_details['policies']) !=  set(entity_policies):
+        try:
+            client.secrets.identity.update_entity(
+                entity_id=entity_id,
+                name=entity_name,
+                metadata=entity_metadata,
+                policies=entity_policies,
+                disabled=entity_disabled
+            )
+        except Exception as e:
+            return {'failed': True, 'msg': e.message}
+        else:
+            return {'changed': True }
+    else:
+        return {'changed': False }
+
+def hashivault_identity_entity_create_or_update(params):
     client = hashivault_auth_client(params)
     entity_name = params.get('name')
     entity_id = params.get('id')
@@ -136,7 +138,7 @@ def hashivault_identity_entity_create(params):
         except Exception as e:
             return {'failed': True, 'msg': e.message}
         else:
-            return hashivault_identity_entity_update(entity_details, client,
+            return hashivault_identity_entity_update(entity_details['data'], client,
                 entity_name, entity_id, entity_metadata, entity_disabled,
                 entity_policies)
     elif entity_name is not None:
@@ -151,8 +153,9 @@ def hashivault_identity_entity_create(params):
                 policies=entity_policies,
                 disabled=entity_disabled
             )
+            return {'changed': True, 'data': response['data'] }
         else:
-            return hashivault_identity_entity_update(entity_details, client,
+            return hashivault_identity_entity_update(entity_details['data'], client,
                 entity_name=entity_name,
                 entity_id=entity_details['data']['id'],
                 entity_metadata=entity_metadata,
@@ -161,14 +164,6 @@ def hashivault_identity_entity_create(params):
     else:
         return {'failed': True, 'msg': "Either name or id must be provided"}
 
-    if hasattr(response, 'status_code'):
-        if response.status_code == 204:
-            return {'changed': False}
-        else:
-            return {'failed': True, 'msg': "Unkown response code"}
-    else:
-        entity_id = response['data']['id']
-        return {'changed': True, 'data': response['data'] }
 
 def hashivault_identity_entity_delete(params):
     client = hashivault_auth_client(params)
@@ -206,7 +201,7 @@ def hashivault_identity_entity_delete(params):
 def hashivault_identity_entity(params):
     state = params.get('state')
     if state == 'present':
-        return hashivault_identity_entity_create(params)
+        return hashivault_identity_entity_create_or_update(params)
     elif state == 'absent':
         return hashivault_identity_entity_delete(params)
     else:
