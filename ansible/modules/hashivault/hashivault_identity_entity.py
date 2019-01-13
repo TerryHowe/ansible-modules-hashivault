@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_identity_entity_create
+module: hashivault_identity_entity
 version_added: "3.12.0"
 short_description: Hashicorp Vault entity create module
 description:
@@ -108,7 +108,7 @@ def hashivault_identity_entity_update(
     if  entity_details['data']['name'] != entity_name or \
         entity_details['data']['disabled'] != entity_disabled or \
         cmp(entity_details['data']['metadata'], entity_metadata) or \
-        cmp(entity_details['data']['policies'], entity_policies):
+        set(entity_details['data']['policies']) !=  set(entity_policies):
         client.secrets.identity.update_entity(
             entity_id=entity_id,
             name=entity_name,
