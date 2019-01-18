@@ -105,7 +105,8 @@ def hashivault_read(params):
         if secret.startswith('/'):
             secret = secret.lstrip('/')
             response = client.read(secret)
-        elif version == 2:
+
+        if version == 2:
             response = client.read(u'secret/data/%s' % secret)
         else:
             response = client.read(u'secret/%s' % secret)
