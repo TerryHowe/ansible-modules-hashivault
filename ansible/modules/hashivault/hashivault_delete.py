@@ -50,6 +50,10 @@ options:
     secret:
         description:
             - secret to delete.
+    version:
+        description:
+            - version of the kv engine (int)
+        default: 1
 '''
 EXAMPLES = '''
 ---

@@ -53,7 +53,7 @@ options:
     version:
         description:
             - version of the kv engine (int)
-        default: 2
+        default: 1
     key:
         description:
             - secret key to read.
