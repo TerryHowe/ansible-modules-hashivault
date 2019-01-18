@@ -50,6 +50,10 @@ options:
     secret:
         description:
             - secret to read.
+    version:
+        description:
+            - version of the kv engine (int)
+        default: 2
     key:
         description:
             - secret key to read.
@@ -73,6 +77,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['secret'] = dict(required=True, type='str')
     argspec['key'] = dict(required=False, type='str')
+    argspec['version'] = dict(required=False, type='int', default=2)
     argspec['register'] = dict(required=False, type='str')
     argspec['default'] = dict(required=False, default=None, type='str')
     module = hashivault_init(argspec)
@@ -92,6 +97,7 @@ def hashivault_read(params):
     result = { "changed": False, "rc" : 0}
     client = hashivault_auth_client(params)
     secret = params.get('secret')
+    version = params.get('version')
     key = params.get('key')
     default = params.get('default')
     with warnings.catch_warnings():
@@ -99,6 +105,8 @@ def hashivault_read(params):
         if secret.startswith('/'):
             secret = secret.lstrip('/')
             response = client.read(secret)
+        elif version == 2:
+            response = client.read(u'secret/data/%s' % secret)
         else:
             response = client.read(u'secret/%s' % secret)
         if not response:
