@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+3.12.0 (2019-01-06)
+-------------------
+- Optionally include namespace as play parameter or environment var.
+  [rmullen]
+
+
 3.11.0 (2018-12-17)
 -------------------
 - Add tests for revoke and renew token. [Terry Howe]
