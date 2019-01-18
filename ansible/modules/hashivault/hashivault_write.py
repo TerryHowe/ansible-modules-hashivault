@@ -73,6 +73,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['secret'] = dict(required=True, type='str')
+    argspec['version'] = dict(required=False, type='int', default=2)
     argspec['update'] = dict(required=False, default=False, type='bool')
     argspec['data'] = dict(required=False, default={}, type='dict')
     module = hashivault_init(argspec, supports_check_mode=True)
@@ -130,10 +131,13 @@ def hashivault_write(module):
     params = module.params
     client = hashivault_auth_client(params)
     secret = params.get('secret')
+    version = params.get('version')
     returned_data = None
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
+    elif version == 2:
+        secret = ('secret/data/%s' % secret)
     else:
         secret = ('secret/%s' % secret)
     data = params.get('data')
