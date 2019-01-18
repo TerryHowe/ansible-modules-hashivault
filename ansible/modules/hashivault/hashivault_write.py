@@ -141,13 +141,15 @@ def hashivault_write(module):
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
+
     # if kv engine is v2
-    elif version == 2:
+    if version == 2:
         secret = ('secret/data/%s' % secret)
         data = dict(data=params.get('data'))
     else:
         secret = ('secret/%s' % secret)
         data = params.get('data')
+
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         changed = True
