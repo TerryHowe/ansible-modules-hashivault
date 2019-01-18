@@ -77,7 +77,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['secret'] = dict(required=True, type='str')
     argspec['key'] = dict(required=False, type='str')
-    argspec['version'] = dict(required=False, type='int', default=2)
+    argspec['version'] = dict(required=False, type='int', default=1)
     argspec['register'] = dict(required=False, type='str')
     argspec['default'] = dict(required=False, default=None, type='str')
     module = hashivault_init(argspec)
