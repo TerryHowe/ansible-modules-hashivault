@@ -50,6 +50,10 @@ options:
     secret:
         description:
             - vault secret to write.
+    version:
+        description:
+            - version of the kv engine (int)
+        default: 2
     data:
         description:
             - Keys and values to write.
@@ -64,6 +68,7 @@ EXAMPLES = '''
   tasks:
     - hashivault_write:
         secret: giant
+        version: 1
         data:
             foo: foe
             fie: fum
