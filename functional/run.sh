@@ -21,7 +21,7 @@ ansible-playbook -v test_secret_list.yml
 ansible-playbook -v test_policy.yml
 ansible-playbook -v test_status.yml
 ansible-playbook -v test_not_there.yml
-ansible-playbook -vvv test_ephemeral.yml
+ansible-playbook -v test_ephemeral.yml
 ansible-playbook -v test_tokens.yml
 ansible-playbook -v test_audit.yml
 ansible-playbook -v test_read_write_file.yml
