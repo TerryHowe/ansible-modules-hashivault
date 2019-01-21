@@ -104,7 +104,6 @@ def hashivault_read(params):
         warnings.simplefilter("ignore")
         if secret.startswith('/'):
             secret = secret.lstrip('/')
-            response = client.read(secret)
 
         if version == 2:
             response = client.read(u'secret/data/%s' % secret)
@@ -118,7 +117,10 @@ def hashivault_read(params):
             result['failed'] = True
             result['msg'] = u"Secret %s is not in vault" % secret
             return result
-        data = response['data']
+        if version == 2:
+            data = response['data']['data']
+        else:
+            data = response['data']
     if key and key not in data:
         if default is not None:
             result['value'] = default
