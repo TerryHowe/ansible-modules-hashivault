@@ -45,7 +45,7 @@
       register: 'vault_secret_eph_delete'
     - assert: { that: "{{vault_secret_eph_delete.changed}} == True" }
     - assert: { that: "{{vault_secret_eph_delete.rc}} == 0" }
-    - assert: { that: "'{{vault_secret_eph_delete.msg}}' == 'Secret ephemeral/name deleted'" }
+    - assert: { that: "'{{vault_secret_eph_delete.msg}}' == 'Secret secret/ephemeral/name deleted'" }
 
     - name: Make sure ephemeral value is gone
       hashivault_read:
