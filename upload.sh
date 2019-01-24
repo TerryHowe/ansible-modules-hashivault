@@ -21,3 +21,7 @@ git tag --force  -a $VERSION -m v$VERSION
 git push origin --tags
 #python setup.py register -r pypi
 python setup.py sdist upload -r pypi
+
+git checkout gh-pages
+git rebase master
+git push origin gh-pages
