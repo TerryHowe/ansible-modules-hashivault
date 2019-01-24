@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+3.12.1 (2019-01-24)
+-------------------
+- Add pipeline job to build Ansible webdocs and publish to Github pages,
+  Fix YAML. [Samy Coenen]
+
+
 3.12.0 (2019-01-06)
 -------------------
 - Optionally include namespace as play parameter or environment var.
