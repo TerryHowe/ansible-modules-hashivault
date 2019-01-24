@@ -47,7 +47,7 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-    mount_point
+    mount_point:
         description:
             - location where this auth backend will be mounted
     default_lease_ttl:

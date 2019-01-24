@@ -53,7 +53,7 @@ options:
     description:
         description:
             - description of authenticator
-    mount_point
+    mount_point:
         description:
             - location where this auth backend will be mounted 
 '''

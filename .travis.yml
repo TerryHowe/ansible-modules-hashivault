@@ -1,12 +1,59 @@
-sudo: required
+stages:
+  - test
+
 language: python
-python:
-  - "2.7"
-  - "3.6"
-services:
-  - docker
-before_install:
-  - docker pull vault:latest
-  - docker ps -a
-install: pip install tox-travis
-script: tox
+
+jobs:
+  include:
+    - stage: test
+      name: "Tests Python 2.7"
+      sudo: required
+      python:
+        - "2.7"
+      services:
+        - docker
+      before_install:
+        - docker pull vault:latest
+        - docker ps -a
+      install: pip install tox-travis
+      script: tox
+    - stage: test
+      name: "Tests Python 3.6"
+      sudo: required
+      python:
+        - "3.6"
+      services:
+        - docker
+      before_install:
+        - docker pull vault:latest
+        - docker ps -a
+      install: pip install tox-travis
+      script: tox
+    - stage: test
+      name: "Generating docs"
+      python: "3.6"
+      deploy:
+        local-dir: ansible-repo/ansible/docs/docsite/_build/html
+        provider: pages
+        skip-cleanup: true
+        github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+        keep-history: true
+        on:
+          tags: true
+      env:
+        - PLUGINS=''
+      install:
+        - mkdir ansible-repo && cd ansible-repo
+        - git clone https://github.com/ansible/ansible.git && cd ansible &&  git checkout v2.7.6 && cd ..
+        - pip install sphinx sphinx_rtd_theme
+        - pip install -r ansible/requirements.txt
+        - rm -rf ansible/lib/ansible/modules/ && mkdir -p ansible/lib/ansible/modules/hashivault
+        - cp -r ../ansible/modules/hashivault/hashivault*.py ansible/lib/ansible/modules/hashivault/
+        - ls ansible/lib/ansible/modules/hashivault
+        - cd ansible/docs/docsite/
+      script:
+      - export MODULES=$(ls -m --hide='_*' ../../lib/ansible/modules/hashivault/ | tr -d '[:space:]'  | sed 's/.py//g')
+      - make webdocs .
+      - touch _build/html/.nojekyll
+      on:
+        tags: true
