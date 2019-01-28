@@ -12,6 +12,7 @@ source ./vaultenv.sh
 ansible-playbook -v test_check.yml --check
 ansible-playbook -v test_write.yml
 ansible-playbook -v test_read.yml
+ansible-playbook -v test_full_path.yml
 ansible-playbook -v test_create_ec2_role.yml
 ansible-playbook -v test_list.yml
 ansible-playbook -v test_lookup.yml
