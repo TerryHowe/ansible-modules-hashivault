@@ -62,10 +62,6 @@ options:
     mount_accessor:
         description:
             - Accessor of the mount to which the alias should belong to.
-    auth_src:
-        description:
-            - Name of the auth method. It should be the auth method for the Name
-        default: userpass
     state:
         description:
             - whether crete/update or delete the entity
@@ -87,8 +83,7 @@ def main():
     argspec['entity_name'] = dict(required=False, type='str', defualt=None)
     argspec['canonical_id'] = dict(required=False, type='str', default=None)
     argspec['mount_accessor'] = dict(required=False, type='str', default=None)
-    argspec['auth_src'] = dict(required=False, type='str', default='userpass')
-    argspec['state'] = dict(required=False, type='str', default='present')
+    argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
     module = hashivault_init(argspec)
     result = hashivault_identity_entity_alias(module.params)
     if result.get('failed'):
@@ -106,20 +101,20 @@ def hashivault_identity_entity_alias_update(client, alias_id, alias_name, canoni
                 alias_id=alias_id
             )
     except Exception as e:
-        return {'failed': True, 'msg': e.message}
+        return {'failed': True, 'msg': str(e)}
     else:
         if alias_details['data']['canonical_id'] == canonical_id:
             return {'changed': False}
         else:
             try:
-                updated_alias = client.secrets.identity.update_entity_alias(
+                client.secrets.identity.update_entity_alias(
                         alias_id=alias_id,
                         name=alias_name,
                         canonical_id=canonical_id,
                         mount_accessor=mount_accessor
                     )
             except Exception as e:
-                return {'failed': True, 'msg': e.message}
+                return {'failed': True, 'msg': str(e)}
             else:
                 return {'changed': True}
 
@@ -134,7 +129,7 @@ def hashivault_identity_entity_alias_create(client, alias_name, canonical_id, mo
                     mount_accessor=mount_accessor
                 )
         except Exception as e:
-            return {'failed': True, 'msg': e.message}
+            return {'failed': True, 'msg': str(e)}
         else:
             return {'changed': True, 'data': alias_details['data']}
     else:
@@ -155,7 +150,7 @@ def hashivault_identity_entity_alias_create(client, alias_name, canonical_id, mo
                         mount_accessor=mount_accessor
                     )
             except Exception as e:
-                return {'failed': True, 'msg': e.message}
+                return {'failed': True, 'msg': str(e)}
             else:
                 return {'changed': True}
 
@@ -190,20 +185,17 @@ def hashivault_identity_entity_alias(params):
     alias_id = params.get('alias_id')
     state = params.get('state')
     mount_accessor = params.get('mount_accessor')
-    auth_src = params.get('auth_src')
+    authtype = params.get('authtype')
     entity_name = params.get('entity_name')
     canonical_id = params.get('canonical_id')
 
     # Get mount_accessor if not provided
     if mount_accessor is None:
-        if auth_src is None:
-            return {'failed': True, 'msg': 'Either mount_accessor or auth_src must be provided'}
-        else:
-            auth_method_details = client.read(path="/sys/auth/")
-            try:
-                mount_accessor = auth_method_details['data'][auth_src + "/"]['accessor']
-            except:
-                return {'failed': True, 'msg': 'Auth method %s not found' % auth_src}
+        auth_method_details = client.read(path="/sys/auth/")
+        try:
+            mount_accessor = auth_method_details['data'][authtype + "/"]['accessor']
+        except:
+            return {'failed': True, 'msg': 'Auth method %s not found. Use mount_accessor?' % authtype}
 
     # Get canonical_id if not provided
     if canonical_id is None:
@@ -216,8 +208,7 @@ def hashivault_identity_entity_alias(params):
                 )
             except Exception as e:
                 return {'failed': True, 'msg': 'No entity with name %s' % entity_name}
-            else:
-                canonical_id = entity_details['data']['id']
+            canonical_id = entity_details['data']['id']
 
     if state == 'present':
         if alias_id is not None:

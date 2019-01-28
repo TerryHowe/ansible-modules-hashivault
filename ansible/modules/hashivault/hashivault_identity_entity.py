@@ -83,7 +83,7 @@ def main():
     argspec['metadata'] = dict(required=False, type='dict', default=None)
     argspec['disabled'] = dict(required=False, type='bool', default=None)
     argspec['policies'] = dict(required=False, type='list', default=None)
-    argspec['state'] = dict(required=False, type='str', default='present')
+    argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
     module = hashivault_init(argspec)
     result = hashivault_identity_entity(module.params)
     if result.get('failed'):
@@ -105,7 +105,7 @@ def hashivault_identity_entity_update(entity_details, client, entity_id, entity_
 
     if  entity_details['name'] != entity_name or \
         entity_details['disabled'] != entity_disabled or \
-        cmp(entity_details['metadata'], entity_metadata) or \
+        entity_details['metadata'] != entity_metadata or \
         set(entity_details['policies']) !=  set(entity_policies):
         try:
             client.secrets.identity.update_entity(
@@ -116,11 +116,9 @@ def hashivault_identity_entity_update(entity_details, client, entity_id, entity_
                 disabled=entity_disabled
             )
         except Exception as e:
-            return {'failed': True, 'msg': e.message}
-        else:
-            return {'changed': True }
-    else:
-        return {'changed': False }
+            return {'failed': True, 'msg': str(e)}
+        return {'changed': True}
+    return {'changed': False}
 
 def hashivault_identity_entity_create_or_update(params):
     client = hashivault_auth_client(params)
@@ -132,20 +130,15 @@ def hashivault_identity_entity_create_or_update(params):
 
     if entity_id is not None:
         try:
-            entity_details = client.secrets.identity.read_entity(
-                entity_id=entity_id
-            )
+            entity_details = client.secrets.identity.read_entity(entity_id=entity_id)
         except Exception as e:
-            return {'failed': True, 'msg': e.message}
-        else:
-            return hashivault_identity_entity_update(entity_details['data'], client,
-                entity_name, entity_id, entity_metadata, entity_disabled,
-                entity_policies)
+            return {'failed': True, 'msg': str(e)}
+        return hashivault_identity_entity_update(entity_details['data'], client,
+            entity_name, entity_id, entity_metadata, entity_disabled,
+            entity_policies)
     elif entity_name is not None:
         try:
-            entity_details = client.secrets.identity.read_entity_by_name(
-                name=entity_name
-            )
+            entity_details = client.secrets.identity.read_entity_by_name(name=entity_name)
         except:
             response = client.secrets.identity.create_or_update_entity_by_name(
                 name=entity_name,
@@ -153,16 +146,14 @@ def hashivault_identity_entity_create_or_update(params):
                 policies=entity_policies,
                 disabled=entity_disabled
             )
-            return {'changed': True, 'data': response['data'] }
-        else:
-            return hashivault_identity_entity_update(entity_details['data'], client,
-                entity_name=entity_name,
-                entity_id=entity_details['data']['id'],
-                entity_metadata=entity_metadata,
-                entity_disabled=entity_disabled,
-                entity_policies=entity_policies)
-    else:
-        return {'failed': True, 'msg': "Either name or id must be provided"}
+            return {'changed': True, 'data': response['data']}
+        return hashivault_identity_entity_update(entity_details['data'], client,
+            entity_name=entity_name,
+            entity_id=entity_details['data']['id'],
+            entity_metadata=entity_metadata,
+            entity_disabled=entity_disabled,
+            entity_policies=entity_policies)
+    return {'failed': True, 'msg': "Either name or id must be provided"}
 
 
 def hashivault_identity_entity_delete(params):
@@ -172,30 +163,19 @@ def hashivault_identity_entity_delete(params):
 
     if entity_id is not None:
         try:
-            entity_details = client.secrets.identity.read_entity(
-                entity_id=entity_id
-            )
+            client.secrets.identity.read_entity(entity_id=entity_id)
         except:
             return {'changed': False}
-        else:
-            client.secrets.identity.delete_entity(
-               entity_id=entity_id
-            )
-            return {'changed': True}
+        client.secrets.identity.delete_entity(entity_id=entity_id)
+        return {'changed': True}
     elif entity_name is not None:
         try:
-            entity_details = client.secrets.identity.read_entity_by_name(
-                name=entity_name
-            )
+            client.secrets.identity.read_entity_by_name(name=entity_name)
         except:
             return {'changed': False}
-        else:
-            client.secrets.identity.delete_entity_by_name(
-               name=entity_name
-            )
-            return {'changed': True}
-    else:
-        return {'failed': True, 'msg': "Either name or id must be provided"}
+        client.secrets.identity.delete_entity_by_name(name=entity_name)
+        return {'changed': True}
+    return {'failed': True, 'msg': "Either name or id must be provided"}
 
 @hashiwrapper
 def hashivault_identity_entity(params):
