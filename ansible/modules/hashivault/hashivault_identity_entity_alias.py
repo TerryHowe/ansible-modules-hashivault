@@ -2,7 +2,7 @@
 DOCUMENTATION = '''
 ---
 module: hashivault_identity_entity_alias
-version_added: "3.12.0"
+version_added: "3.13.0"
 short_description: Hashicorp Vault entity alias manage module
 description:
     - Module to manage identity entity aliases in Hashicorp Vault.
