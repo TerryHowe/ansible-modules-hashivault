@@ -104,11 +104,12 @@ def hashivault_read(params):
         warnings.simplefilter("ignore")
         if secret.startswith('/'):
             secret = secret.lstrip('/')
-
-        if version == 2:
-            response = client.read(u'secret/data/%s' % secret)
+            response = client.read(secret)
         else:
-            response = client.read(u'secret/%s' % secret)
+            if version == 2:
+                response = client.read(u'secret/data/%s' % secret)
+            else:
+                response = client.read(u'secret/%s' % secret)
         if not response:
             if default is not None:
                 result['value'] = default

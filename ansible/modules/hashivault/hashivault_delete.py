@@ -87,11 +87,11 @@ def hashivault_delete(params):
     secret = params.get('secret')
     if secret.startswith('/'):
         secret = secret.lstrip('/')
-
-    if version == 2:
-        secret = (u'secret/data/%s' % secret)
     else:
-        secret = (u'secret/%s' % secret)
+        if version == 2:
+            secret = (u'secret/data/%s' % secret)
+        else:
+            secret = (u'secret/%s' % secret)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         returned_data = client.delete(secret)
