@@ -50,6 +50,10 @@ options:
     secret:
         description:
             - secret to read.
+    version:
+        description:
+            - version of the kv engine (int)
+        default: 1
     key:
         description:
             - secret key to read.
@@ -73,6 +77,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['secret'] = dict(required=True, type='str')
     argspec['key'] = dict(required=False, type='str')
+    argspec['version'] = dict(required=False, type='int', default=1)
     argspec['register'] = dict(required=False, type='str')
     argspec['default'] = dict(required=False, default=None, type='str')
     module = hashivault_init(argspec)
@@ -92,13 +97,16 @@ def hashivault_read(params):
     result = { "changed": False, "rc" : 0}
     client = hashivault_auth_client(params)
     secret = params.get('secret')
+    version = params.get('version')
     key = params.get('key')
     default = params.get('default')
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         if secret.startswith('/'):
             secret = secret.lstrip('/')
-            response = client.read(secret)
+
+        if version == 2:
+            response = client.read(u'secret/data/%s' % secret)
         else:
             response = client.read(u'secret/%s' % secret)
         if not response:
@@ -109,7 +117,10 @@ def hashivault_read(params):
             result['failed'] = True
             result['msg'] = u"Secret %s is not in vault" % secret
             return result
-        data = response['data']
+        if version == 2:
+            data = response['data']['data']
+        else:
+            data = response['data']
     if key and key not in data:
         if default is not None:
             result['value'] = default

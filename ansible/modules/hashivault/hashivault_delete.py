@@ -50,6 +50,10 @@ options:
     secret:
         description:
             - secret to delete.
+    version:
+        description:
+            - version of the kv engine (int)
+        default: 1
 '''
 EXAMPLES = '''
 ---
@@ -63,6 +67,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['secret'] = dict(required=True, type='str')
+    argspec['version'] = dict(required=False, type='int', default=1)
     module = hashivault_init(argspec)
     result = hashivault_delete(module.params)
     if result.get('failed'):
@@ -78,9 +83,13 @@ from ansible.module_utils.hashivault import *
 def hashivault_delete(params):
     result = { "changed": False, "rc" : 0}
     client = hashivault_auth_client(params)
+    version = params.get('version')
     secret = params.get('secret')
     if secret.startswith('/'):
         secret = secret.lstrip('/')
+
+    if version == 2:
+        secret = (u'secret/data/%s' % secret)
     else:
         secret = (u'secret/%s' % secret)
     with warnings.catch_warnings():

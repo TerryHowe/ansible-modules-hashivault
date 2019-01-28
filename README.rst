@@ -56,6 +56,7 @@ reads the fie value::
           register: 'vault_status'
         - hashivault_write:
             secret: 'giant'
+            version: 2
             data:
                 foo: '{{foo_value}}'
                 fie: '{{fie_value}}'

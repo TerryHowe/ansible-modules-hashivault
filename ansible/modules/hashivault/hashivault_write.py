@@ -50,6 +50,10 @@ options:
     secret:
         description:
             - vault secret to write.
+    version:
+        description:
+            - version of the kv engine (int)
+        default: 1
     data:
         description:
             - Keys and values to write.
@@ -64,6 +68,7 @@ EXAMPLES = '''
   tasks:
     - hashivault_write:
         secret: giant
+        version: 1
         data:
             foo: foe
             fie: fum
@@ -73,6 +78,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['secret'] = dict(required=True, type='str')
+    argspec['version'] = dict(required=False, type='int', default=1)
     argspec['update'] = dict(required=False, default=False, type='bool')
     argspec['data'] = dict(required=False, default={}, type='dict')
     module = hashivault_init(argspec, supports_check_mode=True)
@@ -130,13 +136,20 @@ def hashivault_write(module):
     params = module.params
     client = hashivault_auth_client(params)
     secret = params.get('secret')
+    version = params.get('version')
     returned_data = None
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
+
+    # if kv engine is v2
+    if version == 2:
+        secret = ('secret/data/%s' % secret)
+        data = dict(data=params.get('data'))
     else:
         secret = ('secret/%s' % secret)
-    data = params.get('data')
+        data = params.get('data')
+
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         changed = True
