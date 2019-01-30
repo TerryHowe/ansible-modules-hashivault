@@ -75,6 +75,7 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
+    argspec['mount_point'] = dict(required=False, type='str', default='secret')
     argspec['secret'] = dict(required=True, type='str')
     argspec['key'] = dict(required=False, type='str')
     argspec['version'] = dict(required=False, type='int', default=1)
@@ -96,8 +97,10 @@ from ansible.module_utils.hashivault import *
 def hashivault_read(params):
     result = { "changed": False, "rc" : 0}
     client = hashivault_auth_client(params)
+    mount_point = params.get('mount_point')
     secret = params.get('secret')
     version = params.get('version')
+
     key = params.get('key')
     default = params.get('default')
     with warnings.catch_warnings():
@@ -107,9 +110,9 @@ def hashivault_read(params):
             response = client.read(secret)
         else:
             if version == 2:
-                response = client.read(u'secret/data/%s' % secret)
+                response = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
             else:
-                response = client.read(u'secret/%s' % secret)
+                response = client.secrets.kv.v1.read_secret(secret, mount_point=mount_point)
         if not response:
             if default is not None:
                 result['value'] = default
@@ -118,10 +121,7 @@ def hashivault_read(params):
             result['failed'] = True
             result['msg'] = u"Secret %s is not in vault" % secret
             return result
-        if version == 2:
-            data = response['data']['data']
-        else:
-            data = response['data']
+        data = response['data']
     if key and key not in data:
         if default is not None:
             result['value'] = default
