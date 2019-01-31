@@ -19,14 +19,14 @@
   <!-- End Google Tag Manager Data Layer -->
 
   
-  <title>Hashivault modules &mdash; Ansible Documentation</title>
+  <title>hashivault_userpass - Hashicorp Vault userpass user management module &mdash; Ansible Documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/list_of_hashivault_modules.html"/>
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_userpass_module.html"/>
   
 
   
@@ -62,9 +62,7 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="BSD Support" href="../user_guide/intro_bsd.html" />
-    <link rel="prev" title="All modules" href="list_of_all_modules.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 
@@ -363,8 +361,8 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">Using Ansible</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../user_guide/index.html">User Guide</a><ul class="current">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/quickstart.html">Ansible Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/intro_getting_started.html">Getting Started</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_getting_started.html#foreword">Foreword</a></li>
@@ -671,7 +669,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../user_guide/intro_patterns.html">Working with Patterns</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../user_guide/modules.html">Working With Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/modules.html">Working With Modules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../user_guide/modules_intro.html">Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference_appendices/common_return_values.html">Return Values</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../reference_appendices/common_return_values.html#common">Common</a></li>
@@ -684,9 +682,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../user_guide/modules_support.html#support">Support</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="modules_by_category.html">Module Index</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="modules_by_category.html">Module Index</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="list_of_all_modules.html">All modules</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Hashivault modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="list_of_hashivault_modules.html">Hashivault modules</a></li>
 </ul>
 </li>
 </ul>
@@ -1664,10 +1662,10 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules_by_category.html">Module Index</a><ul class="current">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules_by_category.html">Module Index</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="list_of_all_modules.html">All modules</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Hashivault modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list_of_hashivault_modules.html">Hashivault modules</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reference_appendices/playbooks_keywords.html">Playbook Keywords</a><ul>
@@ -2253,75 +2251,235 @@
 
           <ul class="wy-breadcrumbs">
   <li><a href="../index.html">Docs</a> &raquo;</li>
-  <li><a href="">Hashivault modules</a></li>
+  <li><a href="">hashivault_userpass - Hashicorp Vault userpass user management module</a></li>
+  
+    <li class="wy-breadcrumbs-aside">
+      <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_userpass.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr" class="icon icon-github"> Edit on GitHub</a>
+    </li>
   
 </ul>
 <hr/>
 
           <div id="page-content">
           
-  <div class="section" id="hashivault-modules">
-<span id="id1"></span><h1>Hashivault modules<a class="headerlink" href="#hashivault-modules" title="Permalink to this headline">¶</a></h1>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference internal" href="hashivault_approle_role_create_module.html#hashivault-approle-role-create-module"><span class="std std-ref">hashivault_approle_role_create - Hashicorp Vault approle create role module</span></a></li>
-<li><a class="reference internal" href="hashivault_approle_role_get_module.html#hashivault-approle-role-get-module"><span class="std std-ref">hashivault_approle_role_get - Hashicorp Vault approle role get module</span></a></li>
-<li><a class="reference internal" href="hashivault_approle_role_id_module.html#hashivault-approle-role-id-module"><span class="std std-ref">hashivault_approle_role_id - Hashicorp Vault approle get role id module</span></a></li>
-<li><a class="reference internal" href="hashivault_approle_role_list_module.html#hashivault-approle-role-list-module"><span class="std std-ref">hashivault_approle_role_list - Hashicorp Vault approle list roles module</span></a></li>
-<li><a class="reference internal" href="hashivault_approle_role_secret_accessor_get_module.html#hashivault-approle-role-secret-accessor-get-module"><span class="std std-ref">hashivault_approle_role_secret_accessor_get - Hashicorp Vault approle role secret accessor get module</span></a></li>
-<li><a class="reference internal" href="hashivault_approle_role_secret_create_module.html#hashivault-approle-role-secret-create-module"><span class="std std-ref">hashivault_approle_role_secret_create - Hashicorp Vault approle role secret id get module</span></a></li>
-<li><a class="reference internal" href="hashivault_approle_role_secret_delete_module.html#hashivault-approle-role-secret-delete-module"><span class="std std-ref">hashivault_approle_role_secret_delete - Hashicorp Vault approle role secret id delete module</span></a></li>
-<li><a class="reference internal" href="hashivault_approle_role_secret_get_module.html#hashivault-approle-role-secret-get-module"><span class="std std-ref">hashivault_approle_role_secret_get - Hashicorp Vault approle role secret id get module</span></a></li>
-<li><a class="reference internal" href="hashivault_approle_role_secret_list_module.html#hashivault-approle-role-secret-list-module"><span class="std std-ref">hashivault_approle_role_secret_list - Hashicorp Vault approle role secret id get module</span></a></li>
-<li><a class="reference internal" href="hashivault_audit_enable_module.html#hashivault-audit-enable-module"><span class="std std-ref">hashivault_audit_enable - Hashicorp Vault audit enable module</span></a></li>
-<li><a class="reference internal" href="hashivault_audit_list_module.html#hashivault-audit-list-module"><span class="std std-ref">hashivault_audit_list - Hashicorp Vault audit list module</span></a></li>
-<li><a class="reference internal" href="hashivault_auth_enable_module.html#hashivault-auth-enable-module"><span class="std std-ref">hashivault_auth_enable - Hashicorp Vault auth enable module</span></a></li>
-<li><a class="reference internal" href="hashivault_auth_list_module.html#hashivault-auth-list-module"><span class="std std-ref">hashivault_auth_list - Hashicorp Vault auth list module</span></a></li>
-<li><a class="reference internal" href="hashivault_aws_ec2_role_create_module.html#hashivault-aws-ec2-role-create-module"><span class="std std-ref">hashivault_aws_ec2_role_create - Hashicorp Vault aws ec2 create role module</span></a></li>
-<li><a class="reference internal" href="hashivault_delete_module.html#hashivault-delete-module"><span class="std std-ref">hashivault_delete - Hashicorp Vault delete module</span></a></li>
-<li><a class="reference internal" href="hashivault_generate_root_module.html#hashivault-generate-root-module"><span class="std std-ref">hashivault_generate_root - Hashicorp Vault generate_root module</span></a></li>
-<li><a class="reference internal" href="hashivault_generate_root_cancel_module.html#hashivault-generate-root-cancel-module"><span class="std std-ref">hashivault_generate_root_cancel - Hashicorp Vault generate_root cancel module</span></a></li>
-<li><a class="reference internal" href="hashivault_generate_root_init_module.html#hashivault-generate-root-init-module"><span class="std std-ref">hashivault_generate_root_init - Hashicorp Vault generate root token init module</span></a></li>
-<li><a class="reference internal" href="hashivault_generate_root_status_module.html#hashivault-generate-root-status-module"><span class="std std-ref">hashivault_generate_root_status - Hashicorp Vault generate_root status module</span></a></li>
-<li><a class="reference internal" href="hashivault_identity_entity_module.html#hashivault-identity-entity-module"><span class="std std-ref">hashivault_identity_entity - Hashicorp Vault entity create module</span></a></li>
-<li><a class="reference internal" href="hashivault_identity_entity_alias_module.html#hashivault-identity-entity-alias-module"><span class="std std-ref">hashivault_identity_entity_alias - Hashicorp Vault entity alias manage module</span></a></li>
-<li><a class="reference internal" href="hashivault_init_module.html#hashivault-init-module"><span class="std std-ref">hashivault_init - Hashicorp Vault init enable module</span></a></li>
-<li><a class="reference internal" href="hashivault_list_module.html#hashivault-list-module"><span class="std std-ref">hashivault_list - Hashicorp Vault list</span></a></li>
-<li><a class="reference internal" href="hashivault_mount_tune_module.html#hashivault-mount-tune-module"><span class="std std-ref">hashivault_mount_tune - Hashicorp Vault tune backend</span></a></li>
-<li><a class="reference internal" href="hashivault_policy_delete_module.html#hashivault-policy-delete-module"><span class="std std-ref">hashivault_policy_delete - Hashicorp Vault policy delete module</span></a></li>
-<li><a class="reference internal" href="hashivault_policy_get_module.html#hashivault-policy-get-module"><span class="std std-ref">hashivault_policy_get - Hashicorp Vault policy get module</span></a></li>
-<li><a class="reference internal" href="hashivault_policy_list_module.html#hashivault-policy-list-module"><span class="std std-ref">hashivault_policy_list - Hashicorp Vault policy list module</span></a></li>
-<li><a class="reference internal" href="hashivault_policy_set_module.html#hashivault-policy-set-module"><span class="std std-ref">hashivault_policy_set - Hashicorp Vault policy set module</span></a></li>
-<li><span class="xref std std-ref">hashivault_policy_set_from_file_module</span></li>
-<li><a class="reference internal" href="hashivault_read_module.html#hashivault-read-module"><span class="std std-ref">hashivault_read - Hashicorp Vault read module</span></a></li>
-<li><a class="reference internal" href="hashivault_read_to_file_module.html#hashivault-read-to-file-module"><span class="std std-ref">hashivault_read_to_file - Hashicorp Vault read module</span></a></li>
-<li><a class="reference internal" href="hashivault_rekey_module.html#hashivault-rekey-module"><span class="std std-ref">hashivault_rekey - Hashicorp Vault rekey module</span></a></li>
-<li><a class="reference internal" href="hashivault_rekey_cancel_module.html#hashivault-rekey-cancel-module"><span class="std std-ref">hashivault_rekey_cancel - Hashicorp Vault rekey cancel module</span></a></li>
-<li><a class="reference internal" href="hashivault_rekey_init_module.html#hashivault-rekey-init-module"><span class="std std-ref">hashivault_rekey_init - Hashicorp Vault rekey init module</span></a></li>
-<li><a class="reference internal" href="hashivault_rekey_status_module.html#hashivault-rekey-status-module"><span class="std std-ref">hashivault_rekey_status - Hashicorp Vault rekey status module</span></a></li>
-<li><a class="reference internal" href="hashivault_seal_module.html#hashivault-seal-module"><span class="std std-ref">hashivault_seal - Hashicorp Vault seal module</span></a></li>
-<li><a class="reference internal" href="hashivault_secret_disable_module.html#hashivault-secret-disable-module"><span class="std std-ref">hashivault_secret_disable - Hashicorp Vault secret disable module</span></a></li>
-<li><a class="reference internal" href="hashivault_secret_enable_module.html#hashivault-secret-enable-module"><span class="std std-ref">hashivault_secret_enable - Hashicorp Vault secret enable module</span></a></li>
-<li><a class="reference internal" href="hashivault_secret_list_module.html#hashivault-secret-list-module"><span class="std std-ref">hashivault_secret_list - Hashicorp Vault secret list module</span></a></li>
-<li><a class="reference internal" href="hashivault_status_module.html#hashivault-status-module"><span class="std std-ref">hashivault_status - Hashicorp Vault status module</span></a></li>
-<li><a class="reference internal" href="hashivault_token_create_module.html#hashivault-token-create-module"><span class="std std-ref">hashivault_token_create - Hashicorp Vault token create module</span></a></li>
-<li><a class="reference internal" href="hashivault_token_lookup_module.html#hashivault-token-lookup-module"><span class="std std-ref">hashivault_token_lookup - Hashicorp Vault token lookup module</span></a></li>
-<li><a class="reference internal" href="hashivault_token_renew_module.html#hashivault-token-renew-module"><span class="std std-ref">hashivault_token_renew - Hashicorp Vault token renew module</span></a></li>
-<li><a class="reference internal" href="hashivault_token_revoke_module.html#hashivault-token-revoke-module"><span class="std std-ref">hashivault_token_revoke - Hashicorp Vault token revoke module</span></a></li>
-<li><a class="reference internal" href="hashivault_unseal_module.html#hashivault-unseal-module"><span class="std std-ref">hashivault_unseal - Hashicorp Vault unseal module</span></a></li>
-<li><a class="reference internal" href="hashivault_userpass_module.html#hashivault-userpass-module"><span class="std std-ref">hashivault_userpass - Hashicorp Vault userpass user management module</span></a></li>
-<li><a class="reference internal" href="hashivault_userpass_create_module.html#hashivault-userpass-create-module"><span class="std std-ref">hashivault_userpass_create - Hashicorp Vault userpass create module</span></a></li>
-<li><a class="reference internal" href="hashivault_userpass_delete_module.html#hashivault-userpass-delete-module"><span class="std std-ref">hashivault_userpass_delete - Hashicorp Vault userpass delete module</span></a></li>
-<li><a class="reference internal" href="hashivault_write_module.html#hashivault-write-module"><span class="std std-ref">hashivault_write - Hashicorp Vault write module</span></a></li>
-<li><a class="reference internal" href="hashivault_write_from_file_module.html#hashivault-write-from-file-module"><span class="std std-ref">hashivault_write_from_file - Hashicorp Vault write file module</span></a></li>
+  <div class="section" id="hashivault-userpass-hashicorp-vault-userpass-user-management-module">
+<span id="hashivault-userpass-module"></span><h1>hashivault_userpass - Hashicorp Vault userpass user management module<a class="headerlink" href="#hashivault-userpass-hashicorp-vault-userpass-user-management-module" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 3.12.0.</span></p>
+</div>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></li>
+<li><a class="reference internal" href="#parameters" id="id2">Parameters</a></li>
+<li><a class="reference internal" href="#examples" id="id3">Examples</a></li>
+<li><a class="reference internal" href="#status" id="id4">Status</a><ul>
+<li><a class="reference internal" href="#author" id="id5">Author</a></li>
 </ul>
-</div></blockquote>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li><strong>(D)</strong>: This marks a module as deprecated, which means a module is kept for backwards compatibility but usage is discouraged.
-The module documentation details page may explain more about this rationale.</li>
+</li>
 </ul>
+</div>
+<div class="section" id="synopsis">
+<h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Module to manage userpass users in Hashicorp Vault.</li>
+</ul>
+</div>
+<div class="section" id="parameters">
+<h2><a class="toc-backref" href="#id2">Parameters</a><a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<table  border=0 cellpadding=0 class="documentation-table">
+    <tr>
+        <th colspan="1">Parameter</th>
+        <th>Choices/<font color="blue">Defaults</font></th>
+                    <th width="100%">Comments</th>
+    </tr>
+                <tr>
+                                                            <td colspan="1">
+                <b>authtype</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">token</div>
+                                </td>
+                                                            <td>
+                                                                    <div>authentication type to use: token, userpass, github, ldap, approle</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>ca_cert</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_CACERT</div>
+                                </td>
+                                                            <td>
+                                                                    <div>path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>ca_path</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_CAPATH</div>
+                                </td>
+                                                            <td>
+                                                                    <div>path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>client_cert</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_CLIENT_CERT</div>
+                                </td>
+                                                            <td>
+                                                                    <div>path to a PEM-encoded client certificate for TLS authentication to the Vault server</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>client_key</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_CLIENT_KEY</div>
+                                </td>
+                                                            <td>
+                                                                    <div>path to an unencrypted PEM-encoded private key matching the client certificate</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>name</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>user name to create.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>pass</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>user to create password.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>pass_update</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                                                            <b>Default:</b><br/><div style="color: blue">no</div>
+                                </td>
+                                                            <td>
+                                                                    <div>whether to update the password if user exists</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>password</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_PASSWORD</div>
+                                </td>
+                                                            <td>
+                                                                    <div>password to login to vault.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>policies</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">default</div>
+                                </td>
+                                                            <td>
+                                                                    <div>user policies.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>state</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>whether create/update or delete the user</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>token</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_TOKEN</div>
+                                </td>
+                                                            <td>
+                                                                    <div>token for vault</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>url</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_ADDR</div>
+                                </td>
+                                                            <td>
+                                                                    <div>url for vault</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>username</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_USER</div>
+                                </td>
+                                                            <td>
+                                                                    <div>username to login to vault.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>verify</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_SKIP_VERIFY</div>
+                                </td>
+                                                            <td>
+                                                                    <div>if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing</div>
+                                                                            </td>
+        </tr>
+                    </table>
+<br/></div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id3">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+  <span class="nt">tasks</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">hashivault_userpass_create</span><span class="p">:</span>
+      <span class="nt">name</span><span class="p">:</span> <span class="s">&#39;bob&#39;</span>
+      <span class="nt">pass</span><span class="p">:</span> <span class="s">&#39;S3cre7s&#39;</span>
+      <span class="nt">policies</span><span class="p">:</span> <span class="s">&#39;bob&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="status">
+<h2><a class="toc-backref" href="#id4">Status</a><a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="author">
+<h3><a class="toc-backref" href="#id5">Author</a><a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>UNKNOWN</li>
+</ul>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_userpass.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
+</div>
+</div>
 </div>
 </div>
 
@@ -2329,15 +2487,6 @@ The module documentation details page may explain more about this rationale.</li
           </div>
           <div id="search-results"><gcse:searchresults-only></div>
           <footer>
-  
-    <div class="rst-footer-buttons">
-      
-        <a href="../user_guide/intro_bsd.html" class="btn btn-neutral float-right" title="BSD Support"/>Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="list_of_all_modules.html" class="btn btn-neutral" title="All modules"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
