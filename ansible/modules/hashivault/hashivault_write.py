@@ -47,13 +47,17 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-    secret:
-        description:
-            - vault secret to write.
     version:
         description:
             - version of the kv engine (int)
         default: 1
+    mount_point:
+        description:
+            - secret mount point
+        default: secret
+    secret:
+        description:
+            - vault secret to write.
     data:
         description:
             - Keys and values to write.
@@ -77,8 +81,9 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['secret'] = dict(required=True, type='str')
     argspec['version'] = dict(required=False, type='int', default=1)
+    argspec['mount_point'] = dict(required=False, type='str', default='secret')
+    argspec['secret'] = dict(required=True, type='str')
     argspec['update'] = dict(required=False, default=False, type='bool')
     argspec['data'] = dict(required=False, default={}, type='dict')
     module = hashivault_init(argspec, supports_check_mode=True)
@@ -135,20 +140,14 @@ def hashivault_write(module):
     result = {"changed": False, "rc": 0}
     params = module.params
     client = hashivault_auth_client(params)
-    secret = params.get('secret')
     version = params.get('version')
+    mount_point = params.get('mount_point')
+    secret = params.get('secret')
+    data = params.get('data')
     returned_data = None
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
-        data = params.get('data')
-    else:
-        if version == 2:
-            secret = ('secret/data/%s' % secret)
-            data = dict(data=params.get('data'))
-        else:
-            secret = ('secret/%s' % secret)
-            data = params.get('data')
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -156,8 +155,13 @@ def hashivault_write(module):
         write_data = data
 
         if params.get('update') or module.check_mode:
-            # Do not move this read outside of the update
-            read_data = client.read(secret) or {}
+            # Do not move these reads outside of the update
+            if version == 2:
+                read_data = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
+            else:
+                read_data = client.secrets.kv.v1.read_secret(secret, mount_point=mount_point)
+            if not read_data:
+                read_data = {}
             read_data = read_data.get('data', {})
 
             write_data = dict(read_data)
@@ -169,11 +173,14 @@ def hashivault_write(module):
 
         if changed:
             if not module.check_mode:
-                returned_data = client.write((secret), **write_data)
+                if version == 2:
+                    returned_data = client.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, path=secret, secret=write_data)
+                else:
+                    returned_data = client.secrets.kv.v1.create_or_update_secret(mount_point=mount_point, path=secret, secret=write_data)
 
             if returned_data:
-                result['data'] = returned_data
-            result['msg'] = u"Secret %s written" % secret
+                result['data'] = str(returned_data)
+            result['msg'] = u"Secret %s/%s written" % (mount_point, secret)
         result['changed'] = changed
     return result
 

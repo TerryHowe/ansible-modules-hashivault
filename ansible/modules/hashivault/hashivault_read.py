@@ -47,13 +47,17 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-    secret:
-        description:
-            - secret to read.
     version:
         description:
             - version of the kv engine (int)
         default: 1
+    mount_point:
+        description:
+            - secret mount point
+        default: secret
+    secret:
+        description:
+            - secret to read.
     key:
         description:
             - secret key to read.
@@ -75,10 +79,10 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
+    argspec['version'] = dict(required=False, type='int', default=1)
     argspec['mount_point'] = dict(required=False, type='str', default='secret')
     argspec['secret'] = dict(required=True, type='str')
     argspec['key'] = dict(required=False, type='str')
-    argspec['version'] = dict(required=False, type='int', default=1)
     argspec['register'] = dict(required=False, type='str')
     argspec['default'] = dict(required=False, default=None, type='str')
     module = hashivault_init(argspec)
@@ -97,9 +101,9 @@ from ansible.module_utils.hashivault import *
 def hashivault_read(params):
     result = { "changed": False, "rc" : 0}
     client = hashivault_auth_client(params)
+    version = params.get('version')
     mount_point = params.get('mount_point')
     secret = params.get('secret')
-    version = params.get('version')
 
     key = params.get('key')
     default = params.get('default')
@@ -119,7 +123,7 @@ def hashivault_read(params):
                 return result
             result['rc'] = 1
             result['failed'] = True
-            result['msg'] = u"Secret %s is not in vault" % secret
+            result['msg'] = u"Secret %s/%s is not in vault" % (mount_point, secret)
             return result
         data = response['data']
     if key and key not in data:
@@ -128,7 +132,7 @@ def hashivault_read(params):
             return result
         result['rc'] = 1
         result['failed'] = True
-        result['msg'] = u"Key %s is not in secret %s" % (key, secret)
+        result['msg'] = u"Key %s is not in secret %s/%s" % (key, mount_point, secret)
         return result
     if key:
         value = data[key]
