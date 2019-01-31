@@ -66,8 +66,9 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['secret'] = dict(required=True, type='str')
     argspec['version'] = dict(required=False, type='int', default=1)
+    argspec['mount_point'] = dict(required=False, type='str', default='secret')
+    argspec['secret'] = dict(required=True, type='str')
     module = hashivault_init(argspec)
     result = hashivault_delete(module.params)
     if result.get('failed'):
@@ -84,20 +85,21 @@ def hashivault_delete(params):
     result = { "changed": False, "rc" : 0}
     client = hashivault_auth_client(params)
     version = params.get('version')
+    mount_point = params.get('mount_point')
     secret = params.get('secret')
     if secret.startswith('/'):
         secret = secret.lstrip('/')
-    else:
-        if version == 2:
-            secret = (u'secret/data/%s' % secret)
-        else:
-            secret = (u'secret/%s' % secret)
+        mount_point = ''
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        returned_data = client.delete(secret)
+        if version == 2:
+            returned_data = client.secrets.kv.v2.delete_latest_version_of_secret(secret, mount_point=mount_point)
+        else:
+            returned_data = client.secrets.kv.v1.delete_secret(secret, mount_point=mount_point)
+
         if returned_data:
-            result['data'] = returned_data
-        result['msg'] = u"Secret %s deleted" % secret
+            result['data'] = returned_data.text
+        result['msg'] = u"Secret %s/%s deleted" % (mount_point, secret)
     result['changed'] = True
     return result
 

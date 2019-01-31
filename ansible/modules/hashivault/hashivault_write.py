@@ -148,6 +148,7 @@ def hashivault_write(module):
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
+        mount_point = ''
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -174,12 +175,10 @@ def hashivault_write(module):
         if changed:
             if not module.check_mode:
                 if version == 2:
-                    returned_data = client.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, path=secret, secret=write_data)
+                    client.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, path=secret, secret=write_data)
                 else:
-                    returned_data = client.secrets.kv.v1.create_or_update_secret(mount_point=mount_point, path=secret, secret=write_data)
+                    client.secrets.kv.v1.create_or_update_secret(mount_point=mount_point, path=secret, secret=write_data, method='POST')
 
-            if returned_data:
-                result['data'] = str(returned_data)
             result['msg'] = u"Secret %s/%s written" % (mount_point, secret)
         result['changed'] = changed
     return result

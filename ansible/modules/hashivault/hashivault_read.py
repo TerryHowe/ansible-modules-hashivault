@@ -114,7 +114,16 @@ def hashivault_read(params):
             response = client.read(secret)
         else:
             if version == 2:
-                response = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
+                try:
+                    response = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
+                except hvac.exceptions.InvalidPath:
+                    response = None
+                except Exception as e:
+                    result['rc'] = 1
+                    result['failed'] = True
+                    result['error'] = "%s(%s)" % (e.__class__.__name__, e)
+                    result['msg'] = u"Secret %s/%s is not in vault" % (mount_point, secret)
+                    return result
             else:
                 response = client.secrets.kv.v1.read_secret(secret, mount_point=mount_point)
         if not response:
@@ -125,7 +134,14 @@ def hashivault_read(params):
             result['failed'] = True
             result['msg'] = u"Secret %s/%s is not in vault" % (mount_point, secret)
             return result
-        data = response['data']
+        if version == 2:
+            try:
+                data = response.get('data', {})
+                data = data.get('data', {})
+            except:
+                data = str(response)
+        else:
+            data = response['data']
     if key and key not in data:
         if default is not None:
             result['value'] = default

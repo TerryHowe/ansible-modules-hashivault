@@ -2,6 +2,11 @@
 - hosts: localhost
   gather_facts: no
   tasks:
+    - name: Delete full path before we start
+      hashivault_delete:
+        secret: /secret/full/path
+      failed_when: False
+
     - name: Write full path
       hashivault_write:
         secret: /secret/full/path
@@ -9,7 +14,7 @@
           basket: ball
       register: vault_write
     - assert: { that: "{{vault_write.changed}} == True" }
-    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/full/path written'" }
+    - assert: { that: "'{{vault_write.msg}}' == 'Secret /secret/full/path written'" }
     - assert: { that: "{{vault_write.rc}} == 0" }
 
     - name: Read full path
@@ -29,4 +34,4 @@
       register: vault_delete
     - assert: { that: "{{vault_delete.changed}} == True" }
     - assert: { that: "{{vault_delete.rc}} == 0" }
-    - assert: { that: "'{{vault_delete.msg}}' == 'Secret secret/full/path deleted'" }
+    - assert: { that: "'{{vault_delete.msg}}' == 'Secret /secret/full/path deleted'" }
