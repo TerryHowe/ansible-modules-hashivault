@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+3.15.0 (2019-01-31)
+-------------------
+- Add tests for hashivault_userpass. [Terry Howe]
+- Userpass user management module. [p0tr3c]
+
+
 3.14.0 (2019-01-31)
 -------------------
 - Add tests for root token generation. [Terry Howe]
