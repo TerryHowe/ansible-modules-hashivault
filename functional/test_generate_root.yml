@@ -1,0 +1,61 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    vault_keys:  "{{ lookup('env','VAULT_KEYS') }}"
+  tasks:
+    - assert:
+        that: "'{{vault_keys}}' != ''"
+        msg: "VAULT_KEYS must be set to run this test"
+
+    - name: Cancel anything that might be going
+      hashivault_generate_root_cancel:
+      register: hashivault_generate_root_cancel
+    - assert: { that: "{{hashivault_generate_root_cancel.rc}} == 0" }
+
+    - name: Generate root token initialize
+      hashivault_generate_root_init:
+      register: hashivault_generate_root_init
+    - assert: { that: "{{hashivault_generate_root_init.changed}} == True" }
+    - assert: { that: "{{hashivault_generate_root_init.rc}} == 0" }
+
+    - name: Generate root status
+      hashivault_generate_root_status:
+      register: hashivault_generate_root_status
+    - assert: { that: "{{hashivault_generate_root_status.changed}} == False" }
+    - assert: { that: "{{hashivault_generate_root_status.rc}} == 0" }
+
+    - name: Generate a root token
+      hashivault_generate_root:
+        key: "{{vault_keys}}"
+        nonce: "{{hashivault_generate_root_init.status.nonce}}"
+      register: hashivault_generate_root
+    - assert: { that: "{{hashivault_generate_root.changed}} == True" }
+    - assert: { that: "{{hashivault_generate_root.rc}} == 0" }
+    - assert: { that: "{{hashivault_generate_root.status.complete}} == True" }
+
+    - name: Generate root token initialize
+      hashivault_generate_root_init:
+      register: hashivault_generate_root_init
+    - assert: { that: "{{hashivault_generate_root_init.changed}} == True" }
+    - assert: { that: "{{hashivault_generate_root_init.rc}} == 0" }
+
+    - name: Generate root status
+      hashivault_generate_root_status:
+      register: hashivault_generate_root_status
+    - assert: { that: "{{hashivault_generate_root_status.changed}} == False" }
+    - assert: { that: "{{hashivault_generate_root_status.rc}} == 0" }
+    - assert: { that: "{{hashivault_generate_root_status.status.started}} == True" }
+
+    - name: Cancel that
+      hashivault_generate_root_cancel:
+      register: hashivault_generate_root_cancel
+    - assert: { that: "{{hashivault_generate_root_cancel.changed}} == True" }
+    - assert: { that: "{{hashivault_generate_root_cancel.rc}} == 0" }
+
+    - name: Generate root status
+      hashivault_generate_root_status:
+      register: hashivault_generate_root_status
+    - assert: { that: "{{hashivault_generate_root_status.changed}} == False" }
+    - assert: { that: "{{hashivault_generate_root_status.rc}} == 0" }
+    - assert: { that: "{{hashivault_generate_root_status.status.started}} == False" }
