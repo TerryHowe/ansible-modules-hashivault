@@ -2,6 +2,19 @@ Changelog
 =========
 
 
+3.13.0 (2019-01-31)
+-------------------
+- kv2 secret read, write and delete with hvac kv2 client. [Terry Howe]
+- Remove verbose call of playbook. [drewmullen]
+- Initial kv2 support [rmullen]
+- Identity entity tests. [Terry Howe]
+- Fix entity update, will not overwrite with default on update. [p0tr3c]
+- Fix unordered list comparison for policies. [p0tr3c]
+- Add identity management module. [p0tr3c]
+- Support for entity aliases. [p0tr3c]
+- Make global env travis. [Terry Howe]
+
+
 3.12.1 (2019-01-24)
 -------------------
 - Add pipeline job to build Ansible webdocs and publish to Github pages,
