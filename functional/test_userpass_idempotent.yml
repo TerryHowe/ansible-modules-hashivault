@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Enable kv2 secret store
+      hashivault_userpass:
+        name: bob
+        state: absent
+      no_log: True
+
+    - name: Enable kv2 secret store
+      hashivault_userpass:
+        name: bob
+        pass: S3cre7s
+        policies: bob
+      register: hashivault_userpass
+      no_log: True
+    - assert: { that: "{{hashivault_userpass.changed}} == True" }
+    - assert: { that: "{{hashivault_userpass.rc}} == 0" }

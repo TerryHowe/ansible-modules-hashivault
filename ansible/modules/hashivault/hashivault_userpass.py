@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 DOCUMENTATION = '''
 ---
-module: hashivault_userpass_user
+module: hashivault_userpass
 version_added: "3.12.0"
 short_description: Hashicorp Vault userpass user management module
 description:
@@ -82,9 +82,9 @@ def main():
     argspec['pass'] = dict(required=False, type='str', default=None)
     argspec['pass_update'] = dict(required=False, type='bool', default=False)
     argspec['policies'] = dict(required=False, type='list', default=[])
-    argspec['state'] = dict(required=False, type='str', default='present')
+    argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
     module = hashivault_init(argspec)
-    result = hashivault_userpass_user(module.params)
+    result = hashivault_userpass(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -112,7 +112,7 @@ def hashivault_userpass_update(client, user_details,
     return {'changed': False}
 
 @hashiwrapper
-def hashivault_userpass_user(params):
+def hashivault_userpass(params):
     client = hashivault_auth_client(params)
     state = params.get('state')
     name = params.get('name')

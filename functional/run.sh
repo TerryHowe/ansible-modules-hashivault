@@ -43,6 +43,7 @@ source ./vaultenv.sh
 
 # userpass
 ansible-playbook -v test_userpass.yml
+ansible-playbook -v test_userpass_idempotent.yml
 source ./userpassenv.sh
 ansible-playbook -v --extra-vars='namespace=userpass/' test_write.yml test_read.yml test_lookup.yml
 source ./vaultenv.sh
