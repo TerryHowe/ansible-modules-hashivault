@@ -107,32 +107,36 @@ def hashivault_read(params):
 
     key = params.get('key')
     default = params.get('default')
+    if secret.startswith('/'):
+        secret = secret.lstrip('/')
+        mount_point = ''
+    if mount_point:
+        secret_path = '%s/%s' % (mount_point, secret)
+    else:
+        secret_path = secret
+
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        if secret.startswith('/'):
-            secret = secret.lstrip('/')
-            response = client.read(secret)
-        else:
+        try:
             if version == 2:
-                try:
-                    response = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
-                except hvac.exceptions.InvalidPath:
-                    response = None
-                except Exception as e:
-                    result['rc'] = 1
-                    result['failed'] = True
-                    result['error'] = "%s(%s)" % (e.__class__.__name__, e)
-                    result['msg'] = u"Secret %s/%s is not in vault" % (mount_point, secret)
-                    return result
+                response = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
             else:
-                response = client.secrets.kv.v1.read_secret(secret, mount_point=mount_point)
+                response = client.read(secret_path)
+        except hvac.exceptions.InvalidPath:
+            response = None
+        except Exception as e:
+            result['rc'] = 1
+            result['failed'] = True
+            error_string = "%s(%s)" % (e.__class__.__name__, e)
+            result['msg'] = u"Error %s reading %s" % (error_string, secret_path)
+            return result
         if not response:
             if default is not None:
                 result['value'] = default
                 return result
             result['rc'] = 1
             result['failed'] = True
-            result['msg'] = u"Secret %s/%s is not in vault" % (mount_point, secret)
+            result['msg'] = u"Secret %s is not in vault" % (secret_path)
             return result
         if version == 2:
             try:
@@ -148,7 +152,7 @@ def hashivault_read(params):
             return result
         result['rc'] = 1
         result['failed'] = True
-        result['msg'] = u"Key %s is not in secret %s/%s" % (key, mount_point, secret)
+        result['msg'] = u"Key %s is not in secret %s" % (key, secret_path)
         return result
     if key:
         value = data[key]

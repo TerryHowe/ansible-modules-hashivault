@@ -90,16 +90,30 @@ def hashivault_delete(params):
     if secret.startswith('/'):
         secret = secret.lstrip('/')
         mount_point = ''
+    if mount_point:
+        secret_path = '%s/%s' % (mount_point, secret)
+    else:
+        secret_path = secret
+
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        if version == 2:
-            returned_data = client.secrets.kv.v2.delete_latest_version_of_secret(secret, mount_point=mount_point)
-        else:
-            returned_data = client.secrets.kv.v1.delete_secret(secret, mount_point=mount_point)
+        try:
+            if version == 2:
+                returned_data = client.secrets.kv.v2.delete_latest_version_of_secret(secret, mount_point=mount_point)
+            else:
 
+                returned_data = client.delete(secret_path)
+        except hvac.exceptions.InvalidPath:
+            read_data = None
+        except Exception as e:
+            result['rc'] = 1
+            result['failed'] = True
+            result['error'] = "%s(%s)" % (e.__class__.__name__, e)
+            result['msg'] = u"Secret %s/%s is not in vault" % (mount_point, secret)
+            return result
         if returned_data:
             result['data'] = returned_data.text
-        result['msg'] = u"Secret %s/%s deleted" % (mount_point, secret)
+        result['msg'] = u"Secret %s deleted" % secret_path
     result['changed'] = True
     return result
 

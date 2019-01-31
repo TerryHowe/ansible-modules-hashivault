@@ -149,6 +149,10 @@ def hashivault_write(module):
     if secret.startswith('/'):
         secret = secret.lstrip('/')
         mount_point = ''
+    if mount_point:
+        secret_path = '%s/%s' % (mount_point, secret)
+    else:
+        secret_path = secret
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -157,10 +161,19 @@ def hashivault_write(module):
 
         if params.get('update') or module.check_mode:
             # Do not move these reads outside of the update
-            if version == 2:
-                read_data = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
-            else:
-                read_data = client.secrets.kv.v1.read_secret(secret, mount_point=mount_point)
+            try:
+                if version == 2:
+                    read_data = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
+                else:
+                    read_data = client.read(secret_path)
+            except hvac.exceptions.InvalidPath:
+                read_data = None
+            except Exception as e:
+                result['rc'] = 1
+                result['failed'] = True
+                error_string = "%s(%s)" % (e.__class__.__name__, e)
+                result['msg'] = u"Error %s reading %s" % (error_string, secret_path)
+                return result
             if not read_data:
                 read_data = {}
             read_data = read_data.get('data', {})
@@ -174,12 +187,21 @@ def hashivault_write(module):
 
         if changed:
             if not module.check_mode:
-                if version == 2:
-                    client.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, path=secret, secret=write_data)
-                else:
-                    client.secrets.kv.v1.create_or_update_secret(mount_point=mount_point, path=secret, secret=write_data, method='POST')
+                try:
+                    if version == 2:
+                        returned_data = client.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, path=secret, secret=write_data)
+                    else:
+                        returned_data = client.write(secret_path, **write_data)
+                    if returned_data:
+                        result['data'] = str(returned_data)
+                except Exception as e:
+                    result['rc'] = 1
+                    result['failed'] = True
+                    error_string = "%s(%s)" % (e.__class__.__name__, e)
+                    result['msg'] = u"Error %s writing %s" % (error_string, secret_path)
+                    return result
 
-            result['msg'] = u"Secret %s/%s written" % (mount_point, secret)
+            result['msg'] = u"Secret %s written" % (secret_path)
         result['changed'] = changed
     return result
 
