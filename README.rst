@@ -39,6 +39,11 @@ in order to authenticate to your HashiCorp Vault instance:
   * `VAULT_CAPATH`: path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate
   * `VAULT_NAMESPACE`: specify the Vault Namespace, if you have one
 
+Generated Documentation
+-----------------------
+
+https://terryhowe.github.io/ansible-modules-hashivault/modules/list_of_hashivault_modules.html
+
 
 Reading and Writing
 -------------------
