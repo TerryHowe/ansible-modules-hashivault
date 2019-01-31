@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+3.14.0 (2019-01-31)
+-------------------
+- Add tests for root token generation. [Terry Howe]
+- Add support to generate root token & revoke tokens. [Bharath
+  Channakeshava]
+
+
 3.13.0 (2019-01-31)
 -------------------
 - kv2 secret read, write and delete with hvac kv2 client. [Terry Howe]
