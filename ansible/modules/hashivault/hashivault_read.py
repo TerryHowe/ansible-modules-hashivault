@@ -136,7 +136,7 @@ def hashivault_read(params):
                 return result
             result['rc'] = 1
             result['failed'] = True
-            result['msg'] = u"Secret %s is not in vault" % (secret_path)
+            result['msg'] = u"Secret %s is not in vault" % secret_path
             return result
         if version == 2:
             try:

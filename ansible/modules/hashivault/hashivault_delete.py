@@ -47,13 +47,17 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-    secret:
-        description:
-            - secret to delete.
     version:
         description:
             - version of the kv engine (int)
         default: 1
+    mount_point:
+        description:
+            - secret mount point
+        default: secret
+    secret:
+        description:
+            - secret to delete.
 '''
 EXAMPLES = '''
 ---
@@ -101,15 +105,14 @@ def hashivault_delete(params):
             if version == 2:
                 returned_data = client.secrets.kv.v2.delete_latest_version_of_secret(secret, mount_point=mount_point)
             else:
-
                 returned_data = client.delete(secret_path)
         except hvac.exceptions.InvalidPath:
             read_data = None
         except Exception as e:
             result['rc'] = 1
             result['failed'] = True
-            result['error'] = "%s(%s)" % (e.__class__.__name__, e)
-            result['msg'] = u"Secret %s/%s is not in vault" % (mount_point, secret)
+            error_string = "%s(%s)" % (e.__class__.__name__, e)
+            result['msg'] = u"Error %s deleting %s" % (error_string, secret_path)
             return result
         if returned_data:
             result['data'] = returned_data.text

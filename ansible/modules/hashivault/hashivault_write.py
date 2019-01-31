@@ -72,7 +72,6 @@ EXAMPLES = '''
   tasks:
     - hashivault_write:
         secret: giant
-        version: 1
         data:
             foo: foe
             fie: fum
@@ -165,7 +164,7 @@ def hashivault_write(module):
                 if version == 2:
                     read_data = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
                 else:
-                    read_data = client.read(secret_path)
+                    read_data = client.read(secret_path) or {}
             except hvac.exceptions.InvalidPath:
                 read_data = None
             except Exception as e:
@@ -201,7 +200,7 @@ def hashivault_write(module):
                     result['msg'] = u"Error %s writing %s" % (error_string, secret_path)
                     return result
 
-            result['msg'] = u"Secret %s written" % (secret_path)
+            result['msg'] = u"Secret %s written" % secret_path
         result['changed'] = changed
     return result
 
