@@ -1,11 +1,12 @@
 #!/usr/bin/env python
+ANSIBLE_METADATA = {'status': ['deprecated'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
 module: hashivault_userpass_create
 version_added: "2.2.0"
 short_description: Hashicorp Vault userpass create module
 description:
-    - Module to create userpass users in Hashicorp Vault.
+    - Module to create userpass users in Hashicorp Vault. Use hashicorp_userpass instead.
 options:
     url:
         description:
