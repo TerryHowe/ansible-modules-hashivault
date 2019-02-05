@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+3.16.0 (2019-02-05)
+-------------------
+- Ansible galaxy support. [Maxime Brunet]
+
+
 3.15.1 (2019-02-05)
 -------------------
 - Have write return data. [Terry Howe]
