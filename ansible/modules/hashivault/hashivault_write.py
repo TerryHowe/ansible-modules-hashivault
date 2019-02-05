@@ -1,4 +1,14 @@
 #!/usr/bin/env python
+import warnings
+
+import hvac
+
+from ansible.module_utils.hashivault import hashivault_argspec
+from ansible.module_utils.hashivault import hashivault_auth_client
+from ansible.module_utils.hashivault import hashivault_init
+from ansible.module_utils.hashivault import hashiwrapper
+
+ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
 module: hashivault_write
@@ -47,6 +57,14 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
+    version:
+        description:
+            - version of the kv engine (int)
+        default: 1
+    mount_point:
+        description:
+            - secret mount point
+        default: secret
     secret:
         description:
             - vault secret to write.
@@ -72,6 +90,8 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
+    argspec['version'] = dict(required=False, type='int', default=1)
+    argspec['mount_point'] = dict(required=False, type='str', default='secret')
     argspec['secret'] = dict(required=True, type='str')
     argspec['update'] = dict(required=False, default=False, type='bool')
     argspec['data'] = dict(required=False, default={}, type='dict')
@@ -121,30 +141,47 @@ def hashivault_changed(old_data, new_data):
     return False
 
 
-from ansible.module_utils.hashivault import *
-
-
 @hashiwrapper
 def hashivault_write(module):
     result = {"changed": False, "rc": 0}
     params = module.params
     client = hashivault_auth_client(params)
+    version = params.get('version')
+    mount_point = params.get('mount_point')
     secret = params.get('secret')
+    data = params.get('data')
     returned_data = None
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
+        mount_point = ''
+    if mount_point:
+        secret_path = '%s/%s' % (mount_point, secret)
     else:
-        secret = ('secret/%s' % secret)
-    data = params.get('data')
+        secret_path = secret
+
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         changed = True
         write_data = data
 
         if params.get('update') or module.check_mode:
-            # Do not move this read outside of the update
-            read_data = client.read(secret) or {}
+            # Do not move these reads outside of the update
+            try:
+                if version == 2:
+                    read_data = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
+                else:
+                    read_data = client.read(secret_path) or {}
+            except hvac.exceptions.InvalidPath:
+                read_data = None
+            except Exception as e:
+                result['rc'] = 1
+                result['failed'] = True
+                error_string = "%s(%s)" % (e.__class__.__name__, e)
+                result['msg'] = u"Error %s reading %s" % (error_string, secret_path)
+                return result
+            if not read_data:
+                read_data = {}
             read_data = read_data.get('data', {})
 
             write_data = dict(read_data)
@@ -156,11 +193,23 @@ def hashivault_write(module):
 
         if changed:
             if not module.check_mode:
-                returned_data = client.write((secret), **write_data)
+                try:
+                    if version == 2:
+                        returned_data = client.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, path=secret, secret=write_data)
+                    else:
+                        returned_data = client.write(secret_path, **write_data)
+                    if returned_data:
+                        result['data'] = returned_data
+                        if returned_data is None:
+                            result['data'] = ''
+                except Exception as e:
+                    result['rc'] = 1
+                    result['failed'] = True
+                    error_string = "%s(%s)" % (e.__class__.__name__, e)
+                    result['msg'] = u"Error %s writing %s" % (error_string, secret_path)
+                    return result
 
-            if returned_data:
-                result['data'] = returned_data
-            result['msg'] = u"Secret %s written" % secret
+            result['msg'] = u"Secret %s written" % secret_path
         result['changed'] = changed
     return result
 

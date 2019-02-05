@@ -1,8 +1,4 @@
 #!/usr/bin/env python
-import warnings
-
-import hvac
-
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -11,11 +7,11 @@ from ansible.module_utils.hashivault import hashiwrapper
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivault_read
-version_added: "0.1"
-short_description: Hashicorp Vault read module
+module: hashivault_token_renew
+version_added: "3.11.0"
+short_description: Hashicorp Vault token renew module
 description:
-    - Module to read to Hashicorp Vault.
+    - Module to renew tokens in Hashicorp Vault.
 options:
     url:
         description:
@@ -57,51 +53,51 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-    version:
+    renew_token:
         description:
-            - version of the kv engine (int)
-        default: 1
-    mount_point:
+            - token to renew if different from auth token
+        default: to authentication token
+    increment:
         description:
-            - secret mount point
-        default: secret
-    secret:
+            - Request a specific increment for renewal. Vault is not required to honor this request. If not supplied, Vault will use the default TTL.
+    wrap_ttl:
         description:
-            - secret to read.
-    key:
-        description:
-            - secret key to read.
-    register:
-        description:
-            - variable to register result.
+            - Indicates that the response should be wrapped in a cubbyhole token with the requested TTL.
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_read:
-        secret: 'giant'
-        key: 'fie'
-      register: 'fie'
-    - debug: msg="Value is {{fie.value}}"
+    - name: "Renew token"
+      hashivault_token_renew:
+        renew_token: "{{client_token}}"
+        increment: "5m"
+      register: "vault_token_renew"
 '''
-
 
 def main():
     argspec = hashivault_argspec()
-    argspec['version'] = dict(required=False, type='int', default=1)
-    argspec['mount_point'] = dict(required=False, type='str', default='secret')
-    argspec['secret'] = dict(required=True, type='str')
-    argspec['key'] = dict(required=False, type='str')
-    argspec['register'] = dict(required=False, type='str')
-    argspec['default'] = dict(required=False, default=None, type='str')
+    argspec['renew_token'] = dict(required=False, type='str')
+    argspec['increment'] = dict(required=False, type='str', default=None)
+    argspec['wrap_ttl'] = dict(required=False, type='int')
     module = hashivault_init(argspec)
-    result = hashivault_read(module.params)
+    result = hashivault_token_renew(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
 
+
+@hashiwrapper
+def hashivault_token_renew(params):
+    client = hashivault_auth_client(params)
+    renew_token = params.get('renew_token')
+    increment = params.get('increment')
+    if renew_token is None:
+        renew_token = params.get('token')
+    wrap_ttl = params.get('wrap_ttl')
+    renew = client.renew_token(token=renew_token, increment=increment, wrap_ttl=wrap_ttl)
+    return {'changed': True, 'renew': renew}
 
 if __name__ == '__main__':
     main()

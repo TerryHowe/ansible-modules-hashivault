@@ -1,21 +1,17 @@
 #!/usr/bin/env python
-import warnings
-
-import hvac
-
 from ansible.module_utils.hashivault import hashivault_argspec
-from ansible.module_utils.hashivault import hashivault_auth_client
+from ansible.module_utils.hashivault import hashivault_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivault_read
-version_added: "0.1"
-short_description: Hashicorp Vault read module
+module: hashivault_generate_root_init
+version_added: "3.14.0"
+short_description: Hashicorp Vault generate root token init module
 description:
-    - Module to read to Hashicorp Vault.
+    - Module to start root token generation of Hashicorp Vault.
 options:
     url:
         description:
@@ -57,51 +53,47 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-    version:
+    secret_shares:
         description:
-            - version of the kv engine (int)
-        default: 1
-    mount_point:
+            - specifies the number of shares to split the master key into.
+        default: 5
+    secret_threshold:
         description:
-            - secret mount point
-        default: secret
-    secret:
+            - specifies the number of shares required to reconstruct the master key.
+        default: 3
+    pgp_key:
         description:
-            - secret to read.
-    key:
-        description:
-            - secret key to read.
-    register:
-        description:
-            - variable to register result.
+            - specifies PGP public keys used to encrypt the output root token.
+        default: ''
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_read:
-        secret: 'giant'
-        key: 'fie'
-      register: 'fie'
-    - debug: msg="Value is {{fie.value}}"
+    - hashivault_generate_root_init:
+        pgp_key: key
 '''
-
 
 def main():
     argspec = hashivault_argspec()
-    argspec['version'] = dict(required=False, type='int', default=1)
-    argspec['mount_point'] = dict(required=False, type='str', default='secret')
-    argspec['secret'] = dict(required=True, type='str')
-    argspec['key'] = dict(required=False, type='str')
-    argspec['register'] = dict(required=False, type='str')
-    argspec['default'] = dict(required=False, default=None, type='str')
+    argspec['pgp_key'] = dict(required=False, type='str', default='')
     module = hashivault_init(argspec)
-    result = hashivault_read(module.params)
+    result = hashivault_generate_root_init(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
 
+
+@hashiwrapper
+def hashivault_generate_root_init(params):
+    client = hashivault_client(params)
+    # Check if rekey is on-going
+    status = client.generate_root_status
+    if status['started']: 
+        return {'changed': False}
+    pgp = params.get('pgp_key')
+    return {'status': client.start_generate_root(pgp, otp=False), 'changed': True}
 
 if __name__ == '__main__':
     main()

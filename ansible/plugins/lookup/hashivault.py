@@ -47,12 +47,15 @@ class LookupModule(LookupBase):
         except IndexError:
             key = None
         default = kwargs.get('default', None)
+        version = kwargs.get('version')
         params = {
             'url': self._get_url(environments),
             'verify': self._get_verify(environments),
             'secret': path,
             'key': key,
             'default': default,
+            'version': version,
+            'mount_point': 'secret',
         }
         authtype = self._get_environment(environments, 'VAULT_AUTHTYPE', 'token')
         params['authtype'] = authtype
@@ -72,7 +75,6 @@ class LookupModule(LookupBase):
             params['password'] = self._get_environment(environments, 'VAULT_PASSWORD')
         else:
             params['token'] = self._get_environment(environments, 'VAULT_TOKEN', hashivault_default_token())
-
         return params
 
     def _get_verify(self, environments):

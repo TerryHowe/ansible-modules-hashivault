@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+from ansible.module_utils.hashivault import hashivault_argspec
+from ansible.module_utils.hashivault import hashivault_auth_client
+from ansible.module_utils.hashivault import hashivault_init
+from ansible.module_utils.hashivault import hashiwrapper
+
+ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
 module: hashivault_auth_enable
@@ -53,7 +59,7 @@ options:
     description:
         description:
             - description of authenticator
-    mount_point
+    mount_point:
         description:
             - location where this auth backend will be mounted 
 '''
@@ -77,10 +83,6 @@ def main():
         module.fail_json(**result)
     else:
         module.exit_json(**result)
-
-
-from ansible.module_utils.basic import *
-from ansible.module_utils.hashivault import *
 
 
 @hashiwrapper

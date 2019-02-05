@@ -2,6 +2,58 @@ Changelog
 =========
 
 
+3.15.1 (2019-02-05)
+-------------------
+- Have write return data. [Terry Howe]
+- Clean up imports. [Terry Howe]
+- Get rid of inventory warnings. [Terry Howe]
+- Add document metadata. [Terry Howe]
+
+
+3.15.0 (2019-01-31)
+-------------------
+- Add tests for hashivault_userpass. [Terry Howe]
+- Userpass user management module. [p0tr3c]
+
+
+3.14.0 (2019-01-31)
+-------------------
+- Add tests for root token generation. [Terry Howe]
+- Add support to generate root token & revoke tokens. [Bharath
+  Channakeshava]
+
+
+3.13.0 (2019-01-31)
+-------------------
+- kv2 secret read, write and delete with hvac kv2 client. [Terry Howe]
+- Remove verbose call of playbook. [drewmullen]
+- Initial kv2 support [rmullen]
+- Identity entity tests. [Terry Howe]
+- Fix entity update, will not overwrite with default on update. [p0tr3c]
+- Fix unordered list comparison for policies. [p0tr3c]
+- Add identity management module. [p0tr3c]
+- Support for entity aliases. [p0tr3c]
+- Make global env travis. [Terry Howe]
+
+
+3.12.1 (2019-01-24)
+-------------------
+- Add pipeline job to build Ansible webdocs and publish to Github pages,
+  Fix YAML. [Samy Coenen]
+
+
+3.12.0 (2019-01-06)
+-------------------
+- Optionally include namespace as play parameter or environment var.
+  [rmullen]
+
+
+3.11.0 (2018-12-17)
+-------------------
+- Add tests for revoke and renew token. [Terry Howe]
+- Added token renew and token revoke functions. [Charles Bevan]
+
+
 3.10.1 (2018-11-14)
 -------------------
 - Fix auth_methods for LDAP and GitHub. [Eugene Kossyak]

@@ -15,7 +15,7 @@
       failed_when: False
     - assert: { that: "{{vault_read.failed}} == False" }
     - assert: { that: "{{vault_read.rc}} == 1" }
-    - assert: { that: "'{{vault_read.msg}}' == 'Secret fourofour/nothome is not in vault'" }
+    - assert: { that: "'{{vault_read.msg}}' == 'Secret secret/fourofour/nothome is not in vault'" }
 
     - name: Nonexistent secret path with empty default
       hashivault_read:

@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+from ansible.module_utils.hashivault import hashivault_argspec
+from ansible.module_utils.hashivault import hashivault_auth_client
+from ansible.module_utils.hashivault import hashivault_init
+from ansible.module_utils.hashivault import hashiwrapper
+
+ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
 module: hashivault_aws_ec2_role_create
@@ -110,8 +116,6 @@ EXAMPLES = '''
         bound_iam_role_arn: arn:aws:iam::12345678:root/ec2-role
 '''
 
-from hvac import exceptions
-
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
@@ -137,10 +141,6 @@ def main():
         module.fail_json(**result)
     else:
         module.exit_json(**result)
-
-
-from ansible.module_utils.basic import *
-from ansible.module_utils.hashivault import *
 
 
 @hashiwrapper

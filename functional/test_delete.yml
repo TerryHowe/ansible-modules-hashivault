@@ -26,4 +26,4 @@
       register: vault_read
       failed_when: False
     - assert: { that: "{{vault_read.changed}} == False" }
-    - assert: { that: "'{{vault_read.msg}}' == 'Secret test_delete is not in vault'" }
+    - assert: { that: "'{{vault_read.msg}}' == 'Secret secret/test_delete is not in vault'" }

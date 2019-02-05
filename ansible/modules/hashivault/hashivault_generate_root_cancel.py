@@ -1,21 +1,17 @@
 #!/usr/bin/env python
-import warnings
-
-import hvac
-
 from ansible.module_utils.hashivault import hashivault_argspec
-from ansible.module_utils.hashivault import hashivault_auth_client
+from ansible.module_utils.hashivault import hashivault_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivault_read
-version_added: "0.1"
-short_description: Hashicorp Vault read module
+module: hashivault_generate_root_cancel
+version_added: "3.14.0"
+short_description: Hashicorp Vault generate_root cancel module
 description:
-    - Module to read to Hashicorp Vault.
+    - Module to cancel generation of root token of Hashicorp Vault.
 options:
     url:
         description:
@@ -57,51 +53,33 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-    version:
-        description:
-            - version of the kv engine (int)
-        default: 1
-    mount_point:
-        description:
-            - secret mount point
-        default: secret
-    secret:
-        description:
-            - secret to read.
-    key:
-        description:
-            - secret key to read.
-    register:
-        description:
-            - variable to register result.
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_read:
-        secret: 'giant'
-        key: 'fie'
-      register: 'fie'
-    - debug: msg="Value is {{fie.value}}"
+    - hashivault_generate_root_cancel:
 '''
 
 
 def main():
     argspec = hashivault_argspec()
-    argspec['version'] = dict(required=False, type='int', default=1)
-    argspec['mount_point'] = dict(required=False, type='str', default='secret')
-    argspec['secret'] = dict(required=True, type='str')
-    argspec['key'] = dict(required=False, type='str')
-    argspec['register'] = dict(required=False, type='str')
-    argspec['default'] = dict(required=False, default=None, type='str')
     module = hashivault_init(argspec)
-    result = hashivault_read(module.params)
+    result = hashivault_generate_root_cancel(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
 
+
+@hashiwrapper
+def hashivault_generate_root_cancel(params):
+    client = hashivault_client(params)
+    # Check if generate_root is on-going & return when generate_root not in progress
+    status = client.generate_root_status
+    if not status['started']: 
+        return {'changed': False}
+    return {'status': client.cancel_generate_root(), 'changed': True}
 
 if __name__ == '__main__':
     main()

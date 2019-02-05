@@ -1,21 +1,17 @@
 #!/usr/bin/env python
-import warnings
-
-import hvac
-
 from ansible.module_utils.hashivault import hashivault_argspec
-from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
+from ansible.module_utils.hashivault import hashivault_client
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivault_read
-version_added: "0.1"
-short_description: Hashicorp Vault read module
+module: hashivault_generate_root
+version_added: "3.14.0"
+short_description: Hashicorp Vault generate_root module
 description:
-    - Module to read to Hashicorp Vault.
+    - Module to (update) generate_root Hashicorp Vault.
 options:
     url:
         description:
@@ -57,50 +53,41 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-    version:
-        description:
-            - version of the kv engine (int)
-        default: 1
-    mount_point:
-        description:
-            - secret mount point
-        default: secret
-    secret:
-        description:
-            - secret to read.
     key:
         description:
-            - secret key to read.
-    register:
+            - vault key shard.
+    nonce:
         description:
-            - variable to register result.
+            - generate_root nonce.
 '''
 EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_read:
-        secret: 'giant'
-        key: 'fie'
-      register: 'fie'
-    - debug: msg="Value is {{fie.value}}"
+    - hashivault_generate_root:
+      key: '{{vault_unseal_key}}'
+      nonce: '{{nonce}}'
 '''
 
 
 def main():
     argspec = hashivault_argspec()
-    argspec['version'] = dict(required=False, type='int', default=1)
-    argspec['mount_point'] = dict(required=False, type='str', default='secret')
-    argspec['secret'] = dict(required=True, type='str')
     argspec['key'] = dict(required=False, type='str')
-    argspec['register'] = dict(required=False, type='str')
-    argspec['default'] = dict(required=False, default=None, type='str')
+    argspec['nonce'] = dict(required=True, type='str')
     module = hashivault_init(argspec)
-    result = hashivault_read(module.params)
+    result = hashivault_generate_root(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
+
+
+@hashiwrapper
+def hashivault_generate_root(params):
+    key = params.get('key')
+    nonce = params.get('nonce')
+    client = hashivault_client(params)
+    return {'status': client.generate_root(key, nonce), 'changed': True}
 
 
 if __name__ == '__main__':
