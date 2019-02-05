@@ -2,6 +2,14 @@ Changelog
 =========
 
 
+3.15.1 (2019-02-05)
+-------------------
+- Have write return data. [Terry Howe]
+- Clean up imports. [Terry Howe]
+- Get rid of inventory warnings. [Terry Howe]
+- Add document metadata. [Terry Howe]
+
+
 3.15.0 (2019-01-31)
 -------------------
 - Add tests for hashivault_userpass. [Terry Howe]
