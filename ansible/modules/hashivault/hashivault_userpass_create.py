@@ -63,6 +63,10 @@ options:
         description:
             - user policies.
         default: default
+    mount_point:
+        description:
+            - default The "path" (app-id) the auth backend is mounted on.
+        default: userpass
 '''
 EXAMPLES = '''
 ---
@@ -80,6 +84,7 @@ def main():
     argspec['name'] = dict(required=True, type='str')
     argspec['pass'] = dict(required=True, type='str')
     argspec['policies'] = dict(required=False, type='str', default='default')
+    argspec['mount_point'] = dict(required=False, type='str', default='userpass')
     module = hashivault_init(argspec)
     result = hashivault_userpass_create(module.params)
     if result.get('failed'):
@@ -94,7 +99,8 @@ def hashivault_userpass_create(params):
     name = params.get('name')
     password = params.get('pass')
     policies = params.get('policies')
-    client.create_userpass(name, password, policies)
+    mount_point = params.get('mount_point')
+    client.create_userpass(name, password, policies, mount_point=mount_point)
     return {'changed': True}
 
 

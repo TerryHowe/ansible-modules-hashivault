@@ -70,6 +70,10 @@ options:
     state:
         description:
             - whether create/update or delete the user
+    mount_point:
+        description:
+            - default The "path" (app-id) the auth backend is mounted on.
+        default: userpass
 '''
 EXAMPLES = '''
 ---
@@ -89,6 +93,7 @@ def main():
     argspec['pass_update'] = dict(required=False, type='bool', default=False)
     argspec['policies'] = dict(required=False, type='list', default=[])
     argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
+    argspec['mount_point'] = dict(required=False, type='str', default='userpass')
     module = hashivault_init(argspec)
     result = hashivault_userpass(module.params)
     if result.get('failed'):
@@ -101,16 +106,17 @@ def hashivault_userpass_update(client, user_details,
     user_name,
     user_pass,
     user_pass_update,
-    user_policies):
+    user_policies,
+    mount_point):
     if set(user_details['data']['policies']) != set(user_policies):
         if user_pass_update and user_pass is not None:
-            client.create_userpass(user_name, user_pass, user_policies)
+            client.create_userpass(user_name, user_pass, user_policies, mount_point=mount_point)
             return {'changed': True}
         else:
-            client.update_userpass_policies(user_name, user_policies)
+            client.update_userpass_policies(user_name, user_policies, mount_point=mount_point)
             return {'changed': True}
     if user_pass_update and user_pass is not None:
-        client.update_userpass_password(user_name, user_pass)
+        client.update_userpass_password(user_name, user_pass, mount_point=mount_point)
         return {'changed': True}
     return {'changed': False}
 
@@ -122,9 +128,10 @@ def hashivault_userpass(params):
     password = params.get('pass')
     password_update = params.get('pass_update')
     policies = params.get('policies')
+    mount_point = params.get('mount_point')
     if state ==  'present':
         try:
-            user_details = client.read_userpass(name)
+            user_details = client.read_userpass(name, mount_point=mount_point)
         except Exception as e:
             if password is not None:
                 client.create_userpass(name, password, policies)
@@ -136,14 +143,15 @@ def hashivault_userpass(params):
                 user_name=name,
                 user_pass=password,
                 user_pass_update=password_update,
-                user_policies=policies)
+                user_policies=policies,
+                mount_point=mount_point)
     elif state == 'absent':
         try:
-            user_details = client.read_userpass(name)
+            user_details = client.read_userpass(name, mount_point=mount_point)
         except Exception as e:
             return {'changed': False}
         else:
-            client.delete_userpass(name)
+            client.delete_userpass(name, mount_point=mount_point)
             return {'changed': True}
     else:
         return {'failed': True, 'msg': 'Unkown state type'}
