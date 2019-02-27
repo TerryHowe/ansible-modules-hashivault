@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+3.16.1 (2019-02-27)
+-------------------
+- Add support for passing mount_point to hashivault_userpass. [Stanislav
+  Yotov]
+
+
 3.16.0 (2019-02-05)
 -------------------
 - Ansible galaxy support. [Maxime Brunet]
