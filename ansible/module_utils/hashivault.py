@@ -217,9 +217,9 @@ class AppRoleClient(object):
         """
         client = object.__getattribute__(self,'client')
         attr = client.__getattribute__(name)
-        if (callable(attr)):
-            role_id = object.__getattribute__(self,'role_id')
-            secret_id = object.__getattribute__(self,'secret_id')
-            resp = client.auth_approle(role_id,secret_id)
-            client.token = str(resp['auth']['client_token'])
+
+        role_id = object.__getattribute__(self,'role_id')
+        secret_id = object.__getattribute__(self,'secret_id')
+        resp = client.auth_approle(role_id,secret_id)
+        client.token = str(resp['auth']['client_token'])
         return attr
