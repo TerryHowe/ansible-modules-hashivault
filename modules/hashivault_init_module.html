@@ -2372,6 +2372,50 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
+                <b>recovery_pgp_keys</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">None</div>
+                                </td>
+                                                            <td>
+                                                                    <div>specifies an array of PGP public keys used to encrypt the output recovery keys.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>recovery_shares</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">None</div>
+                                </td>
+                                                            <td>
+                                                                    <div>specifies the number of shares to split the recovery key into.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>recovery_threshold</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">None</div>
+                                </td>
+                                                            <td>
+                                                                    <div>specifies the number of shares required to reconstruct the recovery key.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>root_token_pgp_key</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">None</div>
+                                </td>
+                                                            <td>
+                                                                    <div>specifies a PGP public key used to encrypt the initial root token.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
                 <b>secret_shares</b>
                                                                         </td>
                             <td>
@@ -2390,6 +2434,17 @@
                                 </td>
                                                             <td>
                                                                     <div>specifies the number of shares required to reconstruct the master key.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>stored_shares</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">None</div>
+                                </td>
+                                                            <td>
+                                                                    <div>specifies the number of shares that should be encrypted.</div>
                                                                             </td>
         </tr>
                             <tr>
@@ -2491,7 +2546,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Feb 27, 2019.<br/>
+  <p>Last updated on Mar 02, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>
