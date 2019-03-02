@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+3.16.2 (2019-03-02)
+-------------------
+- Add arguments to init. [Terry Howe]
+
+
 3.16.1 (2019-02-27)
 -------------------
 - Add support for passing mount_point to hashivault_userpass. [Stanislav
