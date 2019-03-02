@@ -65,6 +65,26 @@ options:
         description:
             - specifies an array of PGP public keys used to encrypt the output unseal keys.
         default: []
+    root_token_pgp_key:
+        description:
+            - specifies a PGP public key used to encrypt the initial root token.
+        default: None
+    stored_shares:
+        description:
+            - specifies the number of shares that should be encrypted.
+        default: None
+    recovery_shares:
+        description:
+            - specifies the number of shares to split the recovery key into.
+        default: None
+    recovery_threshold:
+        description:
+            - specifies the number of shares required to reconstruct the recovery key.
+        default: None
+    recovery_pgp_keys:
+        description:
+            - specifies an array of PGP public keys used to encrypt the output recovery keys.
+        default: None
 '''
 EXAMPLES = '''
 ---
@@ -85,6 +105,11 @@ def main():
     argspec['secret_shares'] = dict(required=False, type='int', default=5)
     argspec['secret_threshold'] = dict(required=False, type='int', default=3)
     argspec['pgp_keys'] = dict(required=False, type='list', default=None)
+    argspec['root_token_pgp_key'] = dict(required=False, type='str', default=None)
+    argspec['stored_shares'] = dict(required=False, type='int', default=None)
+    argspec['recovery_shares'] = dict(required=False, type='int', default=None)
+    argspec['recovery_threshold'] = dict(required=False, type='int', default=None)
+    argspec['recovery_pgp_keys'] = dict(required=False, type='list', default=None)
     module = hashivault_init(argspec)
     result = hashivault_initialize(module.params)
     if result.get('failed'):
@@ -102,11 +127,21 @@ def hashivault_initialize(params):
     secret_shares = params.get('secret_shares')
     secret_threshold = params.get('secret_threshold')
     pgp_keys = params.get('pgp_keys')
+    root_token_pgp_key = params.get('root_token_pgp_key')
+    stored_shares = params.get('stored_shares')
+    recovery_shares = params.get('recovery_shares')
+    recovery_threshold = params.get('recovery_threshold')
+    recovery_pgp_keys = params.get('recovery_pgp_keys')
     result.update(
         client.sys.initialize(
             secret_shares=secret_shares,
             secret_threshold=secret_threshold,
-            pgp_keys=pgp_keys
+            pgp_keys=pgp_keys,
+            root_token_pgp_key=root_token_pgp_key,
+            stored_shares=stored_shares,
+            recovery_shares=recovery_shares,
+            recovery_threshold=recovery_threshold,
+            recovery_pgp_keys=recovery_pgp_keys,
         )
     )
     return result
