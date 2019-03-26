@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+3.16.3 (2019-03-26)
+-------------------
+- Fix approle auth for hvac kv2 engine. [Nathan K]
+
+
 3.16.2 (2019-03-02)
 -------------------
 - Add arguments to init. [Terry Howe]
