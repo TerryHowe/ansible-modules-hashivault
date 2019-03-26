@@ -23,7 +23,8 @@ options:
         default: to environment variable VAULT_CACERT
     ca_path:
         description:
-            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence"
+            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert
+             is specified, its value will take precedence"
         default: to environment variable VAULT_CAPATH
     client_cert:
         description:
@@ -35,7 +36,8 @@ options:
         default: to environment variable VAULT_CLIENT_KEY
     verify:
         description:
-            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing"
+            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this
+             variable is not recommended except during testing"
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
@@ -77,9 +79,10 @@ def hashivault_generate_root_cancel(params):
     client = hashivault_client(params)
     # Check if generate_root is on-going & return when generate_root not in progress
     status = client.generate_root_status
-    if not status['started']: 
+    if not status['started']:
         return {'changed': False}
     return {'status': client.cancel_generate_root(), 'changed': True}
+
 
 if __name__ == '__main__':
     main()

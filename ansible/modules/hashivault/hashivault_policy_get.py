@@ -23,7 +23,8 @@ options:
         default: to environment variable VAULT_CACERT
     ca_path:
         description:
-            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence"
+            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert
+             is specified, its value will take precedence"
         default: to environment variable VAULT_CAPATH
     client_cert:
         description:
@@ -35,7 +36,8 @@ options:
         default: to environment variable VAULT_CLIENT_KEY
     verify:
         description:
-            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing"
+            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this
+             variable is not recommended except during testing"
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
@@ -85,8 +87,8 @@ def hashivault_policy_get(params):
     client = hashivault_auth_client(params)
     policy = client.get_policy(name)
     if policy is None:
-        result = { "changed": False, "rc" : 1, "failed": True}
-        result['msg'] = u"Policy \"%s\" does not exist." % (name)
+        result = {"changed": False, "rc": 1, "failed": True}
+        result['msg'] = u"Policy \"%s\" does not exist." % name
         return result
     else:
         return {'rules': policy}

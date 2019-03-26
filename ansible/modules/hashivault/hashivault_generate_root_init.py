@@ -23,7 +23,8 @@ options:
         default: to environment variable VAULT_CACERT
     ca_path:
         description:
-            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence"
+            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert
+             is specified, its value will take precedence"
         default: to environment variable VAULT_CAPATH
     client_cert:
         description:
@@ -35,7 +36,8 @@ options:
         default: to environment variable VAULT_CLIENT_KEY
     verify:
         description:
-            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing"
+            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this
+             variable is not recommended except during testing"
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
@@ -74,6 +76,7 @@ EXAMPLES = '''
         pgp_key: key
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['pgp_key'] = dict(required=False, type='str', default='')
@@ -90,10 +93,11 @@ def hashivault_generate_root_init(params):
     client = hashivault_client(params)
     # Check if rekey is on-going
     status = client.generate_root_status
-    if status['started']: 
+    if status['started']:
         return {'changed': False}
     pgp = params.get('pgp_key')
     return {'status': client.start_generate_root(pgp, otp=False), 'changed': True}
+
 
 if __name__ == '__main__':
     main()

@@ -11,7 +11,7 @@ files = [
     "ansible/modules/hashivault",
 ]
 
-long_description=open('README.rst', 'r').read()
+long_description = open('README.rst', 'r').read()
 
 setup(
     name='ansible-modules-hashivault',
@@ -23,8 +23,9 @@ setup(
     url='https://github.com/TerryHowe/ansible-modules-hashivault',
     py_modules=py_files,
     packages=files,
-    install_requires = [
+    install_requires=[
         'ansible>=2.0.0',
         'hvac>=0.7.0',
+        'requests',
     ],
 )

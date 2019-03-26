@@ -23,7 +23,8 @@ options:
         default: to environment variable VAULT_CACERT
     ca_path:
         description:
-            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence"
+            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert
+             is specified, its value will take precedence"
         default: to environment variable VAULT_CAPATH
     client_cert:
         description:
@@ -35,7 +36,8 @@ options:
         default: to environment variable VAULT_CLIENT_KEY
     verify:
         description:
-            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing"
+            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this
+             variable is not recommended except during testing"
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
@@ -103,7 +105,8 @@ def hashivault_mount_tune(module):
         changed = True
 
     if not module.check_mode:
-        client.sys.tune_mount_configuration(mount_point, default_lease_ttl=default_lease_ttl, max_lease_ttl=max_lease_ttl)
+        client.sys.tune_mount_configuration(mount_point, default_lease_ttl=default_lease_ttl,
+                                            max_lease_ttl=max_lease_ttl)
 
     return {'changed': changed}
 

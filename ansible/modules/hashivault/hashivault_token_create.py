@@ -23,7 +23,8 @@ options:
         default: to environment variable VAULT_CACERT
     ca_path:
         description:
-            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence"
+            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert
+             is specified, its value will take precedence"
         default: to environment variable VAULT_CAPATH
     client_cert:
         description:
@@ -35,7 +36,8 @@ options:
         default: to environment variable VAULT_CLIENT_KEY
     verify:
         description:
-            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing"
+            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this
+             variable is not recommended except during testing"
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
@@ -89,13 +91,15 @@ options:
             - Indicates that the response should be wrapped in a cubbyhole token with the requested TTL.
     orphan:
         description:
-            - If specified, the token will have no parent. Only This prevents the new token from being revoked with your token.
+            - "If specified, the token will have no parent. Only This prevents the new token from being revoked with\
+             your token."
     renewable:
         description:
             - Whether or not the token is renewable to extend its TTL up to Vault's configured maximum TTL for tokens
     period:
         description:
-            -  If specified, every renewal will use the given period. Periodic tokens do not expire (unless explicit_max_ttl is also provided).
+            -  "If specified, every renewal will use the given period. Periodic tokens do not expire (unless\
+             explicit_max_ttl is also provided)."
     explicit_max_ttl:
         description:
             - An explicit maximum lifetime for the token

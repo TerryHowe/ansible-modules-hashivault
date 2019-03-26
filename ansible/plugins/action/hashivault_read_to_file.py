@@ -10,16 +10,19 @@
 ########################################################################
 
 import base64
-import tempfile, os
+import os
+import tempfile
+
+from ansible.playbook.play_context import PlayContext
 from ansible.plugins.action import ActionBase
 from ansible.utils.vars import merge_hash
-from ansible.playbook.play_context import PlayContext
+
 
 class ActionModule(ActionBase):
 
     # load and return ansible copy action plugin
     # copied from `ansible/plugins/action/template.py`
-    def _get_copy_action_plugin(self,connection):
+    def _get_copy_action_plugin(self, connection):
         return (self._shared_loader_obj.action_loader.get(
             'copy',
             task=self._task.copy(),
@@ -28,7 +31,6 @@ class ActionModule(ActionBase):
             loader=self._loader,
             templar=self._templar,
             shared_loader_obj=self._shared_loader_obj))
-
 
     def run(self, tmp=None, task_vars=None):
 
@@ -39,15 +41,15 @@ class ActionModule(ActionBase):
 
         args = self._task.args.copy()
 
-        dest = args.pop('dest',None)
-        mode = args.pop('mode',None)
-        force = args.pop('force',True)
+        dest = args.pop('dest', None)
+        mode = args.pop('mode', None)
+        force = args.pop('force', True)
         become = self._play_context.become
         become_method = self._play_context.become_method
 
-
         old_connection = self._connection
-        self._connection = self._shared_loader_obj.connection_loader.get('local',PlayContext(),old_connection._new_stdin)
+        self._connection = self._shared_loader_obj.connection_loader.get('local', PlayContext(),
+                                                                         old_connection._new_stdin)
         self._play_context.become = False
         self._play_context.become_method = None
 
@@ -57,30 +59,29 @@ class ActionModule(ActionBase):
             self._execute_module(module_name='hashivault_read', tmp=tmp, task_vars=task_vars, module_args=args)
         )
 
-        if 'failed' in results and results['failed'] == True:
+        if 'failed' in results and results['failed'] is True:
             return results
 
-        content = results.pop('value',None)
+        content = results.pop('value', None)
 
-        if content == None:
+        if content is None:
             results['failed'] = True
-            results['msg'] = u'Could not find file `%s` in secret `%s`'%(args['key'],args['secret'])
-            return(results)
+            results['msg'] = u'Could not find file `%s` in secret `%s`' % (args['key'], args['secret'])
+            return results
 
-
-        #write to temp file on ansible host to copy to remote host
+        # write to temp file on ansible host to copy to remote host
         local_tmp = tempfile.NamedTemporaryFile(delete=False)
         local_tmp.write(base64.b64decode(content))
         local_tmp.close()
 
         new_module_args = {
-            'dest':dest,
-            'src':local_tmp.name,
-            'force':force,
-            'mode':mode
+            'dest': dest,
+            'src': local_tmp.name,
+            'force': force,
+            'mode': mode,
         }
 
-        self._update_module_args('copy',new_module_args,task_vars)
+        self._update_module_args('copy', new_module_args, task_vars)
 
         # `copy` module uses an action plugin, so we have to execute
         # the plugin instead of directly executing the module
@@ -95,11 +96,11 @@ class ActionModule(ActionBase):
             copy_action.run(task_vars=task_vars)
         )
 
-        #remove temp file
+        # remove temp file
         os.unlink(local_tmp.name)
 
-        if force == False and results['changed'] == False:
+        if force is False and results['changed'] is False:
             results['failed'] = True
-            results['msg'] = u'File %s already exists. Use `force: true` to overwrite'%dest
+            results['msg'] = u'File %s already exists. Use `force: true` to overwrite' % dest
 
-        return(results)
+        return results

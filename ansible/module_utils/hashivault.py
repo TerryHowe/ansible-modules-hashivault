@@ -1,28 +1,27 @@
 import os
 import warnings
-from hvac.exceptions import InvalidPath
+
 import hvac
-
-from ansible.module_utils.basic import AnsibleModule
-
 import requests
+from ansible.module_utils.basic import AnsibleModule
+from hvac.exceptions import InvalidPath
 
 
 def hashivault_argspec():
     argument_spec = dict(
-        url = dict(required=False, default=os.environ.get('VAULT_ADDR', ''), type='str'),
-        ca_cert = dict(required=False, default=os.environ.get('VAULT_CACERT', ''), type='str'),
-        ca_path = dict(required=False, default=os.environ.get('VAULT_CAPATH', ''), type='str'),
-        client_cert = dict(required=False, default=os.environ.get('VAULT_CLIENT_CERT', ''), type='str'),
-        client_key = dict(required=False, default=os.environ.get('VAULT_CLIENT_KEY', ''), type='str'),
-        verify = dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
-        authtype = dict(required=False, default=os.environ.get('VAULT_AUTHTYPE', 'token'), type='str'),
-        token = dict(required=False, default=hashivault_default_token(), type='str', no_log=True),
-        username = dict(required=False, default=os.environ.get('VAULT_USER', ''), type='str'),
-        password = dict(required=False, default=os.environ.get('VAULT_PASSWORD', ''), type='str', no_log=True),
-        role_id = dict(required=False, default=os.environ.get('VAULT_ROLE_ID', ''), type='str', no_log=True),
-        secret_id = dict(required=False, default=os.environ.get('VAULT_SECRET_ID', ''), type='str', no_log=True),
-        namespace = dict(required=False, default=os.environ.get('VAULT_NAMESPACE', None), type='str')
+        url=dict(required=False, default=os.environ.get('VAULT_ADDR', ''), type='str'),
+        ca_cert=dict(required=False, default=os.environ.get('VAULT_CACERT', ''), type='str'),
+        ca_path=dict(required=False, default=os.environ.get('VAULT_CAPATH', ''), type='str'),
+        client_cert=dict(required=False, default=os.environ.get('VAULT_CLIENT_CERT', ''), type='str'),
+        client_key=dict(required=False, default=os.environ.get('VAULT_CLIENT_KEY', ''), type='str'),
+        verify=dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
+        authtype=dict(required=False, default=os.environ.get('VAULT_AUTHTYPE', 'token'), type='str'),
+        token=dict(required=False, default=hashivault_default_token(), type='str', no_log=True),
+        username=dict(required=False, default=os.environ.get('VAULT_USER', ''), type='str'),
+        password=dict(required=False, default=os.environ.get('VAULT_PASSWORD', ''), type='str', no_log=True),
+        role_id=dict(required=False, default=os.environ.get('VAULT_ROLE_ID', ''), type='str', no_log=True),
+        secret_id=dict(required=False, default=os.environ.get('VAULT_SECRET_ID', ''), type='str', no_log=True),
+        namespace=dict(required=False, default=os.environ.get('VAULT_NAMESPACE', None), type='str')
     )
     return argument_spec
 
@@ -36,6 +35,7 @@ def get_ec2_iam_role():
     request.raise_for_status()
     return request.content
 
+
 def get_ec2_iam_credentials():
     role_name = get_ec2_iam_role()
     metadata_url = 'http://169.254.169.254/latest/meta-data/iam/security-credentials/{role}'.format(
@@ -45,6 +45,7 @@ def get_ec2_iam_credentials():
     response.raise_for_status()
     security_credentials = response.json()
     return security_credentials
+
 
 def hashivault_client(params):
     url = params.get('url')
@@ -83,12 +84,13 @@ def hashivault_auth(client, params):
     elif authtype == 'ldap':
         client.auth.ldap.login(username, password)
     elif authtype == 'approle':
-        client = AppRoleClient(client,role_id,secret_id)
+        client = AppRoleClient(client, role_id, secret_id)
     elif authtype == 'tls':
         client.auth_tls()
     elif authtype == 'aws':
         credentials = get_ec2_iam_credentials()
-        client.auth_aws_iam(credentials['AccessKeyId'], credentials['SecretAccessKey'], credentials['Token'], role=role_id)
+        client.auth_aws_iam(credentials['AccessKeyId'], credentials['SecretAccessKey'], credentials['Token'],
+                            role=role_id)
     else:
         client.token = token
     return client
@@ -101,7 +103,7 @@ def hashivault_auth_client(params):
 
 def hashiwrapper(function):
     def wrapper(*args, **kwargs):
-        result = { "changed": False, "rc" : 0}
+        result = {"changed": False, "rc": 0}
         try:
             result.update(function(*args, **kwargs))
         except Exception as e:
@@ -125,7 +127,7 @@ def hashivault_default_token():
 
 @hashiwrapper
 def hashivault_read(params):
-    result = { "changed": False, "rc" : 0}
+    result = {"changed": False, "rc": 0}
     client = hashivault_auth_client(params)
     version = params.get('version')
     mount_point = params.get('mount_point')
@@ -168,7 +170,7 @@ def hashivault_read(params):
             try:
                 data = response.get('data', {})
                 data = data.get('data', {})
-            except:
+            except Exception:
                 data = str(response)
         else:
             data = response['data']
@@ -196,29 +198,27 @@ class AppRoleClient(object):
     """
 
     def __init__(self, client, role_id, secret_id):
-        object.__setattr__(self,'client',client)
-        object.__setattr__(self,'role_id',role_id)
-        object.__setattr__(self,'secret_id',secret_id)
+        object.__setattr__(self, 'client', client)
+        object.__setattr__(self, 'role_id', role_id)
+        object.__setattr__(self, 'secret_id', secret_id)
 
-
-    def __setattr__(self,name,val):
+    def __setattr__(self, name, val):
         """
         sets attribute in decorated class (Client)
         """
-        client = object.__getattribute__(self,'client')
-        client.__setattr__(name,val)
+        client = object.__getattribute__(self, 'client')
+        client.__setattr__(name, val)
 
-
-    def __getattribute__ (self,name):
+    def __getattribute__(self, name):
         """
         generates and sets new approle token in decorated class (Client)
         returns decorated class (Client) attribute
         """
-        client = object.__getattribute__(self,'client')
+        client = object.__getattribute__(self, 'client')
         attr = client.__getattribute__(name)
 
-        role_id = object.__getattribute__(self,'role_id')
-        secret_id = object.__getattribute__(self,'secret_id')
-        resp = client.auth_approle(role_id,secret_id)
+        role_id = object.__getattribute__(self, 'role_id')
+        secret_id = object.__getattribute__(self, 'secret_id')
+        resp = client.auth_approle(role_id, secret_id)
         client.token = str(resp['auth']['client_token'])
         return attr

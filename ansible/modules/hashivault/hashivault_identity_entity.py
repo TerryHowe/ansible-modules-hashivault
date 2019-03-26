@@ -23,7 +23,8 @@ options:
         default: to environment variable VAULT_CACERT
     ca_path:
         description:
-            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence"
+            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert
+             is specified, its value will take precedence"
         default: to environment variable VAULT_CAPATH
     client_cert:
         description:
@@ -35,7 +36,8 @@ options:
         default: to environment variable VAULT_CLIENT_KEY
     verify:
         description:
-            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing"
+            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this
+             variable is not recommended except during testing"
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
@@ -98,7 +100,8 @@ def main():
         module.exit_json(**result)
 
 
-def hashivault_identity_entity_update(entity_details, client, entity_id, entity_name, entity_metadata, entity_disabled, entity_policies ):
+def hashivault_identity_entity_update(entity_details, client, entity_id, entity_name, entity_metadata, entity_disabled,
+                                      entity_policies):
     if entity_metadata is None:
         entity_metadata = entity_details['metadata']
     if entity_policies is None:
@@ -106,10 +109,8 @@ def hashivault_identity_entity_update(entity_details, client, entity_id, entity_
     if entity_disabled is None:
         entity_disabled = entity_details['disabled']
 
-    if  entity_details['name'] != entity_name or \
-        entity_details['disabled'] != entity_disabled or \
-        entity_details['metadata'] != entity_metadata or \
-        set(entity_details['policies']) !=  set(entity_policies):
+    if entity_details['name'] != entity_name or entity_details['disabled'] != entity_disabled or \
+       entity_details['metadata'] != entity_metadata or set(entity_details['policies']) != set(entity_policies):
         try:
             client.secrets.identity.update_entity(
                 entity_id=entity_id,
@@ -122,6 +123,7 @@ def hashivault_identity_entity_update(entity_details, client, entity_id, entity_
             return {'failed': True, 'msg': str(e)}
         return {'changed': True}
     return {'changed': False}
+
 
 def hashivault_identity_entity_create_or_update(params):
     client = hashivault_auth_client(params)
@@ -136,13 +138,12 @@ def hashivault_identity_entity_create_or_update(params):
             entity_details = client.secrets.identity.read_entity(entity_id=entity_id)
         except Exception as e:
             return {'failed': True, 'msg': str(e)}
-        return hashivault_identity_entity_update(entity_details['data'], client,
-            entity_name, entity_id, entity_metadata, entity_disabled,
-            entity_policies)
+        return hashivault_identity_entity_update(entity_details['data'], client, entity_name, entity_id,
+                                                 entity_metadata, entity_disabled, entity_policies)
     elif entity_name is not None:
         try:
             entity_details = client.secrets.identity.read_entity_by_name(name=entity_name)
-        except:
+        except Exception:
             response = client.secrets.identity.create_or_update_entity_by_name(
                 name=entity_name,
                 metadata=entity_metadata,
@@ -150,12 +151,10 @@ def hashivault_identity_entity_create_or_update(params):
                 disabled=entity_disabled
             )
             return {'changed': True, 'data': response['data']}
-        return hashivault_identity_entity_update(entity_details['data'], client,
-            entity_name=entity_name,
-            entity_id=entity_details['data']['id'],
-            entity_metadata=entity_metadata,
-            entity_disabled=entity_disabled,
-            entity_policies=entity_policies)
+        return hashivault_identity_entity_update(entity_details['data'], client, entity_name=entity_name,
+                                                 entity_id=entity_details['data']['id'],
+                                                 entity_metadata=entity_metadata,
+                                                 entity_disabled=entity_disabled, entity_policies=entity_policies)
     return {'failed': True, 'msg': "Either name or id must be provided"}
 
 
@@ -167,18 +166,19 @@ def hashivault_identity_entity_delete(params):
     if entity_id is not None:
         try:
             client.secrets.identity.read_entity(entity_id=entity_id)
-        except:
+        except Exception:
             return {'changed': False}
         client.secrets.identity.delete_entity(entity_id=entity_id)
         return {'changed': True}
     elif entity_name is not None:
         try:
             client.secrets.identity.read_entity_by_name(name=entity_name)
-        except:
+        except Exception:
             return {'changed': False}
         client.secrets.identity.delete_entity_by_name(name=entity_name)
         return {'changed': True}
     return {'failed': True, 'msg': "Either name or id must be provided"}
+
 
 @hashiwrapper
 def hashivault_identity_entity(params):
@@ -189,6 +189,7 @@ def hashivault_identity_entity(params):
         return hashivault_identity_entity_delete(params)
     else:
         return {'failed': True, 'msg': 'Unknown state'}
+
 
 if __name__ == '__main__':
     main()

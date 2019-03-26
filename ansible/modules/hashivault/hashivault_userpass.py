@@ -23,7 +23,8 @@ options:
         default: to environment variable VAULT_CACERT
     ca_path:
         description:
-            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence"
+            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert
+             is specified, its value will take precedence"
         default: to environment variable VAULT_CAPATH
     client_cert:
         description:
@@ -35,7 +36,8 @@ options:
         default: to environment variable VAULT_CLIENT_KEY
     verify:
         description:
-            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing"
+            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this
+             variable is not recommended except during testing"
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
@@ -102,12 +104,8 @@ def main():
         module.exit_json(**result)
 
 
-def hashivault_userpass_update(client, user_details,
-    user_name,
-    user_pass,
-    user_pass_update,
-    user_policies,
-    mount_point):
+def hashivault_userpass_update(client, user_details, user_name, user_pass, user_pass_update, user_policies,
+                               mount_point):
     if set(user_details['data']['policies']) != set(user_policies):
         if user_pass_update and user_pass is not None:
             client.create_userpass(user_name, user_pass, user_policies, mount_point=mount_point)
@@ -133,23 +131,20 @@ def hashivault_userpass(params):
     if state == 'present':
         try:
             user_details = client.read_userpass(name, mount_point=mount_point)
-        except Exception as e:
+        except Exception:
             if password is not None:
                 client.create_userpass(name, password, policies)
                 return {'changed': True}
             else:
                 return {'failed': True, 'msg': 'pass must be provided for new users'}
         else:
-            return hashivault_userpass_update(client, user_details,
-                user_name=name,
-                user_pass=password,
-                user_pass_update=password_update,
-                user_policies=policies,
-                mount_point=mount_point)
+            return hashivault_userpass_update(client, user_details, user_name=name, user_pass=password,
+                                              user_pass_update=password_update, user_policies=policies,
+                                              mount_point=mount_point)
     elif state == 'absent':
         try:
-            user_details = client.read_userpass(name, mount_point=mount_point)
-        except Exception as e:
+            client.read_userpass(name, mount_point=mount_point)
+        except Exception:
             return {'changed': False}
         else:
             client.delete_userpass(name, mount_point=mount_point)

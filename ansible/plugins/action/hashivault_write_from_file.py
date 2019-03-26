@@ -12,6 +12,7 @@
 from ansible.plugins.action import ActionBase
 from ansible.utils.vars import merge_hash
 
+
 class ActionModule(ActionBase):
 
     def run(self, tmp=None, task_vars=None):
@@ -23,13 +24,13 @@ class ActionModule(ActionBase):
 
         args = self._task.args.copy()
 
-        key = args.pop('key',None)
-        path = args.pop('path',None)
+        key = args.pop('key', None)
+        path = args.pop('path', None)
 
         new_module_args = {
-            'src':path
+            'src': path
         }
-        self._update_module_args('slurp',new_module_args,task_vars)
+        self._update_module_args('slurp', new_module_args, task_vars)
 
         results = merge_hash(
             results,
@@ -37,19 +38,19 @@ class ActionModule(ActionBase):
             self._execute_module(module_name='slurp', tmp=tmp, task_vars=task_vars, module_args=new_module_args)
         )
 
-        if 'failed' in results and results['failed'] == True:
-            return(results)
+        if 'failed' in results and results['failed'] is True:
+            return results
 
         # already base64 encoded from slurp
-        content = results.pop('content',None)
-
+        content = results.pop('content', None)
 
         self._play_context.become = False
         self._play_context.become_method = None
-        
-        self._connection = self._shared_loader_obj.connection_loader.get('local',self._play_context,self._connection._new_stdin)
-        
-        args['data'] = { key:content }
+
+        self._connection = self._shared_loader_obj.connection_loader.get('local', self._play_context,
+                                                                         self._connection._new_stdin)
+
+        args['data'] = {key: content}
         if 'update' not in args:
             args['update'] = True
 
@@ -61,4 +62,4 @@ class ActionModule(ActionBase):
 
         results['invocation']['module_args']['data'] = 'VALUE_SPECIFIED_IN_NO_LOG_PARAMETER'
 
-        return(results)
+        return results

@@ -26,7 +26,8 @@ options:
         default: to environment variable VAULT_CACERT
     ca_path:
         description:
-            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence"
+            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert
+             is specified, its value will take precedence"
         default: to environment variable VAULT_CAPATH
     client_cert:
         description:
@@ -38,7 +39,8 @@ options:
         default: to environment variable VAULT_CLIENT_KEY
     verify:
         description:
-            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing"
+            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this
+             variable is not recommended except during testing"
         default: to environment variable VAULT_SKIP_VERIFY
     authtype:
         description:
@@ -56,17 +58,17 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
-
-
     name:
         description:
             - role name.
     bound_ami_id:
         description:
-            - defines a constraint on the EC2 instances that can perform the login operation that they should be using the AMI ID specified
+            - "defines a constraint on the EC2 instances that can perform the login operation that they should be using\
+             the AMI ID specified"
     bound_vpc_id:
         description:
-            - defines a constraint on the EC2 instances that can perform the login operation that they be associated with the VPC ID that matches the value
+            - "defines a constraint on the EC2 instances that can perform the login operation that they be associated\
+             with the VPC ID that matches the value"
     policies:
         description:
             - policies for the role.
@@ -78,22 +80,26 @@ options:
             -  auth type permitted for this role. Valid choices are ec2 and iam
     bound_account_id:
         description:
-            - defines a constraint on the EC2 instances that can perform the login operation that they should be using the account ID
+            - "defines a constraint on the EC2 instances that can perform the login operation that they should be using\
+             the account ID"
     bound_iam_instance_profile_arn:
         description:
-            - defines a constraint on the EC2 instances that can perform the login operation that they must be associated with an IAM instance profile
+            - "defines a constraint on the EC2 instances that can perform the login operation that they must be\
+             associated with an IAM instance profile"
     bound_iam_role_arn:
         description:
-            - defines a constraint on the EC2 instances that can perform the login operation that they must match the IAM role ARN
+            - "defines a constraint on the EC2 instances that can perform the login operation that they must match the\
+             IAM role ARN"
     bound_subnet_id:
         description:
-            - defines a constraint on the EC2 instances that can perform the login operation that they be associated with the subnet ID 
+            - "defines a constraint on the EC2 instances that can perform the login operation that they be associated\
+             with the subnet ID"
     allow_instance_migration:
         description:
             - if set to true, allows migration of the underlying instance where the client resides.
     disallow_reauthentication:
         description:
-            - If set to true, only allows a single token to be granted per instance ID. 
+            - If set to true, only allows a single token to be granted per instance ID.
     resolve_aws_unique_ids:
         description:
             - If set to true, the bound_iam_principal_arn is resolved to an AWS Unique ID for the bound principal ARN.
@@ -103,9 +109,6 @@ options:
     token_ttl:
         description:
             - The TTL period of tokens issued using this role, provided as a number of seconds
-
-    
-
 '''
 EXAMPLES = '''
 ---
@@ -118,6 +121,7 @@ EXAMPLES = '''
         inferred_aws_region: eu-west-1
         bound_iam_role_arn: arn:aws:iam::12345678:root/ec2-role
 '''
+
 
 def main():
     argspec = hashivault_argspec()
@@ -148,7 +152,7 @@ def main():
 
 @hashiwrapper
 def hashivault_aws_ec2_role_create(params):
-    ARGS = [
+    args = [
         'bound_ami_id',
         'bound_vpc_id',
         'inferred_entity_type',
@@ -169,20 +173,21 @@ def hashivault_aws_ec2_role_create(params):
     kwargs = {
         'policies': policies,
     }
-    for arg in ARGS:
+    for arg in args:
         value = params.get(arg)
         if value is not None:
             kwargs[arg] = value
 
-    if not 'aws/' in client.sys.list_auth_methods().keys():
-        return { 'failed' : True , 'msg' : 'aws auth backend is not enabled', 'rc' : 1}
-        
+    if 'aws/' not in client.sys.list_auth_methods().keys():
+        return {'failed': True, 'msg': 'aws auth backend is not enabled', 'rc': 1}
+
     try:
         if client.get_role(name, 'aws'):
             return {'changed': False}
     except InvalidPath:
         client.create_role(name, mount_point='aws', **kwargs)
         return {'changed': True}
-   
+
+
 if __name__ == '__main__':
     main()

@@ -7,7 +7,8 @@ module: hashivault_write_from_file
 version_added: "3.8.3"
 short_description: Hashicorp Vault write file module
 description:
-    - Writes a file encoded in base64 to Hashicorp Vault. Implementation in `/plugins/action/hashivault_write_from_file.py`.
+    - "Writes a file encoded in base64 to Hashicorp Vault. Implementation in
+     `/plugins/action/hashivault_write_from_file.py`."
 options:
     url:
         description:

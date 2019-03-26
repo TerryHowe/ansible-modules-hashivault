@@ -12,14 +12,12 @@
 # The plugin can be run manually for testing:
 #     python ansible/plugins/lookup/hashivault.py ldapadmin password
 #
-import json
 import os
-import requests
 import sys
-import warnings
 
 from ansible.errors import AnsibleError
 from ansible.plugins.lookup import LookupBase
+
 from ansible.module_utils.hashivault import (
     hashivault_default_token,
     hashivault_read,
@@ -27,8 +25,8 @@ from ansible.module_utils.hashivault import (
 
 
 class LookupModule(LookupBase):
-
-    def _get_environment(self, environments, name, default_value=None):
+    @staticmethod
+    def _get_environment(environments, name, default_value=None):
         for env in environments:
             if name in env:
                 return env.get(name)
