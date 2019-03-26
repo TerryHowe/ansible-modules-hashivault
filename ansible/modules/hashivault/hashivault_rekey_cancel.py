@@ -82,5 +82,6 @@ def hashivault_rekey_cancel(params):
         return {'changed': False}
     return {'status': client.sys.cancel_rekey().ok, 'changed': True}
 
+
 if __name__ == '__main__':
     main()

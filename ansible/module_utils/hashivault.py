@@ -1,12 +1,11 @@
 import os
 import warnings
-from hvac import exceptions
-
+from hvac.exceptions import InvalidPath
 import hvac
+
 from ansible.module_utils.basic import AnsibleModule
 
 import requests
-from requests.exceptions import RequestException
 
 
 def hashivault_argspec():
@@ -149,7 +148,7 @@ def hashivault_read(params):
                 response = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
             else:
                 response = client.read(secret_path)
-        except hvac.exceptions.InvalidPath:
+        except InvalidPath:
             response = None
         except Exception as e:
             result['rc'] = 1

@@ -217,6 +217,7 @@ def hashivault_identity_entity_alias(params):
         if alias_id is not None:
             return hashivault_identity_entity_alias_update(client,
                     alias_id=alias_id,
+                    alias_name=alias_name,
                     mount_accessor=mount_accessor,
                     canonical_id=canonical_id
                 )

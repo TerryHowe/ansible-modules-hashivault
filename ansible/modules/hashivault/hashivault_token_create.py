@@ -178,5 +178,6 @@ def hashivault_token_create(params):
 
     return {'changed': True, 'token': token}
 
+
 if __name__ == '__main__':
     main()

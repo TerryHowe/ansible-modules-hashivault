@@ -103,5 +103,6 @@ def hashivault_rekey_init(params):
     backup = params.get('backup')
     return {'status': client.sys.start_rekey(secret_shares, secret_threshold, pgp_keys, backup), 'changed': True}
 
+
 if __name__ == '__main__':
     main()

@@ -76,14 +76,12 @@ def main():
 
 @hashiwrapper
 def hashivault_seal(params):
-    key = params.get('key')
     client = hashivault_auth_client(params)
     if not client.sys.is_sealed():
         status = client.sys.seal().ok
         return {'status': status, 'changed': True}
     else:
         return {'changed': False}
-
 
 
 if __name__ == '__main__':

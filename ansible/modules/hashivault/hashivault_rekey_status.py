@@ -77,5 +77,6 @@ def hashivault_rekey_status(params):
     client = hashivault_client(params)
     return {'status': client.rekey_status}
 
+
 if __name__ == '__main__':
     main()

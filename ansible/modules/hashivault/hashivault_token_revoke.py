@@ -74,6 +74,7 @@ EXAMPLES = '''
       register: "vault_token_revoke"
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['revoke_token'] = dict(required=False, type='str')
@@ -97,6 +98,7 @@ def hashivault_token_revoke(params):
         revoke_token = params.get('token')
     revoke = client.revoke_token(token=revoke_token, orphan=orphan, accessor=accessor)
     return {'changed': True, 'revoke': revoke}
+
 
 if __name__ == '__main__':
     main()

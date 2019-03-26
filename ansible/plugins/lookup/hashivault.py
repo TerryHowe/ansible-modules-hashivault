@@ -88,7 +88,7 @@ class LookupModule(LookupBase):
             return False
         return True
 
-    def run(self, terms, variables, **kwargs):
+    def run(self, terms, variables=None, **kwargs):
         environments = variables.get('environment', [])
         result = hashivault_read(self._get_params(terms, environments, kwargs))
         if 'value' not in result:
@@ -97,7 +97,8 @@ class LookupModule(LookupBase):
                 key = '/' + terms[1]
             except IndexError:
                 key = ''
-            raise AnsibleError('Error reading vault %s%s: %s\n%s' % (path, key, result.get('msg', 'msg not set'), result.get('stack_trace', '')))
+            raise AnsibleError('Error reading vault %s%s: %s\n%s' % (path, key, result.get('msg', 'msg not set'),
+                                                                     result.get('stack_trace', '')))
         return [result['value']]
 
 
@@ -107,6 +108,7 @@ def main(argv=sys.argv[1:]):
         return -1
     print(LookupModule().run(argv, {})[0])
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

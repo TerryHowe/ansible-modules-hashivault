@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import warnings
 
-import hvac
+from hvac.exceptions import InvalidPath
 
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
@@ -150,7 +150,6 @@ def hashivault_write(module):
     mount_point = params.get('mount_point')
     secret = params.get('secret')
     data = params.get('data')
-    returned_data = None
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
@@ -167,12 +166,13 @@ def hashivault_write(module):
 
         if params.get('update') or module.check_mode:
             # Do not move these reads outside of the update
+            read_data = None
             try:
                 if version == 2:
                     read_data = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
                 else:
                     read_data = client.read(secret_path) or {}
-            except hvac.exceptions.InvalidPath:
+            except InvalidPath:
                 read_data = None
             except Exception as e:
                 result['rc'] = 1

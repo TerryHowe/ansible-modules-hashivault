@@ -120,6 +120,7 @@ def hashivault_userpass_update(client, user_details,
         return {'changed': True}
     return {'changed': False}
 
+
 @hashiwrapper
 def hashivault_userpass(params):
     client = hashivault_auth_client(params)
@@ -129,7 +130,7 @@ def hashivault_userpass(params):
     password_update = params.get('pass_update')
     policies = params.get('policies')
     mount_point = params.get('mount_point')
-    if state ==  'present':
+    if state == 'present':
         try:
             user_details = client.read_userpass(name, mount_point=mount_point)
         except Exception as e:
@@ -155,6 +156,7 @@ def hashivault_userpass(params):
             return {'changed': True}
     else:
         return {'failed': True, 'msg': 'Unkown state type'}
+
 
 if __name__ == '__main__':
     main()

@@ -103,5 +103,6 @@ def hashivault_token_lookup(params):
     lookup = client.lookup_token(token=lookup_token, accessor=accessor, wrap_ttl=wrap_ttl)
     return {'changed': False, 'lookup': lookup}
 
+
 if __name__ == '__main__':
     main()

@@ -7,7 +7,7 @@ vi setup.py
 VERSION=$(grep version setup.py | sed -e "s/.*='//" -e "s/',//")
 if [ "$OLDVERSION" == "$VERSION" ]
 then
-    echo 'Old version $OLDVERSION same as $VERSION'
+    echo "Old version $OLDVERSION same as $VERSION"
     read ANS
 fi
 git tag -a $VERSION -m v$VERSION

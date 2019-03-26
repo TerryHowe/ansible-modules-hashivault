@@ -75,6 +75,7 @@ EXAMPLES = '''
       register: "vault_token_renew"
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['renew_token'] = dict(required=False, type='str')
@@ -98,6 +99,7 @@ def hashivault_token_renew(params):
     wrap_ttl = params.get('wrap_ttl')
     renew = client.renew_token(token=renew_token, increment=increment, wrap_ttl=wrap_ttl)
     return {'changed': True, 'renew': renew}
+
 
 if __name__ == '__main__':
     main()
