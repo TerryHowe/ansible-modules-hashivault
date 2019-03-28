@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Make surea backend is enabled
+      hashivault_secret_list:
+      register: vault_secret_list
+    - block:
+        - name: Enable secret backend
+          hashivault_secret_enable:
+            name: "secret"
+            backend: "kv"
+      when: "'secret/' not in vault_secret_list.backends"

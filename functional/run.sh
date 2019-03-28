@@ -9,8 +9,9 @@ export HOME
 ./start.sh
 
 source ./vaultenv.sh
-ansible-playbook -v test_check.yml --check
+ansible-playbook -v test_enable_kv.yml
 ansible-playbook -v test_write.yml
+ansible-playbook -v test_check.yml --check
 ansible-playbook -v test_read.yml
 ansible-playbook -v test_full_path.yml
 ansible-playbook -v test_create_ec2_role.yml
