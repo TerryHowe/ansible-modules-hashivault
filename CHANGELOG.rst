@@ -2,6 +2,19 @@ Changelog
 =========
 
 
+3.17.0 (2019-04-05)
+-------------------
+- Add read metadata. [Terry Howe]
+- Add functional tests. [Terry Howe]
+- Add a module to fetch cluster health information. [Damien Goldenberg]
+- Add a module to fetch leader information cluster. [Damien Goldenberg]
+- Enable secret keystore. [Terry Howe]
+- Add pep8 to tox.ini. [Terry Howe]
+- Pep8 compliance. [Terry Howe]
+- Start getting pep8 support. [Terry Howe]
+- Clean up some warnings that are causing issues. [Terry Howe]
+
+
 3.16.3 (2019-03-26)
 -------------------
 - Fix approle auth for hvac kv2 engine. [Nathan K]
