@@ -170,19 +170,22 @@ def hashivault_read(params):
             try:
                 data = response.get('data', {})
                 data = data.get('data', {})
-                lease_duration =  response.get('lease_duration', None)
-                if lease_duration is not None:
-                    result['lease_duration'] = lease_duration
-                lease_id =  response.get('lease_id', None)
-                if lease_id is not None:
-                    result['lease_id'] = lease_id
-                renewable =  response.get('renewable', None)
-                if renewable is not None:
-                    result['renewable'] = renewable
             except Exception:
                 data = str(response)
         else:
             data = response['data']
+        lease_duration = response.get('lease_duration', None)
+        if lease_duration is not None:
+            result['lease_duration'] = lease_duration
+        lease_id = response.get('lease_id', None)
+        if lease_id is not None:
+            result['lease_id'] = lease_id
+        renewable = response.get('renewable', None)
+        if renewable is not None:
+            result['renewable'] = renewable
+        wrap_info = response.get('wrap_info', None)
+        if wrap_info is not None:
+            result['wrap_info'] = wrap_info
     if key and key not in data:
         if default is not None:
             result['value'] = default
