@@ -26,6 +26,6 @@ git push origin --tags
 # python setup.py sdist upload -r pypi
 
 # twine
-python setup.py sdist bdist_wheel
-#twine upload -u username -p password --repository-url https://test.pypi.org/legacy/ dist/*
+rm -rf dist
+python setup.py sdist # bdist_wheel
 twine upload dist/*
