@@ -72,7 +72,7 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['standby_ok'] = dict(required=True, type='bool')
+    argspec['standby_ok'] = dict(required=False, type='bool', default=True)
     module = hashivault_init(argspec)
     result = hashivault_cluster_status(module.params)
     if result.get('failed'):
@@ -84,7 +84,16 @@ def main():
 @hashiwrapper
 def hashivault_cluster_status(params):
     client = hashivault_client(params)
-    return {'status': client.sys.read_health_status(standby_ok=params.get("standby_ok"))}
+    response = client.sys.read_health_status(standby_ok=params.get("standby_ok"))
+    from requests.models import Response
+    if isinstance(response, Response):
+        try:
+            status = response.json()
+        except Exception:
+            status = response.content
+    else:
+        status = str(response)
+    return {'status': status}
 
 
 if __name__ == '__main__':

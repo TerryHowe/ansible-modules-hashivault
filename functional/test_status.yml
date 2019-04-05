@@ -10,3 +10,15 @@
     - assert: { that: "{{vault_status.status.sealed}} == False" }
     - assert: { that: "{{vault_status.rc}} == 0" }
 
+    - name: Get hashivault_leader
+      hashivault_leader:
+      register: 'vault_status'
+    - assert: { that: "{{vault_status.changed}} == False" }
+    - assert: { that: "{{vault_status.status.ha_enabled}} == False" }
+    - assert: { that: "{{vault_status.rc}} == 0" }
+
+    - name: Get hashivault_cluster_status
+      hashivault_cluster_status:
+      register: 'vault_status'
+    - assert: { that: "{{vault_status.changed}} == False" }
+    - assert: { that: "{{vault_status.rc}} == 0" }
