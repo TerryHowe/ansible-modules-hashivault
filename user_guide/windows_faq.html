@@ -2269,8 +2269,8 @@
 <p>Here are some commonly asked questions in regards to Ansible and Windows and
 their answers.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This document covers questions about managing Microsoft Windows servers with Ansible.
+<p class="admonition-title">Note</p>
+<p>This document covers questions about managing Microsoft Windows servers with Ansible.
 For questions about Ansible Core, please see the
 <a class="reference internal" href="../reference_appendices/faq.html#ansible-faq"><span class="std std-ref">FAQ page</span></a>.</p>
 </div>
@@ -2279,14 +2279,14 @@ For questions about Ansible Core, please see the
 <p>Ansible does not support managing Windows XP or Server 2003 hosts. The
 supported operating system versions are:</p>
 <ul class="simple">
-<li>Windows Server 2008</li>
-<li>Windows Server 2008 R2</li>
-<li>Windows Server 2012</li>
-<li>Windows Server 2012 R2</li>
-<li>Windows Server 2016</li>
-<li>Windows 7</li>
-<li>Windows 8.1</li>
-<li>Windows 10</li>
+<li><p>Windows Server 2008</p></li>
+<li><p>Windows Server 2008 R2</p></li>
+<li><p>Windows Server 2012</p></li>
+<li><p>Windows Server 2012 R2</p></li>
+<li><p>Windows Server 2016</p></li>
+<li><p>Windows 7</p></li>
+<li><p>Windows 8.1</p></li>
+<li><p>Windows 10</p></li>
 </ul>
 <p>Ansible also has minimum PowerShell version requirements - please see
 <a class="reference internal" href="windows_setup.html"><span class="doc">Setting up a Windows Host</span></a> for the latest information.</p>
@@ -2302,8 +2302,8 @@ modules and internal components.</p>
 <p>No, Ansible cannot run on a Windows host and can only manage Windows hosts, but
 Ansible can be run under the Windows Subsystem for Linux (WSL).</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The Windows Subsystem for Linux is not supported by Microsoft or
+<p class="admonition-title">Note</p>
+<p>The Windows Subsystem for Linux is not supported by Microsoft or
 Ansible and should not be used for production systems.</p>
 </div>
 <p>To install Ansible on WSL, the following commands
@@ -2338,30 +2338,30 @@ more information.</p>
 <p>Ansible executes commands through WinRM. These processes are different from
 running a command locally in these ways:</p>
 <ul class="simple">
-<li>Unless using an authentication option like CredSSP or Kerberos with
+<li><p>Unless using an authentication option like CredSSP or Kerberos with
 credential delegation, the WinRM process does not have the ability to
 delegate the user’s credentials to a network resource, causing <code class="docutils literal notranslate"><span class="pre">Access</span> <span class="pre">is</span>
-<span class="pre">Denied</span></code> errors.</li>
-<li>All processes run under WinRM are in a non-interactive session. Applications
-that require an interactive session will not work.</li>
-<li>When running through WinRM, Windows restricts access to internal Windows
+<span class="pre">Denied</span></code> errors.</p></li>
+<li><p>All processes run under WinRM are in a non-interactive session. Applications
+that require an interactive session will not work.</p></li>
+<li><p>When running through WinRM, Windows restricts access to internal Windows
 APIs like the Windows Update API and DPAPI, which some installers and
-programs rely on.</li>
+programs rely on.</p></li>
 </ul>
 <p>Some ways to bypass these restrictions are to:</p>
 <ul class="simple">
-<li>Use <code class="docutils literal notranslate"><span class="pre">become</span></code>, which runs a command as it would when run locally. This will
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">become</span></code>, which runs a command as it would when run locally. This will
 bypass most WinRM restrictions, as Windows is unaware the process is running
 under WinRM when <code class="docutils literal notranslate"><span class="pre">become</span></code> is used. See the <a class="reference internal" href="become.html"><span class="doc">Understanding Privilege Escalation</span></a> documentation for more
-information.</li>
-<li>Use a scheduled task, which can be created with <code class="docutils literal notranslate"><span class="pre">win_scheduled_task</span></code>. Like
+information.</p></li>
+<li><p>Use a scheduled task, which can be created with <code class="docutils literal notranslate"><span class="pre">win_scheduled_task</span></code>. Like
 <code class="docutils literal notranslate"><span class="pre">become</span></code>, it will bypass all WinRM restrictions, but it can only be used to run
-commands, not modules.</li>
-<li>Use <code class="docutils literal notranslate"><span class="pre">win_psexec</span></code> to run a command on the host. PSExec does not use WinRM
-and so will bypass any of the restrictions.</li>
-<li>To access network resources without any of these workarounds, an
+commands, not modules.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">win_psexec</span></code> to run a command on the host. PSExec does not use WinRM
+and so will bypass any of the restrictions.</p></li>
+<li><p>To access network resources without any of these workarounds, an
 authentication option that supports credential delegation can be used. Both
-CredSSP and Kerberos with credential delegation enabled can support this.</li>
+CredSSP and Kerberos with credential delegation enabled can support this.</p></li>
 </ul>
 <p>See <a class="reference internal" href="become.html"><span class="doc">Understanding Privilege Escalation</span></a> more info on how to use become. The limitations section at
 <a class="reference internal" href="windows_winrm.html"><span class="doc">Windows Remote Management</span></a> has more details around WinRM limitations.</p>
@@ -2380,26 +2380,26 @@ PowerShell and are meant to be run on Windows hosts. A list of these modules
 can be found <span class="xref std std-ref">here</span>.</p>
 <p>In addition, the following Ansible Core modules/action-plugins work with Windows:</p>
 <ul class="simple">
-<li>add_host</li>
-<li>assert</li>
-<li>async_status</li>
-<li>debug</li>
-<li>fail</li>
-<li>fetch</li>
-<li>group_by</li>
-<li>include</li>
-<li>include_role</li>
-<li>include_vars</li>
-<li>meta</li>
-<li>pause</li>
-<li>raw</li>
-<li>script</li>
-<li>set_fact</li>
-<li>set_stats</li>
-<li>setup</li>
-<li>slurp</li>
-<li>template (also: win_tempate)</li>
-<li>wait_for_connection</li>
+<li><p>add_host</p></li>
+<li><p>assert</p></li>
+<li><p>async_status</p></li>
+<li><p>debug</p></li>
+<li><p>fail</p></li>
+<li><p>fetch</p></li>
+<li><p>group_by</p></li>
+<li><p>include</p></li>
+<li><p>include_role</p></li>
+<li><p>include_vars</p></li>
+<li><p>meta</p></li>
+<li><p>pause</p></li>
+<li><p>raw</p></li>
+<li><p>script</p></li>
+<li><p>set_fact</p></li>
+<li><p>set_stats</p></li>
+<li><p>setup</p></li>
+<li><p>slurp</p></li>
+<li><p>template (also: win_tempate)</p></li>
+<li><p>wait_for_connection</p></li>
 </ul>
 </div>
 <div class="section" id="can-i-run-python-modules">
@@ -2445,20 +2445,20 @@ fail the verification process.</p>
 <code class="docutils literal notranslate"><span class="pre">ansible_winrm_server_cert_validation:</span> <span class="pre">ignore</span></code> to inventory for the Windows
 host.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="index.html"><span class="doc">User Guide</span></a></dt>
-<dd>The documentation index</dd>
-<dt><a class="reference internal" href="windows.html"><span class="doc">Windows Guides</span></a></dt>
-<dd>The Windows documentation index</dd>
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt>
-<dd>Best practices advice</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="index.html"><span class="doc">User Guide</span></a></dt><dd><p>The documentation index</p>
+</dd>
+<dt><a class="reference internal" href="windows.html"><span class="doc">Windows Guides</span></a></dt><dd><p>The Windows documentation index</p>
+</dd>
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt><dd><p>Best practices advice</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2490,7 +2490,7 @@ host.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

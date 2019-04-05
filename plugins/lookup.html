@@ -2267,11 +2267,12 @@
   <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#lookup-plugins" id="id3">Lookup Plugins</a><ul>
-<li><a class="reference internal" href="#enabling-lookup-plugins" id="id4">Enabling Lookup Plugins</a></li>
-<li><a class="reference internal" href="#using-lookup-plugins" id="id5">Using Lookup Plugins</a></li>
-<li><a class="reference internal" href="#query" id="id6">query</a></li>
-<li><a class="reference internal" href="#plugin-list" id="id7">Plugin List</a></li>
+<li><p><a class="reference internal" href="#lookup-plugins" id="id3">Lookup Plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#enabling-lookup-plugins" id="id4">Enabling Lookup Plugins</a></p></li>
+<li><p><a class="reference internal" href="#using-lookup-plugins" id="id5">Using Lookup Plugins</a></p></li>
+<li><p><a class="reference internal" href="#query" id="id6">query</a></p></li>
+<li><p><a class="reference internal" href="#plugin-list" id="id7">Plugin List</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2285,18 +2286,18 @@ Like all templating, these plugins are evaluated on the Ansible control machine,
 and are typically used to load variables or templates with information from those systems.</p>
 <p>Lookups are an Ansible-specific extension to the Jinja2 templating language.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>Lookups are executed with a working directory relative to the role or play,
-as opposed to local tasks, which are executed relative the executed script.</li>
-<li>Since Ansible version 1.9, you can pass wantlist=True to lookups to use in Jinja2 template “for” loops.</li>
-<li>Lookup plugins are an advanced feature; to best leverage them you should have a good working knowledge of how to use Ansible plays.</li>
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Lookups are executed with a working directory relative to the role or play,
+as opposed to local tasks, which are executed relative the executed script.</p></li>
+<li><p>Since Ansible version 1.9, you can pass wantlist=True to lookups to use in Jinja2 template “for” loops.</p></li>
+<li><p>Lookup plugins are an advanced feature; to best leverage them you should have a good working knowledge of how to use Ansible plays.</p></li>
 </ul>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<ul class="last simple">
-<li>Some lookups pass arguments to a shell. When using variables from a remote/untrusted source, use the <cite>|quote</cite> filter to ensure safe usage.</li>
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p>Some lookups pass arguments to a shell. When using variables from a remote/untrusted source, use the <cite>|quote</cite> filter to ensure safe usage.</p></li>
 </ul>
 </div>
 <div class="section" id="enabling-lookup-plugins">
@@ -2329,7 +2330,7 @@ This is also the reason most lookups output lists and take lists as input; for e
 </pre></div>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.6.</span></p>
+<p><span class="versionmodified added">New in version 2.6.</span></p>
 </div>
 <p>You can now control how errors behave in all lookup plugins by setting <code class="docutils literal notranslate"><span class="pre">errors</span></code> to <code class="docutils literal notranslate"><span class="pre">ignore</span></code>, <code class="docutils literal notranslate"><span class="pre">warn</span></code>, or <code class="docutils literal notranslate"><span class="pre">strict</span></code>. The default setting is <code class="docutils literal notranslate"><span class="pre">strict</span></code>, which causes the task to fail. For example:</p>
 <p>To ignore errors:</p>
@@ -2369,7 +2370,7 @@ This is also the reason most lookups output lists and take lists as input; for e
 <div class="section" id="query">
 <span id="id2"></span><h2><a class="toc-backref" href="#id6">query</a><a class="headerlink" href="#query" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.5.</span></p>
+<p><span class="versionmodified added">New in version 2.5.</span></p>
 </div>
 <p>In Ansible 2.5, a new jinja2 function called <code class="docutils literal notranslate"><span class="pre">query</span></code> was added for invoking lookup plugins. The difference between <code class="docutils literal notranslate"><span class="pre">lookup</span></code> and <code class="docutils literal notranslate"><span class="pre">query</span></code> is largely that <code class="docutils literal notranslate"><span class="pre">query</span></code> will always return a list.
 The default behavior of <code class="docutils literal notranslate"><span class="pre">lookup</span></code> is to return a string of comma separated values. <code class="docutils literal notranslate"><span class="pre">lookup</span></code> can be explicitly configured to return a list using <code class="docutils literal notranslate"><span class="pre">wantlist=True</span></code>.</p>
@@ -2449,24 +2450,24 @@ The default behavior of <code class="docutils literal notranslate"><span class="
 </ul>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../user_guide/playbooks_intro.html#about-playbooks"><span class="std std-ref">About Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="inventory.html"><span class="doc">Inventory Plugins</span></a></dt>
-<dd>Ansible inventory plugins</dd>
-<dt><a class="reference internal" href="callback.html"><span class="doc">Callback Plugins</span></a></dt>
-<dd>Ansible callback plugins</dd>
-<dt><a class="reference internal" href="../user_guide/playbooks_filters.html#playbooks-filters"><span class="std std-ref">Filters</span></a></dt>
-<dd>Jinja2 filter plugins</dd>
-<dt><a class="reference internal" href="../user_guide/playbooks_tests.html#playbooks-tests"><span class="std std-ref">Tests</span></a></dt>
-<dd>Jinja2 test plugins</dd>
-<dt><a class="reference internal" href="../user_guide/playbooks_lookups.html#playbooks-lookups"><span class="std std-ref">Lookups</span></a></dt>
-<dd>Jinja2 lookup plugins</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../user_guide/playbooks_intro.html#about-playbooks"><span class="std std-ref">About Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="inventory.html"><span class="doc">Inventory Plugins</span></a></dt><dd><p>Ansible inventory plugins</p>
+</dd>
+<dt><a class="reference internal" href="callback.html"><span class="doc">Callback Plugins</span></a></dt><dd><p>Ansible callback plugins</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/playbooks_filters.html#playbooks-filters"><span class="std std-ref">Filters</span></a></dt><dd><p>Jinja2 filter plugins</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/playbooks_tests.html#playbooks-tests"><span class="std std-ref">Tests</span></a></dt><dd><p>Jinja2 test plugins</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/playbooks_lookups.html#playbooks-lookups"><span class="std std-ref">Lookups</span></a></dt><dd><p>Jinja2 lookup plugins</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2498,7 +2499,7 @@ The default behavior of <code class="docutils literal notranslate"><span class="
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

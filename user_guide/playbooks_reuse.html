@@ -2287,17 +2287,17 @@ If you use any <code class="docutils literal notranslate"><span class="pre">incl
 <h2>Differences Between Static and Dynamic<a class="headerlink" href="#differences-between-static-and-dynamic" title="Permalink to this headline">¶</a></h2>
 <p>The two modes of operation are pretty simple:</p>
 <ul class="simple">
-<li>Ansible pre-processes all static imports during Playbook parsing time.</li>
-<li>Dynamic includes are processed during runtime at the point in which that task is encountered.</li>
+<li><p>Ansible pre-processes all static imports during Playbook parsing time.</p></li>
+<li><p>Dynamic includes are processed during runtime at the point in which that task is encountered.</p></li>
 </ul>
 <p>When it comes to Ansible task options like <code class="docutils literal notranslate"><span class="pre">tags</span></code> and conditional statements (<code class="docutils literal notranslate"><span class="pre">when:</span></code>):</p>
 <ul class="simple">
-<li>For static imports, the parent task options will be copied to all child tasks contained within the import.</li>
-<li>For dynamic includes, the task options will <em>only</em> apply to the dynamic task as it is evaluated, and will not be copied to child tasks.</li>
+<li><p>For static imports, the parent task options will be copied to all child tasks contained within the import.</p></li>
+<li><p>For dynamic includes, the task options will <em>only</em> apply to the dynamic task as it is evaluated, and will not be copied to child tasks.</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Roles are a somewhat special case. Prior to Ansible 2.3, roles were always statically included via the special <code class="docutils literal notranslate"><span class="pre">roles:</span></code> option for a given play and were always executed first before any other play tasks (unless <code class="docutils literal notranslate"><span class="pre">pre_tasks</span></code> were used). Roles can still be used this way, however, Ansible 2.3 introduced the <code class="docutils literal notranslate"><span class="pre">include_role</span></code> option to allow roles to be executed inline with other tasks.</p>
+<p class="admonition-title">Note</p>
+<p>Roles are a somewhat special case. Prior to Ansible 2.3, roles were always statically included via the special <code class="docutils literal notranslate"><span class="pre">roles:</span></code> option for a given play and were always executed first before any other play tasks (unless <code class="docutils literal notranslate"><span class="pre">pre_tasks</span></code> were used). Roles can still be used this way, however, Ansible 2.3 introduced the <code class="docutils literal notranslate"><span class="pre">include_role</span></code> option to allow roles to be executed inline with other tasks.</p>
 </div>
 </div>
 <div class="section" id="tradeoffs-and-pitfalls-between-includes-and-imports">
@@ -2306,39 +2306,39 @@ If you use any <code class="docutils literal notranslate"><span class="pre">incl
 <p>The primary advantage of using <code class="docutils literal notranslate"><span class="pre">include*</span></code> statements is looping. When a loop is used with an include, the included tasks or role will be executed once for each item in the loop.</p>
 <p>Using <code class="docutils literal notranslate"><span class="pre">include*</span></code> does have some limitations when compared to <code class="docutils literal notranslate"><span class="pre">import*</span></code> statements:</p>
 <ul class="simple">
-<li>Tags which only exist inside a dynamic include will not show up in <code class="docutils literal notranslate"><span class="pre">--list-tags</span></code> output.</li>
-<li>Tasks which only exist inside a dynamic include will not show up in <code class="docutils literal notranslate"><span class="pre">--list-tasks</span></code> output.</li>
-<li>You cannot use <code class="docutils literal notranslate"><span class="pre">notify</span></code> to trigger a handler name which comes from inside a dynamic include (see note below).</li>
-<li>You cannot use <code class="docutils literal notranslate"><span class="pre">--start-at-task</span></code> to begin execution at a task inside a dynamic include.</li>
+<li><p>Tags which only exist inside a dynamic include will not show up in <code class="docutils literal notranslate"><span class="pre">--list-tags</span></code> output.</p></li>
+<li><p>Tasks which only exist inside a dynamic include will not show up in <code class="docutils literal notranslate"><span class="pre">--list-tasks</span></code> output.</p></li>
+<li><p>You cannot use <code class="docutils literal notranslate"><span class="pre">notify</span></code> to trigger a handler name which comes from inside a dynamic include (see note below).</p></li>
+<li><p>You cannot use <code class="docutils literal notranslate"><span class="pre">--start-at-task</span></code> to begin execution at a task inside a dynamic include.</p></li>
 </ul>
 <p>Using <code class="docutils literal notranslate"><span class="pre">import*</span></code> can also have some limitations when compared to dynamic includes:</p>
 <ul class="simple">
-<li>As noted above, loops cannot be used with imports at all.</li>
-<li>When using variables for the target file or role name, variables from inventory sources (host/group vars, etc.) cannot be used.</li>
+<li><p>As noted above, loops cannot be used with imports at all.</p></li>
+<li><p>When using variables for the target file or role name, variables from inventory sources (host/group vars, etc.) cannot be used.</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Regarding the use of <code class="docutils literal notranslate"><span class="pre">notify</span></code> for dynamic tasks: it is still possible to trigger the dynamic include itself, which would result in all tasks within the include being run.</p>
+<p class="admonition-title">Note</p>
+<p>Regarding the use of <code class="docutils literal notranslate"><span class="pre">notify</span></code> for dynamic tasks: it is still possible to trigger the dynamic include itself, which would result in all tasks within the include being run.</p>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt>
-<dd>Review the basic Playbook language features</dd>
-<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt>
-<dd>All about variables in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span class="std std-ref">Conditionals</span></a></dt>
-<dd>Conditionals in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a></dt>
-<dd>Loops in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt>
-<dd>Various tips about managing playbooks in the real world</dd>
-<dt><a class="reference internal" href="../reference_appendices/galaxy.html#ansible-galaxy"><span class="std std-ref">Ansible Galaxy</span></a></dt>
-<dd>How to share roles on galaxy, role management</dd>
-<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">GitHub Ansible examples</a></dt>
-<dd>Complete playbook files from the GitHub project source</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt>
-<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>Review the basic Playbook language features</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt><dd><p>All about variables in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span class="std std-ref">Conditionals</span></a></dt><dd><p>Conditionals in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a></dt><dd><p>Loops in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt><dd><p>Various tips about managing playbooks in the real world</p>
+</dd>
+<dt><a class="reference internal" href="../reference_appendices/galaxy.html#ansible-galaxy"><span class="std std-ref">Ansible Galaxy</span></a></dt><dd><p>How to share roles on galaxy, role management</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">GitHub Ansible examples</a></dt><dd><p>Complete playbook files from the GitHub project source</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt><dd><p>Questions? Help? Ideas?  Stop by the list on Google Groups</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2370,7 +2370,7 @@ If you use any <code class="docutils literal notranslate"><span class="pre">incl
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

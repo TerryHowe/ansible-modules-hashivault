@@ -2275,37 +2275,31 @@
 <h2>How to troubleshoot<a class="headerlink" href="#how-to-troubleshoot" title="Permalink to this headline">¶</a></h2>
 <p>This section covers troubleshooting issues with Network Modules.</p>
 <p>Errors generally fall into one of the following categories:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Authentication issues:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
-<li>Not correctly specifying credentials</li>
-<li>Remote device (network switch/router) not falling back to other other authentication methods</li>
-<li>SSH key issues</li>
+<dl class="field-list simple">
+<dt class="field-odd">Authentication issues</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>Not correctly specifying credentials</p></li>
+<li><p>Remote device (network switch/router) not falling back to other other authentication methods</p></li>
+<li><p>SSH key issues</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Timeout issues:</th><td class="field-body"><ul class="first simple">
-<li>Can occur when trying to pull a large amount of data</li>
-<li>May actually be masking a authentication issue</li>
+</dd>
+<dt class="field-even">Timeout issues</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>Can occur when trying to pull a large amount of data</p></li>
+<li><p>May actually be masking a authentication issue</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Playbook issues:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
-<li>Use of <code class="docutils literal notranslate"><span class="pre">delegate_to</span></code>, instead of <code class="docutils literal notranslate"><span class="pre">ProxyCommand</span></code>. See <a class="reference internal" href="#network-delegate-to-vs-proxycommand"><span class="std std-ref">network proxy guide</span></a> for more information.</li>
-<li>Not using <code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">local</span></code></li>
+</dd>
+<dt class="field-odd">Playbook issues</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>Use of <code class="docutils literal notranslate"><span class="pre">delegate_to</span></code>, instead of <code class="docutils literal notranslate"><span class="pre">ProxyCommand</span></code>. See <a class="reference internal" href="#network-delegate-to-vs-proxycommand"><span class="std std-ref">network proxy guide</span></a> for more information.</p></li>
+<li><p>Not using <code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">local</span></code></p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<p class="admonition-title">Warning</p>
 <p><code class="docutils literal notranslate"><span class="pre">unable</span> <span class="pre">to</span> <span class="pre">open</span> <span class="pre">shell</span></code></p>
-<p class="last">The <code class="docutils literal notranslate"><span class="pre">unable</span> <span class="pre">to</span> <span class="pre">open</span> <span class="pre">shell</span></code> message is new in Ansible 2.3, it means that the <code class="docutils literal notranslate"><span class="pre">ansible-connection</span></code> daemon has not been able to successfully
+<p>The <code class="docutils literal notranslate"><span class="pre">unable</span> <span class="pre">to</span> <span class="pre">open</span> <span class="pre">shell</span></code> message is new in Ansible 2.3, it means that the <code class="docutils literal notranslate"><span class="pre">ansible-connection</span></code> daemon has not been able to successfully
 talk to the remote network device. This generally means that there is an authentication issue. See the “Authentication and connection issues” section
 in this document for more information.</p>
 </div>
@@ -2325,7 +2319,7 @@ in this document for more information.</p>
 </pre></div>
 </div>
 <p>After Ansible has finished running you can inspect the log file which has been created on the ansible-controller:</p>
-<div class="code highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">less $ANSIBLE_LOG_PATH</span>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">less $ANSIBLE_LOG_PATH</span>
 
 <span class="l l-Scalar l-Scalar-Plain">2017-03-30 13:19:52,740 p=28990 u=fred |  creating new control socket for host veos01:22 as user admin</span>
 <span class="l l-Scalar l-Scalar-Plain">2017-03-30 13:19:52,741 p=28990 u=fred |  control socket path is /home/fred/.ansible/pc/ca5960d27a</span>
@@ -2341,12 +2335,12 @@ in this document for more information.</p>
 </div>
 <p>From the log notice:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">p=28990</span></code> Is the PID (Process ID) of the <code class="docutils literal notranslate"><span class="pre">ansible-connection</span></code> process</li>
-<li><code class="docutils literal notranslate"><span class="pre">u=fred</span></code> Is the user <cite>running</cite> ansible, not the remote-user you are attempting to connect as</li>
-<li><code class="docutils literal notranslate"><span class="pre">creating</span> <span class="pre">new</span> <span class="pre">control</span> <span class="pre">socket</span> <span class="pre">for</span> <span class="pre">host</span> <span class="pre">veos01:22</span> <span class="pre">as</span> <span class="pre">user</span> <span class="pre">admin</span></code> host:port as user</li>
-<li><code class="docutils literal notranslate"><span class="pre">control</span> <span class="pre">socket</span> <span class="pre">path</span> <span class="pre">is</span></code> location on disk where the persistent connection socket is created</li>
-<li><code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">connection</span> <span class="pre">plugin</span> <span class="pre">network_cli</span></code> Informs you that persistent connection is being used</li>
-<li><code class="docutils literal notranslate"><span class="pre">connection</span> <span class="pre">established</span> <span class="pre">to</span> <span class="pre">veos01</span> <span class="pre">in</span> <span class="pre">0:00:22.580626</span></code> Time taken to obtain a shell on the remote device</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p=28990</span></code> Is the PID (Process ID) of the <code class="docutils literal notranslate"><span class="pre">ansible-connection</span></code> process</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">u=fred</span></code> Is the user <cite>running</cite> ansible, not the remote-user you are attempting to connect as</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">creating</span> <span class="pre">new</span> <span class="pre">control</span> <span class="pre">socket</span> <span class="pre">for</span> <span class="pre">host</span> <span class="pre">veos01:22</span> <span class="pre">as</span> <span class="pre">user</span> <span class="pre">admin</span></code> host:port as user</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">control</span> <span class="pre">socket</span> <span class="pre">path</span> <span class="pre">is</span></code> location on disk where the persistent connection socket is created</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">connection</span> <span class="pre">plugin</span> <span class="pre">network_cli</span></code> Informs you that persistent connection is being used</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">connection</span> <span class="pre">established</span> <span class="pre">to</span> <span class="pre">veos01</span> <span class="pre">in</span> <span class="pre">0:00:22.580626</span></code> Time taken to obtain a shell on the remote device</p></li>
 </ul>
 <p>Because the log files are verbose, you can use grep to look for specific information. For example, once you have identified the <code class="docutils literal notranslate"><span class="pre">pid</span></code> from the <code class="docutils literal notranslate"><span class="pre">creating</span> <span class="pre">new</span> <span class="pre">control</span> <span class="pre">socket</span> <span class="pre">for</span> <span class="pre">host</span></code> line you can search for other connection log entries:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">grep &quot;p=28990&quot; $ANSIBLE_LOG_PATH</span>
@@ -2359,8 +2353,8 @@ in this document for more information.</p>
 <p>As with any effort to troubleshoot it’s important to simplify the test case as much as possible.</p>
 <p>For Ansible this can be done by ensuring you are only running against one remote device:</p>
 <ul class="simple">
-<li>Using <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span> <span class="pre">--limit</span> <span class="pre">switch1.example.net...</span></code></li>
-<li>Using an ad-hoc <code class="docutils literal notranslate"><span class="pre">ansible</span></code> command</li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span> <span class="pre">--limit</span> <span class="pre">switch1.example.net...</span></code></p></li>
+<li><p>Using an ad-hoc <code class="docutils literal notranslate"><span class="pre">ansible</span></code> command</p></li>
 </ul>
 <p><cite>ad-hoc</cite> refers to running Ansible to perform some quick command using <code class="docutils literal notranslate"><span class="pre">/usr/bin/ansible</span></code>, rather than the orchestration language, which is <code class="docutils literal notranslate"><span class="pre">/usr/bin/ansible-playbook</span></code>. In this case we can ensure connectivity by attempting to execute a single command on the remote device:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible -m eos_command -a &#39;commands=?&#39; -i inventory switch1.example.net -e &#39;ansible_connection=local&#39; -u admin -k</span>
@@ -2368,11 +2362,11 @@ in this document for more information.</p>
 </div>
 <p>In the above example, we:</p>
 <ul class="simple">
-<li>connect to <code class="docutils literal notranslate"><span class="pre">switch1.example.net</span></code> specified in the inventory file <code class="docutils literal notranslate"><span class="pre">inventory</span></code></li>
-<li>use the module <code class="docutils literal notranslate"><span class="pre">eos_command</span></code></li>
-<li>run the command <code class="docutils literal notranslate"><span class="pre">?</span></code></li>
-<li>connect using the username <code class="docutils literal notranslate"><span class="pre">admin</span></code></li>
-<li>inform ansible to prompt for the ssh password by specifying <code class="docutils literal notranslate"><span class="pre">-k</span></code></li>
+<li><p>connect to <code class="docutils literal notranslate"><span class="pre">switch1.example.net</span></code> specified in the inventory file <code class="docutils literal notranslate"><span class="pre">inventory</span></code></p></li>
+<li><p>use the module <code class="docutils literal notranslate"><span class="pre">eos_command</span></code></p></li>
+<li><p>run the command <code class="docutils literal notranslate"><span class="pre">?</span></code></p></li>
+<li><p>connect using the username <code class="docutils literal notranslate"><span class="pre">admin</span></code></p></li>
+<li><p>inform ansible to prompt for the ssh password by specifying <code class="docutils literal notranslate"><span class="pre">-k</span></code></p></li>
 </ul>
 <p>If you have SSH keys configured correctly, you don’t need to specify the <code class="docutils literal notranslate"><span class="pre">-k</span></code> parameter</p>
 <p>If the connection still fails you can combine it with the enable_network_logging parameter. For example:</p>
@@ -2461,8 +2455,8 @@ fatal: [ios-csr1000v]: FAILED! =&gt; {
 </div>
 <p>Suggestions to resolve:</p>
 <ul class="simple">
-<li>If you are using the <code class="docutils literal notranslate"><span class="pre">provider:</span></code> options ensure that it’s suboption <code class="docutils literal notranslate"><span class="pre">host:</span></code> is set correctly.</li>
-<li>If you are not using <code class="docutils literal notranslate"><span class="pre">provider:</span></code> nor top-level arguments ensure your inventory file is correct.</li>
+<li><p>If you are using the <code class="docutils literal notranslate"><span class="pre">provider:</span></code> options ensure that it’s suboption <code class="docutils literal notranslate"><span class="pre">host:</span></code> is set correctly.</p></li>
+<li><p>If you are not using <code class="docutils literal notranslate"><span class="pre">provider:</span></code> nor top-level arguments ensure your inventory file is correct.</p></li>
 </ul>
 </div>
 <div class="section" id="error-authentication-failed">
@@ -2644,9 +2638,9 @@ this condition and return an error message:</p>
 <p>To fix this issue, set the connection value to <code class="docutils literal notranslate"><span class="pre">local</span></code> using one of the
 following methods:</p>
 <ul class="simple">
-<li>Set the play to use <code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">local</span></code></li>
-<li>Set the task to use <code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">local</span></code></li>
-<li>Run ansible-playbook using the <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">local</span></code> setting</li>
+<li><p>Set the play to use <code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">local</span></code></p></li>
+<li><p>Set the task to use <code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">local</span></code></p></li>
+<li><p>Run ansible-playbook using the <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">local</span></code> setting</p></li>
 </ul>
 </div>
 <div class="section" id="error-unable-to-enter-configuration-mode">
@@ -2746,11 +2740,11 @@ from the given custom ssh file path</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Using <code class="docutils literal notranslate"><span class="pre">ProxyCommand</span></code> with passwords via variables</p>
 <p>By design, SSH doesn’t support providing passwords via environment variables.
 This is done to prevent secrets from leaking out, for example in <code class="docutils literal notranslate"><span class="pre">ps</span></code> output.</p>
-<p class="last">We recommend using SSH Keys, and if needed an ssh-agent, rather than passwords, where ever possible.</p>
+<p>We recommend using SSH Keys, and if needed an ssh-agent, rather than passwords, where ever possible.</p>
 </div>
 </div>
 </div>
@@ -2809,7 +2803,7 @@ can be adjusted on a per task basis or can be set globally in seconds.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

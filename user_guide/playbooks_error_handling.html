@@ -2269,13 +2269,14 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#error-handling-in-playbooks" id="id4">Error Handling In Playbooks</a><ul>
-<li><a class="reference internal" href="#ignoring-failed-commands" id="id5">Ignoring Failed Commands</a></li>
-<li><a class="reference internal" href="#resetting-unreachable-hosts" id="id6">Resetting Unreachable Hosts</a></li>
-<li><a class="reference internal" href="#handlers-and-failure" id="id7">Handlers and Failure</a></li>
-<li><a class="reference internal" href="#controlling-what-defines-failure" id="id8">Controlling What Defines Failure</a></li>
-<li><a class="reference internal" href="#overriding-the-changed-result" id="id9">Overriding The Changed Result</a></li>
-<li><a class="reference internal" href="#aborting-the-play" id="id10">Aborting the play</a></li>
+<li><p><a class="reference internal" href="#error-handling-in-playbooks" id="id4">Error Handling In Playbooks</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ignoring-failed-commands" id="id5">Ignoring Failed Commands</a></p></li>
+<li><p><a class="reference internal" href="#resetting-unreachable-hosts" id="id6">Resetting Unreachable Hosts</a></p></li>
+<li><p><a class="reference internal" href="#handlers-and-failure" id="id7">Handlers and Failure</a></p></li>
+<li><p><a class="reference internal" href="#controlling-what-defines-failure" id="id8">Controlling What Defines Failure</a></p></li>
+<li><p><a class="reference internal" href="#overriding-the-changed-result" id="id9">Overriding The Changed Result</a></p></li>
+<li><p><a class="reference internal" href="#aborting-the-play" id="id10">Aborting the play</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2303,7 +2304,7 @@ This feature only works when the task must be able to run and return a value of 
 <div class="section" id="resetting-unreachable-hosts">
 <span id="resetting-unreachable"></span><h2><a class="toc-backref" href="#id6">Resetting Unreachable Hosts</a><a class="headerlink" href="#resetting-unreachable-hosts" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.2.</span></p>
+<p><span class="versionmodified added">New in version 2.2.</span></p>
 </div>
 <p>Connection failures set hosts as ‘UNREACHABLE’, which will remove them from the list of active hosts for the run.
 To recover from these issues you can use <cite>meta: clear_host_errors</cite> to have all currently flagged hosts reactivated,
@@ -2387,20 +2388,20 @@ does not cause handlers to fire:</p>
 </div>
 <p>for finer-grained control <code class="docutils literal notranslate"><span class="pre">max_fail_percentage</span></code> can be used to abort the run after a given percentage of hosts has failed.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt>
-<dd>Best practices in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_conditionals.html"><span class="doc">Conditionals</span></a></dt>
-<dd>Conditional statements in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a></dt>
-<dd>All about variables</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt><dd><p>Best practices in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html"><span class="doc">Conditionals</span></a></dt><dd><p>Conditional statements in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a></dt><dd><p>All about variables</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2432,7 +2433,7 @@ does not cause handlers to fire:</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

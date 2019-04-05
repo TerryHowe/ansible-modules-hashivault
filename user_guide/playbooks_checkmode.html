@@ -2267,15 +2267,16 @@
   <div class="section" id="check-mode-dry-run">
 <span id="check-mode-dry"></span><h1><a class="toc-backref" href="#id1">Check Mode (“Dry Run”)</a><a class="headerlink" href="#check-mode-dry-run" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.1.</span></p>
+<p><span class="versionmodified added">New in version 1.1.</span></p>
 </div>
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#check-mode-dry-run" id="id1">Check Mode (“Dry Run”)</a><ul>
-<li><a class="reference internal" href="#enabling-or-disabling-check-mode-for-tasks" id="id2">Enabling or disabling check mode for tasks</a></li>
-<li><a class="reference internal" href="#information-about-check-mode-in-variables" id="id3">Information about check mode in variables</a></li>
-<li><a class="reference internal" href="#showing-differences-with-diff" id="id4">Showing Differences with <code class="docutils literal notranslate"><span class="pre">--diff</span></code></a></li>
+<li><p><a class="reference internal" href="#check-mode-dry-run" id="id1">Check Mode (“Dry Run”)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#enabling-or-disabling-check-mode-for-tasks" id="id2">Enabling or disabling check mode for tasks</a></p></li>
+<li><p><a class="reference internal" href="#information-about-check-mode-in-variables" id="id3">Information about check mode in variables</a></p></li>
+<li><p><a class="reference internal" href="#showing-differences-with-diff" id="id4">Showing Differences with <code class="docutils literal notranslate"><span class="pre">--diff</span></code></a></p></li>
 </ul>
 </li>
 </ul>
@@ -2292,18 +2293,18 @@ it may be less useful for you.  However it is great for one-node-at-time basic c
 <div class="section" id="enabling-or-disabling-check-mode-for-tasks">
 <span id="forcing-to-run-in-check-mode"></span><h2><a class="toc-backref" href="#id2">Enabling or disabling check mode for tasks</a><a class="headerlink" href="#enabling-or-disabling-check-mode-for-tasks" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.2.</span></p>
+<p><span class="versionmodified added">New in version 2.2.</span></p>
 </div>
 <p>Sometimes you may want to modify the check mode behavior of individual tasks. This is done via the <code class="docutils literal notranslate"><span class="pre">check_mode</span></code> option, which can
 be added to tasks.</p>
 <p>There are two options:</p>
 <ol class="arabic simple">
-<li>Force a task to <strong>run in check mode</strong>, even when the playbook is called <strong>without</strong> <code class="docutils literal notranslate"><span class="pre">--check</span></code>. This is called <code class="docutils literal notranslate"><span class="pre">check_mode:</span> <span class="pre">yes</span></code>.</li>
-<li>Force a task to <strong>run in normal mode</strong> and make changes to the system, even when the playbook is called <strong>with</strong> <code class="docutils literal notranslate"><span class="pre">--check</span></code>. This is called <code class="docutils literal notranslate"><span class="pre">check_mode:</span> <span class="pre">no</span></code>.</li>
+<li><p>Force a task to <strong>run in check mode</strong>, even when the playbook is called <strong>without</strong> <code class="docutils literal notranslate"><span class="pre">--check</span></code>. This is called <code class="docutils literal notranslate"><span class="pre">check_mode:</span> <span class="pre">yes</span></code>.</p></li>
+<li><p>Force a task to <strong>run in normal mode</strong> and make changes to the system, even when the playbook is called <strong>with</strong> <code class="docutils literal notranslate"><span class="pre">--check</span></code>. This is called <code class="docutils literal notranslate"><span class="pre">check_mode:</span> <span class="pre">no</span></code>.</p></li>
 </ol>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Prior to version 2.2 only the equivalent of <code class="docutils literal notranslate"><span class="pre">check_mode:</span> <span class="pre">no</span></code> existed. The notation for that was <code class="docutils literal notranslate"><span class="pre">always_run:</span> <span class="pre">yes</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>Prior to version 2.2 only the equivalent of <code class="docutils literal notranslate"><span class="pre">check_mode:</span> <span class="pre">no</span></code> existed. The notation for that was <code class="docutils literal notranslate"><span class="pre">always_run:</span> <span class="pre">yes</span></code>.</p>
 </div>
 <p>Instead of <code class="docutils literal notranslate"><span class="pre">yes</span></code>/<code class="docutils literal notranslate"><span class="pre">no</span></code> you can use a Jinja2 expression, just like the <code class="docutils literal notranslate"><span class="pre">when</span></code> clause.</p>
 <p>Example:</p>
@@ -2329,7 +2330,7 @@ potential changes.</p>
 <div class="section" id="information-about-check-mode-in-variables">
 <h2><a class="toc-backref" href="#id3">Information about check mode in variables</a><a class="headerlink" href="#information-about-check-mode-in-variables" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.1.</span></p>
+<p><span class="versionmodified added">New in version 2.1.</span></p>
 </div>
 <p>If you want to skip, or ignore errors on some tasks in check mode
 you can use a boolean magic variable <code class="docutils literal notranslate"><span class="pre">ansible_check_mode</span></code>
@@ -2354,7 +2355,7 @@ which will be set to <code class="docutils literal notranslate"><span class="pre
 <div class="section" id="showing-differences-with-diff">
 <span id="diff-mode"></span><h2><a class="toc-backref" href="#id4">Showing Differences with <code class="docutils literal notranslate"><span class="pre">--diff</span></code></a><a class="headerlink" href="#showing-differences-with-diff" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.1.</span></p>
+<p><span class="versionmodified added">New in version 1.1.</span></p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">--diff</span></code> option to ansible-playbook works great with <code class="docutils literal notranslate"><span class="pre">--check</span></code> (detailed above) but can also be used by itself.
 When this flag is supplied and the module supports this, Ansible will report back the changes made or, if used with <code class="docutils literal notranslate"><span class="pre">--check</span></code>, the changes that would have been made.
@@ -2364,7 +2365,7 @@ Since the diff feature produces a large amount of output, it is best used when c
 </pre></div>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.4.</span></p>
+<p><span class="versionmodified added">New in version 2.4.</span></p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">--diff</span></code> option can reveal sensitive information. This option can disabled for tasks by specifying <code class="docutils literal notranslate"><span class="pre">diff:</span> <span class="pre">no</span></code>.</p>
 <p>Example:</p>
@@ -2408,7 +2409,7 @@ Since the diff feature produces a large amount of output, it is best used when c
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

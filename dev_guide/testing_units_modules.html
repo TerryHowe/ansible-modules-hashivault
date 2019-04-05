@@ -2267,39 +2267,44 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#unit-testing-ansible-modules" id="id1">Unit Testing Ansible Modules</a><ul>
-<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
-<li><a class="reference internal" href="#what-are-unit-tests" id="id3">What Are Unit Tests?</a></li>
-<li><a class="reference internal" href="#why-use-unit-tests" id="id4">Why Use Unit Tests?</a></li>
-<li><a class="reference internal" href="#when-to-use-unit-tests" id="id5">When To Use Unit Tests</a><ul>
-<li><a class="reference internal" href="#providing-quick-feedback" id="id6">Providing quick feedback</a></li>
-<li><a class="reference internal" href="#ensuring-correct-use-of-external-interfaces" id="id7">Ensuring correct use of external interfaces</a></li>
-<li><a class="reference internal" href="#providing-specific-design-tests" id="id8">Providing specific design tests</a></li>
+<li><p><a class="reference internal" href="#unit-testing-ansible-modules" id="id1">Unit Testing Ansible Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id2">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#what-are-unit-tests" id="id3">What Are Unit Tests?</a></p></li>
+<li><p><a class="reference internal" href="#why-use-unit-tests" id="id4">Why Use Unit Tests?</a></p></li>
+<li><p><a class="reference internal" href="#when-to-use-unit-tests" id="id5">When To Use Unit Tests</a></p>
+<ul>
+<li><p><a class="reference internal" href="#providing-quick-feedback" id="id6">Providing quick feedback</a></p></li>
+<li><p><a class="reference internal" href="#ensuring-correct-use-of-external-interfaces" id="id7">Ensuring correct use of external interfaces</a></p></li>
+<li><p><a class="reference internal" href="#providing-specific-design-tests" id="id8">Providing specific design tests</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#how-to-unit-test-ansible-modules" id="id9">How to unit test Ansible modules</a><ul>
-<li><a class="reference internal" href="#naming-unit-tests" id="id10">Naming unit tests</a></li>
-<li><a class="reference internal" href="#use-of-mocks" id="id11">Use of Mocks</a></li>
-<li><a class="reference internal" href="#ensuring-failure-cases-are-visible-with-mock-objects" id="id12">Ensuring failure cases are visible with mock objects</a></li>
-<li><a class="reference internal" href="#mocking-of-the-actual-module" id="id13">Mocking of the actual module</a></li>
-<li><a class="reference internal" href="#api-definition-with-unit-test-cases" id="id14">API definition with unit test cases</a><ul>
-<li><a class="reference internal" href="#defining-a-module-against-an-api-specification" id="id15">Defining a module against an API specification</a></li>
-<li><a class="reference internal" href="#defining-a-module-to-work-against-multiple-api-versions" id="id16">Defining a module to work against multiple API versions</a></li>
+<li><p><a class="reference internal" href="#how-to-unit-test-ansible-modules" id="id9">How to unit test Ansible modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#naming-unit-tests" id="id10">Naming unit tests</a></p></li>
+<li><p><a class="reference internal" href="#use-of-mocks" id="id11">Use of Mocks</a></p></li>
+<li><p><a class="reference internal" href="#ensuring-failure-cases-are-visible-with-mock-objects" id="id12">Ensuring failure cases are visible with mock objects</a></p></li>
+<li><p><a class="reference internal" href="#mocking-of-the-actual-module" id="id13">Mocking of the actual module</a></p></li>
+<li><p><a class="reference internal" href="#api-definition-with-unit-test-cases" id="id14">API definition with unit test cases</a></p>
+<ul>
+<li><p><a class="reference internal" href="#defining-a-module-against-an-api-specification" id="id15">Defining a module against an API specification</a></p></li>
+<li><p><a class="reference internal" href="#defining-a-module-to-work-against-multiple-api-versions" id="id16">Defining a module to work against multiple API versions</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ansible-special-cases-for-unit-testing" id="id17">Ansible special cases for unit testing</a><ul>
-<li><a class="reference internal" href="#module-argument-processing" id="id18">Module argument processing</a></li>
-<li><a class="reference internal" href="#passing-arguments" id="id19">Passing Arguments</a></li>
-<li><a class="reference internal" href="#handling-exit-correctly" id="id20">Handling exit correctly</a></li>
-<li><a class="reference internal" href="#running-the-main-function" id="id21">Running the main function</a></li>
-<li><a class="reference internal" href="#handling-calls-to-external-executables" id="id22">Handling calls to external executables</a></li>
-<li><a class="reference internal" href="#a-complete-example" id="id23">A Complete Example</a></li>
-<li><a class="reference internal" href="#restructuring-modules-to-enable-testing-module-set-up-and-other-processes" id="id24">Restructuring modules to enable testing module set up and other processes</a></li>
+<li><p><a class="reference internal" href="#ansible-special-cases-for-unit-testing" id="id17">Ansible special cases for unit testing</a></p>
+<ul>
+<li><p><a class="reference internal" href="#module-argument-processing" id="id18">Module argument processing</a></p></li>
+<li><p><a class="reference internal" href="#passing-arguments" id="id19">Passing Arguments</a></p></li>
+<li><p><a class="reference internal" href="#handling-exit-correctly" id="id20">Handling exit correctly</a></p></li>
+<li><p><a class="reference internal" href="#running-the-main-function" id="id21">Running the main function</a></p></li>
+<li><p><a class="reference internal" href="#handling-calls-to-external-executables" id="id22">Handling calls to external executables</a></p></li>
+<li><p><a class="reference internal" href="#a-complete-example" id="id23">A Complete Example</a></p></li>
+<li><p><a class="reference internal" href="#restructuring-modules-to-enable-testing-module-set-up-and-other-processes" id="id24">Restructuring modules to enable testing module set up and other processes</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#traps-for-maintaining-python-2-compatibility" id="id25">Traps for maintaining Python 2 compatibility</a></li>
+<li><p><a class="reference internal" href="#traps-for-maintaining-python-2-compatibility" id="id25">Traps for maintaining Python 2 compatibility</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2329,26 +2334,26 @@ level of functional testing.</p>
 <p>Ansible unit tests have advantages and disadvantages. It is important to understand these.
 Advantages include:</p>
 <ul class="simple">
-<li>Most unit tests are much faster than most Ansible integration tests.  The complete suite
-of unit tests can be run regularly by a developer on their local system.</li>
-<li>Unit tests can be run by developers who don’t have access to the system which the module is
+<li><p>Most unit tests are much faster than most Ansible integration tests.  The complete suite
+of unit tests can be run regularly by a developer on their local system.</p></li>
+<li><p>Unit tests can be run by developers who don’t have access to the system which the module is
 designed to work on, allowing a level of verification that changes to core functions
-haven’t broken module expectations.</li>
-<li>Unit tests can easily substitute system functions allowing testing of software that
+haven’t broken module expectations.</p></li>
+<li><p>Unit tests can easily substitute system functions allowing testing of software that
 would be impractical.  For example, the <code class="docutils literal notranslate"><span class="pre">sleep()</span></code> function can be replaced and we check
-that a ten minute sleep was called without actually waiting ten minutes.</li>
-<li>Unit tests are run on different Python versions. This allows us to
-ensure that the code behaves in the same way on different Python versions.</li>
+that a ten minute sleep was called without actually waiting ten minutes.</p></li>
+<li><p>Unit tests are run on different Python versions. This allows us to
+ensure that the code behaves in the same way on different Python versions.</p></li>
 </ul>
 <p>There are also some potential disadvantages of unit tests. Unit tests don’t normally
 directly test actual useful valuable features of software, instead just internal
 implementation</p>
 <ul class="simple">
-<li>Unit tests that test the internal, non-visible features of software may make
+<li><p>Unit tests that test the internal, non-visible features of software may make
 refactoring difficult if those internal features have to change (see also naming in How
-below)</li>
-<li>Even if the internal feature is working correctly it is possible that there will be a
-problem between the internal code tested and the actual result delivered to the user</li>
+below)</p></li>
+<li><p>Even if the internal feature is working correctly it is possible that there will be a
+problem between the internal code tested and the actual result delivered to the user</p></li>
 </ul>
 <p>Normally the Ansible integration tests (which are written in Ansible YAML) provide better
 testing for most module functionality.  If those tests already test a feature and perform
@@ -2360,20 +2365,20 @@ well there may be little point in providing a unit test covering the same area a
 tests. For example, testing things which are impossible, slow or very difficult to test
 with integration tests, such as:</p>
 <ul class="simple">
-<li>Forcing rare / strange / random situations that can’t be forced, such as specific network
-failures and exceptions</li>
-<li>Extensive testing of slow configuration APIs</li>
-<li>Situations where the integration tests cannot be run as part of the main Ansible
-continuous integraiton running in Shippable.</li>
+<li><p>Forcing rare / strange / random situations that can’t be forced, such as specific network
+failures and exceptions</p></li>
+<li><p>Extensive testing of slow configuration APIs</p></li>
+<li><p>Situations where the integration tests cannot be run as part of the main Ansible
+continuous integraiton running in Shippable.</p></li>
 </ul>
 <div class="section" id="providing-quick-feedback">
 <h3><a class="toc-backref" href="#id6">Providing quick feedback</a><a class="headerlink" href="#providing-quick-feedback" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>Example:</dt>
-<dd>A single step of the rds_instance test cases can take up to 20
+<dl class="simple">
+<dt>Example:</dt><dd><p>A single step of the rds_instance test cases can take up to 20
 minutes (the time to create an RDS instance in Amazon).  The entire
 test run can last for well over an hour.  All 16 of the unit tests
-complete execution in less than 2 seconds.</dd>
+complete execution in less than 2 seconds.</p>
+</dd>
 </dl>
 <p>The time saving provided by being able to run the code in a unit test makes it worth
 creating a unit test when bug fixing a module, even if those tests do not often identify
@@ -2385,13 +2390,13 @@ complete.</p>
 <h3><a class="toc-backref" href="#id7">Ensuring correct use of external interfaces</a><a class="headerlink" href="#ensuring-correct-use-of-external-interfaces" title="Permalink to this headline">¶</a></h3>
 <p>Unit tests can check the way in which external services are run to ensure that they match
 specifications or are as efficient as possible <em>even when the final output will not be changed</em>.</p>
-<dl class="docutils">
-<dt>Example:</dt>
-<dd>Package managers are often far more efficient when installing multiple packages at once
+<dl class="simple">
+<dt>Example:</dt><dd><p>Package managers are often far more efficient when installing multiple packages at once
 rather than each package separately. The final result is the
 same: the packages are all installed, so the efficiency is difficult to verify through
 integration tests. By providing a mock package manager and verifying that it is called
-once, we can build a valuable test for module efficiency.</dd>
+once, we can build a valuable test for module efficiency.</p>
+</dd>
 </dl>
 <p>Another related use is in the situation where an API has versions which behave
 differently. A programmer working on a new version may change the module to work with the
@@ -2541,10 +2546,10 @@ lists.</p>
 <h3><a class="toc-backref" href="#id18">Module argument processing</a><a class="headerlink" href="#module-argument-processing" title="Permalink to this headline">¶</a></h3>
 <p>There are two problems with running the main function of a module:</p>
 <ul class="simple">
-<li>Since the module is supposed to accept arguments on <code class="docutils literal notranslate"><span class="pre">STDIN</span></code> it is a bit difficult to
-set up the arguments correctly so that the module will get them as parameters.</li>
-<li>All modules should finish by calling either the <a class="reference internal" href="../api/index.html#module.fail_json" title="module.fail_json"><code class="xref py py-meth docutils literal notranslate"><span class="pre">module.fail_json()</span></code></a> or
-<a class="reference internal" href="../api/index.html#module.exit_json" title="module.exit_json"><code class="xref py py-meth docutils literal notranslate"><span class="pre">module.exit_json()</span></code></a>, but these won’t work correctly in a testing environment.</li>
+<li><p>Since the module is supposed to accept arguments on <code class="docutils literal notranslate"><span class="pre">STDIN</span></code> it is a bit difficult to
+set up the arguments correctly so that the module will get them as parameters.</p></li>
+<li><p>All modules should finish by calling either the <a class="reference internal" href="../api/index.html#module.fail_json" title="module.fail_json"><code class="xref py py-meth docutils literal notranslate"><span class="pre">module.fail_json()</span></code></a> or
+<a class="reference internal" href="../api/index.html#module.exit_json" title="module.exit_json"><code class="xref py py-meth docutils literal notranslate"><span class="pre">module.exit_json()</span></code></a>, but these won’t work correctly in a testing environment.</p></li>
 </ul>
 </div>
 <div class="section" id="passing-arguments">
@@ -2784,37 +2789,37 @@ succeed even if the code is broken when run on older versions of Python.</p>
 run under Python 2.6 and that each assertion in the test cases has been checked to work by breaking
 the code in Ansible to trigger that failure.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<p class="admonition-title">Warning</p>
 <p>Maintain Python 2.6 compatibility</p>
-<p class="last">Please remember that modules need to maintain compatibility with Python 2.6 so the unittests for
+<p>Please remember that modules need to maintain compatibility with Python 2.6 so the unittests for
 modules should also be compatible with Python 2.6.</p>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="testing_units.html"><span class="doc">Unit Tests</span></a></dt>
-<dd>Ansible unit tests documentation</dd>
-<dt><a class="reference internal" href="testing_running_locally.html"><span class="doc">Testing Ansible</span></a></dt>
-<dd>Running tests locally including gathering and reporting coverage data</dd>
-<dt><a class="reference internal" href="developing_modules.html"><span class="doc">Should you develop a module?</span></a></dt>
-<dd>How to develop modules</dd>
-<dt><a class="reference external" href="https://docs.python.org/3/library/unittest.html">Python 3 documentation - 26.4. unittest — Unit testing framework</a></dt>
-<dd>The documentation of the unittest framework in python 3</dd>
-<dt><a class="reference external" href="https://docs.python.org/3/library/unittest.html">Python 2 documentation - 25.3. unittest — Unit testing framework</a></dt>
-<dd>The documentation of the earliest supported unittest framework - from Python 2.6</dd>
-<dt><a class="reference external" href="https://docs.pytest.org/en/latest/">pytest: helps you write better programs</a></dt>
-<dd>The documentation of pytest - the framework actually used to run Ansible unit tests</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Development Mailing List</a></dt>
-<dd>Mailing list for development topics</dd>
-<dt><a class="reference external" href="https://docs.python-guide.org/writing/tests/">Testing Your Code (from The Hitchhiker’s Guide to Python!)</a></dt>
-<dd>General advice on testing Python code</dd>
-<dt><a class="reference external" href="https://www.youtube.com/watch?v=QedpQjxBPMA&amp;list=PLlu0CT-JnSasQzGrGzddSczJQQU7295D2">Uncle Bob’s many videos on YouTube</a></dt>
-<dd>Unit testing is a part of the of various philosophies of software development, including
-Extreme Programming (XP), Clean Coding.  Uncle Bob talks through how to benfit from this</dd>
-<dt><cite>“Why Most Unit Testing is Waste” https://rbcs-us.com/documents/Why-Most-Unit-Testing-is-Waste.pdf</cite></dt>
-<dd>An article warning against the costs of unit testing</dd>
-<dt><cite>‘A Response to “Why Most Unit Testing is Waste”’ https://henrikwarne.com/2014/09/04/a-response-to-why-most-unit-testing-is-waste/</cite></dt>
-<dd>An response pointing to how to maintain the value of unit tests</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="testing_units.html"><span class="doc">Unit Tests</span></a></dt><dd><p>Ansible unit tests documentation</p>
+</dd>
+<dt><a class="reference internal" href="testing_running_locally.html"><span class="doc">Testing Ansible</span></a></dt><dd><p>Running tests locally including gathering and reporting coverage data</p>
+</dd>
+<dt><a class="reference internal" href="developing_modules.html"><span class="doc">Should you develop a module?</span></a></dt><dd><p>How to develop modules</p>
+</dd>
+<dt><a class="reference external" href="https://docs.python.org/3/library/unittest.html">Python 3 documentation - 26.4. unittest — Unit testing framework</a></dt><dd><p>The documentation of the unittest framework in python 3</p>
+</dd>
+<dt><a class="reference external" href="https://docs.python.org/3/library/unittest.html">Python 2 documentation - 25.3. unittest — Unit testing framework</a></dt><dd><p>The documentation of the earliest supported unittest framework - from Python 2.6</p>
+</dd>
+<dt><a class="reference external" href="https://docs.pytest.org/en/latest/">pytest: helps you write better programs</a></dt><dd><p>The documentation of pytest - the framework actually used to run Ansible unit tests</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Development Mailing List</a></dt><dd><p>Mailing list for development topics</p>
+</dd>
+<dt><a class="reference external" href="https://docs.python-guide.org/writing/tests/">Testing Your Code (from The Hitchhiker’s Guide to Python!)</a></dt><dd><p>General advice on testing Python code</p>
+</dd>
+<dt><a class="reference external" href="https://www.youtube.com/watch?v=QedpQjxBPMA&amp;list=PLlu0CT-JnSasQzGrGzddSczJQQU7295D2">Uncle Bob’s many videos on YouTube</a></dt><dd><p>Unit testing is a part of the of various philosophies of software development, including
+Extreme Programming (XP), Clean Coding.  Uncle Bob talks through how to benfit from this</p>
+</dd>
+<dt><cite>“Why Most Unit Testing is Waste” https://rbcs-us.com/documents/Why-Most-Unit-Testing-is-Waste.pdf</cite></dt><dd><p>An article warning against the costs of unit testing</p>
+</dd>
+<dt><cite>‘A Response to “Why Most Unit Testing is Waste”’ https://henrikwarne.com/2014/09/04/a-response-to-why-most-unit-testing-is-waste/</cite></dt><dd><p>An response pointing to how to maintain the value of unit tests</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2837,7 +2842,7 @@ Extreme Programming (XP), Clean Coding.  Uncle Bob talks through how to benfit f
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

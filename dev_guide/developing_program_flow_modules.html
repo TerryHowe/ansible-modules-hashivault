@@ -2274,54 +2274,61 @@ will not likely find this to be helpful.</p>
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#types-of-modules" id="id2">Types of modules</a><ul>
-<li><a class="reference internal" href="#action-plugins" id="id3">Action plugins</a></li>
-<li><a class="reference internal" href="#new-style-modules" id="id4">New-style modules</a></li>
-<li><a class="reference internal" href="#python" id="id5">Python</a></li>
-<li><a class="reference internal" href="#powershell" id="id6">Powershell</a></li>
-<li><a class="reference internal" href="#jsonargs" id="id7">JSONARGS</a></li>
-<li><a class="reference internal" href="#non-native-want-json-modules" id="id8">Non-native want JSON modules</a></li>
-<li><a class="reference internal" href="#binary-modules" id="id9">Binary modules</a></li>
-<li><a class="reference internal" href="#old-style-modules" id="id10">Old-style modules</a></li>
+<li><p><a class="reference internal" href="#types-of-modules" id="id2">Types of modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#action-plugins" id="id3">Action plugins</a></p></li>
+<li><p><a class="reference internal" href="#new-style-modules" id="id4">New-style modules</a></p></li>
+<li><p><a class="reference internal" href="#python" id="id5">Python</a></p></li>
+<li><p><a class="reference internal" href="#powershell" id="id6">Powershell</a></p></li>
+<li><p><a class="reference internal" href="#jsonargs" id="id7">JSONARGS</a></p></li>
+<li><p><a class="reference internal" href="#non-native-want-json-modules" id="id8">Non-native want JSON modules</a></p></li>
+<li><p><a class="reference internal" href="#binary-modules" id="id9">Binary modules</a></p></li>
+<li><p><a class="reference internal" href="#old-style-modules" id="id10">Old-style modules</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#how-modules-are-executed" id="id11">How modules are executed</a><ul>
-<li><a class="reference internal" href="#executor-task-executor" id="id12">Executor/task_executor</a></li>
-<li><a class="reference internal" href="#normal-action-plugin" id="id13">Normal action plugin</a></li>
-<li><a class="reference internal" href="#executor-module-common-py" id="id14">Executor/module_common.py</a><ul>
-<li><a class="reference internal" href="#module-replacer-framework" id="id15">Module Replacer framework</a></li>
-<li><a class="reference internal" href="#ansiballz-framework" id="id16">Ansiballz framework</a></li>
+<li><p><a class="reference internal" href="#how-modules-are-executed" id="id11">How modules are executed</a></p>
+<ul>
+<li><p><a class="reference internal" href="#executor-task-executor" id="id12">Executor/task_executor</a></p></li>
+<li><p><a class="reference internal" href="#normal-action-plugin" id="id13">Normal action plugin</a></p></li>
+<li><p><a class="reference internal" href="#executor-module-common-py" id="id14">Executor/module_common.py</a></p>
+<ul>
+<li><p><a class="reference internal" href="#module-replacer-framework" id="id15">Module Replacer framework</a></p></li>
+<li><p><a class="reference internal" href="#ansiballz-framework" id="id16">Ansiballz framework</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#passing-args" id="id17">Passing args</a></li>
-<li><a class="reference internal" href="#internal-arguments" id="id18">Internal arguments</a><ul>
-<li><a class="reference internal" href="#ansible-no-log" id="id19">_ansible_no_log</a></li>
-<li><a class="reference internal" href="#ansible-debug" id="id20">_ansible_debug</a></li>
-<li><a class="reference internal" href="#ansible-diff" id="id21">_ansible_diff</a></li>
-<li><a class="reference internal" href="#ansible-verbosity" id="id22">_ansible_verbosity</a></li>
-<li><a class="reference internal" href="#ansible-selinux-special-fs" id="id23">_ansible_selinux_special_fs</a></li>
-<li><a class="reference internal" href="#ansible-syslog-facility" id="id24">_ansible_syslog_facility</a></li>
-<li><a class="reference internal" href="#ansible-version" id="id25">_ansible_version</a></li>
+<li><p><a class="reference internal" href="#passing-args" id="id17">Passing args</a></p></li>
+<li><p><a class="reference internal" href="#internal-arguments" id="id18">Internal arguments</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ansible-no-log" id="id19">_ansible_no_log</a></p></li>
+<li><p><a class="reference internal" href="#ansible-debug" id="id20">_ansible_debug</a></p></li>
+<li><p><a class="reference internal" href="#ansible-diff" id="id21">_ansible_diff</a></p></li>
+<li><p><a class="reference internal" href="#ansible-verbosity" id="id22">_ansible_verbosity</a></p></li>
+<li><p><a class="reference internal" href="#ansible-selinux-special-fs" id="id23">_ansible_selinux_special_fs</a></p></li>
+<li><p><a class="reference internal" href="#ansible-syslog-facility" id="id24">_ansible_syslog_facility</a></p></li>
+<li><p><a class="reference internal" href="#ansible-version" id="id25">_ansible_version</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#special-considerations" id="id26">Special considerations</a><ul>
-<li><a class="reference internal" href="#pipelining" id="id27">Pipelining</a></li>
-<li><a class="reference internal" href="#why-pass-args-over-stdin" id="id28">Why pass args over stdin?</a></li>
+<li><p><a class="reference internal" href="#special-considerations" id="id26">Special considerations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pipelining" id="id27">Pipelining</a></p></li>
+<li><p><a class="reference internal" href="#why-pass-args-over-stdin" id="id28">Why pass args over stdin?</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ansiblemodule" id="id29">AnsibleModule</a><ul>
-<li><a class="reference internal" href="#argument-spec" id="id30">Argument spec</a><ul>
-<li><a class="reference internal" href="#type" id="id31">type</a></li>
-<li><a class="reference internal" href="#elements" id="id32">elements</a></li>
-<li><a class="reference internal" href="#default" id="id33">default</a></li>
-<li><a class="reference internal" href="#fallback" id="id34">fallback</a></li>
-<li><a class="reference internal" href="#choices" id="id35">choices</a></li>
-<li><a class="reference internal" href="#required" id="id36">required</a></li>
-<li><a class="reference internal" href="#no-log" id="id37">no_log</a></li>
-<li><a class="reference internal" href="#aliases" id="id38">aliases</a></li>
-<li><a class="reference internal" href="#options" id="id39">options</a></li>
-<li><a class="reference internal" href="#apply-defaults" id="id40">apply_defaults</a></li>
-<li><a class="reference internal" href="#removed-in-version" id="id41">removed_in_version</a></li>
+<li><p><a class="reference internal" href="#ansiblemodule" id="id29">AnsibleModule</a></p>
+<ul>
+<li><p><a class="reference internal" href="#argument-spec" id="id30">Argument spec</a></p>
+<ul>
+<li><p><a class="reference internal" href="#type" id="id31">type</a></p></li>
+<li><p><a class="reference internal" href="#elements" id="id32">elements</a></p></li>
+<li><p><a class="reference internal" href="#default" id="id33">default</a></p></li>
+<li><p><a class="reference internal" href="#fallback" id="id34">fallback</a></p></li>
+<li><p><a class="reference internal" href="#choices" id="id35">choices</a></p></li>
+<li><p><a class="reference internal" href="#required" id="id36">required</a></p></li>
+<li><p><a class="reference internal" href="#no-log" id="id37">no_log</a></p></li>
+<li><p><a class="reference internal" href="#aliases" id="id38">aliases</a></p></li>
+<li><p><a class="reference internal" href="#options" id="id39">options</a></p></li>
+<li><p><a class="reference internal" href="#apply-defaults" id="id40">apply_defaults</a></p></li>
+<li><p><a class="reference internal" href="#removed-in-version" id="id41">removed_in_version</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2368,8 +2375,8 @@ modules.  All official modules (shipped with Ansible) use either this or the
 boilerplate module code, such as argument parsing, formatting of return
 values as <a class="reference internal" href="../reference_appendices/glossary.html#term-json"><span class="xref std std-term">JSON</span></a>, and various file operations.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In Ansible, up to version 2.0.x, the official Python modules used the
+<p class="admonition-title">Note</p>
+<p>In Ansible, up to version 2.0.x, the official Python modules used the
 <a class="reference internal" href="#module-replacer"><span class="std std-ref">Module Replacer framework</span></a> framework.  For module authors, <a class="reference internal" href="#ansiballz"><span class="std std-ref">Ansiballz framework</span></a> is
 largely a superset of <a class="reference internal" href="#module-replacer"><span class="std std-ref">Module Replacer framework</span></a> functionality, so you usually
 do not need to know about one versus the other.</p>
@@ -2394,8 +2401,8 @@ file.  The module typically sets a variable to that value like this:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Ansible outputs a <a class="reference internal" href="../reference_appendices/glossary.html#term-json"><span class="xref std std-term">JSON</span></a> string with bare quotes.  Double quotes are
+<p class="admonition-title">Note</p>
+<p>Ansible outputs a <a class="reference internal" href="../reference_appendices/glossary.html#term-json"><span class="xref std std-term">JSON</span></a> string with bare quotes.  Double quotes are
 used to quote string values, double quotes inside of string values are
 backslash escaped, and single quotes may appear unescaped inside of
 a string value.  To use JSONARGS, your scripting language must have a way
@@ -2421,8 +2428,8 @@ as a JSON encoded dictionary to stdout before exiting.</p>
 <p>These types of modules are self-contained entities.  As of Ansible 2.1, Ansible
 only modifies them to change a shebang line if present.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">Examples of Non-native modules written in ruby are in the <a class="reference external" href="https://github.com/ansible/ansible-for-rubyists">Ansible
+<p class="admonition-title">See also</p>
+<p>Examples of Non-native modules written in ruby are in the <a class="reference external" href="https://github.com/ansible/ansible-for-rubyists">Ansible
 for Rubyists</a> repository.</p>
 </div>
 </div>
@@ -2437,8 +2444,8 @@ library if that’s the only way they have to get access to certain resources.</
 <p>Binary modules take their arguments and will return data to Ansible in the same
 way as <a class="reference internal" href="#flow-want-json-modules"><span class="std std-ref">want JSON modules</span></a>.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">One example of a <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/test/integration/targets/binary_modules/library/helloworld.go">binary module</a>
+<p class="admonition-title">See also</p>
+<p>One example of a <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/test/integration/targets/binary_modules/library/helloworld.go">binary module</a>
 written in go.</p>
 </div>
 </div>
@@ -2475,27 +2482,27 @@ to that Action Plugin for further processing.</p>
 the primary coordinator of much of the work to actually execute the module on
 the managed machine.</p>
 <ul class="simple">
-<li>It takes care of creating a connection to the managed machine by
+<li><p>It takes care of creating a connection to the managed machine by
 instantiating a <code class="docutils literal notranslate"><span class="pre">Connection</span></code> class according to the inventory
-configuration for that host.</li>
-<li>It adds any internal Ansible variables to the module’s parameters (for
-instance, the ones that pass along <code class="docutils literal notranslate"><span class="pre">no_log</span></code> to the module).</li>
-<li>It takes care of creating any temporary files on the remote machine and
-cleans up afterwards.</li>
-<li>It does the actual work of pushing the module and module parameters to the
+configuration for that host.</p></li>
+<li><p>It adds any internal Ansible variables to the module’s parameters (for
+instance, the ones that pass along <code class="docutils literal notranslate"><span class="pre">no_log</span></code> to the module).</p></li>
+<li><p>It takes care of creating any temporary files on the remote machine and
+cleans up afterwards.</p></li>
+<li><p>It does the actual work of pushing the module and module parameters to the
 remote host, although the <a class="reference internal" href="#flow-executor-module-common"><span class="std std-ref">module_common</span></a>
 code described in the next section does the work of deciding which format
-those will take.</li>
-<li>It handles any special cases regarding modules (for instance, various
+those will take.</p></li>
+<li><p>It handles any special cases regarding modules (for instance, various
 complications around Windows modules that must have the same names as Python
-modules, so that internal calling of modules from other Action Plugins work.)</li>
+modules, so that internal calling of modules from other Action Plugins work.)</p></li>
 </ul>
 <p>Much of this functionality comes from the <cite>BaseAction</cite> class,
 which lives in <code class="file docutils literal notranslate"><span class="pre">plugins/action/__init__.py</span></code>.  It makes use of
 <code class="docutils literal notranslate"><span class="pre">Connection</span></code> and <code class="docutils literal notranslate"><span class="pre">Shell</span></code> objects to do its work.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">When <a class="reference internal" href="../reference_appendices/playbooks_keywords.html#term-tasks"><span class="xref std std-term">tasks</span></a> are run with the <code class="docutils literal notranslate"><span class="pre">async:</span></code> parameter, Ansible
+<p class="admonition-title">Note</p>
+<p>When <a class="reference internal" href="../reference_appendices/playbooks_keywords.html#term-tasks"><span class="xref std std-term">tasks</span></a> are run with the <code class="docutils literal notranslate"><span class="pre">async:</span></code> parameter, Ansible
 uses the <code class="docutils literal notranslate"><span class="pre">async</span></code> Action Plugin instead of the <code class="docutils literal notranslate"><span class="pre">normal</span></code> Action Plugin
 to invoke it.  That program flow is currently not documented.  Read the
 source for information on how that works.</p>
@@ -2529,47 +2536,49 @@ familiar with that programming language).  It does straight substitutions of
 specific substring patterns in the module file.  There are two types of
 substitutions:</p>
 <ul class="simple">
-<li>Replacements that only happen in the module file.  These are public
+<li><p>Replacements that only happen in the module file.  These are public
 replacement strings that modules can utilize to get helpful boilerplate or
-access to arguments.<ul>
-<li><code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">ansible.module_utils.MOD_LIB_NAME</span> <span class="pre">import</span> <span class="pre">*</span></code> is replaced with the
+access to arguments.</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">ansible.module_utils.MOD_LIB_NAME</span> <span class="pre">import</span> <span class="pre">*</span></code> is replaced with the
 contents of the <code class="file docutils literal notranslate"><span class="pre">ansible/module_utils/MOD_LIB_NAME.py</span></code>  These should
-only be used with <a class="reference internal" href="#flow-python-modules"><span class="std std-ref">new-style Python modules</span></a>.</li>
-<li><code class="code docutils literal notranslate"><span class="pre">#&lt;&lt;INCLUDE_ANSIBLE_MODULE_COMMON&gt;&gt;</span></code> is equivalent to
+only be used with <a class="reference internal" href="#flow-python-modules"><span class="std std-ref">new-style Python modules</span></a>.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">#&lt;&lt;INCLUDE_ANSIBLE_MODULE_COMMON&gt;&gt;</span></code> is equivalent to
 <code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">ansible.module_utils.basic</span> <span class="pre">import</span> <span class="pre">*</span></code> and should also only apply
-to new-style Python modules.</li>
-<li><code class="code docutils literal notranslate"><span class="pre">#</span> <span class="pre">POWERSHELL_COMMON</span></code> substitutes the contents of
+to new-style Python modules.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">#</span> <span class="pre">POWERSHELL_COMMON</span></code> substitutes the contents of
 <code class="file docutils literal notranslate"><span class="pre">ansible/module_utils/powershell.ps1</span></code>.  It should only be used with
-<a class="reference internal" href="#flow-powershell-modules"><span class="std std-ref">new-style Powershell modules</span></a>.</li>
+<a class="reference internal" href="#flow-powershell-modules"><span class="std std-ref">new-style Powershell modules</span></a>.</p></li>
 </ul>
 </li>
-<li>Replacements that are used by <code class="docutils literal notranslate"><span class="pre">ansible.module_utils</span></code> code.  These are internal
+<li><p>Replacements that are used by <code class="docutils literal notranslate"><span class="pre">ansible.module_utils</span></code> code.  These are internal
 replacement patterns.  They may be used internally, in the above public
-replacements, but shouldn’t be used directly by modules.<ul>
-<li><code class="code docutils literal notranslate"><span class="pre">&quot;&lt;&lt;ANSIBLE_VERSION&gt;&gt;&quot;</span></code> is substituted with the Ansible version.  In
+replacements, but shouldn’t be used directly by modules.</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&quot;&lt;&lt;ANSIBLE_VERSION&gt;&gt;&quot;</span></code> is substituted with the Ansible version.  In
 <a class="reference internal" href="#flow-python-modules"><span class="std std-ref">new-style Python modules</span></a> under the
 <a class="reference internal" href="#ansiballz"><span class="std std-ref">Ansiballz framework</span></a> framework the proper way is to instead instantiate an
 <cite>AnsibleModule</cite> and then access the version from
-:attr:<code class="docutils literal notranslate"><span class="pre">AnsibleModule.ansible_version</span></code>.</li>
-<li><code class="code docutils literal notranslate"><span class="pre">&quot;&lt;&lt;INCLUDE_ANSIBLE_MODULE_COMPLEX_ARGS&gt;&gt;&quot;</span></code> is substituted with
+:attr:<code class="docutils literal notranslate"><span class="pre">AnsibleModule.ansible_version</span></code>.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&quot;&lt;&lt;INCLUDE_ANSIBLE_MODULE_COMPLEX_ARGS&gt;&gt;&quot;</span></code> is substituted with
 a string which is the Python <code class="docutils literal notranslate"><span class="pre">repr</span></code> of the <a class="reference internal" href="../reference_appendices/glossary.html#term-json"><span class="xref std std-term">JSON</span></a> encoded module
 parameters.  Using <code class="docutils literal notranslate"><span class="pre">repr</span></code> on the JSON string makes it safe to embed in
 a Python file.  In new-style Python modules under the Ansiballz framework
 this is better accessed by instantiating an <cite>AnsibleModule</cite> and
-then using <a class="reference internal" href="../api/index.html#AnsibleModule.params" title="AnsibleModule.params"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AnsibleModule.params</span></code></a>.</li>
-<li><code class="code docutils literal notranslate"><span class="pre">&lt;&lt;SELINUX_SPECIAL_FILESYSTEMS&gt;&gt;</span></code> substitutes a string which is
+then using <a class="reference internal" href="../api/index.html#AnsibleModule.params" title="AnsibleModule.params"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AnsibleModule.params</span></code></a>.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;&lt;SELINUX_SPECIAL_FILESYSTEMS&gt;&gt;</span></code> substitutes a string which is
 a comma separated list of file systems which have a file system dependent
 security context in SELinux.  In new-style Python modules, if you really
 need this you should instantiate an <cite>AnsibleModule</cite> and then use
 <a class="reference internal" href="../api/index.html#AnsibleModule._selinux_special_fs" title="AnsibleModule._selinux_special_fs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AnsibleModule._selinux_special_fs</span></code></a>.  The variable has also changed
 from a comma separated string of file system names to an actual python
-list of filesystem names.</li>
-<li><code class="code docutils literal notranslate"><span class="pre">&lt;&lt;INCLUDE_ANSIBLE_MODULE_JSON_ARGS&gt;&gt;</span></code> substitutes the module
+list of filesystem names.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;&lt;INCLUDE_ANSIBLE_MODULE_JSON_ARGS&gt;&gt;</span></code> substitutes the module
 parameters as a JSON string.  Care must be taken to properly quote the
 string as JSON data may contain quotes.  This pattern is not substituted
 in new-style Python modules as they can get the module parameters another
-way.</li>
-<li>The string <code class="code docutils literal notranslate"><span class="pre">syslog.LOG_USER</span></code> is replaced wherever it occurs with the
+way.</p></li>
+<li><p>The string <code class="code docutils literal notranslate"><span class="pre">syslog.LOG_USER</span></code> is replaced wherever it occurs with the
 <code class="docutils literal notranslate"><span class="pre">syslog_facility</span></code> which was named in <code class="file docutils literal notranslate"><span class="pre">ansible.cfg</span></code> or any
 <code class="docutils literal notranslate"><span class="pre">ansible_syslog_facility</span></code> inventory variable that applies to this host.  In
 new-style Python modules this has changed slightly.  If you really need to
@@ -2577,7 +2586,7 @@ access it, you should instantiate an <cite>AnsibleModule</cite> and then use
 <a class="reference internal" href="../api/index.html#AnsibleModule._syslog_facility" title="AnsibleModule._syslog_facility"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AnsibleModule._syslog_facility</span></code></a> to access it.  It is no longer the
 actual syslog facility and is now the name of the syslog facility.  See
 the <a class="reference internal" href="#flow-internal-arguments"><span class="std std-ref">documentation on internal arguments</span></a>
-for details.</li>
+for details.</p></li>
 </ul>
 </li>
 </ul>
@@ -2598,14 +2607,14 @@ the temporary directory as well.  Then it sets the PYTHONPATH to find python
 modules inside of the zip file and invokes <strong class="command">python</strong> on the extracted
 ansible module.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Ansible wraps the zipfile in the Python script for two reasons:</p>
-<ul class="last simple">
-<li>for compatibility with Python 2.6 which has a less
-functional version of Python’s <code class="docutils literal notranslate"><span class="pre">-m</span></code> command line switch.</li>
-<li>so that pipelining will function properly.  Pipelining needs to pipe the
+<ul class="simple">
+<li><p>for compatibility with Python 2.6 which has a less
+functional version of Python’s <code class="docutils literal notranslate"><span class="pre">-m</span></code> command line switch.</p></li>
+<li><p>so that pipelining will function properly.  Pipelining needs to pipe the
 Python module into the Python interpreter on the remote node.  Python
-understands scripts on stdin but does not understand zip files.</li>
+understands scripts on stdin but does not understand zip files.</p></li>
 </ul>
 </div>
 <p>In Ansiballz, any imports of Python modules from the
@@ -2617,8 +2626,8 @@ Files that are included from <code class="file docutils literal notranslate"><sp
 imports of other Python modules from <code class="file docutils literal notranslate"><span class="pre">module_utils</span></code> to be included in
 the zipfile as well.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">At present, the Ansiballz Framework cannot determine whether an import
+<p class="admonition-title">Warning</p>
+<p>At present, the Ansiballz Framework cannot determine whether an import
 should be included if it is a relative import.  Always use an absolute
 import that has <a class="reference internal" href="../api/index.html#module-ansible.module_utils" title="ansible.module_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ansible.module_utils</span></code></a> in it to allow Ansiballz to
 determine that the file should be included.</p>
@@ -2635,8 +2644,8 @@ it parses this string and places the args into
 <a class="reference internal" href="../api/index.html#AnsibleModule.params" title="AnsibleModule.params"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AnsibleModule.params</span></code></a> where it can be accessed by the module’s
 other code.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Internally, the <cite>AnsibleModule</cite> uses the helper function,
+<p class="admonition-title">Note</p>
+<p>Internally, the <cite>AnsibleModule</cite> uses the helper function,
 <a class="reference internal" href="../api/index.html#ansible.module_utils.basic._load_params" title="ansible.module_utils.basic._load_params"><code class="xref py py-func docutils literal notranslate"><span class="pre">ansible.module_utils.basic._load_params()</span></code></a>, to load the parameters
 from stdin and save them into an internal global variable.  Very dynamic
 custom modules which need to parse the parameters prior to instantiating
@@ -2665,8 +2674,8 @@ it needs to check this value.  The best way to look at this is for the module
 to instantiate an <cite>AnsibleModule</cite> and then check the value of
 <a class="reference internal" href="../api/index.html#AnsibleModule.no_log" title="AnsibleModule.no_log"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AnsibleModule.no_log</span></code></a>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">no_log</span></code> specified in a module’s argument_spec are handled by a different mechanism.</p>
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">no_log</span></code> specified in a module’s argument_spec are handled by a different mechanism.</p>
 </div>
 </div>
 <div class="section" id="ansible-debug">
@@ -2712,7 +2721,7 @@ instantiate an <code class="docutils literal notranslate"><span class="pre">Ansi
 <a class="reference internal" href="#module-replacer"><span class="std std-ref">Module Replacer framework</span></a>.  In module replacer it was a comma separated string of
 filesystem names.  Under Ansiballz it’s an actual list.</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.1.</span></p>
+<p><span class="versionmodified added">New in version 2.1.</span></p>
 </div>
 </div>
 <div class="section" id="ansible-syslog-facility">
@@ -2736,7 +2745,7 @@ than it did under <a class="reference internal" href="#module-replacer"><span cl
 </pre></div>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.1.</span></p>
+<p><span class="versionmodified added">New in version 2.1.</span></p>
 </div>
 </div>
 <div class="section" id="ansible-version">
@@ -2747,7 +2756,7 @@ from <a class="reference internal" href="../api/index.html#AnsibleModule.ansible
 <a class="reference internal" href="../api/index.html#ansible.module_utils.basic.ANSIBLE_VERSION" title="ansible.module_utils.basic.ANSIBLE_VERSION"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ansible.module_utils.basic.ANSIBLE_VERSION</span></code></a> from
 <a class="reference internal" href="#module-replacer"><span class="std std-ref">Module Replacer framework</span></a>.</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.1.</span></p>
+<p><span class="versionmodified added">New in version 2.1.</span></p>
 </div>
 </div>
 </div>
@@ -2757,11 +2766,11 @@ from <a class="reference internal" href="../api/index.html#AnsibleModule.ansible
 <span id="flow-pipelining"></span><h4><a class="toc-backref" href="#id27">Pipelining</a><a class="headerlink" href="#pipelining" title="Permalink to this headline">¶</a></h4>
 <p>Ansible can transfer a module to a remote machine in one of two ways:</p>
 <ul class="simple">
-<li>it can write out the module to a temporary file on the remote host and then
+<li><p>it can write out the module to a temporary file on the remote host and then
 use a second connection to the remote host to execute it with the
-interpreter that the module needs</li>
-<li>or it can use what’s known as pipelining to execute the module by piping it
-into the remote interpreter’s stdin.</li>
+interpreter that the module needs</p></li>
+<li><p>or it can use what’s known as pipelining to execute the module by piping it
+into the remote interpreter’s stdin.</p></li>
 </ul>
 <p>Pipelining only works with modules written in Python at this time because
 Ansible only knows that Python supports this mode of operation.  Supporting
@@ -2772,15 +2781,15 @@ sent over the wire must be executable by Python via stdin.</p>
 <span id="flow-args-over-stdin"></span><h4><a class="toc-backref" href="#id28">Why pass args over stdin?</a><a class="headerlink" href="#why-pass-args-over-stdin" title="Permalink to this headline">¶</a></h4>
 <p>Passing arguments via stdin was chosen for the following reasons:</p>
 <ul class="simple">
-<li>When combined with <a class="reference internal" href="../reference_appendices/config.html#ansible-pipelining"><span class="std std-ref">ANSIBLE_PIPELINING</span></a>, this keeps the module’s arguments from
+<li><p>When combined with <a class="reference internal" href="../reference_appendices/config.html#ansible-pipelining"><span class="std std-ref">ANSIBLE_PIPELINING</span></a>, this keeps the module’s arguments from
 temporarily being saved onto disk on the remote machine.  This makes it
 harder (but not impossible) for a malicious user on the remote machine to
-steal any sensitive information that may be present in the arguments.</li>
-<li>Command line arguments would be insecure as most systems allow unprivileged
-users to read the full commandline of a process.</li>
-<li>Environment variables are usually more secure than the commandline but some
+steal any sensitive information that may be present in the arguments.</p></li>
+<li><p>Command line arguments would be insecure as most systems allow unprivileged
+users to read the full commandline of a process.</p></li>
+<li><p>Environment variables are usually more secure than the commandline but some
 systems limit the total size of the environment.  This could lead to
-truncation of the parameters if we hit that limit.</li>
+truncation of the parameters if we hit that limit.</p></li>
 </ul>
 </div>
 </div>
@@ -2808,18 +2817,18 @@ truncation of the parameters if we hit that limit.</li>
 <h5><a class="toc-backref" href="#id31">type</a><a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h5>
 <p><code class="docutils literal notranslate"><span class="pre">type</span></code> allows you to define the type of the value accepted for the argument. The default value for <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><span class="pre">str</span></code>. Possible values are:</p>
 <ul class="simple">
-<li>str</li>
-<li>list</li>
-<li>dict</li>
-<li>bool</li>
-<li>int</li>
-<li>float</li>
-<li>path</li>
-<li>raw</li>
-<li>jsonarg</li>
-<li>json</li>
-<li>bytes</li>
-<li>bits</li>
+<li><p>str</p></li>
+<li><p>list</p></li>
+<li><p>dict</p></li>
+<li><p>bool</p></li>
+<li><p>int</p></li>
+<li><p>float</p></li>
+<li><p>path</p></li>
+<li><p>raw</p></li>
+<li><p>jsonarg</p></li>
+<li><p>json</p></li>
+<li><p>bytes</p></li>
+<li><p>bits</p></li>
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">raw</span></code> type, performs no type validation or type casing, and maintains the type of the passed value.</p>
 </div>
@@ -2900,7 +2909,7 @@ truncation of the parameters if we hit that limit.</li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2270,31 +2270,31 @@
 <h2>Debugging (local)<a class="headerlink" href="#debugging-local" title="Permalink to this headline">¶</a></h2>
 <p>To break into a module running on <code class="docutils literal notranslate"><span class="pre">localhost</span></code> and step through with the debugger:</p>
 <ul class="simple">
-<li>Set a breakpoint in the module: <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pdb;</span> <span class="pre">pdb.set_trace()</span></code></li>
-<li>Run the module on the local machine: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pdb</span> <span class="pre">./my_new_test_module.py</span> <span class="pre">./args.json</span></code></li>
+<li><p>Set a breakpoint in the module: <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pdb;</span> <span class="pre">pdb.set_trace()</span></code></p></li>
+<li><p>Run the module on the local machine: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pdb</span> <span class="pre">./my_new_test_module.py</span> <span class="pre">./args.json</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="debugging-remote">
 <h2>Debugging (remote)<a class="headerlink" href="#debugging-remote" title="Permalink to this headline">¶</a></h2>
 <p>To debug a module running on a remote target (i.e. not <code class="docutils literal notranslate"><span class="pre">localhost</span></code>):</p>
 <ol class="arabic simple">
-<li>On your controller machine (running Ansible) set <code class="docutils literal notranslate"><span class="pre">ANSIBLE_KEEP_REMOTE_FILES=1</span></code> to tell Ansible to retain the modules it sends to the remote machine instead of removing them after you playbook runs.</li>
-<li>Run your playbook targeting the remote machine and specify <code class="docutils literal notranslate"><span class="pre">-vvvv</span></code> (verbose) to display the remote location Ansible is using for the modules (among many other things).</li>
-<li>Take note of the directory Ansible used to store modules on the remote host. This directory is usually under the home directory of your <code class="docutils literal notranslate"><span class="pre">ansible_ssh_user</span></code>, in the form <code class="docutils literal notranslate"><span class="pre">~/.ansible/tmp/ansible-tmp-...</span></code>.</li>
-<li>SSH into the remote target after the playbook runs.</li>
-<li>Navigate to the directory you noted in step 3.</li>
-<li>Extract the module you want to debug from the zipped file that Ansible sent to the remote host: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">my_test_module.py</span> <span class="pre">explode</span></code>. Ansible will expand the module into <code class="docutils literal notranslate"><span class="pre">./debug-dir</span></code>. You can optionally run the zipped file by specifying <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">my_test_module.py</span></code>.</li>
-<li>Navigate to the debug directory: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">cd</span> <span class="pre">debug-dir</span></code>.</li>
-<li>Modify or set a breakpoint in <code class="docutils literal notranslate"><span class="pre">ansible_module_my_test_module.py</span></code>.</li>
-<li>Ensure that the unzipped module is executable: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">chmod</span> <span class="pre">755</span> <span class="pre">ansible_module_my_test_module.py</span></code>.</li>
-<li>Run the unzipped module directly, passing the <code class="docutils literal notranslate"><span class="pre">args</span></code> file that contains the params that were originally passed: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">./ansible_module_my_test_module.py</span> <span class="pre">args</span></code>. This approach is good for reproducing behavior as well as modifying the parameters for debugging.</li>
+<li><p>On your controller machine (running Ansible) set <code class="docutils literal notranslate"><span class="pre">ANSIBLE_KEEP_REMOTE_FILES=1</span></code> to tell Ansible to retain the modules it sends to the remote machine instead of removing them after you playbook runs.</p></li>
+<li><p>Run your playbook targeting the remote machine and specify <code class="docutils literal notranslate"><span class="pre">-vvvv</span></code> (verbose) to display the remote location Ansible is using for the modules (among many other things).</p></li>
+<li><p>Take note of the directory Ansible used to store modules on the remote host. This directory is usually under the home directory of your <code class="docutils literal notranslate"><span class="pre">ansible_ssh_user</span></code>, in the form <code class="docutils literal notranslate"><span class="pre">~/.ansible/tmp/ansible-tmp-...</span></code>.</p></li>
+<li><p>SSH into the remote target after the playbook runs.</p></li>
+<li><p>Navigate to the directory you noted in step 3.</p></li>
+<li><p>Extract the module you want to debug from the zipped file that Ansible sent to the remote host: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">my_test_module.py</span> <span class="pre">explode</span></code>. Ansible will expand the module into <code class="docutils literal notranslate"><span class="pre">./debug-dir</span></code>. You can optionally run the zipped file by specifying <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">my_test_module.py</span></code>.</p></li>
+<li><p>Navigate to the debug directory: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">cd</span> <span class="pre">debug-dir</span></code>.</p></li>
+<li><p>Modify or set a breakpoint in <code class="docutils literal notranslate"><span class="pre">ansible_module_my_test_module.py</span></code>.</p></li>
+<li><p>Ensure that the unzipped module is executable: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">chmod</span> <span class="pre">755</span> <span class="pre">ansible_module_my_test_module.py</span></code>.</p></li>
+<li><p>Run the unzipped module directly, passing the <code class="docutils literal notranslate"><span class="pre">args</span></code> file that contains the params that were originally passed: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">./ansible_module_my_test_module.py</span> <span class="pre">args</span></code>. This approach is good for reproducing behavior as well as modifying the parameters for debugging.</p></li>
 </ol>
 </div>
 <div class="section" id="debugging-ansiblemodule-based-modules">
 <span id="id1"></span><h2>Debugging AnsibleModule-based modules<a class="headerlink" href="#debugging-ansiblemodule-based-modules" title="Permalink to this headline">¶</a></h2>
 <div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">If you’re using the <code class="file docutils literal notranslate"><span class="pre">hacking/test-module</span></code> script then most of this
+<p class="admonition-title">Tip</p>
+<p>If you’re using the <code class="file docutils literal notranslate"><span class="pre">hacking/test-module</span></code> script then most of this
 is taken care of for you.  If you need to do some debugging of the module
 on the remote machine that the module will actually run on or when the
 module is used in a playbook then you may need to use this information
@@ -2351,15 +2351,15 @@ string into some python files that you can work with:</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><code class="file docutils literal notranslate"><span class="pre">ansible_module_ping.py</span></code> is the code for the module itself.  The name
+<li><p><code class="file docutils literal notranslate"><span class="pre">ansible_module_ping.py</span></code> is the code for the module itself.  The name
 is based on the name of the module with a prefix so that we don’t clash with
 any other python module names.  You can modify this code to see what effect
-it would have on your module.</li>
-<li>The <code class="file docutils literal notranslate"><span class="pre">args</span></code> file contains a JSON string.  The string is a dictionary
+it would have on your module.</p></li>
+<li><p>The <code class="file docutils literal notranslate"><span class="pre">args</span></code> file contains a JSON string.  The string is a dictionary
 containing the module arguments and other variables that Ansible passes into
 the module to change its behaviour.  If you want to modify the parameters
-that are passed to the module, this is the file to do it in.</li>
-<li>The <code class="file docutils literal notranslate"><span class="pre">ansible</span></code> directory contains code from
+that are passed to the module, this is the file to do it in.</p></li>
+<li><p>The <code class="file docutils literal notranslate"><span class="pre">ansible</span></code> directory contains code from
 <a class="reference internal" href="../api/index.html#module-ansible.module_utils" title="ansible.module_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ansible.module_utils</span></code></a> that is used by the module.  Ansible includes
 files for any <a class="reference internal" href="../api/index.html#module-ansible.module_utils" title="ansible.module_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ansible.module_utils</span></code></a> imports in the module but not
 any files from any other module.  So if your module uses
@@ -2368,7 +2368,7 @@ your module includes <a class="reference external" href="http://docs.python-requ
 the python <a class="reference external" href="https://pypi.org/project/requests/">requests library</a> is installed on the system before running the
 module.  You can modify files in this directory if you suspect that the
 module is having a problem in some of this boilerplate code rather than in
-the module code you have written.</li>
+the module code you have written.</p></li>
 </ul>
 <p>Once you edit the code or arguments in the exploded tree you need some way to
 run it.  There’s a separate wrapper subcommand for this:</p>
@@ -2383,8 +2383,8 @@ until you understand the problem.  Then you can copy it back into your real
 module file and test that the real module works via <strong class="command">ansible</strong> or
 <strong class="command">ansible-playbook</strong>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The wrapper provides one more subcommand, <code class="docutils literal notranslate"><span class="pre">excommunicate</span></code>.  This
+<p class="admonition-title">Note</p>
+<p>The wrapper provides one more subcommand, <code class="docutils literal notranslate"><span class="pre">excommunicate</span></code>.  This
 subcommand is very similar to <code class="docutils literal notranslate"><span class="pre">execute</span></code> in that it invokes the exploded
 module on the arguments in the <code class="file docutils literal notranslate"><span class="pre">args</span></code>.  The way it does this is
 different, however.  <code class="docutils literal notranslate"><span class="pre">excommunicate</span></code> imports the <code class="docutils literal notranslate"><span class="pre">main</span></code>
@@ -2425,7 +2425,7 @@ limitations of <code class="docutils literal notranslate"><span class="pre">exco
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

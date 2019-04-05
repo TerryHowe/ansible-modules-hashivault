@@ -2270,21 +2270,22 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-2-2" id="id2">Ansible 2.2</a><ul>
-<li><a class="reference internal" href="#docker" id="id3">Docker</a></li>
-<li><a class="reference internal" href="#extras-split-from-core" id="id4">Extras split from Core</a></li>
-<li><a class="reference internal" href="#tweaks-fixes" id="id5">Tweaks/Fixes</a></li>
-<li><a class="reference internal" href="#aws" id="id6">AWS</a></li>
-<li><a class="reference internal" href="#google" id="id7">Google</a></li>
-<li><a class="reference internal" href="#openstack" id="id8">OpenStack</a></li>
-<li><a class="reference internal" href="#azure-load-balancer" id="id9">Azure load balancer</a></li>
-<li><a class="reference internal" href="#vmware" id="id10">VMware</a></li>
-<li><a class="reference internal" href="#windows" id="id11">Windows</a></li>
-<li><a class="reference internal" href="#network" id="id12">Network</a></li>
-<li><a class="reference internal" href="#role-revamp" id="id13">Role revamp</a></li>
-<li><a class="reference internal" href="#vault" id="id14">Vault</a></li>
-<li><a class="reference internal" href="#python3" id="id15">Python3</a></li>
-<li><a class="reference internal" href="#infrastructure-buildout-and-changes" id="id16">Infrastructure Buildout and Changes</a></li>
+<li><p><a class="reference internal" href="#ansible-2-2" id="id2">Ansible 2.2</a></p>
+<ul>
+<li><p><a class="reference internal" href="#docker" id="id3">Docker</a></p></li>
+<li><p><a class="reference internal" href="#extras-split-from-core" id="id4">Extras split from Core</a></p></li>
+<li><p><a class="reference internal" href="#tweaks-fixes" id="id5">Tweaks/Fixes</a></p></li>
+<li><p><a class="reference internal" href="#aws" id="id6">AWS</a></p></li>
+<li><p><a class="reference internal" href="#google" id="id7">Google</a></p></li>
+<li><p><a class="reference internal" href="#openstack" id="id8">OpenStack</a></p></li>
+<li><p><a class="reference internal" href="#azure-load-balancer" id="id9">Azure load balancer</a></p></li>
+<li><p><a class="reference internal" href="#vmware" id="id10">VMware</a></p></li>
+<li><p><a class="reference internal" href="#windows" id="id11">Windows</a></p></li>
+<li><p><a class="reference internal" href="#network" id="id12">Network</a></p></li>
+<li><p><a class="reference internal" href="#role-revamp" id="id13">Role revamp</a></p></li>
+<li><p><a class="reference internal" href="#vault" id="id14">Vault</a></p></li>
+<li><p><a class="reference internal" href="#python3" id="id15">Python3</a></p></li>
+<li><p><a class="reference internal" href="#infrastructure-buildout-and-changes" id="id16">Infrastructure Buildout and Changes</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2293,32 +2294,33 @@
 <h2><a class="toc-backref" href="#id3">Docker</a><a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h2>
 <p>Lead by Chris Houseknecht</p>
 <ul class="simple">
-<li>Docker_network: <strong>done</strong></li>
-<li>Docker_volume: Not in this release</li>
-<li>Docker_file: Not in this release.</li>
-<li>Openshift:&nbsp; oso_deployment, oso_route, oso_service, oso_login (…and possibly others. These are modules being developed to support <a class="reference external" href="https://github.com/ansible/ansible-container">ansible-container</a>.): Deferred for later release</li>
-<li>Kubernetes: kube_deployment, kube_service, kube_login (…and possibly others. These too are modules being developed to support <a class="reference external" href="https://github.com/ansible/ansible-container">ansible-container</a>): Deferred for later release</li>
+<li><p>Docker_network: <strong>done</strong></p></li>
+<li><p>Docker_volume: Not in this release</p></li>
+<li><p>Docker_file: Not in this release.</p></li>
+<li><p>Openshift:  oso_deployment, oso_route, oso_service, oso_login (…and possibly others. These are modules being developed to support <a class="reference external" href="https://github.com/ansible/ansible-container">ansible-container</a>.): Deferred for later release</p></li>
+<li><p>Kubernetes: kube_deployment, kube_service, kube_login (…and possibly others. These too are modules being developed to support <a class="reference external" href="https://github.com/ansible/ansible-container">ansible-container</a>): Deferred for later release</p></li>
 </ul>
 </div>
 <div class="section" id="extras-split-from-core">
 <h2><a class="toc-backref" href="#id4">Extras split from Core</a><a class="headerlink" href="#extras-split-from-core" title="Permalink to this headline">¶</a></h2>
 <p>Lead by Jason M and Jimi-c (Targeting 2.2, could move into 2.3).</p>
-<p>Targeted towards the 2.2 release or shortly after, we are planning on splitting Extras out of the “Ansible Core” project.&nbsp; That means that modules that are shipped with Ansible by default are <strong>only</strong> the modules in ansibl-modules-core.&nbsp; Ansible extras will become a separate project, managed by the community standard.&nbsp; Over the next few months we’re going to have a lot of work to do on getting all of the modules in the right places for this to work.</p>
+<p>Targeted towards the 2.2 release or shortly after, we are planning on splitting Extras out of the “Ansible Core” project.  That means that modules that are shipped with Ansible by default are <strong>only</strong> the modules in ansibl-modules-core.  Ansible extras will become a separate project, managed by the community standard.  Over the next few months we’re going to have a lot of work to do on getting all of the modules in the right places for this to work.</p>
 <ul class="simple">
-<li>Create proposal (Jason or Jimi)</li>
-<li>Review modules for correct location (extras v core)</li>
-<li>Extras is a completely different package (does not install with ansible)</li>
-<li>Library dependencies</li>
-<li>Decide and implement release schedules between Ansible Core and Extras to ensure compatibility and longevity for modules and versions of Ansible.</li>
+<li><p>Create proposal (Jason or Jimi)</p></li>
+<li><p>Review modules for correct location (extras v core)</p></li>
+<li><p>Extras is a completely different package (does not install with ansible)</p></li>
+<li><p>Library dependencies</p></li>
+<li><p>Decide and implement release schedules between Ansible Core and Extras to ensure compatibility and longevity for modules and versions of Ansible.</p></li>
 </ul>
 </div>
 <div class="section" id="tweaks-fixes">
 <h2><a class="toc-backref" href="#id5">Tweaks/Fixes</a><a class="headerlink" href="#tweaks-fixes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Connection handling stuff. (Toshio K. and Brian C.): This is a stretch goal for 2.2.&nbsp; <strong>This work got pushed out</strong><ul>
-<li>Change connection polling to avoid resource limitations, see <a class="reference external" href="https://github.com/ansible/ansible/issues/14143">https://github.com/ansible/ansible/issues/14143</a></li>
-<li><a class="reference external" href="https://docs.python.org/3/library/selectors.html#module-selectors">https://docs.python.org/3/library/selectors.html#module-selectors</a></li>
-<li>Code: <a class="reference external" href="https://github.com/kai11/ansible/blob/fix/select_fd_out_of_range_wip/lib/ansible/plugins/connection/ssh.py">https://github.com/kai11/ansible/blob/fix/select_fd_out_of_range_wip/lib/ansible/plugins/connection/ssh.py</a></li>
+<li><p>Connection handling stuff. (Toshio K. and Brian C.): This is a stretch goal for 2.2.  <strong>This work got pushed out</strong></p>
+<ul>
+<li><p>Change connection polling to avoid resource limitations, see <a class="reference external" href="https://github.com/ansible/ansible/issues/14143">https://github.com/ansible/ansible/issues/14143</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/selectors.html#module-selectors">https://docs.python.org/3/library/selectors.html#module-selectors</a></p></li>
+<li><p>Code: <a class="reference external" href="https://github.com/kai11/ansible/blob/fix/select_fd_out_of_range_wip/lib/ansible/plugins/connection/ssh.py">https://github.com/kai11/ansible/blob/fix/select_fd_out_of_range_wip/lib/ansible/plugins/connection/ssh.py</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2327,21 +2329,21 @@
 <h2><a class="toc-backref" href="#id6">AWS</a><a class="headerlink" href="#aws" title="Permalink to this headline">¶</a></h2>
 <p>Lead by Ryan Brown</p>
 <ul class="simple">
-<li>Pagination for all AWS modules (generic pagination exists, but isn’t used everywhere) (bumped to 2.3)</li>
-<li>Refactoring ec2.py to be more digestible (bumped to 2.3)</li>
-<li>Fix inconsistencies with different authentication methods (STS, environment creds, ~/.aws/credentials) (done)</li>
-<li>AWS Lambda modules (lambda_execute done, others pending)</li>
-<li>Ryan Brown and Robyn Bergeron work on bug/PR triage to reduce backlog (reduced - continuing to work on it)</li>
+<li><p>Pagination for all AWS modules (generic pagination exists, but isn’t used everywhere) (bumped to 2.3)</p></li>
+<li><p>Refactoring ec2.py to be more digestible (bumped to 2.3)</p></li>
+<li><p>Fix inconsistencies with different authentication methods (STS, environment creds, ~/.aws/credentials) (done)</p></li>
+<li><p>AWS Lambda modules (lambda_execute done, others pending)</p></li>
+<li><p>Ryan Brown and Robyn Bergeron work on bug/PR triage to reduce backlog (reduced - continuing to work on it)</p></li>
 </ul>
 </div>
 <div class="section" id="google">
 <h2><a class="toc-backref" href="#id7">Google</a><a class="headerlink" href="#google" title="Permalink to this headline">¶</a></h2>
 <p>Lead by Ryan Brown and Tom Melendez</p>
 <ul class="simple">
-<li>Add support for Google Cloud DNS</li>
-<li>Add support for Google Cloud managed instance groups (done)</li>
-<li>Support restoring instances from snapshots</li>
-<li>Improved handling of scratch disks on instances (done)</li>
+<li><p>Add support for Google Cloud DNS</p></li>
+<li><p>Add support for Google Cloud managed instance groups (done)</p></li>
+<li><p>Support restoring instances from snapshots</p></li>
+<li><p>Improved handling of scratch disks on instances (done)</p></li>
 </ul>
 </div>
 <div class="section" id="openstack">
@@ -2349,45 +2351,47 @@
 <p>Lead by Ryan Brown</p>
 <p>Stretch goal for this release</p>
 <ul class="simple">
-<li>Ryan with some help from David Shrewsbury (Zuul/Openstack at RedHat).</li>
-<li>Support Heat stack resources (done)</li>
-<li>Support LBaaS load balancers</li>
+<li><p>Ryan with some help from David Shrewsbury (Zuul/Openstack at RedHat).</p></li>
+<li><p>Support Heat stack resources (done)</p></li>
+<li><p>Support LBaaS load balancers</p></li>
 </ul>
 </div>
 <div class="section" id="azure-load-balancer">
 <h2><a class="toc-backref" href="#id9">Azure load balancer</a><a class="headerlink" href="#azure-load-balancer" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Feature parity for AWS ELB (Stretch Goal)</li>
+<li><p>Feature parity for AWS ELB (Stretch Goal)</p></li>
 </ul>
 </div>
 <div class="section" id="vmware">
 <h2><a class="toc-backref" href="#id10">VMware</a><a class="headerlink" href="#vmware" title="Permalink to this headline">¶</a></h2>
 <p>Lead by Brian, Jtanner</p>
 <ul class="simple">
-<li><em>module/inventory script: port to pyvmomi (jtanner, bcoca)</em>
-<strong>done:</strong> <a class="reference external" href="https://github.com/ansible/ansible/pull/15967">https://github.com/ansible/ansible/pull/15967</a></li>
-<li><em>inventory script: allow filtering ala ec2 (jtanner) (undergoing PR process)</em>
-<strong>done:</strong> <a class="reference external" href="https://github.com/ansible/ansible/pull/15967">https://github.com/ansible/ansible/pull/15967</a></li>
-<li>vsphere: feature parity with whereismyjetpack and viasat modules</li>
+<li><p><em>module/inventory script: port to pyvmomi (jtanner, bcoca)</em>
+<strong>done:</strong> <a class="reference external" href="https://github.com/ansible/ansible/pull/15967">https://github.com/ansible/ansible/pull/15967</a></p></li>
+<li><p><em>inventory script: allow filtering ala ec2 (jtanner) (undergoing PR process)</em>
+<strong>done:</strong> <a class="reference external" href="https://github.com/ansible/ansible/pull/15967">https://github.com/ansible/ansible/pull/15967</a></p></li>
+<li><p>vsphere: feature parity with whereismyjetpack and viasat modules</p></li>
 </ul>
 </div>
 <div class="section" id="windows">
 <h2><a class="toc-backref" href="#id11">Windows</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
 <p>Lead by Matt D</p>
 <ul class="simple">
-<li>Feature parity<ul>
-<li>PS module API (mirror Python module API where appropriate). Note: We don’t necessarily like the current python module API (AnsibleModule is a huge class with many unrelated utility functions.&nbsp; Maybe we should redesign both at the same time?) (bumped to 2.3+ due to “moving target” uncertainty)</li>
-<li>Environment keyword support&nbsp;(done)</li>
-<li>win_shell/win_command (done)</li>
-<li>Async support&nbsp;(done)</li>
-<li>(stretch goal) Pipelining&nbsp;(bumped to 2.3+)</li>
+<li><p>Feature parity</p>
+<ul>
+<li><p>PS module API (mirror Python module API where appropriate). Note: We don’t necessarily like the current python module API (AnsibleModule is a huge class with many unrelated utility functions.  Maybe we should redesign both at the same time?) (bumped to 2.3+ due to “moving target” uncertainty)</p></li>
+<li><p>Environment keyword support (done)</p></li>
+<li><p>win_shell/win_command (done)</p></li>
+<li><p>Async support (done)</p></li>
+<li><p>(stretch goal) Pipelining (bumped to 2.3+)</p></li>
 </ul>
 </li>
-<li>Windows-specific enhancements<ul>
-<li>Multiple Kerberos credential support (done)</li>
-<li>Server 2016 testing/fixes&nbsp;(done, awaiting next TP/RTM)</li>
-<li>(stretch goal) Nano Server connection + module_utils working (bumped to 2.3)</li>
-<li>(stretch goal) Encrypted kerberos support in pywinrm&nbsp;(bumped to 2.3)</li>
+<li><p>Windows-specific enhancements</p>
+<ul>
+<li><p>Multiple Kerberos credential support (done)</p></li>
+<li><p>Server 2016 testing/fixes (done, awaiting next TP/RTM)</p></li>
+<li><p>(stretch goal) Nano Server connection + module_utils working (bumped to 2.3)</p></li>
+<li><p>(stretch goal) Encrypted kerberos support in pywinrm (bumped to 2.3)</p></li>
 </ul>
 </li>
 </ul>
@@ -2396,25 +2400,26 @@
 <h2><a class="toc-backref" href="#id12">Network</a><a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
 <p>Lead by Nate C, Peter S</p>
 <ul class="simple">
-<li><strong>Done:</strong> Unify NetworkModules (module_utils/network.py) as much as possible</li>
-<li><strong>Done:</strong> Add support for config diff and replace on supported platforms (2 weeks)</li>
-<li><strong>Done:</strong> Support for VyOS network operating system</li>
-<li><strong>Done:</strong> Add support for RestConf for IOS/XE</li>
-<li><strong>Done:</strong> Support for Dell Networking OS10</li>
-<li><strong>Done:</strong> Add support for Nokia SR OS modules</li>
-<li><strong>Done:</strong> Network facts modules&nbsp;(dellos, eos, ios, iosxr, junos, nxos, openswitch, vyos)</li>
-<li><strong>Deferred:</strong> Network facts modules&nbsp;(cumulus, netvisor, sros)</li>
-<li><strong>Deferred:</strong> Add support for NetConf for IOS/XE</li>
-<li><strong>Deferred:</strong> (stretch goal) Quagga modules</li>
-<li><strong>Deferred:</strong> (stretch goal) Bird modules</li>
-<li><strong>Deferred:</strong> (stretch goal) GoBGP modules</li>
+<li><p><strong>Done:</strong> Unify NetworkModules (module_utils/network.py) as much as possible</p></li>
+<li><p><strong>Done:</strong> Add support for config diff and replace on supported platforms (2 weeks)</p></li>
+<li><p><strong>Done:</strong> Support for VyOS network operating system</p></li>
+<li><p><strong>Done:</strong> Add support for RestConf for IOS/XE</p></li>
+<li><p><strong>Done:</strong> Support for Dell Networking OS10</p></li>
+<li><p><strong>Done:</strong> Add support for Nokia SR OS modules</p></li>
+<li><p><strong>Done:</strong> Network facts modules (dellos, eos, ios, iosxr, junos, nxos, openswitch, vyos)</p></li>
+<li><p><strong>Deferred:</strong> Network facts modules (cumulus, netvisor, sros)</p></li>
+<li><p><strong>Deferred:</strong> Add support for NetConf for IOS/XE</p></li>
+<li><p><strong>Deferred:</strong> (stretch goal) Quagga modules</p></li>
+<li><p><strong>Deferred:</strong> (stretch goal) Bird modules</p></li>
+<li><p><strong>Deferred:</strong> (stretch goal) GoBGP modules</p></li>
 </ul>
 </div>
 <div class="section" id="role-revamp">
 <h2><a class="toc-backref" href="#id13">Role revamp</a><a class="headerlink" href="#role-revamp" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Implement ‘role revamp’ proposal to give users more control on role/task execution (Brian)<ul>
-<li><strong>https://github.com/ansible/proposals/blob/master/roles_revamp.md</strong></li>
+<li><p>Implement ‘role revamp’ proposal to give users more control on role/task execution (Brian)</p>
+<ul>
+<li><p><strong>https://github.com/ansible/proposals/blob/master/roles_revamp.md</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -2423,13 +2428,13 @@
 <h2><a class="toc-backref" href="#id14">Vault</a><a class="headerlink" href="#vault" title="Permalink to this headline">¶</a></h2>
 <p>Lead by Jtanner, Adrian</p>
 <ul class="simple">
-<li><em>Extend ‘transparent vault file usage’ to other action plugins other than ‘copy’(https://github.com/ansible/ansible/issues/7298)</em>
-<strong>done:</strong> <a class="reference external" href="https://github.com/ansible/ansible/pull/16957">https://github.com/ansible/ansible/pull/16957</a></li>
-<li>Add ‘per variable’ vault support (!vault YAML directive, existing PR already) <a class="reference external" href="https://github.com/ansible/ansible/issues/13287">https://github.com/ansible/ansible/issues/13287</a> <a class="reference external" href="https://github.com/ansible/ansible/issues/14721">https://github.com/ansible/ansible/issues/14721</a></li>
-<li>Add vault/unvault filters <a class="reference external" href="https://github.com/ansible/ansible/issues/12087">https://github.com/ansible/ansible/issues/12087</a> (deferred to 2.3)</li>
-<li>Add vault support to lookups (likely deferred to 2.3 or until lookup plugins are revamped)</li>
-<li>Allow for multiple vault secrets <a class="reference external" href="https://github.com/ansible/ansible/issues/13243">https://github.com/ansible/ansible/issues/13243</a></li>
-<li>Config option to turn ‘unvaulting’ failures into warnings <a class="reference external" href="https://github.com/ansible/ansible/issues/13244">https://github.com/ansible/ansible/issues/13244</a></li>
+<li><p><em>Extend ‘transparent vault file usage’ to other action plugins other than ‘copy’(https://github.com/ansible/ansible/issues/7298)</em>
+<strong>done:</strong> <a class="reference external" href="https://github.com/ansible/ansible/pull/16957">https://github.com/ansible/ansible/pull/16957</a></p></li>
+<li><p>Add ‘per variable’ vault support (!vault YAML directive, existing PR already) <a class="reference external" href="https://github.com/ansible/ansible/issues/13287">https://github.com/ansible/ansible/issues/13287</a> <a class="reference external" href="https://github.com/ansible/ansible/issues/14721">https://github.com/ansible/ansible/issues/14721</a></p></li>
+<li><p>Add vault/unvault filters <a class="reference external" href="https://github.com/ansible/ansible/issues/12087">https://github.com/ansible/ansible/issues/12087</a> (deferred to 2.3)</p></li>
+<li><p>Add vault support to lookups (likely deferred to 2.3 or until lookup plugins are revamped)</p></li>
+<li><p>Allow for multiple vault secrets <a class="reference external" href="https://github.com/ansible/ansible/issues/13243">https://github.com/ansible/ansible/issues/13243</a></p></li>
+<li><p>Config option to turn ‘unvaulting’ failures into warnings <a class="reference external" href="https://github.com/ansible/ansible/issues/13244">https://github.com/ansible/ansible/issues/13244</a></p></li>
 </ul>
 </div>
 <div class="section" id="python3">
@@ -2437,44 +2442,50 @@
 <p>Lead by Toshio</p>
 <p>A note here from Jason M: Getting to complete, tested Python 3 is both
 a critical task and one that has so much work and so many moving parts
-that we don’t expect this to be complete by the 2.2 release.&nbsp; Toshio will
+that we don’t expect this to be complete by the 2.2 release.  Toshio will
 lead this overall effort.</p>
 <ul class="simple">
-<li>Motivation:
-- Ubuntu LTS (16.04) already ships without python2.&nbsp; RHEL8 is coming which is also expected to be python3 based.  These considerations make this high priority.
+<li><p>Motivation:
+- Ubuntu LTS (16.04) already ships without python2.  RHEL8 is coming which is also expected to be python3 based.  These considerations make this high priority.
 - Ansible users are getting restless: <a class="reference external" href="https://groups.google.com/forum/#!topic/ansible-project/DUKzTho3OCI">https://groups.google.com/forum/#!topic/ansible-project/DUKzTho3OCI</a>
-- This is probably going to take multiple releases to complete; need to get started now</li>
-<li>Baselines:
-- We’re targeting Python-3.5 and above.</li>
-<li>Goals for 2.2:<ul>
-<li>Tech preview level of support</li>
-<li>Controller-side code can run on Python3</li>
-<li>Update: Essential features have been shown to work on Python3.
+- This is probably going to take multiple releases to complete; need to get started now</p></li>
+<li><p>Baselines:
+- We’re targeting Python-3.5 and above.</p></li>
+<li><p>Goals for 2.2:</p>
+<ul>
+<li><p>Tech preview level of support</p></li>
+<li><p>Controller-side code can run on Python3</p></li>
+<li><p>Update: Essential features have been shown to work on Python3.
 Currently all unittests and all but three integration tests are
 passing on Python3.  Code has not been line-by-line audited so bugs
-remain but can be treated as bugs, not as massive, invasive new features.</li>
-<li>Almost all of our deps have been ported:<ul>
-<li>The base deps in setup.py are ported: [‘paramiko’, ‘jinja2’, “PyYAML”, ‘setuptools’, ‘pycrypto &amp;gt;= 2.6’]</li>
-<li>python-six from the rpm spec file has been ported</li>
-<li>Python-keyczar from the rpm spec file is not.</li>
-<li>Strategy: removing keyczar when we drop accelerate for 2.3. Print deprecation in 2.1.</li>
+remain but can be treated as bugs, not as massive, invasive new features.</p></li>
+<li><p>Almost all of our deps have been ported:</p>
+<ul>
+<li><p>The base deps in setup.py are ported: [‘paramiko’, ‘jinja2’, “PyYAML”, ‘setuptools’, ‘pycrypto &amp;gt;= 2.6’]</p></li>
+<li><p>python-six from the rpm spec file has been ported</p></li>
+<li><p>Python-keyczar from the rpm spec file is not.</p></li>
+<li><p>Strategy: removing keyczar when we drop accelerate for 2.3. Print deprecation in 2.1.</p></li>
 </ul>
 </li>
-<li>Module_utils ported to dual python3/python2(2.4 for much of it, python2.6 for specific things)
+<li><p>Module_utils ported to dual python3/python2(2.4 for much of it, python2.6 for specific things)
 <strong>Mostly done:</strong>  Also not line-by-line audited but the unittests
-and integration tests do show that the most use functionality is working.</li>
-<li>Add module_utils files to help port<ul>
-<li>Update: copy of the six library (v1.4.1 for python2.4 compat) and unicode helpers are here (ansible.module_utils._text.{to_bytes,to_text,to_native})</li>
+and integration tests do show that the most use functionality is working.</p></li>
+<li><p>Add module_utils files to help port</p>
+<ul>
+<li><p>Update: copy of the six library (v1.4.1 for python2.4 compat) and unicode helpers are here (ansible.module_utils._text.{to_bytes,to_text,to_native})</p></li>
 </ul>
 </li>
-<li>A few basic modules ported to python3<ul>
-<li>Stat module best example module since it’s essential.</li>
-<li>Update:<ul>
-<li>A handful of modules like stat have been line-by-line ported.  They should work reliably with few python3-specific bugs.  All but three integration tests pass which means that most essential modules are working to some extent on Python3.<ul>
-<li>The three failing tests are: service, hg, and uri.</li>
-<li><dl class="first docutils">
-<dt>Note, large swaths of the modules are not tested.  The status of</dt>
-<dd>these is unknown</dd>
+<li><p>A few basic modules ported to python3</p>
+<ul>
+<li><p>Stat module best example module since it’s essential.</p></li>
+<li><p>Update:</p>
+<ul>
+<li><p>A handful of modules like stat have been line-by-line ported.  They should work reliably with few python3-specific bugs.  All but three integration tests pass which means that most essential modules are working to some extent on Python3.</p>
+<ul>
+<li><p>The three failing tests are: service, hg, and uri.</p></li>
+<li><dl class="simple">
+<dt>Note, large swaths of the modules are not tested.  The status of</dt><dd><p>these is unknown</p>
+</dd>
 </dl>
 </li>
 </ul>
@@ -2483,18 +2494,19 @@ and integration tests do show that the most use functionality is working.</li>
 </li>
 </ul>
 </li>
-<li>All code should compile under Python3.
-- lib/ansible/* and all modules now compile under Python-3.5</li>
-<li>Side work to do:
-- Figure out best ways to run unit-tests on modules.&nbsp; Start unit-testing modules.&nbsp; This is going to become important so we don’t regress python3 or python2.4 support in modules&nbsp; (Going to largely punt on this for 2.2.&nbsp; Matt Clay is working on building us a testing foundation for the first half of 2.2 development so we’ll re-evaluate towards the middle of the dev cycle).
+<li><p>All code should compile under Python3.
+- lib/ansible/* and all modules now compile under Python-3.5</p></li>
+<li><p>Side work to do:
+- Figure out best ways to run unit-tests on modules.  Start unit-testing modules.  This is going to become important so we don’t regress python3 or python2.4 support in modules  (Going to largely punt on this for 2.2.  Matt Clay is working on building us a testing foundation for the first half of 2.2 development so we’ll re-evaluate towards the middle of the dev cycle).
 - More unit tests of module_utils
-- More integration tests.  Currently integration tests are the best way to test ansible modules so we have to rely on those.</li>
-<li>Goals for 2.3:<ul>
-<li>Bugfixing, bugfixing, bugfixing.  We need community members to test,
+- More integration tests.  Currently integration tests are the best way to test ansible modules so we have to rely on those.</p></li>
+<li><p>Goals for 2.3:</p>
+<ul>
+<li><p>Bugfixing, bugfixing, bugfixing.  We need community members to test,
 submit bugs, and add new unit and integration tests.  I’ll have some
 time allocated both to review any Python3 bugfixes that they submit
 and to work on bug reports without PRs.  The overall goal is to make
-the things that people do in production with Ansible work on Python 3.</li>
+the things that people do in production with Ansible work on Python 3.</p></li>
 </ul>
 </li>
 </ul>
@@ -2504,34 +2516,33 @@ the things that people do in production with Ansible work on Python 3.</li>
 <div class="section" id="infrastructure-buildout-and-changes">
 <h2><a class="toc-backref" href="#id16">Infrastructure Buildout and Changes</a><a class="headerlink" href="#infrastructure-buildout-and-changes" title="Permalink to this headline">¶</a></h2>
 <p>Lead by Matt Clay</p>
-<p>Another note from Jason M: A lot of this work is to ease the burden of CI, CI performance, increase our testing coverage and all of that sort of thing.&nbsp; It’s not necessarily feature work, but it’s **critical** to growing our product and our ability to get community changes in more securely and quickly.</p>
+<p>Another note from Jason M: A lot of this work is to ease the burden of CI, CI performance, increase our testing coverage and all of that sort of thing.  It’s not necessarily feature work, but it’s **critical** to growing our product and our ability to get community changes in more securely and quickly.</p>
 <ul>
-<li><p class="first"><strong>CI Performance</strong>
+<li><p><strong>CI Performance</strong>
 Reduce time spent waiting on CI for PRs. Combination of optimizing existing Travis setup and offloading work to other services. Will be impacted by available budget.</p>
 <p><strong>Done:</strong> Most tests have been migrated from Travis to Shippable.</p>
 </li>
-<li><p class="first"><strong>Core Module Test Organization</strong>
+<li><p><strong>Core Module Test Organization</strong>
 Relocate core module tests to ansible-modules-core to encourage inclusion of tests in core module PRs.</p>
 <p><strong>Deferred:</strong> Relocation of core module tests has been deferred due to proposed changes in <a class="reference external" href="https://github.com/ansible/proposals/blob/master/modules-management.md">modules management</a>.</p>
 </li>
-<li><p class="first"><strong>Documentation</strong>
-Expand documentation on setting up a development and test environment, as well as writing tests. The goal is to ease development for new contributors and encourage more testing, particularly with module contributions.</p>
-</li>
-<li><p class="first"><strong>Test Coverage</strong></p>
+<li><p><strong>Documentation</strong>
+Expand documentation on setting up a development and test environment, as well as writing tests. The goal is to ease development for new contributors and encourage more testing, particularly with module contributions.</p></li>
+<li><p><strong>Test Coverage</strong></p>
 <ul>
-<li><p class="first">Expand test coverage, particularly for CI. Being testing, this is open ended. Will be impacted by available budget.</p>
+<li><p>Expand test coverage, particularly for CI. Being testing, this is open ended. Will be impacted by available budget.</p>
 <p><strong>Done:</strong> Module PRs now run integration tests for the module(s) being changed.</p>
 </li>
-<li><p class="first">Python 3 - Run integration tests using Python 3 on CI with tagging for those which should pass, so we can track progress and detect regressions.</p>
+<li><p>Python 3 - Run integration tests using Python 3 on CI with tagging for those which should pass, so we can track progress and detect regressions.</p>
 <p><strong>Done:</strong> Integration tests now run on Shippable using a Ubuntu 16.04 docker image with only Python 3 installed.</p>
 </li>
-<li><p class="first">Windows - Create framework for running Windows integration tests, ideally both locally and on CI.</p>
+<li><p>Windows - Create framework for running Windows integration tests, ideally both locally and on CI.</p>
 <p><strong>Done:</strong> Windows integration tests now run on Shippable.</p>
 </li>
-<li><p class="first">FreeBSD - Include FreeBSD in CI coverage. Not originally on the roadmap, this is an intermediary step for CI coverage for macOS.</p>
+<li><p>FreeBSD - Include FreeBSD in CI coverage. Not originally on the roadmap, this is an intermediary step for CI coverage for macOS.</p>
 <p><strong>Done:</strong> FreeBSD integration tests now run on Shippable.</p>
 </li>
-<li><p class="first">macOS - Include macOS in CI coverage.</p>
+<li><p>macOS - Include macOS in CI coverage.</p>
 <p><strong>Done:</strong> macOS integration tests now run on Shippable.</p>
 </li>
 </ul>
@@ -2566,7 +2577,7 @@ Expand documentation on setting up a development and test environment, as well a
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

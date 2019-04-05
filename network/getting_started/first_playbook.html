@@ -2270,12 +2270,13 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#run-your-first-command-and-playbook" id="id1">Run Your First Command and Playbook</a><ul>
-<li><a class="reference internal" href="#prerequisites" id="id2">Prerequisites</a></li>
-<li><a class="reference internal" href="#install-ansible" id="id3">Install Ansible</a></li>
-<li><a class="reference internal" href="#establish-a-manual-connection-to-a-managed-node" id="id4">Establish a Manual Connection to a Managed Node</a></li>
-<li><a class="reference internal" href="#run-your-first-network-ansible-command" id="id5">Run Your First Network Ansible Command</a></li>
-<li><a class="reference internal" href="#create-and-run-your-first-network-ansible-playbook" id="id6">Create and Run Your First Network Ansible Playbook</a></li>
+<li><p><a class="reference internal" href="#run-your-first-command-and-playbook" id="id1">Run Your First Command and Playbook</a></p>
+<ul>
+<li><p><a class="reference internal" href="#prerequisites" id="id2">Prerequisites</a></p></li>
+<li><p><a class="reference internal" href="#install-ansible" id="id3">Install Ansible</a></p></li>
+<li><p><a class="reference internal" href="#establish-a-manual-connection-to-a-managed-node" id="id4">Establish a Manual Connection to a Managed Node</a></p></li>
+<li><p><a class="reference internal" href="#run-your-first-network-ansible-command" id="id5">Run Your First Network Ansible Command</a></p></li>
+<li><p><a class="reference internal" href="#create-and-run-your-first-network-ansible-playbook" id="id6">Create and Run Your First Network Ansible Playbook</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2284,10 +2285,10 @@
 <h2><a class="toc-backref" href="#id2">Prerequisites</a><a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>Before you work through this tutorial you need:</p>
 <ul class="simple">
-<li>Ansible 2.5 (or higher) installed</li>
-<li>One or more network devices that are compatible with Ansible</li>
-<li>Basic Linux command line knowledge</li>
-<li>Basic knowledge of network switch &amp; router configuration</li>
+<li><p>Ansible 2.5 (or higher) installed</p></li>
+<li><p>One or more network devices that are compatible with Ansible</p></li>
+<li><p>Basic Linux command line knowledge</p></li>
+<li><p>Basic knowledge of network switch &amp; router configuration</p></li>
 </ul>
 </div>
 <div class="section" id="install-ansible">
@@ -2314,16 +2315,15 @@ show config
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible all -i vyos.example.net, -c network_cli -u my_vyos_user -k -m vyos_facts -e <span class="nv">ansible_network_os</span><span class="o">=</span>vyos
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>The flags in this command set seven values:</dt>
-<dd><ul class="first last simple">
-<li>the host group(s) to which the command should apply (in this case, all)</li>
-<li>the inventory (-i, the device or devices to target - without the trailing comma -i points to an inventory file)</li>
-<li>the connection method (-c, the method for connecting and executing ansible)</li>
-<li>the user (-u, the username for the SSH connection)</li>
-<li>the SSH connection method (-k, please prompt for the password)</li>
-<li>the module (-m, the ansible module to run)</li>
-<li>an extra variable ( -e, in this case, setting the network OS value)</li>
+<dl class="simple">
+<dt>The flags in this command set seven values:</dt><dd><ul class="simple">
+<li><p>the host group(s) to which the command should apply (in this case, all)</p></li>
+<li><p>the inventory (-i, the device or devices to target - without the trailing comma -i points to an inventory file)</p></li>
+<li><p>the connection method (-c, the method for connecting and executing ansible)</p></li>
+<li><p>the user (-u, the username for the SSH connection)</p></li>
+<li><p>the SSH connection method (-k, please prompt for the password)</p></li>
+<li><p>the module (-m, the ansible module to run)</p></li>
+<li><p>an extra variable ( -e, in this case, setting the network OS value)</p></li>
 </ul>
 </dd>
 </dl>
@@ -2333,7 +2333,7 @@ show config
 <h2><a class="toc-backref" href="#id6">Create and Run Your First Network Ansible Playbook</a><a class="headerlink" href="#create-and-run-your-first-network-ansible-playbook" title="Permalink to this headline">¶</a></h2>
 <p>If you want to run this command every day, you can save it in a playbook and run it with ansible-playbook instead of ansible. The playbook can store a lot of the parameters you provided with flags at the command line, leaving less to type at the command line. You need two files for this - a playbook and an inventory file.</p>
 <ol class="arabic simple">
-<li>Download <a class="reference download internal" download="" href="../../_downloads/dc2890ddf85d01359f459b809844b1f6/first_playbook.yml"><code class="xref download docutils literal notranslate"><span class="pre">first_playbook.yml</span></code></a>, which looks like this:</li>
+<li><p>Download <a class="reference download internal" download="" href="../../_downloads/dc2890ddf85d01359f459b809844b1f6/first_playbook.yml"><code class="xref download docutils literal notranslate"><span class="pre">first_playbook.yml</span></code></a>, which looks like this:</p></li>
 </ol>
 <div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 
@@ -2354,7 +2354,7 @@ show config
 </div>
 <p>The playbook sets three of the seven values from the command line above: the group (<code class="docutils literal notranslate"><span class="pre">hosts:</span> <span class="pre">all</span></code>), the connection method (<code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">network_cli</span></code>) and the module (in each task). With those values set in the playbook, you can omit them on the command line. The playbook also adds a second task to show the config output. When a module runs in a playbook, the output is held in memory for use by future tasks instead of written to the console. The debug task here lets you see the results in your shell.</p>
 <ol class="arabic simple" start="2">
-<li>Run the playbook with the command:</li>
+<li><p>Run the playbook with the command:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook -i vyos.example.net, -u ansible -k -e <span class="nv">ansible_network_os</span><span class="o">=</span>vyos first_playbook.yml
 </pre></div>
@@ -2377,7 +2377,7 @@ ok: <span class="o">[</span>vyos.example.net<span class="o">]</span> <span class
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li>Now that you can retrieve the device config, try updating it with Ansible. Download <a class="reference download internal" download="" href="../../_downloads/07e048d8f563c84c12de5188b4b3e2bb/first_playbook_ext.yml"><code class="xref download docutils literal notranslate"><span class="pre">first_playbook_ext.yml</span></code></a>, which is an extended version of the first playbook:</li>
+<li><p>Now that you can retrieve the device config, try updating it with Ansible. Download <a class="reference download internal" download="" href="../../_downloads/07e048d8f563c84c12de5188b4b3e2bb/first_playbook_ext.yml"><code class="xref download docutils literal notranslate"><span class="pre">first_playbook_ext.yml</span></code></a>, which is an extended version of the first playbook:</p></li>
 </ol>
 <div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 
@@ -2475,7 +2475,7 @@ vyos.example.net           : <span class="nv">ok</span><span class="o">=</span><
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

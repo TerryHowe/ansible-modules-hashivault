@@ -2270,8 +2270,8 @@
 considered a tech preview.  This topic discusses how to setup your controller and managed machines
 to use Python 3.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Ansible supports Python version 3.5 and above only.</p>
+<p class="admonition-title">Note</p>
+<p>Ansible supports Python version 3.5 and above only.</p>
 </div>
 <div class="section" id="on-the-controller-side">
 <h2>On the controller side<a class="headerlink" href="#on-the-controller-side" title="Permalink to this headline">¶</a></h2>
@@ -2290,8 +2290,8 @@ $ python3 <span class="k">$(</span>which ansible-playbook<span class="k">)</span
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Individual Linux distribution packages may be packaged for Python2 or Python3.  When running from
+<p class="admonition-title">Note</p>
+<p>Individual Linux distribution packages may be packaged for Python2 or Python3.  When running from
 distro packages you’ll only be able to use Ansible with the Python version for which it was
 installed.  Sometimes distros will provide a means of installing for several Python versions
 (via a separate package or via some commands that are run after install).  You’ll need to check
@@ -2301,9 +2301,9 @@ with your distro to see if that applies in your case.</p>
 <div class="section" id="using-python-3-on-the-managed-machines-with-commands-and-playbooks">
 <h2>Using Python 3 on the managed machines with commands and playbooks<a class="headerlink" href="#using-python-3-on-the-managed-machines-with-commands-and-playbooks" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Set the <code class="docutils literal notranslate"><span class="pre">ansible_python_interpreter</span></code> configuration option to <strong class="command">/usr/bin/python3</strong>. The
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">ansible_python_interpreter</span></code> configuration option to <strong class="command">/usr/bin/python3</strong>. The
 <code class="docutils literal notranslate"><span class="pre">ansible_python_interpreter</span></code> configuration option is usually set as an inventory
-variable associated with a host or group of hosts:</li>
+variable associated with a host or group of hosts:</p></li>
 </ul>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example inventory that makes an alias for localhost that uses Python3</span>
 <span class="na">localhost-py3 ansible_host</span><span class="o">=</span><span class="s">localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python3</span>
@@ -2318,11 +2318,11 @@ variable associated with a host or group of hosts:</li>
 </pre></div>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../user_guide/intro_inventory.html#intro-inventory"><span class="std std-ref">Working with Inventory</span></a> for more information.</p>
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../user_guide/intro_inventory.html#intro-inventory"><span class="std std-ref">Working with Inventory</span></a> for more information.</p>
 </div>
 <ul class="simple">
-<li>Run your command or playbook:</li>
+<li><p>Run your command or playbook:</p></li>
 </ul>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ ansible localhost-py3 -m ping
 $ ansible-playbook sample-playbook.yml
@@ -2376,7 +2376,7 @@ common Python3 compatibility issues in the Ansible codebase.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

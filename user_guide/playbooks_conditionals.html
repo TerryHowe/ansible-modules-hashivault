@@ -2269,18 +2269,20 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#conditionals" id="id5">Conditionals</a><ul>
-<li><a class="reference internal" href="#the-when-statement" id="id6">The When Statement</a></li>
-<li><a class="reference internal" href="#loops-and-conditionals" id="id7">Loops and Conditionals</a></li>
-<li><a class="reference internal" href="#loading-in-custom-facts" id="id8">Loading in Custom Facts</a></li>
-<li><a class="reference internal" href="#applying-when-to-roles-imports-and-includes" id="id9">Applying ‘when’ to roles, imports, and includes</a></li>
-<li><a class="reference internal" href="#conditional-imports" id="id10">Conditional Imports</a></li>
-<li><a class="reference internal" href="#selecting-files-and-templates-based-on-variables" id="id11">Selecting Files And Templates Based On Variables</a></li>
-<li><a class="reference internal" href="#register-variables" id="id12">Register Variables</a></li>
-<li><a class="reference internal" href="#commonly-used-facts" id="id13">Commonly Used Facts</a><ul>
-<li><a class="reference internal" href="#ansible-facts-distribution" id="id14">ansible_facts[‘distribution’]</a></li>
-<li><a class="reference internal" href="#ansible-facts-distribution-major-version" id="id15">ansible_facts[‘distribution_major_version’]</a></li>
-<li><a class="reference internal" href="#ansible-facts-os-family" id="id16">ansible_facts[‘os_family’]</a></li>
+<li><p><a class="reference internal" href="#conditionals" id="id5">Conditionals</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-when-statement" id="id6">The When Statement</a></p></li>
+<li><p><a class="reference internal" href="#loops-and-conditionals" id="id7">Loops and Conditionals</a></p></li>
+<li><p><a class="reference internal" href="#loading-in-custom-facts" id="id8">Loading in Custom Facts</a></p></li>
+<li><p><a class="reference internal" href="#applying-when-to-roles-imports-and-includes" id="id9">Applying ‘when’ to roles, imports, and includes</a></p></li>
+<li><p><a class="reference internal" href="#conditional-imports" id="id10">Conditional Imports</a></p></li>
+<li><p><a class="reference internal" href="#selecting-files-and-templates-based-on-variables" id="id11">Selecting Files And Templates Based On Variables</a></p></li>
+<li><p><a class="reference internal" href="#register-variables" id="id12">Register Variables</a></p></li>
+<li><p><a class="reference internal" href="#commonly-used-facts" id="id13">Commonly Used Facts</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ansible-facts-distribution" id="id14">ansible_facts[‘distribution’]</a></p></li>
+<li><p><a class="reference internal" href="#ansible-facts-distribution-major-version" id="id15">ansible_facts[‘distribution_major_version’]</a></p></li>
+<li><p><a class="reference internal" href="#ansible-facts-os-family" id="id16">ansible_facts[‘os_family’]</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2291,8 +2293,8 @@
 In some cases, the values of variables may depend on other variables.
 Additional groups can be created to manage hosts based on whether the hosts match other criteria. This topic covers how conditionals are used in playbooks.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">There are many options to control execution flow in Ansible. More examples of supported conditionals can be located here: <a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/#comparisons">http://jinja.pocoo.org/docs/dev/templates/#comparisons</a>.</p>
+<p class="admonition-title">Note</p>
+<p>There are many options to control execution flow in Ansible. More examples of supported conditionals can be located here: <a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/#comparisons">http://jinja.pocoo.org/docs/dev/templates/#comparisons</a>.</p>
 </div>
 <div class="section" id="the-when-statement">
 <span id="id1"></span><h2><a class="toc-backref" href="#id6">The When Statement</a><a class="headerlink" href="#the-when-statement" title="Permalink to this headline">¶</a></h2>
@@ -2345,8 +2347,8 @@ decide to do something conditionally based on success or failure:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">both <cite>success</cite> and <cite>succeeded</cite> work (<cite>fail</cite>/<cite>failed</cite>, etc).</p>
+<p class="admonition-title">Note</p>
+<p>both <cite>success</cite> and <cite>succeeded</cite> work (<cite>fail</cite>/<cite>failed</cite>, etc).</p>
 </div>
 <p>To see what facts are available on a particular system, you can do the following in a playbook:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">debug</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">var=ansible_facts</span>
@@ -2359,8 +2361,8 @@ decide to do something conditionally based on success or failure:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">the above example requires the lsb_release package on the target host in order to return the ‘lsb major_release’ fact.</p>
+<p class="admonition-title">Note</p>
+<p>the above example requires the lsb_release package on the target host in order to return the ‘lsb major_release’ fact.</p>
 </div>
 <p>Variables defined in the playbooks or inventory can also be used.  An example may be the execution of a task based on a variable’s boolean value:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">vars</span><span class="p">:</span>
@@ -2435,8 +2437,8 @@ to a task include statement as below.  All the tasks get evaluated, but the cond
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In versions prior to 2.0 this worked with task includes but not playbook includes.  2.0 allows it to work with both.</p>
+<p class="admonition-title">Note</p>
+<p>In versions prior to 2.0 this worked with task includes but not playbook includes.  2.0 allows it to work with both.</p>
 </div>
 <p>Or with a role:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">webservers</span>
@@ -2480,8 +2482,8 @@ both tasks from <code class="docutils literal notranslate"><span class="pre">oth
 <div class="section" id="conditional-imports">
 <span id="id4"></span><h2><a class="toc-backref" href="#id10">Conditional Imports</a><a class="headerlink" href="#conditional-imports" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This is an advanced topic that is infrequently used.</p>
+<p class="admonition-title">Note</p>
+<p>This is an advanced topic that is infrequently used.</p>
 </div>
 <p>Sometimes you will want to do certain things differently in a playbook based on certain criteria.
 Having one playbook that works on multiple platforms and OS versions is a good example.</p>
@@ -2499,8 +2501,8 @@ but it is easily handled with a minimum of syntax in an Ansible Playbook:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The variable “ansible_facts[‘os_family’]” is being interpolated into
+<p class="admonition-title">Note</p>
+<p>The variable “ansible_facts[‘os_family’]” is being interpolated into
 the list of filenames being defined for vars_files.</p>
 </div>
 <p>As a reminder, the various YAML files contain just keys and values:</p>
@@ -2521,8 +2523,8 @@ from turning into arbitrary code with nested conditionals - results in more stre
 <div class="section" id="selecting-files-and-templates-based-on-variables">
 <h2><a class="toc-backref" href="#id11">Selecting Files And Templates Based On Variables</a><a class="headerlink" href="#selecting-files-and-templates-based-on-variables" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This is an advanced topic that is infrequently used.  You can probably skip this section.</p>
+<p class="admonition-title">Note</p>
+<p>This is an advanced topic that is infrequently used.  You can probably skip this section.</p>
 </div>
 <p>Sometimes a configuration file you want to copy, or a template you will use may depend on a variable.
 The following construct selects the first available file appropriate for the variables of a given host, which is often much cleaner than putting a lot of if conditionals in a template.</p>
@@ -2650,20 +2652,20 @@ You may check the registered variable’s string contents for emptiness:</p>
 </pre></div>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">Roles</span></a></dt>
-<dd>Playbook organization by roles</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt>
-<dd>Best practices in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt>
-<dd>All about variables</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">Roles</span></a></dt><dd><p>Playbook organization by roles</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt><dd><p>Best practices in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt><dd><p>All about variables</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2696,7 +2698,7 @@ You may check the registered variable’s string contents for emptiness:</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

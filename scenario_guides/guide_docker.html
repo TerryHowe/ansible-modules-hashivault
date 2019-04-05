@@ -2268,23 +2268,23 @@
 <h1>Getting Started with Docker<a class="headerlink" href="#getting-started-with-docker" title="Permalink to this headline">¶</a></h1>
 <p>Ansible offers the following modules for orchestrating Docker containers:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>docker_service</dt>
-<dd>Use your existing Docker compose files to orchestrate containers on a single Docker daemon or on
-Swarm. Supports compose versions 1 and 2.</dd>
-<dt>docker_container</dt>
-<dd>Manages the container lifecycle by providing the ability to create, update, stop, start and destroy a
-container.</dd>
-<dt>docker_image</dt>
-<dd>Provides full control over images, including: build, pull, push, tag and remove.</dd>
-<dt>docker_image_facts</dt>
-<dd>Inspects one or more images in the Docker host’s image cache, providing the information as facts for making
-decision or assertions in a playbook.</dd>
-<dt>docker_login</dt>
-<dd>Authenticates with Docker Hub or any Docker registry and updates the Docker Engine config file, which
-in turn provides password-free pushing and pulling of images to and from the registry.</dd>
-<dt>docker (dynamic inventory)</dt>
-<dd>Dynamically builds an inventory of all the available containers from a set of one or more Docker hosts.</dd>
+<div><dl class="simple">
+<dt>docker_service</dt><dd><p>Use your existing Docker compose files to orchestrate containers on a single Docker daemon or on
+Swarm. Supports compose versions 1 and 2.</p>
+</dd>
+<dt>docker_container</dt><dd><p>Manages the container lifecycle by providing the ability to create, update, stop, start and destroy a
+container.</p>
+</dd>
+<dt>docker_image</dt><dd><p>Provides full control over images, including: build, pull, push, tag and remove.</p>
+</dd>
+<dt>docker_image_facts</dt><dd><p>Inspects one or more images in the Docker host’s image cache, providing the information as facts for making
+decision or assertions in a playbook.</p>
+</dd>
+<dt>docker_login</dt><dd><p>Authenticates with Docker Hub or any Docker registry and updates the Docker Engine config file, which
+in turn provides password-free pushing and pulling of images to and from the registry.</p>
+</dd>
+<dt>docker (dynamic inventory)</dt><dd><p>Dynamically builds an inventory of all the available containers from a set of one or more Docker hosts.</p>
+</dd>
 </dl>
 </div></blockquote>
 <p>Ansible 2.1.0 includes major updates to the Docker modules, marking the start of a project to create a complete and
@@ -2333,35 +2333,35 @@ option or an environment variable is found, a default value will be used. The de
 <h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
 <p>Control how modules connect to the Docker API by passing the following parameters:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>docker_host</dt>
-<dd>The URL or Unix socket path used to connect to the Docker API. Defaults to <code class="docutils literal notranslate"><span class="pre">unix://var/run/docker.sock</span></code>.
+<div><dl class="simple">
+<dt>docker_host</dt><dd><p>The URL or Unix socket path used to connect to the Docker API. Defaults to <code class="docutils literal notranslate"><span class="pre">unix://var/run/docker.sock</span></code>.
 To connect to a remote host, provide the TCP connection string. For example: <code class="docutils literal notranslate"><span class="pre">tcp://192.0.2.23:2376</span></code>. If
 TLS is used to encrypt the connection to the API, then the module will automatically replace ‘tcp’ in the
-connection URL with ‘https’.</dd>
-<dt>api_version</dt>
-<dd>The version of the Docker API running on the Docker Host. Defaults to the latest version of the API supported
-by docker-py.</dd>
-<dt>timeout</dt>
-<dd>The maximum amount of time in seconds to wait on a response from the API. Defaults to 60 seconds.</dd>
-<dt>tls</dt>
-<dd>Secure the connection to the API by using TLS without verifying the authenticity of the Docker host server.
-Defaults to False.</dd>
-<dt>tls_verify</dt>
-<dd>Secure the connection to the API by using TLS and verifying the authenticity of the Docker host server.
-Default is False.</dd>
-<dt>cacert_path</dt>
-<dd>Use a CA certificate when performing server verification by providing the path to a CA certificate file.</dd>
-<dt>cert_path</dt>
-<dd>Path to the client’s TLS certificate file.</dd>
-<dt>key_path</dt>
-<dd>Path to the client’s TLS key file.</dd>
-<dt>tls_hostname</dt>
-<dd>When verifying the authenticity of the Docker Host server, provide the expected name of the server. Defaults
-to ‘localhost’.</dd>
-<dt>ssl_version</dt>
-<dd>Provide a valid SSL version number. Default value determined by docker-py, which at the time of this writing
-was 1.0</dd>
+connection URL with ‘https’.</p>
+</dd>
+<dt>api_version</dt><dd><p>The version of the Docker API running on the Docker Host. Defaults to the latest version of the API supported
+by docker-py.</p>
+</dd>
+<dt>timeout</dt><dd><p>The maximum amount of time in seconds to wait on a response from the API. Defaults to 60 seconds.</p>
+</dd>
+<dt>tls</dt><dd><p>Secure the connection to the API by using TLS without verifying the authenticity of the Docker host server.
+Defaults to False.</p>
+</dd>
+<dt>tls_verify</dt><dd><p>Secure the connection to the API by using TLS and verifying the authenticity of the Docker host server.
+Default is False.</p>
+</dd>
+<dt>cacert_path</dt><dd><p>Use a CA certificate when performing server verification by providing the path to a CA certificate file.</p>
+</dd>
+<dt>cert_path</dt><dd><p>Path to the client’s TLS certificate file.</p>
+</dd>
+<dt>key_path</dt><dd><p>Path to the client’s TLS key file.</p>
+</dd>
+<dt>tls_hostname</dt><dd><p>When verifying the authenticity of the Docker Host server, provide the expected name of the server. Defaults
+to ‘localhost’.</p>
+</dd>
+<dt>ssl_version</dt><dd><p>Provide a valid SSL version number. Default value determined by docker-py, which at the time of this writing
+was 1.0</p>
+</dd>
 </dl>
 </div></blockquote>
 </div>
@@ -2370,22 +2370,22 @@ was 1.0</dd>
 <p>Control how the modules connect to the Docker API by setting the following variables in the environment of the host
 running Ansible:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>DOCKER_HOST</dt>
-<dd>The URL or Unix socket path used to connect to the Docker API.</dd>
-<dt>DOCKER_API_VERSION</dt>
-<dd>The version of the Docker API running on the Docker Host. Defaults to the latest version of the API supported
-by docker-py.</dd>
-<dt>DOCKER_TIMEOUT</dt>
-<dd>The maximum amount of time in seconds to wait on a response from the API.</dd>
-<dt>DOCKER_CERT_PATH</dt>
-<dd>Path to the directory containing the client certificate, client key and CA certificate.</dd>
-<dt>DOCKER_SSL_VERSION</dt>
-<dd>Provide a valid SSL version number.</dd>
-<dt>DOCKER_TLS</dt>
-<dd>Secure the connection to the API by using TLS without verifying the authenticity of the Docker Host.</dd>
-<dt>DOCKER_TLS_VERIFY</dt>
-<dd>Secure the connection to the API by using TLS and verify the authenticity of the Docker Host.</dd>
+<div><dl class="simple">
+<dt>DOCKER_HOST</dt><dd><p>The URL or Unix socket path used to connect to the Docker API.</p>
+</dd>
+<dt>DOCKER_API_VERSION</dt><dd><p>The version of the Docker API running on the Docker Host. Defaults to the latest version of the API supported
+by docker-py.</p>
+</dd>
+<dt>DOCKER_TIMEOUT</dt><dd><p>The maximum amount of time in seconds to wait on a response from the API.</p>
+</dd>
+<dt>DOCKER_CERT_PATH</dt><dd><p>Path to the directory containing the client certificate, client key and CA certificate.</p>
+</dd>
+<dt>DOCKER_SSL_VERSION</dt><dd><p>Provide a valid SSL version number.</p>
+</dd>
+<dt>DOCKER_TLS</dt><dd><p>Secure the connection to the API by using TLS without verifying the authenticity of the Docker Host.</p>
+</dd>
+<dt>DOCKER_TLS_VERIFY</dt><dd><p>Secure the connection to the API by using TLS and verify the authenticity of the Docker Host.</p>
+</dd>
 </dl>
 </div></blockquote>
 </div>
@@ -2401,13 +2401,13 @@ script contacts can be defined using environment variables or a configuration fi
 <p>The script will create the following host groups:</p>
 <blockquote>
 <div><ul class="simple">
-<li>container id</li>
-<li>container name</li>
-<li>container short id</li>
-<li>image_name  (image_&lt;image name&gt;)</li>
-<li>docker_host</li>
-<li>running</li>
-<li>stopped</li>
+<li><p>container id</p></li>
+<li><p>container name</p></li>
+<li><p>container short id</p></li>
+<li><p>image_name  (image_&lt;image name&gt;)</p></li>
+<li><p>docker_host</p></li>
+<li><p>running</p></li>
+<li><p>stopped</p></li>
 </ul>
 </div></blockquote>
 </div>
@@ -2445,40 +2445,40 @@ file and then environment variables.</p>
 <p>To connect to a single Docker API the following variables can be defined in the environment to control the connection
 options. These are the same environment variables used by the Docker modules.</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>DOCKER_HOST</dt>
-<dd>The URL or Unix socket path used to connect to the Docker API. Defaults to unix://var/run/docker.sock.</dd>
-<dt>DOCKER_API_VERSION:</dt>
-<dd>The version of the Docker API running on the Docker Host. Defaults to the latest version of the API supported
-by docker-py.</dd>
-<dt>DOCKER_TIMEOUT:</dt>
-<dd>The maximum amount of time in seconds to wait on a response from the API. Defaults to 60 seconds.</dd>
-<dt>DOCKER_TLS:</dt>
-<dd>Secure the connection to the API by using TLS without verifying the authenticity of the Docker host server.
-Defaults to False.</dd>
-<dt>DOCKER_TLS_VERIFY:</dt>
-<dd>Secure the connection to the API by using TLS and verifying the authenticity of the Docker host server.
-Default is False</dd>
-<dt>DOCKER_TLS_HOSTNAME:</dt>
-<dd>When verifying the authenticity of the Docker Host server, provide the expected name of the server. Defaults
-to localhost.</dd>
-<dt>DOCKER_CERT_PATH:</dt>
-<dd>Path to the directory containing the client certificate, client key and CA certificate.</dd>
-<dt>DOCKER_SSL_VERSION:</dt>
-<dd>Provide a valid SSL version number. Default value determined by docker-py, which at the time of this writing
-was 1.0</dd>
+<div><dl class="simple">
+<dt>DOCKER_HOST</dt><dd><p>The URL or Unix socket path used to connect to the Docker API. Defaults to unix://var/run/docker.sock.</p>
+</dd>
+<dt>DOCKER_API_VERSION:</dt><dd><p>The version of the Docker API running on the Docker Host. Defaults to the latest version of the API supported
+by docker-py.</p>
+</dd>
+<dt>DOCKER_TIMEOUT:</dt><dd><p>The maximum amount of time in seconds to wait on a response from the API. Defaults to 60 seconds.</p>
+</dd>
+<dt>DOCKER_TLS:</dt><dd><p>Secure the connection to the API by using TLS without verifying the authenticity of the Docker host server.
+Defaults to False.</p>
+</dd>
+<dt>DOCKER_TLS_VERIFY:</dt><dd><p>Secure the connection to the API by using TLS and verifying the authenticity of the Docker host server.
+Default is False</p>
+</dd>
+<dt>DOCKER_TLS_HOSTNAME:</dt><dd><p>When verifying the authenticity of the Docker Host server, provide the expected name of the server. Defaults
+to localhost.</p>
+</dd>
+<dt>DOCKER_CERT_PATH:</dt><dd><p>Path to the directory containing the client certificate, client key and CA certificate.</p>
+</dd>
+<dt>DOCKER_SSL_VERSION:</dt><dd><p>Provide a valid SSL version number. Default value determined by docker-py, which at the time of this writing
+was 1.0</p>
+</dd>
 </dl>
 </div></blockquote>
 <p>In addition to the connection variables there are a couple variables used to control the execution and output of the
 script:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>DOCKER_CONFIG_FILE</dt>
-<dd>Path to the configuration file. Defaults to ./docker.yml.</dd>
-<dt>DOCKER_PRIVATE_SSH_PORT:</dt>
-<dd>The private port (container port) on which SSH is listening for connections. Defaults to 22.</dd>
-<dt>DOCKER_DEFAULT_IP:</dt>
-<dd>The IP address to assign to ansible_host when the container’s SSH port is mapped to interface ‘0.0.0.0’.</dd>
+<div><dl class="simple">
+<dt>DOCKER_CONFIG_FILE</dt><dd><p>Path to the configuration file. Defaults to ./docker.yml.</p>
+</dd>
+<dt>DOCKER_PRIVATE_SSH_PORT:</dt><dd><p>The private port (container port) on which SSH is listening for connections. Defaults to 22.</p>
+</dd>
+<dt>DOCKER_DEFAULT_IP:</dt><dd><p>The IP address to assign to ansible_host when the container’s SSH port is mapped to interface ‘0.0.0.0’.</p>
+</dd>
 </dl>
 </div></blockquote>
 </div>
@@ -2490,12 +2490,12 @@ basename of the script (i.e. docker) with an extension of ‘.yml’.</p>
 <p>You can also override the default name of the script by defining DOCKER_CONFIG_FILE in the environment.</p>
 <p>Here’s what you can define in docker_inventory.yml:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>defaults</dt>
-<dd>Defines a default connection. Defaults will be taken from this and applied to any values not provided
-for a host defined in the hosts list.</dd>
-<dt>hosts</dt>
-<dd>If you wish to get inventory from more than one Docker host, define a hosts list.</dd>
+<div><dl class="simple">
+<dt>defaults</dt><dd><p>Defines a default connection. Defaults will be taken from this and applied to any values not provided
+for a host defined in the hosts list.</p>
+</dd>
+<dt>hosts</dt><dd><p>If you wish to get inventory from more than one Docker host, define a hosts list.</p>
+</dd>
 </dl>
 </div></blockquote>
 <p>For the default host and each host in the hosts list define the following attributes:</p>
@@ -2581,7 +2581,7 @@ for a host defined in the hosts list.</dd>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

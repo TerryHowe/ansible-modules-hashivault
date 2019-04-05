@@ -2272,25 +2272,27 @@ repeat a polling step until a certain result is reached.</p>
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#loops" id="id5">Loops</a><ul>
-<li><a class="reference internal" href="#standard-loops" id="id6">Standard Loops</a></li>
-<li><a class="reference internal" href="#complex-loops" id="id7">Complex loops</a></li>
-<li><a class="reference internal" href="#using-lookup-vs-query-with-loop" id="id8">Using lookup vs query with loop</a></li>
-<li><a class="reference internal" href="#do-until-loops" id="id9">Do-Until Loops</a></li>
-<li><a class="reference internal" href="#using-register-with-a-loop" id="id10">Using register with a loop</a></li>
-<li><a class="reference internal" href="#looping-over-the-inventory" id="id11">Looping over the inventory</a></li>
-<li><a class="reference internal" href="#loop-control" id="id12">Loop Control</a></li>
-<li><a class="reference internal" href="#migrating-from-with-x-to-loop" id="id13">Migrating from with_X to loop</a><ul>
-<li><a class="reference internal" href="#with-list" id="id14">with_list</a></li>
-<li><a class="reference internal" href="#with-items" id="id15">with_items</a></li>
-<li><a class="reference internal" href="#with-indexed-items" id="id16">with_indexed_items</a></li>
-<li><a class="reference internal" href="#with-flattened" id="id17">with_flattened</a></li>
-<li><a class="reference internal" href="#with-together" id="id18">with_together</a></li>
-<li><a class="reference internal" href="#with-dict" id="id19">with_dict</a></li>
-<li><a class="reference internal" href="#with-sequence" id="id20">with_sequence</a></li>
-<li><a class="reference internal" href="#with-subelements" id="id21">with_subelements</a></li>
-<li><a class="reference internal" href="#with-nested-with-cartesian" id="id22">with_nested/with_cartesian</a></li>
-<li><a class="reference internal" href="#with-random-choice" id="id23">with_random_choice</a></li>
+<li><p><a class="reference internal" href="#loops" id="id5">Loops</a></p>
+<ul>
+<li><p><a class="reference internal" href="#standard-loops" id="id6">Standard Loops</a></p></li>
+<li><p><a class="reference internal" href="#complex-loops" id="id7">Complex loops</a></p></li>
+<li><p><a class="reference internal" href="#using-lookup-vs-query-with-loop" id="id8">Using lookup vs query with loop</a></p></li>
+<li><p><a class="reference internal" href="#do-until-loops" id="id9">Do-Until Loops</a></p></li>
+<li><p><a class="reference internal" href="#using-register-with-a-loop" id="id10">Using register with a loop</a></p></li>
+<li><p><a class="reference internal" href="#looping-over-the-inventory" id="id11">Looping over the inventory</a></p></li>
+<li><p><a class="reference internal" href="#loop-control" id="id12">Loop Control</a></p></li>
+<li><p><a class="reference internal" href="#migrating-from-with-x-to-loop" id="id13">Migrating from with_X to loop</a></p>
+<ul>
+<li><p><a class="reference internal" href="#with-list" id="id14">with_list</a></p></li>
+<li><p><a class="reference internal" href="#with-items" id="id15">with_items</a></p></li>
+<li><p><a class="reference internal" href="#with-indexed-items" id="id16">with_indexed_items</a></p></li>
+<li><p><a class="reference internal" href="#with-flattened" id="id17">with_flattened</a></p></li>
+<li><p><a class="reference internal" href="#with-together" id="id18">with_together</a></p></li>
+<li><p><a class="reference internal" href="#with-dict" id="id19">with_dict</a></p></li>
+<li><p><a class="reference internal" href="#with-sequence" id="id20">with_sequence</a></p></li>
+<li><p><a class="reference internal" href="#with-subelements" id="id21">with_subelements</a></p></li>
+<li><p><a class="reference internal" href="#with-nested-with-cartesian" id="id22">with_nested/with_cartesian</a></p></li>
+<li><p><a class="reference internal" href="#with-random-choice" id="id23">with_random_choice</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2328,8 +2330,8 @@ repeat a polling step until a certain result is reached.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Before 2.5 Ansible mainly used the <code class="docutils literal notranslate"><span class="pre">with_&lt;lookup&gt;</span></code> keywords to create loops, the <cite>loop</cite> keyword is basically analogous to <code class="docutils literal notranslate"><span class="pre">with_list</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>Before 2.5 Ansible mainly used the <code class="docutils literal notranslate"><span class="pre">with_&lt;lookup&gt;</span></code> keywords to create loops, the <cite>loop</cite> keyword is basically analogous to <code class="docutils literal notranslate"><span class="pre">with_list</span></code>.</p>
 </div>
 <p>Some plugins like, the yum and apt modules can take lists directly to their options, this is more optimal than looping over the task.
 See each action’s documentation for details, for now here is an example:</p>
@@ -2388,8 +2390,8 @@ For example, using the ‘nested’ lookup, you can combine lists:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">with_</span></code> loops are actually a combination of things <code class="docutils literal notranslate"><span class="pre">with_</span></code> + <code class="docutils literal notranslate"><span class="pre">lookup()</span></code>, even <code class="docutils literal notranslate"><span class="pre">items</span></code> is a lookup. <code class="docutils literal notranslate"><span class="pre">loop</span></code> can be used in the same way as shown above.</p>
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">with_</span></code> loops are actually a combination of things <code class="docutils literal notranslate"><span class="pre">with_</span></code> + <code class="docutils literal notranslate"><span class="pre">lookup()</span></code>, even <code class="docutils literal notranslate"><span class="pre">items</span></code> is a lookup. <code class="docutils literal notranslate"><span class="pre">loop</span></code> can be used in the same way as shown above.</p>
 </div>
 </div>
 <div class="section" id="using-lookup-vs-query-with-loop">
@@ -2407,7 +2409,7 @@ For example, using the ‘nested’ lookup, you can combine lists:</p>
 <div class="section" id="do-until-loops">
 <span id="id3"></span><h2><a class="toc-backref" href="#id9">Do-Until Loops</a><a class="headerlink" href="#do-until-loops" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.4.</span></p>
+<p><span class="versionmodified added">New in version 1.4.</span></p>
 </div>
 <p>Sometimes you would want to retry a task until a certain condition is met.  Here’s an example:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">shell</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/usr/bin/foo</span>
@@ -2422,8 +2424,8 @@ been retried for 5 times with a delay of 10 seconds. The default value for “re
 <p>The task returns the results returned by the last task run. The results of individual retries can be viewed by -vv option.
 The registered variable will also have a new key “attempts” which will have the number of the retries for the task.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If the <code class="docutils literal notranslate"><span class="pre">until</span></code> parameter isn’t defined, the value for the <code class="docutils literal notranslate"><span class="pre">retries</span></code> parameter is forced to 1.</p>
+<p class="admonition-title">Note</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">until</span></code> parameter isn’t defined, the value for the <code class="docutils literal notranslate"><span class="pre">retries</span></code> parameter is forced to 1.</p>
 </div>
 </div>
 <div class="section" id="using-register-with-a-loop">
@@ -2526,7 +2528,7 @@ One can use a regular <code class="docutils literal notranslate"><span class="pr
 <div class="section" id="loop-control">
 <span id="id4"></span><h2><a class="toc-backref" href="#id12">Loop Control</a><a class="headerlink" href="#loop-control" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.1.</span></p>
+<p><span class="versionmodified added">New in version 2.1.</span></p>
 </div>
 <p>In 2.0 you are again able to use loops and task includes (but not playbook includes). This adds the ability to loop over the set of tasks in one shot.
 Ansible by default sets the loop variable <code class="docutils literal notranslate"><span class="pre">item</span></code> for each loop, which causes these nested loops to overwrite the value of <code class="docutils literal notranslate"><span class="pre">item</span></code> from the “outer” loops.
@@ -2550,11 +2552,11 @@ As of Ansible 2.1, the <code class="docutils literal notranslate"><span class="p
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If Ansible detects that the current loop is using a variable which has already been defined, it will raise an error to fail the task.</p>
+<p class="admonition-title">Note</p>
+<p>If Ansible detects that the current loop is using a variable which has already been defined, it will raise an error to fail the task.</p>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.2.</span></p>
+<p><span class="versionmodified added">New in version 2.2.</span></p>
 </div>
 <p>When using complex data structures for looping the display might get a bit too “busy”, this is where the <code class="docutils literal notranslate"><span class="pre">label</span></code> directive comes to help:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">create servers</span>
@@ -2575,7 +2577,7 @@ As of Ansible 2.1, the <code class="docutils literal notranslate"><span class="p
 </div>
 <p>This will now display just the <code class="docutils literal notranslate"><span class="pre">label</span></code> field instead of the whole structure per <code class="docutils literal notranslate"><span class="pre">item</span></code>, it defaults to <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">item</span> <span class="pre">}}</span></code> to display things as usual.</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.2.</span></p>
+<p><span class="versionmodified added">New in version 2.2.</span></p>
 </div>
 <p>Another option to loop control is <code class="docutils literal notranslate"><span class="pre">pause</span></code>, which allows you to control the time (in seconds) between execution of items in a task loop.:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="c1"># main.yml</span>
@@ -2591,7 +2593,7 @@ As of Ansible 2.1, the <code class="docutils literal notranslate"><span class="p
 </pre></div>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.5.</span></p>
+<p><span class="versionmodified added">New in version 2.5.</span></p>
 </div>
 <p>If you need to keep track of where you are in a loop, you can use the <code class="docutils literal notranslate"><span class="pre">index_var</span></code> option to loop control to specify a variable name to contain the current loop index.:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">count our fruit</span>
@@ -2779,22 +2781,22 @@ As of Ansible 2.1, the <code class="docutils literal notranslate"><span class="p
 </pre></div>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_reuse_roles.html"><span class="doc">Roles</span></a></dt>
-<dd>Playbook organization by roles</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt>
-<dd>Best practices in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_conditionals.html"><span class="doc">Conditionals</span></a></dt>
-<dd>Conditional statements in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a></dt>
-<dd>All about variables</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_reuse_roles.html"><span class="doc">Roles</span></a></dt><dd><p>Playbook organization by roles</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt><dd><p>Best practices in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html"><span class="doc">Conditionals</span></a></dt><dd><p>Conditional statements in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a></dt><dd><p>All about variables</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2827,7 +2829,7 @@ As of Ansible 2.1, the <code class="docutils literal notranslate"><span class="p
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

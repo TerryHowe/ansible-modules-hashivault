@@ -2269,25 +2269,28 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#playbook-debugger" id="id3">Playbook Debugger</a><ul>
-<li><a class="reference internal" href="#using-the-debugger-keyword" id="id4">Using the debugger keyword</a><ul>
-<li><a class="reference internal" href="#on-a-task" id="id5">On a task</a></li>
-<li><a class="reference internal" href="#on-a-play" id="id6">On a play</a></li>
+<li><p><a class="reference internal" href="#playbook-debugger" id="id3">Playbook Debugger</a></p>
+<ul>
+<li><p><a class="reference internal" href="#using-the-debugger-keyword" id="id4">Using the debugger keyword</a></p>
+<ul>
+<li><p><a class="reference internal" href="#on-a-task" id="id5">On a task</a></p></li>
+<li><p><a class="reference internal" href="#on-a-play" id="id6">On a play</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#configuration-or-environment-variable" id="id7">Configuration or environment variable</a></li>
-<li><a class="reference internal" href="#as-a-strategy" id="id8">As a Strategy</a></li>
-<li><a class="reference internal" href="#examples" id="id9">Examples</a></li>
-<li><a class="reference internal" href="#available-commands" id="id10">Available Commands</a><ul>
-<li><a class="reference internal" href="#p-print-task-task-vars-host-result" id="id11">p(print) <em>task/task_vars/host/result</em></a></li>
-<li><a class="reference internal" href="#task-args-key-value" id="id12">task.args[<em>key</em>] = <em>value</em></a></li>
-<li><a class="reference internal" href="#task-vars-key-value" id="id13">task_vars[<em>key</em>] = <em>value</em></a></li>
-<li><a class="reference internal" href="#r-edo" id="id14">r(edo)</a></li>
-<li><a class="reference internal" href="#c-ontinue" id="id15">c(ontinue)</a></li>
-<li><a class="reference internal" href="#q-uit" id="id16">q(uit)</a></li>
+<li><p><a class="reference internal" href="#configuration-or-environment-variable" id="id7">Configuration or environment variable</a></p></li>
+<li><p><a class="reference internal" href="#as-a-strategy" id="id8">As a Strategy</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id9">Examples</a></p></li>
+<li><p><a class="reference internal" href="#available-commands" id="id10">Available Commands</a></p>
+<ul>
+<li><p><a class="reference internal" href="#p-print-task-task-vars-host-result" id="id11">p(print) <em>task/task_vars/host/result</em></a></p></li>
+<li><p><a class="reference internal" href="#task-args-key-value" id="id12">task.args[<em>key</em>] = <em>value</em></a></p></li>
+<li><p><a class="reference internal" href="#task-vars-key-value" id="id13">task_vars[<em>key</em>] = <em>value</em></a></p></li>
+<li><p><a class="reference internal" href="#r-edo" id="id14">r(edo)</a></p></li>
+<li><p><a class="reference internal" href="#c-ontinue" id="id15">c(ontinue)</a></p></li>
+<li><p><a class="reference internal" href="#q-uit" id="id16">q(uit)</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#use-with-the-free-strategy" id="id17">Use with the free strategy</a></li>
+<li><p><a class="reference internal" href="#use-with-the-free-strategy" id="id17">Use with the free strategy</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2298,21 +2301,21 @@ You have access to all of the features of the debugger in the context of the tas
 <div class="section" id="using-the-debugger-keyword">
 <h2><a class="toc-backref" href="#id4">Using the debugger keyword</a><a class="headerlink" href="#using-the-debugger-keyword" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.5.</span></p>
+<p><span class="versionmodified added">New in version 2.5.</span></p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">debugger</span></code> keyword can be used on any block where you provide a <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute, such as a play, role, block or task.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">debugger</span></code> keyword accepts several values:</p>
-<dl class="docutils">
-<dt>always</dt>
-<dd>Always invoke the debugger, regardless of the outcome</dd>
-<dt>never</dt>
-<dd>Never invoke the debugger, regardless of the outcome</dd>
-<dt>on_failed</dt>
-<dd>Only invoke the debugger if a task fails</dd>
-<dt>on_unreachable</dt>
-<dd>Only invoke the debugger if the a host was unreachable</dd>
-<dt>on_skipped</dt>
-<dd>Only invoke the debugger if the task is skipped</dd>
+<dl class="simple">
+<dt>always</dt><dd><p>Always invoke the debugger, regardless of the outcome</p>
+</dd>
+<dt>never</dt><dd><p>Never invoke the debugger, regardless of the outcome</p>
+</dd>
+<dt>on_failed</dt><dd><p>Only invoke the debugger if a task fails</p>
+</dd>
+<dt>on_unreachable</dt><dd><p>Only invoke the debugger if the a host was unreachable</p>
+</dd>
+<dt>on_skipped</dt><dd><p>Only invoke the debugger if the task is skipped</p>
+</dd>
 </dl>
 <p>These options override any global configuration to enable or disable the debugger.</p>
 <div class="section" id="on-a-task">
@@ -2349,7 +2352,7 @@ You have access to all of the features of the debugger in the context of the tas
 <div class="section" id="configuration-or-environment-variable">
 <h2><a class="toc-backref" href="#id7">Configuration or environment variable</a><a class="headerlink" href="#configuration-or-environment-variable" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.5.</span></p>
+<p><span class="versionmodified added">New in version 2.5.</span></p>
 </div>
 <p>In ansible.cfg:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">[</span><span class="nv">defaults</span><span class="p p-Indicator">]</span>
@@ -2366,8 +2369,8 @@ unless otherwise explicitly disabled.</p>
 <div class="section" id="as-a-strategy">
 <h2><a class="toc-backref" href="#id8">As a Strategy</a><a class="headerlink" href="#as-a-strategy" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This is a backwards compatible method, to match Ansible versions before 2.5,
+<p class="admonition-title">Note</p>
+<p>This is a backwards compatible method, to match Ansible versions before 2.5,
 and may be removed in a future release</p>
 </div>
 <p>To use the <code class="docutils literal notranslate"><span class="pre">debug</span></code> strategy, change the <code class="docutils literal notranslate"><span class="pre">strategy</span></code> attribute like this:</p>
@@ -2499,8 +2502,8 @@ PLAY RECAP *********************************************************************
 </div>
 <p>Then the task runs again with new <code class="docutils literal notranslate"><span class="pre">task_vars</span></code>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In 2.5 this was updated from <code class="docutils literal notranslate"><span class="pre">vars</span></code> to <code class="docutils literal notranslate"><span class="pre">task_vars</span></code> to not conflict with the <code class="docutils literal notranslate"><span class="pre">vars()</span></code> python function.</p>
+<p class="admonition-title">Note</p>
+<p>In 2.5 this was updated from <code class="docutils literal notranslate"><span class="pre">vars</span></code> to <code class="docutils literal notranslate"><span class="pre">task_vars</span></code> to not conflict with the <code class="docutils literal notranslate"><span class="pre">vars()</span></code> python function.</p>
 </div>
 </div>
 <div class="section" id="r-edo">
@@ -2522,14 +2525,14 @@ PLAY RECAP *********************************************************************
 while the debugger is active. Additionally, using <code class="docutils literal notranslate"><span class="pre">redo</span></code> on a task to schedule it for re-execution
 may cause the rescheduled task to execute after subsequent tasks listed in your playbook.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2561,7 +2564,7 @@ may cause the rescheduled task to execute after subsequent tasks listed in your 
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2290,9 +2290,9 @@
 <h3>More information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h3>
 <p>Various resources exist to start learning ACI, here is a list of interesting articles from the community.</p>
 <ul class="simple">
-<li><a class="reference external" href="https://adamraffe.com/learning-aci/">Adam Raffe: Learning ACI</a></li>
-<li><a class="reference external" href="https://lucarelandini.blogspot.be/2015/03/aci-for-dummies.html">Luca Relandini: ACI for dummies</a></li>
-<li><a class="reference external" href="https://learninglabs.cisco.com/labs/tags/ACI">Cisco DevNet Learning Labs about ACI</a></li>
+<li><p><a class="reference external" href="https://adamraffe.com/learning-aci/">Adam Raffe: Learning ACI</a></p></li>
+<li><p><a class="reference external" href="https://lucarelandini.blogspot.be/2015/03/aci-for-dummies.html">Luca Relandini: ACI for dummies</a></p></li>
+<li><p><a class="reference external" href="https://learninglabs.cisco.com/labs/tags/ACI">Cisco DevNet Learning Labs about ACI</a></p></li>
 </ul>
 </div>
 </div>
@@ -2392,8 +2392,8 @@
 </pre></div>
 </div>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">For clarity we have added <code class="docutils literal notranslate"><span class="pre">delegate_to:</span> <span class="pre">localhost</span></code> to all the examples in the module documentation. This helps to ensure first-time users can easily copy&amp;paste parts and make them work with a minimum of effort.</p>
+<p class="admonition-title">Hint</p>
+<p>For clarity we have added <code class="docutils literal notranslate"><span class="pre">delegate_to:</span> <span class="pre">localhost</span></code> to all the examples in the module documentation. This helps to ensure first-time users can easily copy&amp;paste parts and make them work with a minimum of effort.</p>
 </div>
 </div>
 </div>
@@ -2401,29 +2401,29 @@
 <h3>Common parameters<a class="headerlink" href="#common-parameters" title="Permalink to this headline">¶</a></h3>
 <p>Every Ansible ACI module accepts the following parameters that influence the module’s communication with the APIC REST API:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>host</dt>
-<dd>Hostname or IP address of the APIC.</dd>
-<dt>port</dt>
-<dd>Port to use for communication. (Defaults to <code class="docutils literal notranslate"><span class="pre">443</span></code> for HTTPS, and <code class="docutils literal notranslate"><span class="pre">80</span></code> for HTTP)</dd>
-<dt>username</dt>
-<dd>User name used to log on to the APIC. (Defaults to <code class="docutils literal notranslate"><span class="pre">admin</span></code>)</dd>
-<dt>password</dt>
-<dd>Password for <code class="docutils literal notranslate"><span class="pre">username</span></code> to log on to the APIC, using password-based authentication.</dd>
-<dt>private_key</dt>
-<dd>Private key for <code class="docutils literal notranslate"><span class="pre">username</span></code> to log on to APIC, using signature-based authentication. <em>New in version 2.5</em></dd>
-<dt>certificate_name</dt>
-<dd>Name of the certificate in the ACI Web GUI. (Defaults to <code class="docutils literal notranslate"><span class="pre">private_key</span></code> file base name) <em>New in version 2.5</em></dd>
-<dt>timeout</dt>
-<dd>Timeout value for socket-level communication.</dd>
-<dt>use_proxy</dt>
-<dd>Use system proxy settings. (Defaults to <code class="docutils literal notranslate"><span class="pre">yes</span></code>)</dd>
-<dt>use_ssl</dt>
-<dd>Use HTTPS or HTTP for APIC REST communication. (Defaults to <code class="docutils literal notranslate"><span class="pre">yes</span></code>)</dd>
-<dt>validate_certs</dt>
-<dd>Validate certificate when using HTTPS communication. (Defaults to <code class="docutils literal notranslate"><span class="pre">yes</span></code>)</dd>
-<dt>output_level</dt>
-<dd>Influence the level of detail ACI modules return to the user. (One of <code class="docutils literal notranslate"><span class="pre">normal</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code> or <code class="docutils literal notranslate"><span class="pre">debug</span></code>) <em>New in version 2.5</em></dd>
+<div><dl class="simple">
+<dt>host</dt><dd><p>Hostname or IP address of the APIC.</p>
+</dd>
+<dt>port</dt><dd><p>Port to use for communication. (Defaults to <code class="docutils literal notranslate"><span class="pre">443</span></code> for HTTPS, and <code class="docutils literal notranslate"><span class="pre">80</span></code> for HTTP)</p>
+</dd>
+<dt>username</dt><dd><p>User name used to log on to the APIC. (Defaults to <code class="docutils literal notranslate"><span class="pre">admin</span></code>)</p>
+</dd>
+<dt>password</dt><dd><p>Password for <code class="docutils literal notranslate"><span class="pre">username</span></code> to log on to the APIC, using password-based authentication.</p>
+</dd>
+<dt>private_key</dt><dd><p>Private key for <code class="docutils literal notranslate"><span class="pre">username</span></code> to log on to APIC, using signature-based authentication. <em>New in version 2.5</em></p>
+</dd>
+<dt>certificate_name</dt><dd><p>Name of the certificate in the ACI Web GUI. (Defaults to <code class="docutils literal notranslate"><span class="pre">private_key</span></code> file base name) <em>New in version 2.5</em></p>
+</dd>
+<dt>timeout</dt><dd><p>Timeout value for socket-level communication.</p>
+</dd>
+<dt>use_proxy</dt><dd><p>Use system proxy settings. (Defaults to <code class="docutils literal notranslate"><span class="pre">yes</span></code>)</p>
+</dd>
+<dt>use_ssl</dt><dd><p>Use HTTPS or HTTP for APIC REST communication. (Defaults to <code class="docutils literal notranslate"><span class="pre">yes</span></code>)</p>
+</dd>
+<dt>validate_certs</dt><dd><p>Validate certificate when using HTTPS communication. (Defaults to <code class="docutils literal notranslate"><span class="pre">yes</span></code>)</p>
+</dd>
+<dt>output_level</dt><dd><p>Influence the level of detail ACI modules return to the user. (One of <code class="docutils literal notranslate"><span class="pre">normal</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code> or <code class="docutils literal notranslate"><span class="pre">debug</span></code>) <em>New in version 2.5</em></p>
+</dd>
 </dl>
 </div></blockquote>
 </div>
@@ -2433,60 +2433,60 @@
 <p>HTTP redirects can redirect from HTTP to HTTPS so ensure that the proxy environment for both protocols is correctly configured.</p>
 <p>If proxy support is not needed, but the system may have it configured nevertheless, use the parameter <code class="docutils literal notranslate"><span class="pre">use_proxy:</span> <span class="pre">no</span></code> to avoid accidental system proxy usage.</p>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">Selective proxy support using the <code class="docutils literal notranslate"><span class="pre">no_proxy</span></code> environment variable is also supported.</p>
+<p class="admonition-title">Hint</p>
+<p>Selective proxy support using the <code class="docutils literal notranslate"><span class="pre">no_proxy</span></code> environment variable is also supported.</p>
 </div>
 </div>
 <div class="section" id="return-values">
 <h3>Return values<a class="headerlink" href="#return-values" title="Permalink to this headline">¶</a></h3>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.5.</span></p>
+<p><span class="versionmodified added">New in version 2.5.</span></p>
 </div>
 <p>The following values are always returned:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>current</dt>
-<dd>The resulting state of the managed object, or results of your query.</dd>
+<div><dl class="simple">
+<dt>current</dt><dd><p>The resulting state of the managed object, or results of your query.</p>
+</dd>
 </dl>
 </div></blockquote>
 <p>The following values are returned when <code class="docutils literal notranslate"><span class="pre">output_level:</span> <span class="pre">info</span></code>:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>previous</dt>
-<dd>The original state of the managed object (before any change was made).</dd>
-<dt>proposed</dt>
-<dd>The proposed config payload, based on user-supplied values.</dd>
-<dt>sent</dt>
-<dd>The sent config payload, based on user-supplied values and the existing configuration.</dd>
+<div><dl class="simple">
+<dt>previous</dt><dd><p>The original state of the managed object (before any change was made).</p>
+</dd>
+<dt>proposed</dt><dd><p>The proposed config payload, based on user-supplied values.</p>
+</dd>
+<dt>sent</dt><dd><p>The sent config payload, based on user-supplied values and the existing configuration.</p>
+</dd>
 </dl>
 </div></blockquote>
 <p>The following values are returned when <code class="docutils literal notranslate"><span class="pre">output_level:</span> <span class="pre">debug</span></code> or <code class="docutils literal notranslate"><span class="pre">ANSIBLE_DEBUG=1</span></code>:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>filter_string</dt>
-<dd>The filter used for specific APIC queries.</dd>
-<dt>method</dt>
-<dd>The HTTP method used for the sent payload. (Either <code class="docutils literal notranslate"><span class="pre">GET</span></code> for queries, <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> or <code class="docutils literal notranslate"><span class="pre">POST</span></code> for changes)</dd>
-<dt>response</dt>
-<dd>The HTTP response from the APIC.</dd>
-<dt>status</dt>
-<dd>The HTTP status code for the request.</dd>
-<dt>url</dt>
-<dd>The url used for the request.</dd>
+<div><dl class="simple">
+<dt>filter_string</dt><dd><p>The filter used for specific APIC queries.</p>
+</dd>
+<dt>method</dt><dd><p>The HTTP method used for the sent payload. (Either <code class="docutils literal notranslate"><span class="pre">GET</span></code> for queries, <code class="docutils literal notranslate"><span class="pre">DELETE</span></code> or <code class="docutils literal notranslate"><span class="pre">POST</span></code> for changes)</p>
+</dd>
+<dt>response</dt><dd><p>The HTTP response from the APIC.</p>
+</dd>
+<dt>status</dt><dd><p>The HTTP status code for the request.</p>
+</dd>
+<dt>url</dt><dd><p>The url used for the request.</p>
+</dd>
 </dl>
 </div></blockquote>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The module return values are documented in detail as part of each module’s documentation.</p>
+<p class="admonition-title">Note</p>
+<p>The module return values are documented in detail as part of each module’s documentation.</p>
 </div>
 </div>
 <div class="section" id="id1">
 <h3>More information<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Various resources exist to start learn more about ACI programmability, we recommend the following links:</p>
 <ul class="simple">
-<li><a class="reference internal" href="../dev_guide/developing_modules_general_aci.html#aci-dev-guide"><span class="std std-ref">Developing Cisco ACI modules</span></a></li>
-<li><a class="reference external" href="https://blogs.cisco.com/developer/automating-cisco-aci-with-ansible-eliminates-repetitive-day-to-day-tasks">Jacob McGill: Automating Cisco ACI with Ansible</a></li>
-<li><a class="reference external" href="https://learninglabs.cisco.com/labs/tags/ACI,Ansible">Cisco DevNet Learning Labs about ACI and Ansible</a></li>
+<li><p><a class="reference internal" href="../dev_guide/developing_modules_general_aci.html#aci-dev-guide"><span class="std std-ref">Developing Cisco ACI modules</span></a></p></li>
+<li><p><a class="reference external" href="https://blogs.cisco.com/developer/automating-cisco-aci-with-ansible-eliminates-repetitive-day-to-day-tasks">Jacob McGill: Automating Cisco ACI with Ansible</a></p></li>
+<li><p><a class="reference external" href="https://learninglabs.cisco.com/labs/tags/ACI,Ansible">Cisco DevNet Learning Labs about ACI and Ansible</a></p></li>
 </ul>
 </div>
 </div>
@@ -2501,19 +2501,19 @@
 </div>
 <p>Password-based authentication is very simple to work with, but it is not the most efficient form of authentication from ACI’s point-of-view as it requires a separate login-request and an open session to work. To avoid having your session time-out and requiring another login, you can use the more efficient Signature-based authentication.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Password-based authentication also may trigger anti-DoS measures in ACI v3.1+ that causes session throttling and results in HTTP 503 errors and login failures.</p>
+<p class="admonition-title">Note</p>
+<p>Password-based authentication also may trigger anti-DoS measures in ACI v3.1+ that causes session throttling and results in HTTP 503 errors and login failures.</p>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Never store passwords in plain text.</p>
+<p class="admonition-title">Warning</p>
+<p>Never store passwords in plain text.</p>
 </div>
 <p>The “Vault” feature of Ansible allows you to keep sensitive data such as passwords or keys in encrypted files, rather than as plain text in your playbooks or roles. These vault files can then be distributed or placed in source control. See <a class="reference internal" href="../user_guide/playbooks_vault.html#playbooks-vault"><span class="std std-ref">Using Vault in playbooks</span></a> for more information.</p>
 </div>
 <div class="section" id="signature-based-authentication-using-certificates">
 <h3>Signature-based authentication using certificates<a class="headerlink" href="#signature-based-authentication-using-certificates" title="Permalink to this headline">¶</a></h3>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.5.</span></p>
+<p><span class="versionmodified added">New in version 2.5.</span></p>
 </div>
 <p>Using signature-based authentication is more efficient and more reliable than password-based authentication.</p>
 <div class="section" id="generate-certificate-and-private-key">
@@ -2527,16 +2527,17 @@
 <h4>Configure your local user<a class="headerlink" href="#configure-your-local-user" title="Permalink to this headline">¶</a></h4>
 <p>Perform the following steps:</p>
 <ul class="simple">
-<li>Add the X.509 certificate to your ACI AAA local user at <span class="guilabel">ADMIN</span> » <span class="guilabel">AAA</span></li>
-<li>Click <span class="guilabel">AAA Authentication</span></li>
-<li>Check that in the <span class="guilabel">Authentication</span> field the <span class="guilabel">Realm</span> field displays <span class="guilabel">Local</span></li>
-<li>Expand <span class="guilabel">Security Management</span> » <span class="guilabel">Local Users</span></li>
-<li>Click the name of the user you want to add a certificate to, in the <span class="guilabel">User Certificates</span> area</li>
-<li>Click the <span class="guilabel">+</span> sign and in the <span class="guilabel">Create X509 Certificate</span> enter a certificate name in the <span class="guilabel">Name</span> field<ul>
-<li>If you use the basename of your private key here, you don’t need to enter <code class="docutils literal notranslate"><span class="pre">certificate_name</span></code> in Ansible</li>
+<li><p>Add the X.509 certificate to your ACI AAA local user at <span class="guilabel">ADMIN</span> » <span class="guilabel">AAA</span></p></li>
+<li><p>Click <span class="guilabel">AAA Authentication</span></p></li>
+<li><p>Check that in the <span class="guilabel">Authentication</span> field the <span class="guilabel">Realm</span> field displays <span class="guilabel">Local</span></p></li>
+<li><p>Expand <span class="guilabel">Security Management</span> » <span class="guilabel">Local Users</span></p></li>
+<li><p>Click the name of the user you want to add a certificate to, in the <span class="guilabel">User Certificates</span> area</p></li>
+<li><p>Click the <span class="guilabel">+</span> sign and in the <span class="guilabel">Create X509 Certificate</span> enter a certificate name in the <span class="guilabel">Name</span> field</p>
+<ul>
+<li><p>If you use the basename of your private key here, you don’t need to enter <code class="docutils literal notranslate"><span class="pre">certificate_name</span></code> in Ansible</p></li>
 </ul>
 </li>
-<li>Copy and paste your X.509 certificate in the <span class="guilabel">Data</span> field.</li>
+<li><p>Copy and paste your X.509 certificate in the <span class="guilabel">Data</span> field.</p></li>
 </ul>
 <p>You can automate this by using the following Ansible task:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Ensure we have a certificate installed</span>
@@ -2551,8 +2552,8 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Signature-based authentication only works with local users.</p>
+<p class="admonition-title">Note</p>
+<p>Signature-based authentication only works with local users.</p>
 </div>
 </div>
 <div class="section" id="use-signature-based-authentication-with-ansible">
@@ -2564,8 +2565,8 @@
 </pre></div>
 </div>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">If you use a certificate name in ACI that matches the private key’s basename, you can leave out the <code class="docutils literal notranslate"><span class="pre">certificate_name</span></code> parameter like the example above.</p>
+<p class="admonition-title">Hint</p>
+<p>If you use a certificate name in ACI that matches the private key’s basename, you can leave out the <code class="docutils literal notranslate"><span class="pre">certificate_name</span></code> parameter like the example above.</p>
 </div>
 </div>
 <div class="section" id="id2">
@@ -2641,18 +2642,18 @@
 </pre></div>
 </div>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">The XML format is more practical when there is a need to template the REST payload (inline), but the YAML format is more convenient for maintaing your infrastructure-as-code and feels more naturely integrated with Ansible playbooks. The dedicated modules offer a more simple, abstracted, but also a more limited experience. Use what feels best for your use-case.</p>
+<p class="admonition-title">Hint</p>
+<p>The XML format is more practical when there is a need to template the REST payload (inline), but the YAML format is more convenient for maintaing your infrastructure-as-code and feels more naturely integrated with Ansible playbooks. The dedicated modules offer a more simple, abstracted, but also a more limited experience. Use what feels best for your use-case.</p>
 </div>
 </div>
 <div class="section" id="id3">
 <h3>More information<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Plenty of resources exist to learn about ACI’s APIC REST interface, we recommend the links below:</p>
 <ul class="simple">
-<li><span class="xref std std-ref">The aci_rest module documentation</span></li>
-<li><a class="reference external" href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/2-x/rest_cfg/2_1_x/b_Cisco_APIC_REST_API_Configuration_Guide.html">APIC REST API Configuration Guide</a> – Detailed guide on how the APIC REST API is designed and used, incl. many examples</li>
-<li><a class="reference external" href="https://developer.cisco.com/docs/apic-mim-ref/">APIC Management Information Model reference</a> – Complete reference of the APIC object model</li>
-<li><a class="reference external" href="https://learninglabs.cisco.com/labs/tags/ACI,REST">Cisco DevNet Learning Labs about ACI and REST</a></li>
+<li><p><span class="xref std std-ref">The aci_rest module documentation</span></p></li>
+<li><p><a class="reference external" href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/2-x/rest_cfg/2_1_x/b_Cisco_APIC_REST_API_Configuration_Guide.html">APIC REST API Configuration Guide</a> – Detailed guide on how the APIC REST API is designed and used, incl. many examples</p></li>
+<li><p><a class="reference external" href="https://developer.cisco.com/docs/apic-mim-ref/">APIC Management Information Model reference</a> – Complete reference of the APIC object model</p></li>
+<li><p><a class="reference external" href="https://learninglabs.cisco.com/labs/tags/ACI,REST">Cisco DevNet Learning Labs about ACI and REST</a></p></li>
 </ul>
 </div>
 </div>
@@ -2703,13 +2704,13 @@
 <span id="aci-guide-errors"></span><h2>APIC error messages<a class="headerlink" href="#apic-error-messages" title="Permalink to this headline">¶</a></h2>
 <p>The following error messages may occur and this section can help you understand what exactly is going on and how to fix/avoid them.</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>APIC Error 122: unknown managed object class ‘polUni’</dt>
-<dd>In case you receive this error while you are certain your <span class="xref std std-ref">aci_rest</span> payload and object classes are seemingly correct, the issue might be that your payload is not in fact correct JSON (e.g. the sent payload is using single quotes, rather than double quotes), and as a result the APIC is not correctly parsing your object classes from the payload. One way to avoid this is by using a YAML or an XML formatted payload, which are easier to construct correctly and modify later.</dd>
-<dt>APIC Error 400: invalid data at line ‘1’. Attributes are missing, tag ‘attributes’ must be specified first, before any other tag</dt>
-<dd>Although the JSON specification allows unordered elements, the APIC REST API requires that the JSON <code class="docutils literal notranslate"><span class="pre">attributes</span></code> element precede the <code class="docutils literal notranslate"><span class="pre">children</span></code> array or other elements. So you need to ensure that your payload conforms to this requirement. Sorting your dictionary keys will do the trick just fine. If you don’t have any attributes, it may be necessary to add: <code class="docutils literal notranslate"><span class="pre">attributes:</span> <span class="pre">{}</span></code> as the APIC does expect the entry to precede any <code class="docutils literal notranslate"><span class="pre">children</span></code>.</dd>
-<dt>APIC Error 801: property descr of uni/tn-TENANT/ap-AP failed validation for value ‘A “legacy” network’</dt>
-<dd>Some values in the APIC have strict format-rules to comply to, and the internal APIC validation check for the provided value failed. In the above case, the <code class="docutils literal notranslate"><span class="pre">description</span></code> parameter (internally known as <code class="docutils literal notranslate"><span class="pre">descr</span></code>) only accepts values conforming to <a class="reference external" href="https://pubhub-prod.s3.amazonaws.com/media/apic-mim-ref/docs/MO-fvAp.html#descr">Regex: [a-zA-Z0-9\!#$%()*,-./:;&#64; _{|}~?&amp;+]+</a>, in general it must not include quotes or square brackets.</dd>
+<div><dl class="simple">
+<dt>APIC Error 122: unknown managed object class ‘polUni’</dt><dd><p>In case you receive this error while you are certain your <span class="xref std std-ref">aci_rest</span> payload and object classes are seemingly correct, the issue might be that your payload is not in fact correct JSON (e.g. the sent payload is using single quotes, rather than double quotes), and as a result the APIC is not correctly parsing your object classes from the payload. One way to avoid this is by using a YAML or an XML formatted payload, which are easier to construct correctly and modify later.</p>
+</dd>
+<dt>APIC Error 400: invalid data at line ‘1’. Attributes are missing, tag ‘attributes’ must be specified first, before any other tag</dt><dd><p>Although the JSON specification allows unordered elements, the APIC REST API requires that the JSON <code class="docutils literal notranslate"><span class="pre">attributes</span></code> element precede the <code class="docutils literal notranslate"><span class="pre">children</span></code> array or other elements. So you need to ensure that your payload conforms to this requirement. Sorting your dictionary keys will do the trick just fine. If you don’t have any attributes, it may be necessary to add: <code class="docutils literal notranslate"><span class="pre">attributes:</span> <span class="pre">{}</span></code> as the APIC does expect the entry to precede any <code class="docutils literal notranslate"><span class="pre">children</span></code>.</p>
+</dd>
+<dt>APIC Error 801: property descr of uni/tn-TENANT/ap-AP failed validation for value ‘A “legacy” network’</dt><dd><p>Some values in the APIC have strict format-rules to comply to, and the internal APIC validation check for the provided value failed. In the above case, the <code class="docutils literal notranslate"><span class="pre">description</span></code> parameter (internally known as <code class="docutils literal notranslate"><span class="pre">descr</span></code>) only accepts values conforming to <a class="reference external" href="https://pubhub-prod.s3.amazonaws.com/media/apic-mim-ref/docs/MO-fvAp.html#descr">Regex: [a-zA-Z0-9\!#$%()*,-./:;&#64; _{|}~?&amp;+]+</a>, in general it must not include quotes or square brackets.</p>
+</dd>
 </dl>
 </div></blockquote>
 </div>
@@ -2718,22 +2719,18 @@
 <p>The <span class="xref std std-ref">aci_rest</span> module is a wrapper around the APIC REST API. As a result any issues related to the APIC will be reflected in the use of this module.</p>
 <p>All below issues either have been reported to the vendor, and most can simply be avoided.</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>Too many consecutive API calls may result in connection throttling</dt>
-<dd><p class="first">Starting with ACI v3.1 the APIC will actively throttle password-based authenticated connection rates over a specific treshold. This is as part of an anti-DDOS measure but can act up when using Ansible with ACI using password-based authentication. Currently, one solution is to increase this treshold within the nginx configuration, but using signature-based authentication is recommended.</p>
-<p class="last"><strong>NOTE:</strong> It is advisable to use signature-based authentication with ACI as it not only prevents connection-throttling, but also improves general performance when using the ACI modules.</p>
+<div><dl>
+<dt>Too many consecutive API calls may result in connection throttling</dt><dd><p>Starting with ACI v3.1 the APIC will actively throttle password-based authenticated connection rates over a specific treshold. This is as part of an anti-DDOS measure but can act up when using Ansible with ACI using password-based authentication. Currently, one solution is to increase this treshold within the nginx configuration, but using signature-based authentication is recommended.</p>
+<p><strong>NOTE:</strong> It is advisable to use signature-based authentication with ACI as it not only prevents connection-throttling, but also improves general performance when using the ACI modules.</p>
 </dd>
-<dt>Specific requests may not reflect changes correctly (<a class="reference external" href="https://github.com/ansible/ansible/issues/35041">#35401</a>)</dt>
-<dd><p class="first">There is a known issue where specific requests to the APIC do not properly reflect changed in the resulting output, even when we request those changes explicitly from the APIC. In one instance using the path <code class="docutils literal notranslate"><span class="pre">api/node/mo/uni/infra.xml</span></code> fails, where <code class="docutils literal notranslate"><span class="pre">api/node/mo/uni/infra/.xml</span></code> does work correctly.</p>
-<p class="last"><strong>NOTE:</strong> A workaround is to register the task return values (e.g. <code class="docutils literal notranslate"><span class="pre">register:</span> <span class="pre">this</span></code>) and influence when the task should report a change by adding: <code class="docutils literal notranslate"><span class="pre">changed_when:</span> <span class="pre">this.imdata</span> <span class="pre">!=</span> <span class="pre">[]</span></code>.</p>
+<dt>Specific requests may not reflect changes correctly (<a class="reference external" href="https://github.com/ansible/ansible/issues/35041">#35401</a>)</dt><dd><p>There is a known issue where specific requests to the APIC do not properly reflect changed in the resulting output, even when we request those changes explicitly from the APIC. In one instance using the path <code class="docutils literal notranslate"><span class="pre">api/node/mo/uni/infra.xml</span></code> fails, where <code class="docutils literal notranslate"><span class="pre">api/node/mo/uni/infra/.xml</span></code> does work correctly.</p>
+<p><strong>NOTE:</strong> A workaround is to register the task return values (e.g. <code class="docutils literal notranslate"><span class="pre">register:</span> <span class="pre">this</span></code>) and influence when the task should report a change by adding: <code class="docutils literal notranslate"><span class="pre">changed_when:</span> <span class="pre">this.imdata</span> <span class="pre">!=</span> <span class="pre">[]</span></code>.</p>
 </dd>
-<dt>Specific requests are known to not be idempotent (<a class="reference external" href="https://github.com/ansible/ansible/issues/35050">#35050</a>)</dt>
-<dd><p class="first">The behaviour of the APIC is inconsistent to the use of <code class="docutils literal notranslate"><span class="pre">status=&quot;created&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">status=&quot;deleted&quot;</span></code>. The result is that when you use <code class="docutils literal notranslate"><span class="pre">status=&quot;created&quot;</span></code> in your payload the resulting tasks are not idempotent and creation will fail when the object was already created. However this is not the case with <code class="docutils literal notranslate"><span class="pre">status=&quot;deleted&quot;</span></code> where such call to an non-existing object does not cause any failure whatsoever.</p>
-<p class="last"><strong>NOTE:</strong> A workaround is to avoid using <code class="docutils literal notranslate"><span class="pre">status=&quot;created&quot;</span></code> and instead use <code class="docutils literal notranslate"><span class="pre">status=&quot;modified&quot;</span></code> when idempotency is essential to your workflow..</p>
+<dt>Specific requests are known to not be idempotent (<a class="reference external" href="https://github.com/ansible/ansible/issues/35050">#35050</a>)</dt><dd><p>The behaviour of the APIC is inconsistent to the use of <code class="docutils literal notranslate"><span class="pre">status=&quot;created&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">status=&quot;deleted&quot;</span></code>. The result is that when you use <code class="docutils literal notranslate"><span class="pre">status=&quot;created&quot;</span></code> in your payload the resulting tasks are not idempotent and creation will fail when the object was already created. However this is not the case with <code class="docutils literal notranslate"><span class="pre">status=&quot;deleted&quot;</span></code> where such call to an non-existing object does not cause any failure whatsoever.</p>
+<p><strong>NOTE:</strong> A workaround is to avoid using <code class="docutils literal notranslate"><span class="pre">status=&quot;created&quot;</span></code> and instead use <code class="docutils literal notranslate"><span class="pre">status=&quot;modified&quot;</span></code> when idempotency is essential to your workflow..</p>
 </dd>
-<dt>Setting user password is not idempotent (<a class="reference external" href="https://github.com/ansible/ansible/issues/35544">#35544</a>)</dt>
-<dd><p class="first">Due to an inconsistency in the APIC REST API, a task that sets the password of a locally-authenticated user is not idempotent. The APIC will complain with message <code class="docutils literal notranslate"><span class="pre">Password</span> <span class="pre">history</span> <span class="pre">check:</span> <span class="pre">user</span> <span class="pre">dag</span> <span class="pre">should</span> <span class="pre">not</span> <span class="pre">use</span> <span class="pre">previous</span> <span class="pre">5</span> <span class="pre">passwords</span></code>.</p>
-<p class="last"><strong>NOTE:</strong> There is no workaround for this issue.</p>
+<dt>Setting user password is not idempotent (<a class="reference external" href="https://github.com/ansible/ansible/issues/35544">#35544</a>)</dt><dd><p>Due to an inconsistency in the APIC REST API, a task that sets the password of a locally-authenticated user is not idempotent. The APIC will complain with message <code class="docutils literal notranslate"><span class="pre">Password</span> <span class="pre">history</span> <span class="pre">check:</span> <span class="pre">user</span> <span class="pre">dag</span> <span class="pre">should</span> <span class="pre">not</span> <span class="pre">use</span> <span class="pre">previous</span> <span class="pre">5</span> <span class="pre">passwords</span></code>.</p>
+<p><strong>NOTE:</strong> There is no workaround for this issue.</p>
 </dd>
 </dl>
 </div></blockquote>
@@ -2743,22 +2740,22 @@
 <p>If you have specific issues with the ACI modules, or a feature request, or you like to contribute to the ACI project by proposing changes or documentation updates, look at the Ansible Community wiki ACI page at: <a class="reference external" href="https://github.com/ansible/community/wiki/Network:-ACI">https://github.com/ansible/community/wiki/Network:-ACI</a></p>
 <p>You will find our roadmap, an overview of open ACI issues and pull-requests, and more information about who we are. If you have an interest in using ACI with Ansible, feel free to join! We occasionally meet online to track progress and prepare for new Ansible releases.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><span class="xref std std-ref">List of ACI modules</span></dt>
-<dd>A complete list of supported ACI modules.</dd>
-<dt><a class="reference internal" href="../dev_guide/developing_modules_general_aci.html#aci-dev-guide"><span class="std std-ref">Developing Cisco ACI modules</span></a></dt>
-<dd>A walkthough on how to develop new Cisco ACI modules to contribute back.</dd>
-<dt><a class="reference external" href="https://github.com/ansible/community/wiki/Network:-ACI">ACI community</a></dt>
-<dd>The Ansible ACI community wiki page, includes roadmap, ideas and development documentation.</dd>
-<dt><a class="reference internal" href="../network/index.html#network-guide"><span class="std std-ref">Ansible for Network Automation</span></a></dt>
-<dd>A detailed guide on how to use Ansible for automating network infrastructure.</dd>
-<dt><a class="reference external" href="https://github.com/ansible/community/tree/master/group-network">Network Working Group</a></dt>
-<dd>The Ansible Network community page, includes contact information and meeting information.</dd>
-<dt><a class="reference external" href="https://webchat.freenode.net/?channels=ansible-network">#ansible-network</a></dt>
-<dd>The #ansible-network IRC chat channel on Freenode.net.</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><span class="xref std std-ref">List of ACI modules</span></dt><dd><p>A complete list of supported ACI modules.</p>
+</dd>
+<dt><a class="reference internal" href="../dev_guide/developing_modules_general_aci.html#aci-dev-guide"><span class="std std-ref">Developing Cisco ACI modules</span></a></dt><dd><p>A walkthough on how to develop new Cisco ACI modules to contribute back.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/ansible/community/wiki/Network:-ACI">ACI community</a></dt><dd><p>The Ansible ACI community wiki page, includes roadmap, ideas and development documentation.</p>
+</dd>
+<dt><a class="reference internal" href="../network/index.html#network-guide"><span class="std std-ref">Ansible for Network Automation</span></a></dt><dd><p>A detailed guide on how to use Ansible for automating network infrastructure.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/ansible/community/tree/master/group-network">Network Working Group</a></dt><dd><p>The Ansible Network community page, includes contact information and meeting information.</p>
+</dd>
+<dt><a class="reference external" href="https://webchat.freenode.net/?channels=ansible-network">#ansible-network</a></dt><dd><p>The #ansible-network IRC chat channel on Freenode.net.</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2790,7 +2787,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2269,14 +2269,15 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#delegation-rolling-updates-and-local-actions" id="id7">Delegation, Rolling Updates, and Local Actions</a><ul>
-<li><a class="reference internal" href="#rolling-update-batch-size" id="id8">Rolling Update Batch Size</a></li>
-<li><a class="reference internal" href="#maximum-failure-percentage" id="id9">Maximum Failure Percentage</a></li>
-<li><a class="reference internal" href="#delegation" id="id10">Delegation</a></li>
-<li><a class="reference internal" href="#delegated-facts" id="id11">Delegated facts</a></li>
-<li><a class="reference internal" href="#run-once" id="id12">Run Once</a></li>
-<li><a class="reference internal" href="#local-playbooks" id="id13">Local Playbooks</a></li>
-<li><a class="reference internal" href="#interrupt-execution-on-any-error" id="id14">Interrupt execution on any error</a></li>
+<li><p><a class="reference internal" href="#delegation-rolling-updates-and-local-actions" id="id7">Delegation, Rolling Updates, and Local Actions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#rolling-update-batch-size" id="id8">Rolling Update Batch Size</a></p></li>
+<li><p><a class="reference internal" href="#maximum-failure-percentage" id="id9">Maximum Failure Percentage</a></p></li>
+<li><p><a class="reference internal" href="#delegation" id="id10">Delegation</a></p></li>
+<li><p><a class="reference internal" href="#delegated-facts" id="id11">Delegated facts</a></p></li>
+<li><p><a class="reference internal" href="#run-once" id="id12">Run Once</a></p></li>
+<li><p><a class="reference internal" href="#local-playbooks" id="id13">Local Playbooks</a></p></li>
+<li><p><a class="reference internal" href="#interrupt-execution-on-any-error" id="id14">Interrupt execution on any error</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2369,8 +2370,8 @@ every following batch would contain 10 hosts until all available hosts are used.
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">No matter how small the percentage, the number of hosts per pass will always be 1 or greater.</p>
+<p class="admonition-title">Note</p>
+<p>No matter how small the percentage, the number of hosts per pass will always be 1 or greater.</p>
 </div>
 </div>
 <div class="section" id="maximum-failure-percentage">
@@ -2386,8 +2387,8 @@ percentage on a play as follows:</p>
 </div>
 <p>In the above example, if more than 3 of the 10 servers in the group were to fail, the rest of the play would be aborted.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The percentage set must be exceeded, not equaled. For example, if serial were set to 4 and you wanted the task to abort
+<p class="admonition-title">Note</p>
+<p>The percentage set must be exceeded, not equaled. For example, if serial were set to 4 and you wanted the task to abort
 when 2 of the systems failed, the percentage should be set at 49 rather than 50.</p>
 </div>
 </div>
@@ -2511,14 +2512,14 @@ This can be achieved by configuring “run_once” on a task:</p>
 </div>
 <p>As always with delegation, the action will be executed on the delegated host, but the information is still that of the original host in the task.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">When used together with “serial”, tasks marked as “run_once” will be run on one host in <em>each</em> serial batch.
+<p class="admonition-title">Note</p>
+<p>When used together with “serial”, tasks marked as “run_once” will be run on one host in <em>each</em> serial batch.
 If it’s crucial that the task is run only once regardless of “serial” mode, use
 <code class="code docutils literal notranslate"><span class="pre">when:</span> <span class="pre">inventory_hostname</span> <span class="pre">==</span> <span class="pre">ansible_play_hosts[0]</span></code> construct.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Any conditional (i.e <cite>when:</cite>) will use the variables of the ‘first host’ to decide if the task runs or not, no other hosts will be tested.</p>
+<p class="admonition-title">Note</p>
+<p>Any conditional (i.e <cite>when:</cite>) will use the variables of the ‘first host’ to decide if the task runs or not, no other hosts will be tested.</p>
 </div>
 </div>
 <div class="section" id="local-playbooks">
@@ -2537,8 +2538,8 @@ use the default remote connection type:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you set the connection to local and there is no ansible_python_interpreter set, modules will run under /usr/bin/python and not
+<p class="admonition-title">Note</p>
+<p>If you set the connection to local and there is no ansible_python_interpreter set, modules will run under /usr/bin/python and not
 under {{ ansible_playbook_python }}. Be sure to set ansible_python_interpreter: “{{ ansible_playbook_python }}” in
 host_vars/localhost.yml, for example. You can avoid this issue by using <code class="docutils literal notranslate"><span class="pre">local_action</span></code> or <code class="docutils literal notranslate"><span class="pre">delegate_to:</span> <span class="pre">localhost</span></code> instead.</p>
 </div>
@@ -2549,10 +2550,10 @@ host_vars/localhost.yml, for example. You can avoid this issue by using <code cl
 <p>Sometimes ‘’serial’’ execution is unsuitable; the number of hosts is unpredictable (because of dynamic inventory) and speed is crucial (simultaneous execution is required), but all tasks must be 100% successful to continue playbook execution.</p>
 <p>For example, consider a service located in many datacenters with some load balancers to pass traffic from users to the service. There is a deploy playbook to upgrade service deb-packages. The playbook has the stages:</p>
 <ul class="simple">
-<li>disable traffic on load balancers (must be turned off simultaneously)</li>
-<li>gracefully stop the service</li>
-<li>upgrade software (this step includes tests and starting the service)</li>
-<li>enable traffic on the load balancers (which should be turned on simultaneously)</li>
+<li><p>disable traffic on load balancers (must be turned off simultaneously)</p></li>
+<li><p>gracefully stop the service</p></li>
+<li><p>upgrade software (this step includes tests and starting the service)</p></li>
+<li><p>enable traffic on the load balancers (which should be turned on simultaneously)</p></li>
 </ul>
 <p>The service can’t be stopped with “alive” load balancers; they must be disabled first. Because of this, the second stage can’t be played if any server failed in the first stage.</p>
 <p>For datacenter “A”, the playbook can be written this way:</p>
@@ -2578,16 +2579,16 @@ host_vars/localhost.yml, for example. You can avoid this issue by using <code cl
 </div>
 <p>In this example Ansible will start the software upgrade on the front ends only if all of the load balancers are successfully disabled.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">Ansible Examples on GitHub</a></dt>
-<dd>Many examples of full-stack deployments</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">Ansible Examples on GitHub</a></dt><dd><p>Many examples of full-stack deployments</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2619,7 +2620,7 @@ host_vars/localhost.yml, for example. You can avoid this issue by using <code cl
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

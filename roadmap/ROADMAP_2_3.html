@@ -2270,19 +2270,20 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-2-3" id="id1">Ansible 2.3</a><ul>
-<li><a class="reference internal" href="#general-comments-from-the-core-team" id="id2">General Comments from the Core Team</a></li>
-<li><a class="reference internal" href="#repo-merge" id="id3">Repo Merge</a></li>
-<li><a class="reference internal" href="#metadata" id="id4">Metadata</a></li>
-<li><a class="reference internal" href="#documentation" id="id5">Documentation</a></li>
-<li><a class="reference internal" href="#windows" id="id6">Windows</a></li>
-<li><a class="reference internal" href="#azure" id="id7">Azure</a></li>
-<li><a class="reference internal" href="#networking" id="id8">Networking</a></li>
-<li><a class="reference internal" href="#python3" id="id9">Python3</a></li>
-<li><a class="reference internal" href="#testing-and-ci" id="id10">Testing and CI</a></li>
-<li><a class="reference internal" href="#amazon" id="id11">Amazon</a></li>
-<li><a class="reference internal" href="#plugin-loader" id="id12">Plugin Loader</a></li>
-<li><a class="reference internal" href="#ansible-ssh" id="id13">ansible-ssh</a></li>
+<li><p><a class="reference internal" href="#ansible-2-3" id="id1">Ansible 2.3</a></p>
+<ul>
+<li><p><a class="reference internal" href="#general-comments-from-the-core-team" id="id2">General Comments from the Core Team</a></p></li>
+<li><p><a class="reference internal" href="#repo-merge" id="id3">Repo Merge</a></p></li>
+<li><p><a class="reference internal" href="#metadata" id="id4">Metadata</a></p></li>
+<li><p><a class="reference internal" href="#documentation" id="id5">Documentation</a></p></li>
+<li><p><a class="reference internal" href="#windows" id="id6">Windows</a></p></li>
+<li><p><a class="reference internal" href="#azure" id="id7">Azure</a></p></li>
+<li><p><a class="reference internal" href="#networking" id="id8">Networking</a></p></li>
+<li><p><a class="reference internal" href="#python3" id="id9">Python3</a></p></li>
+<li><p><a class="reference internal" href="#testing-and-ci" id="id10">Testing and CI</a></p></li>
+<li><p><a class="reference internal" href="#amazon" id="id11">Amazon</a></p></li>
+<li><p><a class="reference internal" href="#plugin-loader" id="id12">Plugin Loader</a></p></li>
+<li><p><a class="reference internal" href="#ansible-ssh" id="id13">ansible-ssh</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2290,68 +2291,70 @@
 <div class="section" id="general-comments-from-the-core-team">
 <h2><a class="toc-backref" href="#id2">General Comments from the Core Team</a><a class="headerlink" href="#general-comments-from-the-core-team" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The 2.3 Ansible Core is just a little different than the past two major releases we’ve done.  In addition to feature work, we’re using part of the time for this release to reduce some of our backlog in other areas than pure development.</li>
-<li><em>Administration:</em> Clean up our GitHub repos and move to one repo so that contributions, tickets, submissions, etc are centralized and easier for both the community and the Core Team to manage.</li>
-<li><em>Metadata:</em> Move to a Metadata based system for modules.  This has been discussed here: <a class="reference external" href="https://github.com/ansible/proposals/blob/master/modules-management.md">https://github.com/ansible/proposals/blob/master/modules-management.md</a></li>
-<li><em>Documentation:</em> We’re aware that Docs have issues.  Scott Butler, aka Dharmabumstead will be leading the charge on how he and we as a community can clean them up.</li>
-<li><em>Backlog &amp; Stability:</em> We’re spending some of the cycles for 2.3 trying to reduce our ticket/PR backlog, and clean up some particular areas of the project that the community has expressed particular frustrations about.</li>
-<li><em>Python 3:</em> The community and Toshio have done TONS of work getting Python 3 working.  Still more to go…</li>
-<li><em>Features:</em> We still have some cool stuff coming.  Check it out below.  For people on the Networking side of the world, the Persistent Connection Manager will be a <em>huge</em> feature and performance gain.</li>
+<li><p>The 2.3 Ansible Core is just a little different than the past two major releases we’ve done.  In addition to feature work, we’re using part of the time for this release to reduce some of our backlog in other areas than pure development.</p></li>
+<li><p><em>Administration:</em> Clean up our GitHub repos and move to one repo so that contributions, tickets, submissions, etc are centralized and easier for both the community and the Core Team to manage.</p></li>
+<li><p><em>Metadata:</em> Move to a Metadata based system for modules.  This has been discussed here: <a class="reference external" href="https://github.com/ansible/proposals/blob/master/modules-management.md">https://github.com/ansible/proposals/blob/master/modules-management.md</a></p></li>
+<li><p><em>Documentation:</em> We’re aware that Docs have issues.  Scott Butler, aka Dharmabumstead will be leading the charge on how he and we as a community can clean them up.</p></li>
+<li><p><em>Backlog &amp; Stability:</em> We’re spending some of the cycles for 2.3 trying to reduce our ticket/PR backlog, and clean up some particular areas of the project that the community has expressed particular frustrations about.</p></li>
+<li><p><em>Python 3:</em> The community and Toshio have done TONS of work getting Python 3 working.  Still more to go…</p></li>
+<li><p><em>Features:</em> We still have some cool stuff coming.  Check it out below.  For people on the Networking side of the world, the Persistent Connection Manager will be a <em>huge</em> feature and performance gain.</p></li>
 </ul>
 </div>
 <div class="section" id="repo-merge">
 <h2><a class="toc-backref" href="#id3">Repo Merge</a><a class="headerlink" href="#repo-merge" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Script that a submitter can run to migrate their PR <strong>(done)</strong></li>
-<li>Script that a committer can run to fork a PR and then merge to ansible/ansible <strong>(mostly done)</strong></li>
-<li>Move all the issues (remove old ones that can be removed) <strong>(done)</strong></li>
-<li>Enhance ansibullbot to accommodate the changes (jctanner) <strong>(in progress, going well)</strong></li>
+<li><p>Script that a submitter can run to migrate their PR <strong>(done)</strong></p></li>
+<li><p>Script that a committer can run to fork a PR and then merge to ansible/ansible <strong>(mostly done)</strong></p></li>
+<li><p>Move all the issues (remove old ones that can be removed) <strong>(done)</strong></p></li>
+<li><p>Enhance ansibullbot to accommodate the changes (jctanner) <strong>(in progress, going well)</strong></p></li>
 </ul>
 </div>
 <div class="section" id="metadata">
 <h2><a class="toc-backref" href="#id4">Metadata</a><a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Add metadata to the modules we ship <strong>(done)</strong></li>
-<li>Write code to use metadata in docs <strong>(done)</strong></li>
-<li>If needed for python2/3 write code to use metadata in module_common or pluginloader <strong>(not needed)</strong></li>
+<li><p>Add metadata to the modules we ship <strong>(done)</strong></p></li>
+<li><p>Write code to use metadata in docs <strong>(done)</strong></p></li>
+<li><p>If needed for python2/3 write code to use metadata in module_common or pluginloader <strong>(not needed)</strong></p></li>
 </ul>
 </div>
 <div class="section" id="documentation">
 <h2><a class="toc-backref" href="#id5">Documentation</a><a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Update developing_modules <strong>(in progress, will continue in 2.4)</strong></li>
-<li>Set up rst skeleton for module_utils docs.</li>
-<li>Plugin development docs</li>
-<li>Speed up <cite>make webdocs</cite> <a class="reference external" href="https://github.com/ansible/ansible/issues/17406">https://github.com/ansible/ansible/issues/17406</a>   <strong>(done)</strong></li>
+<li><p>Update developing_modules <strong>(in progress, will continue in 2.4)</strong></p></li>
+<li><p>Set up rst skeleton for module_utils docs.</p></li>
+<li><p>Plugin development docs</p></li>
+<li><p>Speed up <cite>make webdocs</cite> <a class="reference external" href="https://github.com/ansible/ansible/issues/17406">https://github.com/ansible/ansible/issues/17406</a>   <strong>(done)</strong></p></li>
 </ul>
 </div>
 <div class="section" id="windows">
 <h2><a class="toc-backref" href="#id6">Windows</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
 <p>Lead by nitzmahone</p>
 <ul class="simple">
-<li><strong>Platform</strong><ul>
-<li>Pipelining support <strong>(done)</strong></li>
-<li>Become support <strong>(done/experimental)</strong></li>
-<li>Integrated kerberos ticket management (via ansible_user/ansible_password) <strong>(done)</strong></li>
-<li>Switch PS input encoding to BOM-less UTF8 <strong>(done)</strong></li>
-<li>Server 2016 support/testing (now RTM’d) <strong>(partial)</strong></li>
-<li>Modularize Windows module_utils (allow N files) <strong>(partial)</strong></li>
-<li>Declarative argspec for PS / .NET <strong>(bumped to 2.4)</strong></li>
-<li>Kerberos encryption (via notting, pywinrm/requests_kerberos/pykerberos) <strong>(in progress, available in pywinrm post 2.3 release)</strong></li>
-<li>Fix plugin-specific connection var lookup/delegation (either registered explicitly by plugins or ansible_(plugin)_*) <strong>(bumped to 2.4)</strong></li>
+<li><p><strong>Platform</strong></p>
+<ul>
+<li><p>Pipelining support <strong>(done)</strong></p></li>
+<li><p>Become support <strong>(done/experimental)</strong></p></li>
+<li><p>Integrated kerberos ticket management (via ansible_user/ansible_password) <strong>(done)</strong></p></li>
+<li><p>Switch PS input encoding to BOM-less UTF8 <strong>(done)</strong></p></li>
+<li><p>Server 2016 support/testing (now RTM’d) <strong>(partial)</strong></p></li>
+<li><p>Modularize Windows module_utils (allow N files) <strong>(partial)</strong></p></li>
+<li><p>Declarative argspec for PS / .NET <strong>(bumped to 2.4)</strong></p></li>
+<li><p>Kerberos encryption (via notting, pywinrm/requests_kerberos/pykerberos) <strong>(in progress, available in pywinrm post 2.3 release)</strong></p></li>
+<li><p>Fix plugin-specific connection var lookup/delegation (either registered explicitly by plugins or ansible_(plugin)_*) <strong>(bumped to 2.4)</strong></p></li>
 </ul>
 </li>
-<li><strong>Modules</strong><ul>
-<li>win_domain module <strong>(done)</strong></li>
-<li>win_domain_membership module <strong>(done)</strong></li>
-<li>win_domain_controller module <strong>(done)</strong></li>
-<li>win_dns_client module <strong>(done)</strong></li>
-<li>win_wait_for module</li>
-<li>win_disk_image module <strong>(done)</strong></li>
-<li>Updates to win_chocolatey, adopt to core (stretch) <strong>(bump to 2.4)</strong></li>
-<li>Updates/rewrite to win_unzip, adopt to core (stretch) <strong>(bump to 2.4)</strong></li>
-<li>Updates to win_updates, adopt to core (stretch) <strong>(bump to 2.4)</strong></li>
-<li>Updates to win_package, adopt to core (+ deprecate win_msi) (stretch) <strong>(bump to 2.4)</strong></li>
+<li><p><strong>Modules</strong></p>
+<ul>
+<li><p>win_domain module <strong>(done)</strong></p></li>
+<li><p>win_domain_membership module <strong>(done)</strong></p></li>
+<li><p>win_domain_controller module <strong>(done)</strong></p></li>
+<li><p>win_dns_client module <strong>(done)</strong></p></li>
+<li><p>win_wait_for module</p></li>
+<li><p>win_disk_image module <strong>(done)</strong></p></li>
+<li><p>Updates to win_chocolatey, adopt to core (stretch) <strong>(bump to 2.4)</strong></p></li>
+<li><p>Updates/rewrite to win_unzip, adopt to core (stretch) <strong>(bump to 2.4)</strong></p></li>
+<li><p>Updates to win_updates, adopt to core (stretch) <strong>(bump to 2.4)</strong></p></li>
+<li><p>Updates to win_package, adopt to core (+ deprecate win_msi) (stretch) <strong>(bump to 2.4)</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -2360,71 +2363,73 @@
 <h2><a class="toc-backref" href="#id7">Azure</a><a class="headerlink" href="#azure" title="Permalink to this headline">¶</a></h2>
 <p>Lead by nitzmahone, mattclay</p>
 <ul class="simple">
-<li>Ensure Azure SDK rc6/RTM work <strong>(done)</strong></li>
-<li>Move tests from ansible/azure_rm repo to ansible/ansible <strong>(bump to 2.4, no CI resources)</strong></li>
-<li>Update/enhance tests <strong>(bump to 2.4, no CI resources)</strong></li>
-<li>Expose endpoint overrides (support AzureChinaCloud, Azure Stack) <strong>(bump to 2.4)</strong></li>
-<li>Get Azure tests running in CI (stretch, depends on availability of sponsored account) <strong>(bump to 2.4, no CI resources)</strong></li>
-<li>azure_rm_loadbalancer module (stretch) <strong>(bump to 2.4)</strong></li>
+<li><p>Ensure Azure SDK rc6/RTM work <strong>(done)</strong></p></li>
+<li><p>Move tests from ansible/azure_rm repo to ansible/ansible <strong>(bump to 2.4, no CI resources)</strong></p></li>
+<li><p>Update/enhance tests <strong>(bump to 2.4, no CI resources)</strong></p></li>
+<li><p>Expose endpoint overrides (support AzureChinaCloud, Azure Stack) <strong>(bump to 2.4)</strong></p></li>
+<li><p>Get Azure tests running in CI (stretch, depends on availability of sponsored account) <strong>(bump to 2.4, no CI resources)</strong></p></li>
+<li><p>azure_rm_loadbalancer module (stretch) <strong>(bump to 2.4)</strong></p></li>
 </ul>
 </div>
 <div class="section" id="networking">
 <h2><a class="toc-backref" href="#id8">Networking</a><a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Code stability and tidy up <strong>(done)</strong></li>
-<li>Extend testing <strong>(done)</strong></li>
-<li>User facing documentation</li>
-<li>Persistent connection manager <strong>(done)</strong></li>
-<li>Netconf/YANG implementation (only feature) <strong>(done)</strong></li>
-<li>Deferred from 2.2: Network facts modules (sros)</li>
+<li><p>Code stability and tidy up <strong>(done)</strong></p></li>
+<li><p>Extend testing <strong>(done)</strong></p></li>
+<li><p>User facing documentation</p></li>
+<li><p>Persistent connection manager <strong>(done)</strong></p></li>
+<li><p>Netconf/YANG implementation (only feature) <strong>(done)</strong></p></li>
+<li><p>Deferred from 2.2: Network facts modules (sros)</p></li>
 </ul>
 </div>
 <div class="section" id="python3">
 <h2><a class="toc-backref" href="#id9">Python3</a><a class="headerlink" href="#python3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>For 2.3:<ul>
-<li>We want all tests to pass<ul>
-<li>Just the mercurial tests left because we haven’t created an image with
-both python2 and python3 to test it on yet.</li>
-<li>Check by doing <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">skip/python3</span> <span class="pre">test/integration/targets/*/aliases</span></code></li>
+<li><p>For 2.3:</p>
+<ul>
+<li><p>We want all tests to pass</p>
+<ul>
+<li><p>Just the mercurial tests left because we haven’t created an image with
+both python2 and python3 to test it on yet.</p></li>
+<li><p>Check by doing <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">skip/python3</span> <span class="pre">test/integration/targets/*/aliases</span></code></p></li>
 </ul>
 </li>
-<li>If users report bugs on python3, these should be fixed and will prioritize our work on porting other modules.</li>
+<li><p>If users report bugs on python3, these should be fixed and will prioritize our work on porting other modules.</p></li>
 </ul>
 </li>
-<li>Still have to solve the python3-only and python2-only modules.  Thinking of doing this via metadata.  Will mean we have to use metadata at the module_common level.  Will also mean we don’t support py2-only or py3-only old style python modules.</li>
-<li>Note: Most of the currently tested ansible features now run.  But there’s still a lot of code that’s untested.</li>
+<li><p>Still have to solve the python3-only and python2-only modules.  Thinking of doing this via metadata.  Will mean we have to use metadata at the module_common level.  Will also mean we don’t support py2-only or py3-only old style python modules.</p></li>
+<li><p>Note: Most of the currently tested ansible features now run.  But there’s still a lot of code that’s untested.</p></li>
 </ul>
 </div>
 <div class="section" id="testing-and-ci">
 <h2><a class="toc-backref" href="#id10">Testing and CI</a><a class="headerlink" href="#testing-and-ci" title="Permalink to this headline">¶</a></h2>
 <p>Lead by mattclay</p>
 <ul>
-<li><p class="first"><em>Static Code Analysis:</em> Create custom pylint extensions to automate detection of common Ansible specific issues reported during code review. Automate feedback on PRs for new code only to avoid noise from existing code which does not pass.</p>
+<li><p><em>Static Code Analysis:</em> Create custom pylint extensions to automate detection of common Ansible specific issues reported during code review. Automate feedback on PRs for new code only to avoid noise from existing code which does not pass.</p>
 <p><strong>Ongoing:</strong> Some static code analysis is now part of the CI process:</p>
 <ul class="simple">
-<li>pep8 is now being run by CI, although not all PEP 8 rules are being enforced.</li>
-<li>pylint is now being run by CI, but currently only on the ansible-test portion of codebase.</li>
+<li><p>pep8 is now being run by CI, although not all PEP 8 rules are being enforced.</p></li>
+<li><p>pylint is now being run by CI, but currently only on the ansible-test portion of codebase.</p></li>
 </ul>
 </li>
-<li><p class="first"><em>Test Reliability:</em> Eliminate transient test failures by fixing unreliable tests. Reduce network dependencies by moving network resources into httptester.</p>
+<li><p><em>Test Reliability:</em> Eliminate transient test failures by fixing unreliable tests. Reduce network dependencies by moving network resources into httptester.</p>
 <p><strong>Ongoing:</strong> Many of the frequent sources of test instability have been resolved. However, more work still remains.</p>
 <p>Some new issues have also appeared, which are currently being worked on.</p>
 </li>
-<li><p class="first"><em>Enable Remaining Tests:</em> Implement fixes for macOS, FreeBSD and Python 3 to enable the remaining blacklisted tests for CI.</p>
+<li><p><em>Enable Remaining Tests:</em> Implement fixes for macOS, FreeBSD and Python 3 to enable the remaining blacklisted tests for CI.</p>
 <p><strong>Ongoing:</strong> More tests have been enabled for macOS, FreeBSD and Python 3. However, work still remains to enable more tests.</p>
 </li>
-<li><p class="first"><em>Windows Server 2016:</em> Add Windows Server 2016 to CI when official AMIs become available.</p>
+<li><p><em>Windows Server 2016:</em> Add Windows Server 2016 to CI when official AMIs become available.</p>
 <p><strong>Delayed:</strong> Integration tests pass on Windows Server 2016. However, due to intermittent WinRM issues, the tests have been disabled.</p>
 <p>Once the issues with WinRM have been resolved, the tests will be re-enabled.</p>
 </li>
-<li><p class="first"><em>Repository Consolidation:</em> Update CI to maintain and improve upon existing functionality after repository consolidation.</p>
+<li><p><em>Repository Consolidation:</em> Update CI to maintain and improve upon existing functionality after repository consolidation.</p>
 <p><strong>Done:</strong> A new test runner, ansible-test, has been deployed to manage CI jobs on Shippable.</p>
 <p>Tests executed on PRs are based on the changes made in the PR, for example:</p>
 <ul class="simple">
-<li>Changes to a module will only run tests appropriate for that module.</li>
-<li>Changes to Windows modules or the Windows connection plugin run tests on Windows.</li>
-<li>Changes to network modules run tests on the appropriate virtual network device (currently supporting VyOS and IOS).</li>
+<li><p>Changes to a module will only run tests appropriate for that module.</p></li>
+<li><p>Changes to Windows modules or the Windows connection plugin run tests on Windows.</p></li>
+<li><p>Changes to network modules run tests on the appropriate virtual network device (currently supporting VyOS and IOS).</p></li>
 </ul>
 <p>Tests executed on merges are based on changes since the last successful merge test.</p>
 </li>
@@ -2434,29 +2439,30 @@ both python2 and python3 to test it on yet.</li>
 <h2><a class="toc-backref" href="#id11">Amazon</a><a class="headerlink" href="#amazon" title="Permalink to this headline">¶</a></h2>
 <p>Lead by ryansb</p>
 <ul class="simple">
-<li>Improve ec2.py integration tests <strong>(partial, more to do in 2.4)</strong></li>
-<li>ELB version 2 <strong>(pushed - needs_revision)</strong> <a class="reference external" href="https://github.com/ansible/ansible/pull/19491">PR</a></li>
-<li>CloudFormation YAML, cross-stack reference, and roles support <strong>(done)</strong></li>
-<li>ECS module refactor <strong>(done)</strong></li>
-<li>AWS module unit testing w/ placebo (boto3 only) <strong>(pushed 2.4)</strong></li>
+<li><p>Improve ec2.py integration tests <strong>(partial, more to do in 2.4)</strong></p></li>
+<li><p>ELB version 2 <strong>(pushed - needs_revision)</strong> <a class="reference external" href="https://github.com/ansible/ansible/pull/19491">PR</a></p></li>
+<li><p>CloudFormation YAML, cross-stack reference, and roles support <strong>(done)</strong></p></li>
+<li><p>ECS module refactor <strong>(done)</strong></p></li>
+<li><p>AWS module unit testing w/ placebo (boto3 only) <strong>(pushed 2.4)</strong></p></li>
 </ul>
 </div>
 <div class="section" id="plugin-loader">
 <h2><a class="toc-backref" href="#id12">Plugin Loader</a><a class="headerlink" href="#plugin-loader" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Add module_utils to the plugin loader (feature) [done]</li>
-<li>Split plugin loader: Plugin_search, plugin_loader (modules only use first) [pushed to 2.4]</li>
+<li><p>Add module_utils to the plugin loader (feature) [done]</p></li>
+<li><p>Split plugin loader: Plugin_search, plugin_loader (modules only use first) [pushed to 2.4]</p></li>
 </ul>
 </div>
 <div class="section" id="ansible-ssh">
 <h2><a class="toc-backref" href="#id13">ansible-ssh</a><a class="headerlink" href="#ansible-ssh" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Add a ‘ansible-ssh’ convenience and debugging tool (will slip to 2.4)</li>
-<li>Tool to invoke an interactive ssh to a host with the same args/env/config that ansible would.</li>
-<li>There are at least three external versions<ul>
-<li><a class="reference external" href="https://github.com/2ndQuadrant/ansible-ssh">https://github.com/2ndQuadrant/ansible-ssh</a></li>
-<li><a class="reference external" href="https://github.com/haad/ansible-ssh">https://github.com/haad/ansible-ssh</a></li>
-<li><a class="reference external" href="https://github.com/mlvnd/ansible-tools">https://github.com/mlvnd/ansible-tools</a></li>
+<li><p>Add a ‘ansible-ssh’ convenience and debugging tool (will slip to 2.4)</p></li>
+<li><p>Tool to invoke an interactive ssh to a host with the same args/env/config that ansible would.</p></li>
+<li><p>There are at least three external versions</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/2ndQuadrant/ansible-ssh">https://github.com/2ndQuadrant/ansible-ssh</a></p></li>
+<li><p><a class="reference external" href="https://github.com/haad/ansible-ssh">https://github.com/haad/ansible-ssh</a></p></li>
+<li><p><a class="reference external" href="https://github.com/mlvnd/ansible-tools">https://github.com/mlvnd/ansible-tools</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2489,7 +2495,7 @@ both python2 and python3 to test it on yet.</li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

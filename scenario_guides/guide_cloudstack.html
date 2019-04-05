@@ -2271,8 +2271,8 @@
 <p>The purpose of this section is to explain how to put Ansible modules together to use Ansible in a CloudStack context. You will find more usage examples in the details section of each module.</p>
 <p>Ansible contains a number of extra modules for interacting with CloudStack based clouds. All modules support check mode, are designed to be idempotent, have been created and tested, and are maintained by the community.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Some of the modules will require domain admin or root admin privileges.</p>
+<p class="admonition-title">Note</p>
+<p>Some of the modules will require domain admin or root admin privileges.</p>
 </div>
 </div>
 <div class="section" id="prerequisites">
@@ -2287,8 +2287,8 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">cs also includes a command line interface for ad-hoc interaction with the CloudStack API e.g. <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">cs</span> <span class="pre">listVirtualMachines</span> <span class="pre">state=Running</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>cs also includes a command line interface for ad-hoc interaction with the CloudStack API e.g. <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">cs</span> <span class="pre">listVirtualMachines</span> <span class="pre">state=Running</span></code>.</p>
 </div>
 </div>
 <div class="section" id="limitations-and-known-issues">
@@ -2300,9 +2300,9 @@
 <p>You can pass credentials and the endpoint of your cloud as module arguments, however in most cases it is a far less work to store your credentials in the cloudstack.ini file.</p>
 <p>The python library cs looks for the credentials file in the following order (last one wins):</p>
 <ul class="simple">
-<li>A <code class="docutils literal notranslate"><span class="pre">.cloudstack.ini</span></code> (note the dot) file in the home directory.</li>
-<li>A <code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_CONFIG</span></code> environment variable pointing to an .ini file.</li>
-<li>A <code class="docutils literal notranslate"><span class="pre">cloudstack.ini</span></code> (without the dot) file in the current working directory, same directory as your playbooks are located.</li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">.cloudstack.ini</span></code> (note the dot) file in the home directory.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_CONFIG</span></code> environment variable pointing to an .ini file.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">cloudstack.ini</span></code> (without the dot) file in the current working directory, same directory as your playbooks are located.</p></li>
 </ul>
 <p>The structure of the ini file must look like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat <span class="nv">$HOME</span>/.cloudstack.ini
@@ -2314,11 +2314,11 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The section <code class="docutils literal notranslate"><span class="pre">[cloudstack]</span></code> is the default section. <code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_REGION</span></code> environment variable can be used to define the default section.</p>
+<p class="admonition-title">Note</p>
+<p>The section <code class="docutils literal notranslate"><span class="pre">[cloudstack]</span></code> is the default section. <code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_REGION</span></code> environment variable can be used to define the default section.</p>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.4.</span></p>
+<p><span class="versionmodified added">New in version 2.4.</span></p>
 </div>
 <p>The ENV variables support <code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_*</span></code> as written in the documentation of the library <code class="docutils literal notranslate"><span class="pre">cs</span></code>,  like e.g <code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_TIMEOUT</span></code>, <code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_METHOD</span></code>, etc. has been implemented into Ansible. It is even possible to have some incomplete config in your cloudstack.ini:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat <span class="nv">$HOME</span>/.cloudstack.ini
@@ -2362,8 +2362,8 @@
 </pre></div>
 </div>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">Sections can also be used to for login into the same region using different accounts.</p>
+<p class="admonition-title">Hint</p>
+<p>Sections can also be used to for login into the same region using different accounts.</p>
 </div>
 <p>By passing the argument <code class="docutils literal notranslate"><span class="pre">api_region</span></code> with the CloudStack modules, the region wanted will be selected.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ensure my ssh public key exists on Exoscale</span>
@@ -2390,7 +2390,7 @@
 <div class="section" id="environment-variables">
 <h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.3.</span></p>
+<p><span class="versionmodified added">New in version 2.3.</span></p>
 </div>
 <p>Since Ansible 2.3 it is possible to use environment variables for domain (<code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_DOMAIN</span></code>), account (<code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_ACCOUNT</span></code>), project (<code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_PROJECT</span></code>), VPC (<code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_VPC</span></code>) and zone (<code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_ZONE</span></code>). This simplifies the tasks by not repeating the arguments for every tasks.</p>
 <p>Below you see an example how it can be used in combination with Ansible’s block feature:</p>
@@ -2418,12 +2418,12 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You are still able overwrite the environment variables using the module arguments, e.g. <code class="docutils literal notranslate"><span class="pre">zone:</span> <span class="pre">sf-2</span></code></p>
+<p class="admonition-title">Note</p>
+<p>You are still able overwrite the environment variables using the module arguments, e.g. <code class="docutils literal notranslate"><span class="pre">zone:</span> <span class="pre">sf-2</span></code></p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Unlike <code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_REGION</span></code> these additional environment variables are ignored in the CLI <code class="docutils literal notranslate"><span class="pre">cs</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">CLOUDSTACK_REGION</span></code> these additional environment variables are ignored in the CLI <code class="docutils literal notranslate"><span class="pre">cs</span></code>.</p>
 </div>
 </div>
 <div class="section" id="use-cases">
@@ -2513,12 +2513,12 @@ jump.example.com  public_ip=198.51.100.22
 <p>In the second task we ensure the ports are opened if we give a public IP to the VM.</p>
 <p>In the third task we add static NAT to the VMs having a public IP defined.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The public IP addresses must have been acquired in advance, also see <code class="docutils literal notranslate"><span class="pre">cs_ip_address</span></code></p>
+<p class="admonition-title">Note</p>
+<p>The public IP addresses must have been acquired in advance, also see <code class="docutils literal notranslate"><span class="pre">cs_ip_address</span></code></p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">For some modules, e.g. <code class="docutils literal notranslate"><span class="pre">cs_sshkeypair</span></code> you usually want this to be executed only once, not for every VM. Therefore you would make a separate play for it targeting localhost. You find an example in the use cases below.</p>
+<p class="admonition-title">Note</p>
+<p>For some modules, e.g. <code class="docutils literal notranslate"><span class="pre">cs_sshkeypair</span></code> you usually want this to be executed only once, not for every VM. Therefore you would make a separate play for it targeting localhost. You find an example in the use cases below.</p>
 </div>
 </div>
 <div class="section" id="use-case-provisioning-on-a-basic-networking-cloudstack-setup">
@@ -2638,7 +2638,7 @@ web-02.example.com
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

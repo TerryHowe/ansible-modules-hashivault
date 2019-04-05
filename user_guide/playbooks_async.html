@@ -2287,8 +2287,8 @@ poll value is 10 seconds if you do not specify a value for <cite>poll</cite>:</p
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">There is no default for the async time limit.  If you leave off the
+<p class="admonition-title">Note</p>
+<p>There is no default for the async time limit.  If you leave off the
 ‘async’ keyword, the task runs synchronously, which is Ansible’s
 default.</p>
 </div>
@@ -2308,14 +2308,14 @@ run the task asynchronously by specifying a poll value of 0:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You shouldn’t attempt run a task asynchronously by specifying a poll value of 0:: to with operations that require
+<p class="admonition-title">Note</p>
+<p>You shouldn’t attempt run a task asynchronously by specifying a poll value of 0:: to with operations that require
 exclusive locks (such as yum transactions) if you expect to run other
 commands later in the playbook against those same resources.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Using a higher value for <code class="docutils literal notranslate"><span class="pre">--forks</span></code> will result in kicking off asynchronous
+<p class="admonition-title">Note</p>
+<p>Using a higher value for <code class="docutils literal notranslate"><span class="pre">--forks</span></code> will result in kicking off asynchronous
 tasks even faster.  This also increases the efficiency of polling.</p>
 </div>
 <p>If you would like to perform a task asynchronously and check on it later you can perform a task similar to the
@@ -2339,8 +2339,8 @@ following:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If the value of <code class="docutils literal notranslate"><span class="pre">async:</span></code> is not high enough, this will cause the
+<p class="admonition-title">Note</p>
+<p>If the value of <code class="docutils literal notranslate"><span class="pre">async:</span></code> is not high enough, this will cause the
 “check on it later” task to fail because the temporary status file that
 the <code class="docutils literal notranslate"><span class="pre">async_status:</span></code> is looking for will not have been written or no longer exist</p>
 </div>
@@ -2386,14 +2386,14 @@ of tasks running concurrently, you can do it this way:</p>
 </pre></div>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2424,7 +2424,7 @@ of tasks running concurrently, you can do it this way:</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

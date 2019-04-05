@@ -2271,21 +2271,23 @@
 <p>If you find a typo, a broken example, a missing topic, or any other error or omission on this documentation website, let us know. Here are some ways to support Ansible documentation:</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#editing-docs-directly-on-github" id="id1">Editing docs directly on GitHub</a></li>
-<li><a class="reference internal" href="#reviewing-open-prs-and-issues" id="id2">Reviewing open PRs and issues</a></li>
-<li><a class="reference internal" href="#opening-a-new-issue-and-or-pr" id="id3">Opening a new issue and/or PR</a></li>
-<li><a class="reference internal" href="#before-you-open-a-complex-documentation-pr" id="id4">Before you open a complex documentation PR</a><ul>
-<li><a class="reference internal" href="#testing-the-documentation-locally" id="id5">Testing the documentation locally</a></li>
-<li><a class="reference internal" href="#building-the-documentation-locally" id="id6">Building the documentation locally</a><ul>
-<li><a class="reference internal" href="#building-a-single-rst-page" id="id7">Building a single rST page</a></li>
-<li><a class="reference internal" href="#building-all-the-rst-pages" id="id8">Building all the rST pages</a></li>
-<li><a class="reference internal" href="#building-module-docs-and-rst-pages" id="id9">Building module docs and rST pages</a></li>
-<li><a class="reference internal" href="#building-rst-files-with-sphinx-build" id="id10">Building rST files with <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code></a></li>
+<li><p><a class="reference internal" href="#editing-docs-directly-on-github" id="id1">Editing docs directly on GitHub</a></p></li>
+<li><p><a class="reference internal" href="#reviewing-open-prs-and-issues" id="id2">Reviewing open PRs and issues</a></p></li>
+<li><p><a class="reference internal" href="#opening-a-new-issue-and-or-pr" id="id3">Opening a new issue and/or PR</a></p></li>
+<li><p><a class="reference internal" href="#before-you-open-a-complex-documentation-pr" id="id4">Before you open a complex documentation PR</a></p>
+<ul>
+<li><p><a class="reference internal" href="#testing-the-documentation-locally" id="id5">Testing the documentation locally</a></p></li>
+<li><p><a class="reference internal" href="#building-the-documentation-locally" id="id6">Building the documentation locally</a></p>
+<ul>
+<li><p><a class="reference internal" href="#building-a-single-rst-page" id="id7">Building a single rST page</a></p></li>
+<li><p><a class="reference internal" href="#building-all-the-rst-pages" id="id8">Building all the rST pages</a></p></li>
+<li><p><a class="reference internal" href="#building-module-docs-and-rst-pages" id="id9">Building module docs and rST pages</a></p></li>
+<li><p><a class="reference internal" href="#building-rst-files-with-sphinx-build" id="id10">Building rST files with <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code></a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#joining-the-documentation-working-group" id="id11">Joining the documentation working group</a></li>
+<li><p><a class="reference internal" href="#joining-the-documentation-working-group" id="id11">Joining the documentation working group</a></p></li>
 </ul>
 </div>
 <div class="section" id="editing-docs-directly-on-github">
@@ -2293,25 +2295,25 @@
 <p>For typos and other quick fixes, you can edit the documentation right from the site. Look at the top right corner of this page. That <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">on</span> <span class="pre">GitHub</span></code> link is available on every page in the documentation. If you have a GitHub account, you can submit a quick and easy pull request this way.</p>
 <p>To submit a documentation PR from docs.ansible.com with <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">on</span> <span class="pre">GitHub</span></code>:</p>
 <ol class="arabic simple">
-<li>Click on <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">on</span> <span class="pre">GitHub</span></code>.</li>
-<li>If you don’t already have a fork of the ansible repo on your GitHub account, you’ll be prompted to create one.</li>
-<li>Fix the typo, update the example, or make whatever other change you have in mind.</li>
-<li>Enter a commit message in the first rectangle under the heading <code class="docutils literal notranslate"><span class="pre">Propose</span> <span class="pre">file</span> <span class="pre">change</span></code> at the bottom of the GitHub page. The more specific, the better. For example, “fixes typo in my_module description”. You can put more detail in the second rectangle if you like. Leave the <code class="docutils literal notranslate"><span class="pre">+label:</span> <span class="pre">docsite_pr</span></code> there.</li>
-<li>Submit the suggested change by clicking on the green “Propose file change” button. GitHub will handle branching and committing for you, and open a page with the heading “Comparing Changes”.</li>
-<li>Click on <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">pull</span> <span class="pre">request</span></code> to open the PR template.</li>
-<li>Fill out the PR template, including as much detail as appropriate for your change. You can change the title of your PR if you like (by default it’s the same as your commit message). In the <code class="docutils literal notranslate"><span class="pre">Issue</span> <span class="pre">Type</span></code> section, delete all lines except the <code class="docutils literal notranslate"><span class="pre">Docs</span> <span class="pre">Pull</span> <span class="pre">Request</span></code> line.</li>
-<li>Submit your change by clicking on <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">pull</span> <span class="pre">request</span></code> button.</li>
-<li>Be patient while Ansibot, our automated script, adds labels, pings the docs maintainers, and kicks off a CI testing run.</li>
-<li>Keep an eye on your PR - the docs team may ask you for changes.</li>
+<li><p>Click on <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">on</span> <span class="pre">GitHub</span></code>.</p></li>
+<li><p>If you don’t already have a fork of the ansible repo on your GitHub account, you’ll be prompted to create one.</p></li>
+<li><p>Fix the typo, update the example, or make whatever other change you have in mind.</p></li>
+<li><p>Enter a commit message in the first rectangle under the heading <code class="docutils literal notranslate"><span class="pre">Propose</span> <span class="pre">file</span> <span class="pre">change</span></code> at the bottom of the GitHub page. The more specific, the better. For example, “fixes typo in my_module description”. You can put more detail in the second rectangle if you like. Leave the <code class="docutils literal notranslate"><span class="pre">+label:</span> <span class="pre">docsite_pr</span></code> there.</p></li>
+<li><p>Submit the suggested change by clicking on the green “Propose file change” button. GitHub will handle branching and committing for you, and open a page with the heading “Comparing Changes”.</p></li>
+<li><p>Click on <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">pull</span> <span class="pre">request</span></code> to open the PR template.</p></li>
+<li><p>Fill out the PR template, including as much detail as appropriate for your change. You can change the title of your PR if you like (by default it’s the same as your commit message). In the <code class="docutils literal notranslate"><span class="pre">Issue</span> <span class="pre">Type</span></code> section, delete all lines except the <code class="docutils literal notranslate"><span class="pre">Docs</span> <span class="pre">Pull</span> <span class="pre">Request</span></code> line.</p></li>
+<li><p>Submit your change by clicking on <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">pull</span> <span class="pre">request</span></code> button.</p></li>
+<li><p>Be patient while Ansibot, our automated script, adds labels, pings the docs maintainers, and kicks off a CI testing run.</p></li>
+<li><p>Keep an eye on your PR - the docs team may ask you for changes.</p></li>
 </ol>
 </div>
 <div class="section" id="reviewing-open-prs-and-issues">
 <h2><a class="toc-backref" href="#id2">Reviewing open PRs and issues</a><a class="headerlink" href="#reviewing-open-prs-and-issues" title="Permalink to this headline">¶</a></h2>
 <p>You can also contribute by reviewing open documentation <a class="reference external" href="https://github.com/ansible/ansible/issues?utf8=%E2%9C%93&amp;q=is%3Aissue+is%3Aopen+label%3Adocs">issues</a> and <a class="reference external" href="https://github.com/ansible/ansible/pulls?utf8=%E2%9C%93&amp;q=is%3Apr+is%3Aopen+label%3Adocs">PRs</a>. To add a helpful review, please:</p>
 <ul class="simple">
-<li>Include a comment - “looks good to me” only helps if we know why.</li>
-<li>For issues, reproduce the problem.</li>
-<li>For PRs, test the change.</li>
+<li><p>Include a comment - “looks good to me” only helps if we know why.</p></li>
+<li><p>For issues, reproduce the problem.</p></li>
+<li><p>For PRs, test the change.</p></li>
 </ul>
 </div>
 <div class="section" id="opening-a-new-issue-and-or-pr">
@@ -2319,18 +2321,18 @@
 <p>If the problem you’ve noticed is too complex to fix with the <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">on</span> <span class="pre">GitHub</span></code> option, and no open issue or PR already documents the problem, please open an issue and/or a PR on the <code class="docutils literal notranslate"><span class="pre">ansible/ansible</span></code> repo.</p>
 <p>A great documentation GitHub issue or PR includes:</p>
 <ul class="simple">
-<li>a specific title</li>
-<li>a detailed description of the problem (even for a PR - it’s hard to evaluate a suggested change unless we know what problem it’s meant to solve)</li>
-<li>links to other information (related issues/PRs, external documentation, pages on docs.ansible.com, etc.)</li>
+<li><p>a specific title</p></li>
+<li><p>a detailed description of the problem (even for a PR - it’s hard to evaluate a suggested change unless we know what problem it’s meant to solve)</p></li>
+<li><p>links to other information (related issues/PRs, external documentation, pages on docs.ansible.com, etc.)</p></li>
 </ul>
 </div>
 <div class="section" id="before-you-open-a-complex-documentation-pr">
 <h2><a class="toc-backref" href="#id4">Before you open a complex documentation PR</a><a class="headerlink" href="#before-you-open-a-complex-documentation-pr" title="Permalink to this headline">¶</a></h2>
 <p>If you make multiple changes to the documentation, or add more than a line to it, before you open a pull request, please:</p>
 <ol class="arabic simple">
-<li>Check that your text follows our <a class="reference internal" href="../dev_guide/style_guide/index.html#style-guide"><span class="std std-ref">Ansible Style Guide</span></a>.</li>
-<li>Test your changes for rST errors.</li>
-<li>Build the page, and preferably the entire documentation site, locally.</li>
+<li><p>Check that your text follows our <a class="reference internal" href="../dev_guide/style_guide/index.html#style-guide"><span class="std std-ref">Ansible Style Guide</span></a>.</p></li>
+<li><p>Test your changes for rST errors.</p></li>
+<li><p>Build the page, and preferably the entire documentation site, locally.</p></li>
 </ol>
 <p>To work with documentation on your local machine, you need the following packages installed:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- libyaml
@@ -2346,8 +2348,8 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">On macOS with Xcode, you may need to install <code class="docutils literal notranslate"><span class="pre">six</span></code> and <code class="docutils literal notranslate"><span class="pre">pyparsing</span></code> with <code class="docutils literal notranslate"><span class="pre">--ignore-installed</span></code> to get versions that work wth <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>On macOS with Xcode, you may need to install <code class="docutils literal notranslate"><span class="pre">six</span></code> and <code class="docutils literal notranslate"><span class="pre">pyparsing</span></code> with <code class="docutils literal notranslate"><span class="pre">--ignore-installed</span></code> to get versions that work wth <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>.</p>
 </div>
 <div class="section" id="testing-the-documentation-locally">
 <span id="testing-documentation-locally"></span><h3><a class="toc-backref" href="#id5">Testing the documentation locally</a><a class="headerlink" href="#testing-the-documentation-locally" title="Permalink to this headline">¶</a></h3>
@@ -2371,12 +2373,12 @@
 </div>
 <p>This process compiles all the links but provides minimal log output. If you’re writing a new page or want more detailed log output, refer to the instructions on <a class="reference internal" href="#build-with-sphinx-build"><span class="std std-ref">Building rST files with sphinx-build</span></a></p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">htmlsingle</span></code> adds <code class="docutils literal notranslate"><span class="pre">rst/</span></code> to the beginning of the path you provide in <code class="docutils literal notranslate"><span class="pre">rst=</span></code>, so you can’t type the filename with autocomplete. Here are the error messages you will see if you get this wrong:</p>
-<blockquote class="last">
+<blockquote>
 <div><ul class="simple">
-<li>If you run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">htmlsingle</span></code> from the <code class="docutils literal notranslate"><span class="pre">docs/docsite/rst/</span></code> directory: <code class="docutils literal notranslate"><span class="pre">make:</span> <span class="pre">***</span> <span class="pre">No</span> <span class="pre">rule</span> <span class="pre">to</span> <span class="pre">make</span> <span class="pre">target</span> <span class="pre">`htmlsingle'.</span>&#160; <span class="pre">Stop.</span></code></li>
-<li>If you run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">htmlsingle</span></code> from the <code class="docutils literal notranslate"><span class="pre">docs/docsite/</span></code> directory with the full path to your rST document: <code class="docutils literal notranslate"><span class="pre">sphinx-build:</span> <span class="pre">error:</span> <span class="pre">cannot</span> <span class="pre">find</span> <span class="pre">files</span> <span class="pre">['rst/rst/community/documentation_contributions.rst']</span></code>.</li>
+<li><p>If you run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">htmlsingle</span></code> from the <code class="docutils literal notranslate"><span class="pre">docs/docsite/rst/</span></code> directory: <code class="docutils literal notranslate"><span class="pre">make:</span> <span class="pre">***</span> <span class="pre">No</span> <span class="pre">rule</span> <span class="pre">to</span> <span class="pre">make</span> <span class="pre">target</span> <span class="pre">`htmlsingle'.</span>&#160; <span class="pre">Stop.</span></code></p></li>
+<li><p>If you run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">htmlsingle</span></code> from the <code class="docutils literal notranslate"><span class="pre">docs/docsite/</span></code> directory with the full path to your rST document: <code class="docutils literal notranslate"><span class="pre">sphinx-build:</span> <span class="pre">error:</span> <span class="pre">cannot</span> <span class="pre">find</span> <span class="pre">files</span> <span class="pre">['rst/rst/community/documentation_contributions.rst']</span></code>.</p></li>
 </ul>
 </div></blockquote>
 </div>
@@ -2417,8 +2419,8 @@
 <h2><a class="toc-backref" href="#id11">Joining the documentation working group</a><a class="headerlink" href="#joining-the-documentation-working-group" title="Permalink to this headline">¶</a></h2>
 <p>The Documentation Working Group is just getting started, please visit the <a class="reference external" href="https://github.com/ansible/community">community repo</a> for more information.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../dev_guide/testing_documentation.html#testing-module-documentation"><span class="std std-ref">More about testing module documentation</span></a>
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../dev_guide/testing_documentation.html#testing-module-documentation"><span class="std std-ref">More about testing module documentation</span></a>
 <a class="reference internal" href="../dev_guide/developing_modules_documenting.html#module-documenting"><span class="std std-ref">More about documenting modules</span></a></p>
 </div>
 </div>
@@ -2450,7 +2452,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2269,11 +2269,12 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#including-and-importing" id="id1">Including and Importing</a><ul>
-<li><a class="reference internal" href="#includes-vs-imports" id="id2">Includes vs. Imports</a></li>
-<li><a class="reference internal" href="#importing-playbooks" id="id3">Importing Playbooks</a></li>
-<li><a class="reference internal" href="#including-and-importing-task-files" id="id4">Including and Importing Task Files</a></li>
-<li><a class="reference internal" href="#including-and-importing-roles" id="id5">Including and Importing Roles</a></li>
+<li><p><a class="reference internal" href="#including-and-importing" id="id1">Including and Importing</a></p>
+<ul>
+<li><p><a class="reference internal" href="#includes-vs-imports" id="id2">Includes vs. Imports</a></p></li>
+<li><p><a class="reference internal" href="#importing-playbooks" id="id3">Importing Playbooks</a></p></li>
+<li><p><a class="reference internal" href="#including-and-importing-task-files" id="id4">Including and Importing Task Files</a></p></li>
+<li><p><a class="reference internal" href="#including-and-importing-roles" id="id5">Including and Importing Roles</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2282,13 +2283,13 @@
 <h2><a class="toc-backref" href="#id2">Includes vs. Imports</a><a class="headerlink" href="#includes-vs-imports" title="Permalink to this headline">¶</a></h2>
 <p>As noted in <a class="reference internal" href="playbooks_reuse.html"><span class="doc">Creating Reusable Playbooks</span></a>, include and import statements are very similar, however the Ansible executor engine treats them very differently.</p>
 <ul class="simple">
-<li>All <code class="docutils literal notranslate"><span class="pre">import*</span></code> statements are pre-processed at the time playbooks are parsed.</li>
-<li>All <code class="docutils literal notranslate"><span class="pre">include*</span></code> statements are processed as they are encountered during the execution of the playbook.</li>
+<li><p>All <code class="docutils literal notranslate"><span class="pre">import*</span></code> statements are pre-processed at the time playbooks are parsed.</p></li>
+<li><p>All <code class="docutils literal notranslate"><span class="pre">include*</span></code> statements are processed as they are encountered during the execution of the playbook.</p></li>
 </ul>
 <p>Please refer to  <a class="reference internal" href="playbooks_reuse.html"><span class="doc">Creating Reusable Playbooks</span></a> for documentation concerning the trade-offs one may encounter when using each type.</p>
 <p>Also be aware that this behaviour changed in 2.4. Prior to Ansible 2.4, only <code class="docutils literal notranslate"><span class="pre">include</span></code> was available and it behaved differently depending on context.</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.4.</span></p>
+<p><span class="versionmodified added">New in version 2.4.</span></p>
 </div>
 </div>
 <div class="section" id="importing-playbooks">
@@ -2301,7 +2302,7 @@
 <p>The plays and tasks in each playbook listed will be run in the order they are listed, just as if they had been defined here directly.</p>
 <p>Prior to 2.4 only <code class="docutils literal notranslate"><span class="pre">include</span></code> was available and worked for both playbooks and tasks as both import and include.</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.4.</span></p>
+<p><span class="versionmodified added">New in version 2.4.</span></p>
 </div>
 </div>
 <div class="section" id="including-and-importing-task-files">
@@ -2337,10 +2338,10 @@
 <p>See <a class="reference internal" href="playbooks_variables.html#ansible-variable-precedence"><span class="std std-ref">Variable precedence: Where should I put a variable?</span></a> for more details on variable inheritance and precedence.</p>
 <p>Task include and import statements can be used at arbitrary depth.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>Static and dynamic can be mixed, however this is not recommended as it may lead to difficult-to-diagnose bugs in your playbooks.</li>
-<li>The <code class="docutils literal notranslate"><span class="pre">key=value</span></code> syntax for passing variables to import and include is deprecated. Use YAML <code class="docutils literal notranslate"><span class="pre">vars:</span></code> instead.</li>
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Static and dynamic can be mixed, however this is not recommended as it may lead to difficult-to-diagnose bugs in your playbooks.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">key=value</span></code> syntax for passing variables to import and include is deprecated. Use YAML <code class="docutils literal notranslate"><span class="pre">vars:</span></code> instead.</p></li>
 </ul>
 </div>
 <p>Includes and imports can also be used in the <code class="docutils literal notranslate"><span class="pre">handlers:</span></code> section. For instance, if you want to define how to restart Apache, you only have to do that once for all of your playbooks. You might make a <code class="docutils literal notranslate"><span class="pre">handlers.yml</span></code> that looks like:</p>
@@ -2357,8 +2358,8 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Be sure to refer to the limitations/trade-offs for handlers noted in <a class="reference internal" href="playbooks_reuse.html"><span class="doc">Creating Reusable Playbooks</span></a>.</p>
+<p class="admonition-title">Note</p>
+<p>Be sure to refer to the limitations/trade-offs for handlers noted in <a class="reference internal" href="playbooks_reuse.html"><span class="doc">Creating Reusable Playbooks</span></a>.</p>
 </div>
 <p>You can mix in includes along with your regular non-included tasks and handlers.</p>
 </div>
@@ -2366,28 +2367,28 @@
 <h2><a class="toc-backref" href="#id5">Including and Importing Roles</a><a class="headerlink" href="#including-and-importing-roles" title="Permalink to this headline">¶</a></h2>
 <p>Please refer to <a class="reference internal" href="playbooks_reuse_roles.html"><span class="doc">Roles</span></a> for details on including and importing roles.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../reference_appendices/YAMLSyntax.html#yaml-syntax"><span class="std std-ref">YAML Syntax</span></a></dt>
-<dd>Learn about YAML syntax</dd>
-<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt>
-<dd>Review the basic Playbook language features</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt>
-<dd>Various tips about managing playbooks in the real world</dd>
-<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt>
-<dd>All about variables in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span class="std std-ref">Conditionals</span></a></dt>
-<dd>Conditionals in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a></dt>
-<dd>Loops in playbooks</dd>
-<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt>
-<dd>Learn about available modules</dd>
-<dt><a class="reference internal" href="../dev_guide/developing_modules.html#developing-modules"><span class="std std-ref">Should you develop a module?</span></a></dt>
-<dd>Learn how to extend Ansible by writing your own modules</dd>
-<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">GitHub Ansible examples</a></dt>
-<dd>Complete playbook files from the GitHub project source</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt>
-<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../reference_appendices/YAMLSyntax.html#yaml-syntax"><span class="std std-ref">YAML Syntax</span></a></dt><dd><p>Learn about YAML syntax</p>
+</dd>
+<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>Review the basic Playbook language features</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt><dd><p>Various tips about managing playbooks in the real world</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt><dd><p>All about variables in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span class="std std-ref">Conditionals</span></a></dt><dd><p>Conditionals in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a></dt><dd><p>Loops in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt><dd><p>Learn about available modules</p>
+</dd>
+<dt><a class="reference internal" href="../dev_guide/developing_modules.html#developing-modules"><span class="std std-ref">Should you develop a module?</span></a></dt><dd><p>Learn how to extend Ansible by writing your own modules</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">GitHub Ansible examples</a></dt><dd><p>Complete playbook files from the GitHub project source</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt><dd><p>Questions? Help? Ideas?  Stop by the list on Google Groups</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2419,7 +2420,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2269,13 +2269,14 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#tests" id="id5">Tests</a><ul>
-<li><a class="reference internal" href="#test-syntax" id="id6">Test syntax</a></li>
-<li><a class="reference internal" href="#testing-strings" id="id7">Testing strings</a></li>
-<li><a class="reference internal" href="#version-comparison" id="id8">Version Comparison</a></li>
-<li><a class="reference internal" href="#set-theory-tests" id="id9">Set theory tests</a></li>
-<li><a class="reference internal" href="#testing-paths" id="id10">Testing paths</a></li>
-<li><a class="reference internal" href="#task-results" id="id11">Task results</a></li>
+<li><p><a class="reference internal" href="#tests" id="id5">Tests</a></p>
+<ul>
+<li><p><a class="reference internal" href="#test-syntax" id="id6">Test syntax</a></p></li>
+<li><p><a class="reference internal" href="#testing-strings" id="id7">Testing strings</a></p></li>
+<li><p><a class="reference internal" href="#version-comparison" id="id8">Version Comparison</a></p></li>
+<li><p><a class="reference internal" href="#set-theory-tests" id="id9">Set theory tests</a></p></li>
+<li><p><a class="reference internal" href="#testing-paths" id="id10">Testing paths</a></p></li>
+<li><p><a class="reference internal" href="#task-results" id="id11">Task results</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2323,11 +2324,11 @@ Jinja ships with many of these. See <a class="reference external" href="http://j
 <div class="section" id="version-comparison">
 <span id="testing-versions"></span><h2><a class="toc-backref" href="#id8">Version Comparison</a><a class="headerlink" href="#version-comparison" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.6.</span></p>
+<p><span class="versionmodified added">New in version 1.6.</span></p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In 2.5 <code class="docutils literal notranslate"><span class="pre">version_compare</span></code> was renamed to <code class="docutils literal notranslate"><span class="pre">version</span></code></p>
+<p class="admonition-title">Note</p>
+<p>In 2.5 <code class="docutils literal notranslate"><span class="pre">version_compare</span></code> was renamed to <code class="docutils literal notranslate"><span class="pre">version</span></code></p>
 </div>
 <p>To compare a version number, such as checking if the <code class="docutils literal notranslate"><span class="pre">ansible_facts['distribution_version']</span></code>
 version is greater than or equal to ‘12.04’, you can use the <code class="docutils literal notranslate"><span class="pre">version</span></code> test.</p>
@@ -2349,11 +2350,11 @@ be used.  The default is <code class="docutils literal notranslate"><span class=
 <div class="section" id="set-theory-tests">
 <span id="math-tests"></span><h2><a class="toc-backref" href="#id9">Set theory tests</a><a class="headerlink" href="#set-theory-tests" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.1.</span></p>
+<p><span class="versionmodified added">New in version 2.1.</span></p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In 2.5 <code class="docutils literal notranslate"><span class="pre">issubset</span></code> and <code class="docutils literal notranslate"><span class="pre">issuperset</span></code> were renamed to <code class="docutils literal notranslate"><span class="pre">subset</span></code> and <code class="docutils literal notranslate"><span class="pre">superset</span></code></p>
+<p class="admonition-title">Note</p>
+<p>In 2.5 <code class="docutils literal notranslate"><span class="pre">issubset</span></code> and <code class="docutils literal notranslate"><span class="pre">issuperset</span></code> were renamed to <code class="docutils literal notranslate"><span class="pre">subset</span></code> and <code class="docutils literal notranslate"><span class="pre">superset</span></code></p>
 </div>
 <p>To see if a list includes or is included by another list, you can use ‘subset’ and ‘superset’:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">vars</span><span class="p">:</span>
@@ -2370,7 +2371,7 @@ be used.  The default is <code class="docutils literal notranslate"><span class=
 </pre></div>
 </div>
 <div class="versionadded" id="path-tests">
-<p><span class="versionmodified">New in version 2.4.</span></p>
+<p><span class="versionmodified added">New in version 2.4.</span></p>
 </div>
 <p>You can use <cite>any</cite> and <cite>all</cite> to check if any or all elements in a list are true or not:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">vars</span><span class="p">:</span>
@@ -2396,8 +2397,8 @@ be used.  The default is <code class="docutils literal notranslate"><span class=
 <div class="section" id="testing-paths">
 <h2><a class="toc-backref" href="#id10">Testing paths</a><a class="headerlink" href="#testing-paths" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In 2.5 the following tests were renamed to remove the <code class="docutils literal notranslate"><span class="pre">is_</span></code> prefix</p>
+<p class="admonition-title">Note</p>
+<p>In 2.5 the following tests were renamed to remove the <code class="docutils literal notranslate"><span class="pre">is_</span></code> prefix</p>
 </div>
 <p>The following tests can provide information about a path on the controller:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">debug</span><span class="p">:</span>
@@ -2461,28 +2462,28 @@ be used.  The default is <code class="docutils literal notranslate"><span class=
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">From 2.1, you can also use success, failure, change, and skip so that the grammar matches, for those who need to be strict about it.</p>
+<p class="admonition-title">Note</p>
+<p>From 2.1, you can also use success, failure, change, and skip so that the grammar matches, for those who need to be strict about it.</p>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_conditionals.html"><span class="doc">Conditionals</span></a></dt>
-<dd>Conditional statements in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a></dt>
-<dd>All about variables</dd>
-<dt><a class="reference internal" href="playbooks_loops.html"><span class="doc">Loops</span></a></dt>
-<dd>Looping in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_reuse_roles.html"><span class="doc">Roles</span></a></dt>
-<dd>Playbook organization by roles</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt>
-<dd>Best practices in playbooks</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html"><span class="doc">Conditionals</span></a></dt><dd><p>Conditional statements in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a></dt><dd><p>All about variables</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_loops.html"><span class="doc">Loops</span></a></dt><dd><p>Looping in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_reuse_roles.html"><span class="doc">Roles</span></a></dt><dd><p>Playbook organization by roles</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt><dd><p>Best practices in playbooks</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2514,7 +2515,7 @@ be used.  The default is <code class="docutils literal notranslate"><span class=
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

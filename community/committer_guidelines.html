@@ -2279,11 +2279,11 @@
 <h2>Our workflow on GitHub<a class="headerlink" href="#our-workflow-on-github" title="Permalink to this headline">¶</a></h2>
 <p>As a committer, you may already know this, but our workflow forms a lot of our team policies. Please ensure you’re aware of the following workflow steps:</p>
 <ul class="simple">
-<li>Fork the repository upon which you want to do some work to your own personal repository</li>
-<li>Work on the specific branch upon which you need to commit</li>
-<li>Create a Pull Request back to the Ansible repository and tag the people you would like to review; assign someone as the primary “owner” of your request</li>
-<li>Adjust code as necessary based on the Comments provided</li>
-<li>Ask someone on the Core Team to do a final review and merge</li>
+<li><p>Fork the repository upon which you want to do some work to your own personal repository</p></li>
+<li><p>Work on the specific branch upon which you need to commit</p></li>
+<li><p>Create a Pull Request back to the Ansible repository and tag the people you would like to review; assign someone as the primary “owner” of your request</p></li>
+<li><p>Adjust code as necessary based on the Comments provided</p></li>
+<li><p>Ask someone on the Core Team to do a final review and merge</p></li>
 </ul>
 <div class="section" id="addendum-to-workflow-for-committers">
 <h3>Addendum to workflow for committers:<a class="headerlink" href="#addendum-to-workflow-for-committers" title="Permalink to this headline">¶</a></h3>
@@ -2293,33 +2293,35 @@
 <div class="section" id="roles-on-core">
 <h2>Roles on Core<a class="headerlink" href="#roles-on-core" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Core committers: Fine to do PRs for most things, but we should have a timebox. Hanging PRs may merge on the judgement of these devs.</li>
-<li><a class="reference internal" href="maintainers.html#maintainers"><span class="std std-ref">Module maintainers</span></a>: Module maintainers own specific modules and have indirect commit access via the current module PR mechanisms.</li>
+<li><p>Core committers: Fine to do PRs for most things, but we should have a timebox. Hanging PRs may merge on the judgement of these devs.</p></li>
+<li><p><a class="reference internal" href="maintainers.html#maintainers"><span class="std std-ref">Module maintainers</span></a>: Module maintainers own specific modules and have indirect commit access via the current module PR mechanisms.</p></li>
 </ul>
 </div>
 <div class="section" id="general-rules">
 <h2>General rules<a class="headerlink" href="#general-rules" title="Permalink to this headline">¶</a></h2>
 <p>Individuals with direct commit access to ansible/ansible are entrusted with powers that allow them to do a broad variety of things–probably more than we can write down. Rather than rules, treat these as general <em>guidelines</em>, individuals with this power are expected to use their best judgement.</p>
 <ul class="simple">
-<li>Don’t<ul>
-<li>Commit directly.</li>
-<li>Merge your own PRs. Someone else should have a chance to review and approve the PR merge. If you are a Core Committer, you have a small amount of leeway here for very minor changes.</li>
-<li>Forget about alternate environments. Consider the alternatives–yes, people have bad environments, but they are the ones who need us the most.</li>
-<li>Drag your community team members down. Always discuss the technical merits, but you should never address the person’s limitations (you can later go for beers and call them idiots, but not in IRC/Github/etc.).</li>
-<li>Forget about the maintenance burden. Some things are really cool to have, but they might not be worth shoehorning in if the maintenance burden is too great.</li>
-<li>Break playbooks. Always keep backwards compatibility in mind.</li>
-<li>Forget to keep it simple. Complexity breeds all kinds of problems.</li>
+<li><p>Don’t</p>
+<ul>
+<li><p>Commit directly.</p></li>
+<li><p>Merge your own PRs. Someone else should have a chance to review and approve the PR merge. If you are a Core Committer, you have a small amount of leeway here for very minor changes.</p></li>
+<li><p>Forget about alternate environments. Consider the alternatives–yes, people have bad environments, but they are the ones who need us the most.</p></li>
+<li><p>Drag your community team members down. Always discuss the technical merits, but you should never address the person’s limitations (you can later go for beers and call them idiots, but not in IRC/Github/etc.).</p></li>
+<li><p>Forget about the maintenance burden. Some things are really cool to have, but they might not be worth shoehorning in if the maintenance burden is too great.</p></li>
+<li><p>Break playbooks. Always keep backwards compatibility in mind.</p></li>
+<li><p>Forget to keep it simple. Complexity breeds all kinds of problems.</p></li>
 </ul>
 </li>
-<li>Do<ul>
-<li>Squash, avoid merges whenever possible, use github’s squash commits or cherry pick if needed (bisect thanks you).</li>
-<li>Be active. Committers who have no activity on the project (through merges, triage, commits, etc.) will have their permissions suspended.</li>
-<li>Consider backwards compatibility (goes back to “don’t break existing playbooks”).</li>
-<li>Write tests. PRs with tests are looked at with more priority than PRs without tests that should have them included. While not all changes require tests, be sure to add them for bug fixes or functionality changes.</li>
-<li>Discuss with other committers, specially when you are unsure of something.</li>
-<li>Document! If your PR is a new feature or a change to behavior, make sure you’ve updated all associated documentation or have notified the right people to do so. It also helps to add the version of Core against which this documentation is compatible (to avoid confusion with stable versus devel docs, for backwards compatibility, etc.).</li>
-<li>Consider scope, sometimes a fix can be generalized</li>
-<li>Keep it simple, then things are maintainable, debuggable and intelligible.</li>
+<li><p>Do</p>
+<ul>
+<li><p>Squash, avoid merges whenever possible, use github’s squash commits or cherry pick if needed (bisect thanks you).</p></li>
+<li><p>Be active. Committers who have no activity on the project (through merges, triage, commits, etc.) will have their permissions suspended.</p></li>
+<li><p>Consider backwards compatibility (goes back to “don’t break existing playbooks”).</p></li>
+<li><p>Write tests. PRs with tests are looked at with more priority than PRs without tests that should have them included. While not all changes require tests, be sure to add them for bug fixes or functionality changes.</p></li>
+<li><p>Discuss with other committers, specially when you are unsure of something.</p></li>
+<li><p>Document! If your PR is a new feature or a change to behavior, make sure you’ve updated all associated documentation or have notified the right people to do so. It also helps to add the version of Core against which this documentation is compatible (to avoid confusion with stable versus devel docs, for backwards compatibility, etc.).</p></li>
+<li><p>Consider scope, sometimes a fix can be generalized</p></li>
+<li><p>Keep it simple, then things are maintainable, debuggable and intelligible.</p></li>
 </ul>
 </li>
 </ul>
@@ -2328,195 +2330,195 @@
 <div class="section" id="people">
 <h2>People<a class="headerlink" href="#people" title="Permalink to this headline">¶</a></h2>
 <p>Individuals who’ve been asked to become a part of this group have generally been contributing in significant ways to the Ansible community for some time. Should they agree, they are requested to add their names and GitHub IDs to this file, in the section below, via a pull request. Doing so indicates that these individuals agree to act in the ways that their fellow committers trust that they will act.</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="25%" />
-<col width="26%" />
-<col width="24%" />
-<col width="26%" />
+<col style="width: 25%" />
+<col style="width: 26%" />
+<col style="width: 24%" />
+<col style="width: 26%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Github ID</th>
-<th class="head">IRC Nick</th>
-<th class="head">Other</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Github ID</p></th>
+<th class="head"><p>IRC Nick</p></th>
+<th class="head"><p>Other</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>James Cammarata</td>
-<td>jimi-c</td>
-<td>jimi</td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p>James Cammarata</p></td>
+<td><p>jimi-c</p></td>
+<td><p>jimi</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Brian Coca</td>
-<td>bcoca</td>
-<td>bcoca</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Brian Coca</p></td>
+<td><p>bcoca</p></td>
+<td><p>bcoca</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Matt Davis</td>
-<td>nitzmahone</td>
-<td>nitzmahone</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Matt Davis</p></td>
+<td><p>nitzmahone</p></td>
+<td><p>nitzmahone</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Toshio Kuratomi</td>
-<td>abadger</td>
-<td>abadger1999</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Toshio Kuratomi</p></td>
+<td><p>abadger</p></td>
+<td><p>abadger1999</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Jason McKerr</td>
-<td>mckerrj</td>
-<td>newtMcKerr</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Jason McKerr</p></td>
+<td><p>mckerrj</p></td>
+<td><p>newtMcKerr</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Robyn Bergeron</td>
-<td>robynbergeron</td>
-<td>rbergeron</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Robyn Bergeron</p></td>
+<td><p>robynbergeron</p></td>
+<td><p>rbergeron</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Greg DeKoenigsberg</td>
-<td>gregdek</td>
-<td>gregdek</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Greg DeKoenigsberg</p></td>
+<td><p>gregdek</p></td>
+<td><p>gregdek</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Monty Taylor</td>
-<td>emonty</td>
-<td>mordred</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Monty Taylor</p></td>
+<td><p>emonty</p></td>
+<td><p>mordred</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Matt Martz</td>
-<td>sivel</td>
-<td>sivel</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Matt Martz</p></td>
+<td><p>sivel</p></td>
+<td><p>sivel</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Nate Case</td>
-<td>qalthos</td>
-<td>Qalthos</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Nate Case</p></td>
+<td><p>qalthos</p></td>
+<td><p>Qalthos</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>James Tanner</td>
-<td>jctanner</td>
-<td>jtanner</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>James Tanner</p></td>
+<td><p>jctanner</p></td>
+<td><p>jtanner</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Peter Sprygada</td>
-<td>privateip</td>
-<td>privateip</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Peter Sprygada</p></td>
+<td><p>privateip</p></td>
+<td><p>privateip</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Abhijit Menon-Sen</td>
-<td>amenonsen</td>
-<td>crab</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Abhijit Menon-Sen</p></td>
+<td><p>amenonsen</p></td>
+<td><p>crab</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Michael Scherer</td>
-<td>mscherer</td>
-<td>misc</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Michael Scherer</p></td>
+<td><p>mscherer</p></td>
+<td><p>misc</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>René Moser</td>
-<td>resmo</td>
-<td>resmo</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>René Moser</p></td>
+<td><p>resmo</p></td>
+<td><p>resmo</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>David Shrewsbury</td>
-<td>Shrews</td>
-<td>Shrews</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>David Shrewsbury</p></td>
+<td><p>Shrews</p></td>
+<td><p>Shrews</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Sandra Wills</td>
-<td>docschick</td>
-<td>docschick</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Sandra Wills</p></td>
+<td><p>docschick</p></td>
+<td><p>docschick</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Graham Mainwaring</td>
-<td>ghjm</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Graham Mainwaring</p></td>
+<td><p>ghjm</p></td>
+<td></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Chris Houseknecht</td>
-<td>chouseknecht</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Chris Houseknecht</p></td>
+<td><p>chouseknecht</p></td>
+<td></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Trond Hindenes</td>
-<td>trondhindenes</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Trond Hindenes</p></td>
+<td><p>trondhindenes</p></td>
+<td></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Jon Hawkesworth</td>
-<td>jhawkesworth</td>
-<td>jhawkesworth</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Jon Hawkesworth</p></td>
+<td><p>jhawkesworth</p></td>
+<td><p>jhawkesworth</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Will Thames</td>
-<td>willthames</td>
-<td>willthames</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Will Thames</p></td>
+<td><p>willthames</p></td>
+<td><p>willthames</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Ryan Brown</td>
-<td>ryansb</td>
-<td>ryansb</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Ryan Brown</p></td>
+<td><p>ryansb</p></td>
+<td><p>ryansb</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Adrian Likins</td>
-<td>alikins</td>
-<td>alikins</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Adrian Likins</p></td>
+<td><p>alikins</p></td>
+<td><p>alikins</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Dag Wieers</td>
-<td>dagwieers</td>
-<td>dagwieers</td>
-<td><a class="reference external" href="mailto:dag&#37;&#52;&#48;wieers&#46;com">dag<span>&#64;</span>wieers<span>&#46;</span>com</a></td>
+<tr class="row-even"><td><p>Dag Wieers</p></td>
+<td><p>dagwieers</p></td>
+<td><p>dagwieers</p></td>
+<td><p><a class="reference external" href="mailto:dag&#37;&#52;&#48;wieers&#46;com">dag<span>&#64;</span>wieers<span>&#46;</span>com</a></p></td>
 </tr>
-<tr class="row-odd"><td>Tim Rupp</td>
-<td>caphrim007</td>
-<td>caphrim007</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Tim Rupp</p></td>
+<td><p>caphrim007</p></td>
+<td><p>caphrim007</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Sloane Hertel</td>
-<td>s-hertel</td>
-<td>shertel</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Sloane Hertel</p></td>
+<td><p>s-hertel</p></td>
+<td><p>shertel</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Sam Doran</td>
-<td>samdoran</td>
-<td>samdoran</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Sam Doran</p></td>
+<td><p>samdoran</p></td>
+<td><p>samdoran</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Scott Butler</td>
-<td>dharmabumstead</td>
-<td>dharmabumstead</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Scott Butler</p></td>
+<td><p>dharmabumstead</p></td>
+<td><p>dharmabumstead</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Matt Clay</td>
-<td>mattclay</td>
-<td>mattclay</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Matt Clay</p></td>
+<td><p>mattclay</p></td>
+<td><p>mattclay</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Martin Krizek</td>
-<td>mkrizek</td>
-<td>mkrizek</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Martin Krizek</p></td>
+<td><p>mkrizek</p></td>
+<td><p>mkrizek</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Kedar Kekan</td>
-<td>kedarX</td>
-<td>kedarX</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Kedar Kekan</p></td>
+<td><p>kedarX</p></td>
+<td><p>kedarX</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Ganesh Nalawade</td>
-<td>ganeshrn</td>
-<td>ganeshrn</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Ganesh Nalawade</p></td>
+<td><p>ganeshrn</p></td>
+<td><p>ganeshrn</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>Trishna Guha</td>
-<td>trishnaguha</td>
-<td>trishnag</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>Trishna Guha</p></td>
+<td><p>trishnaguha</p></td>
+<td><p>trishnag</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Andrew Gaffney</td>
-<td>agaffney</td>
-<td>agaffney</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Andrew Gaffney</p></td>
+<td><p>agaffney</p></td>
+<td><p>agaffney</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -2549,7 +2551,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

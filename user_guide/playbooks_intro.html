@@ -2381,8 +2381,8 @@ documentation.  The <code class="docutils literal notranslate"><span class="pre"
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The <code class="docutils literal notranslate"><span class="pre">remote_user</span></code> parameter was formerly called just <code class="docutils literal notranslate"><span class="pre">user</span></code>. It was renamed in Ansible 1.4 to make it more distinguishable from the <strong>user</strong> module (used to create users on remote systems).</p>
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">remote_user</span></code> parameter was formerly called just <code class="docutils literal notranslate"><span class="pre">user</span></code>. It was renamed in Ansible 1.4 to make it more distinguishable from the <strong>user</strong> module (used to create users on remote systems).</p>
 </div>
 <p>Remote users can also be defined per task:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
@@ -2434,8 +2434,8 @@ when using the old sudo syntax <code class="docutils literal notranslate"><span 
 playbook seems to hang, it’s probably stuck at the privilege escalation prompt.
 Just <cite>Control-C</cite> to kill it and run it again adding the appropriate password.</p>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">When using <code class="docutils literal notranslate"><span class="pre">become_user</span></code> to a user other than root, the module
+<p class="admonition-title">Important</p>
+<p>When using <code class="docutils literal notranslate"><span class="pre">become_user</span></code> to a user other than root, the module
 arguments are briefly written into a random tempfile in <code class="docutils literal notranslate"><span class="pre">/tmp</span></code>.
 These are deleted immediately after the command is executed.  This
 only occurs when changing privileges from a user like ‘bob’ to ‘timmy’,
@@ -2447,7 +2447,7 @@ not come into play. Ansible also takes care to not log password
 parameters.</p>
 </div>
 <div class="versionadded" id="order">
-<p><span class="versionmodified">New in version 2.4.</span></p>
+<p><span class="versionmodified added">New in version 2.4.</span></p>
 </div>
 <p>You can also control the order in which hosts are run. The default is to follow the order supplied by the inventory:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">all</span>
@@ -2459,17 +2459,17 @@ parameters.</p>
 </pre></div>
 </div>
 <p>Possible values for order are:</p>
-<dl class="docutils">
-<dt>inventory:</dt>
-<dd>The default. The order is ‘as provided’ by the inventory</dd>
-<dt>reverse_inventory:</dt>
-<dd>As the name implies, this reverses the order ‘as provided’ by the inventory</dd>
-<dt>sorted:</dt>
-<dd>Hosts are alphabetically sorted by name</dd>
-<dt>reverse_sorted:</dt>
-<dd>Hosts are sorted by name in reverse alphabetical order</dd>
-<dt>shuffle:</dt>
-<dd>Hosts are randomly ordered each run</dd>
+<dl class="simple">
+<dt>inventory:</dt><dd><p>The default. The order is ‘as provided’ by the inventory</p>
+</dd>
+<dt>reverse_inventory:</dt><dd><p>As the name implies, this reverses the order ‘as provided’ by the inventory</p>
+</dd>
+<dt>sorted:</dt><dd><p>Hosts are alphabetically sorted by name</p>
+</dd>
+<dt>reverse_sorted:</dt><dd><p>Hosts are sorted by name in reverse alphabetical order</p>
+</dd>
+<dt>shuffle:</dt><dd><p>Hosts are randomly ordered each run</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="tasks-list">
@@ -2559,7 +2559,7 @@ make more sense to break up tasks as described in <a class="reference internal" 
 <div class="section" id="action-shorthand">
 <span id="id4"></span><h2>Action Shorthand<a class="headerlink" href="#action-shorthand" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 0.8.</span></p>
+<p><span class="versionmodified added">New in version 0.8.</span></p>
 </div>
 <p>Ansible prefers listing modules like this:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">template</span><span class="p">:</span>
@@ -2635,19 +2635,19 @@ once, after all of the tasks complete in a particular play.</p>
 making it easier to share handlers among playbooks and roles (especially when using 3rd party roles from
 a shared source like Galaxy).</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>Notify handlers are always run in the same order they are defined, <cite>not</cite> in the order listed in the notify-statement. This is also the case for handlers using <cite>listen</cite>.</li>
-<li>Handler names and <cite>listen</cite> topics live in a global namespace.</li>
-<li>If two handler tasks have the same name, only one will run.
-<a class="reference external" href="https://github.com/ansible/ansible/issues/4943">*</a></li>
-<li>You cannot notify a handler that is defined inside of an include. As of Ansible 2.1, this does work, however the include must be <cite>static</cite>.</li>
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Notify handlers are always run in the same order they are defined, <cite>not</cite> in the order listed in the notify-statement. This is also the case for handlers using <cite>listen</cite>.</p></li>
+<li><p>Handler names and <cite>listen</cite> topics live in a global namespace.</p></li>
+<li><p>If two handler tasks have the same name, only one will run.
+<a class="reference external" href="https://github.com/ansible/ansible/issues/4943">*</a></p></li>
+<li><p>You cannot notify a handler that is defined inside of an include. As of Ansible 2.1, this does work, however the include must be <cite>static</cite>.</p></li>
 </ul>
 </div>
 <p>Roles are described later on, but it’s worthwhile to point out that:</p>
 <ul class="simple">
-<li>handlers notified within <code class="docutils literal notranslate"><span class="pre">pre_tasks</span></code>, <code class="docutils literal notranslate"><span class="pre">tasks</span></code>, and <code class="docutils literal notranslate"><span class="pre">post_tasks</span></code> sections are automatically flushed in the end of section where they were notified;</li>
-<li>handlers notified within <code class="docutils literal notranslate"><span class="pre">roles</span></code> section are automatically flushed in the end of <code class="docutils literal notranslate"><span class="pre">tasks</span></code> section, but before any <code class="docutils literal notranslate"><span class="pre">tasks</span></code> handlers.</li>
+<li><p>handlers notified within <code class="docutils literal notranslate"><span class="pre">pre_tasks</span></code>, <code class="docutils literal notranslate"><span class="pre">tasks</span></code>, and <code class="docutils literal notranslate"><span class="pre">post_tasks</span></code> sections are automatically flushed in the end of section where they were notified;</p></li>
+<li><p>handlers notified within <code class="docutils literal notranslate"><span class="pre">roles</span></code> section are automatically flushed in the end of <code class="docutils literal notranslate"><span class="pre">tasks</span></code> section, but before any <code class="docutils literal notranslate"><span class="pre">tasks</span></code> handlers.</p></li>
 </ul>
 <p>If you ever want to flush all the handler commands immediately you can do this:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">tasks</span><span class="p">:</span>
@@ -2693,22 +2693,22 @@ can do this:</p>
 </pre></div>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../reference_appendices/YAMLSyntax.html#yaml-syntax"><span class="std std-ref">YAML Syntax</span></a></dt>
-<dd>Learn about YAML syntax</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt>
-<dd>Various tips about managing playbooks in the real world</dd>
-<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt>
-<dd>Learn about available modules</dd>
-<dt><a class="reference internal" href="../dev_guide/developing_modules.html#developing-modules"><span class="std std-ref">Should you develop a module?</span></a></dt>
-<dd>Learn how to extend Ansible by writing your own modules</dd>
-<dt><a class="reference internal" href="intro_patterns.html#intro-patterns"><span class="std std-ref">Working with Patterns</span></a></dt>
-<dd>Learn about how to select hosts</dd>
-<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">Github examples directory</a></dt>
-<dd>Complete end-to-end playbook examples</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt>
-<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../reference_appendices/YAMLSyntax.html#yaml-syntax"><span class="std std-ref">YAML Syntax</span></a></dt><dd><p>Learn about YAML syntax</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt><dd><p>Various tips about managing playbooks in the real world</p>
+</dd>
+<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt><dd><p>Learn about available modules</p>
+</dd>
+<dt><a class="reference internal" href="../dev_guide/developing_modules.html#developing-modules"><span class="std std-ref">Should you develop a module?</span></a></dt><dd><p>Learn how to extend Ansible by writing your own modules</p>
+</dd>
+<dt><a class="reference internal" href="intro_patterns.html#intro-patterns"><span class="std std-ref">Working with Patterns</span></a></dt><dd><p>Learn about how to select hosts</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">Github examples directory</a></dt><dd><p>Complete end-to-end playbook examples</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt><dd><p>Questions? Help? Ideas?  Stop by the list on Google Groups</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2740,7 +2740,7 @@ can do this:</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

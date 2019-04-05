@@ -2270,36 +2270,42 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#understanding-privilege-escalation" id="id3">Understanding Privilege Escalation</a><ul>
-<li><a class="reference internal" href="#id1" id="id4">Become</a></li>
-<li><a class="reference internal" href="#directives" id="id5">Directives</a><ul>
-<li><a class="reference internal" href="#connection-variables" id="id6">Connection variables</a></li>
-<li><a class="reference internal" href="#command-line-options" id="id7">Command line options</a></li>
-<li><a class="reference internal" href="#for-those-from-pre-1-9-sudo-and-su-still-work" id="id8">For those from Pre 1.9 , sudo and su still work!</a></li>
-<li><a class="reference internal" href="#limitations" id="id9">Limitations</a><ul>
-<li><a class="reference internal" href="#becoming-an-unprivileged-user" id="id10">Becoming an Unprivileged User</a></li>
-<li><a class="reference internal" href="#connection-plugin-support" id="id11">Connection Plugin Support</a></li>
-<li><a class="reference internal" href="#only-one-method-may-be-enabled-per-host" id="id12">Only one method may be enabled per host</a></li>
-<li><a class="reference internal" href="#can-t-limit-escalation-to-certain-commands" id="id13">Can’t limit escalation to certain commands</a></li>
-<li><a class="reference internal" href="#environment-variables-populated-by-pam-systemd" id="id14">Environment variables populated by pam_systemd</a></li>
+<li><p><a class="reference internal" href="#understanding-privilege-escalation" id="id3">Understanding Privilege Escalation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id4">Become</a></p></li>
+<li><p><a class="reference internal" href="#directives" id="id5">Directives</a></p>
+<ul>
+<li><p><a class="reference internal" href="#connection-variables" id="id6">Connection variables</a></p></li>
+<li><p><a class="reference internal" href="#command-line-options" id="id7">Command line options</a></p></li>
+<li><p><a class="reference internal" href="#for-those-from-pre-1-9-sudo-and-su-still-work" id="id8">For those from Pre 1.9 , sudo and su still work!</a></p></li>
+<li><p><a class="reference internal" href="#limitations" id="id9">Limitations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#becoming-an-unprivileged-user" id="id10">Becoming an Unprivileged User</a></p></li>
+<li><p><a class="reference internal" href="#connection-plugin-support" id="id11">Connection Plugin Support</a></p></li>
+<li><p><a class="reference internal" href="#only-one-method-may-be-enabled-per-host" id="id12">Only one method may be enabled per host</a></p></li>
+<li><p><a class="reference internal" href="#can-t-limit-escalation-to-certain-commands" id="id13">Can’t limit escalation to certain commands</a></p></li>
+<li><p><a class="reference internal" href="#environment-variables-populated-by-pam-systemd" id="id14">Environment variables populated by pam_systemd</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#become-and-networks" id="id15">Become and Networks</a><ul>
-<li><a class="reference internal" href="#setting-enable-mode-for-all-tasks" id="id16">Setting enable mode for all tasks</a><ul>
-<li><a class="reference internal" href="#passwords-for-enable-mode" id="id17">Passwords for enable mode</a></li>
+<li><p><a class="reference internal" href="#become-and-networks" id="id15">Become and Networks</a></p>
+<ul>
+<li><p><a class="reference internal" href="#setting-enable-mode-for-all-tasks" id="id16">Setting enable mode for all tasks</a></p>
+<ul>
+<li><p><a class="reference internal" href="#passwords-for-enable-mode" id="id17">Passwords for enable mode</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#authorize-and-auth-pass" id="id18">authorize and auth_pass</a></li>
+<li><p><a class="reference internal" href="#authorize-and-auth-pass" id="id18">authorize and auth_pass</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#become-and-windows" id="id19">Become and Windows</a><ul>
-<li><a class="reference internal" href="#administrative-rights" id="id20">Administrative Rights</a></li>
-<li><a class="reference internal" href="#local-service-accounts" id="id21">Local Service Accounts</a></li>
-<li><a class="reference internal" href="#accounts-without-a-password" id="id22">Accounts without a Password</a></li>
-<li><a class="reference internal" href="#become-flags" id="id23">Become Flags</a></li>
-<li><a class="reference internal" href="#id2" id="id24">Limitations</a></li>
+<li><p><a class="reference internal" href="#become-and-windows" id="id19">Become and Windows</a></p>
+<ul>
+<li><p><a class="reference internal" href="#administrative-rights" id="id20">Administrative Rights</a></p></li>
+<li><p><a class="reference internal" href="#local-service-accounts" id="id21">Local Service Accounts</a></p></li>
+<li><p><a class="reference internal" href="#accounts-without-a-password" id="id22">Accounts without a Password</a></p></li>
+<li><p><a class="reference internal" href="#become-flags" id="id23">Become Flags</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id24">Limitations</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2310,26 +2316,26 @@
 <h2><a class="toc-backref" href="#id4">Become</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>Ansible allows you to ‘become’ another user, different from the user that logged into the machine (remote user). This is done using existing privilege escalation tools such as <cite>sudo</cite>, <cite>su</cite>, <cite>pfexec</cite>, <cite>doas</cite>, <cite>pbrun</cite>, <cite>dzdo</cite>, <cite>ksu</cite>, <cite>runas</cite>, <cite>machinectl</cite> and others.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Prior to version 1.9, Ansible mostly allowed the use of <cite>sudo</cite> and a limited use of <cite>su</cite> to allow a login/remote user to become a different user and execute tasks and create resources with the second user’s permissions. As of Ansible version 1.9,  <cite>become</cite> supersedes the old sudo/su, while still being backwards compatible. This new implementation also makes it easier to add other privilege escalation tools, including <cite>pbrun</cite> (Powerbroker), <cite>pfexec</cite>, <cite>dzdo</cite> (Centrify), and others.</p>
+<p class="admonition-title">Note</p>
+<p>Prior to version 1.9, Ansible mostly allowed the use of <cite>sudo</cite> and a limited use of <cite>su</cite> to allow a login/remote user to become a different user and execute tasks and create resources with the second user’s permissions. As of Ansible version 1.9,  <cite>become</cite> supersedes the old sudo/su, while still being backwards compatible. This new implementation also makes it easier to add other privilege escalation tools, including <cite>pbrun</cite> (Powerbroker), <cite>pfexec</cite>, <cite>dzdo</cite> (Centrify), and others.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Become vars and directives are independent. For example, setting <code class="docutils literal notranslate"><span class="pre">become_user</span></code> does not set <code class="docutils literal notranslate"><span class="pre">become</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>Become vars and directives are independent. For example, setting <code class="docutils literal notranslate"><span class="pre">become_user</span></code> does not set <code class="docutils literal notranslate"><span class="pre">become</span></code>.</p>
 </div>
 </div>
 <div class="section" id="directives">
 <h2><a class="toc-backref" href="#id5">Directives</a><a class="headerlink" href="#directives" title="Permalink to this headline">¶</a></h2>
 <p>These can be set from play to task level, but are overridden by connection variables as they can be host specific.</p>
-<dl class="docutils">
-<dt>become</dt>
-<dd>set to <code class="docutils literal notranslate"><span class="pre">yes</span></code> to activate privilege escalation.</dd>
-<dt>become_user</dt>
-<dd>set to user with desired privileges — the user you <cite>become</cite>, NOT the user you login as. Does NOT imply <code class="docutils literal notranslate"><span class="pre">become:</span> <span class="pre">yes</span></code>, to allow it to be set at host level.</dd>
-<dt>become_method</dt>
-<dd>(at play or task level) overrides the default method set in ansible.cfg, set to <cite>sudo</cite>/<cite>su</cite>/<cite>pbrun</cite>/<cite>pfexec</cite>/<cite>doas</cite>/<cite>dzdo</cite>/<cite>ksu</cite>/<cite>runas</cite>/<cite>machinectl</cite></dd>
-<dt>become_flags</dt>
-<dd>(at play or task level) permit the use of specific flags for the tasks or role. One common use is to change the user to nobody when the shell is set to no login. Added in Ansible 2.2.</dd>
+<dl class="simple">
+<dt>become</dt><dd><p>set to <code class="docutils literal notranslate"><span class="pre">yes</span></code> to activate privilege escalation.</p>
+</dd>
+<dt>become_user</dt><dd><p>set to user with desired privileges — the user you <cite>become</cite>, NOT the user you login as. Does NOT imply <code class="docutils literal notranslate"><span class="pre">become:</span> <span class="pre">yes</span></code>, to allow it to be set at host level.</p>
+</dd>
+<dt>become_method</dt><dd><p>(at play or task level) overrides the default method set in ansible.cfg, set to <cite>sudo</cite>/<cite>su</cite>/<cite>pbrun</cite>/<cite>pfexec</cite>/<cite>doas</cite>/<cite>dzdo</cite>/<cite>ksu</cite>/<cite>runas</cite>/<cite>machinectl</cite></p>
+</dd>
+<dt>become_flags</dt><dd><p>(at play or task level) permit the use of specific flags for the tasks or role. One common use is to change the user to nobody when the shell is set to no login. Added in Ansible 2.2.</p>
+</dd>
 </dl>
 <p>For example, to manage a system service (which requires <code class="docutils literal notranslate"><span class="pre">root</span></code> privileges) when connected as a non-<code class="docutils literal notranslate"><span class="pre">root</span></code> user (this takes advantage of the fact that the default value of <code class="docutils literal notranslate"><span class="pre">become_user</span></code> is <code class="docutils literal notranslate"><span class="pre">root</span></code>):</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Ensure the httpd service is running</span>
@@ -2358,15 +2364,15 @@
 <div class="section" id="connection-variables">
 <h3><a class="toc-backref" href="#id6">Connection variables</a><a class="headerlink" href="#connection-variables" title="Permalink to this headline">¶</a></h3>
 <p>Each allows you to set an option per group and/or host, these are normally defined in inventory but can be used as normal variables.</p>
-<dl class="docutils">
-<dt>ansible_become</dt>
-<dd>equivalent of the become directive, decides if privilege escalation is used or not.</dd>
-<dt>ansible_become_method</dt>
-<dd>which privilege escalation method should be used</dd>
-<dt>ansible_become_user</dt>
-<dd>set the user you become through privilege escalation; does not imply <code class="docutils literal notranslate"><span class="pre">ansible_become:</span> <span class="pre">yes</span></code></dd>
-<dt>ansible_become_pass</dt>
-<dd>set the privilege escalation password. See <a class="reference internal" href="playbooks_vault.html"><span class="doc">Using Vault in playbooks</span></a> for details on how to avoid having secrets in plain text</dd>
+<dl class="simple">
+<dt>ansible_become</dt><dd><p>equivalent of the become directive, decides if privilege escalation is used or not.</p>
+</dd>
+<dt>ansible_become_method</dt><dd><p>which privilege escalation method should be used</p>
+</dd>
+<dt>ansible_become_user</dt><dd><p>set the user you become through privilege escalation; does not imply <code class="docutils literal notranslate"><span class="pre">ansible_become:</span> <span class="pre">yes</span></code></p>
+</dd>
+<dt>ansible_become_pass</dt><dd><p>set the privilege escalation password. See <a class="reference internal" href="playbooks_vault.html"><span class="doc">Using Vault in playbooks</span></a> for details on how to avoid having secrets in plain text</p>
+</dd>
 </dl>
 <p>For example, if you want to run all tasks as <code class="docutils literal notranslate"><span class="pre">root</span></code> on a server named <code class="docutils literal notranslate"><span class="pre">webserver</span></code>, but you can only connect as the <code class="docutils literal notranslate"><span class="pre">manager</span></code> user, you could use an inventory entry like this:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">webserver ansible_user=manager ansible_become=yes</span>
@@ -2375,28 +2381,21 @@
 </div>
 <div class="section" id="command-line-options">
 <h3><a class="toc-backref" href="#id7">Command line options</a><a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h3>
-<table class="docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group" colspan="2">
-<kbd><span class="option">--ask-become-pass</span>, <span class="option">-K</span></kbd></td>
-</tr>
-<tr><td>&#160;</td><td>ask for privilege escalation password; does not imply become will be used. Note that this password will be used for all hosts.</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--become</span>, <span class="option">-b</span></kbd></td>
-<td>run operations with become (no password implied)</td></tr>
-<tr><td class="option-group" colspan="2">
-<kbd><span class="option">--become-method=<var>BECOME_METHOD</var></span></kbd></td>
-</tr>
-<tr><td>&#160;</td><td>privilege escalation method to use (default=sudo),
-valid choices: [ sudo | su | pbrun | pfexec | doas | dzdo | ksu | runas | machinectl ]</td></tr>
-<tr><td class="option-group" colspan="2">
-<kbd><span class="option">--become-user=<var>BECOME_USER</var></span></kbd></td>
-</tr>
-<tr><td>&#160;</td><td>run operations as this user (default=root), does not imply –become/-b</td></tr>
-</tbody>
-</table>
+<dl class="option-list">
+<dt><kbd><span class="option">--ask-become-pass</span>, <span class="option">-K</span></kbd></dt>
+<dd><p>ask for privilege escalation password; does not imply become will be used. Note that this password will be used for all hosts.</p>
+</dd>
+<dt><kbd><span class="option">--become</span>, <span class="option">-b</span></kbd></dt>
+<dd><p>run operations with become (no password implied)</p>
+</dd>
+<dt><kbd><span class="option">--become-method=<var>BECOME_METHOD</var></span></kbd></dt>
+<dd><p>privilege escalation method to use (default=sudo),
+valid choices: [ sudo | su | pbrun | pfexec | doas | dzdo | ksu | runas | machinectl ]</p>
+</dd>
+<dt><kbd><span class="option">--become-user=<var>BECOME_USER</var></span></kbd></dt>
+<dd><p>run operations as this user (default=root), does not imply –become/-b</p>
+</dd>
+</dl>
 </div>
 <div class="section" id="for-those-from-pre-1-9-sudo-and-su-still-work">
 <h3><a class="toc-backref" href="#id8">For those from Pre 1.9 , sudo and su still work!</a><a class="headerlink" href="#for-those-from-pre-1-9-sudo-and-su-still-work" title="Permalink to this headline">¶</a></h3>
@@ -2425,8 +2424,8 @@ that only allow reading by the user and root.</p>
 file is written as the user that Ansible connects as, but the file needs to
 be readable by the user Ansible is set to <code class="docutils literal notranslate"><span class="pre">become</span></code>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In Ansible 2.1, this window is further narrowed: If the connection
+<p class="admonition-title">Note</p>
+<p>In Ansible 2.1, this window is further narrowed: If the connection
 is made as a privileged user (root), then Ansible 2.1 and above will use
 chown to set the file’s owner to the unprivileged user being switched to.
 This means both the user making the connection and the user being switched
@@ -2440,31 +2439,31 @@ there’s no problem here.  If you do not trust the client machines then this is
 a potential danger.</p>
 <p>Ways to resolve this include:</p>
 <ul class="simple">
-<li>Use <cite>pipelining</cite>.  When pipelining is enabled, Ansible doesn’t save the
+<li><p>Use <cite>pipelining</cite>.  When pipelining is enabled, Ansible doesn’t save the
 module to a temporary file on the client.  Instead it pipes the module to
 the remote python interpreter’s stdin. Pipelining does not work for
 python modules involving file transfer (for example: <span class="xref std std-ref">copy</span>,
-<span class="xref std std-ref">fetch</span>, <span class="xref std std-ref">template</span>), or for non-python modules.</li>
-<li>(Available in Ansible 2.1) Install POSIX.1e filesystem acl support on the
+<span class="xref std std-ref">fetch</span>, <span class="xref std std-ref">template</span>), or for non-python modules.</p></li>
+<li><p>(Available in Ansible 2.1) Install POSIX.1e filesystem acl support on the
 managed host.  If the temporary directory on the remote host is mounted with
 POSIX acls enabled and the <strong class="command">setfacl</strong> tool is in the remote <code class="docutils literal notranslate"><span class="pre">PATH</span></code>
 then Ansible will use POSIX acls to share the module file with the second
-unprivileged user instead of having to make the file readable by everyone.</li>
-<li>Don’t perform an action on the remote machine by becoming an unprivileged
+unprivileged user instead of having to make the file readable by everyone.</p></li>
+<li><p>Don’t perform an action on the remote machine by becoming an unprivileged
 user.  Temporary files are protected by UNIX file permissions when you
 <code class="docutils literal notranslate"><span class="pre">become</span></code> root or do not use <code class="docutils literal notranslate"><span class="pre">become</span></code>.  In Ansible 2.1 and above, UNIX
 file permissions are also secure if you make the connection to the managed
-machine as root and then use <code class="docutils literal notranslate"><span class="pre">become</span></code> to an unprivileged account.</li>
+machine as root and then use <code class="docutils literal notranslate"><span class="pre">become</span></code> to an unprivileged account.</p></li>
 </ul>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Although the Solaris ZFS filesystem has filesystem ACLs, the ACLs
+<p class="admonition-title">Warning</p>
+<p>Although the Solaris ZFS filesystem has filesystem ACLs, the ACLs
 are not POSIX.1e filesystem acls (they are NFSv4 ACLs instead).  Ansible
 cannot use these ACLs to manage its temp file permissions so you may have
 to resort to <code class="docutils literal notranslate"><span class="pre">allow_world_readable_tmpfiles</span></code> if the remote machines use ZFS.</p>
 </div>
 <div class="versionchanged">
-<p><span class="versionmodified">Changed in version 2.1.</span></p>
+<p><span class="versionmodified changed">Changed in version 2.1.</span></p>
 </div>
 <p>In addition to the additional means of doing this securely, Ansible 2.1 also
 makes it harder to unknowingly do this insecurely.  Whereas in Ansible 2.0.x
@@ -2566,12 +2565,12 @@ or just emptied.</p>
 <h4><a class="toc-backref" href="#id17">Passwords for enable mode</a><a class="headerlink" href="#passwords-for-enable-mode" title="Permalink to this headline">¶</a></h4>
 <p>If you need a password to enter <code class="docutils literal notranslate"><span class="pre">enable</span></code> mode, you can specify it in one of two ways:</p>
 <ul class="simple">
-<li>providing the <a class="reference internal" href="../cli/ansible-playbook.html#cmdoption-ansible-playbook-k"><code class="xref std std-option docutils literal notranslate"><span class="pre">--ask-become-pass</span></code></a> command line option</li>
-<li>setting the <code class="docutils literal notranslate"><span class="pre">ansible_become_pass</span></code> connection variable</li>
+<li><p>providing the <a class="reference internal" href="../cli/ansible-playbook.html#cmdoption-ansible-playbook-k"><code class="xref std std-option docutils literal notranslate"><span class="pre">--ask-become-pass</span></code></a> command line option</p></li>
+<li><p>setting the <code class="docutils literal notranslate"><span class="pre">ansible_become_pass</span></code> connection variable</p></li>
 </ul>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">As a reminder passwords should never be stored in plain text. For information on encrypting your passwords and other secrets with Ansible Vault, see <a class="reference internal" href="playbooks_vault.html"><span class="doc">Using Vault in playbooks</span></a>.</p>
+<p class="admonition-title">Warning</p>
+<p>As a reminder passwords should never be stored in plain text. For information on encrypting your passwords and other secrets with Ansible Vault, see <a class="reference internal" href="playbooks_vault.html"><span class="doc">Using Vault in playbooks</span></a>.</p>
 </div>
 </div>
 </div>
@@ -2606,8 +2605,8 @@ delegation or accessing forbidden system calls like the WUA API. You can use
 <code class="docutils literal notranslate"><span class="pre">become</span></code> with the same user as <code class="docutils literal notranslate"><span class="pre">ansible_user</span></code> to bypass these limitations
 and run commands that are not normally accessible in a WinRM session.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Prior to Ansible 2.4, become would only work when <code class="docutils literal notranslate"><span class="pre">ansible_winrm_transport</span></code> was
+<p class="admonition-title">Note</p>
+<p>Prior to Ansible 2.4, become would only work when <code class="docutils literal notranslate"><span class="pre">ansible_winrm_transport</span></code> was
 set to either <code class="docutils literal notranslate"><span class="pre">basic</span></code> or <code class="docutils literal notranslate"><span class="pre">credssp</span></code>, but since Ansible 2.4 become now works on
 all transport types.</p>
 </div>
@@ -2632,13 +2631,13 @@ task and check the output:</p>
 determines whether the user has Administrative rights. Here are the labels that
 can be returned and what they mean:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">Medium</span></code>: Ansible failed to get an elevated token and ran under a limited
+<li><p><code class="docutils literal notranslate"><span class="pre">Medium</span></code>: Ansible failed to get an elevated token and ran under a limited
 token. Only a subset of the privileges assigned to user are available during
-the module execution and the user does not have administrative rights.</li>
-<li><code class="docutils literal notranslate"><span class="pre">High</span></code>: An elevated token was used and all the privileges assigned to the
-user are available during the module execution.</li>
-<li><code class="docutils literal notranslate"><span class="pre">System</span></code>: The <code class="docutils literal notranslate"><span class="pre">NT</span> <span class="pre">AUTHORITY\System</span></code> account is used and has the highest
-level of privileges available.</li>
+the module execution and the user does not have administrative rights.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">High</span></code>: An elevated token was used and all the privileges assigned to the
+user are available during the module execution.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">System</span></code>: The <code class="docutils literal notranslate"><span class="pre">NT</span> <span class="pre">AUTHORITY\System</span></code> account is used and has the highest
+level of privileges available.</p></li>
 </ul>
 <p>The output will also show the list of privileges that have been granted to the
 user. When <code class="docutils literal notranslate"><span class="pre">State==Disabled</span></code>, the privileges have not been enabled but can be
@@ -2647,10 +2646,9 @@ required.</p>
 <p>If running on a version of Ansible that is older than 2.5 or the normal
 <code class="docutils literal notranslate"><span class="pre">runas</span></code> escalation process fails, an elevated token can be retrieved by:</p>
 <ul>
-<li><p class="first">Set the <code class="docutils literal notranslate"><span class="pre">become_user</span></code> to <code class="docutils literal notranslate"><span class="pre">System</span></code> which has full control over the
-operating system.</p>
-</li>
-<li><p class="first">Grant <code class="docutils literal notranslate"><span class="pre">SeTcbPrivilege</span></code> to the user Ansible connects with on
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">become_user</span></code> to <code class="docutils literal notranslate"><span class="pre">System</span></code> which has full control over the
+operating system.</p></li>
+<li><p>Grant <code class="docutils literal notranslate"><span class="pre">SeTcbPrivilege</span></code> to the user Ansible connects with on
 WinRM. <code class="docutils literal notranslate"><span class="pre">SeTcbPrivilege</span></code> is a high-level privilege that grants
 full control over the operating system. No user is given this privilege by
 default, and care should be taken if you grant this privilege to a user or group.
@@ -2665,7 +2663,7 @@ You can use the below task to set this privilege on a Windows host:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Turn UAC off on the host and reboot before trying to become the user. UAC is
+<li><p>Turn UAC off on the host and reboot before trying to become the user. UAC is
 a security protocol that is designed to run accounts with the
 <code class="docutils literal notranslate"><span class="pre">least</span> <span class="pre">privilege</span></code> principle. You can turn UAC off by running the following
 tasks:</p>
@@ -2686,8 +2684,8 @@ tasks:</p>
 </li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Granting the <code class="docutils literal notranslate"><span class="pre">SeTcbPrivilege</span></code> or turning UAC off can cause Windows
+<p class="admonition-title">Note</p>
+<p>Granting the <code class="docutils literal notranslate"><span class="pre">SeTcbPrivilege</span></code> or turning UAC off can cause Windows
 security vulnerabilities and care should be given if these steps are taken.</p>
 </div>
 </div>
@@ -2699,9 +2697,9 @@ could not be used as <code class="docutils literal notranslate"><span class="pre
 has been lifted since the 2.5 release of Ansible. The three service accounts
 that can be set under <code class="docutils literal notranslate"><span class="pre">become_user</span></code> are:</p>
 <ul class="simple">
-<li>System</li>
-<li>NetworkService</li>
-<li>LocalService</li>
+<li><p>System</p></li>
+<li><p>NetworkService</p></li>
+<li><p>LocalService</p></li>
 </ul>
 <p>Because local service accounts do not have passwords, the
 <code class="docutils literal notranslate"><span class="pre">ansible_become_password</span></code> parameter is not required and is ignored if
@@ -2710,8 +2708,8 @@ specified.</p>
 <div class="section" id="accounts-without-a-password">
 <h3><a class="toc-backref" href="#id22">Accounts without a Password</a><a class="headerlink" href="#accounts-without-a-password" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">As a general security best practice, you should avoid allowing accounts without passwords.</p>
+<p class="admonition-title">Warning</p>
+<p>As a general security best practice, you should avoid allowing accounts without passwords.</p>
 </div>
 <p>Ansible can be used to become an account that does not have a password (like the
 <code class="docutils literal notranslate"><span class="pre">Guest</span></code> account). To become an account without a password, set up the
@@ -2731,8 +2729,8 @@ or with this Ansible task:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This is only for accounts that do not have a password. You still need
+<p class="admonition-title">Note</p>
+<p>This is only for accounts that do not have a password. You still need
 to set the account’s password under <code class="docutils literal notranslate"><span class="pre">ansible_become_pass</span></code> if the
 become_user has a password.</p>
 </div>
@@ -2745,44 +2743,44 @@ Ansible’s configuration using <code class="docutils literal notranslate"><span
 that are initially supported for this parameter are <code class="docutils literal notranslate"><span class="pre">logon_type</span></code> and
 <code class="docutils literal notranslate"><span class="pre">logon_flags</span></code>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">These flags should only be set when becoming a normal user account, not a local service account like LocalSystem.</p>
+<p class="admonition-title">Note</p>
+<p>These flags should only be set when becoming a normal user account, not a local service account like LocalSystem.</p>
 </div>
 <p>The key <code class="docutils literal notranslate"><span class="pre">logon_type</span></code> sets the type of logon operation to perform. The value
 can be set to one of the following:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">interactive</span></code>: The default logon type. The process will be run under a
+<li><p><code class="docutils literal notranslate"><span class="pre">interactive</span></code>: The default logon type. The process will be run under a
 context that is the same as when running a process locally. This bypasses all
-WinRM restrictions and is the recommended method to use.</li>
-<li><code class="docutils literal notranslate"><span class="pre">batch</span></code>: Runs the process under a batch context that is similar to a
+WinRM restrictions and is the recommended method to use.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch</span></code>: Runs the process under a batch context that is similar to a
 scheduled task with a password set. This should bypass most WinRM
 restrictions and is useful if the <code class="docutils literal notranslate"><span class="pre">become_user</span></code> is not allowed to log on
-interactively.</li>
-<li><code class="docutils literal notranslate"><span class="pre">new_credentials</span></code>: Runs under the same credentials as the calling user, but
+interactively.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">new_credentials</span></code>: Runs under the same credentials as the calling user, but
 outbound connections are run under the context of the <code class="docutils literal notranslate"><span class="pre">become_user</span></code> and
 <code class="docutils literal notranslate"><span class="pre">become_password</span></code>, similar to <code class="docutils literal notranslate"><span class="pre">runas.exe</span> <span class="pre">/netonly</span></code>. The <code class="docutils literal notranslate"><span class="pre">logon_flags</span></code>
 flag should also be set to <code class="docutils literal notranslate"><span class="pre">netcredentials_only</span></code>. Use this flag if
 the process needs to access a network resource (like an SMB share) using a
-different set of credentials.</li>
-<li><code class="docutils literal notranslate"><span class="pre">network</span></code>: Runs the process under a network context without any cached
+different set of credentials.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">network</span></code>: Runs the process under a network context without any cached
 credentials. This results in the same type of logon session as running a
 normal WinRM process without credential delegation, and operates under the same
-restrictions.</li>
-<li><code class="docutils literal notranslate"><span class="pre">network_cleartext</span></code>: Like the <code class="docutils literal notranslate"><span class="pre">network</span></code> logon type, but instead caches
+restrictions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">network_cleartext</span></code>: Like the <code class="docutils literal notranslate"><span class="pre">network</span></code> logon type, but instead caches
 the credentials so it can access network resources. This is the same type of
-logon session as running a normal WinRM process with credential delegation.</li>
+logon session as running a normal WinRM process with credential delegation.</p></li>
 </ul>
 <p>For more information, see
 <a class="reference external" href="https://docs.microsoft.com/en-gb/windows/desktop/api/winbase/nf-winbase-logonusera">dwLogonType</a>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">logon_flags</span></code> key specifies how Windows will log the user on when creating
 the new process. The value can be set to none or multiple of the following:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">with_profile</span></code>: The default logon flag set. The process will load the
-user’s profile in the <code class="docutils literal notranslate"><span class="pre">HKEY_USERS</span></code> registry key to <code class="docutils literal notranslate"><span class="pre">HKEY_CURRENT_USER</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">netcredentials_only</span></code>: The process will use the same token as the caller
+<li><p><code class="docutils literal notranslate"><span class="pre">with_profile</span></code>: The default logon flag set. The process will load the
+user’s profile in the <code class="docutils literal notranslate"><span class="pre">HKEY_USERS</span></code> registry key to <code class="docutils literal notranslate"><span class="pre">HKEY_CURRENT_USER</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">netcredentials_only</span></code>: The process will use the same token as the caller
 but will use the <code class="docutils literal notranslate"><span class="pre">become_user</span></code> and <code class="docutils literal notranslate"><span class="pre">become_password</span></code> when accessing a remote
 resource. This is useful in inter-domain scenarios where there is no trust
-relationship, and should be used with the <code class="docutils literal notranslate"><span class="pre">new_credentials</span></code> <code class="docutils literal notranslate"><span class="pre">logon_type</span></code>.</li>
+relationship, and should be used with the <code class="docutils literal notranslate"><span class="pre">new_credentials</span></code> <code class="docutils literal notranslate"><span class="pre">logon_type</span></code>.</p></li>
 </ul>
 <p>By default <code class="docutils literal notranslate"><span class="pre">logon_flags=with_profile</span></code> is set, if the profile should not be
 loaded set <code class="docutils literal notranslate"><span class="pre">logon_flags=</span></code> or if the profile should be loaded with
@@ -2817,25 +2815,25 @@ loaded set <code class="docutils literal notranslate"><span class="pre">logon_fl
 <h3><a class="toc-backref" href="#id24">Limitations</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>Be aware of the following limitations with <code class="docutils literal notranslate"><span class="pre">become</span></code> on Windows:</p>
 <ul class="simple">
-<li>Running a task with <code class="docutils literal notranslate"><span class="pre">async</span></code> and <code class="docutils literal notranslate"><span class="pre">become</span></code> on Windows Server 2008, 2008 R2
-and Windows 7 only works when using Ansible 2.7 or newer.</li>
-<li>By default, the become user logs on with an interactive session, so it must
+<li><p>Running a task with <code class="docutils literal notranslate"><span class="pre">async</span></code> and <code class="docutils literal notranslate"><span class="pre">become</span></code> on Windows Server 2008, 2008 R2
+and Windows 7 only works when using Ansible 2.7 or newer.</p></li>
+<li><p>By default, the become user logs on with an interactive session, so it must
 have the right to do so on the Windows host. If it does not inherit the
 <code class="docutils literal notranslate"><span class="pre">SeAllowLogOnLocally</span></code> privilege or inherits the <code class="docutils literal notranslate"><span class="pre">SeDenyLogOnLocally</span></code>
 privilege, the become process will fail. Either add the privilege or set the
-<code class="docutils literal notranslate"><span class="pre">logon_type</span></code> flag to change the logon type used.</li>
-<li>Prior to Ansible version 2.3, become only worked when
+<code class="docutils literal notranslate"><span class="pre">logon_type</span></code> flag to change the logon type used.</p></li>
+<li><p>Prior to Ansible version 2.3, become only worked when
 <code class="docutils literal notranslate"><span class="pre">ansible_winrm_transport</span></code> was either <code class="docutils literal notranslate"><span class="pre">basic</span></code> or <code class="docutils literal notranslate"><span class="pre">credssp</span></code>. This
 restriction has been lifted since the 2.4 release of Ansible for all hosts
-except Windows Server 2008 (non R2 version).</li>
+except Windows Server 2008 (non R2 version).</p></li>
 </ul>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference external" href="https://groups.google.com/forum/#!forum/ansible-project">Mailing List</a></dt>
-<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
-<dt><a class="reference external" href="https://webchat.freenode.net">webchat.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://groups.google.com/forum/#!forum/ansible-project">Mailing List</a></dt><dd><p>Questions? Help? Ideas?  Stop by the list on Google Groups</p>
+</dd>
+<dt><a class="reference external" href="https://webchat.freenode.net">webchat.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2868,7 +2866,7 @@ except Windows Server 2008 (non R2 version).</li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

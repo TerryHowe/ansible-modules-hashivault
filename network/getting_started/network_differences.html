@@ -2270,13 +2270,15 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#how-network-automation-is-different" id="id1">How Network Automation is Different</a><ul>
-<li><a class="reference internal" href="#execution-on-the-control-node" id="id2">Execution on the Control Node</a></li>
-<li><a class="reference internal" href="#multiple-communication-protocols" id="id3">Multiple Communication Protocols</a></li>
-<li><a class="reference internal" href="#modules-organized-by-network-platform" id="id4">Modules Organized by Network Platform</a></li>
-<li><a class="reference internal" href="#privilege-escalation-enable-mode-become-and-authorize" id="id5">Privilege Escalation: <code class="docutils literal notranslate"><span class="pre">enable</span></code> mode, <code class="docutils literal notranslate"><span class="pre">become</span></code>, and <code class="docutils literal notranslate"><span class="pre">authorize</span></code></a><ul>
-<li><a class="reference internal" href="#using-become-for-privilege-escalation" id="id6">Using <code class="docutils literal notranslate"><span class="pre">become</span></code> for privilege escalation</a></li>
-<li><a class="reference internal" href="#legacy-playbooks-authorize-for-privilege-escalation" id="id7">Legacy playbooks: <code class="docutils literal notranslate"><span class="pre">authorize</span></code> for privilege escalation</a></li>
+<li><p><a class="reference internal" href="#how-network-automation-is-different" id="id1">How Network Automation is Different</a></p>
+<ul>
+<li><p><a class="reference internal" href="#execution-on-the-control-node" id="id2">Execution on the Control Node</a></p></li>
+<li><p><a class="reference internal" href="#multiple-communication-protocols" id="id3">Multiple Communication Protocols</a></p></li>
+<li><p><a class="reference internal" href="#modules-organized-by-network-platform" id="id4">Modules Organized by Network Platform</a></p></li>
+<li><p><a class="reference internal" href="#privilege-escalation-enable-mode-become-and-authorize" id="id5">Privilege Escalation: <code class="docutils literal notranslate"><span class="pre">enable</span></code> mode, <code class="docutils literal notranslate"><span class="pre">become</span></code>, and <code class="docutils literal notranslate"><span class="pre">authorize</span></code></a></p>
+<ul>
+<li><p><a class="reference internal" href="#using-become-for-privilege-escalation" id="id6">Using <code class="docutils literal notranslate"><span class="pre">become</span></code> for privilege escalation</a></p></li>
+<li><p><a class="reference internal" href="#legacy-playbooks-authorize-for-privilege-escalation" id="id7">Legacy playbooks: <code class="docutils literal notranslate"><span class="pre">authorize</span></code> for privilege escalation</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2291,40 +2293,40 @@
 <div class="section" id="multiple-communication-protocols">
 <h2><a class="toc-backref" href="#id3">Multiple Communication Protocols</a><a class="headerlink" href="#multiple-communication-protocols" title="Permalink to this headline">¶</a></h2>
 <p>Because network modules execute on the control node instead of on the managed nodes, they can support multiple communication protocols. The communication protocol (XML over SSH, CLI over SSH, API over HTTPS) selected for each network module depends on the platform and the purpose of the module. Some network modules support only one protocol; some offer a choice. The most common protocol is CLI over SSH. You set the communication protocol with the <code class="docutils literal notranslate"><span class="pre">ansible_connection</span></code> variable:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-center">
 <colgroup>
-<col width="50%" />
-<col width="17%" />
-<col width="17%" />
-<col width="17%" />
+<col style="width: 50%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Value of ansible_connection</th>
-<th class="head">Protocol</th>
-<th class="head">Requires</th>
-<th class="head">Persistent?</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Value of ansible_connection</p></th>
+<th class="head"><p>Protocol</p></th>
+<th class="head"><p>Requires</p></th>
+<th class="head"><p>Persistent?</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>network_cli</td>
-<td>CLI over SSH</td>
-<td>network_os setting</td>
-<td>yes</td>
+<tbody>
+<tr class="row-even"><td><p>network_cli</p></td>
+<td><p>CLI over SSH</p></td>
+<td><p>network_os setting</p></td>
+<td><p>yes</p></td>
 </tr>
-<tr class="row-odd"><td>netconf</td>
-<td>XML over SSH</td>
-<td>network_os setting</td>
-<td>yes</td>
+<tr class="row-odd"><td><p>netconf</p></td>
+<td><p>XML over SSH</p></td>
+<td><p>network_os setting</p></td>
+<td><p>yes</p></td>
 </tr>
-<tr class="row-even"><td>httpapi</td>
-<td>API over HTTP/HTTPS</td>
-<td>network_os setting</td>
-<td>yes</td>
+<tr class="row-even"><td><p>httpapi</p></td>
+<td><p>API over HTTP/HTTPS</p></td>
+<td><p>network_os setting</p></td>
+<td><p>yes</p></td>
 </tr>
-<tr class="row-odd"><td>local</td>
-<td>depends on provider</td>
-<td>provider setting</td>
-<td>no</td>
+<tr class="row-odd"><td><p>local</p></td>
+<td><p>depends on provider</p></td>
+<td><p>provider setting</p></td>
+<td><p>no</p></td>
 </tr>
 </tbody>
 </table>
@@ -2334,10 +2336,10 @@
 <h2><a class="toc-backref" href="#id4">Modules Organized by Network Platform</a><a class="headerlink" href="#modules-organized-by-network-platform" title="Permalink to this headline">¶</a></h2>
 <p>A network platform is a set of network devices with a common operating system that can be managed by a collection of modules.  The modules for each network platform share a prefix, for example:</p>
 <ul class="simple">
-<li>Arista: <code class="docutils literal notranslate"><span class="pre">eos_</span></code></li>
-<li>Cisco: <code class="docutils literal notranslate"><span class="pre">ios_</span></code>, <code class="docutils literal notranslate"><span class="pre">iosxr_</span></code>, <code class="docutils literal notranslate"><span class="pre">nxos_</span></code></li>
-<li>Juniper: <code class="docutils literal notranslate"><span class="pre">junos_</span></code></li>
-<li>VyOS <code class="docutils literal notranslate"><span class="pre">vyos_</span></code></li>
+<li><p>Arista: <code class="docutils literal notranslate"><span class="pre">eos_</span></code></p></li>
+<li><p>Cisco: <code class="docutils literal notranslate"><span class="pre">ios_</span></code>, <code class="docutils literal notranslate"><span class="pre">iosxr_</span></code>, <code class="docutils literal notranslate"><span class="pre">nxos_</span></code></p></li>
+<li><p>Juniper: <code class="docutils literal notranslate"><span class="pre">junos_</span></code></p></li>
+<li><p>VyOS <code class="docutils literal notranslate"><span class="pre">vyos_</span></code></p></li>
 </ul>
 <p>All modules within a network platform share certain requirements. Some network platforms have specific differences - see the <a class="reference internal" href="../user_guide/platform_index.html#platform-options"><span class="std std-ref">platform-specific</span></a> documentation for details.</p>
 </div>
@@ -2413,7 +2415,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

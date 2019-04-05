@@ -2267,11 +2267,12 @@
   <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#connection-plugins" id="id2">Connection Plugins</a><ul>
-<li><a class="reference internal" href="#ssh-plugins" id="id3">ssh Plugins</a></li>
-<li><a class="reference internal" href="#enabling-connection-plugins" id="id4">Enabling Connection Plugins</a></li>
-<li><a class="reference internal" href="#using-connection-plugins" id="id5">Using Connection Plugins</a></li>
-<li><a class="reference internal" href="#plugin-list" id="id6">Plugin List</a></li>
+<li><p><a class="reference internal" href="#connection-plugins" id="id2">Connection Plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ssh-plugins" id="id3">ssh Plugins</a></p></li>
+<li><p><a class="reference internal" href="#enabling-connection-plugins" id="id4">Enabling Connection Plugins</a></p></li>
+<li><p><a class="reference internal" href="#using-connection-plugins" id="id5">Using Connection Plugins</a></p></li>
+<li><p><a class="reference internal" href="#plugin-list" id="id6">Plugin List</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2296,13 +2297,13 @@ into the <code class="docutils literal notranslate"><span class="pre">connection
 For example, for Windows machines you might want to use the <a class="reference internal" href="connection/winrm.html"><span class="doc">winrm</span></a> plugin.</p>
 <p>Most connection plugins can operate with a minimum configuration. By default they use the <a class="reference internal" href="lookup/inventory_hostnames.html#inventory-hostnames-lookup"><span class="std std-ref">inventory hostname</span></a> and defaults to find the target host.</p>
 <p>Plugins are self-documenting. Each plugin should document its configuration options. The following are connection variables common to most connection plugins:</p>
-<dl class="docutils">
-<dt><a class="reference internal" href="../user_guide/playbooks_variables.html#magic-variables-and-hostvars"><span class="std std-ref">ansible_host</span></a></dt>
-<dd>The name of the host to connect to, if different from the <a class="reference internal" href="../user_guide/intro_inventory.html#intro-inventory"><span class="std std-ref">inventory</span></a> hostname.</dd>
-<dt><a class="reference internal" href="../reference_appendices/faq.html#faq-setting-users-and-ports"><span class="std std-ref">ansible_port</span></a></dt>
-<dd>The ssh port number, for <a class="reference internal" href="connection/ssh.html#ssh-connection"><span class="std std-ref">ssh</span></a> and <a class="reference internal" href="connection/paramiko_ssh.html#paramiko-ssh-connection"><span class="std std-ref">paramiko_ssh</span></a> it defaults to 22.</dd>
-<dt><a class="reference internal" href="../reference_appendices/faq.html#faq-setting-users-and-ports"><span class="std std-ref">ansible_user</span></a></dt>
-<dd>The default user name to use for log in. Most plugins default to the ‘current user running Ansible’.</dd>
+<dl class="simple">
+<dt><a class="reference internal" href="../user_guide/playbooks_variables.html#magic-variables-and-hostvars"><span class="std std-ref">ansible_host</span></a></dt><dd><p>The name of the host to connect to, if different from the <a class="reference internal" href="../user_guide/intro_inventory.html#intro-inventory"><span class="std std-ref">inventory</span></a> hostname.</p>
+</dd>
+<dt><a class="reference internal" href="../reference_appendices/faq.html#faq-setting-users-and-ports"><span class="std std-ref">ansible_port</span></a></dt><dd><p>The ssh port number, for <a class="reference internal" href="connection/ssh.html#ssh-connection"><span class="std std-ref">ssh</span></a> and <a class="reference internal" href="connection/paramiko_ssh.html#paramiko-ssh-connection"><span class="std std-ref">paramiko_ssh</span></a> it defaults to 22.</p>
+</dd>
+<dt><a class="reference internal" href="../reference_appendices/faq.html#faq-setting-users-and-ports"><span class="std std-ref">ansible_user</span></a></dt><dd><p>The default user name to use for log in. Most plugins default to the ‘current user running Ansible’.</p>
+</dd>
 </dl>
 <p>Each plugin might also have a specific version of a variable that overrides the general version. For example, <code class="docutils literal notranslate"><span class="pre">ansible_ssh_host</span></code> for the <a class="reference internal" href="connection/ssh.html#ssh-connection"><span class="std std-ref">ssh</span></a> plugin.</p>
 </div>
@@ -2337,24 +2338,24 @@ Use <code class="docutils literal notranslate"><span class="pre">ansible-doc</sp
 </ul>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../user_guide/playbooks.html#working-with-playbooks"><span class="std std-ref">Working with Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="callback.html"><span class="doc">Callback Plugins</span></a></dt>
-<dd>Ansible callback plugins</dd>
-<dt><a class="reference internal" href="../user_guide/playbooks_filters.html#playbooks-filters"><span class="std std-ref">Filters</span></a></dt>
-<dd>Jinja2 filter plugins</dd>
-<dt><a class="reference internal" href="../user_guide/playbooks_tests.html#playbooks-tests"><span class="std std-ref">Tests</span></a></dt>
-<dd>Jinja2 test plugins</dd>
-<dt><a class="reference internal" href="../user_guide/playbooks_lookups.html#playbooks-lookups"><span class="std std-ref">Lookups</span></a></dt>
-<dd>Jinja2 lookup plugins</dd>
-<dt><a class="reference internal" href="vars.html"><span class="doc">Vars Plugins</span></a></dt>
-<dd>Ansible vars plugins</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../user_guide/playbooks.html#working-with-playbooks"><span class="std std-ref">Working with Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="callback.html"><span class="doc">Callback Plugins</span></a></dt><dd><p>Ansible callback plugins</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/playbooks_filters.html#playbooks-filters"><span class="std std-ref">Filters</span></a></dt><dd><p>Jinja2 filter plugins</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/playbooks_tests.html#playbooks-tests"><span class="std std-ref">Tests</span></a></dt><dd><p>Jinja2 test plugins</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/playbooks_lookups.html#playbooks-lookups"><span class="std std-ref">Lookups</span></a></dt><dd><p>Jinja2 lookup plugins</p>
+</dd>
+<dt><a class="reference internal" href="vars.html"><span class="doc">Vars Plugins</span></a></dt><dd><p>Ansible vars plugins</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2386,7 +2387,7 @@ Use <code class="docutils literal notranslate"><span class="pre">ansible-doc</sp
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

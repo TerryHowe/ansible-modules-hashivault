@@ -2273,48 +2273,54 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-2-5-porting-guide" id="id1">Ansible 2.5 Porting Guide</a><ul>
-<li><a class="reference internal" href="#playbook" id="id2">Playbook</a><ul>
-<li><a class="reference internal" href="#dynamic-includes-and-attribute-inheritance" id="id3">Dynamic includes and attribute inheritance</a></li>
-<li><a class="reference internal" href="#fixed-handling-of-keywords-and-inline-variables" id="id4">Fixed handling of keywords and inline variables</a></li>
-<li><a class="reference internal" href="#migrating-from-with-x-to-loop" id="id5">Migrating from with_X to loop</a></li>
-<li><a class="reference internal" href="#with-list" id="id6">with_list</a></li>
-<li><a class="reference internal" href="#with-items" id="id7">with_items</a></li>
-<li><a class="reference internal" href="#with-indexed-items" id="id8">with_indexed_items</a></li>
-<li><a class="reference internal" href="#with-flattened" id="id9">with_flattened</a></li>
-<li><a class="reference internal" href="#with-together" id="id10">with_together</a></li>
-<li><a class="reference internal" href="#with-dict" id="id11">with_dict</a></li>
-<li><a class="reference internal" href="#with-sequence" id="id12">with_sequence</a></li>
-<li><a class="reference internal" href="#with-subelements" id="id13">with_subelements</a></li>
-<li><a class="reference internal" href="#with-nested-with-cartesian" id="id14">with_nested/with_cartesian</a></li>
-<li><a class="reference internal" href="#with-random-choice" id="id15">with_random_choice</a></li>
+<li><p><a class="reference internal" href="#ansible-2-5-porting-guide" id="id1">Ansible 2.5 Porting Guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#playbook" id="id2">Playbook</a></p>
+<ul>
+<li><p><a class="reference internal" href="#dynamic-includes-and-attribute-inheritance" id="id3">Dynamic includes and attribute inheritance</a></p></li>
+<li><p><a class="reference internal" href="#fixed-handling-of-keywords-and-inline-variables" id="id4">Fixed handling of keywords and inline variables</a></p></li>
+<li><p><a class="reference internal" href="#migrating-from-with-x-to-loop" id="id5">Migrating from with_X to loop</a></p></li>
+<li><p><a class="reference internal" href="#with-list" id="id6">with_list</a></p></li>
+<li><p><a class="reference internal" href="#with-items" id="id7">with_items</a></p></li>
+<li><p><a class="reference internal" href="#with-indexed-items" id="id8">with_indexed_items</a></p></li>
+<li><p><a class="reference internal" href="#with-flattened" id="id9">with_flattened</a></p></li>
+<li><p><a class="reference internal" href="#with-together" id="id10">with_together</a></p></li>
+<li><p><a class="reference internal" href="#with-dict" id="id11">with_dict</a></p></li>
+<li><p><a class="reference internal" href="#with-sequence" id="id12">with_sequence</a></p></li>
+<li><p><a class="reference internal" href="#with-subelements" id="id13">with_subelements</a></p></li>
+<li><p><a class="reference internal" href="#with-nested-with-cartesian" id="id14">with_nested/with_cartesian</a></p></li>
+<li><p><a class="reference internal" href="#with-random-choice" id="id15">with_random_choice</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#deprecated" id="id16">Deprecated</a><ul>
-<li><a class="reference internal" href="#jinja-tests-used-as-filters" id="id17">Jinja tests used as filters</a></li>
-<li><a class="reference internal" href="#ansible-fact-namespacing" id="id18">Ansible fact namespacing</a></li>
+<li><p><a class="reference internal" href="#deprecated" id="id16">Deprecated</a></p>
+<ul>
+<li><p><a class="reference internal" href="#jinja-tests-used-as-filters" id="id17">Jinja tests used as filters</a></p></li>
+<li><p><a class="reference internal" href="#ansible-fact-namespacing" id="id18">Ansible fact namespacing</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#modules" id="id19">Modules</a><ul>
-<li><a class="reference internal" href="#github-release" id="id20">github_release</a></li>
-<li><a class="reference internal" href="#modules-removed" id="id21">Modules removed</a></li>
-<li><a class="reference internal" href="#deprecation-notices" id="id22">Deprecation notices</a></li>
-<li><a class="reference internal" href="#noteworthy-module-changes" id="id23">Noteworthy module changes</a></li>
+<li><p><a class="reference internal" href="#modules" id="id19">Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#github-release" id="id20">github_release</a></p></li>
+<li><p><a class="reference internal" href="#modules-removed" id="id21">Modules removed</a></p></li>
+<li><p><a class="reference internal" href="#deprecation-notices" id="id22">Deprecation notices</a></p></li>
+<li><p><a class="reference internal" href="#noteworthy-module-changes" id="id23">Noteworthy module changes</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#plugins" id="id24">Plugins</a><ul>
-<li><a class="reference internal" href="#inventory" id="id25">Inventory</a></li>
-<li><a class="reference internal" href="#shell" id="id26">Shell</a></li>
-<li><a class="reference internal" href="#filter" id="id27">Filter</a></li>
-<li><a class="reference internal" href="#lookup" id="id28">Lookup</a></li>
+<li><p><a class="reference internal" href="#plugins" id="id24">Plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#inventory" id="id25">Inventory</a></p></li>
+<li><p><a class="reference internal" href="#shell" id="id26">Shell</a></p></li>
+<li><p><a class="reference internal" href="#filter" id="id27">Filter</a></p></li>
+<li><p><a class="reference internal" href="#lookup" id="id28">Lookup</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#porting-custom-scripts" id="id29">Porting custom scripts</a></li>
-<li><a class="reference internal" href="#network" id="id30">Network</a><ul>
-<li><a class="reference internal" href="#expanding-documentation" id="id31">Expanding documentation</a></li>
-<li><a class="reference internal" href="#top-level-connection-arguments-will-be-removed-in-2-9" id="id32">Top-level connection arguments will be removed in 2.9</a></li>
-<li><a class="reference internal" href="#adding-persistent-connection-types-network-cli-and-netconf" id="id33">Adding persistent connection types <code class="docutils literal notranslate"><span class="pre">network_cli</span></code> and <code class="docutils literal notranslate"><span class="pre">netconf</span></code></a></li>
-<li><a class="reference internal" href="#developers-shared-module-utilities-moved" id="id34">Developers: Shared Module Utilities Moved</a></li>
+<li><p><a class="reference internal" href="#porting-custom-scripts" id="id29">Porting custom scripts</a></p></li>
+<li><p><a class="reference internal" href="#network" id="id30">Network</a></p>
+<ul>
+<li><p><a class="reference internal" href="#expanding-documentation" id="id31">Expanding documentation</a></p></li>
+<li><p><a class="reference internal" href="#top-level-connection-arguments-will-be-removed-in-2-9" id="id32">Top-level connection arguments will be removed in 2.9</a></p></li>
+<li><p><a class="reference internal" href="#adding-persistent-connection-types-network-cli-and-netconf" id="id33">Adding persistent connection types <code class="docutils literal notranslate"><span class="pre">network_cli</span></code> and <code class="docutils literal notranslate"><span class="pre">netconf</span></code></a></p></li>
+<li><p><a class="reference internal" href="#developers-shared-module-utilities-moved" id="id34">Developers: Shared Module Utilities Moved</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2609,21 +2615,21 @@ In Ansible version 2.5 and later, after creating a GitHub release using the <cod
 <h3><a class="toc-backref" href="#id21">Modules removed</a><a class="headerlink" href="#modules-removed" title="Permalink to this headline">¶</a></h3>
 <p>The following modules no longer exist:</p>
 <ul class="simple">
-<li>nxos_mtu use <span class="xref std std-ref">nxos_system</span>’s <code class="docutils literal notranslate"><span class="pre">system_mtu</span></code> option or <span class="xref std std-ref">nxos_interface</span> instead</li>
-<li>cl_interface_policy use <span class="xref std std-ref">nclu</span> instead</li>
-<li>cl_bridge use <span class="xref std std-ref">nclu</span> instead</li>
-<li>cl_img_install use <span class="xref std std-ref">nclu</span> instead</li>
-<li>cl_ports use <span class="xref std std-ref">nclu</span> instead</li>
-<li>cl_license use <span class="xref std std-ref">nclu</span> instead</li>
-<li>cl_interface use <span class="xref std std-ref">nclu</span> instead</li>
-<li>cl_bond use <span class="xref std std-ref">nclu</span> instead</li>
-<li>ec2_vpc use <span class="xref std std-ref">ec2_vpc_net</span> along with supporting modules <span class="xref std std-ref">ec2_vpc_igw</span>, <span class="xref std std-ref">ec2_vpc_route_table</span>, <span class="xref std std-ref">ec2_vpc_subnet</span>, <span class="xref std std-ref">ec2_vpc_dhcp_option</span>, <span class="xref std std-ref">ec2_vpc_nat_gateway</span>, <span class="xref std std-ref">ec2_vpc_nacl</span> instead.</li>
-<li>ec2_ami_search use <span class="xref std std-ref">ec2_ami_facts</span> instead</li>
-<li>docker use <span class="xref std std-ref">docker_container</span> and <span class="xref std std-ref">docker_image</span> instead</li>
+<li><p>nxos_mtu use <span class="xref std std-ref">nxos_system</span>’s <code class="docutils literal notranslate"><span class="pre">system_mtu</span></code> option or <span class="xref std std-ref">nxos_interface</span> instead</p></li>
+<li><p>cl_interface_policy use <span class="xref std std-ref">nclu</span> instead</p></li>
+<li><p>cl_bridge use <span class="xref std std-ref">nclu</span> instead</p></li>
+<li><p>cl_img_install use <span class="xref std std-ref">nclu</span> instead</p></li>
+<li><p>cl_ports use <span class="xref std std-ref">nclu</span> instead</p></li>
+<li><p>cl_license use <span class="xref std std-ref">nclu</span> instead</p></li>
+<li><p>cl_interface use <span class="xref std std-ref">nclu</span> instead</p></li>
+<li><p>cl_bond use <span class="xref std std-ref">nclu</span> instead</p></li>
+<li><p>ec2_vpc use <span class="xref std std-ref">ec2_vpc_net</span> along with supporting modules <span class="xref std std-ref">ec2_vpc_igw</span>, <span class="xref std std-ref">ec2_vpc_route_table</span>, <span class="xref std std-ref">ec2_vpc_subnet</span>, <span class="xref std std-ref">ec2_vpc_dhcp_option</span>, <span class="xref std std-ref">ec2_vpc_nat_gateway</span>, <span class="xref std std-ref">ec2_vpc_nacl</span> instead.</p></li>
+<li><p>ec2_ami_search use <span class="xref std std-ref">ec2_ami_facts</span> instead</p></li>
+<li><p>docker use <span class="xref std std-ref">docker_container</span> and <span class="xref std std-ref">docker_image</span> instead</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">These modules may no longer have documentation in the current release.  Please see the
+<p class="admonition-title">Note</p>
+<p>These modules may no longer have documentation in the current release.  Please see the
 <a class="reference external" href="https://docs.ansible.com/ansible/2.4/list_of_all_modules.html">Ansible 2.4 module documentation</a> if you need
 to know how they worked for porting your playbooks.</p>
 </div>
@@ -2632,42 +2638,43 @@ to know how they worked for porting your playbooks.</p>
 <h3><a class="toc-backref" href="#id22">Deprecation notices</a><a class="headerlink" href="#deprecation-notices" title="Permalink to this headline">¶</a></h3>
 <p>The following modules will be removed in Ansible 2.9. Please update your playbooks accordingly.</p>
 <ul class="simple">
-<li>Apstra’s <code class="docutils literal notranslate"><span class="pre">aos_*</span></code> modules are deprecated as they do not work with AOS 2.1 or higher. See new modules at <a class="reference external" href="https://github.com/apstra">https://github.com/apstra</a>.</li>
-<li><span class="xref std std-ref">nxos_ip_interface</span> use <span class="xref std std-ref">nxos_l3_interface</span> instead.</li>
-<li><span class="xref std std-ref">nxos_portchannel</span> use <span class="xref std std-ref">nxos_linkagg</span> instead.</li>
-<li><span class="xref std std-ref">nxos_switchport</span> use <span class="xref std std-ref">nxos_l2_interface</span> instead.</li>
-<li><span class="xref std std-ref">panos_security_policy</span> use <span class="xref std std-ref">panos_security_rule</span> instead.</li>
-<li><span class="xref std std-ref">panos_nat_policy</span> use <span class="xref std std-ref">panos_nat_rule</span> instead.</li>
-<li><span class="xref std std-ref">vsphere_guest</span> use <span class="xref std std-ref">vmware_guest</span> instead.</li>
+<li><p>Apstra’s <code class="docutils literal notranslate"><span class="pre">aos_*</span></code> modules are deprecated as they do not work with AOS 2.1 or higher. See new modules at <a class="reference external" href="https://github.com/apstra">https://github.com/apstra</a>.</p></li>
+<li><p><span class="xref std std-ref">nxos_ip_interface</span> use <span class="xref std std-ref">nxos_l3_interface</span> instead.</p></li>
+<li><p><span class="xref std std-ref">nxos_portchannel</span> use <span class="xref std std-ref">nxos_linkagg</span> instead.</p></li>
+<li><p><span class="xref std std-ref">nxos_switchport</span> use <span class="xref std std-ref">nxos_l2_interface</span> instead.</p></li>
+<li><p><span class="xref std std-ref">panos_security_policy</span> use <span class="xref std std-ref">panos_security_rule</span> instead.</p></li>
+<li><p><span class="xref std std-ref">panos_nat_policy</span> use <span class="xref std std-ref">panos_nat_rule</span> instead.</p></li>
+<li><p><span class="xref std std-ref">vsphere_guest</span> use <span class="xref std std-ref">vmware_guest</span> instead.</p></li>
 </ul>
 </div>
 <div class="section" id="noteworthy-module-changes">
 <h3><a class="toc-backref" href="#id23">Noteworthy module changes</a><a class="headerlink" href="#noteworthy-module-changes" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>The <span class="xref std std-ref">stat</span> and <span class="xref std std-ref">win_stat</span> modules have changed the default of the option <code class="docutils literal notranslate"><span class="pre">get_md5</span></code> from <code class="docutils literal notranslate"><span class="pre">true</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</li>
+<li><p>The <span class="xref std std-ref">stat</span> and <span class="xref std std-ref">win_stat</span> modules have changed the default of the option <code class="docutils literal notranslate"><span class="pre">get_md5</span></code> from <code class="docutils literal notranslate"><span class="pre">true</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
 </ul>
 <p>This option will be removed starting with Ansible version 2.9. The options <code class="docutils literal notranslate"><span class="pre">get_checksum:</span> <span class="pre">True</span></code>
 and <code class="docutils literal notranslate"><span class="pre">checksum_algorithm:</span> <span class="pre">md5</span></code> can still be used if an MD5 checksum is
 desired.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">osx_say</span></code> module was renamed into <span class="xref std std-ref">say</span>.</li>
-<li>Several modules which could deal with symlinks had the default value of their <code class="docutils literal notranslate"><span class="pre">follow</span></code> option
-changed as part of a feature to <a class="reference external" href="https://github.com/ansible/proposals/issues/69">standardize the behavior of follow</a>:<ul>
-<li>The <span class="xref std std-ref">file module</span> changed from <code class="docutils literal notranslate"><span class="pre">follow=False</span></code> to <code class="docutils literal notranslate"><span class="pre">follow=True</span></code> because
+<li><p><code class="docutils literal notranslate"><span class="pre">osx_say</span></code> module was renamed into <span class="xref std std-ref">say</span>.</p></li>
+<li><p>Several modules which could deal with symlinks had the default value of their <code class="docutils literal notranslate"><span class="pre">follow</span></code> option
+changed as part of a feature to <a class="reference external" href="https://github.com/ansible/proposals/issues/69">standardize the behavior of follow</a>:</p>
+<ul>
+<li><p>The <span class="xref std std-ref">file module</span> changed from <code class="docutils literal notranslate"><span class="pre">follow=False</span></code> to <code class="docutils literal notranslate"><span class="pre">follow=True</span></code> because
 its purpose is to modify the attributes of a file and most systems do not allow attributes to be
-applied to symlinks, only to real files.</li>
-<li>The <span class="xref std std-ref">replace module</span> had its <code class="docutils literal notranslate"><span class="pre">follow</span></code> parameter removed because it
+applied to symlinks, only to real files.</p></li>
+<li><p>The <span class="xref std std-ref">replace module</span> had its <code class="docutils literal notranslate"><span class="pre">follow</span></code> parameter removed because it
 inherently modifies the content of an existing file so it makes no sense to operate on the link
-itself.</li>
-<li>The <span class="xref std std-ref">blockinfile module</span> had its <code class="docutils literal notranslate"><span class="pre">follow</span></code> parameter removed because
+itself.</p></li>
+<li><p>The <span class="xref std std-ref">blockinfile module</span> had its <code class="docutils literal notranslate"><span class="pre">follow</span></code> parameter removed because
 it inherently modifies the content of an existing file so it makes no sense to operate on the
-link itself.</li>
-<li>In Ansible-2.5.3, the <span class="xref std std-ref">template module</span> became more strict about its
+link itself.</p></li>
+<li><p>In Ansible-2.5.3, the <span class="xref std std-ref">template module</span> became more strict about its
 <code class="docutils literal notranslate"><span class="pre">src</span></code> file being proper utf-8.  Previously, non-utf8 contents in a template module src file
 would result in a mangled output file (the non-utf8 characters would be replaced with a unicode
 replacement character).  Now, on Python2, the module will error out with the message, “Template
 source files must be utf-8 encoded”.  On Python3, the module will first attempt to pass the
-non-utf8 characters through verbatim and fail if that does not succeed.</li>
+non-utf8 characters through verbatim and fail if that does not succeed.</p></li>
 </ul>
 </li>
 </ul>
@@ -2680,12 +2687,12 @@ non-utf8 characters through verbatim and fail if that does not succeed.</li>
 <h3><a class="toc-backref" href="#id25">Inventory</a><a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h3>
 <p>Inventory plugins have been fine tuned, and we have started to add some common features:</p>
 <ul class="simple">
-<li>The ability to use a cache plugin to avoid costly API/DB queries is disabled by default.
+<li><p>The ability to use a cache plugin to avoid costly API/DB queries is disabled by default.
 If using inventory scripts, some may already support a cache, but it is outside of Ansible’s knowledge and control.
-Moving to the internal cache will allow you to use Ansible’s existing cache refresh/invalidation mechanisms.</li>
-<li>A new ‘auto’ plugin, enabled by default, that can automatically detect the correct plugin to use IF that plugin is using our ‘common YAML configuration format’.
+Moving to the internal cache will allow you to use Ansible’s existing cache refresh/invalidation mechanisms.</p></li>
+<li><p>A new ‘auto’ plugin, enabled by default, that can automatically detect the correct plugin to use IF that plugin is using our ‘common YAML configuration format’.
 The previous host_list, script, yaml and ini plugins still work as they did, the auto plugin is now the last one we attempt to use.
-If you had customized the enabled plugins you should revise the setting to include the new auto plugin.</li>
+If you had customized the enabled plugins you should revise the setting to include the new auto plugin.</p></li>
 </ul>
 </div>
 <div class="section" id="shell">
@@ -2782,8 +2789,8 @@ Note that eAPI and NX-API still require <code class="docutils literal notranslat
 <h3><a class="toc-backref" href="#id34">Developers: Shared Module Utilities Moved</a><a class="headerlink" href="#developers-shared-module-utilities-moved" title="Permalink to this headline">¶</a></h3>
 <p>Beginning with Ansible 2.5, shared module utilities for network modules moved to <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.network</span></code>.</p>
 <ul class="simple">
-<li>Platform-independent utilities are found in <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.network.common</span></code></li>
-<li>Platform-specific utilities are found in <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.network.{{</span> <span class="pre">platform</span> <span class="pre">}}</span></code></li>
+<li><p>Platform-independent utilities are found in <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.network.common</span></code></p></li>
+<li><p>Platform-specific utilities are found in <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.network.{{</span> <span class="pre">platform</span> <span class="pre">}}</span></code></p></li>
 </ul>
 <p>If your module uses shared module utilities, you must update all references. For example, change:</p>
 <p><strong>OLD</strong> In Ansible 2.4</p>
@@ -2825,7 +2832,7 @@ Note that eAPI and NX-API still require <code class="docutils literal notranslat
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

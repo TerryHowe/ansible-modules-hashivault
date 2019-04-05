@@ -2269,49 +2269,49 @@
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#modules-and-plugins-what-s-the-difference" id="id1">Modules and plugins: what’s the difference?</a></li>
-<li><a class="reference internal" href="#adding-a-module-locally" id="id2">Adding a module locally</a></li>
-<li><a class="reference internal" href="#adding-a-plugin-locally" id="id3">Adding a plugin locally</a></li>
+<li><p><a class="reference internal" href="#modules-and-plugins-what-s-the-difference" id="id1">Modules and plugins: what’s the difference?</a></p></li>
+<li><p><a class="reference internal" href="#adding-a-module-locally" id="id2">Adding a module locally</a></p></li>
+<li><p><a class="reference internal" href="#adding-a-plugin-locally" id="id3">Adding a plugin locally</a></p></li>
 </ul>
 </div>
 <p>The easiest, quickest, and most popular way to extend Ansible is to copy or write a module or a plugin for local use. You can store local modules and plugins on your Ansible control node for use within your team or organization. You can also share a local plugin or module by embedding it in a role and publishing it on Ansible Galaxy. If you’ve been using roles off Galaxy, you may have been using local modules and plugins without even realizing it. If you’re using a local module or plugin that already exists, this page is all you need.</p>
 <p>Extending Ansible with local modules and plugins offers lots of shortcuts:</p>
 <ul class="simple">
-<li>You can copy other people’s modules and plugins.</li>
-<li>If you’re writing a new module, you can choose any programming language you like.</li>
-<li>You don’t have to clone the main Ansible repo.</li>
-<li>You don’t have to open a pull request.</li>
-<li>You don’t have to add tests (though we recommend that you do!).</li>
+<li><p>You can copy other people’s modules and plugins.</p></li>
+<li><p>If you’re writing a new module, you can choose any programming language you like.</p></li>
+<li><p>You don’t have to clone the main Ansible repo.</p></li>
+<li><p>You don’t have to open a pull request.</p></li>
+<li><p>You don’t have to add tests (though we recommend that you do!).</p></li>
 </ul>
 <p>To save a local module or plugin so Ansible can find and use it, drop the module or plugin in the correct “magic” directory. For local modules, use the name of the file as the module name: for example, if the module file is <code class="docutils literal notranslate"><span class="pre">~/.ansible/plugins/modules/local_users.py</span></code>, use <code class="docutils literal notranslate"><span class="pre">local_users</span></code> as the module name.</p>
 <div class="section" id="modules-and-plugins-what-s-the-difference">
 <span id="modules-vs-plugins"></span><h2><a class="toc-backref" href="#id1">Modules and plugins: what’s the difference?</a><a class="headerlink" href="#modules-and-plugins-what-s-the-difference" title="Permalink to this headline">¶</a></h2>
 <p>If you’re looking to add local functionality to Ansible, you may be wondering whether you need a module or a plugin. Here’s a quick overview of the differences:</p>
 <ul class="simple">
-<li>Modules are reusable, standalone scripts that can be used by the Ansible API, the <strong class="command">ansible</strong> command, or the <strong class="command">ansible-playbook</strong> command. Modules provide a defined interface, accepting arguments and returning information to Ansible by printing a JSON string to stdout before exiting.</li>
-<li>Plugins are shared code that can be used by any module. They provide abilities like cacheing information or copying files that are useful for many modules.</li>
+<li><p>Modules are reusable, standalone scripts that can be used by the Ansible API, the <strong class="command">ansible</strong> command, or the <strong class="command">ansible-playbook</strong> command. Modules provide a defined interface, accepting arguments and returning information to Ansible by printing a JSON string to stdout before exiting.</p></li>
+<li><p>Plugins are shared code that can be used by any module. They provide abilities like cacheing information or copying files that are useful for many modules.</p></li>
 </ul>
 </div>
 <div class="section" id="adding-a-module-locally">
 <span id="local-modules"></span><h2><a class="toc-backref" href="#id2">Adding a module locally</a><a class="headerlink" href="#adding-a-module-locally" title="Permalink to this headline">¶</a></h2>
 <p>Ansible automatically loads all executable files found in certain directories as modules, so you can create or add a local module in any of these locations:</p>
 <ul class="simple">
-<li>any directory added to the <code class="docutils literal notranslate"><span class="pre">ANSIBLE_LIBRARY</span></code> environment variable (<code class="docutils literal notranslate"><span class="pre">$ANSIBLE_LIBRARY</span></code> takes a colon-separated list like <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>)</li>
-<li><code class="docutils literal notranslate"><span class="pre">~/.ansible/plugins/modules/</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">/usr/share/ansible/plugins/modules/</span></code></li>
+<li><p>any directory added to the <code class="docutils literal notranslate"><span class="pre">ANSIBLE_LIBRARY</span></code> environment variable (<code class="docutils literal notranslate"><span class="pre">$ANSIBLE_LIBRARY</span></code> takes a colon-separated list like <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~/.ansible/plugins/modules/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/usr/share/ansible/plugins/modules/</span></code></p></li>
 </ul>
 <p>Once you save your module file in one of these locations, Ansible will load it and you can use it in any local task, playbook, or role.</p>
 <p>To confirm that <code class="docutils literal notranslate"><span class="pre">my_custom_module</span></code> is available:</p>
 <ul class="simple">
-<li>type <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-t</span> <span class="pre">module</span> <span class="pre">my_custom_module</span></code>. You should see the documentation for that module.</li>
+<li><p>type <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-t</span> <span class="pre">module</span> <span class="pre">my_custom_module</span></code>. You should see the documentation for that module.</p></li>
 </ul>
 <p>To use a local module only in certain playbooks:</p>
 <ul class="simple">
-<li>store it in a sub-directory called <code class="docutils literal notranslate"><span class="pre">library</span></code> in the directory that contains the playbook(s)</li>
+<li><p>store it in a sub-directory called <code class="docutils literal notranslate"><span class="pre">library</span></code> in the directory that contains the playbook(s)</p></li>
 </ul>
 <p>To use a local module only in a single role:</p>
 <ul class="simple">
-<li>store it in a sub-directory called <code class="docutils literal notranslate"><span class="pre">library</span></code> within that role</li>
+<li><p>store it in a sub-directory called <code class="docutils literal notranslate"><span class="pre">library</span></code> within that role</p></li>
 </ul>
 </div>
 <div class="section" id="adding-a-plugin-locally">
@@ -2319,37 +2319,37 @@
 <p>Ansible loads plugins automatically too, loading each type of plugin separately from a directory named for the type of plugin. Here’s the full list of plugin directory names:</p>
 <blockquote>
 <div><ul class="simple">
-<li>action_plugins*</li>
-<li>cache_plugins</li>
-<li>callback_plugins</li>
-<li>connection_plugins</li>
-<li>filter_plugins*</li>
-<li>inventory_plugins</li>
-<li>lookup_plugins</li>
-<li>shell_plugins</li>
-<li>strategy_plugins</li>
-<li>test_plugins*</li>
-<li>vars_plugins</li>
+<li><p>action_plugins*</p></li>
+<li><p>cache_plugins</p></li>
+<li><p>callback_plugins</p></li>
+<li><p>connection_plugins</p></li>
+<li><p>filter_plugins*</p></li>
+<li><p>inventory_plugins</p></li>
+<li><p>lookup_plugins</p></li>
+<li><p>shell_plugins</p></li>
+<li><p>strategy_plugins</p></li>
+<li><p>test_plugins*</p></li>
+<li><p>vars_plugins</p></li>
 </ul>
 </div></blockquote>
 <p>You can create or add a local plugin in any of these locations:</p>
 <ul class="simple">
-<li>any directory added to the relevant <code class="docutils literal notranslate"><span class="pre">ANSIBLE_plugin_type_PLUGINS</span></code> environment variable (these variables, such as <code class="docutils literal notranslate"><span class="pre">$ANSIBLE_INVENTORY_PLUGINS</span></code> and <code class="docutils literal notranslate"><span class="pre">$ANSIBLE_VARS_PLUGINS</span></code> take colon-separated lists like <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>)</li>
-<li>the directory named for the correct <code class="docutils literal notranslate"><span class="pre">plugin_type</span></code> within <code class="docutils literal notranslate"><span class="pre">~/.ansible/plugins/</span></code> - for example, <code class="docutils literal notranslate"><span class="pre">~/.ansible/plugins/callback_plugins</span></code></li>
-<li>the directory named for the correct <code class="docutils literal notranslate"><span class="pre">plugin_type</span></code> within <code class="docutils literal notranslate"><span class="pre">/usr/share/ansible/plugins/</span></code> - for example, <code class="docutils literal notranslate"><span class="pre">/usr/share/ansible/plugins/plugin_type/action_plugins</span></code></li>
+<li><p>any directory added to the relevant <code class="docutils literal notranslate"><span class="pre">ANSIBLE_plugin_type_PLUGINS</span></code> environment variable (these variables, such as <code class="docutils literal notranslate"><span class="pre">$ANSIBLE_INVENTORY_PLUGINS</span></code> and <code class="docutils literal notranslate"><span class="pre">$ANSIBLE_VARS_PLUGINS</span></code> take colon-separated lists like <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>)</p></li>
+<li><p>the directory named for the correct <code class="docutils literal notranslate"><span class="pre">plugin_type</span></code> within <code class="docutils literal notranslate"><span class="pre">~/.ansible/plugins/</span></code> - for example, <code class="docutils literal notranslate"><span class="pre">~/.ansible/plugins/callback_plugins</span></code></p></li>
+<li><p>the directory named for the correct <code class="docutils literal notranslate"><span class="pre">plugin_type</span></code> within <code class="docutils literal notranslate"><span class="pre">/usr/share/ansible/plugins/</span></code> - for example, <code class="docutils literal notranslate"><span class="pre">/usr/share/ansible/plugins/plugin_type/action_plugins</span></code></p></li>
 </ul>
 <p>Once your plugin file is in one of these locations, Ansible will load it and you can use it in a any local module, task, playbook, or role.</p>
 <p>To confirm that <code class="docutils literal notranslate"><span class="pre">plugins/plugin_type/my_custom_plugin</span></code> is available:</p>
 <ul class="simple">
-<li>type <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-t</span> <span class="pre">&lt;plugin_type&gt;</span> <span class="pre">my_custom_lookup_plugin</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-t</span> <span class="pre">lookup</span> <span class="pre">my_custom_lookup_plugin</span></code>. You should see the documentation for that plugin. This works for all plugin types except the ones marked with <code class="docutils literal notranslate"><span class="pre">*</span></code> in the list above  - see <a class="reference internal" href="../cli/ansible-doc.html#ansible-doc"><span class="std std-ref">ansible-doc</span></a> for more details.</li>
+<li><p>type <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-t</span> <span class="pre">&lt;plugin_type&gt;</span> <span class="pre">my_custom_lookup_plugin</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-t</span> <span class="pre">lookup</span> <span class="pre">my_custom_lookup_plugin</span></code>. You should see the documentation for that plugin. This works for all plugin types except the ones marked with <code class="docutils literal notranslate"><span class="pre">*</span></code> in the list above  - see <a class="reference internal" href="../cli/ansible-doc.html#ansible-doc"><span class="std std-ref">ansible-doc</span></a> for more details.</p></li>
 </ul>
 <p>To use your local plugin only in certain playbooks:</p>
 <ul class="simple">
-<li>store it in a sub-directory for the correct <code class="docutils literal notranslate"><span class="pre">plugin_type</span></code> (for example, <code class="docutils literal notranslate"><span class="pre">callback_plugins</span></code> or <code class="docutils literal notranslate"><span class="pre">inventory_plugins</span></code>) in the directory that contains the playbook(s)</li>
+<li><p>store it in a sub-directory for the correct <code class="docutils literal notranslate"><span class="pre">plugin_type</span></code> (for example, <code class="docutils literal notranslate"><span class="pre">callback_plugins</span></code> or <code class="docutils literal notranslate"><span class="pre">inventory_plugins</span></code>) in the directory that contains the playbook(s)</p></li>
 </ul>
 <p>To use your local plugin only in a single role:</p>
 <ul class="simple">
-<li>store it in a sub-directory for the correct <code class="docutils literal notranslate"><span class="pre">plugin_type</span></code> (for example, <code class="docutils literal notranslate"><span class="pre">cache_plugins</span></code> or <code class="docutils literal notranslate"><span class="pre">strategy_plugins</span></code>) within that role</li>
+<li><p>store it in a sub-directory for the correct <code class="docutils literal notranslate"><span class="pre">plugin_type</span></code> (for example, <code class="docutils literal notranslate"><span class="pre">cache_plugins</span></code> or <code class="docutils literal notranslate"><span class="pre">strategy_plugins</span></code>) within that role</p></li>
 </ul>
 <p>When shipped as part of a role, the plugin will be available as soon as the role is called in the play.</p>
 </div>
@@ -2381,7 +2381,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

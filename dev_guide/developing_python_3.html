@@ -2269,36 +2269,41 @@
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#minimum-version-of-python-3-x-and-python-2-x" id="id1">Minimum version of Python 3.x and Python 2.x</a></li>
-<li><a class="reference internal" href="#developing-ansible-code-that-supports-python-2-and-python-3" id="id2">Developing Ansible code that supports Python 2 and Python 3</a><ul>
-<li><a class="reference internal" href="#understanding-strings-in-python-2-and-python-3" id="id3">Understanding strings in Python 2 and Python 3</a><ul>
-<li><a class="reference internal" href="#controller-string-strategy-the-unicode-sandwich" id="id4">Controller string strategy: the Unicode Sandwich</a></li>
+<li><p><a class="reference internal" href="#minimum-version-of-python-3-x-and-python-2-x" id="id1">Minimum version of Python 3.x and Python 2.x</a></p></li>
+<li><p><a class="reference internal" href="#developing-ansible-code-that-supports-python-2-and-python-3" id="id2">Developing Ansible code that supports Python 2 and Python 3</a></p>
+<ul>
+<li><p><a class="reference internal" href="#understanding-strings-in-python-2-and-python-3" id="id3">Understanding strings in Python 2 and Python 3</a></p>
+<ul>
+<li><p><a class="reference internal" href="#controller-string-strategy-the-unicode-sandwich" id="id4">Controller string strategy: the Unicode Sandwich</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#unicode-sandwich-common-borders-places-to-convert-bytes-to-text-in-controller-code" id="id5">Unicode Sandwich common borders: places to convert bytes to text in controller code</a><ul>
-<li><a class="reference internal" href="#reading-and-writing-to-files" id="id6">Reading and writing to files</a></li>
-<li><a class="reference internal" href="#filesystem-interaction" id="id7">Filesystem interaction</a></li>
-<li><a class="reference internal" href="#interacting-with-other-programs" id="id8">Interacting with other programs</a></li>
-<li><a class="reference internal" href="#module-string-strategy-native-string" id="id9">Module string strategy: Native String</a></li>
-<li><a class="reference internal" href="#module-utils-string-strategy-hybrid" id="id10">Module_utils string strategy: hybrid</a></li>
+<li><p><a class="reference internal" href="#unicode-sandwich-common-borders-places-to-convert-bytes-to-text-in-controller-code" id="id5">Unicode Sandwich common borders: places to convert bytes to text in controller code</a></p>
+<ul>
+<li><p><a class="reference internal" href="#reading-and-writing-to-files" id="id6">Reading and writing to files</a></p></li>
+<li><p><a class="reference internal" href="#filesystem-interaction" id="id7">Filesystem interaction</a></p></li>
+<li><p><a class="reference internal" href="#interacting-with-other-programs" id="id8">Interacting with other programs</a></p></li>
+<li><p><a class="reference internal" href="#module-string-strategy-native-string" id="id9">Module string strategy: Native String</a></p></li>
+<li><p><a class="reference internal" href="#module-utils-string-strategy-hybrid" id="id10">Module_utils string strategy: hybrid</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#tips-tricks-and-idioms-for-python-2-python-3-compatibility" id="id11">Tips, tricks, and idioms for Python 2/Python 3 compatibility</a><ul>
-<li><a class="reference internal" href="#use-forward-compatibility-boilerplate" id="id12">Use forward-compatibility boilerplate</a></li>
-<li><a class="reference internal" href="#prefix-byte-strings-with-b" id="id13">Prefix byte strings with <code class="docutils literal notranslate"><span class="pre">b\_</span></code></a></li>
-<li><a class="reference internal" href="#import-ansible-s-bundled-python-six-library" id="id14">Import Ansible’s bundled <code class="docutils literal notranslate"><span class="pre">python-six</span></code> library</a></li>
-<li><a class="reference internal" href="#handle-exceptions-with-as" id="id15">Handle exceptions with <code class="docutils literal notranslate"><span class="pre">as</span></code></a></li>
-<li><a class="reference internal" href="#update-octal-numbers" id="id16">Update octal numbers</a></li>
+<li><p><a class="reference internal" href="#tips-tricks-and-idioms-for-python-2-python-3-compatibility" id="id11">Tips, tricks, and idioms for Python 2/Python 3 compatibility</a></p>
+<ul>
+<li><p><a class="reference internal" href="#use-forward-compatibility-boilerplate" id="id12">Use forward-compatibility boilerplate</a></p></li>
+<li><p><a class="reference internal" href="#prefix-byte-strings-with-b" id="id13">Prefix byte strings with <code class="docutils literal notranslate"><span class="pre">b\_</span></code></a></p></li>
+<li><p><a class="reference internal" href="#import-ansible-s-bundled-python-six-library" id="id14">Import Ansible’s bundled <code class="docutils literal notranslate"><span class="pre">python-six</span></code> library</a></p></li>
+<li><p><a class="reference internal" href="#handle-exceptions-with-as" id="id15">Handle exceptions with <code class="docutils literal notranslate"><span class="pre">as</span></code></a></p></li>
+<li><p><a class="reference internal" href="#update-octal-numbers" id="id16">Update octal numbers</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#string-formatting-for-controller-code" id="id17">String formatting for controller code</a><ul>
-<li><a class="reference internal" href="#use-str-format-for-python-2-6-compatibility" id="id18">Use <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> for Python 2.6 compatibility</a></li>
-<li><a class="reference internal" href="#use-percent-format-with-byte-strings" id="id19">Use percent format with byte strings</a></li>
+<li><p><a class="reference internal" href="#string-formatting-for-controller-code" id="id17">String formatting for controller code</a></p>
+<ul>
+<li><p><a class="reference internal" href="#use-str-format-for-python-2-6-compatibility" id="id18">Use <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> for Python 2.6 compatibility</a></p></li>
+<li><p><a class="reference internal" href="#use-percent-format-with-byte-strings" id="id19">Use percent format with byte strings</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#testing-modules-on-python-3" id="id20">Testing modules on Python 3</a></li>
+<li><p><a class="reference internal" href="#testing-modules-on-python-3" id="id20">Testing modules on Python 3</a></p></li>
 </ul>
 </div>
 <p>Ansible maintains a single code base that runs on both
@@ -2309,9 +2314,9 @@ of Python as the rest of Ansible.</p>
 <p>To ensure that your code runs on Python 3 as well as on Python 2, learn the tips and tricks and idioms
 described here. Most of these considerations apply to all three types of Ansible code:</p>
 <ol class="arabic simple">
-<li>controller-side code - code that runs on the machine where you invoke <strong class="command">/usr/bin/ansible</strong></li>
-<li>modules - the code which Ansible transmits to and invokes on the managed machine.</li>
-<li>shared <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> code - the common code that’s used by modules to perform tasks and sometimes used by controller-side code as well</li>
+<li><p>controller-side code - code that runs on the machine where you invoke <strong class="command">/usr/bin/ansible</strong></p></li>
+<li><p>modules - the code which Ansible transmits to and invokes on the managed machine.</p></li>
+<li><p>shared <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> code - the common code that’s used by modules to perform tasks and sometimes used by controller-side code as well</p></li>
 </ol>
 <p>However, the three types of code do not use the same string strategy. If you’re developing a module or some <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> code, be sure
 to read the section on string strategy carefully.</p>
@@ -2332,9 +2337,9 @@ module to be usable only with a newer version of Python; instead it is an
 acknowledgment that some libraries (for instance, boto3 and docker-py) will
 only function with a newer version of Python.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Python 2.4 Module-side Support:</p>
-<p class="last">Support for Python 2.4 and Python 2.5 was dropped in Ansible-2.4.  RHEL-5
+<p>Support for Python 2.4 and Python 2.5 was dropped in Ansible-2.4.  RHEL-5
 (and its rebuilds like CentOS-5) were supported until April of 2017.
 Ansible-2.3 was released in April of 2017 and was the last Ansible release
 to support Python 2.4 on the module-side.</p>
@@ -2407,8 +2412,8 @@ to yield text but instead do the conversion explicitly ourselves. For example:</
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Much of Ansible assumes that all encoded text is UTF-8.  At some
+<p class="admonition-title">Note</p>
+<p>Much of Ansible assumes that all encoded text is UTF-8.  At some
 point, if there is demand for other encodings we may change that, but for
 now it is safe to assume that bytes are UTF-8.</p>
 </div>
@@ -2457,8 +2462,8 @@ away without converting to bytes:</p>
 to the filesystem, it can be more convenient to transform to bytes right away
 and manipulate in bytes.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Make sure all variables passed to a function are the same type.
+<p class="admonition-title">Warning</p>
+<p>Make sure all variables passed to a function are the same type.
 If you’re working with something like <a class="reference external" href="https://docs.python.org/3/library/os.path.html#os.path.join" title="(in Python v3.7)"><code class="docutils literal notranslate"><span class="pre">os.path.join()</span></code></a> which takes
 multiple strings and uses them in combination, you need to make sure that
 all the types are the same (either all bytes or all text).  Mixing
@@ -2504,9 +2509,9 @@ The module_utils code attempts to accept native strings as input
 to its functions and emit native strings as their output.</p>
 <p>In <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> code:</p>
 <ul class="simple">
-<li>Functions <strong>must</strong> accept string parameters as either text strings or byte strings.</li>
-<li>Functions may return either the same type of string as they were given or the native string type for the Python version they are run on.</li>
-<li>Functions that return strings <strong>must</strong> document whether they return strings of the same type as they were given or native strings.</li>
+<li><p>Functions <strong>must</strong> accept string parameters as either text strings or byte strings.</p></li>
+<li><p>Functions may return either the same type of string as they were given or the native string type for the Python version they are run on.</p></li>
+<li><p>Functions that return strings <strong>must</strong> document whether they return strings of the same type as they were given or native strings.</p></li>
 </ul>
 <p>Module-utils functions are therefore often very defensive in nature.
 They convert their string parameters into text (using <code class="docutils literal notranslate"><span class="pre">ansible.module_utils._text.to_text</span></code>)
@@ -2529,29 +2534,27 @@ to make certain constructs act the same way on Python 2 and Python 3:</p>
 <p><code class="docutils literal notranslate"><span class="pre">__metaclass__</span> <span class="pre">=</span> <span class="pre">type</span></code> makes all classes defined in the file into new-style
 classes without explicitly inheriting from <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">__future__</span></code> imports do the following:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">absolute_import:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">Makes imports look in <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.path" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.path</span></code></a> for the modules being
+<dl class="field-list simple">
+<dt class="field-odd">absolute_import</dt>
+<dd class="field-odd"><p>Makes imports look in <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.path" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.path</span></code></a> for the modules being
 imported, skipping the directory in which the module doing the importing
 lives.  If the code wants to use the directory in which the module doing
-the importing, there’s a new dot notation to do so.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">division:</th><td class="field-body">Makes division of integers always return a float.  If you need to
-find the quotient use <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">//</span> <span class="pre">y</span></code> instead of <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">/</span> <span class="pre">y</span></code>.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">print_function:</th><td class="field-body">Changes <a class="reference external" href="https://docs.python.org/3/library/functions.html#print" title="(in Python v3.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">print</span></code></a> from a keyword into a function.</td>
-</tr>
-</tbody>
-</table>
+the importing, there’s a new dot notation to do so.</p>
+</dd>
+<dt class="field-even">division</dt>
+<dd class="field-even"><p>Makes division of integers always return a float.  If you need to
+find the quotient use <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">//</span> <span class="pre">y</span></code> instead of <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">/</span> <span class="pre">y</span></code>.</p>
+</dd>
+<dt class="field-odd">print_function</dt>
+<dd class="field-odd"><p>Changes <a class="reference external" href="https://docs.python.org/3/library/functions.html#print" title="(in Python v3.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">print</span></code></a> from a keyword into a function.</p>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<ul class="last simple">
-<li><a class="reference external" href="https://www.python.org/dev/peps/pep-0328/#guido-s-decision">PEP 0328: Absolute Imports</a></li>
-<li><a class="reference external" href="https://www.python.org/dev/peps/pep-0238">PEP 0238: Division</a></li>
-<li><a class="reference external" href="https://www.python.org/dev/peps/pep-3105">PEP 3105: Print function</a></li>
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0328/#guido-s-decision">PEP 0328: Absolute Imports</a></p></li>
+<li><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0238">PEP 0238: Division</a></p></li>
+<li><p><a class="reference external" href="https://www.python.org/dev/peps/pep-3105">PEP 3105: Print function</a></p></li>
 </ul>
 </div>
 </div>
@@ -2581,9 +2584,9 @@ it, import it like this:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Ansible can also use a system copy of six</p>
-<p class="last">Ansible will use a system copy of six if the system copy is a later
+<p>Ansible will use a system copy of six if the system copy is a later
 version than the one Ansible bundles.</p>
 </div>
 </div>
@@ -2630,8 +2633,8 @@ method into the string.  However, the first version doesn’t work in
 Python 2.6.  Always remember to put numbers into the placeholders so the code
 is compatible with Python 2.6.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">Python documentation on <a class="reference external" href="https://docs.python.org/2/library/string.html#formatstrings">format strings</a></p>
+<p class="admonition-title">See also</p>
+<p>Python documentation on <a class="reference external" href="https://docs.python.org/2/library/string.html#formatstrings">format strings</a></p>
 </div>
 </div>
 <div class="section" id="use-percent-format-with-byte-strings">
@@ -2642,17 +2645,17 @@ does have support for the older, percent-formatting.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Percent formatting added in Python 3.5</p>
-<p class="last">Percent formatting of byte strings was added back into Python 3 in 3.5.
+<p>Percent formatting of byte strings was added back into Python 3 in 3.5.
 This isn’t a problem for us because Python 3.5 is our minimum version.
 However, if you happen to be testing Ansible code with Python 3.4 or
 earlier, you will find that the byte string formatting here won’t work.
 Upgrade to Python 3.5 to test.</p>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">Python documentation on <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#string-formatting">percent formatting</a></p>
+<p class="admonition-title">See also</p>
+<p>Python documentation on <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#string-formatting">percent formatting</a></p>
 </div>
 </div>
 </div>
@@ -2693,7 +2696,7 @@ for more information.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

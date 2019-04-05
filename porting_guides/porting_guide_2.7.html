@@ -2273,30 +2273,34 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-2-7-porting-guide" id="id1">Ansible 2.7 Porting Guide</a><ul>
-<li><a class="reference internal" href="#command-line" id="id2">Command Line</a></li>
-<li><a class="reference internal" href="#python-compatibility" id="id3">Python Compatibility</a></li>
-<li><a class="reference internal" href="#playbook" id="id4">Playbook</a><ul>
-<li><a class="reference internal" href="#role-precedence-fix-during-role-loading" id="id5">Role Precedence Fix during Role Loading</a></li>
-<li><a class="reference internal" href="#include-role-and-import-role-variable-exposure" id="id6">include_role and import_role variable exposure</a></li>
-<li><a class="reference internal" href="#include-tasks-import-tasks-inline-variables" id="id7">include_tasks/import_tasks inline variables</a></li>
-<li><a class="reference internal" href="#vars-prompt-with-unknown-algorithms" id="id8">vars_prompt with unknown algorithms</a></li>
+<li><p><a class="reference internal" href="#ansible-2-7-porting-guide" id="id1">Ansible 2.7 Porting Guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#command-line" id="id2">Command Line</a></p></li>
+<li><p><a class="reference internal" href="#python-compatibility" id="id3">Python Compatibility</a></p></li>
+<li><p><a class="reference internal" href="#playbook" id="id4">Playbook</a></p>
+<ul>
+<li><p><a class="reference internal" href="#role-precedence-fix-during-role-loading" id="id5">Role Precedence Fix during Role Loading</a></p></li>
+<li><p><a class="reference internal" href="#include-role-and-import-role-variable-exposure" id="id6">include_role and import_role variable exposure</a></p></li>
+<li><p><a class="reference internal" href="#include-tasks-import-tasks-inline-variables" id="id7">include_tasks/import_tasks inline variables</a></p></li>
+<li><p><a class="reference internal" href="#vars-prompt-with-unknown-algorithms" id="id8">vars_prompt with unknown algorithms</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#deprecated" id="id9">Deprecated</a><ul>
-<li><a class="reference internal" href="#expedited-deprecation-use-of-file-in-ansiblemodule" id="id10">Expedited Deprecation: Use of <code class="docutils literal notranslate"><span class="pre">__file__</span></code> in <code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code></a></li>
-<li><a class="reference internal" href="#using-a-loop-on-a-package-module-via-squash-actions" id="id11">Using a loop on a package module via squash_actions</a></li>
+<li><p><a class="reference internal" href="#deprecated" id="id9">Deprecated</a></p>
+<ul>
+<li><p><a class="reference internal" href="#expedited-deprecation-use-of-file-in-ansiblemodule" id="id10">Expedited Deprecation: Use of <code class="docutils literal notranslate"><span class="pre">__file__</span></code> in <code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code></a></p></li>
+<li><p><a class="reference internal" href="#using-a-loop-on-a-package-module-via-squash-actions" id="id11">Using a loop on a package module via squash_actions</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#modules" id="id12">Modules</a><ul>
-<li><a class="reference internal" href="#modules-removed" id="id13">Modules removed</a></li>
-<li><a class="reference internal" href="#deprecation-notices" id="id14">Deprecation notices</a></li>
-<li><a class="reference internal" href="#noteworthy-module-changes" id="id15">Noteworthy module changes</a></li>
+<li><p><a class="reference internal" href="#modules" id="id12">Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#modules-removed" id="id13">Modules removed</a></p></li>
+<li><p><a class="reference internal" href="#deprecation-notices" id="id14">Deprecation notices</a></p></li>
+<li><p><a class="reference internal" href="#noteworthy-module-changes" id="id15">Noteworthy module changes</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#plugins" id="id16">Plugins</a></li>
-<li><a class="reference internal" href="#porting-custom-scripts" id="id17">Porting custom scripts</a></li>
-<li><a class="reference internal" href="#networking" id="id18">Networking</a></li>
+<li><p><a class="reference internal" href="#plugins" id="id16">Plugins</a></p></li>
+<li><p><a class="reference internal" href="#porting-custom-scripts" id="id17">Porting custom scripts</a></p></li>
+<li><p><a class="reference internal" href="#networking" id="id18">Networking</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2372,8 +2376,8 @@ hashing algorithm being used with this filter.</p>
 <div class="section" id="expedited-deprecation-use-of-file-in-ansiblemodule">
 <h3><a class="toc-backref" href="#id10">Expedited Deprecation: Use of <code class="docutils literal notranslate"><span class="pre">__file__</span></code> in <code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code></a><a class="headerlink" href="#expedited-deprecation-use-of-file-in-ansiblemodule" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The use of the <code class="docutils literal notranslate"><span class="pre">__file__</span></code> variable is deprecated in Ansible 2.7 and <strong>will be eliminated in Ansible 2.8</strong>. This is much quicker than our usual 4-release deprecation cycle.</p>
+<p class="admonition-title">Note</p>
+<p>The use of the <code class="docutils literal notranslate"><span class="pre">__file__</span></code> variable is deprecated in Ansible 2.7 and <strong>will be eliminated in Ansible 2.8</strong>. This is much quicker than our usual 4-release deprecation cycle.</p>
 </div>
 <p>We are deprecating the use of the <code class="docutils literal notranslate"><span class="pre">__file__</span></code> variable to refer to the file containing the currently-running code. This common Python technique for finding a filesystem path does not always work (even in vanilla Python). Sometimes a Python module can be imported from a virtual location (like inside of a zip file). When this happens, the <code class="docutils literal notranslate"><span class="pre">__file__</span></code> variable will reference a virtual location pointing to inside of the zip file. This can cause problems if, for instance, the code was trying to use <code class="docutils literal notranslate"><span class="pre">__file__</span></code> to find the directory containing the python module to write some temporary information.</p>
 <p>Before the introduction of AnsiBallZ in Ansible 2.1, using <code class="docutils literal notranslate"><span class="pre">__file__</span></code> worked in <code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code> sometimes, but any module that used it would fail when pipelining was turned on (because the module would be piped into the python interpreter’s standard input, so <code class="docutils literal notranslate"><span class="pre">__file__</span></code> wouldn’t contain a file path). AnsiBallZ unintentionally made using <code class="docutils literal notranslate"><span class="pre">__file__</span></code> work, by always creating a temporary file for <code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code> to reside in.</p>
@@ -2410,14 +2414,14 @@ hashing algorithm being used with this filter.</p>
 <h2><a class="toc-backref" href="#id12">Modules</a><a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
 <p>Major changes in popular modules are detailed here</p>
 <ul class="simple">
-<li>The <a class="reference internal" href="../reference_appendices/config.html#default-syslog-facility"><span class="std std-ref">DEFAULT_SYSLOG_FACILITY</span></a> configuration option tells Ansible modules to use a specific
+<li><p>The <a class="reference internal" href="../reference_appendices/config.html#default-syslog-facility"><span class="std std-ref">DEFAULT_SYSLOG_FACILITY</span></a> configuration option tells Ansible modules to use a specific
 <a class="reference external" href="https://en.wikipedia.org/wiki/Syslog#Facility">syslog facility</a> when logging information on all
 managed machines. Due to a bug with older Ansible versions, this setting did not affect machines
 using journald with the systemd Python bindings installed. On those machines, Ansible log
 messages were sent to <code class="docutils literal notranslate"><span class="pre">/var/log/messages</span></code>, even if you set <a class="reference internal" href="../reference_appendices/config.html#default-syslog-facility"><span class="std std-ref">DEFAULT_SYSLOG_FACILITY</span></a>.
 Ansible 2.7 fixes this bug, routing all Ansible log messages according to the value set for
 <a class="reference internal" href="../reference_appendices/config.html#default-syslog-facility"><span class="std std-ref">DEFAULT_SYSLOG_FACILITY</span></a>. If you have <a class="reference internal" href="../reference_appendices/config.html#default-syslog-facility"><span class="std std-ref">DEFAULT_SYSLOG_FACILITY</span></a> configured, the
-location of remote logs on systems which use journald may change.</li>
+location of remote logs on systems which use journald may change.</p></li>
 </ul>
 <div class="section" id="modules-removed">
 <h3><a class="toc-backref" href="#id13">Modules removed</a><a class="headerlink" href="#modules-removed" title="Permalink to this headline">¶</a></h3>
@@ -2427,51 +2431,46 @@ location of remote logs on systems which use journald may change.</li>
 <h3><a class="toc-backref" href="#id14">Deprecation notices</a><a class="headerlink" href="#deprecation-notices" title="Permalink to this headline">¶</a></h3>
 <p>The following modules will be removed in Ansible 2.11. Please update your playbooks accordingly.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">na_cdot_aggregate</span></code> use <span class="xref std std-ref">na_ontap_aggregate</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">na_cdot_license</span></code> use <span class="xref std std-ref">na_ontap_license</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">na_cdot_lun</span></code> use <span class="xref std std-ref">na_ontap_lun</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">na_cdot_qtree</span></code> use <span class="xref std std-ref">na_ontap_qtree</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">na_cdot_svm</span></code> use <span class="xref std std-ref">na_ontap_svm</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">na_cdot_user</span></code> use <span class="xref std std-ref">na_ontap_user</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">na_cdot_user_role</span></code> use <span class="xref std std-ref">na_ontap_user_role</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">na_cdot_volume</span></code> use <span class="xref std std-ref">na_ontap_volume</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">sf_account_manager</span></code> use <span class="xref std std-ref">na_elementsw_account</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">sf_check_connections</span></code> use <span class="xref std std-ref">na_elementsw_check_connections</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">sf_snapshot_schedule_manager</span></code> use <span class="xref std std-ref">na_elementsw_snapshot_schedule</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">sf_volume_access_group_manager</span></code> use <span class="xref std std-ref">na_elementsw_access_group</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">sf_volume_manager</span></code> use <span class="xref std std-ref">na_elementsw_volume</span> instead.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">na_cdot_aggregate</span></code> use <span class="xref std std-ref">na_ontap_aggregate</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">na_cdot_license</span></code> use <span class="xref std std-ref">na_ontap_license</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">na_cdot_lun</span></code> use <span class="xref std std-ref">na_ontap_lun</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">na_cdot_qtree</span></code> use <span class="xref std std-ref">na_ontap_qtree</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">na_cdot_svm</span></code> use <span class="xref std std-ref">na_ontap_svm</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">na_cdot_user</span></code> use <span class="xref std std-ref">na_ontap_user</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">na_cdot_user_role</span></code> use <span class="xref std std-ref">na_ontap_user_role</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">na_cdot_volume</span></code> use <span class="xref std std-ref">na_ontap_volume</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sf_account_manager</span></code> use <span class="xref std std-ref">na_elementsw_account</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sf_check_connections</span></code> use <span class="xref std std-ref">na_elementsw_check_connections</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sf_snapshot_schedule_manager</span></code> use <span class="xref std std-ref">na_elementsw_snapshot_schedule</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sf_volume_access_group_manager</span></code> use <span class="xref std std-ref">na_elementsw_access_group</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sf_volume_manager</span></code> use <span class="xref std std-ref">na_elementsw_volume</span> instead.</p></li>
 </ul>
 </div>
 <div class="section" id="noteworthy-module-changes">
 <h3><a class="toc-backref" href="#id15">Noteworthy module changes</a><a class="headerlink" href="#noteworthy-module-changes" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">Check mode is now supported in the <code class="docutils literal notranslate"><span class="pre">command</span></code> and <code class="docutils literal notranslate"><span class="pre">shell</span></code> modules. However, only when <code class="docutils literal notranslate"><span class="pre">creates</span></code> or <code class="docutils literal notranslate"><span class="pre">removes</span></code> is
+<li><p>Check mode is now supported in the <code class="docutils literal notranslate"><span class="pre">command</span></code> and <code class="docutils literal notranslate"><span class="pre">shell</span></code> modules. However, only when <code class="docutils literal notranslate"><span class="pre">creates</span></code> or <code class="docutils literal notranslate"><span class="pre">removes</span></code> is
 specified. If either of these are specified, the module will check for existence of the file and report the correct
-changed status, if they are not included the module will skip like it had done previously.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">win_chocolatey</span></code> module originally required the <code class="docutils literal notranslate"><span class="pre">proxy_username</span></code> and <code class="docutils literal notranslate"><span class="pre">proxy_password</span></code> to
+changed status, if they are not included the module will skip like it had done previously.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_chocolatey</span></code> module originally required the <code class="docutils literal notranslate"><span class="pre">proxy_username</span></code> and <code class="docutils literal notranslate"><span class="pre">proxy_password</span></code> to
 escape any double quotes in the value. This is no longer required and the escaping may cause further
-issues.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">win_uri</span></code> module has removed the deprecated option <code class="docutils literal notranslate"><span class="pre">use_basic_parsing</span></code>, since Ansible 2.5 this option did
-nothing</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">win_scheduled_task</span></code> module has removed the following deprecated options:</p>
+issues.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_uri</span></code> module has removed the deprecated option <code class="docutils literal notranslate"><span class="pre">use_basic_parsing</span></code>, since Ansible 2.5 this option did
+nothing</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_scheduled_task</span></code> module has removed the following deprecated options:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">executable</span></code>, use <code class="docutils literal notranslate"><span class="pre">path</span></code> in an actions entry instead</li>
-<li><code class="docutils literal notranslate"><span class="pre">argument</span></code>, use <code class="docutils literal notranslate"><span class="pre">arguments</span></code> in an actions entry instead</li>
-<li><code class="docutils literal notranslate"><span class="pre">store_password</span></code>, set <code class="docutils literal notranslate"><span class="pre">logon_type:</span> <span class="pre">password</span></code> instead</li>
-<li><code class="docutils literal notranslate"><span class="pre">days_of_week</span></code>, use <code class="docutils literal notranslate"><span class="pre">monthlydow</span></code> in a triggers entry instead</li>
-<li><code class="docutils literal notranslate"><span class="pre">frequency</span></code>, use <code class="docutils literal notranslate"><span class="pre">type</span></code>, in a triggers entry instead</li>
-<li><code class="docutils literal notranslate"><span class="pre">time</span></code>, use <code class="docutils literal notranslate"><span class="pre">start_boundary</span></code> in a triggers entry instead</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">executable</span></code>, use <code class="docutils literal notranslate"><span class="pre">path</span></code> in an actions entry instead</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">argument</span></code>, use <code class="docutils literal notranslate"><span class="pre">arguments</span></code> in an actions entry instead</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">store_password</span></code>, set <code class="docutils literal notranslate"><span class="pre">logon_type:</span> <span class="pre">password</span></code> instead</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">days_of_week</span></code>, use <code class="docutils literal notranslate"><span class="pre">monthlydow</span></code> in a triggers entry instead</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">frequency</span></code>, use <code class="docutils literal notranslate"><span class="pre">type</span></code>, in a triggers entry instead</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>, use <code class="docutils literal notranslate"><span class="pre">start_boundary</span></code> in a triggers entry instead</p></li>
 </ul>
 </li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">interface_name</span></code> module option for <code class="docutils literal notranslate"><span class="pre">na_ontap_net_vlan</span></code> has been removed and should be removed from your playbooks</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">win_disk_image</span></code> module has deprecated the return value <code class="docutils literal notranslate"><span class="pre">mount_path</span></code>, use <code class="docutils literal notranslate"><span class="pre">mount_paths[0]</span></code> instead. This will
-be removed in Ansible 2.11.</p>
-</li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">include_role</span></code> and <code class="docutils literal notranslate"><span class="pre">include_tasks</span></code> can now be used directly from <code class="docutils literal notranslate"><span class="pre">ansible</span></code> (adhoc) and <code class="docutils literal notranslate"><span class="pre">ansible-console</span></code>:</p>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">interface_name</span></code> module option for <code class="docutils literal notranslate"><span class="pre">na_ontap_net_vlan</span></code> has been removed and should be removed from your playbooks</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_disk_image</span></code> module has deprecated the return value <code class="docutils literal notranslate"><span class="pre">mount_path</span></code>, use <code class="docutils literal notranslate"><span class="pre">mount_paths[0]</span></code> instead. This will
+be removed in Ansible 2.11.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_role</span></code> and <code class="docutils literal notranslate"><span class="pre">include_tasks</span></code> can now be used directly from <code class="docutils literal notranslate"><span class="pre">ansible</span></code> (adhoc) and <code class="docutils literal notranslate"><span class="pre">ansible-console</span></code>:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="c1">#&gt; ansible -m include_role -a &#39;name=myrole&#39; all</span>
 </pre></div>
 </div>
@@ -2482,11 +2481,11 @@ be removed in Ansible 2.11.</p>
 <div class="section" id="plugins">
 <h2><a class="toc-backref" href="#id16">Plugins</a><a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The hash_password filter now throws an error if the hash algorithm specified is not supported by
+<li><p>The hash_password filter now throws an error if the hash algorithm specified is not supported by
 the controller.  This increases the safety of the filter as it previously returned None if the
 algorithm was unknown.  Some modules, notably the user module, treated a password of None as
 a request not to set a password.  If your playbook starts erroring because of this, change the
-hashing algorithm being used with this filter.</li>
+hashing algorithm being used with this filter.</p></li>
 </ul>
 </div>
 <div class="section" id="porting-custom-scripts">
@@ -2525,7 +2524,7 @@ hashing algorithm being used with this filter.</li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

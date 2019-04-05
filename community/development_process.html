@@ -2268,19 +2268,22 @@
 <span id="community-development-process"></span><h1>The Ansible Development Process<a class="headerlink" href="#the-ansible-development-process" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#road-maps" id="id2">Road Maps</a></li>
-<li><a class="reference internal" href="#pull-requests" id="id3">Pull Requests</a><ul>
-<li><a class="reference internal" href="#backport-pull-request-process" id="id4">Backport Pull Request Process</a></li>
+<li><p><a class="reference internal" href="#road-maps" id="id2">Road Maps</a></p></li>
+<li><p><a class="reference internal" href="#pull-requests" id="id3">Pull Requests</a></p>
+<ul>
+<li><p><a class="reference internal" href="#backport-pull-request-process" id="id4">Backport Pull Request Process</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ansibullbot" id="id5">Ansibullbot</a><ul>
-<li><a class="reference internal" href="#overview" id="id6">Overview</a></li>
-<li><a class="reference internal" href="#community-maintainers" id="id7">Community Maintainers</a></li>
-<li><a class="reference internal" href="#workflow" id="id8">Workflow</a></li>
-<li><a class="reference internal" href="#pr-labels" id="id9">PR Labels</a><ul>
-<li><a class="reference internal" href="#workflow-labels" id="id10">Workflow Labels</a></li>
-<li><a class="reference internal" href="#informational-labels" id="id11">Informational Labels</a></li>
-<li><a class="reference internal" href="#special-labels" id="id12">Special Labels</a></li>
+<li><p><a class="reference internal" href="#ansibullbot" id="id5">Ansibullbot</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview" id="id6">Overview</a></p></li>
+<li><p><a class="reference internal" href="#community-maintainers" id="id7">Community Maintainers</a></p></li>
+<li><p><a class="reference internal" href="#workflow" id="id8">Workflow</a></p></li>
+<li><p><a class="reference internal" href="#pr-labels" id="id9">PR Labels</a></p>
+<ul>
+<li><p><a class="reference internal" href="#workflow-labels" id="id10">Workflow Labels</a></p></li>
+<li><p><a class="reference internal" href="#informational-labels" id="id11">Informational Labels</a></p></li>
+<li><p><a class="reference internal" href="#special-labels" id="id12">Special Labels</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2303,59 +2306,56 @@ accepted and merged, the following instructions will help you create a
 pull request to backport the change to a previous stable branch.</p>
 <p>We do <strong>not</strong> backport features.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>These instructions assume that:</p>
-<blockquote class="last">
+<blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">stable-2.7</span></code> is the targeted release branch for the backport</li>
-<li><code class="docutils literal notranslate"><span class="pre">https://github.com/ansible/ansible.git</span></code> is configured as a
+<li><p><code class="docutils literal notranslate"><span class="pre">stable-2.7</span></code> is the targeted release branch for the backport</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">https://github.com/ansible/ansible.git</span></code> is configured as a
 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span></code> named <code class="docutils literal notranslate"><span class="pre">upstream</span></code>. If you do not use
-a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span></code> named <code class="docutils literal notranslate"><span class="pre">upstream</span></code>, adjust the instructions accordingly.</li>
-<li><code class="docutils literal notranslate"><span class="pre">https://github.com/&lt;yourgithubaccount&gt;/ansible.git</span></code>
+a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span></code> named <code class="docutils literal notranslate"><span class="pre">upstream</span></code>, adjust the instructions accordingly.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">https://github.com/&lt;yourgithubaccount&gt;/ansible.git</span></code>
 is configured as a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span></code> named <code class="docutils literal notranslate"><span class="pre">origin</span></code>. If you do not use
-a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span></code> named <code class="docutils literal notranslate"><span class="pre">origin</span></code>, adjust the instructions accordingly.</li>
+a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span></code> named <code class="docutils literal notranslate"><span class="pre">origin</span></code>, adjust the instructions accordingly.</p></li>
 </ul>
 </div></blockquote>
 </div>
 <ol class="arabic">
-<li><p class="first">Prepare your devel, stable, and feature branches:</p>
+<li><p>Prepare your devel, stable, and feature branches:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">git fetch upstream</span>
 <span class="l l-Scalar l-Scalar-Plain">git checkout -b backport/2.7/[PR_NUMBER_FROM_DEVEL] upstream/stable-2.7</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Cherry pick the relevant commit SHA from the devel branch into your feature
+<li><p>Cherry pick the relevant commit SHA from the devel branch into your feature
 branch, handling merge conflicts as necessary:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">git cherry-pick -x [SHA_FROM_DEVEL]</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Add a <a class="reference internal" href="../reference_appendices/release_and_maintenance.html#changelogs-how-to"><span class="std std-ref">changelog fragment</span></a> for the change, and commit it.</p>
-</li>
-<li><p class="first">Push your feature branch to your fork on GitHub:</p>
+<li><p>Add a <a class="reference internal" href="../reference_appendices/release_and_maintenance.html#changelogs-how-to"><span class="std std-ref">changelog fragment</span></a> for the change, and commit it.</p></li>
+<li><p>Push your feature branch to your fork on GitHub:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">git push origin backport/2.7/[PR_NUMBER_FROM_DEVEL]</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Submit the pull request for <code class="docutils literal notranslate"><span class="pre">backport/2.7/[PR_NUMBER_FROM_DEVEL]</span></code>
-against the <code class="docutils literal notranslate"><span class="pre">stable-2.7</span></code> branch</p>
-</li>
-<li><p class="first">The Release Manager will decide whether to merge the backport PR before
+<li><p>Submit the pull request for <code class="docutils literal notranslate"><span class="pre">backport/2.7/[PR_NUMBER_FROM_DEVEL]</span></code>
+against the <code class="docutils literal notranslate"><span class="pre">stable-2.7</span></code> branch</p></li>
+<li><p>The Release Manager will decide whether to merge the backport PR before
 the next minor release. There isn’t any need to follow up. Just ensure that the automated
-tests (CI) are green.</p>
-</li>
+tests (CI) are green.</p></li>
 </ol>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The choice to use <code class="docutils literal notranslate"><span class="pre">backport/2.7/[PR_NUMBER_FROM_DEVEL]</span></code> as the
+<p class="admonition-title">Note</p>
+<p>The choice to use <code class="docutils literal notranslate"><span class="pre">backport/2.7/[PR_NUMBER_FROM_DEVEL]</span></code> as the
 name for the feature branch is somewhat arbitrary, but conveys meaning
 about the purpose of that branch. It is not required to use this format,
 but it can be helpful, especially when making multiple backport PRs for
 multiple stable branches.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you prefer, you can use CPython’s cherry-picker tool to backport commits
+<p class="admonition-title">Note</p>
+<p>If you prefer, you can use CPython’s cherry-picker tool to backport commits
 from devel to stable branches in Ansible. Take a look at the <a class="reference external" href="https://pypi.org/p/cherry-picker#cherry-picking">cherry-picker
 documentation</a> for
 details on installing, configuring, and using it.</p>
@@ -2368,13 +2368,13 @@ details on installing, configuring, and using it.</p>
 <h3><a class="toc-backref" href="#id6">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://github.com/ansible/ansibullbot/blob/master/ISSUE_HELP.md">Ansibullbot</a> serves many functions:</p>
 <ul class="simple">
-<li>Responds quickly to PR submitters to thank them for submitting their PR</li>
-<li>Identifies the community maintainer responsible for reviewing PRs for any files affected</li>
-<li>Tracks the current status of PRs</li>
-<li>Pings responsible parties to remind them of any PR actions for which they may be responsible</li>
-<li>Provides maintainers with the ability to move PRs through the workflow</li>
-<li>Identifies PRs abandoned by their submitters so that we can close them</li>
-<li>Identifies modules abandoned by their maintainers so that we can find new maintainers</li>
+<li><p>Responds quickly to PR submitters to thank them for submitting their PR</p></li>
+<li><p>Identifies the community maintainer responsible for reviewing PRs for any files affected</p></li>
+<li><p>Tracks the current status of PRs</p></li>
+<li><p>Pings responsible parties to remind them of any PR actions for which they may be responsible</p></li>
+<li><p>Provides maintainers with the ability to move PRs through the workflow</p></li>
+<li><p>Identifies PRs abandoned by their submitters so that we can close them</p></li>
+<li><p>Identifies modules abandoned by their maintainers so that we can find new maintainers</p></li>
 </ul>
 </div>
 <div class="section" id="community-maintainers">
@@ -2388,26 +2388,29 @@ details on installing, configuring, and using it.</p>
 <h3><a class="toc-backref" href="#id8">Workflow</a><a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h3>
 <p>Ansibullbot runs continuously. You can generally expect to see changes to your issue or pull request within thirty minutes. Ansibullbot examines every open pull request in the repositories, and enforces state roughly according to the following workflow:</p>
 <ul class="simple">
-<li>If a pull request has no workflow labels, it’s considered <strong>new</strong>. Files in the pull request are identified, and the maintainers of those files are pinged by the bot, along with instructions on how to review the pull request. (Note: sometimes we strip labels from a pull request to “reboot” this process.)</li>
-<li>If the module maintainer is not <code class="docutils literal notranslate"><span class="pre">$team_ansible</span></code>, the pull request then goes into the <strong>community_review</strong> state.</li>
-<li>If the module maintainer is <code class="docutils literal notranslate"><span class="pre">$team_ansible</span></code>, the pull request then goes into the <strong>core_review</strong> state (and probably sits for a while).</li>
-<li>If the pull request is in <strong>community_review</strong> and has received comments from the maintainer:<ul>
-<li>If the maintainer says <code class="docutils literal notranslate"><span class="pre">shipit</span></code>, the pull request is labeled <strong>shipit</strong>, whereupon the Core team assesses it for final merge.</li>
-<li>If the maintainer says <code class="docutils literal notranslate"><span class="pre">needs_info</span></code>, the pull request is labeled <strong>needs_info</strong> and the submitter is asked for more info.</li>
-<li>If the maintainer says <strong>needs_revision</strong>, the pull request is labeled <strong>needs_revision</strong> and the submitter is asked to fix some things.</li>
+<li><p>If a pull request has no workflow labels, it’s considered <strong>new</strong>. Files in the pull request are identified, and the maintainers of those files are pinged by the bot, along with instructions on how to review the pull request. (Note: sometimes we strip labels from a pull request to “reboot” this process.)</p></li>
+<li><p>If the module maintainer is not <code class="docutils literal notranslate"><span class="pre">$team_ansible</span></code>, the pull request then goes into the <strong>community_review</strong> state.</p></li>
+<li><p>If the module maintainer is <code class="docutils literal notranslate"><span class="pre">$team_ansible</span></code>, the pull request then goes into the <strong>core_review</strong> state (and probably sits for a while).</p></li>
+<li><p>If the pull request is in <strong>community_review</strong> and has received comments from the maintainer:</p>
+<ul>
+<li><p>If the maintainer says <code class="docutils literal notranslate"><span class="pre">shipit</span></code>, the pull request is labeled <strong>shipit</strong>, whereupon the Core team assesses it for final merge.</p></li>
+<li><p>If the maintainer says <code class="docutils literal notranslate"><span class="pre">needs_info</span></code>, the pull request is labeled <strong>needs_info</strong> and the submitter is asked for more info.</p></li>
+<li><p>If the maintainer says <strong>needs_revision</strong>, the pull request is labeled <strong>needs_revision</strong> and the submitter is asked to fix some things.</p></li>
 </ul>
 </li>
-<li>If the submitter says <code class="docutils literal notranslate"><span class="pre">ready_for_review</span></code>, the pull request is put back into <strong>community_review</strong> or <strong>core_review</strong> and the maintainer is notified that the pull request is ready to be reviewed again.</li>
-<li>If the pull request is labeled <strong>needs_revision</strong> or <strong>needs_info</strong> and the submitter has not responded lately:<ul>
-<li>The submitter is first politely pinged after two weeks, pinged again after two more weeks and labeled <strong>pending action</strong>, and the issue or pull request will be closed two weeks after that.</li>
-<li>If the submitter responds at all, the clock is reset.</li>
+<li><p>If the submitter says <code class="docutils literal notranslate"><span class="pre">ready_for_review</span></code>, the pull request is put back into <strong>community_review</strong> or <strong>core_review</strong> and the maintainer is notified that the pull request is ready to be reviewed again.</p></li>
+<li><p>If the pull request is labeled <strong>needs_revision</strong> or <strong>needs_info</strong> and the submitter has not responded lately:</p>
+<ul>
+<li><p>The submitter is first politely pinged after two weeks, pinged again after two more weeks and labeled <strong>pending action</strong>, and the issue or pull request will be closed two weeks after that.</p></li>
+<li><p>If the submitter responds at all, the clock is reset.</p></li>
 </ul>
 </li>
-<li>If the pull request is labeled <strong>community_review</strong> and the reviewer has not responded lately:<ul>
-<li>The reviewer is first politely pinged after two weeks, pinged again after two more weeks and labeled <strong>pending_action</strong>, and then may be reassigned to <code class="docutils literal notranslate"><span class="pre">$team_ansible</span></code> or labeled <strong>core_review</strong>, or often the submitter of the pull request is asked to step up as a maintainer.</li>
+<li><p>If the pull request is labeled <strong>community_review</strong> and the reviewer has not responded lately:</p>
+<ul>
+<li><p>The reviewer is first politely pinged after two weeks, pinged again after two more weeks and labeled <strong>pending_action</strong>, and then may be reassigned to <code class="docutils literal notranslate"><span class="pre">$team_ansible</span></code> or labeled <strong>core_review</strong>, or often the submitter of the pull request is asked to step up as a maintainer.</p></li>
 </ul>
 </li>
-<li>If Shippable tests fail, or if the code is not able to be merged, the pull request is automatically put into <strong>needs_revision</strong> along with a message to the submitter explaining why.</li>
+<li><p>If Shippable tests fail, or if the code is not able to be merged, the pull request is automatically put into <strong>needs_revision</strong> along with a message to the submitter explaining why.</p></li>
 </ul>
 <p>There are corner cases and frequent refinements, but this is the workflow in general.</p>
 </div>
@@ -2417,32 +2420,32 @@ details on installing, configuring, and using it.</p>
 <div class="section" id="workflow-labels">
 <h4><a class="toc-backref" href="#id10">Workflow Labels</a><a class="headerlink" href="#workflow-labels" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><strong>community_review</strong>: Pull requests for modules that are currently awaiting review by their maintainers in the Ansible community.</li>
-<li><strong>core_review</strong>: Pull requests for modules that are currently awaiting review by their maintainers on the Ansible Core team.</li>
-<li><strong>needs_info</strong>: Waiting on info from the submitter.</li>
-<li><strong>needs_rebase</strong>: Waiting on the submitter to rebase.</li>
-<li><strong>needs_revision</strong>: Waiting on the submitter to make changes.</li>
-<li><strong>shipit</strong>: Waiting for final review by the core team for potential merge.</li>
+<li><p><strong>community_review</strong>: Pull requests for modules that are currently awaiting review by their maintainers in the Ansible community.</p></li>
+<li><p><strong>core_review</strong>: Pull requests for modules that are currently awaiting review by their maintainers on the Ansible Core team.</p></li>
+<li><p><strong>needs_info</strong>: Waiting on info from the submitter.</p></li>
+<li><p><strong>needs_rebase</strong>: Waiting on the submitter to rebase.</p></li>
+<li><p><strong>needs_revision</strong>: Waiting on the submitter to make changes.</p></li>
+<li><p><strong>shipit</strong>: Waiting for final review by the core team for potential merge.</p></li>
 </ul>
 </div>
 <div class="section" id="informational-labels">
 <h4><a class="toc-backref" href="#id11">Informational Labels</a><a class="headerlink" href="#informational-labels" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><strong>backport</strong>: this is applied automatically if the PR is requested against any branch that is not devel. The bot immediately assigns the labels backport and <code class="docutils literal notranslate"><span class="pre">core_review</span></code>.</li>
-<li><strong>bugfix_pull_request</strong>: applied by the bot based on the templatized description of the PR.</li>
-<li><strong>cloud</strong>: applied by the bot based on the paths of the modified files.</li>
-<li><strong>docs_pull_request</strong>: applied by the bot based on the templatized description of the PR.</li>
-<li><strong>easyfix</strong>: applied manually, inconsistently used but sometimes useful.</li>
-<li><strong>feature_pull_request</strong>: applied by the bot based on the templatized description of the PR.</li>
-<li><strong>networking</strong>: applied by the bot based on the paths of the modified files.</li>
-<li><strong>owner_pr</strong>: largely deprecated. Formerly workflow, now informational. Originally, PRs submitted by the maintainer would automatically go to <strong>shipit</strong> based on this label. If the submitter is also a maintainer, we notify the other maintainers and still require one of the maintainers (including the submitter) to give a <strong>shipit</strong>.</li>
-<li><strong>pending_action</strong>: applied by the bot to PRs that are not moving. Reviewed every couple of weeks by the community team, who tries to figure out the appropriate action (closure, asking for new maintainers, etc).</li>
+<li><p><strong>backport</strong>: this is applied automatically if the PR is requested against any branch that is not devel. The bot immediately assigns the labels backport and <code class="docutils literal notranslate"><span class="pre">core_review</span></code>.</p></li>
+<li><p><strong>bugfix_pull_request</strong>: applied by the bot based on the templatized description of the PR.</p></li>
+<li><p><strong>cloud</strong>: applied by the bot based on the paths of the modified files.</p></li>
+<li><p><strong>docs_pull_request</strong>: applied by the bot based on the templatized description of the PR.</p></li>
+<li><p><strong>easyfix</strong>: applied manually, inconsistently used but sometimes useful.</p></li>
+<li><p><strong>feature_pull_request</strong>: applied by the bot based on the templatized description of the PR.</p></li>
+<li><p><strong>networking</strong>: applied by the bot based on the paths of the modified files.</p></li>
+<li><p><strong>owner_pr</strong>: largely deprecated. Formerly workflow, now informational. Originally, PRs submitted by the maintainer would automatically go to <strong>shipit</strong> based on this label. If the submitter is also a maintainer, we notify the other maintainers and still require one of the maintainers (including the submitter) to give a <strong>shipit</strong>.</p></li>
+<li><p><strong>pending_action</strong>: applied by the bot to PRs that are not moving. Reviewed every couple of weeks by the community team, who tries to figure out the appropriate action (closure, asking for new maintainers, etc).</p></li>
 </ul>
 </div>
 <div class="section" id="special-labels">
 <h4><a class="toc-backref" href="#id12">Special Labels</a><a class="headerlink" href="#special-labels" title="Permalink to this headline">¶</a></h4>
 <ul>
-<li><p class="first"><strong>new_plugin</strong>: this is for new modules or plugins that are not yet in Ansible.</p>
+<li><p><strong>new_plugin</strong>: this is for new modules or plugins that are not yet in Ansible.</p>
 <p><strong>Note:</strong> <cite>new_plugin</cite> kicks off a completely separate process, and frankly it doesn’t work very well at present. We’re working our best to improve this process.</p>
 </li>
 </ul>
@@ -2477,7 +2480,7 @@ details on installing, configuring, and using it.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

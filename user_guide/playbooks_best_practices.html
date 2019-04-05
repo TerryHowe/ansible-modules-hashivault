@@ -2271,30 +2271,32 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#best-practices" id="id9">Best Practices</a><ul>
-<li><a class="reference internal" href="#content-organization" id="id10">Content Organization</a><ul>
-<li><a class="reference internal" href="#directory-layout" id="id11">Directory Layout</a></li>
-<li><a class="reference internal" href="#alternative-directory-layout" id="id12">Alternative Directory Layout</a></li>
-<li><a class="reference internal" href="#use-dynamic-inventory-with-clouds" id="id13">Use Dynamic Inventory With Clouds</a></li>
-<li><a class="reference internal" href="#how-to-differentiate-staging-vs-production" id="id14">How to Differentiate Staging vs Production</a></li>
-<li><a class="reference internal" href="#group-and-host-variables" id="id15">Group And Host Variables</a></li>
-<li><a class="reference internal" href="#top-level-playbooks-are-separated-by-role" id="id16">Top Level Playbooks Are Separated By Role</a></li>
-<li><a class="reference internal" href="#task-and-handler-organization-for-a-role" id="id17">Task And Handler Organization For A Role</a></li>
-<li><a class="reference internal" href="#what-this-organization-enables-examples" id="id18">What This Organization Enables (Examples)</a></li>
-<li><a class="reference internal" href="#deployment-vs-configuration-organization" id="id19">Deployment vs Configuration Organization</a></li>
+<li><p><a class="reference internal" href="#best-practices" id="id9">Best Practices</a></p>
+<ul>
+<li><p><a class="reference internal" href="#content-organization" id="id10">Content Organization</a></p>
+<ul>
+<li><p><a class="reference internal" href="#directory-layout" id="id11">Directory Layout</a></p></li>
+<li><p><a class="reference internal" href="#alternative-directory-layout" id="id12">Alternative Directory Layout</a></p></li>
+<li><p><a class="reference internal" href="#use-dynamic-inventory-with-clouds" id="id13">Use Dynamic Inventory With Clouds</a></p></li>
+<li><p><a class="reference internal" href="#how-to-differentiate-staging-vs-production" id="id14">How to Differentiate Staging vs Production</a></p></li>
+<li><p><a class="reference internal" href="#group-and-host-variables" id="id15">Group And Host Variables</a></p></li>
+<li><p><a class="reference internal" href="#top-level-playbooks-are-separated-by-role" id="id16">Top Level Playbooks Are Separated By Role</a></p></li>
+<li><p><a class="reference internal" href="#task-and-handler-organization-for-a-role" id="id17">Task And Handler Organization For A Role</a></p></li>
+<li><p><a class="reference internal" href="#what-this-organization-enables-examples" id="id18">What This Organization Enables (Examples)</a></p></li>
+<li><p><a class="reference internal" href="#deployment-vs-configuration-organization" id="id19">Deployment vs Configuration Organization</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#staging-vs-production" id="id20">Staging vs Production</a></li>
-<li><a class="reference internal" href="#rolling-updates" id="id21">Rolling Updates</a></li>
-<li><a class="reference internal" href="#always-mention-the-state" id="id22">Always Mention The State</a></li>
-<li><a class="reference internal" href="#group-by-roles" id="id23">Group By Roles</a></li>
-<li><a class="reference internal" href="#operating-system-and-distribution-variance" id="id24">Operating System and Distribution Variance</a></li>
-<li><a class="reference internal" href="#bundling-ansible-modules-with-playbooks" id="id25">Bundling Ansible Modules With Playbooks</a></li>
-<li><a class="reference internal" href="#whitespace-and-comments" id="id26">Whitespace and Comments</a></li>
-<li><a class="reference internal" href="#always-name-tasks" id="id27">Always Name Tasks</a></li>
-<li><a class="reference internal" href="#keep-it-simple" id="id28">Keep It Simple</a></li>
-<li><a class="reference internal" href="#version-control" id="id29">Version Control</a></li>
-<li><a class="reference internal" href="#variables-and-vaults" id="id30">Variables and Vaults</a></li>
+<li><p><a class="reference internal" href="#staging-vs-production" id="id20">Staging vs Production</a></p></li>
+<li><p><a class="reference internal" href="#rolling-updates" id="id21">Rolling Updates</a></p></li>
+<li><p><a class="reference internal" href="#always-mention-the-state" id="id22">Always Mention The State</a></p></li>
+<li><p><a class="reference internal" href="#group-by-roles" id="id23">Group By Roles</a></p></li>
+<li><p><a class="reference internal" href="#operating-system-and-distribution-variance" id="id24">Operating System and Distribution Variance</a></p></li>
+<li><p><a class="reference internal" href="#bundling-ansible-modules-with-playbooks" id="id25">Bundling Ansible Modules With Playbooks</a></p></li>
+<li><p><a class="reference internal" href="#whitespace-and-comments" id="id26">Whitespace and Comments</a></p></li>
+<li><p><a class="reference internal" href="#always-name-tasks" id="id27">Always Name Tasks</a></p></li>
+<li><p><a class="reference internal" href="#keep-it-simple" id="id28">Keep It Simple</a></p></li>
+<li><p><a class="reference internal" href="#version-control" id="id29">Version Control</a></p></li>
+<li><p><a class="reference internal" href="#variables-and-vaults" id="id30">Variables and Vaults</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2701,22 +2703,22 @@ changed the rules that are automating your infrastructure.</p>
 <p>A best practice approach for this is to start with a <code class="docutils literal notranslate"><span class="pre">group_vars/</span></code> subdirectory named after the group. Inside of this subdirectory, create two files named <code class="docutils literal notranslate"><span class="pre">vars</span></code> and <code class="docutils literal notranslate"><span class="pre">vault</span></code>. Inside of the <code class="docutils literal notranslate"><span class="pre">vars</span></code> file, define all of the variables needed, including any sensitive ones. Next, copy all of the sensitive variables over to the <code class="docutils literal notranslate"><span class="pre">vault</span></code> file and prefix these variables with <code class="docutils literal notranslate"><span class="pre">vault_</span></code>. You should adjust the variables in the <code class="docutils literal notranslate"><span class="pre">vars</span></code> file to point to the matching <code class="docutils literal notranslate"><span class="pre">vault_</span></code> variables using jinja2 syntax, and ensure that the <code class="docutils literal notranslate"><span class="pre">vault</span></code> file is vault encrypted.</p>
 <p>This best practice has no limit on the amount of variable and vault files or their names.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../reference_appendices/YAMLSyntax.html#yaml-syntax"><span class="std std-ref">YAML Syntax</span></a></dt>
-<dd>Learn about YAML syntax</dd>
-<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt>
-<dd>Review the basic playbook features</dd>
-<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt>
-<dd>Learn about available modules</dd>
-<dt><a class="reference internal" href="../dev_guide/developing_modules.html#developing-modules"><span class="std std-ref">Should you develop a module?</span></a></dt>
-<dd>Learn how to extend Ansible by writing your own modules</dd>
-<dt><a class="reference internal" href="intro_patterns.html#intro-patterns"><span class="std std-ref">Working with Patterns</span></a></dt>
-<dd>Learn about how to select hosts</dd>
-<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">GitHub examples directory</a></dt>
-<dd>Complete playbook files from the github project source</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt>
-<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../reference_appendices/YAMLSyntax.html#yaml-syntax"><span class="std std-ref">YAML Syntax</span></a></dt><dd><p>Learn about YAML syntax</p>
+</dd>
+<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>Review the basic playbook features</p>
+</dd>
+<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt><dd><p>Learn about available modules</p>
+</dd>
+<dt><a class="reference internal" href="../dev_guide/developing_modules.html#developing-modules"><span class="std std-ref">Should you develop a module?</span></a></dt><dd><p>Learn how to extend Ansible by writing your own modules</p>
+</dd>
+<dt><a class="reference internal" href="intro_patterns.html#intro-patterns"><span class="std std-ref">Working with Patterns</span></a></dt><dd><p>Learn about how to select hosts</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">GitHub examples directory</a></dt><dd><p>Complete playbook files from the github project source</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt><dd><p>Questions? Help? Ideas?  Stop by the list on Google Groups</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2748,7 +2750,7 @@ changed the rules that are automating your infrastructure.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

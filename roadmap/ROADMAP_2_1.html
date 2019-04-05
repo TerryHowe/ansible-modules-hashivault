@@ -2270,17 +2270,18 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-2-1" id="id1">Ansible 2.1</a><ul>
-<li><a class="reference internal" href="#windows" id="id2">Windows</a></li>
-<li><a class="reference internal" href="#network" id="id3">Network</a></li>
-<li><a class="reference internal" href="#vmware" id="id4">VMware</a></li>
-<li><a class="reference internal" href="#azure" id="id5">Azure</a></li>
-<li><a class="reference internal" href="#docker" id="id6">Docker</a></li>
-<li><a class="reference internal" href="#cloud" id="id7">Cloud</a></li>
-<li><a class="reference internal" href="#ansiballz" id="id8">Ansiballz</a></li>
-<li><a class="reference internal" href="#diff-support" id="id9">Diff-support</a></li>
-<li><a class="reference internal" href="#other" id="id10">Other</a></li>
-<li><a class="reference internal" href="#community" id="id11">Community</a></li>
+<li><p><a class="reference internal" href="#ansible-2-1" id="id1">Ansible 2.1</a></p>
+<ul>
+<li><p><a class="reference internal" href="#windows" id="id2">Windows</a></p></li>
+<li><p><a class="reference internal" href="#network" id="id3">Network</a></p></li>
+<li><p><a class="reference internal" href="#vmware" id="id4">VMware</a></p></li>
+<li><p><a class="reference internal" href="#azure" id="id5">Azure</a></p></li>
+<li><p><a class="reference internal" href="#docker" id="id6">Docker</a></p></li>
+<li><p><a class="reference internal" href="#cloud" id="id7">Cloud</a></p></li>
+<li><p><a class="reference internal" href="#ansiballz" id="id8">Ansiballz</a></p></li>
+<li><p><a class="reference internal" href="#diff-support" id="id9">Diff-support</a></p></li>
+<li><p><a class="reference internal" href="#other" id="id10">Other</a></p></li>
+<li><p><a class="reference internal" href="#community" id="id11">Community</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2288,22 +2289,25 @@
 <div class="section" id="windows">
 <h2><a class="toc-backref" href="#id2">Windows</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>General<ul>
-<li>Figuring out privilege escalation (runas w/ username/password)</li>
-<li>Implement kerberos encryption over http</li>
-<li>pywinrm conversion to requests (Some mess here on pywinrm/requests. will need docs etc.)</li>
-<li>NTLM support</li>
+<li><p>General</p>
+<ul>
+<li><p>Figuring out privilege escalation (runas w/ username/password)</p></li>
+<li><p>Implement kerberos encryption over http</p></li>
+<li><p>pywinrm conversion to requests (Some mess here on pywinrm/requests. will need docs etc.)</p></li>
+<li><p>NTLM support</p></li>
 </ul>
 </li>
-<li>Modules<ul>
-<li>Finish cleaning up tests and support for post-beta release</li>
-<li>Strict mode cleanup (one module in core)</li>
-<li>Domain user/group management</li>
-<li>Finish win_host and win_rm in the domain/workgroup modules.<ul>
-<li>Close 2 existing PRs (These were deemed insufficient)</li>
+<li><p>Modules</p>
+<ul>
+<li><p>Finish cleaning up tests and support for post-beta release</p></li>
+<li><p>Strict mode cleanup (one module in core)</p></li>
+<li><p>Domain user/group management</p></li>
+<li><p>Finish win_host and win_rm in the domain/workgroup modules.</p>
+<ul>
+<li><p>Close 2 existing PRs (These were deemed insufficient)</p></li>
 </ul>
 </li>
-<li>Replicate python module API in PS/C# (deprecate hodgepodge of stuff from module_utils/powershell.ps1)</li>
+<li><p>Replicate python module API in PS/C# (deprecate hodgepodge of stuff from module_utils/powershell.ps1)</p></li>
 </ul>
 </li>
 </ul>
@@ -2311,23 +2315,23 @@
 <div class="section" id="network">
 <h2><a class="toc-backref" href="#id3">Network</a><a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Cisco modules (ios, iosxr, nxos, iosxe)</li>
-<li>Arista modules (eos)</li>
-<li>Juniper modules (junos)</li>
-<li>OpenSwitch</li>
-<li>Cumulus</li>
-<li>Dell (os10) - At risk</li>
-<li>Netconf shared module</li>
-<li>Hooks for supporting Tower credentials</li>
+<li><p>Cisco modules (ios, iosxr, nxos, iosxe)</p></li>
+<li><p>Arista modules (eos)</p></li>
+<li><p>Juniper modules (junos)</p></li>
+<li><p>OpenSwitch</p></li>
+<li><p>Cumulus</p></li>
+<li><p>Dell (os10) - At risk</p></li>
+<li><p>Netconf shared module</p></li>
+<li><p>Hooks for supporting Tower credentials</p></li>
 </ul>
 </div>
 <div class="section" id="vmware">
 <h2><a class="toc-backref" href="#id4">VMware</a><a class="headerlink" href="#vmware" title="Permalink to this headline">¶</a></h2>
 <p>This one is a little at risk due to staffing. We’re investigating some community maintainers and shifting some people at Ansible around, but it is a VERY high priority.</p>
 <ul class="simple">
-<li>vsphere_guest brought to parity with other vmware modules (vs Viasat and ‘whereismyjetpack’ provided modules)</li>
-<li>VMware modules moved to official pyvmomi bindings</li>
-<li>VMware inventory script updates for pyvmomi, adding tagging support</li>
+<li><p>vsphere_guest brought to parity with other vmware modules (vs Viasat and ‘whereismyjetpack’ provided modules)</p></li>
+<li><p>VMware modules moved to official pyvmomi bindings</p></li>
+<li><p>VMware inventory script updates for pyvmomi, adding tagging support</p></li>
 </ul>
 </div>
 <div class="section" id="azure">
@@ -2347,54 +2351,54 @@
 <div class="section" id="docker">
 <h2><a class="toc-backref" href="#id6">Docker</a><a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Start Docker module refactor</li>
-<li>Update to match current docker CLI capabilities</li>
-<li>Docker exec support</li>
+<li><p>Start Docker module refactor</p></li>
+<li><p>Update to match current docker CLI capabilities</p></li>
+<li><p>Docker exec support</p></li>
 </ul>
 </div>
 <div class="section" id="cloud">
 <h2><a class="toc-backref" href="#id7">Cloud</a><a class="headerlink" href="#cloud" title="Permalink to this headline">¶</a></h2>
 <p>Upgrade other cloud modules or work with community maintainers to upgrade.  (In order)</p>
 <ul class="simple">
-<li>AWS (Community maintainers)</li>
-<li>Openstack (Community maintainers)</li>
-<li>Google (Google/Community)</li>
-<li>Digital Ocean (Community)</li>
+<li><p>AWS (Community maintainers)</p></li>
+<li><p>Openstack (Community maintainers)</p></li>
+<li><p>Google (Google/Community)</p></li>
+<li><p>Digital Ocean (Community)</p></li>
 </ul>
 </div>
 <div class="section" id="ansiballz">
 <h2><a class="toc-backref" href="#id8">Ansiballz</a><a class="headerlink" href="#ansiballz" title="Permalink to this headline">¶</a></h2>
 <p>Renamed from Ziploader</p>
 <ul class="simple">
-<li>Write code to create the zipfile that gets passed across the wire to be run on the remote python</li>
-<li>Port most of the functionality in module_utils to be usage in ansiballz instead</li>
-<li>Port a few essential modules to use ansiballz instead of module-replacer as proof of concept</li>
-<li>New modules will be able to use ansiballz.  Old modules will need to be ported in future releases (Some modules will not need porting but others will)</li>
-<li>Better testing of modules, caching of modules clientside(Have not yet arrived at an architecture for this that we like), better code sharing between ansible/ansible and modules</li>
-<li>ansiballz is a helpful building block for: python3 porting(high priority), better code sharing between modules(medium priority)</li>
-<li>ansiballz is a good idea before: enabling users to have custom module_utils directories</li>
+<li><p>Write code to create the zipfile that gets passed across the wire to be run on the remote python</p></li>
+<li><p>Port most of the functionality in module_utils to be usage in ansiballz instead</p></li>
+<li><p>Port a few essential modules to use ansiballz instead of module-replacer as proof of concept</p></li>
+<li><p>New modules will be able to use ansiballz.  Old modules will need to be ported in future releases (Some modules will not need porting but others will)</p></li>
+<li><p>Better testing of modules, caching of modules clientside(Have not yet arrived at an architecture for this that we like), better code sharing between ansible/ansible and modules</p></li>
+<li><p>ansiballz is a helpful building block for: python3 porting(high priority), better code sharing between modules(medium priority)</p></li>
+<li><p>ansiballz is a good idea before: enabling users to have custom module_utils directories</p></li>
 </ul>
 </div>
 <div class="section" id="diff-support">
 <h2><a class="toc-backref" href="#id9">Diff-support</a><a class="headerlink" href="#diff-support" title="Permalink to this headline">¶</a></h2>
 <p>Expand module diff support (already in progress in devel)</p>
 <ul class="simple">
-<li>Framework done. Need to add to modules, test etc.</li>
-<li>Coordinate with community to update their modules</li>
+<li><p>Framework done. Need to add to modules, test etc.</p></li>
+<li><p>Coordinate with community to update their modules</p></li>
 </ul>
 </div>
 <div class="section" id="other">
 <h2><a class="toc-backref" href="#id10">Other</a><a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
 <p>Things being kicking down the road that we said we’d do</p>
 <ul class="simple">
-<li>NOT remerging core with ansible/ansible this release cycle</li>
+<li><p>NOT remerging core with ansible/ansible this release cycle</p></li>
 </ul>
 </div>
 <div class="section" id="community">
 <h2><a class="toc-backref" href="#id11">Community</a><a class="headerlink" href="#community" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Define the process/ETA for reviewing PR’s from community</li>
-<li>Publish better docs and how-tos for submitting code/features/fixes</li>
+<li><p>Define the process/ETA for reviewing PR’s from community</p></li>
+<li><p>Publish better docs and how-tos for submitting code/features/fixes</p></li>
 </ul>
 </div>
 </div>
@@ -2425,7 +2429,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2268,31 +2268,33 @@
 <span id="playbooks-variables"></span><h1>Using Variables<a class="headerlink" href="#using-variables" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#creating-valid-variable-names" id="id19">Creating valid variable names</a></li>
-<li><a class="reference internal" href="#defining-variables-in-inventory" id="id20">Defining variables in inventory</a></li>
-<li><a class="reference internal" href="#defining-variables-in-a-playbook" id="id21">Defining variables in a playbook</a></li>
-<li><a class="reference internal" href="#defining-variables-in-included-files-and-roles" id="id22">Defining variables in included files and roles</a></li>
-<li><a class="reference internal" href="#using-variables-with-jinja2" id="id23">Using variables with Jinja2</a></li>
-<li><a class="reference internal" href="#transforming-variables-with-jinja2-filters" id="id24">Transforming variables with Jinja2 filters</a></li>
-<li><a class="reference internal" href="#hey-wait-a-yaml-gotcha" id="id25">Hey wait, a YAML gotcha</a></li>
-<li><a class="reference internal" href="#variables-discovered-from-systems-facts" id="id26">Variables discovered from systems: Facts</a><ul>
-<li><a class="reference internal" href="#disabling-facts" id="id27">Disabling facts</a></li>
-<li><a class="reference internal" href="#local-facts-facts-d" id="id28">Local facts (facts.d)</a></li>
-<li><a class="reference internal" href="#ansible-version" id="id29">Ansible version</a></li>
-<li><a class="reference internal" href="#caching-facts" id="id30">Caching Facts</a></li>
+<li><p><a class="reference internal" href="#creating-valid-variable-names" id="id19">Creating valid variable names</a></p></li>
+<li><p><a class="reference internal" href="#defining-variables-in-inventory" id="id20">Defining variables in inventory</a></p></li>
+<li><p><a class="reference internal" href="#defining-variables-in-a-playbook" id="id21">Defining variables in a playbook</a></p></li>
+<li><p><a class="reference internal" href="#defining-variables-in-included-files-and-roles" id="id22">Defining variables in included files and roles</a></p></li>
+<li><p><a class="reference internal" href="#using-variables-with-jinja2" id="id23">Using variables with Jinja2</a></p></li>
+<li><p><a class="reference internal" href="#transforming-variables-with-jinja2-filters" id="id24">Transforming variables with Jinja2 filters</a></p></li>
+<li><p><a class="reference internal" href="#hey-wait-a-yaml-gotcha" id="id25">Hey wait, a YAML gotcha</a></p></li>
+<li><p><a class="reference internal" href="#variables-discovered-from-systems-facts" id="id26">Variables discovered from systems: Facts</a></p>
+<ul>
+<li><p><a class="reference internal" href="#disabling-facts" id="id27">Disabling facts</a></p></li>
+<li><p><a class="reference internal" href="#local-facts-facts-d" id="id28">Local facts (facts.d)</a></p></li>
+<li><p><a class="reference internal" href="#ansible-version" id="id29">Ansible version</a></p></li>
+<li><p><a class="reference internal" href="#caching-facts" id="id30">Caching Facts</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#registering-variables" id="id31">Registering variables</a></li>
-<li><a class="reference internal" href="#accessing-complex-variable-data" id="id32">Accessing complex variable data</a></li>
-<li><a class="reference internal" href="#accessing-information-about-other-hosts-with-magic-variables" id="id33">Accessing information about other hosts with magic variables</a></li>
-<li><a class="reference internal" href="#defining-variables-in-files" id="id34">Defining variables in files</a></li>
-<li><a class="reference internal" href="#passing-variables-on-the-command-line" id="id35">Passing variables on the command line</a></li>
-<li><a class="reference internal" href="#variable-precedence-where-should-i-put-a-variable" id="id36">Variable precedence: Where should I put a variable?</a><ul>
-<li><a class="reference internal" href="#scoping-variables" id="id37">Scoping variables</a></li>
-<li><a class="reference internal" href="#examples-of-where-to-set-a-variable" id="id38">Examples of where to set a variable</a></li>
+<li><p><a class="reference internal" href="#registering-variables" id="id31">Registering variables</a></p></li>
+<li><p><a class="reference internal" href="#accessing-complex-variable-data" id="id32">Accessing complex variable data</a></p></li>
+<li><p><a class="reference internal" href="#accessing-information-about-other-hosts-with-magic-variables" id="id33">Accessing information about other hosts with magic variables</a></p></li>
+<li><p><a class="reference internal" href="#defining-variables-in-files" id="id34">Defining variables in files</a></p></li>
+<li><p><a class="reference internal" href="#passing-variables-on-the-command-line" id="id35">Passing variables on the command line</a></p></li>
+<li><p><a class="reference internal" href="#variable-precedence-where-should-i-put-a-variable" id="id36">Variable precedence: Where should I put a variable?</a></p>
+<ul>
+<li><p><a class="reference internal" href="#scoping-variables" id="id37">Scoping variables</a></p></li>
+<li><p><a class="reference internal" href="#examples-of-where-to-set-a-variable" id="id38">Examples of where to set a variable</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#using-advanced-variable-syntax" id="id39">Using advanced variable syntax</a></li>
+<li><p><a class="reference internal" href="#using-advanced-variable-syntax" id="id39">Using advanced variable syntax</a></p></li>
 </ul>
 </div>
 <p>While automation exists to make it easier to make things repeatable, all systems are not exactly alike; some may require configuration that is slightly different from others. In some instances, the observed behavior or state of one system might influence how you configure other systems. For example, you might need to find out the IP address of a system and use it as a configuration value on another system.</p>
@@ -2362,17 +2364,17 @@ not be part of an Ansible Role.  Usage of roles is preferred as it provides a ni
 <p>Inside a template you automatically have access to all variables that are in scope for a host.  Actually
 it’s more than that – you can also read variables about other hosts.  We’ll show how to do that in a bit.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">ansible allows Jinja2 loops and conditionals in templates, but in playbooks, we do not use them.  Ansible
+<p class="admonition-title">Note</p>
+<p>ansible allows Jinja2 loops and conditionals in templates, but in playbooks, we do not use them.  Ansible
 playbooks are pure machine-parseable YAML.  This is a rather important feature as it means it is possible to code-generate
 pieces of files, or to have other ecosystem tools read Ansible files.  Not everyone will need this but it can unlock
 possibilities.</p>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks_templating.html#playbooks-templating"><span class="std std-ref">Templating (Jinja2)</span></a></dt>
-<dd>More information about Jinja2 templating</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks_templating.html#playbooks-templating"><span class="std std-ref">Templating (Jinja2)</span></a></dt><dd><p>More information about Jinja2 templating</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2893,14 +2895,14 @@ systems, mainly, or if you are using Ansible on experimental platforms.   In any
 <div class="section" id="local-facts-facts-d">
 <span id="local-facts"></span><h3><a class="toc-backref" href="#id28">Local facts (facts.d)</a><a class="headerlink" href="#local-facts-facts-d" title="Permalink to this headline">¶</a></h3>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.3.</span></p>
+<p><span class="versionmodified added">New in version 1.3.</span></p>
 </div>
 <p>As discussed in the playbooks chapter, Ansible facts are a way of getting data about remote systems for use in playbook variables.</p>
 <p>Usually these are discovered automatically by the <code class="docutils literal notranslate"><span class="pre">setup</span></code> module in Ansible. Users can also write custom facts modules, as described in the API guide. However, what if you want to have a simple way to provide system or user provided data for use in Ansible variables, without writing a fact module?</p>
 <p>“Facts.d” is one mechanism for users to control some aspect of how their systems are managed.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Perhaps “local facts” is a bit of a misnomer, it means “locally supplied user values” as opposed to “centrally supplied user values”, or what facts are – “locally dynamically determined values”.</p>
+<p class="admonition-title">Note</p>
+<p>Perhaps “local facts” is a bit of a misnomer, it means “locally supplied user values” as opposed to “centrally supplied user values”, or what facts are – “locally dynamically determined values”.</p>
 </div>
 <p>If a remotely managed system has an <code class="docutils literal notranslate"><span class="pre">/etc/ansible/facts.d</span></code> directory, any files in this directory
 ending in <code class="docutils literal notranslate"><span class="pre">.fact</span></code>, can be JSON, INI, or executable files returning JSON, and these can supply local facts in Ansible.
@@ -2933,8 +2935,8 @@ To validate this, run the following:</p>
 </div>
 <p>The local namespace prevents any user supplied fact from overriding system facts or variables defined elsewhere in the playbook.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The key part in the key=value pairs will be converted into lowercase inside the ansible_local variable. Using the example above, if the ini file contained <code class="docutils literal notranslate"><span class="pre">XYZ=3</span></code> in the <code class="docutils literal notranslate"><span class="pre">[general]</span></code> section, then you should expect to access it as: <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">ansible_local['preferences']['general']['xyz']</span> <span class="pre">}}</span></code> and not <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">ansible_local['preferences']['general']['XYZ']</span> <span class="pre">}}</span></code>. This is because Ansible uses Python’s <a class="reference external" href="https://docs.python.org/2/library/configparser.html">ConfigParser</a> which passes all option names through the <a class="reference external" href="https://docs.python.org/2/library/configparser.html#ConfigParser.RawConfigParser.optionxform">optionxform</a> method and this method’s default implementation converts option names to lower case.</p>
+<p class="admonition-title">Note</p>
+<p>The key part in the key=value pairs will be converted into lowercase inside the ansible_local variable. Using the example above, if the ini file contained <code class="docutils literal notranslate"><span class="pre">XYZ=3</span></code> in the <code class="docutils literal notranslate"><span class="pre">[general]</span></code> section, then you should expect to access it as: <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">ansible_local['preferences']['general']['xyz']</span> <span class="pre">}}</span></code> and not <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">ansible_local['preferences']['general']['XYZ']</span> <span class="pre">}}</span></code>. This is because Ansible uses Python’s <a class="reference external" href="https://docs.python.org/2/library/configparser.html">ConfigParser</a> which passes all option names through the <a class="reference external" href="https://docs.python.org/2/library/configparser.html#ConfigParser.RawConfigParser.optionxform">optionxform</a> method and this method’s default implementation converts option names to lower case.</p>
 </div>
 <p>If you have a playbook that is copying over a custom fact and then running it, making an explicit call to re-run the setup module
 can allow that fact to be used during that particular play.  Otherwise, it will be available in the next play that gathers fact information.
@@ -2954,7 +2956,7 @@ Here is an example of what that might look like:</p>
 <div class="section" id="ansible-version">
 <span id="id2"></span><h3><a class="toc-backref" href="#id29">Ansible version</a><a class="headerlink" href="#ansible-version" title="Permalink to this headline">¶</a></h3>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.8.</span></p>
+<p><span class="versionmodified added">New in version 1.8.</span></p>
 </div>
 <p>To adapt playbook behavior to specific version of ansible, a variable ansible_version is available, with the following
 structure:</p>
@@ -2971,7 +2973,7 @@ structure:</p>
 <div class="section" id="caching-facts">
 <span id="fact-caching"></span><h3><a class="toc-backref" href="#id30">Caching Facts</a><a class="headerlink" href="#caching-facts" title="Permalink to this headline">¶</a></h3>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.8.</span></p>
+<p><span class="versionmodified added">New in version 1.8.</span></p>
 </div>
 <p>As shown elsewhere in the docs, it is possible for one server to reference variables about another, like so:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="s1">&#39;asdf.example.com&#39;</span><span class="o">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="o">][</span><span class="s1">&#39;os_family&#39;</span><span class="o">]</span> <span class="cp">}}</span>
@@ -3038,8 +3040,8 @@ directory (ansible will attempt to create the directory if one does not exist).<
 in Ansible.  Effectively registered variables are just like facts.</p>
 <p>When using <code class="docutils literal notranslate"><span class="pre">register</span></code> with a loop, the data structure placed in the variable during the loop will contain a <code class="docutils literal notranslate"><span class="pre">results</span></code> attribute, that is a list of all responses from the module. For a more in-depth example of how this works, see the <a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a> section on using register with a loop.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If a task fails or is skipped, the variable still is registered with a failure or skipped status, the only way to avoid registering a variable is using tags.</p>
+<p class="admonition-title">Note</p>
+<p>If a task fails or is skipped, the variable still is registered with a failure or skipped status, the only way to avoid registering a variable is using tags.</p>
 </div>
 </div>
 <div class="section" id="accessing-complex-variable-data">
@@ -3094,15 +3096,15 @@ be useful when you’ve disabled fact-gathering, or you don’t want to rely on 
 period, without the rest of the domain.</p>
 <p>Other useful magic variables refer to the current play or playbook, including:</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.2.</span></p>
+<p><span class="versionmodified added">New in version 2.2.</span></p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ansible_play_hosts</span></code> is the full list of all hosts still active in the current play.</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.2.</span></p>
+<p><span class="versionmodified added">New in version 2.2.</span></p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ansible_play_batch</span></code> is available as a list of hostnames that are in scope for the current ‘batch’ of the play. The batch size is defined by <code class="docutils literal notranslate"><span class="pre">serial</span></code>, when not set it is equivalent to the whole play (making it the same as <code class="docutils literal notranslate"><span class="pre">ansible_play_hosts</span></code>).</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.3.</span></p>
+<p><span class="versionmodified added">New in version 2.3.</span></p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ansible_playbook_python</span></code> is the path to the python executable used to invoke the Ansible command line tool.</p>
 <p>These vars may be useful for filling out templates with multiple hostnames or for injecting the list into the rules for a load balancer.</p>
@@ -3144,8 +3146,8 @@ sharing your playbook source with them.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">It’s also possible to keep per-host and per-group variables in very
+<p class="admonition-title">Note</p>
+<p>It’s also possible to keep per-host and per-group variables in very
 similar files, this is covered in <a class="reference internal" href="intro_inventory.html#splitting-out-vars"><span class="std std-ref">Splitting Out Host and Group Specific Data</span></a>.</p>
 </div>
 </div>
@@ -3159,12 +3161,12 @@ a single quoted string (containing one or more variables) using one of the forma
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Values passed in using the <code class="docutils literal notranslate"><span class="pre">key=value</span></code> syntax are interpreted as strings.
+<p class="admonition-title">Note</p>
+<p>Values passed in using the <code class="docutils literal notranslate"><span class="pre">key=value</span></code> syntax are interpreted as strings.
 Use the JSON format if you need to pass in anything that shouldn’t be a string (Booleans, integers, floats, lists etc).</p>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.2.</span></p>
+<p><span class="versionmodified added">New in version 1.2.</span></p>
 </div>
 <p>JSON string format:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible-playbook release.yml --extra-vars &#39;{&quot;version&quot;:&quot;1.23.45&quot;,&quot;other_variable&quot;:&quot;foo&quot;}&#39;</span>
@@ -3172,7 +3174,7 @@ Use the JSON format if you need to pass in anything that shouldn’t be a string
 </pre></div>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.3.</span></p>
+<p><span class="versionmodified added">New in version 1.3.</span></p>
 </div>
 <p>YAML string format:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible-playbook release.yml --extra-vars &#39;</span>
@@ -3189,7 +3191,7 @@ Use the JSON format if you need to pass in anything that shouldn’t be a string
 </pre></div>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.3.</span></p>
+<p><span class="versionmodified added">New in version 1.3.</span></p>
 </div>
 <p>vars from a JSON or YAML file:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible-playbook release.yml --extra-vars &quot;@some_file.json&quot;</span>
@@ -3198,7 +3200,7 @@ Use the JSON format if you need to pass in anything that shouldn’t be a string
 <p>This is useful for, among other things, setting the hosts group or the user for the playbook.</p>
 <p>Escaping quotes and other special characters:</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.2.</span></p>
+<p><span class="versionmodified added">New in version 1.2.</span></p>
 </div>
 <p>Ensure you’re escaping quotes appropriately for both your markup (e.g. JSON), and for
 the shell you’re operating in.:</p>
@@ -3208,7 +3210,7 @@ the shell you’re operating in.:</p>
 </pre></div>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.3.</span></p>
+<p><span class="versionmodified added">New in version 1.3.</span></p>
 </div>
 <p>In these cases, it’s probably best to use a JSON or YAML file containing the variable
 definitions.</p>
@@ -3227,70 +3229,60 @@ a use for it.</p>
 <p>Here is the order of precedence from least to greatest (the last listed variables winning prioritization):</p>
 <blockquote>
 <div><ul class="simple">
-<li>command line values (eg “-u user”)</li>
-<li>role defaults <a class="footnote-reference" href="#id15" id="id5">[1]</a></li>
-<li>inventory file or script group vars <a class="footnote-reference" href="#id16" id="id6">[2]</a></li>
-<li>inventory group_vars/all <a class="footnote-reference" href="#id17" id="id7">[3]</a></li>
-<li>playbook group_vars/all <a class="footnote-reference" href="#id17" id="id8">[3]</a></li>
-<li>inventory group_vars/* <a class="footnote-reference" href="#id17" id="id9">[3]</a></li>
-<li>playbook group_vars/* <a class="footnote-reference" href="#id17" id="id10">[3]</a></li>
-<li>inventory file or script host vars <a class="footnote-reference" href="#id16" id="id11">[2]</a></li>
-<li>inventory host_vars/* <a class="footnote-reference" href="#id17" id="id12">[3]</a></li>
-<li>playbook host_vars/* <a class="footnote-reference" href="#id17" id="id13">[3]</a></li>
-<li>host facts / cached set_facts <a class="footnote-reference" href="#id18" id="id14">[4]</a></li>
-<li>play vars</li>
-<li>play vars_prompt</li>
-<li>play vars_files</li>
-<li>role vars (defined in role/vars/main.yml)</li>
-<li>block vars (only for tasks in block)</li>
-<li>task vars (only for the task)</li>
-<li>include_vars</li>
-<li>set_facts / registered vars</li>
-<li>role (and include_role) params</li>
-<li>include params</li>
-<li>extra vars (always win precedence)</li>
+<li><p>command line values (eg “-u user”)</p></li>
+<li><p>role defaults <a class="footnote-reference brackets" href="#id15" id="id5">1</a></p></li>
+<li><p>inventory file or script group vars <a class="footnote-reference brackets" href="#id16" id="id6">2</a></p></li>
+<li><p>inventory group_vars/all <a class="footnote-reference brackets" href="#id17" id="id7">3</a></p></li>
+<li><p>playbook group_vars/all <a class="footnote-reference brackets" href="#id17" id="id8">3</a></p></li>
+<li><p>inventory group_vars/* <a class="footnote-reference brackets" href="#id17" id="id9">3</a></p></li>
+<li><p>playbook group_vars/* <a class="footnote-reference brackets" href="#id17" id="id10">3</a></p></li>
+<li><p>inventory file or script host vars <a class="footnote-reference brackets" href="#id16" id="id11">2</a></p></li>
+<li><p>inventory host_vars/* <a class="footnote-reference brackets" href="#id17" id="id12">3</a></p></li>
+<li><p>playbook host_vars/* <a class="footnote-reference brackets" href="#id17" id="id13">3</a></p></li>
+<li><p>host facts / cached set_facts <a class="footnote-reference brackets" href="#id18" id="id14">4</a></p></li>
+<li><p>play vars</p></li>
+<li><p>play vars_prompt</p></li>
+<li><p>play vars_files</p></li>
+<li><p>role vars (defined in role/vars/main.yml)</p></li>
+<li><p>block vars (only for tasks in block)</p></li>
+<li><p>task vars (only for the task)</p></li>
+<li><p>include_vars</p></li>
+<li><p>set_facts / registered vars</p></li>
+<li><p>role (and include_role) params</p></li>
+<li><p>include params</p></li>
+<li><p>extra vars (always win precedence)</p></li>
 </ul>
 </div></blockquote>
 <p>Basically, anything that goes into “role defaults” (the defaults folder inside the role) is the most malleable and easily overridden. Anything in the vars directory of the role overrides previous versions of that variable in namespace.  The idea here to follow is that the more explicit you get in scope, the more precedence it takes with command line <code class="docutils literal notranslate"><span class="pre">-e</span></code> extra vars always winning.  Host and/or inventory variables can win over role defaults, but not explicit includes like the vars directory or an <code class="docutils literal notranslate"><span class="pre">include_vars</span></code> task.</p>
 <p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="id15" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[1]</a></td><td>Tasks in each role will see their own role’s defaults. Tasks defined outside of a role will see the last role’s defaults.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id16" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id6">1</a>, <a class="fn-backref" href="#id11">2</a>)</em> Variables defined in inventory file or provided by dynamic inventory.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id17" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id7">1</a>, <a class="fn-backref" href="#id8">2</a>, <a class="fn-backref" href="#id9">3</a>, <a class="fn-backref" href="#id10">4</a>, <a class="fn-backref" href="#id12">5</a>, <a class="fn-backref" href="#id13">6</a>)</em> Includes vars added by ‘vars plugins’ as well as host_vars and group_vars which are added by the default vars plugin shipped with Ansible.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id18" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id14">[4]</a></td><td>When created with set_facts’s cacheable option, variables will have the high precedence in the play,
-but will be the same as a host facts precedence when they come from the cache.</td></tr>
-</tbody>
-</table>
+<dl class="footnote brackets">
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id5">1</a></span></dt>
+<dd><p>Tasks in each role will see their own role’s defaults. Tasks defined outside of a role will see the last role’s defaults.</p>
+</dd>
+<dt class="label" id="id16"><span class="brackets">2</span><span class="fn-backref">(<a href="#id6">1</a>,<a href="#id11">2</a>)</span></dt>
+<dd><p>Variables defined in inventory file or provided by dynamic inventory.</p>
+</dd>
+<dt class="label" id="id17"><span class="brackets">3</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id8">2</a>,<a href="#id9">3</a>,<a href="#id10">4</a>,<a href="#id12">5</a>,<a href="#id13">6</a>)</span></dt>
+<dd><p>Includes vars added by ‘vars plugins’ as well as host_vars and group_vars which are added by the default vars plugin shipped with Ansible.</p>
+</dd>
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id14">4</a></span></dt>
+<dd><p>When created with set_facts’s cacheable option, variables will have the high precedence in the play,
+but will be the same as a host facts precedence when they come from the cache.</p>
+</dd>
+</dl>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Within any section, redefining a var will overwrite the previous instance.
+<p class="admonition-title">Note</p>
+<p>Within any section, redefining a var will overwrite the previous instance.
 If multiple groups have the same variable, the last one loaded wins.
 If you define a variable twice in a play’s <code class="docutils literal notranslate"><span class="pre">vars:</span></code> section, the second one wins.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The previous describes the default config <code class="docutils literal notranslate"><span class="pre">hash_behaviour=replace</span></code>, switch to <code class="docutils literal notranslate"><span class="pre">merge</span></code> to only partially overwrite.</p>
+<p class="admonition-title">Note</p>
+<p>The previous describes the default config <code class="docutils literal notranslate"><span class="pre">hash_behaviour=replace</span></code>, switch to <code class="docutils literal notranslate"><span class="pre">merge</span></code> to only partially overwrite.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Group loading follows parent/child relationships. Groups of the same ‘parent/child’ level are then merged following alphabetical order.
+<p class="admonition-title">Note</p>
+<p>Group loading follows parent/child relationships. Groups of the same ‘parent/child’ level are then merged following alphabetical order.
 This last one can be superceeded by the user via <code class="docutils literal notranslate"><span class="pre">ansible_group_priority</span></code>, which defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code> for all groups.
 This variable, <code class="docutils literal notranslate"><span class="pre">ansible_group_priority</span></code>, can only be set in the inventory source and not in group_vars/ as the variable is used in the loading of group_vars/.</p>
 </div>
@@ -3327,16 +3319,17 @@ but they behave like other variables.</p>
 <p>You can decide where to set a variable based on the scope you want that value to have. Ansible has three main scopes:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Global: this is set by config, environment variables and the command line</li>
-<li>Play: each play and contained structures, vars entries (vars; vars_files; vars_prompt), role defaults and vars.</li>
-<li>Host: variables directly associated to a host, like inventory, include_vars, facts or registered task outputs</li>
+<li><p>Global: this is set by config, environment variables and the command line</p></li>
+<li><p>Play: each play and contained structures, vars entries (vars; vars_files; vars_prompt), role defaults and vars.</p></li>
+<li><p>Host: variables directly associated to a host, like inventory, include_vars, facts or registered task outputs</p></li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="examples-of-where-to-set-a-variable">
 <span id="variable-examples"></span><h3><a class="toc-backref" href="#id38">Examples of where to set a variable</a><a class="headerlink" href="#examples-of-where-to-set-a-variable" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div>Let’s show some examples and where you would choose to put what based on the kind of control you might want over values.</div></blockquote>
+<div><p>Let’s show some examples and where you would choose to put what based on the kind of control you might want over values.</p>
+</div></blockquote>
 <p>First off, group variables are powerful.</p>
 <p>Site-wide defaults should be defined as a <code class="docutils literal notranslate"><span class="pre">group_vars/all</span></code> setting.  Group variables are generally placed alongside
 your inventory file.  They can also be returned by a dynamic inventory script (see <a class="reference internal" href="intro_dynamic_inventory.html#intro-dynamic-inventory"><span class="std std-ref">Working With Dynamic Inventory</span></a>) or defined
@@ -3425,8 +3418,8 @@ can set variables in there and make use of them in other roles and elsewhere in 
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">There are some protections in place to avoid the need to namespace variables.
+<p class="admonition-title">Note</p>
+<p>There are some protections in place to avoid the need to namespace variables.
 In the above, variables defined in common_settings are most definitely available to ‘something’ and ‘something_else’ tasks, but if
 “something’s” guaranteed to have foo set at 12, even if somewhere deep in common settings it set foo to 20.</p>
 </div>
@@ -3440,26 +3433,26 @@ if you want to forcibly override something, use <code class="docutils literal no
 <h2><a class="toc-backref" href="#id39">Using advanced variable syntax</a><a class="headerlink" href="#using-advanced-variable-syntax" title="Permalink to this headline">¶</a></h2>
 <p>For information about advanced YAML syntax used to declare variables and have more control over the data placed in YAML files used by Ansible, see <a class="reference internal" href="playbooks_advanced_syntax.html#playbooks-advanced-syntax"><span class="std std-ref">Advanced Syntax</span></a>.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks_intro.html#about-playbooks"><span class="std std-ref">About Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span class="std std-ref">Conditionals</span></a></dt>
-<dd>Conditional statements in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_filters.html#playbooks-filters"><span class="std std-ref">Filters</span></a></dt>
-<dd>Jinja2 filters and their uses</dd>
-<dt><a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a></dt>
-<dd>Looping in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">Roles</span></a></dt>
-<dd>Playbook organization by roles</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt>
-<dd>Best practices in playbooks</dd>
-<dt><a class="reference internal" href="../reference_appendices/special_variables.html#special-variables"><span class="std std-ref">Special Variables</span></a></dt>
-<dd>List of special variables</dd>
-<dt><a class="reference external" href="http://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks_intro.html#about-playbooks"><span class="std std-ref">About Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span class="std std-ref">Conditionals</span></a></dt><dd><p>Conditional statements in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_filters.html#playbooks-filters"><span class="std std-ref">Filters</span></a></dt><dd><p>Jinja2 filters and their uses</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a></dt><dd><p>Looping in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">Roles</span></a></dt><dd><p>Playbook organization by roles</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt><dd><p>Best practices in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="../reference_appendices/special_variables.html#special-variables"><span class="std std-ref">Special Variables</span></a></dt><dd><p>List of special variables</p>
+</dd>
+<dt><a class="reference external" href="http://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -3491,7 +3484,7 @@ if you want to forcibly override something, use <code class="docutils literal no
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

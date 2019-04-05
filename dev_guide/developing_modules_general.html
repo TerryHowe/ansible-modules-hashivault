@@ -2270,25 +2270,28 @@
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#environment-setup" id="id2">Environment setup</a><ul>
-<li><a class="reference internal" href="#prerequisites-via-apt-ubuntu" id="id3">Prerequisites via apt (Ubuntu)</a></li>
-<li><a class="reference internal" href="#common-environment-setup" id="id4">Common environment setup</a></li>
+<li><p><a class="reference internal" href="#environment-setup" id="id2">Environment setup</a></p>
+<ul>
+<li><p><a class="reference internal" href="#prerequisites-via-apt-ubuntu" id="id3">Prerequisites via apt (Ubuntu)</a></p></li>
+<li><p><a class="reference internal" href="#common-environment-setup" id="id4">Common environment setup</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#starting-a-new-module" id="id5">Starting a new module</a></li>
-<li><a class="reference internal" href="#exercising-your-module-code" id="id6">Exercising your module code</a><ul>
-<li><a class="reference internal" href="#exercising-module-code-locally" id="id7">Exercising module code locally</a></li>
-<li><a class="reference internal" href="#exercising-module-code-in-a-playbook" id="id8">Exercising module code in a playbook</a></li>
+<li><p><a class="reference internal" href="#starting-a-new-module" id="id5">Starting a new module</a></p></li>
+<li><p><a class="reference internal" href="#exercising-your-module-code" id="id6">Exercising your module code</a></p>
+<ul>
+<li><p><a class="reference internal" href="#exercising-module-code-locally" id="id7">Exercising module code locally</a></p></li>
+<li><p><a class="reference internal" href="#exercising-module-code-in-a-playbook" id="id8">Exercising module code in a playbook</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#testing-basics" id="id9">Testing basics</a><ul>
-<li><a class="reference internal" href="#sanity-tests" id="id10">Sanity tests</a></li>
-<li><a class="reference internal" href="#unit-tests" id="id11">Unit tests</a></li>
+<li><p><a class="reference internal" href="#testing-basics" id="id9">Testing basics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#sanity-tests" id="id10">Sanity tests</a></p></li>
+<li><p><a class="reference internal" href="#unit-tests" id="id11">Unit tests</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#contributing-back-to-ansible" id="id12">Contributing back to Ansible</a></li>
-<li><a class="reference internal" href="#communication-and-development-support" id="id13">Communication and development support</a></li>
-<li><a class="reference internal" href="#credit" id="id14">Credit</a></li>
+<li><p><a class="reference internal" href="#contributing-back-to-ansible" id="id12">Contributing back to Ansible</a></p></li>
+<li><p><a class="reference internal" href="#communication-and-development-support" id="id13">Communication and development support</a></p></li>
+<li><p><a class="reference internal" href="#credit" id="id14">Credit</a></p></li>
 </ul>
 </div>
 <div class="section" id="environment-setup">
@@ -2296,29 +2299,29 @@
 <div class="section" id="prerequisites-via-apt-ubuntu">
 <h3><a class="toc-backref" href="#id3">Prerequisites via apt (Ubuntu)</a><a class="headerlink" href="#prerequisites-via-apt-ubuntu" title="Permalink to this headline">¶</a></h3>
 <p>Due to dependencies (for example ansible -&gt; paramiko -&gt; pynacl -&gt; libffi):</p>
-<div class="code bash highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">sudo apt update</span>
-<span class="l l-Scalar l-Scalar-Plain">sudo apt install build-essential libssl-dev libffi-dev python-dev</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt update
+sudo apt install build-essential libssl-dev libffi-dev python-dev
 </pre></div>
 </div>
 </div>
 <div class="section" id="common-environment-setup">
 <h3><a class="toc-backref" href="#id4">Common environment setup</a><a class="headerlink" href="#common-environment-setup" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>Clone the Ansible repository:
-<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/ansible/ansible.git</span></code></li>
-<li>Change directory into the repository root dir: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">cd</span> <span class="pre">ansible</span></code></li>
-<li>Create a virtual environment: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">venv</span></code> (or for
+<li><p>Clone the Ansible repository:
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/ansible/ansible.git</span></code></p></li>
+<li><p>Change directory into the repository root dir: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">cd</span> <span class="pre">ansible</span></code></p></li>
+<li><p>Create a virtual environment: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">venv</span></code> (or for
 Python 2 <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">virtualenv</span> <span class="pre">venv</span></code>. Note, this requires you to install
-the virtualenv package: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">virtualenv</span></code>)</li>
-<li>Activate the virtual environment: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">.</span> <span class="pre">venv/bin/activate</span></code></li>
-<li>Install development requirements:
-<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></li>
-<li>Run the environment setup script for each new dev shell process:
-<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">.</span> <span class="pre">hacking/env-setup</span></code></li>
+the virtualenv package: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">virtualenv</span></code>)</p></li>
+<li><p>Activate the virtual environment: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">.</span> <span class="pre">venv/bin/activate</span></code></p></li>
+<li><p>Install development requirements:
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
+<li><p>Run the environment setup script for each new dev shell process:
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">.</span> <span class="pre">hacking/env-setup</span></code></p></li>
 </ol>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">After the initial setup above, every time you are ready to start
+<p class="admonition-title">Note</p>
+<p>After the initial setup above, every time you are ready to start
 developing Ansible you should be able to just run the following from the
 root of the Ansible repo:
 <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">.</span> <span class="pre">venv/bin/activate</span> <span class="pre">&amp;&amp;</span> <span class="pre">.</span> <span class="pre">hacking/env-setup</span></code></p>
@@ -2329,136 +2332,136 @@ root of the Ansible repo:
 <h2><a class="toc-backref" href="#id5">Starting a new module</a><a class="headerlink" href="#starting-a-new-module" title="Permalink to this headline">¶</a></h2>
 <p>To create a new module:</p>
 <ol class="arabic simple">
-<li>Navigate to the correct directory for your new module: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">cd</span> <span class="pre">lib/ansible/modules/cloud/azure/</span></code></li>
-<li>Create your new module file: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">touch</span> <span class="pre">my_new_test_module.py</span></code></li>
-<li>Paste the content below into your new module file. It includes the <a class="reference internal" href="developing_modules_documenting.html#developing-modules-documenting"><span class="std std-ref">required Ansible format and documentation</span></a> and some example code.</li>
-<li>Modify and extend the code to do what you want your new module to do. See the <a class="reference internal" href="developing_modules_best_practices.html#developing-modules-best-practices"><span class="std std-ref">programming tips</span></a> and <a class="reference internal" href="developing_python_3.html#developing-python-3"><span class="std std-ref">Python 3 compatibility</span></a> pages for pointers on writing clean, concise module code.</li>
+<li><p>Navigate to the correct directory for your new module: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">cd</span> <span class="pre">lib/ansible/modules/cloud/azure/</span></code></p></li>
+<li><p>Create your new module file: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">touch</span> <span class="pre">my_new_test_module.py</span></code></p></li>
+<li><p>Paste the content below into your new module file. It includes the <a class="reference internal" href="developing_modules_documenting.html#developing-modules-documenting"><span class="std std-ref">required Ansible format and documentation</span></a> and some example code.</p></li>
+<li><p>Modify and extend the code to do what you want your new module to do. See the <a class="reference internal" href="developing_modules_best_practices.html#developing-modules-best-practices"><span class="std std-ref">programming tips</span></a> and <a class="reference internal" href="developing_python_3.html#developing-python-3"><span class="std std-ref">Python 3 compatibility</span></a> pages for pointers on writing clean, concise module code.</p></li>
 </ol>
-<div class="code python highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/python</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
 
 <span class="c1"># Copyright: (c) 2018, Terry Jones &lt;terry.jones@example.org&gt;</span>
 <span class="c1"># GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)</span>
 
-<span class="l l-Scalar l-Scalar-Plain">ANSIBLE_METADATA = {</span>
-    <span class="l l-Scalar l-Scalar-Plain">&#39;metadata_version&#39;</span><span class="p p-Indicator">:</span> <span class="s">&#39;1.1&#39;</span><span class="err">,</span>
-    <span class="nt">&#39;status&#39;</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;preview&#39;</span><span class="p p-Indicator">]</span><span class="err">,</span>
-    <span class="nt">&#39;supported_by&#39;</span><span class="p">:</span> <span class="s">&#39;community&#39;</span>
-<span class="err">}</span>
+<span class="n">ANSIBLE_METADATA</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;metadata_version&#39;</span><span class="p">:</span> <span class="s1">&#39;1.1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;preview&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;supported_by&#39;</span><span class="p">:</span> <span class="s1">&#39;community&#39;</span>
+<span class="p">}</span>
 
-<span class="l l-Scalar l-Scalar-Plain">DOCUMENTATION = &#39;&#39;&#39;</span>
-<span class="nn">---</span>
-<span class="nt">module</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_sample_module</span>
+<span class="n">DOCUMENTATION</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">---</span>
+<span class="s1">module: my_sample_module</span>
 
-<span class="nt">short_description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">This is my sample module</span>
+<span class="s1">short_description: This is my sample module</span>
 
-<span class="nt">version_added</span><span class="p">:</span> <span class="s">&quot;2.4&quot;</span>
+<span class="s1">version_added: &quot;2.4&quot;</span>
 
-<span class="nt">description</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="s">&quot;This</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">my</span><span class="nv"> </span><span class="s">longer</span><span class="nv"> </span><span class="s">description</span><span class="nv"> </span><span class="s">explaining</span><span class="nv"> </span><span class="s">my</span><span class="nv"> </span><span class="s">sample</span><span class="nv"> </span><span class="s">module&quot;</span>
+<span class="s1">description:</span>
+<span class="s1">    - &quot;This is my longer description explaining my sample module&quot;</span>
 
-<span class="nt">options</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span>
-        <span class="nt">description</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">This is the message to send to the sample module</span>
-        <span class="nt">required</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="nt">new</span><span class="p">:</span>
-        <span class="nt">description</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Control to demo if the result of this module is changed or not</span>
-        <span class="nt">required</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="s1">options:</span>
+<span class="s1">    name:</span>
+<span class="s1">        description:</span>
+<span class="s1">            - This is the message to send to the sample module</span>
+<span class="s1">        required: true</span>
+<span class="s1">    new:</span>
+<span class="s1">        description:</span>
+<span class="s1">            - Control to demo if the result of this module is changed or not</span>
+<span class="s1">        required: false</span>
 
-<span class="nt">extends_documentation_fragment</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">azure</span>
+<span class="s1">extends_documentation_fragment:</span>
+<span class="s1">    - azure</span>
 
-<span class="nt">author</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Your Name (@yourhandle)</span>
-<span class="s">&#39;</span><span class="se">&#39;&#39;</span>
+<span class="s1">author:</span>
+<span class="s1">    - Your Name (@yourhandle)</span>
+<span class="s1">&#39;&#39;&#39;</span>
 
-<span class="s">EXAMPLES</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="se">&#39;&#39;</span><span class="s">&#39;</span>
-<span class="c1"># Pass in a message</span>
-<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Test with a message</span>
-  <span class="nt">my_new_test_module</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hello world</span>
+<span class="n">EXAMPLES</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1"># Pass in a message</span>
+<span class="s1">- name: Test with a message</span>
+<span class="s1">  my_new_test_module:</span>
+<span class="s1">    name: hello world</span>
 
-<span class="c1"># pass in a message and have changed true</span>
-<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Test with a message and changed output</span>
-  <span class="nt">my_new_test_module</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hello world</span>
-    <span class="nt">new</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="s1"># pass in a message and have changed true</span>
+<span class="s1">- name: Test with a message and changed output</span>
+<span class="s1">  my_new_test_module:</span>
+<span class="s1">    name: hello world</span>
+<span class="s1">    new: true</span>
 
-<span class="c1"># fail the module</span>
-<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Test failure of the module</span>
-  <span class="nt">my_new_test_module</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">fail me</span>
-<span class="s">&#39;</span><span class="se">&#39;&#39;</span>
+<span class="s1"># fail the module</span>
+<span class="s1">- name: Test failure of the module</span>
+<span class="s1">  my_new_test_module:</span>
+<span class="s1">    name: fail me</span>
+<span class="s1">&#39;&#39;&#39;</span>
 
-<span class="s">RETURN</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="se">&#39;&#39;</span><span class="s">&#39;</span>
-<span class="nt">original_message</span><span class="p">:</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">The original name param that was passed in</span>
-    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">str</span>
-<span class="nt">message</span><span class="p">:</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">The output message that the sample module generates</span>
-<span class="s">&#39;</span><span class="se">&#39;&#39;</span>
+<span class="n">RETURN</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">original_message:</span>
+<span class="s1">    description: The original name param that was passed in</span>
+<span class="s1">    type: str</span>
+<span class="s1">message:</span>
+<span class="s1">    description: The output message that the sample module generates</span>
+<span class="s1">&#39;&#39;&#39;</span>
 
-<span class="s">from</span><span class="nv"> </span><span class="s">ansible.module_utils.basic</span><span class="nv"> </span><span class="s">import</span><span class="nv"> </span><span class="s">AnsibleModule</span>
+<span class="kn">from</span> <span class="nn">ansible.module_utils.basic</span> <span class="kn">import</span> <span class="n">AnsibleModule</span>
 
-<span class="s">def</span><span class="nv"> </span><span class="s">run_module():</span>
-    <span class="s">#</span><span class="nv"> </span><span class="s">define</span><span class="nv"> </span><span class="s">available</span><span class="nv"> </span><span class="s">arguments/parameters</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">user</span><span class="nv"> </span><span class="s">can</span><span class="nv"> </span><span class="s">pass</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">module</span>
-    <span class="s">module_args</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="s">dict(</span>
-        <span class="s">name=dict(type=&#39;</span><span class="l l-Scalar l-Scalar-Plain">str&#39;, required=True),</span>
-        <span class="l l-Scalar l-Scalar-Plain">new=dict(type=&#39;bool&#39;, required=False, default=False)</span>
-    <span class="l l-Scalar l-Scalar-Plain">)</span>
+<span class="k">def</span> <span class="nf">run_module</span><span class="p">():</span>
+    <span class="c1"># define available arguments/parameters a user can pass to the module</span>
+    <span class="n">module_args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+        <span class="n">new</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="p">)</span>
 
-    <span class="l l-Scalar l-Scalar-Plain"># seed the result dict in the object</span>
-    <span class="l l-Scalar l-Scalar-Plain"># we primarily care about changed and state</span>
-    <span class="l l-Scalar l-Scalar-Plain"># change is if this module effectively modified the target</span>
-    <span class="l l-Scalar l-Scalar-Plain"># state will include any data that you want your module to pass back</span>
-    <span class="l l-Scalar l-Scalar-Plain"># for consumption, for example, in a subsequent task</span>
-    <span class="l l-Scalar l-Scalar-Plain">result = dict(</span>
-        <span class="l l-Scalar l-Scalar-Plain">changed=False,</span>
-        <span class="l l-Scalar l-Scalar-Plain">original_message=&#39;&#39;,</span>
-        <span class="l l-Scalar l-Scalar-Plain">message=&#39;&#39;</span>
-    <span class="l l-Scalar l-Scalar-Plain">)</span>
+    <span class="c1"># seed the result dict in the object</span>
+    <span class="c1"># we primarily care about changed and state</span>
+    <span class="c1"># change is if this module effectively modified the target</span>
+    <span class="c1"># state will include any data that you want your module to pass back</span>
+    <span class="c1"># for consumption, for example, in a subsequent task</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">changed</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">original_message</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+    <span class="p">)</span>
 
-    <span class="l l-Scalar l-Scalar-Plain"># the AnsibleModule object will be our abstraction working with Ansible</span>
-    <span class="l l-Scalar l-Scalar-Plain"># this includes instantiation, a couple of common attr would be the</span>
-    <span class="l l-Scalar l-Scalar-Plain"># args/params passed to the execution, as well as if the module</span>
-    <span class="l l-Scalar l-Scalar-Plain"># supports check mode</span>
-    <span class="l l-Scalar l-Scalar-Plain">module = AnsibleModule(</span>
-        <span class="l l-Scalar l-Scalar-Plain">argument_spec=module_args,</span>
-        <span class="l l-Scalar l-Scalar-Plain">supports_check_mode=True</span>
-    <span class="l l-Scalar l-Scalar-Plain">)</span>
+    <span class="c1"># the AnsibleModule object will be our abstraction working with Ansible</span>
+    <span class="c1"># this includes instantiation, a couple of common attr would be the</span>
+    <span class="c1"># args/params passed to the execution, as well as if the module</span>
+    <span class="c1"># supports check mode</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="n">AnsibleModule</span><span class="p">(</span>
+        <span class="n">argument_spec</span><span class="o">=</span><span class="n">module_args</span><span class="p">,</span>
+        <span class="n">supports_check_mode</span><span class="o">=</span><span class="bp">True</span>
+    <span class="p">)</span>
 
-    <span class="l l-Scalar l-Scalar-Plain"># if the user is working with this module in only check mode we do not</span>
-    <span class="l l-Scalar l-Scalar-Plain"># want to make any changes to the environment, just return the current</span>
-    <span class="l l-Scalar l-Scalar-Plain"># state with no modifications</span>
-    <span class="l l-Scalar l-Scalar-Plain">if module.check_mode</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">return result</span>
+    <span class="c1"># if the user is working with this module in only check mode we do not</span>
+    <span class="c1"># want to make any changes to the environment, just return the current</span>
+    <span class="c1"># state with no modifications</span>
+    <span class="k">if</span> <span class="n">module</span><span class="o">.</span><span class="n">check_mode</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span>
 
-    <span class="l l-Scalar l-Scalar-Plain"># manipulate or modify the state as needed (this is going to be the</span>
-    <span class="l l-Scalar l-Scalar-Plain"># part where your module will do what it needs to do)</span>
-    <span class="l l-Scalar l-Scalar-Plain">result[&#39;original_message&#39;] = module.params[&#39;name&#39;]</span>
-    <span class="l l-Scalar l-Scalar-Plain">result[&#39;message&#39;] = &#39;goodbye&#39;</span>
+    <span class="c1"># manipulate or modify the state as needed (this is going to be the</span>
+    <span class="c1"># part where your module will do what it needs to do)</span>
+    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;original_message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;goodbye&#39;</span>
 
-    <span class="l l-Scalar l-Scalar-Plain"># use whatever logic you need to determine whether or not this module</span>
-    <span class="l l-Scalar l-Scalar-Plain"># made any modifications to your target</span>
-    <span class="l l-Scalar l-Scalar-Plain">if module.params[&#39;new&#39;]</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">result[&#39;changed&#39;] = True</span>
+    <span class="c1"># use whatever logic you need to determine whether or not this module</span>
+    <span class="c1"># made any modifications to your target</span>
+    <span class="k">if</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">]:</span>
+        <span class="n">result</span><span class="p">[</span><span class="s1">&#39;changed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="c1"># during the execution of the module, if there is an exception or a</span>
     <span class="c1"># conditional state that effectively causes a failure, run</span>
     <span class="c1"># AnsibleModule.fail_json() to pass in the message and the result</span>
-<span class=" -Error">    </span><span class="l l-Scalar l-Scalar-Plain">if module.params[&#39;name&#39;] == &#39;fail me&#39;</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">module.fail_json(msg=&#39;You requested this to fail&#39;, **result)</span>
+    <span class="k">if</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;fail me&#39;</span><span class="p">:</span>
+        <span class="n">module</span><span class="o">.</span><span class="n">fail_json</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;You requested this to fail&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">result</span><span class="p">)</span>
 
     <span class="c1"># in the event of a successful module execution, you will want to</span>
     <span class="c1"># simple AnsibleModule.exit_json(), passing the key/value results</span>
-    <span class="l l-Scalar l-Scalar-Plain">module.exit_json(**result)</span>
+    <span class="n">module</span><span class="o">.</span><span class="n">exit_json</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span>
 
-<span class="nt">def main()</span><span class="p">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">run_module()</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">run_module</span><span class="p">()</span>
 
-<span class="nt">if __name__ == &#39;__main__&#39;</span><span class="p">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">main()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2470,25 +2473,25 @@ Our <a class="reference internal" href="debugging.html#debugging"><span class="s
 <h3><a class="toc-backref" href="#id7">Exercising module code locally</a><a class="headerlink" href="#exercising-module-code-locally" title="Permalink to this headline">¶</a></h3>
 <p>If you module does not need to target a remote host, you can quickly and easily exercise you code locally like this:</p>
 <ul class="simple">
-<li>Create an arguments file, a basic JSON config file that passes parameters to your module so you can run it. Name the arguments file <code class="docutils literal notranslate"><span class="pre">/tmp/args.json</span></code> and add the following content:</li>
+<li><p>Create an arguments file, a basic JSON config file that passes parameters to your module so you can run it. Name the arguments file <code class="docutils literal notranslate"><span class="pre">/tmp/args.json</span></code> and add the following content:</p></li>
 </ul>
-<div class="code json highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">{</span>
-<span class="nt">    &quot;ANSIBLE_MODULE_ARGS&quot;</span><span class="p">:</span> <span class="p p-Indicator">{</span>
-<span class="nt">        &quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;hello&quot;</span><span class="p p-Indicator">,</span>
-<span class="nt">        &quot;new&quot;</span><span class="p">:</span> <span class="nv">true</span>
-    <span class="p p-Indicator">}</span>
-<span class="p p-Indicator">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;ANSIBLE_MODULE_ARGS&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;new&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>If you are using a virtual environment (highly recommended for
-development) activate it: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">.</span> <span class="pre">venv/bin/activate</span></code></li>
-<li>Setup the environment for development: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">.</span> <span class="pre">hacking/env-setup</span></code></li>
-<li>Run your test module locally and directly:
-<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">./my_new_test_module.py</span> <span class="pre">/tmp/args.json</span></code></li>
+<li><p>If you are using a virtual environment (highly recommended for
+development) activate it: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">.</span> <span class="pre">venv/bin/activate</span></code></p></li>
+<li><p>Setup the environment for development: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">.</span> <span class="pre">hacking/env-setup</span></code></p></li>
+<li><p>Run your test module locally and directly:
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">./my_new_test_module.py</span> <span class="pre">/tmp/args.json</span></code></p></li>
 </ul>
 <p>This should return output something like this:</p>
-<div class="code json highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">{</span><span class="nt">&quot;changed&quot;</span><span class="p">:</span> <span class="nv">true</span><span class="p p-Indicator">,</span><span class="nt"> &quot;state&quot;</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">&quot;original_message&quot;</span><span class="p">:</span> <span class="s">&quot;hello&quot;</span><span class="p p-Indicator">,</span><span class="nt"> &quot;new_message&quot;</span><span class="p">:</span> <span class="s">&quot;goodbye&quot;</span><span class="p p-Indicator">},</span><span class="nt"> &quot;invocation&quot;</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">&quot;module_args&quot;</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;hello&quot;</span><span class="p p-Indicator">,</span><span class="nt"> &quot;new&quot;</span><span class="p">:</span> <span class="nv">true</span><span class="p p-Indicator">}}}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;changed&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;original_message&quot;</span><span class="p">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="nt">&quot;new_message&quot;</span><span class="p">:</span> <span class="s2">&quot;goodbye&quot;</span><span class="p">},</span> <span class="nt">&quot;invocation&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;module_args&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="nt">&quot;new&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">}}}</span>
 </pre></div>
 </div>
 </div>
@@ -2496,9 +2499,8 @@ development) activate it: <code class="docutils literal notranslate"><span class
 <h3><a class="toc-backref" href="#id8">Exercising module code in a playbook</a><a class="headerlink" href="#exercising-module-code-in-a-playbook" title="Permalink to this headline">¶</a></h3>
 <p>The next step in testing your new module is to consume it with an Ansible playbook.</p>
 <ul>
-<li><p class="first">Create a playbook in any directory: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">touch</span> <span class="pre">testmod.yml</span></code></p>
-</li>
-<li><p class="first">Add the following to the new playbook file:</p>
+<li><p>Create a playbook in any directory: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">touch</span> <span class="pre">testmod.yml</span></code></p></li>
+<li><p>Add the following to the new playbook file:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test my new module</span>
   <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
   <span class="nt">tasks</span><span class="p">:</span>
@@ -2513,8 +2515,7 @@ development) activate it: <code class="docutils literal notranslate"><span class
 </pre></div>
 </div>
 </li>
-<li><p class="first">Run the playbook and analyze the output: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">ansible-playbook</span> <span class="pre">./testmod.yml</span></code></p>
-</li>
+<li><p>Run the playbook and analyze the output: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">ansible-playbook</span> <span class="pre">./testmod.yml</span></code></p></li>
 </ul>
 </div>
 </div>
@@ -2533,12 +2534,12 @@ container for this, you can choose to use <code class="docutils literal notransl
 <h3><a class="toc-backref" href="#id11">Unit tests</a><a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h3>
 <p>You can add unit tests for your module in <code class="docutils literal notranslate"><span class="pre">./test/units/modules</span></code>. You must first setup your testing environment. In this example, we’re using Python 3.5.</p>
 <ul class="simple">
-<li>Install the requirements (outside of your virtual environment): <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">./test/runner/requirements/units.txt</span></code></li>
-<li>To run all tests do the following: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">ansible-test</span> <span class="pre">units</span> <span class="pre">--python</span> <span class="pre">3.5</span></code> (you must run <code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">hacking/env-setup</span></code> prior to this)</li>
+<li><p>Install the requirements (outside of your virtual environment): <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">./test/runner/requirements/units.txt</span></code></p></li>
+<li><p>To run all tests do the following: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">ansible-test</span> <span class="pre">units</span> <span class="pre">--python</span> <span class="pre">3.5</span></code> (you must run <code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">hacking/env-setup</span></code> prior to this)</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Ansible uses pytest for unit testing.</p>
+<p class="admonition-title">Note</p>
+<p>Ansible uses pytest for unit testing.</p>
 </div>
 <p>To run pytest against a single test module, you can do the following (provide the path to the test module appropriately):</p>
 <p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pytest</span> <span class="pre">-r</span> <span class="pre">a</span> <span class="pre">--cov=.</span> <span class="pre">--cov-report=html</span> <span class="pre">--fulltrace</span> <span class="pre">--color</span> <span class="pre">yes</span>
@@ -2601,7 +2602,7 @@ material for this topic.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2269,14 +2269,16 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#deploy-a-virtual-machine-from-a-template" id="id1">Deploy a virtual machine from a template</a><ul>
-<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
-<li><a class="reference internal" href="#scenario-requirements" id="id3">Scenario Requirements</a></li>
-<li><a class="reference internal" href="#assumptions" id="id4">Assumptions</a></li>
-<li><a class="reference internal" href="#caveats" id="id5">Caveats</a></li>
-<li><a class="reference internal" href="#example-description" id="id6">Example Description</a><ul>
-<li><a class="reference internal" href="#what-to-expect" id="id7">What to expect</a></li>
-<li><a class="reference internal" href="#troubleshooting" id="id8">Troubleshooting</a></li>
+<li><p><a class="reference internal" href="#deploy-a-virtual-machine-from-a-template" id="id1">Deploy a virtual machine from a template</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id2">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#scenario-requirements" id="id3">Scenario Requirements</a></p></li>
+<li><p><a class="reference internal" href="#assumptions" id="id4">Assumptions</a></p></li>
+<li><p><a class="reference internal" href="#caveats" id="id5">Caveats</a></p></li>
+<li><p><a class="reference internal" href="#example-description" id="id6">Example Description</a></p>
+<ul>
+<li><p><a class="reference internal" href="#what-to-expect" id="id7">What to expect</a></p></li>
+<li><p><a class="reference internal" href="#troubleshooting" id="id8">Troubleshooting</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2290,40 +2292,38 @@
 <div class="section" id="scenario-requirements">
 <h2><a class="toc-backref" href="#id3">Scenario Requirements</a><a class="headerlink" href="#scenario-requirements" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Software</p>
+<li><p>Software</p>
 <blockquote>
 <div><ul class="simple">
-<li>Ansible 2.5 or later must be installed</li>
-<li>The Python module <code class="docutils literal notranslate"><span class="pre">Pyvmomi</span></code> must be installed on the Ansible (or Target host if not executing against localhost)</li>
-<li>Installing the latest <code class="docutils literal notranslate"><span class="pre">Pyvmomi</span></code> via <code class="docutils literal notranslate"><span class="pre">pip</span></code> is recommended [as the OS provided packages are usually out of date and incompatible]</li>
+<li><p>Ansible 2.5 or later must be installed</p></li>
+<li><p>The Python module <code class="docutils literal notranslate"><span class="pre">Pyvmomi</span></code> must be installed on the Ansible (or Target host if not executing against localhost)</p></li>
+<li><p>Installing the latest <code class="docutils literal notranslate"><span class="pre">Pyvmomi</span></code> via <code class="docutils literal notranslate"><span class="pre">pip</span></code> is recommended [as the OS provided packages are usually out of date and incompatible]</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Hardware</p>
+<li><p>Hardware</p>
 <blockquote>
 <div><ul class="simple">
-<li>vCenter Server with at least one ESXi server</li>
+<li><p>vCenter Server with at least one ESXi server</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Access / Credentials</p>
+<li><p>Access / Credentials</p>
 <blockquote>
 <div><ul>
-<li><p class="first">Ansible (or the target server) must have network access to the either vCenter server or the ESXi server you will be deploying to</p>
-</li>
-<li><p class="first">Username and Password</p>
-</li>
-<li><p class="first">Administrator user with following privileges</p>
+<li><p>Ansible (or the target server) must have network access to the either vCenter server or the ESXi server you will be deploying to</p></li>
+<li><p>Username and Password</p></li>
+<li><p>Administrator user with following privileges</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">VirtualMachine.Provisioning.Clone</span></code> on the virtual machine you are cloning</li>
-<li><code class="docutils literal notranslate"><span class="pre">VirtualMachine.Inventory.CreateFromExisting</span></code> on the datacenter or virtual machine folder</li>
-<li><code class="docutils literal notranslate"><span class="pre">VirtualMachine.Config.AddNewDisk</span></code> on the datacenter or virtual machine folder</li>
-<li><code class="docutils literal notranslate"><span class="pre">Resource.Assign</span></code> virtual machine to resource pool on the destination host, cluster, or resource pool</li>
-<li><code class="docutils literal notranslate"><span class="pre">Datastore.AllocateSpace</span></code> on the destination datastore or datastore folder</li>
-<li><code class="docutils literal notranslate"><span class="pre">Network.AssignNetwork</span></code> on the network to which the virtual machine will be assigned</li>
-<li><code class="docutils literal notranslate"><span class="pre">VirtualMachine.Provisioning.Customize</span></code> on the virtual machine or virtual machine folder if you are customizing the guest operating system</li>
-<li><code class="docutils literal notranslate"><span class="pre">VirtualMachine.Provisioning.ReadCustSpecs</span></code> on the root vCenter Server if you are customizing the guest operating system</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VirtualMachine.Provisioning.Clone</span></code> on the virtual machine you are cloning</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VirtualMachine.Inventory.CreateFromExisting</span></code> on the datacenter or virtual machine folder</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VirtualMachine.Config.AddNewDisk</span></code> on the datacenter or virtual machine folder</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Resource.Assign</span></code> virtual machine to resource pool on the destination host, cluster, or resource pool</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Datastore.AllocateSpace</span></code> on the destination datastore or datastore folder</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.AssignNetwork</span></code> on the network to which the virtual machine will be assigned</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VirtualMachine.Provisioning.Customize</span></code> on the virtual machine or virtual machine folder if you are customizing the guest operating system</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VirtualMachine.Provisioning.ReadCustSpecs</span></code> on the root vCenter Server if you are customizing the guest operating system</p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -2335,17 +2335,17 @@
 <div class="section" id="assumptions">
 <h2><a class="toc-backref" href="#id4">Assumptions</a><a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>All variable names and VMware object names are case sensitive</li>
-<li>VMware allows creation of virtual machine and templates with same name across datacenters and within datacenters</li>
-<li>You need to use Python 2.7.9 version in order to use <code class="docutils literal notranslate"><span class="pre">validate_certs</span></code> option, as this version is capable of changing the SSL verification behaviours</li>
+<li><p>All variable names and VMware object names are case sensitive</p></li>
+<li><p>VMware allows creation of virtual machine and templates with same name across datacenters and within datacenters</p></li>
+<li><p>You need to use Python 2.7.9 version in order to use <code class="docutils literal notranslate"><span class="pre">validate_certs</span></code> option, as this version is capable of changing the SSL verification behaviours</p></li>
 </ul>
 </div>
 <div class="section" id="caveats">
 <h2><a class="toc-backref" href="#id5">Caveats</a><a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Hosts in the ESXi cluster must have access to the datastore that the template resides on.</li>
-<li>Multiple templates with the same name will cause module failures.</li>
-<li>In order to utilize Guest Customization, VMWare Tools must be installed on the template. For Linux, the <code class="docutils literal notranslate"><span class="pre">open-vm-tools</span></code> package is recommended, and it requires that <code class="docutils literal notranslate"><span class="pre">Perl</span></code> be installed.</li>
+<li><p>Hosts in the ESXi cluster must have access to the datastore that the template resides on.</p></li>
+<li><p>Multiple templates with the same name will cause module failures.</p></li>
+<li><p>In order to utilize Guest Customization, VMWare Tools must be installed on the template. For Linux, the <code class="docutils literal notranslate"><span class="pre">open-vm-tools</span></code> package is recommended, and it requires that <code class="docutils literal notranslate"><span class="pre">Perl</span></code> be installed.</p></li>
 </ul>
 </div>
 <div class="section" id="example-description">
@@ -2377,7 +2377,7 @@
 <div class="section" id="what-to-expect">
 <h3><a class="toc-backref" href="#id7">What to expect</a><a class="headerlink" href="#what-to-expect" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>You will see a bit of JSON output after this playbook completes. This output shows various parameters that are returned from the module and from vCenter about the newly created VM.</li>
+<li><p>You will see a bit of JSON output after this playbook completes. This output shows various parameters that are returned from the module and from vCenter about the newly created VM.</p></li>
 </ul>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">{</span>
 <span class="nt">    &quot;changed&quot;</span><span class="p">:</span> <span class="nv">true</span><span class="p p-Indicator">,</span>
@@ -2468,18 +2468,18 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li>State is changed to <code class="docutils literal notranslate"><span class="pre">True</span></code> which notifies that the virtual machine is built using given template. The module will not complete until the clone task in VMware is finished. This can take some time depending on your environment.</li>
-<li>If you utilize the <code class="docutils literal notranslate"><span class="pre">wait_for_ip_address</span></code> parameter, then it will also increase the clone time as it will wait until virtual machine boots into the OS and an IP Address has been assigned to the given NIC.</li>
+<li><p>State is changed to <code class="docutils literal notranslate"><span class="pre">True</span></code> which notifies that the virtual machine is built using given template. The module will not complete until the clone task in VMware is finished. This can take some time depending on your environment.</p></li>
+<li><p>If you utilize the <code class="docutils literal notranslate"><span class="pre">wait_for_ip_address</span></code> parameter, then it will also increase the clone time as it will wait until virtual machine boots into the OS and an IP Address has been assigned to the given NIC.</p></li>
 </ul>
 </div>
 <div class="section" id="troubleshooting">
 <h3><a class="toc-backref" href="#id8">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
 <p>Things to inspect</p>
 <ul class="simple">
-<li>Check if the values provided for username and password are correct</li>
-<li>Check if the datacenter you provided is available</li>
-<li>Check if the template specified exists and you have permissions to access the datastore</li>
-<li>Ensure the full folder path you specified already exists. It will not create folders automatically for you</li>
+<li><p>Check if the values provided for username and password are correct</p></li>
+<li><p>Check if the datacenter you provided is available</p></li>
+<li><p>Check if the template specified exists and you have permissions to access the datastore</p></li>
+<li><p>Ensure the full folder path you specified already exists. It will not create folders automatically for you</p></li>
 </ul>
 </div>
 </div>
@@ -2511,7 +2511,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2290,8 +2290,8 @@ in a push-script.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Prompts for individual <code class="docutils literal notranslate"><span class="pre">vars_prompt</span></code> variables will be skipped for any variable that is already defined through the command line <code class="docutils literal notranslate"><span class="pre">--extra-vars</span></code> option, or when running from a non-interactive session (such as cron or Ansible Tower). See <a class="reference internal" href="playbooks_variables.html#passing-variables-on-the-command-line"><span class="std std-ref">Passing variables on the command line</span></a> in the /Variables/ chapter.</p>
+<p class="admonition-title">Note</p>
+<p>Prompts for individual <code class="docutils literal notranslate"><span class="pre">vars_prompt</span></code> variables will be skipped for any variable that is already defined through the command line <code class="docutils literal notranslate"><span class="pre">--extra-vars</span></code> option, or when running from a non-interactive session (such as cron or Ansible Tower). See <a class="reference internal" href="playbooks_variables.html#passing-variables-on-the-command-line"><span class="std std-ref">Passing variables on the command line</span></a> in the /Variables/ chapter.</p>
 </div>
 <p>If you have a variable that changes infrequently, it might make sense to
 provide a default value that can be overridden.  This can be accomplished using
@@ -2330,51 +2330,51 @@ entered value so you can use it, for instance, with the user module to define a 
 </div>
 <p>You can use any crypt scheme supported by ‘Passlib’:</p>
 <ul class="simple">
-<li><em>des_crypt</em> - DES Crypt</li>
-<li><em>bsdi_crypt</em> - BSDi Crypt</li>
-<li><em>bigcrypt</em> - BigCrypt</li>
-<li><em>crypt16</em> - Crypt16</li>
-<li><em>md5_crypt</em> - MD5 Crypt</li>
-<li><em>bcrypt</em> - BCrypt</li>
-<li><em>sha1_crypt</em> - SHA-1 Crypt</li>
-<li><em>sun_md5_crypt</em> - Sun MD5 Crypt</li>
-<li><em>sha256_crypt</em> - SHA-256 Crypt</li>
-<li><em>sha512_crypt</em> - SHA-512 Crypt</li>
-<li><em>apr_md5_crypt</em> - Apache’s MD5-Crypt variant</li>
-<li><em>phpass</em> - PHPass’ Portable Hash</li>
-<li><em>pbkdf2_digest</em> - Generic PBKDF2 Hashes</li>
-<li><em>cta_pbkdf2_sha1</em> - Cryptacular’s PBKDF2 hash</li>
-<li><em>dlitz_pbkdf2_sha1</em> - Dwayne Litzenberger’s PBKDF2 hash</li>
-<li><em>scram</em> - SCRAM Hash</li>
-<li><em>bsd_nthash</em> - FreeBSD’s MCF-compatible nthash encoding</li>
+<li><p><em>des_crypt</em> - DES Crypt</p></li>
+<li><p><em>bsdi_crypt</em> - BSDi Crypt</p></li>
+<li><p><em>bigcrypt</em> - BigCrypt</p></li>
+<li><p><em>crypt16</em> - Crypt16</p></li>
+<li><p><em>md5_crypt</em> - MD5 Crypt</p></li>
+<li><p><em>bcrypt</em> - BCrypt</p></li>
+<li><p><em>sha1_crypt</em> - SHA-1 Crypt</p></li>
+<li><p><em>sun_md5_crypt</em> - Sun MD5 Crypt</p></li>
+<li><p><em>sha256_crypt</em> - SHA-256 Crypt</p></li>
+<li><p><em>sha512_crypt</em> - SHA-512 Crypt</p></li>
+<li><p><em>apr_md5_crypt</em> - Apache’s MD5-Crypt variant</p></li>
+<li><p><em>phpass</em> - PHPass’ Portable Hash</p></li>
+<li><p><em>pbkdf2_digest</em> - Generic PBKDF2 Hashes</p></li>
+<li><p><em>cta_pbkdf2_sha1</em> - Cryptacular’s PBKDF2 hash</p></li>
+<li><p><em>dlitz_pbkdf2_sha1</em> - Dwayne Litzenberger’s PBKDF2 hash</p></li>
+<li><p><em>scram</em> - SCRAM Hash</p></li>
+<li><p><em>bsd_nthash</em> - FreeBSD’s MCF-compatible nthash encoding</p></li>
 </ul>
 <p>However, the only parameters accepted are ‘salt’ or ‘salt_size’. You can use your own salt using
 ‘salt’, or have one generated automatically using ‘salt_size’. If nothing is specified, a salt
 of size 8 will be generated.</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.7.</span></p>
+<p><span class="versionmodified added">New in version 2.7.</span></p>
 </div>
 <p>When Passlib is not installed the <a class="reference external" href="https://docs.python.org/2/library/crypt.html">crypt</a> library is used as fallback.
 Depending on your platform at most the following crypt schemes are supported:</p>
 <ul class="simple">
-<li><em>bcrypt</em> - BCrypt</li>
-<li><em>md5_crypt</em> - MD5 Crypt</li>
-<li><em>sha256_crypt</em> - SHA-256 Crypt</li>
-<li><em>sha512_crypt</em> - SHA-512 Crypt</li>
+<li><p><em>bcrypt</em> - BCrypt</p></li>
+<li><p><em>md5_crypt</em> - MD5 Crypt</p></li>
+<li><p><em>sha256_crypt</em> - SHA-256 Crypt</p></li>
+<li><p><em>sha512_crypt</em> - SHA-512 Crypt</p></li>
 </ul>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_conditionals.html"><span class="doc">Conditionals</span></a></dt>
-<dd>Conditional statements in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a></dt>
-<dd>All about variables</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html"><span class="doc">Conditionals</span></a></dt><dd><p>Conditional statements in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a></dt><dd><p>All about variables</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2405,7 +2405,7 @@ Depending on your platform at most the following crypt schemes are supported:</p
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

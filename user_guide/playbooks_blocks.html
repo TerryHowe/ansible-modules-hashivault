@@ -2295,7 +2295,7 @@
 and evaluating it in the task’s context. Also they inherit the privilege escalation directives enabling “become to root”
 for all the enclosed tasks.</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.3: </span>The <code class="docutils literal notranslate"><span class="pre">name:</span></code> keyword for <code class="docutils literal notranslate"><span class="pre">block:</span></code> was added in Ansible 2.3.</p>
+<p><span class="versionmodified added">New in version 2.3: </span>The <code class="docutils literal notranslate"><span class="pre">name:</span></code> keyword for <code class="docutils literal notranslate"><span class="pre">block:</span></code> was added in Ansible 2.3.</p>
 </div>
 <div class="section" id="error-handling">
 <span id="block-error-handling"></span><h2>Error Handling<a class="headerlink" href="#error-handling" title="Permalink to this headline">¶</a></h2>
@@ -2386,26 +2386,26 @@ this means it won’t trigger <code class="docutils literal notranslate"><span c
 </div>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.1.</span></p>
+<p><span class="versionmodified added">New in version 2.1.</span></p>
 </div>
 <p>Ansible also provides a couple of variables for tasks in the <code class="docutils literal notranslate"><span class="pre">rescue</span></code> portion of a block:</p>
-<dl class="docutils">
-<dt>ansible_failed_task</dt>
-<dd>The task that returned ‘failed’ and triggered the rescue. For example, to get the name use <code class="docutils literal notranslate"><span class="pre">ansible_failed_task.name</span></code>.</dd>
-<dt>ansible_failed_result</dt>
-<dd>The captured return result of the failed task that triggered the rescue. This would equate to having used this var in the <code class="docutils literal notranslate"><span class="pre">register</span></code> keyword.</dd>
+<dl class="simple">
+<dt>ansible_failed_task</dt><dd><p>The task that returned ‘failed’ and triggered the rescue. For example, to get the name use <code class="docutils literal notranslate"><span class="pre">ansible_failed_task.name</span></code>.</p>
+</dd>
+<dt>ansible_failed_result</dt><dd><p>The captured return result of the failed task that triggered the rescue. This would equate to having used this var in the <code class="docutils literal notranslate"><span class="pre">register</span></code> keyword.</p>
+</dd>
 </dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_reuse_roles.html"><span class="doc">Roles</span></a></dt>
-<dd>Playbook organization by roles</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_reuse_roles.html"><span class="doc">Roles</span></a></dt><dd><p>Playbook organization by roles</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2437,7 +2437,7 @@ this means it won’t trigger <code class="docutils literal notranslate"><span c
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

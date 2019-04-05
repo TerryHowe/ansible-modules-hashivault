@@ -2274,27 +2274,28 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-2-4" id="id16">Ansible 2.4</a><ul>
-<li><a class="reference internal" href="#administrivia-and-process" id="id17">Administrivia and Process</a></li>
-<li><a class="reference internal" href="#python-2-4-and-2-5-support-discontinuation" id="id18">Python 2.4 and 2.5 support discontinuation</a></li>
-<li><a class="reference internal" href="#python-3" id="id19">Python 3</a></li>
-<li><a class="reference internal" href="#ansible-config" id="id20">Ansible-Config</a></li>
-<li><a class="reference internal" href="#inventory" id="id21">Inventory</a></li>
-<li><a class="reference internal" href="#facts" id="id22">Facts</a></li>
-<li><a class="reference internal" href="#pluginloader" id="id23">PluginLoader</a></li>
-<li><a class="reference internal" href="#static-loop-keyword" id="id24">Static Loop Keyword</a></li>
-<li><a class="reference internal" href="#vault" id="id25">Vault</a></li>
-<li><a class="reference internal" href="#globalize-callbacks" id="id26">Globalize Callbacks</a></li>
-<li><a class="reference internal" href="#plugins" id="id27">Plugins</a></li>
-<li><a class="reference internal" href="#group-priorities" id="id28">Group Priorities</a></li>
-<li><a class="reference internal" href="#runtime-check-on-modules-for-blacklisting" id="id29">Runtime Check on Modules for Blacklisting</a></li>
-<li><a class="reference internal" href="#disambiguate-includes" id="id30">Disambiguate Includes</a></li>
-<li><a class="reference internal" href="#windows" id="id31">Windows</a></li>
-<li><a class="reference internal" href="#aws" id="id32">AWS</a></li>
-<li><a class="reference internal" href="#azure" id="id33">Azure</a></li>
-<li><a class="reference internal" href="#google-cloud-platform" id="id34">Google Cloud Platform</a></li>
-<li><a class="reference internal" href="#network-roadmap" id="id35">Network Roadmap</a></li>
-<li><a class="reference internal" href="#contributor-quality-of-life" id="id36">Contributor Quality of Life</a></li>
+<li><p><a class="reference internal" href="#ansible-2-4" id="id16">Ansible 2.4</a></p>
+<ul>
+<li><p><a class="reference internal" href="#administrivia-and-process" id="id17">Administrivia and Process</a></p></li>
+<li><p><a class="reference internal" href="#python-2-4-and-2-5-support-discontinuation" id="id18">Python 2.4 and 2.5 support discontinuation</a></p></li>
+<li><p><a class="reference internal" href="#python-3" id="id19">Python 3</a></p></li>
+<li><p><a class="reference internal" href="#ansible-config" id="id20">Ansible-Config</a></p></li>
+<li><p><a class="reference internal" href="#inventory" id="id21">Inventory</a></p></li>
+<li><p><a class="reference internal" href="#facts" id="id22">Facts</a></p></li>
+<li><p><a class="reference internal" href="#pluginloader" id="id23">PluginLoader</a></p></li>
+<li><p><a class="reference internal" href="#static-loop-keyword" id="id24">Static Loop Keyword</a></p></li>
+<li><p><a class="reference internal" href="#vault" id="id25">Vault</a></p></li>
+<li><p><a class="reference internal" href="#globalize-callbacks" id="id26">Globalize Callbacks</a></p></li>
+<li><p><a class="reference internal" href="#plugins" id="id27">Plugins</a></p></li>
+<li><p><a class="reference internal" href="#group-priorities" id="id28">Group Priorities</a></p></li>
+<li><p><a class="reference internal" href="#runtime-check-on-modules-for-blacklisting" id="id29">Runtime Check on Modules for Blacklisting</a></p></li>
+<li><p><a class="reference internal" href="#disambiguate-includes" id="id30">Disambiguate Includes</a></p></li>
+<li><p><a class="reference internal" href="#windows" id="id31">Windows</a></p></li>
+<li><p><a class="reference internal" href="#aws" id="id32">AWS</a></p></li>
+<li><p><a class="reference internal" href="#azure" id="id33">Azure</a></p></li>
+<li><p><a class="reference internal" href="#google-cloud-platform" id="id34">Google Cloud Platform</a></p></li>
+<li><p><a class="reference internal" href="#network-roadmap" id="id35">Network Roadmap</a></p></li>
+<li><p><a class="reference internal" href="#contributor-quality-of-life" id="id36">Contributor Quality of Life</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2302,8 +2303,9 @@
 <div class="section" id="administrivia-and-process">
 <h2><a class="toc-backref" href="#id17">Administrivia and Process</a><a class="headerlink" href="#administrivia-and-process" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Starting with 2.4, all items that are deprecated will be removed in 4 major releases unless otherwise stated.<ul>
-<li>For example: A module that is deprecated in 2.4 will be removed in 2.8</li>
+<li><p>Starting with 2.4, all items that are deprecated will be removed in 4 major releases unless otherwise stated.</p>
+<ul>
+<li><p>For example: A module that is deprecated in 2.4 will be removed in 2.8</p></li>
 </ul>
 </li>
 </ul>
@@ -2311,20 +2313,22 @@
 <div class="section" id="python-2-4-and-2-5-support-discontinuation">
 <h2><a class="toc-backref" href="#id18">Python 2.4 and 2.5 support discontinuation</a><a class="headerlink" href="#python-2-4-and-2-5-support-discontinuation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Ansible will not support Python 2.4 nor 2.5 on the target hosts anymore.
-Going forward, Python 2.6+ will be required on targets, as already is the case on the controller.</li>
+<li><p>Ansible will not support Python 2.4 nor 2.5 on the target hosts anymore.
+Going forward, Python 2.6+ will be required on targets, as already is the case on the controller.</p></li>
 </ul>
 </div>
 <div class="section" id="python-3">
 <h2><a class="toc-backref" href="#id19">Python 3</a><a class="headerlink" href="#python-3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Ansible Core Engine and Core modules will be tested on Python 3<ul>
-<li>All Core modules now have at least a smoketest integration test.
-Additional coverage is welcomed to find more bugs and prevent regressions.</li>
+<li><p>Ansible Core Engine and Core modules will be tested on Python 3</p>
+<ul>
+<li><p>All Core modules now have at least a smoketest integration test.
+Additional coverage is welcomed to find more bugs and prevent regressions.</p></li>
 </ul>
 </li>
-<li>Communicate with Linux distros to provide Ansible running on Python 3<ul>
-<li>Python3 based Ansible packages are now available to run on Fedora Linux</li>
+<li><p>Communicate with Linux distros to provide Ansible running on Python 3</p>
+<ul>
+<li><p>Python3 based Ansible packages are now available to run on Fedora Linux</p></li>
 </ul>
 </li>
 </ul>
@@ -2332,14 +2336,15 @@ Additional coverage is welcomed to find more bugs and prevent regressions.</li>
 <div class="section" id="ansible-config">
 <h2><a class="toc-backref" href="#id20">Ansible-Config</a><a class="headerlink" href="#ansible-config" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Proposal found in ansible/proposals issue <a class="reference external" href="https://github.com/ansible/proposals/issues/35">#35</a>.</li>
-<li>Initial PR of code found in ansible/ansible PR <a class="reference external" href="https://github.com/ansible/ansible/pull/12797">#12797</a>. <strong>(done)</strong></li>
-<li>Per plugin configuration (depends on plugin docs below). <strong>(WIP)</strong></li>
-<li>New yaml format for config <strong>(possibly pushed to future roadmap)</strong></li>
-<li>Extend the ability of the current config system by adding an <code class="docutils literal notranslate"><span class="pre">ansible-config</span></code> command and add the following:<ul>
-<li>Dump existing config settings <strong>(working, fine tuning)</strong></li>
-<li>Update / write a config entry <strong>(pushed to future roadmap)</strong></li>
-<li>Show available options (ini entry, yaml, env var, etc) <strong>(working, fine tuning)</strong></li>
+<li><p>Proposal found in ansible/proposals issue <a class="reference external" href="https://github.com/ansible/proposals/issues/35">#35</a>.</p></li>
+<li><p>Initial PR of code found in ansible/ansible PR <a class="reference external" href="https://github.com/ansible/ansible/pull/12797">#12797</a>. <strong>(done)</strong></p></li>
+<li><p>Per plugin configuration (depends on plugin docs below). <strong>(WIP)</strong></p></li>
+<li><p>New yaml format for config <strong>(possibly pushed to future roadmap)</strong></p></li>
+<li><p>Extend the ability of the current config system by adding an <code class="docutils literal notranslate"><span class="pre">ansible-config</span></code> command and add the following:</p>
+<ul>
+<li><p>Dump existing config settings <strong>(working, fine tuning)</strong></p></li>
+<li><p>Update / write a config entry <strong>(pushed to future roadmap)</strong></p></li>
+<li><p>Show available options (ini entry, yaml, env var, etc) <strong>(working, fine tuning)</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -2353,12 +2358,12 @@ Additional coverage is welcomed to find more bugs and prevent regressions.</li>
 <div class="section" id="facts">
 <h2><a class="toc-backref" href="#id22">Facts</a><a class="headerlink" href="#facts" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Configurable list of ‘fact modules’ for <code class="docutils literal notranslate"><span class="pre">gather_facts</span></code> <strong>(done)</strong></li>
-<li>Fact gathering policy finer grained <strong>(done)</strong></li>
-<li>Make <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>/<code class="docutils literal notranslate"><span class="pre">facts</span></code> more pluggable <strong>(done)</strong></li>
-<li>Improve testing of <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>/<code class="docutils literal notranslate"><span class="pre">facts.py</span></code> <strong>(done)</strong></li>
-<li>Namespacing fact variables (via a config option) implemented in ansible/ansible PR <a class="reference external" href="https://github.com/ansible/ansible/pull/18445">#18445</a>. <strong>(done)</strong>
-Proposal found in ansible/proposals issue <a class="reference external" href="https://github.com/ansible/proposals/issues/17">#17</a>.</li>
+<li><p>Configurable list of ‘fact modules’ for <code class="docutils literal notranslate"><span class="pre">gather_facts</span></code> <strong>(done)</strong></p></li>
+<li><p>Fact gathering policy finer grained <strong>(done)</strong></p></li>
+<li><p>Make <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>/<code class="docutils literal notranslate"><span class="pre">facts</span></code> more pluggable <strong>(done)</strong></p></li>
+<li><p>Improve testing of <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>/<code class="docutils literal notranslate"><span class="pre">facts.py</span></code> <strong>(done)</strong></p></li>
+<li><p>Namespacing fact variables (via a config option) implemented in ansible/ansible PR <a class="reference external" href="https://github.com/ansible/ansible/pull/18445">#18445</a>. <strong>(done)</strong>
+Proposal found in ansible/proposals issue <a class="reference external" href="https://github.com/ansible/proposals/issues/17">#17</a>.</p></li>
 </ul>
 </div>
 <div class="section" id="pluginloader">
@@ -2367,42 +2372,43 @@ Proposal found in ansible/proposals issue <a class="reference external" href="ht
 - Over the past couple releases we’ve had some thoughts about how PluginLoader might be better structured</p>
 <blockquote>
 <div><ul class="simple">
-<li>Load the loaders via an initialization function(), not when importing
-the module. (stretch goal, doesn’t impact the CLI)</li>
-<li>Separate duties of <code class="docutils literal notranslate"><span class="pre">PluginLoader</span></code> from <code class="docutils literal notranslate"><span class="pre">PluginFinder</span></code>.  Most plugins need
-both but Modules and Module_utils only need a PluginFinder</li>
-<li>Write different <code class="docutils literal notranslate"><span class="pre">PluginFinder</span></code> subclasses for module_utils and perhaps
+<li><p>Load the loaders via an initialization function(), not when importing
+the module. (stretch goal, doesn’t impact the CLI)</p></li>
+<li><p>Separate duties of <code class="docutils literal notranslate"><span class="pre">PluginLoader</span></code> from <code class="docutils literal notranslate"><span class="pre">PluginFinder</span></code>.  Most plugins need
+both but Modules and Module_utils only need a PluginFinder</p></li>
+<li><p>Write different <code class="docutils literal notranslate"><span class="pre">PluginFinder</span></code> subclasses for module_utils and perhaps
 Modules.  Most Plugin types have a flattened namespace and are single
 python files.  Modules include code that is not written in python.
 Module_utils are vastly different from the other Plugins as they
-maintain a hierarchical namespace and are multi-file.</li>
-<li>Potentially split module_utils loader for python from module_utils
+maintain a hierarchical namespace and are multi-file.</p></li>
+<li><p>Potentially split module_utils loader for python from module_utils
 loader for powershell.  Currently we only support generic module_utils
 for python modules.  The powershell modules always include a single,
 hardcoded powershell module_utils file.  If we add generic module_utils
-for powershell, we’ll need to decide how to organize the code.</li>
+for powershell, we’ll need to decide how to organize the code.</p></li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="static-loop-keyword">
 <h2><a class="toc-backref" href="#id24">Static Loop Keyword</a><a class="headerlink" href="#static-loop-keyword" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><strong>Pushed to 2.5</strong></li>
-<li>Deprecate (not on standard deprecation cycle) <code class="docutils literal notranslate"><span class="pre">with_</span></code> in favor of <code class="docutils literal notranslate"><span class="pre">loop:</span></code></li>
-<li>This <code class="docutils literal notranslate"><span class="pre">loop:</span></code> will take only a list</li>
-<li>Remove complexity from loops, lookups are still available to users</li>
-<li>Less confusing having a static directive vs a one that is dynamic depending on plugins loaded.</li>
+<li><p><strong>Pushed to 2.5</strong></p></li>
+<li><p>Deprecate (not on standard deprecation cycle) <code class="docutils literal notranslate"><span class="pre">with_</span></code> in favor of <code class="docutils literal notranslate"><span class="pre">loop:</span></code></p></li>
+<li><p>This <code class="docutils literal notranslate"><span class="pre">loop:</span></code> will take only a list</p></li>
+<li><p>Remove complexity from loops, lookups are still available to users</p></li>
+<li><p>Less confusing having a static directive vs a one that is dynamic depending on plugins loaded.</p></li>
 </ul>
 </div>
 <div class="section" id="vault">
 <h2><a class="toc-backref" href="#id25">Vault</a><a class="headerlink" href="#vault" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Support for multiple vault passwords.  <strong>(done)</strong><ul>
-<li>Each decrypted item should know which secret to request <strong>(done)</strong></li>
-<li>Support requesting credentials (password prompt) as callbacks</li>
+<li><p>Support for multiple vault passwords.  <strong>(done)</strong></p>
+<ul>
+<li><p>Each decrypted item should know which secret to request <strong>(done)</strong></p></li>
+<li><p>Support requesting credentials (password prompt) as callbacks</p></li>
 </ul>
 </li>
-<li>Ability to open and edit file with encrypted vars deencrypted, and encrypt/format on save</li>
+<li><p>Ability to open and edit file with encrypted vars deencrypted, and encrypt/format on save</p></li>
 </ul>
 </div>
 <div class="section" id="globalize-callbacks">
@@ -2415,8 +2421,8 @@ for powershell, we’ll need to decide how to organize the code.</li>
 <div class="section" id="plugins">
 <h2><a class="toc-backref" href="#id27">Plugins</a><a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Allow plugins to have embedded docs (like modules) <strong>(done)</strong></li>
-<li>Update ansible-doc and website to generate docs from these ansible/ansible PR <a class="reference external" href="https://github.com/ansible/ansible/pull/22796">#22796</a>. <strong>(ansible-doc working, todo:website)</strong></li>
+<li><p>Allow plugins to have embedded docs (like modules) <strong>(done)</strong></p></li>
+<li><p>Update ansible-doc and website to generate docs from these ansible/ansible PR <a class="reference external" href="https://github.com/ansible/ansible/pull/22796">#22796</a>. <strong>(ansible-doc working, todo:website)</strong></p></li>
 </ul>
 </div>
 <div class="section" id="group-priorities">
@@ -2436,12 +2442,14 @@ for powershell, we’ll need to decide how to organize the code.</li>
 <div class="section" id="disambiguate-includes">
 <h2><a class="toc-backref" href="#id30">Disambiguate Includes</a><a class="headerlink" href="#disambiguate-includes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Create import_x for ‘static includes’ (import_task, import_playbook, import_role)<ul>
-<li>Any directives are applied to the ‘imported’ tasks</li>
+<li><p>Create import_x for ‘static includes’ (import_task, import_playbook, import_role)</p>
+<ul>
+<li><p>Any directives are applied to the ‘imported’ tasks</p></li>
 </ul>
 </li>
-<li>Create include_x for ‘dynamic includes’ (include_task, include_role)<ul>
-<li>Any directives apply to the ‘include’  itself</li>
+<li><p>Create include_x for ‘dynamic includes’ (include_task, include_role)</p>
+<ul>
+<li><p>Any directives apply to the ‘include’  itself</p></li>
 </ul>
 </li>
 </ul>
@@ -2449,25 +2457,26 @@ for powershell, we’ll need to decide how to organize the code.</li>
 <div class="section" id="windows">
 <h2><a class="toc-backref" href="#id31">Windows</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>New PS/.NET module API <strong>(in progress)</strong></li>
-<li>Windows Nano Server support</li>
-<li>Windows module_utils pluginloader <strong>(done)</strong></li>
-<li>Refactor duplicated module code into new module_utils files <strong>(in progress)</strong></li>
-<li>Evaluate #Requires directives (existing and new: PS version, OS version, etc)</li>
-<li>Improve module debug support/persistence <strong>(done)</strong></li>
-<li>Explore official DSC support <strong>(done)</strong></li>
-<li>Explore module intermediate output</li>
-<li>Explore Powershell module unit testing <strong>(in progress)</strong></li>
-<li>Explore JEA support (stretch)</li>
-<li>Extended become support with network/service/batch logon types</li>
-<li>Module updates<ul>
-<li>Split “Windows” category into multiple subs</li>
-<li>Domain user/group management modules <strong>(done)</strong></li>
-<li>win_mapped_drive module <strong>(done)</strong></li>
-<li>win_hotfix <strong>(done)</strong></li>
-<li>win_updates rewrite to require become</li>
-<li>win_package changes required to deprecate win_msi <strong>(done)</strong></li>
-<li>win_copy re-write <strong>(done)</strong></li>
+<li><p>New PS/.NET module API <strong>(in progress)</strong></p></li>
+<li><p>Windows Nano Server support</p></li>
+<li><p>Windows module_utils pluginloader <strong>(done)</strong></p></li>
+<li><p>Refactor duplicated module code into new module_utils files <strong>(in progress)</strong></p></li>
+<li><p>Evaluate #Requires directives (existing and new: PS version, OS version, etc)</p></li>
+<li><p>Improve module debug support/persistence <strong>(done)</strong></p></li>
+<li><p>Explore official DSC support <strong>(done)</strong></p></li>
+<li><p>Explore module intermediate output</p></li>
+<li><p>Explore Powershell module unit testing <strong>(in progress)</strong></p></li>
+<li><p>Explore JEA support (stretch)</p></li>
+<li><p>Extended become support with network/service/batch logon types</p></li>
+<li><p>Module updates</p>
+<ul>
+<li><p>Split “Windows” category into multiple subs</p></li>
+<li><p>Domain user/group management modules <strong>(done)</strong></p></li>
+<li><p>win_mapped_drive module <strong>(done)</strong></p></li>
+<li><p>win_hotfix <strong>(done)</strong></p></li>
+<li><p>win_updates rewrite to require become</p></li>
+<li><p>win_package changes required to deprecate win_msi <strong>(done)</strong></p></li>
+<li><p>win_copy re-write <strong>(done)</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -2475,15 +2484,16 @@ for powershell, we’ll need to decide how to organize the code.</li>
 <div class="section" id="aws">
 <h2><a class="toc-backref" href="#id32">AWS</a><a class="headerlink" href="#aws" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Focus on pull requests for various modules</li>
-<li>Triage existing merges for modules</li>
-<li>Module work<ul>
-<li>elb-target-groups <a class="reference external" href="https://github.com/ansible/ansible/pull/19492">#19492</a>, <a class="reference external" href="https://github.com/ansible/ansible/pull/24583">#24583</a>. <strong>(done)</strong></li>
-<li>alb* <a class="reference external" href="https://github.com/ansible/ansible/pull/19491">#19491</a>, <a class="reference external" href="https://github.com/ansible/ansible/pull/24584">#24584</a>. <strong>(done)</strong></li>
-<li>ecs <a class="reference external" href="https://github.com/ansible/ansible/pull/20618">#20618</a>. <strong>(in review process)</strong></li>
-<li>Data Pipelines <a class="reference external" href="https://github.com/ansible/ansible/pull/22878">#22878</a>. <strong>(in review process)</strong></li>
-<li>VPN <a class="reference external" href="https://github.com/ansible/ansible/pull/24385">#24385</a>. <strong>(in review process)</strong></li>
-<li>DirectConnect <a class="reference external" href="https://github.com/ansible/ansible/pull/26152">#26152</a>. <strong>(connection module in review process, several more to come)</strong></li>
+<li><p>Focus on pull requests for various modules</p></li>
+<li><p>Triage existing merges for modules</p></li>
+<li><p>Module work</p>
+<ul>
+<li><p>elb-target-groups <a class="reference external" href="https://github.com/ansible/ansible/pull/19492">#19492</a>, <a class="reference external" href="https://github.com/ansible/ansible/pull/24583">#24583</a>. <strong>(done)</strong></p></li>
+<li><p>alb* <a class="reference external" href="https://github.com/ansible/ansible/pull/19491">#19491</a>, <a class="reference external" href="https://github.com/ansible/ansible/pull/24584">#24584</a>. <strong>(done)</strong></p></li>
+<li><p>ecs <a class="reference external" href="https://github.com/ansible/ansible/pull/20618">#20618</a>. <strong>(in review process)</strong></p></li>
+<li><p>Data Pipelines <a class="reference external" href="https://github.com/ansible/ansible/pull/22878">#22878</a>. <strong>(in review process)</strong></p></li>
+<li><p>VPN <a class="reference external" href="https://github.com/ansible/ansible/pull/24385">#24385</a>. <strong>(in review process)</strong></p></li>
+<li><p>DirectConnect <a class="reference external" href="https://github.com/ansible/ansible/pull/26152">#26152</a>. <strong>(connection module in review process, several more to come)</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -2491,30 +2501,31 @@ for powershell, we’ll need to decide how to organize the code.</li>
 <div class="section" id="azure">
 <h2><a class="toc-backref" href="#id33">Azure</a><a class="headerlink" href="#azure" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Expose endpoint overrides <strong>(done)</strong></li>
-<li>Reformat/document module output to collapse internal API structures and surface important data (eg, public IPs, NICs, data disks) <strong>(pushed to future)</strong></li>
-<li>Add load balancer module <strong>(in progress)</strong></li>
-<li>Add Azure Functions module <strong>(in progress)</strong></li>
+<li><p>Expose endpoint overrides <strong>(done)</strong></p></li>
+<li><p>Reformat/document module output to collapse internal API structures and surface important data (eg, public IPs, NICs, data disks) <strong>(pushed to future)</strong></p></li>
+<li><p>Add load balancer module <strong>(in progress)</strong></p></li>
+<li><p>Add Azure Functions module <strong>(in progress)</strong></p></li>
 </ul>
 </div>
 <div class="section" id="google-cloud-platform">
 <h2><a class="toc-backref" href="#id34">Google Cloud Platform</a><a class="headerlink" href="#google-cloud-platform" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>New Module: DataProc</li>
-<li>Support for Cross-Region HTTP Load Balancing</li>
-<li>New Module: GKE</li>
+<li><p>New Module: DataProc</p></li>
+<li><p>Support for Cross-Region HTTP Load Balancing</p></li>
+<li><p>New Module: GKE</p></li>
 </ul>
 </div>
 <div class="section" id="network-roadmap">
 <h2><a class="toc-backref" href="#id35">Network Roadmap</a><a class="headerlink" href="#network-roadmap" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Removal of <code class="docutils literal notranslate"><span class="pre">*_template</span></code> modules <strong>(done)</strong></li>
-<li>Distributed Continuous Integration Infrastructure <strong>(done)</strong></li>
-<li>RPC Connection Plugin <strong>(done)</strong></li>
-<li>Module Work<ul>
-<li>Declarative intent modules <strong>(done)</strong></li>
-<li>OpenVSwitch <strong>(done)</strong></li>
-<li>Minimal Viable Platform Agnostic Modules <strong>(done)</strong></li>
+<li><p>Removal of <code class="docutils literal notranslate"><span class="pre">*_template</span></code> modules <strong>(done)</strong></p></li>
+<li><p>Distributed Continuous Integration Infrastructure <strong>(done)</strong></p></li>
+<li><p>RPC Connection Plugin <strong>(done)</strong></p></li>
+<li><p>Module Work</p>
+<ul>
+<li><p>Declarative intent modules <strong>(done)</strong></p></li>
+<li><p>OpenVSwitch <strong>(done)</strong></p></li>
+<li><p>Minimal Viable Platform Agnostic Modules <strong>(done)</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -2522,54 +2533,65 @@ for powershell, we’ll need to decide how to organize the code.</li>
 <div class="section" id="contributor-quality-of-life">
 <h2><a class="toc-backref" href="#id36">Contributor Quality of Life</a><a class="headerlink" href="#contributor-quality-of-life" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>All Core and Curated modules will work towards having unit testing. <strong>(edit: integration and/or unit tests)</strong></li>
-<li>More bot improvements!<ul>
-<li>Bot comments on PRs with details of test failures. <strong>(done)</strong></li>
+<li><p>All Core and Curated modules will work towards having unit testing. <strong>(edit: integration and/or unit tests)</strong></p></li>
+<li><p>More bot improvements!</p>
+<ul>
+<li><p>Bot comments on PRs with details of test failures. <strong>(done)</strong></p></li>
 </ul>
 </li>
-<li>Test Infrastructure changes<ul>
-<li>Shippable + Bot Integration<ul>
-<li>Provide verified test results to the bot from Shippable so the bot can comment on PRs with CI failures. <strong>(done, compile and sanity tests only)</strong></li>
-<li>Enable the bot to mark PRs with <code class="docutils literal notranslate"><span class="pre">ci_verified</span></code> if all CI failures are verified. <strong>(done)</strong></li>
+<li><p>Test Infrastructure changes</p>
+<ul>
+<li><p>Shippable + Bot Integration</p>
+<ul>
+<li><p>Provide verified test results to the bot from Shippable so the bot can comment on PRs with CI failures. <strong>(done, compile and sanity tests only)</strong></p></li>
+<li><p>Enable the bot to mark PRs with <code class="docutils literal notranslate"><span class="pre">ci_verified</span></code> if all CI failures are verified. <strong>(done)</strong></p></li>
 </ul>
 </li>
-<li>Windows Server 2016 Integration Tests<ul>
-<li>Restore Windows Server 2016 integration tests on Shippable.<ul>
-<li>Originally enabled during the 2.3 release cycle, but later disabled due to intermittent WinRM issues.</li>
-<li>Depends on resolution of WinRM connection issues.</li>
+<li><p>Windows Server 2016 Integration Tests</p>
+<ul>
+<li><p>Restore Windows Server 2016 integration tests on Shippable.</p>
+<ul>
+<li><p>Originally enabled during the 2.3 release cycle, but later disabled due to intermittent WinRM issues.</p></li>
+<li><p>Depends on resolution of WinRM connection issues.</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Windows Server Nano Integration Tests <strong>(pushed to future roadmap)</strong><ul>
-<li>Add support to ansible-core-ci for Windows Server 2016 Nano and enable on Shippable.</li>
-<li>This will use a subset of the existing Windows integration tests.</li>
-<li>Depends on resolution of WinRM connection issues.</li>
+<li><p>Windows Server Nano Integration Tests <strong>(pushed to future roadmap)</strong></p>
+<ul>
+<li><p>Add support to ansible-core-ci for Windows Server 2016 Nano and enable on Shippable.</p></li>
+<li><p>This will use a subset of the existing Windows integration tests.</p></li>
+<li><p>Depends on resolution of WinRM connection issues.</p></li>
 </ul>
 </li>
-<li>Windows + Python 3 Tests<ul>
-<li>Run basic Windows tests using Python 3 as the controller. <strong>(partially done, not all planned tests running yet)</strong></li>
-<li>Depends on resolution of WinRM Python 3 issues.</li>
+<li><p>Windows + Python 3 Tests</p>
+<ul>
+<li><p>Run basic Windows tests using Python 3 as the controller. <strong>(partially done, not all planned tests running yet)</strong></p></li>
+<li><p>Depends on resolution of WinRM Python 3 issues.</p></li>
 </ul>
 </li>
-<li>Cloud Integration Tests<ul>
-<li>Run existing cloud integration tests as part of CI for:<ul>
-<li>AWS <strong>(done)</strong></li>
-<li>Azure <strong>(done)</strong></li>
-<li>GCP <strong>(pushed to future roadmap)</strong></li>
+<li><p>Cloud Integration Tests</p>
+<ul>
+<li><p>Run existing cloud integration tests as part of CI for:</p>
+<ul>
+<li><p>AWS <strong>(done)</strong></p></li>
+<li><p>Azure <strong>(done)</strong></p></li>
+<li><p>GCP <strong>(pushed to future roadmap)</strong></p></li>
 </ul>
 </li>
-<li>Tests to be run only on cloud module (and module_utils) PRs and merges for the relevant cloud provider. <strong>(done)</strong></li>
+<li><p>Tests to be run only on cloud module (and module_utils) PRs and merges for the relevant cloud provider. <strong>(done)</strong></p></li>
 </ul>
 </li>
-<li>Test Reliability<ul>
-<li>Further improve test reliability to reduce false positives on Shippable. <strong>(ongoing)</strong></li>
-<li>This continues work from the 2.3 release cycle.</li>
+<li><p>Test Reliability</p>
+<ul>
+<li><p>Further improve test reliability to reduce false positives on Shippable. <strong>(ongoing)</strong></p></li>
+<li><p>This continues work from the 2.3 release cycle.</p></li>
 </ul>
 </li>
-<li>Static Code Analysis<ul>
-<li>Further expand the scope and coverage of static analysis. <strong>(ongoing)</strong></li>
-<li>This continues work from the 2.3 release cycle.</li>
+<li><p>Static Code Analysis</p>
+<ul>
+<li><p>Further expand the scope and coverage of static analysis. <strong>(ongoing)</strong></p></li>
+<li><p>This continues work from the 2.3 release cycle.</p></li>
 </ul>
 </li>
 </ul>
@@ -2604,7 +2626,7 @@ for powershell, we’ll need to decide how to organize the code.</li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

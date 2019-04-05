@@ -2273,17 +2273,17 @@ Windows host, this guide differs from the usual development walkthrough guide.</
 <p>What’s covered in this section:</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#windows-environment-setup" id="id1">Windows environment setup</a></li>
-<li><a class="reference internal" href="#create-a-windows-server-in-a-vm" id="id2">Create a Windows server in a VM</a></li>
-<li><a class="reference internal" href="#create-an-ansible-inventory" id="id3">Create an Ansible inventory</a></li>
-<li><a class="reference internal" href="#provisioning-the-environment" id="id4">Provisioning the environment</a></li>
-<li><a class="reference internal" href="#windows-new-module-development" id="id5">Windows new module development</a></li>
-<li><a class="reference internal" href="#windows-module-utilities" id="id6">Windows module utilities</a></li>
-<li><a class="reference internal" href="#windows-playbook-module-testing" id="id7">Windows playbook module testing</a></li>
-<li><a class="reference internal" href="#windows-debugging" id="id8">Windows debugging</a></li>
-<li><a class="reference internal" href="#windows-unit-testing" id="id9">Windows unit testing</a></li>
-<li><a class="reference internal" href="#windows-integration-testing" id="id10">Windows integration testing</a></li>
-<li><a class="reference internal" href="#windows-communication-and-development-support" id="id11">Windows communication and development support</a></li>
+<li><p><a class="reference internal" href="#windows-environment-setup" id="id1">Windows environment setup</a></p></li>
+<li><p><a class="reference internal" href="#create-a-windows-server-in-a-vm" id="id2">Create a Windows server in a VM</a></p></li>
+<li><p><a class="reference internal" href="#create-an-ansible-inventory" id="id3">Create an Ansible inventory</a></p></li>
+<li><p><a class="reference internal" href="#provisioning-the-environment" id="id4">Provisioning the environment</a></p></li>
+<li><p><a class="reference internal" href="#windows-new-module-development" id="id5">Windows new module development</a></p></li>
+<li><p><a class="reference internal" href="#windows-module-utilities" id="id6">Windows module utilities</a></p></li>
+<li><p><a class="reference internal" href="#windows-playbook-module-testing" id="id7">Windows playbook module testing</a></p></li>
+<li><p><a class="reference internal" href="#windows-debugging" id="id8">Windows debugging</a></p></li>
+<li><p><a class="reference internal" href="#windows-unit-testing" id="id9">Windows unit testing</a></p></li>
+<li><p><a class="reference internal" href="#windows-integration-testing" id="id10">Windows integration testing</a></p></li>
+<li><p><a class="reference internal" href="#windows-communication-and-development-support" id="id11">Windows communication and development support</a></p></li>
 </ul>
 </div>
 <div class="section" id="windows-environment-setup">
@@ -2305,8 +2305,8 @@ repo and look at the <code class="docutils literal notranslate"><span class="pre
 <p>Before you can get started, the following programs must be installed (please consult the Vagrant and
 VirtualBox documentation for installation instructions):</p>
 <ul class="simple">
-<li>Vagrant</li>
-<li>VirtualBox</li>
+<li><p>Vagrant</p></li>
+<li><p>VirtualBox</p></li>
 </ul>
 </div>
 <div class="section" id="create-a-windows-server-in-a-vm">
@@ -2339,8 +2339,8 @@ created Windows VM:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The port <code class="docutils literal notranslate"><span class="pre">55986</span></code> is automatically forwarded by Vagrant to the
+<p class="admonition-title">Note</p>
+<p>The port <code class="docutils literal notranslate"><span class="pre">55986</span></code> is automatically forwarded by Vagrant to the
 Windows host that was created, if this conflicts with an existing local
 port then Vagrant will automatically use another one at random and display
 show that in the output.</p>
@@ -2348,12 +2348,12 @@ show that in the output.</p>
 <p>The OS that is created is based on the image set. The following
 images can be used:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2008-x86">jborean93/WindowsServer2008-x86</a></li>
-<li><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2008-x64">jborean93/WindowsServer2008-x64</a></li>
-<li><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2008R2">jborean93/WindowsServer2008R2</a></li>
-<li><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2012">jborean93/WindowsServer2012</a></li>
-<li><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2012R2">jborean93/WindowsServer2012R2</a></li>
-<li><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2016">jborean93/WindowsServer2016</a></li>
+<li><p><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2008-x86">jborean93/WindowsServer2008-x86</a></p></li>
+<li><p><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2008-x64">jborean93/WindowsServer2008-x64</a></p></li>
+<li><p><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2008R2">jborean93/WindowsServer2008R2</a></p></li>
+<li><p><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2012">jborean93/WindowsServer2012</a></p></li>
+<li><p><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2012R2">jborean93/WindowsServer2012R2</a></p></li>
+<li><p><a class="reference external" href="https://app.vagrantup.com/jborean93/boxes/WindowsServer2016">jborean93/WindowsServer2016</a></p></li>
 </ul>
 <p>When the host is online, it can accessible by RDP on <code class="docutils literal notranslate"><span class="pre">127.0.0.1:3389</span></code> but the
 port may differ depending if there was a conflict. To get rid of the host, run
@@ -2366,17 +2366,17 @@ can be used to create a test domain environment to be used in Ansible. This
 repo contains three files which are used by both Ansible and Vagrant to create
 multiple Windows hosts in a domain environment. These files are:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">Vagrantfile</span></code>: The Vagrant file that reads the inventory setup of <code class="docutils literal notranslate"><span class="pre">inventory.yml</span></code> and provisions the hosts that are required</li>
-<li><code class="docutils literal notranslate"><span class="pre">inventory.yml</span></code>: Contains the hosts that are required and other connection information such as IP addresses and forwarded ports</li>
-<li><code class="docutils literal notranslate"><span class="pre">main.yml</span></code>: Ansible playbook called by Vagrant to provision the domain controller and join the child hosts to the domain</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Vagrantfile</span></code>: The Vagrant file that reads the inventory setup of <code class="docutils literal notranslate"><span class="pre">inventory.yml</span></code> and provisions the hosts that are required</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inventory.yml</span></code>: Contains the hosts that are required and other connection information such as IP addresses and forwarded ports</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">main.yml</span></code>: Ansible playbook called by Vagrant to provision the domain controller and join the child hosts to the domain</p></li>
 </ul>
 <p>By default, these files will create the following environment:</p>
 <ul class="simple">
-<li>A single domain controller running on Windows Server 2016</li>
-<li>Five child hosts for each major Windows Server version joined to that domain</li>
-<li>A domain with the DNS name <code class="docutils literal notranslate"><span class="pre">domain.local</span></code></li>
-<li>A local administrator account on each host with the username <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> and password <code class="docutils literal notranslate"><span class="pre">vagrant</span></code></li>
-<li>A domain admin account <code class="docutils literal notranslate"><span class="pre">vagrant-domain&#64;domain.local</span></code> with the password <code class="docutils literal notranslate"><span class="pre">VagrantPass1</span></code></li>
+<li><p>A single domain controller running on Windows Server 2016</p></li>
+<li><p>Five child hosts for each major Windows Server version joined to that domain</p></li>
+<li><p>A domain with the DNS name <code class="docutils literal notranslate"><span class="pre">domain.local</span></code></p></li>
+<li><p>A local administrator account on each host with the username <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> and password <code class="docutils literal notranslate"><span class="pre">vagrant</span></code></p></li>
+<li><p>A domain admin account <code class="docutils literal notranslate"><span class="pre">vagrant-domain&#64;domain.local</span></code> with the password <code class="docutils literal notranslate"><span class="pre">VagrantPass1</span></code></p></li>
 </ul>
 <p>The domain name and accounts can be modified by changing the variables
 <code class="docutils literal notranslate"><span class="pre">domain_*</span></code> in the <code class="docutils literal notranslate"><span class="pre">inventory.yml</span></code> file if it is required. The inventory
@@ -2395,8 +2395,8 @@ vagrant up
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Vagrant provisions each host sequentially so this can take some time
+<p class="admonition-title">Note</p>
+<p>Vagrant provisions each host sequentially so this can take some time
 to complete. If any errors occur during the Ansible phase of setting up the
 domain, run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">provision</span></code> to rerun just that step.</p>
 </div>
@@ -2407,19 +2407,19 @@ normal protocol ports are used, e.g. RDP is still over <code class="docutils lit
 the host cannot be resolved using the host only network IP, the following
 protocols can be access over <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code> using these forwarded ports:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">RDP</span></code>: 295xx</li>
-<li><code class="docutils literal notranslate"><span class="pre">SSH</span></code>: 296xx</li>
-<li><code class="docutils literal notranslate"><span class="pre">WinRM</span> <span class="pre">HTTP</span></code>: 297xx</li>
-<li><code class="docutils literal notranslate"><span class="pre">WinRM</span> <span class="pre">HTTPS</span></code>: 298xx</li>
-<li><code class="docutils literal notranslate"><span class="pre">SMB</span></code>: 299xx</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RDP</span></code>: 295xx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SSH</span></code>: 296xx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WinRM</span> <span class="pre">HTTP</span></code>: 297xx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WinRM</span> <span class="pre">HTTPS</span></code>: 298xx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SMB</span></code>: 299xx</p></li>
 </ul>
 <p>Replace <code class="docutils literal notranslate"><span class="pre">xx</span></code> with the entry number in the inventory file where the domain
 controller started with <code class="docutils literal notranslate"><span class="pre">00</span></code> and is incremented from there. For example, in
 the default <code class="docutils literal notranslate"><span class="pre">inventory.yml</span></code> file, WinRM over HTTPS for <code class="docutils literal notranslate"><span class="pre">SERVER2012R2</span></code> is
 forwarded over port <code class="docutils literal notranslate"><span class="pre">29804</span></code> as it’s the fourth entry in <code class="docutils literal notranslate"><span class="pre">domain_children</span></code>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">While an SSH server is available on all Windows hosts but Server
+<p class="admonition-title">Note</p>
+<p>While an SSH server is available on all Windows hosts but Server
 2008 (non R2), it is not a support connection for Ansible managing Windows
 hosts and should not be used with Ansible.</p>
 </div>
@@ -2428,20 +2428,20 @@ hosts and should not be used with Ansible.</p>
 <h2><a class="toc-backref" href="#id5">Windows new module development</a><a class="headerlink" href="#windows-new-module-development" title="Permalink to this headline">¶</a></h2>
 <p>When creating a new module there are a few things to keep in mind:</p>
 <ul class="simple">
-<li>Module code is in Powershell (.ps1) files while the documentation is contained in Python (.py) files of the same name</li>
-<li>Avoid using <code class="docutils literal notranslate"><span class="pre">Write-Host/Debug/Verbose/Error</span></code> in the module and add what needs to be returned to the <code class="docutils literal notranslate"><span class="pre">$result</span></code> variable</li>
-<li>When trying an exception use <code class="docutils literal notranslate"><span class="pre">Fail-Json</span> <span class="pre">-obj</span> <span class="pre">$result</span> <span class="pre">-message</span> <span class="pre">&quot;exception</span> <span class="pre">message</span> <span class="pre">here&quot;</span></code> instead</li>
-<li>Most new modules require check mode and integration tests before they are merged into the main Ansible codebase</li>
-<li>Avoid using try/catch statements over a large code block, rather use them for individual calls so the error message can be more descriptive</li>
-<li>Try and catch specific exceptions when using try/catch statements</li>
-<li>Avoid using PSCustomObjects unless necessary</li>
-<li>Look for common functions in <code class="docutils literal notranslate"><span class="pre">./lib/ansible/module_utils/powershell/</span></code> and use the code there instead of duplicating work. These can be imported by adding the line <code class="docutils literal notranslate"><span class="pre">#Requires</span> <span class="pre">-Module</span> <span class="pre">*</span></code> where * is the filename to import, and will be automatically included with the module code sent to the Windows target when run via Ansible</li>
-<li>Ensure the code runs under Powershell v3 and higher on Windows Server 2008 and higher; if higher minimum Powershell or OS versions are required, ensure the documentation reflects this clearly</li>
-<li>Ansible runs modules under strictmode version 2.0. Be sure to test with that enabled by putting <code class="docutils literal notranslate"><span class="pre">Set-StrictMode</span> <span class="pre">-Version</span> <span class="pre">2.0</span></code> at the top of your dev script</li>
-<li>Favour native Powershell cmdlets over executable calls if possible</li>
-<li>If adding an object to <code class="docutils literal notranslate"><span class="pre">$result</span></code>, ensure any trailing slashes are removed or escaped, as <code class="docutils literal notranslate"><span class="pre">ConvertTo-Json</span></code> will fail to convert it</li>
-<li>Use the full cmdlet name instead of aliases, e.g. <code class="docutils literal notranslate"><span class="pre">Remove-Item</span></code> over <code class="docutils literal notranslate"><span class="pre">rm</span></code></li>
-<li>Use named parameters with cmdlets, e.g. <code class="docutils literal notranslate"><span class="pre">Remove-Item</span> <span class="pre">-Path</span> <span class="pre">C:\temp</span></code> over <code class="docutils literal notranslate"><span class="pre">Remove-Item</span> <span class="pre">C:\temp</span></code></li>
+<li><p>Module code is in Powershell (.ps1) files while the documentation is contained in Python (.py) files of the same name</p></li>
+<li><p>Avoid using <code class="docutils literal notranslate"><span class="pre">Write-Host/Debug/Verbose/Error</span></code> in the module and add what needs to be returned to the <code class="docutils literal notranslate"><span class="pre">$result</span></code> variable</p></li>
+<li><p>When trying an exception use <code class="docutils literal notranslate"><span class="pre">Fail-Json</span> <span class="pre">-obj</span> <span class="pre">$result</span> <span class="pre">-message</span> <span class="pre">&quot;exception</span> <span class="pre">message</span> <span class="pre">here&quot;</span></code> instead</p></li>
+<li><p>Most new modules require check mode and integration tests before they are merged into the main Ansible codebase</p></li>
+<li><p>Avoid using try/catch statements over a large code block, rather use them for individual calls so the error message can be more descriptive</p></li>
+<li><p>Try and catch specific exceptions when using try/catch statements</p></li>
+<li><p>Avoid using PSCustomObjects unless necessary</p></li>
+<li><p>Look for common functions in <code class="docutils literal notranslate"><span class="pre">./lib/ansible/module_utils/powershell/</span></code> and use the code there instead of duplicating work. These can be imported by adding the line <code class="docutils literal notranslate"><span class="pre">#Requires</span> <span class="pre">-Module</span> <span class="pre">*</span></code> where * is the filename to import, and will be automatically included with the module code sent to the Windows target when run via Ansible</p></li>
+<li><p>Ensure the code runs under Powershell v3 and higher on Windows Server 2008 and higher; if higher minimum Powershell or OS versions are required, ensure the documentation reflects this clearly</p></li>
+<li><p>Ansible runs modules under strictmode version 2.0. Be sure to test with that enabled by putting <code class="docutils literal notranslate"><span class="pre">Set-StrictMode</span> <span class="pre">-Version</span> <span class="pre">2.0</span></code> at the top of your dev script</p></li>
+<li><p>Favour native Powershell cmdlets over executable calls if possible</p></li>
+<li><p>If adding an object to <code class="docutils literal notranslate"><span class="pre">$result</span></code>, ensure any trailing slashes are removed or escaped, as <code class="docutils literal notranslate"><span class="pre">ConvertTo-Json</span></code> will fail to convert it</p></li>
+<li><p>Use the full cmdlet name instead of aliases, e.g. <code class="docutils literal notranslate"><span class="pre">Remove-Item</span></code> over <code class="docutils literal notranslate"><span class="pre">rm</span></code></p></li>
+<li><p>Use named parameters with cmdlets, e.g. <code class="docutils literal notranslate"><span class="pre">Remove-Item</span> <span class="pre">-Path</span> <span class="pre">C:\temp</span></code> over <code class="docutils literal notranslate"><span class="pre">Remove-Item</span> <span class="pre">C:\temp</span></code></p></li>
 </ul>
 <p>A very basic powershell module <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/lib/ansible/modules/windows/win_environment.ps1">win_environment</a> is included below. It demonstrates how to implement check-mode and diff-support, and also shows a warning to the user when a specific condition is met.</p>
 <p>A slightly more advanced module is <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/lib/ansible/modules/windows/win_uri.ps1">win_uri</a> which additionally shows how to use different parameter types (bool, str, int, list, dict, path) and a selection of choices for parameters, how to fail a module and how to handle exceptions.</p>
@@ -2450,11 +2450,11 @@ implemented there.</p>
 <p>Sometimes there are multiple ways that Windows offers to complete a task; this
 is the order to favour when writing modules:</p>
 <ul class="simple">
-<li>Native Powershell cmdlets like <code class="docutils literal notranslate"><span class="pre">Remove-Item</span> <span class="pre">-Path</span> <span class="pre">C:\temp</span> <span class="pre">-Recurse</span></code></li>
-<li>.NET classes like <code class="docutils literal notranslate"><span class="pre">[System.IO.Path]::GetRandomFileName()</span></code></li>
-<li>WMI objects through the <code class="docutils literal notranslate"><span class="pre">New-CimInstance</span></code> cmdlet</li>
-<li>COM objects through <code class="docutils literal notranslate"><span class="pre">New-Object</span> <span class="pre">-ComObject</span></code> cmdlet</li>
-<li>Calls to native executables like <code class="docutils literal notranslate"><span class="pre">Secedit.exe</span></code></li>
+<li><p>Native Powershell cmdlets like <code class="docutils literal notranslate"><span class="pre">Remove-Item</span> <span class="pre">-Path</span> <span class="pre">C:\temp</span> <span class="pre">-Recurse</span></code></p></li>
+<li><p>.NET classes like <code class="docutils literal notranslate"><span class="pre">[System.IO.Path]::GetRandomFileName()</span></code></p></li>
+<li><p>WMI objects through the <code class="docutils literal notranslate"><span class="pre">New-CimInstance</span></code> cmdlet</p></li>
+<li><p>COM objects through <code class="docutils literal notranslate"><span class="pre">New-Object</span> <span class="pre">-ComObject</span></code> cmdlet</p></li>
+<li><p>Calls to native executables like <code class="docutils literal notranslate"><span class="pre">Secedit.exe</span></code></p></li>
 </ul>
 <p>PowerShell modules support a small subset of the <code class="docutils literal notranslate"><span class="pre">#Requires</span></code> options built
 into PowerShell as well as some Ansible-specific requirements specified by
@@ -2465,10 +2465,10 @@ statement must be on its own line, but there can be multiple requires statements
 in one script.</p>
 <p>These are the checks that can be used within Ansible modules:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">#Requires</span> <span class="pre">-Module</span> <span class="pre">Ansible.ModuleUtils.&lt;module_util&gt;</span></code>: Added in Ansible 2.4, specifies a module_util to load in for the module execution.</li>
-<li><code class="docutils literal notranslate"><span class="pre">#Requires</span> <span class="pre">-Version</span> <span class="pre">x.y</span></code>: Added in Ansible 2.5, specifies the version of PowerShell that is required by the module. The module will fail if this requirement is not met.</li>
-<li><code class="docutils literal notranslate"><span class="pre">#AnsibleRequires</span> <span class="pre">-OSVersion</span> <span class="pre">x.y</span></code>: Added in Ansible 2.5, specifies the OS build version that is required by the module and will fail if this requirement is not met. The actual OS version is derived from <code class="docutils literal notranslate"><span class="pre">[Environment]::OSVersion.Version</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">#AnsibleRequires</span> <span class="pre">-Become</span></code>: Added in Ansible 2.5, forces the exec runner to run the module with <code class="docutils literal notranslate"><span class="pre">become</span></code>, which is primarily used to bypass WinRM restrictions. If <code class="docutils literal notranslate"><span class="pre">ansible_become_user</span></code> is not specified then the <code class="docutils literal notranslate"><span class="pre">SYSTEM</span></code> account is used instead.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#Requires</span> <span class="pre">-Module</span> <span class="pre">Ansible.ModuleUtils.&lt;module_util&gt;</span></code>: Added in Ansible 2.4, specifies a module_util to load in for the module execution.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#Requires</span> <span class="pre">-Version</span> <span class="pre">x.y</span></code>: Added in Ansible 2.5, specifies the version of PowerShell that is required by the module. The module will fail if this requirement is not met.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#AnsibleRequires</span> <span class="pre">-OSVersion</span> <span class="pre">x.y</span></code>: Added in Ansible 2.5, specifies the OS build version that is required by the module and will fail if this requirement is not met. The actual OS version is derived from <code class="docutils literal notranslate"><span class="pre">[Environment]::OSVersion.Version</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#AnsibleRequires</span> <span class="pre">-Become</span></code>: Added in Ansible 2.5, forces the exec runner to run the module with <code class="docutils literal notranslate"><span class="pre">become</span></code>, which is primarily used to bypass WinRM restrictions. If <code class="docutils literal notranslate"><span class="pre">ansible_become_user</span></code> is not specified then the <code class="docutils literal notranslate"><span class="pre">SYSTEM</span></code> account is used instead.</p></li>
 </ul>
 </div>
 <div class="section" id="windows-module-utilities">
@@ -2484,13 +2484,13 @@ and enable calling all of its functions.</p>
 <p>The following is a list of module_utils that are packaged with Ansible and a general description of what
 they do:</p>
 <ul class="simple">
-<li>ArgvParser: Utiliy used to convert a list of arguments to an escaped string compliant with the Windows argument parsing rules.</li>
-<li>CamelConversion: Utility used to convert camelCase strings/lists/dicts to snake_case.</li>
-<li>CommandUtil: Utility used to execute a Windows process and return the stdout/stderr and rc as separate objects.</li>
-<li>FileUtil: Utility that expands on the <code class="docutils literal notranslate"><span class="pre">Get-ChildItem</span></code> and <code class="docutils literal notranslate"><span class="pre">Test-Path</span></code> to work with special files like <code class="docutils literal notranslate"><span class="pre">C:\pagefile.sys</span></code>.</li>
-<li>Legacy: General definitions and helper utilities for Ansible module.</li>
-<li>LinkUtil: Utility to create, remove, and get information about symbolic links, junction points and hard inks.</li>
-<li>SID: Utilities used to convert a user or group to a Windows SID and vice versa.</li>
+<li><p>ArgvParser: Utiliy used to convert a list of arguments to an escaped string compliant with the Windows argument parsing rules.</p></li>
+<li><p>CamelConversion: Utility used to convert camelCase strings/lists/dicts to snake_case.</p></li>
+<li><p>CommandUtil: Utility used to execute a Windows process and return the stdout/stderr and rc as separate objects.</p></li>
+<li><p>FileUtil: Utility that expands on the <code class="docutils literal notranslate"><span class="pre">Get-ChildItem</span></code> and <code class="docutils literal notranslate"><span class="pre">Test-Path</span></code> to work with special files like <code class="docutils literal notranslate"><span class="pre">C:\pagefile.sys</span></code>.</p></li>
+<li><p>Legacy: General definitions and helper utilities for Ansible module.</p></li>
+<li><p>LinkUtil: Utility to create, remove, and get information about symbolic links, junction points and hard inks.</p></li>
+<li><p>SID: Utilities used to convert a user or group to a Windows SID and vice versa.</p></li>
 </ul>
 <p>For more details on any specific module utility and their requirements, please see the <a class="reference external" href="https://github.com/ansible/ansible/tree/devel/lib/ansible/module_utils/powershell">Ansible
 module utilities source code</a>.</p>
@@ -2522,13 +2522,10 @@ in a module. This can be a blanket export by using <code class="docutils literal
 <h2><a class="toc-backref" href="#id7">Windows playbook module testing</a><a class="headerlink" href="#windows-playbook-module-testing" title="Permalink to this headline">¶</a></h2>
 <p>You can test a module with an Ansible playbook. For example:</p>
 <ul>
-<li><p class="first">Create a playbook in any directory <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">testmodule.yml</span></code>.</p>
-</li>
-<li><p class="first">Create an inventory file in the same directory <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">hosts</span></code>.</p>
-</li>
-<li><p class="first">Populate the inventory file with the variables required to connect to a Windows host(s).</p>
-</li>
-<li><p class="first">Add the following to the new playbook file:</p>
+<li><p>Create a playbook in any directory <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">testmodule.yml</span></code>.</p></li>
+<li><p>Create an inventory file in the same directory <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">hosts</span></code>.</p></li>
+<li><p>Populate the inventory file with the variables required to connect to a Windows host(s).</p></li>
+<li><p>Add the following to the new playbook file:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test out windows module</span>
   <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">windows</span>
@@ -2539,8 +2536,7 @@ in a module. This can be a blanket export by using <code class="docutils literal
 </pre></div>
 </div>
 </li>
-<li><p class="first">Run the playbook <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">testmodule.yml</span></code></p>
-</li>
+<li><p>Run the playbook <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">testmodule.yml</span></code></p></li>
 </ul>
 <p>This can be useful for seeing how Ansible runs with
 the new module end to end. Other possible ways to test the module are
@@ -2552,21 +2548,19 @@ shown below.</p>
 useful when developing a new module or implementing bug fixes. These
 are some steps that need to be followed to set this up:</p>
 <ul>
-<li><p class="first">Copy the module script to the Windows server</p>
-</li>
-<li><p class="first">Copy <code class="docutils literal notranslate"><span class="pre">./lib/ansible/module_utils/powershell/Ansible.ModuleUtils.Legacy.psm1</span></code> to the same directory as the script above</p>
-</li>
-<li><p class="first">To stop the script from exiting the editor on a successful run, in <code class="docutils literal notranslate"><span class="pre">Ansible.ModuleUtils.Legacy.psm1</span></code> under the function <code class="docutils literal notranslate"><span class="pre">Exit-Json</span></code>, replace the last two lines of the function with:</p>
+<li><p>Copy the module script to the Windows server</p></li>
+<li><p>Copy <code class="docutils literal notranslate"><span class="pre">./lib/ansible/module_utils/powershell/Ansible.ModuleUtils.Legacy.psm1</span></code> to the same directory as the script above</p></li>
+<li><p>To stop the script from exiting the editor on a successful run, in <code class="docutils literal notranslate"><span class="pre">Ansible.ModuleUtils.Legacy.psm1</span></code> under the function <code class="docutils literal notranslate"><span class="pre">Exit-Json</span></code>, replace the last two lines of the function with:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ConvertTo-Json -InputObject $obj -Depth 99</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">To stop the script from exiting the editor on a failed run, in <code class="docutils literal notranslate"><span class="pre">Ansible.ModuleUtils.Legacy.psm1</span></code> under the function <code class="docutils literal notranslate"><span class="pre">Fail-Json</span></code>, replace the last two lines of the function with:</p>
+<li><p>To stop the script from exiting the editor on a failed run, in <code class="docutils literal notranslate"><span class="pre">Ansible.ModuleUtils.Legacy.psm1</span></code> under the function <code class="docutils literal notranslate"><span class="pre">Fail-Json</span></code>, replace the last two lines of the function with:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">Write-Error -Message (ConvertTo-Json -InputObject $obj -Depth 99)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Add the following to the start of the module script that was copied to the server:</p>
+<li><p>Add the following to the start of the module script that was copied to the server:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="c1">### start setup code</span>
 <span class="l l-Scalar l-Scalar-Plain">$complex_args = @{</span>
     <span class="l l-Scalar l-Scalar-Plain">&quot;_ansible_check_mode&quot; = $false</span>
@@ -2587,17 +2581,17 @@ or through an IDE.</p>
 <p>There are multiple IDEs that can be used to debug a Powershell script, two of
 the most popular are</p>
 <ul class="simple">
-<li><a class="reference external" href="https://docs.microsoft.com/en-us/powershell/scripting/core-powershell/ise/how-to-debug-scripts-in-windows-powershell-ise">Powershell ISE</a></li>
-<li><a class="reference external" href="https://blogs.technet.microsoft.com/heyscriptingguy/2017/02/06/debugging-powershell-script-in-visual-studio-code-part-1/">Visual Studio Code</a></li>
+<li><p><a class="reference external" href="https://docs.microsoft.com/en-us/powershell/scripting/core-powershell/ise/how-to-debug-scripts-in-windows-powershell-ise">Powershell ISE</a></p></li>
+<li><p><a class="reference external" href="https://blogs.technet.microsoft.com/heyscriptingguy/2017/02/06/debugging-powershell-script-in-visual-studio-code-part-1/">Visual Studio Code</a></p></li>
 </ul>
 <p>To be able to view the arguments as passed by Ansible to the module follow
 these steps.</p>
 <ul class="simple">
-<li>Prefix the Ansible command with <span class="target" id="index-0"></span><a class="reference internal" href="../reference_appendices/config.html#envvar-ANSIBLE_KEEP_REMOTE_FILES"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">ANSIBLE_KEEP_REMOTE_FILES=1</span></code></a> to specify that Ansible should keep the exec files on the server.</li>
-<li>Log onto the Windows server using the same user account that Ansible used to execute the module.</li>
-<li>Navigate to <code class="docutils literal notranslate"><span class="pre">%TEMP%\..</span></code>. It should contain a folder starting with <code class="docutils literal notranslate"><span class="pre">ansible-tmp-</span></code>.</li>
-<li>Inside this folder, open the PowerShell script for the module.</li>
-<li>In this script is a raw JSON script under <code class="docutils literal notranslate"><span class="pre">$json_raw</span></code> which contains the module arguments under <code class="docutils literal notranslate"><span class="pre">module_args</span></code>. These args can be assigned manually to the <code class="docutils literal notranslate"><span class="pre">$complex_args</span></code> variable that is defined on your debug script.</li>
+<li><p>Prefix the Ansible command with <span class="target" id="index-0"></span><a class="reference internal" href="../reference_appendices/config.html#envvar-ANSIBLE_KEEP_REMOTE_FILES"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">ANSIBLE_KEEP_REMOTE_FILES=1</span></code></a> to specify that Ansible should keep the exec files on the server.</p></li>
+<li><p>Log onto the Windows server using the same user account that Ansible used to execute the module.</p></li>
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">%TEMP%\..</span></code>. It should contain a folder starting with <code class="docutils literal notranslate"><span class="pre">ansible-tmp-</span></code>.</p></li>
+<li><p>Inside this folder, open the PowerShell script for the module.</p></li>
+<li><p>In this script is a raw JSON script under <code class="docutils literal notranslate"><span class="pre">$json_raw</span></code> which contains the module arguments under <code class="docutils literal notranslate"><span class="pre">module_args</span></code>. These args can be assigned manually to the <code class="docutils literal notranslate"><span class="pre">$complex_args</span></code> variable that is defined on your debug script.</p></li>
 </ul>
 </div>
 <div class="section" id="windows-unit-testing">
@@ -2612,9 +2606,9 @@ environment, and configure a test inventory for Ansible to connect to.</p>
 <p>In this example we will set up a test inventory to connect to two hosts and run the integration
 tests for win_stat:</p>
 <ul class="simple">
-<li>Create a copy of <code class="docutils literal notranslate"><span class="pre">./test/integration/inventory.winrm.template</span></code> and name it <code class="docutils literal notranslate"><span class="pre">inventory.winrm</span></code>.</li>
-<li>Fill in entries under <code class="docutils literal notranslate"><span class="pre">[windows]</span></code> and set the required variables that are needed to connect to the host.</li>
-<li>To execute the integration tests, run <code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">windows-integration</span> <span class="pre">win_stat</span></code>; you can replace <code class="docutils literal notranslate"><span class="pre">win_stat</span></code> with the role you wish to test.</li>
+<li><p>Create a copy of <code class="docutils literal notranslate"><span class="pre">./test/integration/inventory.winrm.template</span></code> and name it <code class="docutils literal notranslate"><span class="pre">inventory.winrm</span></code>.</p></li>
+<li><p>Fill in entries under <code class="docutils literal notranslate"><span class="pre">[windows]</span></code> and set the required variables that are needed to connect to the host.</p></li>
+<li><p>To execute the integration tests, run <code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">windows-integration</span> <span class="pre">win_stat</span></code>; you can replace <code class="docutils literal notranslate"><span class="pre">win_stat</span></code> with the role you wish to test.</p></li>
 </ul>
 <p>This will execute all the tests currently defined for that role. You can set
 the verbosity level using the <code class="docutils literal notranslate"><span class="pre">-v</span></code> argument just as you would with
@@ -2704,7 +2698,7 @@ use the <code class="docutils literal notranslate"><span class="pre">#ansible</s
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

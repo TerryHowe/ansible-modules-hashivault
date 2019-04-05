@@ -2269,15 +2269,16 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#introduction-to-ad-hoc-commands" id="id7">Introduction To Ad-Hoc Commands</a><ul>
-<li><a class="reference internal" href="#parallelism-and-shell-commands" id="id8">Parallelism and Shell Commands</a></li>
-<li><a class="reference internal" href="#file-transfer" id="id9">File Transfer</a></li>
-<li><a class="reference internal" href="#managing-packages" id="id10">Managing Packages</a></li>
-<li><a class="reference internal" href="#users-and-groups" id="id11">Users and Groups</a></li>
-<li><a class="reference internal" href="#deploying-from-source-control" id="id12">Deploying From Source Control</a></li>
-<li><a class="reference internal" href="#managing-services" id="id13">Managing Services</a></li>
-<li><a class="reference internal" href="#time-limited-background-operations" id="id14">Time Limited Background Operations</a></li>
-<li><a class="reference internal" href="#gathering-facts" id="id15">Gathering Facts</a></li>
+<li><p><a class="reference internal" href="#introduction-to-ad-hoc-commands" id="id7">Introduction To Ad-Hoc Commands</a></p>
+<ul>
+<li><p><a class="reference internal" href="#parallelism-and-shell-commands" id="id8">Parallelism and Shell Commands</a></p></li>
+<li><p><a class="reference internal" href="#file-transfer" id="id9">File Transfer</a></p></li>
+<li><p><a class="reference internal" href="#managing-packages" id="id10">Managing Packages</a></p></li>
+<li><p><a class="reference internal" href="#users-and-groups" id="id11">Users and Groups</a></p></li>
+<li><p><a class="reference internal" href="#deploying-from-source-control" id="id12">Deploying From Source Control</a></p></li>
+<li><p><a class="reference internal" href="#managing-services" id="id13">Managing Services</a></p></li>
+<li><p><a class="reference internal" href="#time-limited-background-operations" id="id14">Time Limited Background Operations</a></p></li>
+<li><p><a class="reference internal" href="#gathering-facts" id="id15">Gathering Facts</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2335,8 +2336,8 @@ Use of a passwordless setup makes things easier to automate, but it’s not requ
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Rarely, some users have security rules where they constrain their sudo/pbrun/doas environment to running specific command paths only.
+<p class="admonition-title">Note</p>
+<p>Rarely, some users have security rules where they constrain their sudo/pbrun/doas environment to running specific command paths only.
 This does not work with ansible’s no-bootstrapping philosophy and hundreds of different modules.
 If doing this, use Ansible from a special account that does not have this constraint.
 One way of doing this without sharing access to unauthorized users would be gating Ansible with <a class="reference internal" href="../reference_appendices/tower.html#ansible-tower"><span class="std std-ref">Ansible Tower</span></a>, which
@@ -2353,8 +2354,8 @@ the default module name is ‘command’, so we didn’t need to
 specify that all of the time.  We’ll use <code class="docutils literal notranslate"><span class="pre">-m</span></code> in later examples to
 run some other <a class="reference internal" href="modules.html"><span class="doc">Working With Modules</span></a>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The <span class="xref std std-ref">command module</span> does not support extended shell syntax like piping and
+<p class="admonition-title">Note</p>
+<p>The <span class="xref std std-ref">command module</span> does not support extended shell syntax like piping and
 redirects (although shell variables will always work). If your command requires shell-specific
 syntax, use the <cite>shell</cite> module instead. Read more about the differences on the
 <a class="reference internal" href="modules.html#working-with-modules"><span class="std std-ref">Working With Modules</span></a> page.</p>
@@ -2501,18 +2502,18 @@ system.  These can be used to implement conditional execution of tasks but also 
 <p>It’s also possible to filter this output to just export certain facts, see the “setup” module documentation for details.</p>
 <p>Read more about facts at <a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a> once you’re ready to read up on <a class="reference internal" href="playbooks.html"><span class="doc">Playbooks</span></a>.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../installation_guide/intro_configuration.html#intro-configuration"><span class="std std-ref">Configuring Ansible</span></a></dt>
-<dd>All about the Ansible config file</dd>
-<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt>
-<dd>A list of available modules</dd>
-<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt>
-<dd>Using Ansible for configuration management &amp; deployment</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt>
-<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../installation_guide/intro_configuration.html#intro-configuration"><span class="std std-ref">Configuring Ansible</span></a></dt><dd><p>All about the Ansible config file</p>
+</dd>
+<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt><dd><p>A list of available modules</p>
+</dd>
+<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>Using Ansible for configuration management &amp; deployment</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt><dd><p>Questions? Help? Ideas?  Stop by the list on Google Groups</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2544,7 +2545,7 @@ system.  These can be used to implement conditional execution of tasks but also 
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

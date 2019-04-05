@@ -2269,17 +2269,18 @@
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#inventory-script-example-cobbler" id="id3">Inventory Script Example: Cobbler</a></li>
-<li><a class="reference internal" href="#inventory-script-example-aws-ec2" id="id4">Inventory Script Example: AWS EC2</a></li>
-<li><a class="reference internal" href="#inventory-script-example-openstack" id="id5">Inventory Script Example: OpenStack</a><ul>
-<li><a class="reference internal" href="#explicit-use-of-openstack-inventory-script" id="id6">Explicit use of OpenStack inventory script</a></li>
-<li><a class="reference internal" href="#implicit-use-of-openstack-inventory-script" id="id7">Implicit use of OpenStack inventory script</a></li>
-<li><a class="reference internal" href="#refreshing-the-cache" id="id8">Refreshing the cache</a></li>
+<li><p><a class="reference internal" href="#inventory-script-example-cobbler" id="id3">Inventory Script Example: Cobbler</a></p></li>
+<li><p><a class="reference internal" href="#inventory-script-example-aws-ec2" id="id4">Inventory Script Example: AWS EC2</a></p></li>
+<li><p><a class="reference internal" href="#inventory-script-example-openstack" id="id5">Inventory Script Example: OpenStack</a></p>
+<ul>
+<li><p><a class="reference internal" href="#explicit-use-of-openstack-inventory-script" id="id6">Explicit use of OpenStack inventory script</a></p></li>
+<li><p><a class="reference internal" href="#implicit-use-of-openstack-inventory-script" id="id7">Implicit use of OpenStack inventory script</a></p></li>
+<li><p><a class="reference internal" href="#refreshing-the-cache" id="id8">Refreshing the cache</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#other-inventory-scripts" id="id9">Other inventory scripts</a></li>
-<li><a class="reference internal" href="#using-inventory-directories-and-multiple-inventory-sources" id="id10">Using Inventory Directories and Multiple Inventory Sources</a></li>
-<li><a class="reference internal" href="#static-groups-of-dynamic-groups" id="id11">Static Groups of Dynamic Groups</a></li>
+<li><p><a class="reference internal" href="#other-inventory-scripts" id="id9">Other inventory scripts</a></p></li>
+<li><p><a class="reference internal" href="#using-inventory-directories-and-multiple-inventory-sources" id="id10">Using Inventory Directories and Multiple Inventory Sources</a></p></li>
+<li><p><a class="reference internal" href="#static-groups-of-dynamic-groups" id="id11">Static Groups of Dynamic Groups</a></p></li>
 </ul>
 </div>
 <p>If your Ansible inventory fluctuates over time, with hosts spinning up and shutting down in response to business demands, the static inventory solutions described in <a class="reference internal" href="intro_inventory.html#inventory"><span class="std std-ref">Working with Inventory</span></a> will not serve your needs. You may need to track hosts from multiple sources: cloud providers, LDAP, <a class="reference external" href="https://cobbler.github.io">Cobbler</a>, and/or enterprise CMDB systems.</p>
@@ -2333,8 +2334,8 @@ layer that can represent data for multiple configuration management systems (eve
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The name ‘webserver’ came from Cobbler, as did the variables for
+<p class="admonition-title">Note</p>
+<p>The name ‘webserver’ came from Cobbler, as did the variables for
 the config file.  You can still pass in your own variables like
 normal in Ansible, but variables from the external inventory script
 will override any that have the same name.</p>
@@ -2401,73 +2402,73 @@ You can also use the <code class="docutils literal notranslate"><span class="pre
 <p>At their heart, inventory files are simply a mapping from some name to a destination address. The default <code class="docutils literal notranslate"><span class="pre">ec2.ini</span></code> settings are configured for running Ansible from outside EC2 (from your laptop for example) – and this is not the most efficient way to manage EC2.</p>
 <p>If you are running Ansible from within EC2, internal DNS names and IP addresses may make more sense than public DNS names. In this case, you can modify the <code class="docutils literal notranslate"><span class="pre">destination_variable</span></code> in <code class="docutils literal notranslate"><span class="pre">ec2.ini</span></code> to be the private DNS name of an instance. This is particularly important when running Ansible within a private subnet inside a VPC, where the only way to access an instance is via its private IP address. For VPC instances, <cite>vpc_destination_variable</cite> in <code class="docutils literal notranslate"><span class="pre">ec2.ini</span></code> provides a means of using which ever <a class="reference external" href="http://docs.pythonboto.org/en/latest/ref/ec2.html#module-boto.ec2.instance">boto.ec2.instance variable</a> makes the most sense for your use case.</p>
 <p>The EC2 external inventory provides mappings to instances from several groups:</p>
-<dl class="docutils">
-<dt>Global</dt>
-<dd>All instances are in group <code class="docutils literal notranslate"><span class="pre">ec2</span></code>.</dd>
-<dt>Instance ID</dt>
-<dd>These are groups of one since instance IDs are unique.
+<dl class="simple">
+<dt>Global</dt><dd><p>All instances are in group <code class="docutils literal notranslate"><span class="pre">ec2</span></code>.</p>
+</dd>
+<dt>Instance ID</dt><dd><p>These are groups of one since instance IDs are unique.
 e.g.
 <code class="docutils literal notranslate"><span class="pre">i-00112233</span></code>
-<code class="docutils literal notranslate"><span class="pre">i-a1b1c1d1</span></code></dd>
-<dt>Region</dt>
-<dd>A group of all instances in an AWS region.
+<code class="docutils literal notranslate"><span class="pre">i-a1b1c1d1</span></code></p>
+</dd>
+<dt>Region</dt><dd><p>A group of all instances in an AWS region.
 e.g.
 <code class="docutils literal notranslate"><span class="pre">us-east-1</span></code>
-<code class="docutils literal notranslate"><span class="pre">us-west-2</span></code></dd>
-<dt>Availability Zone</dt>
-<dd>A group of all instances in an availability zone.
+<code class="docutils literal notranslate"><span class="pre">us-west-2</span></code></p>
+</dd>
+<dt>Availability Zone</dt><dd><p>A group of all instances in an availability zone.
 e.g.
 <code class="docutils literal notranslate"><span class="pre">us-east-1a</span></code>
-<code class="docutils literal notranslate"><span class="pre">us-east-1b</span></code></dd>
-<dt>Security Group</dt>
-<dd>Instances belong to one or more security groups. A group is created for each security group, with all characters except alphanumerics, converted to underscores (_). Each group is prefixed by <code class="docutils literal notranslate"><span class="pre">security_group_</span></code>. Currently, dashes (-) are also converted to underscores (_). You can change using the replace_dash_in_groups setting in ec2.ini (this has changed across several versions so check the ec2.ini for details).
+<code class="docutils literal notranslate"><span class="pre">us-east-1b</span></code></p>
+</dd>
+<dt>Security Group</dt><dd><p>Instances belong to one or more security groups. A group is created for each security group, with all characters except alphanumerics, converted to underscores (_). Each group is prefixed by <code class="docutils literal notranslate"><span class="pre">security_group_</span></code>. Currently, dashes (-) are also converted to underscores (_). You can change using the replace_dash_in_groups setting in ec2.ini (this has changed across several versions so check the ec2.ini for details).
 e.g.
 <code class="docutils literal notranslate"><span class="pre">security_group_default</span></code>
 <code class="docutils literal notranslate"><span class="pre">security_group_webservers</span></code>
-<code class="docutils literal notranslate"><span class="pre">security_group_Pete_s_Fancy_Group</span></code></dd>
-<dt>Tags</dt>
-<dd>Each instance can have a variety of key/value pairs associated with it called Tags. The most common tag key is ‘Name’, though anything is possible. Each key/value pair is its own group of instances, again with special characters converted to underscores, in the format <code class="docutils literal notranslate"><span class="pre">tag_KEY_VALUE</span></code>
+<code class="docutils literal notranslate"><span class="pre">security_group_Pete_s_Fancy_Group</span></code></p>
+</dd>
+<dt>Tags</dt><dd><p>Each instance can have a variety of key/value pairs associated with it called Tags. The most common tag key is ‘Name’, though anything is possible. Each key/value pair is its own group of instances, again with special characters converted to underscores, in the format <code class="docutils literal notranslate"><span class="pre">tag_KEY_VALUE</span></code>
 e.g.
 <code class="docutils literal notranslate"><span class="pre">tag_Name_Web</span></code> can be used as is
 <code class="docutils literal notranslate"><span class="pre">tag_Name_redis-master-001</span></code> becomes <code class="docutils literal notranslate"><span class="pre">tag_Name_redis_master_001</span></code>
-<code class="docutils literal notranslate"><span class="pre">tag_aws_cloudformation_logical-id_WebServerGroup</span></code> becomes <code class="docutils literal notranslate"><span class="pre">tag_aws_cloudformation_logical_id_WebServerGroup</span></code></dd>
+<code class="docutils literal notranslate"><span class="pre">tag_aws_cloudformation_logical-id_WebServerGroup</span></code> becomes <code class="docutils literal notranslate"><span class="pre">tag_aws_cloudformation_logical_id_WebServerGroup</span></code></p>
+</dd>
 </dl>
 <p>When the Ansible is interacting with a specific server, the EC2 inventory script is called again with the <code class="docutils literal notranslate"><span class="pre">--host</span> <span class="pre">HOST</span></code> option. This looks up the HOST in the index cache to get the instance ID, and then makes an API call to AWS to get information about that specific instance. It then makes information about that instance available as variables to your playbooks. Each variable is prefixed by <code class="docutils literal notranslate"><span class="pre">ec2_</span></code>. Here are some of the variables available:</p>
 <ul class="simple">
-<li>ec2_architecture</li>
-<li>ec2_description</li>
-<li>ec2_dns_name</li>
-<li>ec2_id</li>
-<li>ec2_image_id</li>
-<li>ec2_instance_type</li>
-<li>ec2_ip_address</li>
-<li>ec2_kernel</li>
-<li>ec2_key_name</li>
-<li>ec2_launch_time</li>
-<li>ec2_monitored</li>
-<li>ec2_ownerId</li>
-<li>ec2_placement</li>
-<li>ec2_platform</li>
-<li>ec2_previous_state</li>
-<li>ec2_private_dns_name</li>
-<li>ec2_private_ip_address</li>
-<li>ec2_public_dns_name</li>
-<li>ec2_ramdisk</li>
-<li>ec2_region</li>
-<li>ec2_root_device_name</li>
-<li>ec2_root_device_type</li>
-<li>ec2_security_group_ids</li>
-<li>ec2_security_group_names</li>
-<li>ec2_spot_instance_request_id</li>
-<li>ec2_state</li>
-<li>ec2_state_code</li>
-<li>ec2_state_reason</li>
-<li>ec2_status</li>
-<li>ec2_subnet_id</li>
-<li>ec2_tag_Name</li>
-<li>ec2_tenancy</li>
-<li>ec2_virtualization_type</li>
-<li>ec2_vpc_id</li>
+<li><p>ec2_architecture</p></li>
+<li><p>ec2_description</p></li>
+<li><p>ec2_dns_name</p></li>
+<li><p>ec2_id</p></li>
+<li><p>ec2_image_id</p></li>
+<li><p>ec2_instance_type</p></li>
+<li><p>ec2_ip_address</p></li>
+<li><p>ec2_kernel</p></li>
+<li><p>ec2_key_name</p></li>
+<li><p>ec2_launch_time</p></li>
+<li><p>ec2_monitored</p></li>
+<li><p>ec2_ownerId</p></li>
+<li><p>ec2_placement</p></li>
+<li><p>ec2_platform</p></li>
+<li><p>ec2_previous_state</p></li>
+<li><p>ec2_private_dns_name</p></li>
+<li><p>ec2_private_ip_address</p></li>
+<li><p>ec2_public_dns_name</p></li>
+<li><p>ec2_ramdisk</p></li>
+<li><p>ec2_region</p></li>
+<li><p>ec2_root_device_name</p></li>
+<li><p>ec2_root_device_type</p></li>
+<li><p>ec2_security_group_ids</p></li>
+<li><p>ec2_security_group_names</p></li>
+<li><p>ec2_spot_instance_request_id</p></li>
+<li><p>ec2_state</p></li>
+<li><p>ec2_state_code</p></li>
+<li><p>ec2_state_reason</p></li>
+<li><p>ec2_status</p></li>
+<li><p>ec2_subnet_id</p></li>
+<li><p>ec2_tag_Name</p></li>
+<li><p>ec2_tenancy</p></li>
+<li><p>ec2_virtualization_type</p></li>
+<li><p>ec2_vpc_id</p></li>
 </ul>
 <p>Both <code class="docutils literal notranslate"><span class="pre">ec2_security_group_ids</span></code> and <code class="docutils literal notranslate"><span class="pre">ec2_security_group_names</span></code> are comma-separated lists of all security groups. Each EC2 tag is a variable in the format <code class="docutils literal notranslate"><span class="pre">ec2_tag_KEY</span></code>.</p>
 <p>To see the complete list of variables available for an instance, run the script by itself:</p>
@@ -2494,21 +2495,21 @@ explicitly clear the cache, you can run the ec2.py script with the <code class="
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Do not name it <cite>openstack.py</cite>. This name will conflict with imports from openstacksdk.</p>
+<p class="admonition-title">Note</p>
+<p>Do not name it <cite>openstack.py</cite>. This name will conflict with imports from openstacksdk.</p>
 </div>
 <p>Source an OpenStack RC file:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">source openstack.rc</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">An OpenStack RC file contains the environment variables required by the client tools to establish a connection with the cloud provider, such as the authentication URL, user name, password and region name. For more information on how to download, create or source an OpenStack RC file, please refer to <a class="reference external" href="https://docs.openstack.org/user-guide/common/cli_set_environment_variables_using_openstack_rc.html">Set environment variables using the OpenStack RC file</a>.</p>
+<p class="admonition-title">Note</p>
+<p>An OpenStack RC file contains the environment variables required by the client tools to establish a connection with the cloud provider, such as the authentication URL, user name, password and region name. For more information on how to download, create or source an OpenStack RC file, please refer to <a class="reference external" href="https://docs.openstack.org/user-guide/common/cli_set_environment_variables_using_openstack_rc.html">Set environment variables using the OpenStack RC file</a>.</p>
 </div>
 <p>You can confirm the file has been successfully sourced by running a simple command, such as <cite>nova list</cite> and ensuring it return no errors.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The OpenStack command line clients are required to run the <cite>nova list</cite> command. For more information on how to install them, please refer to <a class="reference external" href="https://docs.openstack.org/user-guide/common/cli_install_openstack_command_line_clients.html">Install the OpenStack command-line clients</a>.</p>
+<p class="admonition-title">Note</p>
+<p>The OpenStack command line clients are required to run the <cite>nova list</cite> command. For more information on how to install them, please refer to <a class="reference external" href="https://docs.openstack.org/user-guide/common/cli_install_openstack_command_line_clients.html">Install the OpenStack command-line clients</a>.</p>
 </div>
 <p>You can test the OpenStack dynamic inventory script manually to confirm it is working as expected:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">./openstack_inventory.py --list</span>
@@ -2580,14 +2581,14 @@ the dynamic groups as empty in the static inventory file. For example:</p>
 </pre></div>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="intro_inventory.html"><span class="doc">Working with Inventory</span></a></dt>
-<dd>All about static inventory files</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt>
-<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="intro_inventory.html"><span class="doc">Working with Inventory</span></a></dt><dd><p>All about static inventory files</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt><dd><p>Questions? Help? Ideas?  Stop by the list on Google Groups</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2619,7 +2620,7 @@ the dynamic groups as empty in the static inventory file. For example:</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

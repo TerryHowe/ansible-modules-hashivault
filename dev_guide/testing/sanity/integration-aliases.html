@@ -2274,11 +2274,11 @@ Each test MUST have an <code class="docutils literal notranslate"><span class="p
 <p>Tests must be configured to run in exactly one group. This is done by adding the appropriate group to the <code class="docutils literal notranslate"><span class="pre">aliases</span></code> file.</p>
 <p>The following are examples of some of the available groups:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">shippable/posix/group1</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">shippable/windows/group2</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">shippable/azure/group3</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">shippable/aws/group1</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">shippable/cloud/group1</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shippable/posix/group1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shippable/windows/group2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shippable/azure/group3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shippable/aws/group1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shippable/cloud/group1</span></code></p></li>
 </ul>
 <p>Groups are used to balance tests across multiple CI jobs to minimize test run time.
 They also improve efficiency by keeping tests with similar requirements running together.</p>
@@ -2289,29 +2289,29 @@ If more than one group is available, select one randomly.</p>
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p>Aliases can be used to express some test requirements:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">needs/privileged</span></code> - Requires <code class="docutils literal notranslate"><span class="pre">--docker-privileged</span></code> when running tests with <code class="docutils literal notranslate"><span class="pre">--docker</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">needs/root</span></code> - Requires running tests as <code class="docutils literal notranslate"><span class="pre">root</span></code> or with <code class="docutils literal notranslate"><span class="pre">--docker</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">needs/ssh</span></code> - Requires SSH connections to localhost (or the test container with <code class="docutils literal notranslate"><span class="pre">--docker</span></code>) without a password.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">needs/privileged</span></code> - Requires <code class="docutils literal notranslate"><span class="pre">--docker-privileged</span></code> when running tests with <code class="docutils literal notranslate"><span class="pre">--docker</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">needs/root</span></code> - Requires running tests as <code class="docutils literal notranslate"><span class="pre">root</span></code> or with <code class="docutils literal notranslate"><span class="pre">--docker</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">needs/ssh</span></code> - Requires SSH connections to localhost (or the test container with <code class="docutils literal notranslate"><span class="pre">--docker</span></code>) without a password.</p></li>
 </ul>
 </div>
 <div class="section" id="skipping">
 <h2>Skipping<a class="headerlink" href="#skipping" title="Permalink to this headline">¶</a></h2>
 <p>Aliases can be used to skip platforms using one of the following:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">skip/freebsd</span></code> - Skip tests on FreeBSD.</li>
-<li><code class="docutils literal notranslate"><span class="pre">skip/osx</span></code> - Skip tests on macOS.</li>
-<li><code class="docutils literal notranslate"><span class="pre">skip/rhel</span></code> - Skip tests on RHEL.</li>
-<li><code class="docutils literal notranslate"><span class="pre">skip/docker</span></code> - Skip tests when running on a Docker container</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip/freebsd</span></code> - Skip tests on FreeBSD.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip/osx</span></code> - Skip tests on macOS.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip/rhel</span></code> - Skip tests on RHEL.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip/docker</span></code> - Skip tests when running on a Docker container</p></li>
 </ul>
 <p>Platform versions, as specified using the <code class="docutils literal notranslate"><span class="pre">--remote</span></code> option with <code class="docutils literal notranslate"><span class="pre">/</span></code> removed, can also be skipped:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">skip/freebsd11.1</span></code> - Skip tests on FreeBSD 11.1.</li>
-<li><code class="docutils literal notranslate"><span class="pre">skip/rhel7.6</span></code> - Skip tests on RHEL 7.6.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip/freebsd11.1</span></code> - Skip tests on FreeBSD 11.1.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip/rhel7.6</span></code> - Skip tests on RHEL 7.6.</p></li>
 </ul>
 <p>Aliases can be used to skip Python major versions using one of the following:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">skip/python2</span></code> - Skip tests on Python 2.x.</li>
-<li><code class="docutils literal notranslate"><span class="pre">skip/python3</span></code> - Skip tests on Python 3.x.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip/python2</span></code> - Skip tests on Python 2.x.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip/python3</span></code> - Skip tests on Python 3.x.</p></li>
 </ul>
 <p>For more fine grained skipping, use conditionals in integration test playbooks, such as:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ansible_distribution in (&#39;Ubuntu&#39;)</span>
@@ -2325,8 +2325,8 @@ These tests will continue to run for pull requests which modify the test or the 
 <p>This avoids unnecessary test failures for other pull requests, as well as tests on merge runs and nightly CI jobs.</p>
 <p>There are two ways to run unstable tests manually:</p>
 <ul class="simple">
-<li>Use the <code class="docutils literal notranslate"><span class="pre">--allow-unstable</span></code> option for <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code></li>
-<li>Prefix the test name with <code class="docutils literal notranslate"><span class="pre">unstable/</span></code> when passing it to <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code>.</li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">--allow-unstable</span></code> option for <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code></p></li>
+<li><p>Prefix the test name with <code class="docutils literal notranslate"><span class="pre">unstable/</span></code> when passing it to <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code>.</p></li>
 </ul>
 <p>Tests will be marked as unstable by a member of the Ansible Core Team.
 GitHub <a class="reference internal" href="#issues">issues</a> will be created to track each unstable test.</p>
@@ -2337,8 +2337,8 @@ GitHub <a class="reference internal" href="#issues">issues</a> will be created t
 <p>Disabled tests are automatically skipped.</p>
 <p>There are two ways to run disabled tests manually:</p>
 <ul class="simple">
-<li>Use the <code class="docutils literal notranslate"><span class="pre">--allow-disabled</span></code> option for <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code></li>
-<li>Prefix the test name with <code class="docutils literal notranslate"><span class="pre">disabled/</span></code> when passing it to <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code>.</li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">--allow-disabled</span></code> option for <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code></p></li>
+<li><p>Prefix the test name with <code class="docutils literal notranslate"><span class="pre">disabled/</span></code> when passing it to <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code>.</p></li>
 </ul>
 <p>Tests will be marked as disabled by a member of the Ansible Core Team.
 GitHub <a class="reference internal" href="#issues">issues</a> will be created to track each disabled test.</p>
@@ -2350,8 +2350,8 @@ Most tests can be supported through the use of simulators and/or cloud plugins.<
 <p>However, if that is not possible then marking a test as unsupported will prevent it from running in CI.</p>
 <p>There are two ways to run unsupported tests manually:</p>
 <ul class="simple">
-<li>Use the <code class="docutils literal notranslate"><span class="pre">--allow-unsupported</span></code> option for <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code></li>
-<li>Prefix the test name with <code class="docutils literal notranslate"><span class="pre">unsupported/</span></code> when passing it to <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code>.</li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">--allow-unsupported</span></code> option for <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code></p></li>
+<li><p>Prefix the test name with <code class="docutils literal notranslate"><span class="pre">unsupported/</span></code> when passing it to <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code>.</p></li>
 </ul>
 <p>Tests will be marked as unsupported by the contributor of the test.</p>
 </div>
@@ -2361,13 +2361,13 @@ Most tests can be supported through the use of simulators and/or cloud plugins.<
 <p>These require an additional alias to indicate the required test plugin.</p>
 <p>Some of the available aliases are:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">cloud/aws</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">cloud/azure</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">cloud/cs</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">cloud/foreman</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">cloud/openshift</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">cloud/tower</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">cloud/vcenter</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cloud/aws</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cloud/azure</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cloud/cs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cloud/foreman</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cloud/openshift</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cloud/tower</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cloud/vcenter</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="untested">
@@ -2379,10 +2379,10 @@ Most tests can be supported through the use of simulators and/or cloud plugins.<
 <p>Tests that are marked as <a class="reference internal" href="#unstable">unstable</a> or <a class="reference internal" href="#disabled">disabled</a> will have an issue created to track the status of the test.
 Each issue will be assigned to one of the following projects:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/ansible/ansible/projects/21">AWS</a></li>
-<li><a class="reference external" href="https://github.com/ansible/ansible/projects/22">Azure</a></li>
-<li><a class="reference external" href="https://github.com/ansible/ansible/projects/23">Windows</a></li>
-<li><a class="reference external" href="https://github.com/ansible/ansible/projects/25">General</a></li>
+<li><p><a class="reference external" href="https://github.com/ansible/ansible/projects/21">AWS</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ansible/ansible/projects/22">Azure</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ansible/ansible/projects/23">Windows</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ansible/ansible/projects/25">General</a></p></li>
 </ul>
 </div>
 <div class="section" id="questions">
@@ -2417,7 +2417,7 @@ Each issue will be assigned to one of the following projects:</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

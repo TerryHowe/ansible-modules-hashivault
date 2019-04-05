@@ -2273,29 +2273,33 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-2-0-porting-guide" id="id7">Ansible 2.0 Porting Guide</a><ul>
-<li><a class="reference internal" href="#playbook" id="id8">Playbook</a><ul>
-<li><a class="reference internal" href="#deprecated" id="id9">Deprecated</a></li>
-<li><a class="reference internal" href="#other-caveats" id="id10">Other caveats</a></li>
+<li><p><a class="reference internal" href="#ansible-2-0-porting-guide" id="id7">Ansible 2.0 Porting Guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#playbook" id="id8">Playbook</a></p>
+<ul>
+<li><p><a class="reference internal" href="#deprecated" id="id9">Deprecated</a></p></li>
+<li><p><a class="reference internal" href="#other-caveats" id="id10">Other caveats</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#porting-plugins" id="id11">Porting plugins</a><ul>
-<li><a class="reference internal" href="#lookup-plugins" id="id12">Lookup plugins</a></li>
-<li><a class="reference internal" href="#connection-plugins" id="id13">Connection plugins</a></li>
-<li><a class="reference internal" href="#action-plugins" id="id14">Action plugins</a></li>
-<li><a class="reference internal" href="#callback-plugins" id="id15">Callback plugins</a></li>
-<li><a class="reference internal" href="#id1" id="id16">Connection plugins</a></li>
+<li><p><a class="reference internal" href="#porting-plugins" id="id11">Porting plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#lookup-plugins" id="id12">Lookup plugins</a></p></li>
+<li><p><a class="reference internal" href="#connection-plugins" id="id13">Connection plugins</a></p></li>
+<li><p><a class="reference internal" href="#action-plugins" id="id14">Action plugins</a></p></li>
+<li><p><a class="reference internal" href="#callback-plugins" id="id15">Callback plugins</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id16">Connection plugins</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#hybrid-plugins" id="id17">Hybrid plugins</a><ul>
-<li><a class="reference internal" href="#id2" id="id18">Lookup plugins</a></li>
-<li><a class="reference internal" href="#id3" id="id19">Connection plugins</a></li>
-<li><a class="reference internal" href="#id4" id="id20">Action plugins</a></li>
-<li><a class="reference internal" href="#id5" id="id21">Callback plugins</a></li>
-<li><a class="reference internal" href="#id6" id="id22">Connection plugins</a></li>
+<li><p><a class="reference internal" href="#hybrid-plugins" id="id17">Hybrid plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id18">Lookup plugins</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id19">Connection plugins</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id20">Action plugins</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id21">Callback plugins</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id22">Connection plugins</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#porting-custom-scripts" id="id23">Porting custom scripts</a></li>
+<li><p><a class="reference internal" href="#porting-custom-scripts" id="id23">Porting custom scripts</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2323,7 +2327,7 @@
 </pre></div>
 </div>
 <ul>
-<li><p class="first">trailing newline When a string with a trailing newline was specified in the
+<li><p>trailing newline When a string with a trailing newline was specified in the
 playbook via yaml dict format, the trailing newline was stripped. When
 specified in key=value format, the trailing newlines were kept. In v2, both
 methods of specifying the string will keep the trailing newlines. If you
@@ -2351,10 +2355,10 @@ using the following as an example:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Behavior of templating DOS-type text files changes with Ansible v2.</p>
+<li><p>Behavior of templating DOS-type text files changes with Ansible v2.</p>
 <p>A bug in Ansible v1 causes DOS-type text files (using a carriage return and newline) to be templated to Unix-type text files (using only a newline). In Ansible v2 this long-standing bug was finally fixed and DOS-type text files are preserved correctly. This may be confusing when you expect your playbook to not show any differences when migrating to Ansible v2, while in fact you will see every DOS-type file being completely replaced (with what appears to be the exact same content).</p>
 </li>
-<li><p class="first">When specifying complex args as a variable, the variable must use the full jinja2
+<li><p>When specifying complex args as a variable, the variable must use the full jinja2
 variable syntax (<code class="docutils literal notranslate"><span class="pre">`{{var_name}}`</span></code>) - bare variable names there are no longer accepted.
 In fact, even specifying args with variables has been deprecated, and will not be
 allowed in future versions:</p>
@@ -2373,39 +2377,27 @@ allowed in future versions:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">porting task includes</p>
-</li>
-<li><p class="first">More dynamic. Corner-case formats that were not supposed to work now do not, as expected.</p>
-</li>
-<li><p class="first">variables defined in the yaml dict format <a class="reference external" href="https://github.com/ansible/ansible/issues/13324">https://github.com/ansible/ansible/issues/13324</a></p>
-</li>
-<li><p class="first">templating (variables in playbooks and template lookups) has improved with regard to keeping the original instead of turning everything into a string.
-If you need the old behavior, quote the value to pass it around as a string.</p>
-</li>
-<li><p class="first">Empty variables and variables set to null in yaml are no longer converted to empty strings. They will retain the value of <cite>None</cite>.
-You can override the <cite>null_representation</cite> setting to an empty string in your config file by setting the <span class="target" id="index-0"></span><a class="reference internal" href="../reference_appendices/config.html#envvar-ANSIBLE_NULL_REPRESENTATION"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">ANSIBLE_NULL_REPRESENTATION</span></code></a> environment variable.</p>
-</li>
-<li><p class="first">Extras callbacks must be whitelisted in ansible.cfg. Copying is no longer necessary but whitelisting in ansible.cfg must be completed.</p>
-</li>
-<li><p class="first">dnf module has been rewritten. Some minor changes in behavior may be observed.</p>
-</li>
-<li><p class="first">win_updates has been rewritten and works as expected now.</p>
-</li>
-<li><p class="first">from 2.0.1 onwards, the implicit setup task from gather_facts now correctly inherits everything from play, but this might cause issues for those setting
-<cite>environment</cite> at the play level and depending on <cite>ansible_env</cite> existing. Previously this was ignored but now might issue an ‘Undefined’ error.</p>
-</li>
+<li><p>porting task includes</p></li>
+<li><p>More dynamic. Corner-case formats that were not supposed to work now do not, as expected.</p></li>
+<li><p>variables defined in the yaml dict format <a class="reference external" href="https://github.com/ansible/ansible/issues/13324">https://github.com/ansible/ansible/issues/13324</a></p></li>
+<li><p>templating (variables in playbooks and template lookups) has improved with regard to keeping the original instead of turning everything into a string.
+If you need the old behavior, quote the value to pass it around as a string.</p></li>
+<li><p>Empty variables and variables set to null in yaml are no longer converted to empty strings. They will retain the value of <cite>None</cite>.
+You can override the <cite>null_representation</cite> setting to an empty string in your config file by setting the <span class="target" id="index-0"></span><a class="reference internal" href="../reference_appendices/config.html#envvar-ANSIBLE_NULL_REPRESENTATION"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">ANSIBLE_NULL_REPRESENTATION</span></code></a> environment variable.</p></li>
+<li><p>Extras callbacks must be whitelisted in ansible.cfg. Copying is no longer necessary but whitelisting in ansible.cfg must be completed.</p></li>
+<li><p>dnf module has been rewritten. Some minor changes in behavior may be observed.</p></li>
+<li><p>win_updates has been rewritten and works as expected now.</p></li>
+<li><p>from 2.0.1 onwards, the implicit setup task from gather_facts now correctly inherits everything from play, but this might cause issues for those setting
+<cite>environment</cite> at the play level and depending on <cite>ansible_env</cite> existing. Previously this was ignored but now might issue an ‘Undefined’ error.</p></li>
 </ul>
 <div class="section" id="deprecated">
 <h3><a class="toc-backref" href="#id9">Deprecated</a><a class="headerlink" href="#deprecated" title="Permalink to this headline">¶</a></h3>
 <p>While all items listed here will show a deprecation warning message, they still work as they did in 1.9.x. Please note that they will be removed in 2.2 (Ansible always waits two major releases to remove a deprecated feature).</p>
 <ul>
-<li><p class="first">Bare variables in <code class="docutils literal notranslate"><span class="pre">with_</span></code> loops should instead use the <code class="docutils literal notranslate"><span class="pre">&quot;{{</span> <span class="pre">var</span> <span class="pre">}}&quot;</span></code> syntax, which helps eliminate ambiguity.</p>
-</li>
-<li><p class="first">The ansible-galaxy text format requirements file. Users should use the YAML format for requirements instead.</p>
-</li>
-<li><p class="first">Undefined variables within a <code class="docutils literal notranslate"><span class="pre">with_</span></code> loop’s list currently do not interrupt the loop, but they do issue a warning; in the future, they will issue an error.</p>
-</li>
-<li><p class="first">Using dictionary variables to set all task parameters is unsafe and will be removed in a future version. For example:</p>
+<li><p>Bare variables in <code class="docutils literal notranslate"><span class="pre">with_</span></code> loops should instead use the <code class="docutils literal notranslate"><span class="pre">&quot;{{</span> <span class="pre">var</span> <span class="pre">}}&quot;</span></code> syntax, which helps eliminate ambiguity.</p></li>
+<li><p>The ansible-galaxy text format requirements file. Users should use the YAML format for requirements instead.</p></li>
+<li><p>Undefined variables within a <code class="docutils literal notranslate"><span class="pre">with_</span></code> loop’s list currently do not interrupt the loop, but they do issue a warning; in the future, they will issue an error.</p></li>
+<li><p>Using dictionary variables to set all task parameters is unsafe and will be removed in a future version. For example:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
   <span class="nt">gather_facts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">no</span>
   <span class="nt">vars</span><span class="p">:</span>
@@ -2423,20 +2415,17 @@ You can override the <cite>null_representation</cite> setting to an empty string
 </pre></div>
 </div>
 </li>
-<li><p class="first">Host patterns should use a comma (,) or colon (:) instead of a semicolon (;) to separate hosts/groups in the pattern.</p>
-</li>
-<li><p class="first">Ranges specified in host patterns should use the [x:y] syntax, instead of [x-y].</p>
-</li>
-<li><p class="first">Playbooks using privilege escalation should always use “become*” options rather than the old su*/sudo* options.</p>
-</li>
-<li><p class="first">The “short form” for vars_prompt is no longer supported.
+<li><p>Host patterns should use a comma (,) or colon (:) instead of a semicolon (;) to separate hosts/groups in the pattern.</p></li>
+<li><p>Ranges specified in host patterns should use the [x:y] syntax, instead of [x-y].</p></li>
+<li><p>Playbooks using privilege escalation should always use “become*” options rather than the old su*/sudo* options.</p></li>
+<li><p>The “short form” for vars_prompt is no longer supported.
 For example:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">vars_prompt</span><span class="p">:</span>
     <span class="nt">variable_name</span><span class="p">:</span> <span class="s">&quot;Prompt</span><span class="nv"> </span><span class="s">string&quot;</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Specifying variables at the top level of a task include statement is no longer supported. For example:</p>
+<li><p>Specifying variables at the top level of a task include statement is no longer supported. For example:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">include_tasks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">foo.yml</span>
     <span class="l l-Scalar l-Scalar-Plain">a</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
 </pre></div>
@@ -2450,11 +2439,9 @@ For example:</p>
 </pre></div>
 </div>
 <ul>
-<li><p class="first">Setting any_errors_fatal on a task is no longer supported. This should be set at the play level only.</p>
-</li>
-<li><p class="first">Bare variables in the <cite>environment</cite> dictionary (for plays/tasks/etc.) are no longer supported. Variables specified there should use the full variable syntax: ‘{{foo}}’.</p>
-</li>
-<li><p class="first">Tags (or any directive) should no longer be specified with other parameters in a task include. Instead, they should be specified as an option on the task.
+<li><p>Setting any_errors_fatal on a task is no longer supported. This should be set at the play level only.</p></li>
+<li><p>Bare variables in the <cite>environment</cite> dictionary (for plays/tasks/etc.) are no longer supported. Variables specified there should use the full variable syntax: ‘{{foo}}’.</p></li>
+<li><p>Tags (or any directive) should no longer be specified with other parameters in a task include. Instead, they should be specified as an option on the task.
 For example:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">include_tasks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">foo.yml tags=a,b,c</span>
 </pre></div>
@@ -2465,15 +2452,14 @@ For example:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">The first_available_file option on tasks has been deprecated. Users should use the with_first_found option or lookup (‘first_found’, …) plugin.</p>
-</li>
+<li><p>The first_available_file option on tasks has been deprecated. Users should use the with_first_found option or lookup (‘first_found’, …) plugin.</p></li>
 </ul>
 </div>
 <div class="section" id="other-caveats">
 <h3><a class="toc-backref" href="#id10">Other caveats</a><a class="headerlink" href="#other-caveats" title="Permalink to this headline">¶</a></h3>
 <p>Here are some corner cases encountered when updating. These are mostly caused by the more stringent parser validation and the capture of errors that were previously ignored.</p>
 <ul>
-<li><p class="first">Bad variable composition:</p>
+<li><p>Bad variable composition:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">with_items</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myvar_</span><span class="cp">{{</span><span class="nv">rest_of_name</span><span class="cp">}}</span>
 </pre></div>
 </div>
@@ -2482,14 +2468,14 @@ For example:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Misspelled directives:</p>
+<li><p>Misspelled directives:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">task</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dostuf</span>
   <span class="nt">becom</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">yes</span>
 </pre></div>
 </div>
 <p>The task always ran without using privilege escalation (for that you need <cite>become</cite>) but was also silently ignored so the play ‘ran’ even though it should not, now this is a parsing error.</p>
 </li>
-<li><p class="first">Duplicate directives:</p>
+<li><p>Duplicate directives:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">task</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dostuf</span>
   <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
   <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">False</span>
@@ -2497,7 +2483,7 @@ For example:</p>
 </div>
 <p>The first <cite>when</cite> was ignored and only the 2nd one was used as the play ran w/o warning it was ignoring one of the directives, now this produces a parsing error.</p>
 </li>
-<li><p class="first">Conflating variables and directives:</p>
+<li><p>Conflating variables and directives:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">role</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nv">name=rosy</span><span class="p p-Indicator">,</span> <span class="nv">port=435</span> <span class="p p-Indicator">}</span>
 
 <span class="c1"># in tasks/main.yml</span>
@@ -2508,7 +2494,7 @@ For example:</p>
 later in the play, this created issues if a host tried to reconnect or was using a non caching connection. Now it will be correctly identified as a directive and the <cite>port</cite> variable
 will appear as undefined, this now forces the use of non conflicting names and removes ambiguity when adding settings and variables to a role invocation.</p>
 </li>
-<li><p class="first">Bare operations on <cite>with_</cite>:</p>
+<li><p>Bare operations on <cite>with_</cite>:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">with_items</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">var1 + var2</span>
 </pre></div>
 </div>
@@ -2528,19 +2514,19 @@ Now you need to use proper templating and braces for all expressions everywhere 
 <div class="section" id="lookup-plugins">
 <h3><a class="toc-backref" href="#id12">Lookup plugins</a><a class="headerlink" href="#lookup-plugins" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>lookup plugins ; import version</li>
+<li><p>lookup plugins ; import version</p></li>
 </ul>
 </div>
 <div class="section" id="connection-plugins">
 <h3><a class="toc-backref" href="#id13">Connection plugins</a><a class="headerlink" href="#connection-plugins" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>connection plugins</li>
+<li><p>connection plugins</p></li>
 </ul>
 </div>
 <div class="section" id="action-plugins">
 <h3><a class="toc-backref" href="#id14">Action plugins</a><a class="headerlink" href="#action-plugins" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>action plugins</li>
+<li><p>action plugins</p></li>
 </ul>
 </div>
 <div class="section" id="callback-plugins">
@@ -2579,7 +2565,7 @@ populates the callback with them.  Here’s a short snippet that shows you how:<
 <div class="section" id="id1">
 <h3><a class="toc-backref" href="#id16">Connection plugins</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>connection plugins</li>
+<li><p>connection plugins</p></li>
 </ul>
 </div>
 </div>
@@ -2589,12 +2575,12 @@ populates the callback with them.  Here’s a short snippet that shows you how:<
 <p>Since the ansible-2.0 plugin system is more advanced, it is easier to adapt your plugin to provide similar pieces (subclasses, methods) for ansible-1.9.x as ansible-2.0 expects. This way your code will look a lot cleaner.</p>
 <p>You may find the following tips useful:</p>
 <ul class="simple">
-<li>Check whether the ansible-2.0 class(es) are available and if they are missing (ansible-1.9.x) mimic them with the needed methods (e.g. <code class="docutils literal notranslate"><span class="pre">__init__</span></code>)</li>
-<li>When ansible-2.0 python modules are imported, and they fail (ansible-1.9.x), catch the <code class="docutils literal notranslate"><span class="pre">ImportError</span></code> exception and perform the equivalent imports for ansible-1.9.x. With possible translations (e.g. importing specific methods).</li>
-<li>Use the existence of these methods as a qualifier to what version of Ansible you are running. So rather than using version checks, you can do capability checks instead. (See examples below)</li>
-<li>Document for each if-then-else case for which specific version each block is needed. This will help others to understand how they have to adapt their plugins, but it will also help you to remove the older ansible-1.9.x support when it is deprecated.</li>
-<li>When doing plugin development, it is very useful to have the <code class="docutils literal notranslate"><span class="pre">warning()</span></code> method during development, but it is also important to emit warnings for deadends (cases that you expect should never be triggered) or corner cases (e.g. cases where you expect misconfigurations).</li>
-<li>It helps to look at other plugins in ansible-1.9.x and ansible-2.0 to understand how the API works and what modules, classes and methods are available.</li>
+<li><p>Check whether the ansible-2.0 class(es) are available and if they are missing (ansible-1.9.x) mimic them with the needed methods (e.g. <code class="docutils literal notranslate"><span class="pre">__init__</span></code>)</p></li>
+<li><p>When ansible-2.0 python modules are imported, and they fail (ansible-1.9.x), catch the <code class="docutils literal notranslate"><span class="pre">ImportError</span></code> exception and perform the equivalent imports for ansible-1.9.x. With possible translations (e.g. importing specific methods).</p></li>
+<li><p>Use the existence of these methods as a qualifier to what version of Ansible you are running. So rather than using version checks, you can do capability checks instead. (See examples below)</p></li>
+<li><p>Document for each if-then-else case for which specific version each block is needed. This will help others to understand how they have to adapt their plugins, but it will also help you to remove the older ansible-1.9.x support when it is deprecated.</p></li>
+<li><p>When doing plugin development, it is very useful to have the <code class="docutils literal notranslate"><span class="pre">warning()</span></code> method during development, but it is also important to emit warnings for deadends (cases that you expect should never be triggered) or corner cases (e.g. cases where you expect misconfigurations).</p></li>
+<li><p>It helps to look at other plugins in ansible-1.9.x and ansible-2.0 to understand how the API works and what modules, classes and methods are available.</p></li>
 </ul>
 <div class="section" id="id2">
 <h3><a class="toc-backref" href="#id18">Lookup plugins</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
@@ -2658,32 +2644,32 @@ populates the callback with them.  Here’s a short snippet that shows you how:<
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">In the above example we did not use the <code class="docutils literal notranslate"><span class="pre">warning()</span></code> method as we had no direct use for it in the final version. However we left this code in so people can use this part during development/porting/use.</p>
+<p class="admonition-title">Note</p>
+<p>In the above example we did not use the <code class="docutils literal notranslate"><span class="pre">warning()</span></code> method as we had no direct use for it in the final version. However we left this code in so people can use this part during development/porting/use.</p>
 </div>
 </div>
 <div class="section" id="id3">
 <h3><a class="toc-backref" href="#id19">Connection plugins</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>connection plugins</li>
+<li><p>connection plugins</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
 <h3><a class="toc-backref" href="#id20">Action plugins</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>action plugins</li>
+<li><p>action plugins</p></li>
 </ul>
 </div>
 <div class="section" id="id5">
 <h3><a class="toc-backref" href="#id21">Callback plugins</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>callback plugins</li>
+<li><p>callback plugins</p></li>
 </ul>
 </div>
 <div class="section" id="id6">
 <h3><a class="toc-backref" href="#id22">Connection plugins</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>connection plugins</li>
+<li><p>connection plugins</p></li>
 </ul>
 </div>
 </div>
@@ -2719,7 +2705,7 @@ populates the callback with them.  Here’s a short snippet that shows you how:<
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

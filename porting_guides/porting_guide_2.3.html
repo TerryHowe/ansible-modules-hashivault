@@ -2273,30 +2273,35 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-2-3-porting-guide" id="id1">Ansible 2.3 Porting Guide</a><ul>
-<li><a class="reference internal" href="#playbook" id="id2">Playbook</a><ul>
-<li><a class="reference internal" href="#restructued-async-to-work-with-action-plugins" id="id3">Restructued async to work with action plugins</a></li>
-<li><a class="reference internal" href="#openbsd-version-facts" id="id4">OpenBSD version facts</a></li>
-<li><a class="reference internal" href="#names-blocks" id="id5">Names Blocks</a></li>
-<li><a class="reference internal" href="#use-of-multiple-tags" id="id6">Use of multiple tags</a></li>
-<li><a class="reference internal" href="#other-caveats" id="id7">Other caveats</a></li>
+<li><p><a class="reference internal" href="#ansible-2-3-porting-guide" id="id1">Ansible 2.3 Porting Guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#playbook" id="id2">Playbook</a></p>
+<ul>
+<li><p><a class="reference internal" href="#restructued-async-to-work-with-action-plugins" id="id3">Restructued async to work with action plugins</a></p></li>
+<li><p><a class="reference internal" href="#openbsd-version-facts" id="id4">OpenBSD version facts</a></p></li>
+<li><p><a class="reference internal" href="#names-blocks" id="id5">Names Blocks</a></p></li>
+<li><p><a class="reference internal" href="#use-of-multiple-tags" id="id6">Use of multiple tags</a></p></li>
+<li><p><a class="reference internal" href="#other-caveats" id="id7">Other caveats</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#modules" id="id8">Modules</a><ul>
-<li><a class="reference internal" href="#modules-removed" id="id9">Modules removed</a></li>
-<li><a class="reference internal" href="#deprecation-notices" id="id10">Deprecation notices</a></li>
-<li><a class="reference internal" href="#noteworthy-module-changes" id="id11">Noteworthy module changes</a><ul>
-<li><a class="reference internal" href="#aws-lambda" id="id12">AWS lambda</a></li>
-<li><a class="reference internal" href="#mount" id="id13">Mount</a></li>
+<li><p><a class="reference internal" href="#modules" id="id8">Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#modules-removed" id="id9">Modules removed</a></p></li>
+<li><p><a class="reference internal" href="#deprecation-notices" id="id10">Deprecation notices</a></p></li>
+<li><p><a class="reference internal" href="#noteworthy-module-changes" id="id11">Noteworthy module changes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#aws-lambda" id="id12">AWS lambda</a></p></li>
+<li><p><a class="reference internal" href="#mount" id="id13">Mount</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#plugins" id="id14">Plugins</a></li>
-<li><a class="reference internal" href="#porting-custom-scripts" id="id15">Porting custom scripts</a></li>
-<li><a class="reference internal" href="#networking" id="id16">Networking</a><ul>
-<li><a class="reference internal" href="#deprecation-of-top-level-connection-arguments" id="id17">Deprecation of top-level connection arguments</a></li>
-<li><a class="reference internal" href="#delegate-to-vs-proxycommand" id="id18">delegate_to vs ProxyCommand</a></li>
+<li><p><a class="reference internal" href="#plugins" id="id14">Plugins</a></p></li>
+<li><p><a class="reference internal" href="#porting-custom-scripts" id="id15">Porting custom scripts</a></p></li>
+<li><p><a class="reference internal" href="#networking" id="id16">Networking</a></p>
+<ul>
+<li><p><a class="reference internal" href="#deprecation-of-top-level-connection-arguments" id="id17">Deprecation of top-level connection arguments</a></p></li>
+<li><p><a class="reference internal" href="#delegate-to-vs-proxycommand" id="id18">delegate_to vs ProxyCommand</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2364,7 +2369,7 @@ In 2.5, multiple <code class="docutils literal notranslate"><span class="pre">--
 <h3><a class="toc-backref" href="#id7">Other caveats</a><a class="headerlink" href="#other-caveats" title="Permalink to this headline">¶</a></h3>
 <p>Here are some rare cases that might be encountered when updating. These are mostly caused by the more stringent parser validation and the capture of errors that were previously ignored.</p>
 <ul class="simple">
-<li>Made <code class="docutils literal notranslate"><span class="pre">any_errors_fatal</span></code> inheritable from play to task and all other objects in between.</li>
+<li><p>Made <code class="docutils literal notranslate"><span class="pre">any_errors_fatal</span></code> inheritable from play to task and all other objects in between.</p></li>
 </ul>
 </div>
 </div>
@@ -2379,19 +2384,19 @@ In 2.5, multiple <code class="docutils literal notranslate"><span class="pre">--
 <h3><a class="toc-backref" href="#id10">Deprecation notices</a><a class="headerlink" href="#deprecation-notices" title="Permalink to this headline">¶</a></h3>
 <p>The following modules will be removed in Ansible 2.5. Please update your playbooks accordingly.</p>
 <ul class="simple">
-<li>ec2_vpc</li>
-<li>cl_bond</li>
-<li>cl_bridge</li>
-<li>cl_img_install</li>
-<li>cl_interface</li>
-<li>cl_interface_policy</li>
-<li>cl_license</li>
-<li>cl_ports</li>
-<li>nxos_mtu use <span class="xref std std-ref">nxos_system</span> instead</li>
+<li><p>ec2_vpc</p></li>
+<li><p>cl_bond</p></li>
+<li><p>cl_bridge</p></li>
+<li><p>cl_img_install</p></li>
+<li><p>cl_interface</p></li>
+<li><p>cl_interface_policy</p></li>
+<li><p>cl_license</p></li>
+<li><p>cl_ports</p></li>
+<li><p>nxos_mtu use <span class="xref std std-ref">nxos_system</span> instead</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">These modules may no longer have documentation in the current release.  Please see the
+<p class="admonition-title">Note</p>
+<p>These modules may no longer have documentation in the current release.  Please see the
 <a class="reference external" href="https://docs.ansible.com/ansible/2.3/list_of_all_modules.html">Ansible 2.3 module documentation</a> if you need
 to know how they worked for porting your playbooks.</p>
 </div>
@@ -2422,15 +2427,15 @@ to know how they worked for porting your playbooks.</p>
 <p>Playbooks should still use <code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">local</span></code>.</p>
 <p>The following changes apply to:</p>
 <ul class="simple">
-<li>dellos6</li>
-<li>dellos9</li>
-<li>dellos10</li>
-<li>eos</li>
-<li>ios</li>
-<li>iosxr</li>
-<li>junos</li>
-<li>sros</li>
-<li>vyos</li>
+<li><p>dellos6</p></li>
+<li><p>dellos9</p></li>
+<li><p>dellos10</p></li>
+<li><p>eos</p></li>
+<li><p>ios</p></li>
+<li><p>iosxr</p></li>
+<li><p>junos</p></li>
+<li><p>sros</p></li>
+<li><p>vyos</p></li>
 </ul>
 <div class="section" id="deprecation-of-top-level-connection-arguments">
 <h3><a class="toc-backref" href="#id17">Deprecation of top-level connection arguments</a><a class="headerlink" href="#deprecation-of-top-level-connection-arguments" title="Permalink to this headline">¶</a></h3>
@@ -2502,7 +2507,7 @@ file to specify the proxy host via <code class="docutils literal notranslate"><s
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

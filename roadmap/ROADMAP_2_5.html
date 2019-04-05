@@ -2275,22 +2275,23 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-2-5" id="id3">Ansible 2.5</a><ul>
-<li><a class="reference internal" href="#release-manager" id="id4">Release Manager</a></li>
-<li><a class="reference internal" href="#engine-improvements" id="id5">Engine improvements</a></li>
-<li><a class="reference internal" href="#ansible-config" id="id6">Ansible-Config</a></li>
-<li><a class="reference internal" href="#inventory" id="id7">Inventory</a></li>
-<li><a class="reference internal" href="#facts" id="id8">Facts</a></li>
-<li><a class="reference internal" href="#static-loop-keyword" id="id9">Static Loop Keyword</a></li>
-<li><a class="reference internal" href="#vault" id="id10">Vault</a></li>
-<li><a class="reference internal" href="#runtime-check-on-modules-for-blacklisting" id="id11">Runtime Check on Modules for Blacklisting</a></li>
-<li><a class="reference internal" href="#windows" id="id12">Windows</a></li>
-<li><a class="reference internal" href="#general-cloud" id="id13">General Cloud</a></li>
-<li><a class="reference internal" href="#aws" id="id14">AWS</a></li>
-<li><a class="reference internal" href="#azure" id="id15">Azure</a></li>
-<li><a class="reference internal" href="#network-roadmap" id="id16">Network Roadmap</a></li>
-<li><a class="reference internal" href="#documentation" id="id17">Documentation</a></li>
-<li><a class="reference internal" href="#contributor-quality-of-life" id="id18">Contributor Quality of Life</a></li>
+<li><p><a class="reference internal" href="#ansible-2-5" id="id3">Ansible 2.5</a></p>
+<ul>
+<li><p><a class="reference internal" href="#release-manager" id="id4">Release Manager</a></p></li>
+<li><p><a class="reference internal" href="#engine-improvements" id="id5">Engine improvements</a></p></li>
+<li><p><a class="reference internal" href="#ansible-config" id="id6">Ansible-Config</a></p></li>
+<li><p><a class="reference internal" href="#inventory" id="id7">Inventory</a></p></li>
+<li><p><a class="reference internal" href="#facts" id="id8">Facts</a></p></li>
+<li><p><a class="reference internal" href="#static-loop-keyword" id="id9">Static Loop Keyword</a></p></li>
+<li><p><a class="reference internal" href="#vault" id="id10">Vault</a></p></li>
+<li><p><a class="reference internal" href="#runtime-check-on-modules-for-blacklisting" id="id11">Runtime Check on Modules for Blacklisting</a></p></li>
+<li><p><a class="reference internal" href="#windows" id="id12">Windows</a></p></li>
+<li><p><a class="reference internal" href="#general-cloud" id="id13">General Cloud</a></p></li>
+<li><p><a class="reference internal" href="#aws" id="id14">AWS</a></p></li>
+<li><p><a class="reference internal" href="#azure" id="id15">Azure</a></p></li>
+<li><p><a class="reference internal" href="#network-roadmap" id="id16">Network Roadmap</a></p></li>
+<li><p><a class="reference internal" href="#documentation" id="id17">Documentation</a></p></li>
+<li><p><a class="reference internal" href="#contributor-quality-of-life" id="id18">Contributor Quality of Life</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2302,78 +2303,80 @@
 <div class="section" id="engine-improvements">
 <h2><a class="toc-backref" href="#id5">Engine improvements</a><a class="headerlink" href="#engine-improvements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Assemble module improvements
+<li><p>Assemble module improvements
 - assemble just skips when in check mode, it should be able to test if there is a difference and changed=true/false.
-- The same with diff, it should work as template modules does</li>
-<li>Handle Password reset prompts cleaner</li>
-<li>Tasks stats for rescues and ignores</li>
-<li>Normalize temp dir usage across all subsystems</li>
-<li>Add option to set playbook dir for adhoc, inventory and console to allow for ‘relative path loading’</li>
+- The same with diff, it should work as template modules does</p></li>
+<li><p>Handle Password reset prompts cleaner</p></li>
+<li><p>Tasks stats for rescues and ignores</p></li>
+<li><p>Normalize temp dir usage across all subsystems</p></li>
+<li><p>Add option to set playbook dir for adhoc, inventory and console to allow for ‘relative path loading’</p></li>
 </ul>
 </div>
 <div class="section" id="ansible-config">
 <h2><a class="toc-backref" href="#id6">Ansible-Config</a><a class="headerlink" href="#ansible-config" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Extend config to more plugin types and update plugins to support the new config</li>
+<li><p>Extend config to more plugin types and update plugins to support the new config</p></li>
 </ul>
 </div>
 <div class="section" id="inventory">
 <h2><a class="toc-backref" href="#id7">Inventory</a><a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>ansible-inventory option to output group variable assignment and data (–export)</li>
-<li>Create inventory plugins for:
-- aws</li>
+<li><p>ansible-inventory option to output group variable assignment and data (–export)</p></li>
+<li><p>Create inventory plugins for:
+- aws</p></li>
 </ul>
 </div>
 <div class="section" id="facts">
 <h2><a class="toc-backref" href="#id8">Facts</a><a class="headerlink" href="#facts" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Namespacing fact variables (via a config option) implemented in ansible/ansible PR <a class="reference external" href="https://github.com/ansible/ansible/pull/18445">#18445</a>.
-Proposal found in ansible/proposals issue <a class="reference external" href="https://github.com/ansible/proposals/issues/17">#17</a>.</li>
-<li>Make fact collectors and gather_subset specs finer grained</li>
-<li>Eliminate unneeded deps between fact collectors</li>
-<li>Allow fact collectors to indicate if they need information from another fact collector to be gathered first.</li>
+<li><p>Namespacing fact variables (via a config option) implemented in ansible/ansible PR <a class="reference external" href="https://github.com/ansible/ansible/pull/18445">#18445</a>.
+Proposal found in ansible/proposals issue <a class="reference external" href="https://github.com/ansible/proposals/issues/17">#17</a>.</p></li>
+<li><p>Make fact collectors and gather_subset specs finer grained</p></li>
+<li><p>Eliminate unneeded deps between fact collectors</p></li>
+<li><p>Allow fact collectors to indicate if they need information from another fact collector to be gathered first.</p></li>
 </ul>
 </div>
 <div class="section" id="static-loop-keyword">
 <h2><a class="toc-backref" href="#id9">Static Loop Keyword</a><a class="headerlink" href="#static-loop-keyword" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>A simpler altenative to <code class="docutils literal notranslate"><span class="pre">with_</span></code>, <code class="docutils literal notranslate"><span class="pre">loop:</span></code> only takes a list</li>
-<li>Remove complexity from loops, lookups are still available to users</li>
-<li>Less confusing having a static directive vs a one that is dynamic depending on plugins loaded.</li>
+<li><p>A simpler altenative to <code class="docutils literal notranslate"><span class="pre">with_</span></code>, <code class="docutils literal notranslate"><span class="pre">loop:</span></code> only takes a list</p></li>
+<li><p>Remove complexity from loops, lookups are still available to users</p></li>
+<li><p>Less confusing having a static directive vs a one that is dynamic depending on plugins loaded.</p></li>
 </ul>
 </div>
 <div class="section" id="vault">
 <h2><a class="toc-backref" href="#id10">Vault</a><a class="headerlink" href="#vault" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Vault secrets client inc new ‘keyring’ client</li>
+<li><p>Vault secrets client inc new ‘keyring’ client</p></li>
 </ul>
 </div>
 <div class="section" id="runtime-check-on-modules-for-blacklisting">
 <h2><a class="toc-backref" href="#id11">Runtime Check on Modules for Blacklisting</a><a class="headerlink" href="#runtime-check-on-modules-for-blacklisting" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Filter on things like “supported_by” in module metadata</li>
-<li>Provide users with an option of “warning, error or allow/ignore”</li>
-<li>Configurable via ansible.cfg and environment variable</li>
+<li><p>Filter on things like “supported_by” in module metadata</p></li>
+<li><p>Provide users with an option of “warning, error or allow/ignore”</p></li>
+<li><p>Configurable via ansible.cfg and environment variable</p></li>
 </ul>
 </div>
 <div class="section" id="windows">
 <h2><a class="toc-backref" href="#id12">Windows</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Implement gather_subset on Windows facts</li>
-<li>Fix Windows async + become to allow them to work together</li>
-<li>Implement Windows become flags for controlling various modes <strong>(done)</strong>
+<li><p>Implement gather_subset on Windows facts</p></li>
+<li><p>Fix Windows async + become to allow them to work together</p></li>
+<li><p>Implement Windows become flags for controlling various modes <strong>(done)</strong>
 - logontype
-- elevation behavior</li>
-<li>Convert win_updates to action plugin for auto reboot and extra features <strong>(done)</strong></li>
-<li>Spike out changing the connection over to PSRP instead of WSMV <strong>(done- it’s possible)</strong></li>
-<li>Module updates<ul>
-<li>win_updates <strong>(done)</strong><ul>
-<li>Fix win_updates to detect (or request) become</li>
-<li>Add whitelist/blacklist features to win_updates</li>
+- elevation behavior</p></li>
+<li><p>Convert win_updates to action plugin for auto reboot and extra features <strong>(done)</strong></p></li>
+<li><p>Spike out changing the connection over to PSRP instead of WSMV <strong>(done- it’s possible)</strong></p></li>
+<li><p>Module updates</p>
+<ul>
+<li><p>win_updates <strong>(done)</strong></p>
+<ul>
+<li><p>Fix win_updates to detect (or request) become</p></li>
+<li><p>Add whitelist/blacklist features to win_updates</p></li>
 </ul>
 </li>
-<li>win_dsc further improvements <strong>(done)</strong></li>
+<li><p>win_dsc further improvements <strong>(done)</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -2381,21 +2384,22 @@ Proposal found in ansible/proposals issue <a class="reference external" href="ht
 <div class="section" id="general-cloud">
 <h2><a class="toc-backref" href="#id13">General Cloud</a><a class="headerlink" href="#general-cloud" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Make multi-cloud provisioning easier</li>
-<li>Diff mode will output provisioning task results of ansible-playbook runs</li>
-<li>Terraform module</li>
+<li><p>Make multi-cloud provisioning easier</p></li>
+<li><p>Diff mode will output provisioning task results of ansible-playbook runs</p></li>
+<li><p>Terraform module</p></li>
 </ul>
 </div>
 <div class="section" id="aws">
 <h2><a class="toc-backref" href="#id14">AWS</a><a class="headerlink" href="#aws" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Focus on pull requests for various modules</li>
-<li>Triage existing merges for modules</li>
-<li>Module work<ul>
-<li>ec2_instance</li>
-<li>ec2_vpc: Allow the addition of secondary IPv4 CIDRS to existing VPCs.</li>
-<li>AWS Network Load Balancer support (NLB module, ASG support, etc)</li>
-<li>rds_instance</li>
+<li><p>Focus on pull requests for various modules</p></li>
+<li><p>Triage existing merges for modules</p></li>
+<li><p>Module work</p>
+<ul>
+<li><p>ec2_instance</p></li>
+<li><p>ec2_vpc: Allow the addition of secondary IPv4 CIDRS to existing VPCs.</p></li>
+<li><p>AWS Network Load Balancer support (NLB module, ASG support, etc)</p></li>
+<li><p>rds_instance</p></li>
 </ul>
 </li>
 </ul>
@@ -2403,42 +2407,43 @@ Proposal found in ansible/proposals issue <a class="reference external" href="ht
 <div class="section" id="azure">
 <h2><a class="toc-backref" href="#id15">Azure</a><a class="headerlink" href="#azure" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Azure CLI auth <strong>(done)</strong></li>
-<li>Fix Azure module results to have “high-level” output instead of raw REST API dictionary <strong>(partial, more to come in 2.6)</strong></li>
-<li>Deprecate Azure automatic storage accounts in azure_rm_virtualmachine <strong>(breaks on Azure Stack, punted until AS supports managed disks)</strong></li>
+<li><p>Azure CLI auth <strong>(done)</strong></p></li>
+<li><p>Fix Azure module results to have “high-level” output instead of raw REST API dictionary <strong>(partial, more to come in 2.6)</strong></p></li>
+<li><p>Deprecate Azure automatic storage accounts in azure_rm_virtualmachine <strong>(breaks on Azure Stack, punted until AS supports managed disks)</strong></p></li>
 </ul>
 </div>
 <div class="section" id="network-roadmap">
 <h2><a class="toc-backref" href="#id16">Network Roadmap</a><a class="headerlink" href="#network-roadmap" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Refactor common network shared code into package <strong>(done)</strong></li>
-<li>Convert various nxos modules to leverage declarative intent <strong>(done)</strong></li>
-<li>Refactor various modules to leverage the cliconf plugin <strong>(done)</strong></li>
-<li>Add various missing declarative modules for supported platforms and functions <strong>(done)</strong></li>
-<li>Implement a feature that handles platform differences and feature unavailability <strong>(done)</strong></li>
-<li>netconf-config.py should provide control for deployment strategy</li>
-<li>Create netconf connection plugin <strong>(done)</strong></li>
-<li>Create netconf fact module</li>
-<li>Turn network_cli into a usable connection type <strong>(done)</strong></li>
-<li>Implements jsonrpc message passing for ansible-connection <strong>(done)</strong></li>
-<li>Improve logging for ansible-connection <strong>(done)</strong></li>
-<li>Improve stdout output for failures whilst using persistent connection <strong>(done)</strong></li>
-<li>Create IOS-XR NetConf Plugin and refactor iosxr modules to leverage netconf plugin <strong>(done)</strong></li>
-<li>Refactor junos modules to use netconf plugin <strong>(done)</strong></li>
-<li>Filters: Add a filter to convert XML response from a network device to JSON object <strong>(done)</strong></li>
+<li><p>Refactor common network shared code into package <strong>(done)</strong></p></li>
+<li><p>Convert various nxos modules to leverage declarative intent <strong>(done)</strong></p></li>
+<li><p>Refactor various modules to leverage the cliconf plugin <strong>(done)</strong></p></li>
+<li><p>Add various missing declarative modules for supported platforms and functions <strong>(done)</strong></p></li>
+<li><p>Implement a feature that handles platform differences and feature unavailability <strong>(done)</strong></p></li>
+<li><p>netconf-config.py should provide control for deployment strategy</p></li>
+<li><p>Create netconf connection plugin <strong>(done)</strong></p></li>
+<li><p>Create netconf fact module</p></li>
+<li><p>Turn network_cli into a usable connection type <strong>(done)</strong></p></li>
+<li><p>Implements jsonrpc message passing for ansible-connection <strong>(done)</strong></p></li>
+<li><p>Improve logging for ansible-connection <strong>(done)</strong></p></li>
+<li><p>Improve stdout output for failures whilst using persistent connection <strong>(done)</strong></p></li>
+<li><p>Create IOS-XR NetConf Plugin and refactor iosxr modules to leverage netconf plugin <strong>(done)</strong></p></li>
+<li><p>Refactor junos modules to use netconf plugin <strong>(done)</strong></p></li>
+<li><p>Filters: Add a filter to convert XML response from a network device to JSON object <strong>(done)</strong></p></li>
 </ul>
 </div>
 <div class="section" id="documentation">
 <h2><a class="toc-backref" href="#id17">Documentation</a><a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Extend documentation to more plugins</li>
-<li>Document vault-password-client scripts.</li>
-<li>Network Documentation<ul>
-<li>New landing page (to replace intro_networking) <strong>(done)</strong></li>
-<li>Platform specific guides <strong>(done)</strong></li>
-<li>Walk through: Getting Started <strong>(done)</strong></li>
-<li>Networking and <code class="docutils literal notranslate"><span class="pre">become</span></code> <strong>(done)</strong></li>
-<li>Best practice <strong>(done)</strong></li>
+<li><p>Extend documentation to more plugins</p></li>
+<li><p>Document vault-password-client scripts.</p></li>
+<li><p>Network Documentation</p>
+<ul>
+<li><p>New landing page (to replace intro_networking) <strong>(done)</strong></p></li>
+<li><p>Platform specific guides <strong>(done)</strong></p></li>
+<li><p>Walk through: Getting Started <strong>(done)</strong></p></li>
+<li><p>Networking and <code class="docutils literal notranslate"><span class="pre">become</span></code> <strong>(done)</strong></p></li>
+<li><p>Best practice <strong>(done)</strong></p></li>
 </ul>
 </li>
 </ul>
@@ -2446,8 +2451,8 @@ Proposal found in ansible/proposals issue <a class="reference external" href="ht
 <div class="section" id="contributor-quality-of-life">
 <h2><a class="toc-backref" href="#id18">Contributor Quality of Life</a><a class="headerlink" href="#contributor-quality-of-life" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Finish PSScriptAnalyer integration with ansible-test (for enforcing Powershell style) <strong>(done)</strong></li>
-<li>Resolve issues requiring skipping of some integration tests on Python 3.</li>
+<li><p>Finish PSScriptAnalyer integration with ansible-test (for enforcing Powershell style) <strong>(done)</strong></p></li>
+<li><p>Resolve issues requiring skipping of some integration tests on Python 3.</p></li>
 </ul>
 </div>
 </div>
@@ -2478,7 +2483,7 @@ Proposal found in ansible/proposals issue <a class="reference external" href="ht
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

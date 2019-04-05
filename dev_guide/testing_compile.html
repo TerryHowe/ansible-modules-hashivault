@@ -2267,11 +2267,12 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#compile-tests" id="id1">Compile Tests</a><ul>
-<li><a class="reference internal" href="#overview" id="id2">Overview</a></li>
-<li><a class="reference internal" href="#running-compile-tests-locally" id="id3">Running compile tests locally</a></li>
-<li><a class="reference internal" href="#installing-dependencies" id="id4">Installing dependencies</a></li>
-<li><a class="reference internal" href="#extending-compile-tests" id="id5">Extending compile tests</a></li>
+<li><p><a class="reference internal" href="#compile-tests" id="id1">Compile Tests</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview" id="id2">Overview</a></p></li>
+<li><p><a class="reference internal" href="#running-compile-tests-locally" id="id3">Running compile tests locally</a></p></li>
+<li><p><a class="reference internal" href="#installing-dependencies" id="id4">Installing dependencies</a></p></li>
+<li><p><a class="reference internal" href="#extending-compile-tests" id="id5">Extending compile tests</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2280,32 +2281,32 @@
 <h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>Compile tests check source files for valid syntax on all supported python versions:</p>
 <ul class="simple">
-<li>2.4 (Ansible 2.3 only)</li>
-<li>2.6</li>
-<li>2.7</li>
-<li>3.5</li>
-<li>3.6</li>
+<li><p>2.4 (Ansible 2.3 only)</p></li>
+<li><p>2.6</p></li>
+<li><p>2.7</p></li>
+<li><p>3.5</p></li>
+<li><p>3.6</p></li>
 </ul>
 <p>NOTE: In Ansible 2.4 and earlier the compile test was provided by a dedicated sub-command <code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">compile</span></code> instead of a sanity test using <code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">sanity</span> <span class="pre">--test</span> <span class="pre">compile</span></code>.</p>
 </div>
 <div class="section" id="running-compile-tests-locally">
 <h2><a class="toc-backref" href="#id3">Running compile tests locally</a><a class="headerlink" href="#running-compile-tests-locally" title="Permalink to this headline">¶</a></h2>
 <p>Compile tests can be run across the whole code base by doing:</p>
-<div class="code shell highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">cd /path/to/ansible/source</span>
-<span class="l l-Scalar l-Scalar-Plain">source hacking/env-setup</span>
-<span class="l l-Scalar l-Scalar-Plain">ansible-test sanity --test compile</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /path/to/ansible/source
+<span class="nb">source</span> hacking/env-setup
+ansible-test sanity --test compile
 </pre></div>
 </div>
 <p>Against a single file by doing:</p>
-<div class="code shell highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible-test sanity --test compile lineinfile</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-test sanity --test compile lineinfile
 </pre></div>
 </div>
 <p>Or against a specific Python version by doing:</p>
-<div class="code shell highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible-test sanity --test compile --python 2.7 lineinfile</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-test sanity --test compile --python <span class="m">2</span>.7 lineinfile
 </pre></div>
 </div>
 <p>For advanced usage see the help:</p>
-<div class="code shell highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible-test sanity --help</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-test sanity --help
 </pre></div>
 </div>
 </div>
@@ -2313,7 +2314,7 @@
 <h2><a class="toc-backref" href="#id4">Installing dependencies</a><a class="headerlink" href="#installing-dependencies" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ansible-test</span></code> has a number of dependencies , for <code class="docutils literal notranslate"><span class="pre">compile</span></code> tests we suggest running the tests with <code class="docutils literal notranslate"><span class="pre">--local</span></code>, which is the default</p>
 <p>The dependencies can be installed using the <code class="docutils literal notranslate"><span class="pre">--requirements</span></code> argument. For example:</p>
-<div class="code shell highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible-test sanity --test compile --requirements lineinfile</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-test sanity --test compile --requirements lineinfile
 </pre></div>
 </div>
 <p>The full list of requirements can be found at <a class="reference external" href="https://github.com/ansible/ansible/tree/devel/test/runner/requirements">test/runner/requirements</a>. Requirements files are named after their respective commands. See also the <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/test/runner/requirements/constraints.txt">constraints</a> applicable to all commands.</p>
@@ -2341,7 +2342,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

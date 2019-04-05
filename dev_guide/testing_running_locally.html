@@ -2267,23 +2267,25 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#testing-ansible" id="id1">Testing Ansible</a><ul>
-<li><a class="reference internal" href="#requirements" id="id2">Requirements</a></li>
-<li><a class="reference internal" href="#test-environments" id="id3">Test Environments</a><ul>
-<li><a class="reference internal" href="#remote" id="id4">Remote</a></li>
-<li><a class="reference internal" href="#environment-variables" id="id5">Environment Variables</a></li>
+<li><p><a class="reference internal" href="#testing-ansible" id="id1">Testing Ansible</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requirements" id="id2">Requirements</a></p></li>
+<li><p><a class="reference internal" href="#test-environments" id="id3">Test Environments</a></p>
+<ul>
+<li><p><a class="reference internal" href="#remote" id="id4">Remote</a></p></li>
+<li><p><a class="reference internal" href="#environment-variables" id="id5">Environment Variables</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#interactive-shell" id="id6">Interactive Shell</a></li>
-<li><a class="reference internal" href="#code-coverage" id="id7">Code Coverage</a></li>
+<li><p><a class="reference internal" href="#interactive-shell" id="id6">Interactive Shell</a></p></li>
+<li><p><a class="reference internal" href="#code-coverage" id="id7">Code Coverage</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <p>This document describes how to:</p>
 <ul class="simple">
-<li>Run tests locally using <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code></li>
-<li>Extend</li>
+<li><p>Run tests locally using <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code></p></li>
+<li><p>Extend</p></li>
 </ul>
 <div class="section" id="requirements">
 <h2><a class="toc-backref" href="#id2">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
@@ -2299,18 +2301,17 @@ The requirements for each <code class="docutils literal notranslate"><span class
 <p>The <code class="docutils literal notranslate"><span class="pre">--remote</span></code> option runs tests in a cloud hosted environment.
 An API key is required to use this feature.</p>
 <blockquote>
-<div>Recommended for integration tests.</div></blockquote>
+<div><p>Recommended for integration tests.</p>
+</div></blockquote>
 <p>See the <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/test/runner/completion/remote.txt">list of supported platforms and versions</a> for additional details.</p>
 </div>
 <div class="section" id="environment-variables">
 <h3><a class="toc-backref" href="#id5">Environment Variables</a><a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h3>
 <p>When using environment variables to manipulate tests there some limitations to keep in mind. Environment variables are:</p>
 <ul>
-<li><p class="first">Not propagated from the host to the test environment when using the <code class="docutils literal notranslate"><span class="pre">--docker</span></code> or <code class="docutils literal notranslate"><span class="pre">--remote</span></code> options.</p>
-</li>
-<li><p class="first">Not exposed to the test environment unless whitelisted in <code class="docutils literal notranslate"><span class="pre">test/runner/lib/util.py</span></code> in the <code class="docutils literal notranslate"><span class="pre">common_environment</span></code> function.</p>
-</li>
-<li><p class="first">Not exposed to the test environment when using the <code class="docutils literal notranslate"><span class="pre">--tox</span></code> option unless whitelisted in <code class="docutils literal notranslate"><span class="pre">test/runner/tox.ini</span></code> by the <code class="docutils literal notranslate"><span class="pre">passenv</span></code> definition.</p>
+<li><p>Not propagated from the host to the test environment when using the <code class="docutils literal notranslate"><span class="pre">--docker</span></code> or <code class="docutils literal notranslate"><span class="pre">--remote</span></code> options.</p></li>
+<li><p>Not exposed to the test environment unless whitelisted in <code class="docutils literal notranslate"><span class="pre">test/runner/lib/util.py</span></code> in the <code class="docutils literal notranslate"><span class="pre">common_environment</span></code> function.</p></li>
+<li><p>Not exposed to the test environment when using the <code class="docutils literal notranslate"><span class="pre">--tox</span></code> option unless whitelisted in <code class="docutils literal notranslate"><span class="pre">test/runner/tox.ini</span></code> by the <code class="docutils literal notranslate"><span class="pre">passenv</span></code> definition.</p>
 <blockquote>
 <div><p>Example: <code class="docutils literal notranslate"><span class="pre">ANSIBLE_KEEP_REMOTE_FILES=1</span></code> can be set when running <code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">integration</span> <span class="pre">--tox</span></code>. However, using the <code class="docutils literal notranslate"><span class="pre">--docker</span></code> option would
 require running <code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">shell</span></code> to gain access to the Docker environment. Once at the shell prompt, the environment variable could be set
@@ -2325,8 +2326,8 @@ and the tests executed. This is useful for debugging tests inside a container by
 <h2><a class="toc-backref" href="#id6">Interactive Shell</a><a class="headerlink" href="#interactive-shell" title="Permalink to this headline">¶</a></h2>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">shell</span></code> command to get an interactive shell in the same environment used to run tests. Examples:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">shell</span> <span class="pre">--docker</span></code> - Open a shell in the default docker container.</li>
-<li><code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">shell</span> <span class="pre">--tox</span> <span class="pre">--python</span> <span class="pre">3.6</span></code> - Open a shell in the Python 3.6 <code class="docutils literal notranslate"><span class="pre">tox</span></code> environment.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">shell</span> <span class="pre">--docker</span></code> - Open a shell in the default docker container.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">shell</span> <span class="pre">--tox</span> <span class="pre">--python</span> <span class="pre">3.6</span></code> - Open a shell in the Python 3.6 <code class="docutils literal notranslate"><span class="pre">tox</span></code> environment.</p></li>
 </ul>
 </div>
 <div class="section" id="code-coverage">
@@ -2339,14 +2340,15 @@ aren’t using the <code class="docutils literal notranslate"><span class="pre">
 environment then you may have to use the <code class="docutils literal notranslate"><span class="pre">--requirements</span></code> option to ensure that the
 correct version of the coverage module is installed</p>
 <blockquote>
-<div>ansible-test units –coverage apt
+<div><p>ansible-test units –coverage apt
 ansible-test integration –coverage aws_lambda –tox –requirements
-ansible-test coverage html</div></blockquote>
+ansible-test coverage html</p>
+</div></blockquote>
 <p>Reports can be generated in several different formats:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">coverage</span> <span class="pre">report</span></code> - Console report.</li>
-<li><code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">coverage</span> <span class="pre">html</span></code> - HTML report.</li>
-<li><code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">coverage</span> <span class="pre">xml</span></code> - XML report.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">coverage</span> <span class="pre">report</span></code> - Console report.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">coverage</span> <span class="pre">html</span></code> - HTML report.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">coverage</span> <span class="pre">xml</span></code> - XML report.</p></li>
 </ul>
 <p>To clear data between test runs, use the <code class="docutils literal notranslate"><span class="pre">ansible-test</span> <span class="pre">coverage</span> <span class="pre">erase</span></code> command. For a full list of features see the online help:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible-test coverage --help</span>
@@ -2372,7 +2374,7 @@ ansible-test coverage html</div></blockquote>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

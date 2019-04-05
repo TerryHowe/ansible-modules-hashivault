@@ -2270,13 +2270,14 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#build-your-inventory" id="id1">Build Your Inventory</a><ul>
-<li><a class="reference internal" href="#basic-inventory" id="id2">Basic Inventory</a></li>
-<li><a class="reference internal" href="#add-variables-to-inventory" id="id3">Add Variables to Inventory</a></li>
-<li><a class="reference internal" href="#group-variables-within-inventory" id="id4">Group Variables within Inventory</a></li>
-<li><a class="reference internal" href="#variable-syntax" id="id5">Variable Syntax</a></li>
-<li><a class="reference internal" href="#group-inventory-by-platform" id="id6">Group Inventory by Platform</a></li>
-<li><a class="reference internal" href="#protecting-sensitive-variables-with-ansible-vault" id="id7">Protecting Sensitive Variables with <code class="docutils literal notranslate"><span class="pre">ansible-vault</span></code></a></li>
+<li><p><a class="reference internal" href="#build-your-inventory" id="id1">Build Your Inventory</a></p>
+<ul>
+<li><p><a class="reference internal" href="#basic-inventory" id="id2">Basic Inventory</a></p></li>
+<li><p><a class="reference internal" href="#add-variables-to-inventory" id="id3">Add Variables to Inventory</a></p></li>
+<li><p><a class="reference internal" href="#group-variables-within-inventory" id="id4">Group Variables within Inventory</a></p></li>
+<li><p><a class="reference internal" href="#variable-syntax" id="id5">Variable Syntax</a></p></li>
+<li><p><a class="reference internal" href="#group-inventory-by-platform" id="id6">Group Inventory by Platform</a></p></li>
+<li><p><a class="reference internal" href="#protecting-sensitive-variables-with-ansible-vault" id="id7">Protecting Sensitive Variables with <code class="docutils literal notranslate"><span class="pre">ansible-vault</span></code></a></p></li>
 </ul>
 </li>
 </ul>
@@ -2285,9 +2286,9 @@
 <h2><a class="toc-backref" href="#id2">Basic Inventory</a><a class="headerlink" href="#basic-inventory" title="Permalink to this headline">¶</a></h2>
 <p>First, group your inventory logically. Best practice is to group servers and network devices by their What (application, stack or microservice), Where (datacenter or region), and When (development stage):</p>
 <ul class="simple">
-<li><strong>What</strong>: db, web, leaf, spine</li>
-<li><strong>Where</strong>: east, west, floor_19, building_A</li>
-<li><strong>When</strong>: dev, test, staging, prod</li>
+<li><p><strong>What</strong>: db, web, leaf, spine</p></li>
+<li><p><strong>Where</strong>: east, west, floor_19, building_A</p></li>
+<li><p><strong>When</strong>: dev, test, staging, prod</p></li>
 </ul>
 <p>Avoid spaces, hyphens, and preceding numbers (use <code class="docutils literal notranslate"><span class="pre">floor_19</span></code>, not <code class="docutils literal notranslate"><span class="pre">19th_floor</span></code>) in your group names. Group names are case sensitive.</p>
 <p>This tiny example data center illustrates a basic group structure. You can group groups using the syntax <code class="docutils literal notranslate"><span class="pre">[metagroupname:children]</span></code> and listing groups as members of the metagroup. Here, the group <code class="docutils literal notranslate"><span class="pre">network</span></code> includes all leafs and all spines; the group <code class="docutils literal notranslate"><span class="pre">datacenter</span></code> includes all network devices plus all webservers.</p>
@@ -2377,10 +2378,11 @@
 <h2><a class="toc-backref" href="#id5">Variable Syntax</a><a class="headerlink" href="#variable-syntax" title="Permalink to this headline">¶</a></h2>
 <p>The syntax for variable values is different in inventory, in playbooks and in <code class="docutils literal notranslate"><span class="pre">group_vars</span></code> files, which are covered below. Even though playbook and <code class="docutils literal notranslate"><span class="pre">group_vars</span></code> files are both written in YAML, you use variables differently in each.</p>
 <ul class="simple">
-<li>In an ini-style inventory file you <strong>must</strong> use the syntax <code class="docutils literal notranslate"><span class="pre">key=value</span></code> for variable values: <code class="docutils literal notranslate"><span class="pre">ansible_network_os=vyos</span></code>.</li>
-<li>In any file with the <code class="docutils literal notranslate"><span class="pre">.yml</span></code> or <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> extension, including playbooks and <code class="docutils literal notranslate"><span class="pre">group_vars</span></code> files, you <strong>must</strong> use YAML syntax: <code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code><ul>
-<li>In <code class="docutils literal notranslate"><span class="pre">group_vars</span></code> files, use the full <code class="docutils literal notranslate"><span class="pre">key</span></code> name: <code class="docutils literal notranslate"><span class="pre">ansible_network_os:</span> <span class="pre">vyos</span></code>.</li>
-<li>In playbooks, use the short-form <code class="docutils literal notranslate"><span class="pre">key</span></code> name, which drops the <code class="docutils literal notranslate"><span class="pre">ansible</span></code> prefix: <code class="docutils literal notranslate"><span class="pre">network_os:</span> <span class="pre">vyos</span></code></li>
+<li><p>In an ini-style inventory file you <strong>must</strong> use the syntax <code class="docutils literal notranslate"><span class="pre">key=value</span></code> for variable values: <code class="docutils literal notranslate"><span class="pre">ansible_network_os=vyos</span></code>.</p></li>
+<li><p>In any file with the <code class="docutils literal notranslate"><span class="pre">.yml</span></code> or <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> extension, including playbooks and <code class="docutils literal notranslate"><span class="pre">group_vars</span></code> files, you <strong>must</strong> use YAML syntax: <code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code></p>
+<ul>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">group_vars</span></code> files, use the full <code class="docutils literal notranslate"><span class="pre">key</span></code> name: <code class="docutils literal notranslate"><span class="pre">ansible_network_os:</span> <span class="pre">vyos</span></code>.</p></li>
+<li><p>In playbooks, use the short-form <code class="docutils literal notranslate"><span class="pre">key</span></code> name, which drops the <code class="docutils literal notranslate"><span class="pre">ansible</span></code> prefix: <code class="docutils literal notranslate"><span class="pre">network_os:</span> <span class="pre">vyos</span></code></p></li>
 </ul>
 </li>
 </ul>
@@ -2492,8 +2494,8 @@ it can reside in host_vars/ or group_vars/ to be automatically picked up or refe
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Vault content can only be decrypted with the password that was used to encrypt it. If you want to stop using one password and move to a new one, you can update and re-encrypt existing vault content with <code class="docutils literal notranslate"><span class="pre">ansible-vault</span> <span class="pre">rekey</span> <span class="pre">myfile</span></code>, then provide the old password and the new password. Copies of vault content still encrypted with the old password can still be decrypted with old password.</p>
+<p class="admonition-title">Warning</p>
+<p>Vault content can only be decrypted with the password that was used to encrypt it. If you want to stop using one password and move to a new one, you can update and re-encrypt existing vault content with <code class="docutils literal notranslate"><span class="pre">ansible-vault</span> <span class="pre">rekey</span> <span class="pre">myfile</span></code>, then provide the old password and the new password. Copies of vault content still encrypted with the old password can still be decrypted with old password.</p>
 </div>
 <p>For more details on building inventory files, see <a class="reference internal" href="../../user_guide/intro_inventory.html"><span class="doc">the introduction to inventory</span></a>; for more details on ansible-vault, see <a class="reference internal" href="../../user_guide/vault.html"><span class="doc">the full Ansible Vault documentation</span></a>.</p>
 <p>Now that you understand the basics of commands, playbooks, and inventory, it’s time to explore some more complex Ansible Network examples.</p>
@@ -2526,7 +2528,7 @@ it can reside in host_vars/ or group_vars/ to be automatically picked up or refe
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2269,23 +2269,25 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-vault" id="id5">Ansible Vault</a><ul>
-<li><a class="reference internal" href="#what-can-be-encrypted-with-vault" id="id6">What Can Be Encrypted With Vault</a></li>
-<li><a class="reference internal" href="#creating-encrypted-files" id="id7">Creating Encrypted Files</a></li>
-<li><a class="reference internal" href="#editing-encrypted-files" id="id8">Editing Encrypted Files</a></li>
-<li><a class="reference internal" href="#rekeying-encrypted-files" id="id9">Rekeying Encrypted Files</a></li>
-<li><a class="reference internal" href="#encrypting-unencrypted-files" id="id10">Encrypting Unencrypted Files</a></li>
-<li><a class="reference internal" href="#decrypting-encrypted-files" id="id11">Decrypting Encrypted Files</a></li>
-<li><a class="reference internal" href="#viewing-encrypted-files" id="id12">Viewing Encrypted Files</a></li>
-<li><a class="reference internal" href="#use-encrypt-string-to-create-encrypted-variables-to-embed-in-yaml" id="id13">Use encrypt_string to create encrypted variables to embed in yaml</a></li>
-<li><a class="reference internal" href="#vault-ids-and-multiple-vault-passwords" id="id14">Vault Ids and Multiple Vault Passwords</a></li>
-<li><a class="reference internal" href="#providing-vault-passwords" id="id15">Providing Vault Passwords</a><ul>
-<li><a class="reference internal" href="#multiple-vault-passwords" id="id16">Multiple vault passwords</a></li>
+<li><p><a class="reference internal" href="#ansible-vault" id="id5">Ansible Vault</a></p>
+<ul>
+<li><p><a class="reference internal" href="#what-can-be-encrypted-with-vault" id="id6">What Can Be Encrypted With Vault</a></p></li>
+<li><p><a class="reference internal" href="#creating-encrypted-files" id="id7">Creating Encrypted Files</a></p></li>
+<li><p><a class="reference internal" href="#editing-encrypted-files" id="id8">Editing Encrypted Files</a></p></li>
+<li><p><a class="reference internal" href="#rekeying-encrypted-files" id="id9">Rekeying Encrypted Files</a></p></li>
+<li><p><a class="reference internal" href="#encrypting-unencrypted-files" id="id10">Encrypting Unencrypted Files</a></p></li>
+<li><p><a class="reference internal" href="#decrypting-encrypted-files" id="id11">Decrypting Encrypted Files</a></p></li>
+<li><p><a class="reference internal" href="#viewing-encrypted-files" id="id12">Viewing Encrypted Files</a></p></li>
+<li><p><a class="reference internal" href="#use-encrypt-string-to-create-encrypted-variables-to-embed-in-yaml" id="id13">Use encrypt_string to create encrypted variables to embed in yaml</a></p></li>
+<li><p><a class="reference internal" href="#vault-ids-and-multiple-vault-passwords" id="id14">Vault Ids and Multiple Vault Passwords</a></p></li>
+<li><p><a class="reference internal" href="#providing-vault-passwords" id="id15">Providing Vault Passwords</a></p>
+<ul>
+<li><p><a class="reference internal" href="#multiple-vault-passwords" id="id16">Multiple vault passwords</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#speeding-up-vault-operations" id="id17">Speeding Up Vault Operations</a></li>
-<li><a class="reference internal" href="#vault-format" id="id18">Vault Format</a></li>
-<li><a class="reference internal" href="#vault-payload-format-1-1" id="id19">Vault Payload Format 1.1</a></li>
+<li><p><a class="reference internal" href="#speeding-up-vault-operations" id="id17">Speeding Up Vault Operations</a></p></li>
+<li><p><a class="reference internal" href="#vault-format" id="id18">Vault Format</a></p></li>
+<li><p><a class="reference internal" href="#vault-payload-format-1-1" id="id19">Vault Payload Format 1.1</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2503,8 +2505,8 @@ or it can be used in combination with them.</p>
 <p>When using <a class="reference internal" href="../cli/ansible-vault.html#ansible-vault"><span class="std std-ref">ansible-vault</span></a> commands that encrypt content (<a class="reference internal" href="../cli/ansible-vault.html#ansible-vault-encrypt"><span class="std std-ref">ansible-vault encrypt</span></a>, <a class="reference internal" href="../cli/ansible-vault.html#ansible-vault-encrypt-string"><span class="std std-ref">ansible-vault encrypt_string</span></a>, etc)
 only one vault-id can be used.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Prior to Ansible 2.4, only one vault password could be used in each Ansible run. The
+<p class="admonition-title">Note</p>
+<p>Prior to Ansible 2.4, only one vault password could be used in each Ansible run. The
 <a class="reference internal" href="../cli/ansible-playbook.html#cmdoption-ansible-playbook-vault-id"><code class="xref std std-option docutils literal notranslate"><span class="pre">--vault-id</span></code></a> option is not support prior to Ansible 2.4.</p>
 </div>
 </div>
@@ -2539,18 +2541,22 @@ encrypted ciphertext. Each line will be 80 characters wide, except for the last 
 <p>‘hexlify’ refers to the <code class="docutils literal notranslate"><span class="pre">hexlify()</span></code> method of the Python Standard Library’s <a class="reference external" href="https://docs.python.org/3/library/binascii.html">binascii</a> module.</p>
 <p>hexlify()’ed result of:</p>
 <ul class="simple">
-<li>hexlify()’ed string of the salt, followed by a newline (<code class="docutils literal notranslate"><span class="pre">0x0a</span></code>)</li>
-<li>hexlify()’ed string of the crypted HMAC, followed by a newline. The HMAC is:<ul>
-<li>a <a class="reference external" href="https://www.ietf.org/rfc/rfc2104.txt">RFC2104</a> style HMAC<ul>
-<li>inputs are:<ul>
-<li>The AES256 encrypted ciphertext</li>
-<li>A PBKDF2 key. This key, the cipher key, and the cipher IV are generated from:<ul>
-<li>the salt, in bytes</li>
-<li>10000 iterations</li>
-<li>SHA256() algorithm</li>
-<li>the first 32 bytes are the cipher key</li>
-<li>the second 32 bytes are the HMAC key</li>
-<li>remaining 16 bytes are the cipher IV</li>
+<li><p>hexlify()’ed string of the salt, followed by a newline (<code class="docutils literal notranslate"><span class="pre">0x0a</span></code>)</p></li>
+<li><p>hexlify()’ed string of the crypted HMAC, followed by a newline. The HMAC is:</p>
+<ul>
+<li><p>a <a class="reference external" href="https://www.ietf.org/rfc/rfc2104.txt">RFC2104</a> style HMAC</p>
+<ul>
+<li><p>inputs are:</p>
+<ul>
+<li><p>The AES256 encrypted ciphertext</p></li>
+<li><p>A PBKDF2 key. This key, the cipher key, and the cipher IV are generated from:</p>
+<ul>
+<li><p>the salt, in bytes</p></li>
+<li><p>10000 iterations</p></li>
+<li><p>SHA256() algorithm</p></li>
+<li><p>the first 32 bytes are the cipher key</p></li>
+<li><p>the second 32 bytes are the HMAC key</p></li>
+<li><p>remaining 16 bytes are the cipher IV</p></li>
 </ul>
 </li>
 </ul>
@@ -2559,18 +2565,20 @@ encrypted ciphertext. Each line will be 80 characters wide, except for the last 
 </li>
 </ul>
 </li>
-<li>hexlify()’ed string of the ciphertext. The ciphertext is:</li>
+<li><p>hexlify()’ed string of the ciphertext. The ciphertext is:</p></li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li>AES256 encrypted data. The data is encrypted using:<ul>
-<li>AES-CTR stream cipher</li>
-<li>cipher key</li>
-<li>IV</li>
-<li>a 128 bit counter block seeded from an integer IV</li>
-<li>the plaintext<ul>
-<li>the original plaintext</li>
-<li>padding up to the AES256 blocksize. (The data used for padding is based on <a class="reference external" href="https://tools.ietf.org/html/rfc5652#section-6.3">RFC5652</a>)</li>
+<li><p>AES256 encrypted data. The data is encrypted using:</p>
+<ul>
+<li><p>AES-CTR stream cipher</p></li>
+<li><p>cipher key</p></li>
+<li><p>IV</p></li>
+<li><p>a 128 bit counter block seeded from an integer IV</p></li>
+<li><p>the plaintext</p>
+<ul>
+<li><p>the original plaintext</p></li>
+<li><p>padding up to the AES256 blocksize. (The data used for padding is based on <a class="reference external" href="https://tools.ietf.org/html/rfc5652#section-6.3">RFC5652</a>)</p></li>
 </ul>
 </li>
 </ul>
@@ -2606,7 +2614,7 @@ encrypted ciphertext. Each line will be 80 characters wide, except for the last 
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

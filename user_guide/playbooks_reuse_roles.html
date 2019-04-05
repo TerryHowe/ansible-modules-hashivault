@@ -2269,21 +2269,22 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#roles" id="id4">Roles</a><ul>
-<li><a class="reference internal" href="#role-directory-structure" id="id5">Role Directory Structure</a></li>
-<li><a class="reference internal" href="#using-roles" id="id6">Using Roles</a></li>
-<li><a class="reference internal" href="#role-duplication-and-execution" id="id7">Role Duplication and Execution</a></li>
-<li><a class="reference internal" href="#role-default-variables" id="id8">Role Default Variables</a></li>
-<li><a class="reference internal" href="#role-dependencies" id="id9">Role Dependencies</a></li>
-<li><a class="reference internal" href="#embedding-modules-and-plugins-in-roles" id="id10">Embedding Modules and Plugins In Roles</a></li>
-<li><a class="reference internal" href="#role-search-path" id="id11">Role Search Path</a></li>
-<li><a class="reference internal" href="#ansible-galaxy" id="id12">Ansible Galaxy</a></li>
+<li><p><a class="reference internal" href="#roles" id="id4">Roles</a></p>
+<ul>
+<li><p><a class="reference internal" href="#role-directory-structure" id="id5">Role Directory Structure</a></p></li>
+<li><p><a class="reference internal" href="#using-roles" id="id6">Using Roles</a></p></li>
+<li><p><a class="reference internal" href="#role-duplication-and-execution" id="id7">Role Duplication and Execution</a></p></li>
+<li><p><a class="reference internal" href="#role-default-variables" id="id8">Role Default Variables</a></p></li>
+<li><p><a class="reference internal" href="#role-dependencies" id="id9">Role Dependencies</a></p></li>
+<li><p><a class="reference internal" href="#embedding-modules-and-plugins-in-roles" id="id10">Embedding Modules and Plugins In Roles</a></p></li>
+<li><p><a class="reference internal" href="#role-search-path" id="id11">Role Search Path</a></p></li>
+<li><p><a class="reference internal" href="#ansible-galaxy" id="id12">Ansible Galaxy</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.2.</span></p>
+<p><span class="versionmodified added">New in version 1.2.</span></p>
 </div>
 <p>Roles are ways of automatically loading certain vars_files, tasks, and handlers based on a known file structure.  Grouping content by roles also allows easy sharing of roles with other users.</p>
 <div class="section" id="role-directory-structure">
@@ -2309,13 +2310,13 @@
 </div>
 <p>Roles expect files to be in certain directory names. Roles must include at least one of these directories, however it is perfectly fine to exclude any which are not being used. When in use, each directory must contain a <code class="docutils literal notranslate"><span class="pre">main.yml</span></code> file, which contains the relevant content:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">tasks</span></code> - contains the main list of tasks to be executed by the role.</li>
-<li><code class="docutils literal notranslate"><span class="pre">handlers</span></code> - contains handlers, which may be used by this role or even anywhere outside this role.</li>
-<li><code class="docutils literal notranslate"><span class="pre">defaults</span></code> - default variables for the role (see <a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a> for more information).</li>
-<li><code class="docutils literal notranslate"><span class="pre">vars</span></code> - other variables for the role (see <a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a> for more information).</li>
-<li><code class="docutils literal notranslate"><span class="pre">files</span></code> - contains files which can be deployed via this role.</li>
-<li><code class="docutils literal notranslate"><span class="pre">templates</span></code> - contains templates which can be deployed via this role.</li>
-<li><code class="docutils literal notranslate"><span class="pre">meta</span></code> - defines some meta data for this role. See below for more details.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tasks</span></code> - contains the main list of tasks to be executed by the role.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">handlers</span></code> - contains handlers, which may be used by this role or even anywhere outside this role.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">defaults</span></code> - default variables for the role (see <a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a> for more information).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vars</span></code> - other variables for the role (see <a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a> for more information).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">files</span></code> - contains files which can be deployed via this role.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">templates</span></code> - contains templates which can be deployed via this role.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">meta</span></code> - defines some meta data for this role. See below for more details.</p></li>
 </ul>
 <p>Other YAML files may be included in certain directories. For example, it is common practice to have platform-specific tasks included from the <code class="docutils literal notranslate"><span class="pre">tasks/main.yml</span></code> file:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="c1"># roles/example/tasks/main.yml</span>
@@ -2350,30 +2351,30 @@
 </div>
 <p>This designates the following behaviors, for each role ‘x’:</p>
 <ul class="simple">
-<li>If roles/x/tasks/main.yml exists, tasks listed therein will be added to the play.</li>
-<li>If roles/x/handlers/main.yml exists, handlers listed therein will be added to the play.</li>
-<li>If roles/x/vars/main.yml exists, variables listed therein will be added to the play.</li>
-<li>If roles/x/defaults/main.yml exists, variables listed therein will be added to the play.</li>
-<li>If roles/x/meta/main.yml exists, any role dependencies listed therein will be added to the list of roles (1.3 and later).</li>
-<li>Any copy, script, template or include tasks (in the role) can reference files in roles/x/{files,templates,tasks}/ (dir depends on task) without having to path them relatively or absolutely.</li>
+<li><p>If roles/x/tasks/main.yml exists, tasks listed therein will be added to the play.</p></li>
+<li><p>If roles/x/handlers/main.yml exists, handlers listed therein will be added to the play.</p></li>
+<li><p>If roles/x/vars/main.yml exists, variables listed therein will be added to the play.</p></li>
+<li><p>If roles/x/defaults/main.yml exists, variables listed therein will be added to the play.</p></li>
+<li><p>If roles/x/meta/main.yml exists, any role dependencies listed therein will be added to the list of roles (1.3 and later).</p></li>
+<li><p>Any copy, script, template or include tasks (in the role) can reference files in roles/x/{files,templates,tasks}/ (dir depends on task) without having to path them relatively or absolutely.</p></li>
 </ul>
 <p>When used in this manner, the order of execution for your playbook is as follows:</p>
 <ul class="simple">
-<li>Any <code class="docutils literal notranslate"><span class="pre">pre_tasks</span></code> defined in the play.</li>
-<li>Any handlers triggered so far will be run.</li>
-<li>Each role listed in <code class="docutils literal notranslate"><span class="pre">roles</span></code> will execute in turn. Any role dependencies defined in the roles <code class="docutils literal notranslate"><span class="pre">meta/main.yml</span></code> will be run first, subject to tag filtering and conditionals.</li>
-<li>Any <code class="docutils literal notranslate"><span class="pre">tasks</span></code> defined in the play.</li>
-<li>Any handlers triggered so far will be run.</li>
-<li>Any <code class="docutils literal notranslate"><span class="pre">post_tasks</span></code> defined in the play.</li>
-<li>Any handlers triggered so far will be run.</li>
+<li><p>Any <code class="docutils literal notranslate"><span class="pre">pre_tasks</span></code> defined in the play.</p></li>
+<li><p>Any handlers triggered so far will be run.</p></li>
+<li><p>Each role listed in <code class="docutils literal notranslate"><span class="pre">roles</span></code> will execute in turn. Any role dependencies defined in the roles <code class="docutils literal notranslate"><span class="pre">meta/main.yml</span></code> will be run first, subject to tag filtering and conditionals.</p></li>
+<li><p>Any <code class="docutils literal notranslate"><span class="pre">tasks</span></code> defined in the play.</p></li>
+<li><p>Any handlers triggered so far will be run.</p></li>
+<li><p>Any <code class="docutils literal notranslate"><span class="pre">post_tasks</span></code> defined in the play.</p></li>
+<li><p>Any handlers triggered so far will be run.</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">See below for more information regarding role dependencies.</p>
+<p class="admonition-title">Note</p>
+<p>See below for more information regarding role dependencies.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If using tags with tasks (described later as a means of only running part of a playbook), be sure to also tag your pre_tasks, post_tasks, and role dependencies and pass those along as well, especially if the pre/post tasks and role dependencies are used for monitoring outage window control or load balancing.</p>
+<p class="admonition-title">Note</p>
+<p>If using tags with tasks (described later as a means of only running part of a playbook), be sure to also tag your pre_tasks, post_tasks, and role dependencies and pass those along as well, especially if the pre/post tasks and role dependencies are used for monitoring outage window control or load balancing.</p>
 </div>
 <p>As of Ansible 2.4, you can now use roles inline with any other tasks using <code class="docutils literal notranslate"><span class="pre">import_role</span></code> or <code class="docutils literal notranslate"><span class="pre">include_role</span></code>:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
@@ -2392,8 +2393,8 @@
 </div>
 <p>When roles are defined in the classic manner, they are treated as static imports and processed during playbook parsing.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The <code class="docutils literal notranslate"><span class="pre">include_role</span></code> option was introduced in Ansible 2.3. The usage has changed slightly as of Ansible 2.4 to match the include (dynamic) vs. import (static) usage. See <a class="reference internal" href="playbooks_reuse.html#dynamic-vs-static"><span class="std std-ref">Dynamic vs. Static</span></a> for more details.</p>
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">include_role</span></code> option was introduced in Ansible 2.3. The usage has changed slightly as of Ansible 2.4 to match the include (dynamic) vs. import (static) usage. See <a class="reference internal" href="playbooks_reuse.html#dynamic-vs-static"><span class="std std-ref">Dynamic vs. Static</span></a> for more details.</p>
 </div>
 <p>The name used for the role can be a simple name (see <a class="reference internal" href="#role-search-path"><span class="std std-ref">Role Search Path</span></a> below), or it can be a fully qualified path:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
@@ -2466,8 +2467,8 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This <em>tags all of the tasks in that role with the tags specified</em>, appending to any tags that are specified inside the role.</p>
+<p class="admonition-title">Note</p>
+<p>This <em>tags all of the tasks in that role with the tags specified</em>, appending to any tags that are specified inside the role.</p>
 </div>
 <p>On the other hand you might just want to tag the import of the role itself:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">webservers</span>
@@ -2479,12 +2480,12 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The tags in this example will <em>not</em> be added to tasks inside an <code class="docutils literal notranslate"><span class="pre">include_role</span></code>, you can use a surrounding <code class="docutils literal notranslate"><span class="pre">block</span></code> directive to do both.</p>
+<p class="admonition-title">Note</p>
+<p>The tags in this example will <em>not</em> be added to tasks inside an <code class="docutils literal notranslate"><span class="pre">include_role</span></code>, you can use a surrounding <code class="docutils literal notranslate"><span class="pre">block</span></code> directive to do both.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">There is no facility to import a role while specifying a subset of tags to execute. If you find yourself building a role with lots of tags and you want to call subsets of the role at different times, you should consider just splitting that role into multiple roles.</p>
+<p class="admonition-title">Note</p>
+<p>There is no facility to import a role while specifying a subset of tags to execute. If you find yourself building a role with lots of tags and you want to call subsets of the role at different times, you should consider just splitting that role into multiple roles.</p>
 </div>
 </div>
 <div class="section" id="role-duplication-and-execution">
@@ -2500,8 +2501,8 @@
 <p>Given the above, the role <code class="docutils literal notranslate"><span class="pre">foo</span></code> will only be run once.</p>
 <p>To make roles run more than once, there are two options:</p>
 <ol class="arabic simple">
-<li>Pass different parameters in each role definition.</li>
-<li>Add <code class="docutils literal notranslate"><span class="pre">allow_duplicates:</span> <span class="pre">true</span></code> to the <code class="docutils literal notranslate"><span class="pre">meta/main.yml</span></code> file for the role.</li>
+<li><p>Pass different parameters in each role definition.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">allow_duplicates:</span> <span class="pre">true</span></code> to the <code class="docutils literal notranslate"><span class="pre">meta/main.yml</span></code> file for the role.</p></li>
 </ol>
 <p>Example 1 - passing different parameters:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
@@ -2532,7 +2533,7 @@
 <div class="section" id="role-default-variables">
 <h2><a class="toc-backref" href="#id8">Role Default Variables</a><a class="headerlink" href="#role-default-variables" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.3.</span></p>
+<p><span class="versionmodified added">New in version 1.3.</span></p>
 </div>
 <p>Role default variables allow you to set default variables for included or dependent roles (see below). To create
 defaults, simply add a <code class="docutils literal notranslate"><span class="pre">defaults/main.yml</span></code> file in your role directory. These variables will have the lowest priority
@@ -2541,7 +2542,7 @@ of any variables available, and can be easily overridden by any other variable, 
 <div class="section" id="role-dependencies">
 <h2><a class="toc-backref" href="#id9">Role Dependencies</a><a class="headerlink" href="#role-dependencies" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.3.</span></p>
+<p><span class="versionmodified added">New in version 1.3.</span></p>
 </div>
 <p>Role dependencies allow you to automatically pull in other roles when using a role. Role dependencies are stored in the <code class="docutils literal notranslate"><span class="pre">meta/main.yml</span></code> file contained within the role directory, as noted above. This file should contain a list of roles and parameters to insert before the specified role, such as the following in an example <code class="docutils literal notranslate"><span class="pre">roles/myapp/meta/main.yml</span></code>:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
@@ -2559,13 +2560,13 @@ of any variables available, and can be easily overridden by any other variable, 
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Role dependencies must use the classic role definition style.</p>
+<p class="admonition-title">Note</p>
+<p>Role dependencies must use the classic role definition style.</p>
 </div>
 <p>Role dependencies are always executed before the role that includes them, and may be recursive. Dependencies also follow the duplication rules specified above. If another role also lists it as a dependency, it will not be run again based on the same rules given above.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Always remember that when using <code class="docutils literal notranslate"><span class="pre">allow_duplicates:</span> <span class="pre">true</span></code>, it needs to be in the dependent role’s <code class="docutils literal notranslate"><span class="pre">meta/main.yml</span></code>, not the parent.</p>
+<p class="admonition-title">Note</p>
+<p>Always remember that when using <code class="docutils literal notranslate"><span class="pre">allow_duplicates:</span> <span class="pre">true</span></code>, it needs to be in the dependent role’s <code class="docutils literal notranslate"><span class="pre">meta/main.yml</span></code>, not the parent.</p>
 </div>
 <p>For example, a role named <code class="docutils literal notranslate"><span class="pre">car</span></code> depends on a role named <code class="docutils literal notranslate"><span class="pre">wheel</span></code> as follows:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
@@ -2609,8 +2610,8 @@ of any variables available, and can be easily overridden by any other variable, 
 </div>
 <p>Note that we did not have to use <code class="docutils literal notranslate"><span class="pre">allow_duplicates:</span> <span class="pre">true</span></code> for <code class="docutils literal notranslate"><span class="pre">wheel</span></code>, because each instance defined by <code class="docutils literal notranslate"><span class="pre">car</span></code> uses different parameter values.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Variable inheritance and scope are detailed in the <a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a>.</p>
+<p class="admonition-title">Note</p>
+<p>Variable inheritance and scope are detailed in the <a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a>.</p>
 </div>
 </div>
 <div class="section" id="embedding-modules-and-plugins-in-roles">
@@ -2652,8 +2653,8 @@ people in your organization to easily use this module – but you didn’t want 
 <span id="id2"></span><h2><a class="toc-backref" href="#id11">Role Search Path</a><a class="headerlink" href="#role-search-path" title="Permalink to this headline">¶</a></h2>
 <p>Ansible will search for roles in the following way:</p>
 <ul class="simple">
-<li>A <code class="docutils literal notranslate"><span class="pre">roles/</span></code> directory, relative to the playbook file.</li>
-<li>By default, in <code class="docutils literal notranslate"><span class="pre">/etc/ansible/roles</span></code></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">roles/</span></code> directory, relative to the playbook file.</p></li>
+<li><p>By default, in <code class="docutils literal notranslate"><span class="pre">/etc/ansible/roles</span></code></p></li>
 </ul>
 <p>In Ansible 1.4 and later you can configure an additional roles_path to search for roles.  Use this to check all of your common roles out to one location, and share them easily between multiple playbook projects.  See <a class="reference internal" href="../installation_guide/intro_configuration.html#intro-configuration"><span class="std std-ref">Configuring Ansible</span></a> for details about how to set this up in ansible.cfg.</p>
 </div>
@@ -2663,30 +2664,30 @@ people in your organization to easily use this module – but you didn’t want 
 <p>The client <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span></code> is included in Ansible. The Galaxy client allows you to download roles from Ansible Galaxy, and also provides an excellent default framework for creating your own roles.</p>
 <p>Read the <a class="reference external" href="https://galaxy.ansible.com/docs/">Ansible Galaxy documentation</a> page for more information</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../reference_appendices/galaxy.html#ansible-galaxy"><span class="std std-ref">Ansible Galaxy</span></a></dt>
-<dd>How to create new roles, share roles on Galaxy, role management</dd>
-<dt><a class="reference internal" href="../reference_appendices/YAMLSyntax.html#yaml-syntax"><span class="std std-ref">YAML Syntax</span></a></dt>
-<dd>Learn about YAML syntax</dd>
-<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt>
-<dd>Review the basic Playbook language features</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt>
-<dd>Various tips about managing playbooks in the real world</dd>
-<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt>
-<dd>All about variables in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span class="std std-ref">Conditionals</span></a></dt>
-<dd>Conditionals in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a></dt>
-<dd>Loops in playbooks</dd>
-<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt>
-<dd>Learn about available modules</dd>
-<dt><a class="reference internal" href="../dev_guide/developing_modules.html#developing-modules"><span class="std std-ref">Should you develop a module?</span></a></dt>
-<dd>Learn how to extend Ansible by writing your own modules</dd>
-<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">GitHub Ansible examples</a></dt>
-<dd>Complete playbook files from the GitHub project source</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt>
-<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../reference_appendices/galaxy.html#ansible-galaxy"><span class="std std-ref">Ansible Galaxy</span></a></dt><dd><p>How to create new roles, share roles on Galaxy, role management</p>
+</dd>
+<dt><a class="reference internal" href="../reference_appendices/YAMLSyntax.html#yaml-syntax"><span class="std std-ref">YAML Syntax</span></a></dt><dd><p>Learn about YAML syntax</p>
+</dd>
+<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>Review the basic Playbook language features</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html#playbooks-best-practices"><span class="std std-ref">Best Practices</span></a></dt><dd><p>Various tips about managing playbooks in the real world</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt><dd><p>All about variables in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span class="std std-ref">Conditionals</span></a></dt><dd><p>Conditionals in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a></dt><dd><p>Loops in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt><dd><p>Learn about available modules</p>
+</dd>
+<dt><a class="reference internal" href="../dev_guide/developing_modules.html#developing-modules"><span class="std std-ref">Should you develop a module?</span></a></dt><dd><p>Learn how to extend Ansible by writing your own modules</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples">GitHub Ansible examples</a></dt><dd><p>Complete playbook files from the GitHub project source</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt><dd><p>Questions? Help? Ideas?  Stop by the list on Google Groups</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2718,7 +2719,7 @@ people in your organization to easily use this module – but you didn’t want 
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

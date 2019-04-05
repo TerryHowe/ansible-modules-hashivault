@@ -2268,24 +2268,25 @@
 <span id="playbooks-lookups"></span><h1><a class="toc-backref" href="#id3">Lookups</a><a class="headerlink" href="#lookups" title="Permalink to this headline">¶</a></h1>
 <p>Lookup plugins allow access to outside data sources. Like all templating, these plugins are evaluated on the Ansible control machine, and can include reading the filesystem as well as contacting external datastores and services. This data is then made available using the standard templating system in Ansible.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>Lookups occur on the local computer, not on the remote computer.</li>
-<li>They are executed with in the directory containing the role or play, as opposed to local tasks which are executed with the directory of the executed script.</li>
-<li>You can pass wantlist=True to lookups to use in jinja2 template “for” loops.</li>
-<li>Lookups are an advanced feature. You should have a good working knowledge of Ansible plays before incorporating them.</li>
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Lookups occur on the local computer, not on the remote computer.</p></li>
+<li><p>They are executed with in the directory containing the role or play, as opposed to local tasks which are executed with the directory of the executed script.</p></li>
+<li><p>You can pass wantlist=True to lookups to use in jinja2 template “for” loops.</p></li>
+<li><p>Lookups are an advanced feature. You should have a good working knowledge of Ansible plays before incorporating them.</p></li>
 </ul>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Some lookups pass arguments to a shell. When using variables from a remote/untrusted source, use the <cite>|quote</cite> filter to ensure safe usage.</p>
+<p class="admonition-title">Warning</p>
+<p>Some lookups pass arguments to a shell. When using variables from a remote/untrusted source, use the <cite>|quote</cite> filter to ensure safe usage.</p>
 </div>
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#lookups" id="id3">Lookups</a><ul>
-<li><a class="reference internal" href="#lookups-and-loops" id="id4">Lookups and loops</a></li>
-<li><a class="reference internal" href="#lookups-and-variables" id="id5">Lookups and variables</a></li>
+<li><p><a class="reference internal" href="#lookups" id="id3">Lookups</a></p>
+<ul>
+<li><p><a class="reference internal" href="#lookups-and-loops" id="id4">Lookups and loops</a></p></li>
+<li><p><a class="reference internal" href="#lookups-and-variables" id="id5">Lookups and variables</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2307,20 +2308,20 @@
 </div>
 <p>For more details and a complete list of lookup plugins available, please see <a class="reference internal" href="../plugins/plugins.html#plugins-lookup"><span class="std std-ref">Working With Plugins</span></a>.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span class="std std-ref">Conditionals</span></a></dt>
-<dd>Conditional statements in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt>
-<dd>All about variables</dd>
-<dt><a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a></dt>
-<dd>Looping in playbooks</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span class="std std-ref">Conditionals</span></a></dt><dd><p>Conditional statements in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt><dd><p>All about variables</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a></dt><dd><p>Looping in playbooks</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2352,7 +2353,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

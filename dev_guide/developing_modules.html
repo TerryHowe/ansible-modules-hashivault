@@ -2268,59 +2268,59 @@
 <span id="module-dev-should-you"></span><span id="developing-modules"></span><h1>Should you develop a module?<a class="headerlink" href="#should-you-develop-a-module" title="Permalink to this headline">¶</a></h1>
 <p>Developing Ansible modules is easy, but often it isn’t necessary. Before you start writing a new module, ask:</p>
 <ol class="arabic simple">
-<li>Does a similar module already exist?</li>
+<li><p>Does a similar module already exist?</p></li>
 </ol>
 <p>An existing module may cover the functionality you want. Ansible Core includes thousands of modules. Search our <a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">list of existing modules</span></a> to see if there’s a module that does what you need.</p>
 <ol class="arabic simple" start="2">
-<li>Does a Pull Request already exist?</li>
+<li><p>Does a Pull Request already exist?</p></li>
 </ol>
 <p>An existing Pull Request may cover the functionality you want. If someone else has already started developing a similar module, you can review and test it. There are a few ways to find open module Pull Requests:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/ansible/ansible/labels/new_module">GitHub new module PRs</a></li>
-<li><a class="reference external" href="https://github.com/ansible/ansible/labels/module">All updates to modules</a></li>
-<li><a class="reference external" href="https://ansible.sivel.net/pr/byfile.html">New module PRs listed by directory</a> search for <cite>lib/ansible/modules/</cite></li>
+<li><p><a class="reference external" href="https://github.com/ansible/ansible/labels/new_module">GitHub new module PRs</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ansible/ansible/labels/module">All updates to modules</a></p></li>
+<li><p><a class="reference external" href="https://ansible.sivel.net/pr/byfile.html">New module PRs listed by directory</a> search for <cite>lib/ansible/modules/</cite></p></li>
 </ul>
 <p>If you find an existing PR that looks like it addresses your needs, please provide feedback on the PR. Community feedback speeds up the review and merge process.</p>
 <ol class="arabic simple" start="3">
-<li>Should you use or develop an action plugin instead?</li>
+<li><p>Should you use or develop an action plugin instead?</p></li>
 </ol>
 <p>An action plugin may be the best way to get the functionality you want. Action plugins run on the control node instead of on the managed node, and their functionality is available to all modules. For more information about developing plugins, read the <a class="reference internal" href="developing_plugins.html#developing-plugins"><span class="std std-ref">developing plugins page</span></a>.</p>
 <ol class="arabic simple" start="4">
-<li>Should you use a role instead?</li>
+<li><p>Should you use a role instead?</p></li>
 </ol>
 <p>A combination of existing modules may cover the functionality you want. You can write a role for this type of use case. Check out the <a class="reference internal" href="../user_guide/playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">roles documentation</span></a>.</p>
 <ol class="arabic simple" start="5">
-<li>Should you write multiple modules instead of one module?</li>
+<li><p>Should you write multiple modules instead of one module?</p></li>
 </ol>
 <p>The functionality you want may be too large for a single module. If you want to connect Ansible to a new cloud provider, database, or network platform, you may need to <a class="reference internal" href="developing_modules_in_groups.html#developing-modules-in-groups"><span class="std std-ref">develop a related group of modules</span></a>.</p>
 <ul class="simple">
-<li>Modules should have a concise and well defined functionality. Basically, follow the UNIX philosophy of doing one thing well.</li>
-<li>Modules should not require that a user know all the underlying options of an API/tool to be used. For instance, if the legal values for a required module parameter cannot be documented, that’s a sign that the module would be rejected.</li>
-<li>Modules should typically encompass much of the logic for interacting with a resource. A lightweight wrapper around an API that does not contain much logic would likely cause users to offload too much logic into a playbook, and for this reason the module would be rejected. Instead try creating multiple modules for interacting with smaller individual pieces of the API.</li>
+<li><p>Modules should have a concise and well defined functionality. Basically, follow the UNIX philosophy of doing one thing well.</p></li>
+<li><p>Modules should not require that a user know all the underlying options of an API/tool to be used. For instance, if the legal values for a required module parameter cannot be documented, that’s a sign that the module would be rejected.</p></li>
+<li><p>Modules should typically encompass much of the logic for interacting with a resource. A lightweight wrapper around an API that does not contain much logic would likely cause users to offload too much logic into a playbook, and for this reason the module would be rejected. Instead try creating multiple modules for interacting with smaller individual pieces of the API.</p></li>
 </ul>
 <p>If your use case isn’t covered by an existing module, an open PR, an action plugin, or a role, and you don’t need to create multiple modules, then you’re ready to start developing a new module. Choose from the topics below for next steps:</p>
 <ul class="simple">
-<li>I want to <a class="reference internal" href="developing_modules_general.html#developing-modules-general"><span class="std std-ref">get started on a new module</span></a>.</li>
-<li>I want to review <a class="reference internal" href="developing_modules_best_practices.html#developing-modules-best-practices"><span class="std std-ref">tips and conventions for developing good modules</span></a>.</li>
-<li>I want to <a class="reference internal" href="developing_modules_general_windows.html#developing-modules-general-windows"><span class="std std-ref">write a Windows module</span></a>.</li>
-<li>I want <a class="reference internal" href="developing_program_flow_modules.html#developing-program-flow-modules"><span class="std std-ref">an overview of Ansible’s architecture</span></a>.</li>
-<li>I want to <a class="reference internal" href="developing_modules_documenting.html#developing-modules-documenting"><span class="std std-ref">document my module</span></a>.</li>
-<li>I want to <a class="reference internal" href="developing_modules_checklist.html#developing-modules-checklist"><span class="std std-ref">contribute my module back to Ansible Core</span></a>.</li>
-<li>I want to <a class="reference internal" href="testing.html#developing-testing"><span class="std std-ref">add unit and integration tests to my module</span></a>.</li>
-<li>I want to <a class="reference internal" href="developing_python_3.html#developing-python-3"><span class="std std-ref">add Python 3 support to my module</span></a>.</li>
-<li>I want to <a class="reference internal" href="developing_modules_in_groups.html#developing-modules-in-groups"><span class="std std-ref">write multiple modules</span></a>.</li>
+<li><p>I want to <a class="reference internal" href="developing_modules_general.html#developing-modules-general"><span class="std std-ref">get started on a new module</span></a>.</p></li>
+<li><p>I want to review <a class="reference internal" href="developing_modules_best_practices.html#developing-modules-best-practices"><span class="std std-ref">tips and conventions for developing good modules</span></a>.</p></li>
+<li><p>I want to <a class="reference internal" href="developing_modules_general_windows.html#developing-modules-general-windows"><span class="std std-ref">write a Windows module</span></a>.</p></li>
+<li><p>I want <a class="reference internal" href="developing_program_flow_modules.html#developing-program-flow-modules"><span class="std std-ref">an overview of Ansible’s architecture</span></a>.</p></li>
+<li><p>I want to <a class="reference internal" href="developing_modules_documenting.html#developing-modules-documenting"><span class="std std-ref">document my module</span></a>.</p></li>
+<li><p>I want to <a class="reference internal" href="developing_modules_checklist.html#developing-modules-checklist"><span class="std std-ref">contribute my module back to Ansible Core</span></a>.</p></li>
+<li><p>I want to <a class="reference internal" href="testing.html#developing-testing"><span class="std std-ref">add unit and integration tests to my module</span></a>.</p></li>
+<li><p>I want to <a class="reference internal" href="developing_python_3.html#developing-python-3"><span class="std std-ref">add Python 3 support to my module</span></a>.</p></li>
+<li><p>I want to <a class="reference internal" href="developing_modules_in_groups.html#developing-modules-in-groups"><span class="std std-ref">write multiple modules</span></a>.</p></li>
 </ul>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt>
-<dd>Learn about available modules</dd>
-<dt><a class="reference external" href="https://github.com/ansible/ansible/tree/devel/lib/ansible/modules">GitHub modules directory</a></dt>
-<dd>Browse module source code</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Mailing List</a></dt>
-<dd>Development mailing list</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt><dd><p>Learn about available modules</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/ansible/ansible/tree/devel/lib/ansible/modules">GitHub modules directory</a></dt><dd><p>Browse module source code</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Mailing List</a></dt><dd><p>Development mailing list</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2351,7 +2351,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

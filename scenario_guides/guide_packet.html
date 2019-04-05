@@ -2270,8 +2270,8 @@
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://packet.net">Packet.net</a> is a bare metal infrastructure host that’s supported by Ansible (&gt;=2.3) via a dynamic inventory script and two cloud modules. The two modules are:</p>
 <ul class="simple">
-<li>packet_sshkey: adds a public SSH key from file or value to the Packet infrastructure. Every subsequently-created device will have this public key installed in .ssh/authorized_keys.</li>
-<li>packet_device: manages servers on Packet. You can use this module to create, restart and delete devices.</li>
+<li><p>packet_sshkey: adds a public SSH key from file or value to the Packet infrastructure. Every subsequently-created device will have this public key installed in .ssh/authorized_keys.</p></li>
+<li><p>packet_device: manages servers on Packet. You can use this module to create, restart and delete devices.</p></li>
 </ul>
 <p>Note, this guide assumes you are familiar with Ansible and how it works. If you’re not, have a look at their <a class="reference internal" href="../index.html#ansible-documentation"><span class="std std-ref">docs</span></a> before getting started.</p>
 </div>
@@ -2323,10 +2323,10 @@
 <p>The two parameters used to uniquely identify Packet devices are: “device_ids” and “hostnames”. Both parameters accept either a single string (later converted to a one-element list), or a list of strings.</p>
 <p>The ‘device_ids’ and ‘hostnames’ parameters are mutually exclusive. The following values are all acceptable:</p>
 <ul class="simple">
-<li>device_ids: a27b7a83-fc93-435b-a128-47a5b04f2dcf</li>
-<li>hostnames: mydev1</li>
-<li>device_ids: [a27b7a83-fc93-435b-a128-47a5b04f2dcf, 4887130f-0ccd-49a0-99b0-323c1ceb527b]</li>
-<li>hostnames: [mydev1, mydev2]</li>
+<li><p>device_ids: a27b7a83-fc93-435b-a128-47a5b04f2dcf</p></li>
+<li><p>hostnames: mydev1</p></li>
+<li><p>device_ids: [a27b7a83-fc93-435b-a128-47a5b04f2dcf, 4887130f-0ccd-49a0-99b0-323c1ceb527b]</p></li>
+<li><p>hostnames: [mydev1, mydev2]</p></li>
 </ul>
 <p>In addition, hostnames can contain a special ‘%d’ formatter along with a ‘count’ parameter that lets you easily expand hostnames that follow a simple name and number pattern; i.e. <code class="docutils literal notranslate"><span class="pre">hostnames:</span> <span class="pre">&quot;mydev%d&quot;,</span> <span class="pre">count:</span> <span class="pre">2</span></code> will expand to [mydev1, mydev2].</p>
 <p>If your playbook acts on existing Packet devices, you can only pass the ‘hostname’ and ‘device_ids’ parameters. The following playbook shows how you can reboot a specific Packet device by setting the ‘hostname’ parameter:</p>
@@ -2539,7 +2539,7 @@ $ wget https://github.com/ansible/ansible/raw/devel/contrib/inventory/packet_net
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

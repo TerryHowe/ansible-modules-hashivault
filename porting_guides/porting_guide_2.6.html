@@ -2273,23 +2273,26 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-2-6-porting-guide" id="id2">Ansible 2.6 Porting Guide</a><ul>
-<li><a class="reference internal" href="#playbook" id="id3">Playbook</a></li>
-<li><a class="reference internal" href="#deprecated" id="id4">Deprecated</a></li>
-<li><a class="reference internal" href="#modules" id="id5">Modules</a><ul>
-<li><a class="reference internal" href="#modules-removed" id="id6">Modules removed</a></li>
-<li><a class="reference internal" href="#deprecation-notices" id="id7">Deprecation notices</a></li>
-<li><a class="reference internal" href="#noteworthy-module-changes" id="id8">Noteworthy module changes</a></li>
+<li><p><a class="reference internal" href="#ansible-2-6-porting-guide" id="id2">Ansible 2.6 Porting Guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#playbook" id="id3">Playbook</a></p></li>
+<li><p><a class="reference internal" href="#deprecated" id="id4">Deprecated</a></p></li>
+<li><p><a class="reference internal" href="#modules" id="id5">Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#modules-removed" id="id6">Modules removed</a></p></li>
+<li><p><a class="reference internal" href="#deprecation-notices" id="id7">Deprecation notices</a></p></li>
+<li><p><a class="reference internal" href="#noteworthy-module-changes" id="id8">Noteworthy module changes</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#plugins" id="id9">Plugins</a><ul>
-<li><a class="reference internal" href="#id1" id="id10">Deprecation notices</a></li>
-<li><a class="reference internal" href="#noteworthy-plugin-changes" id="id11">Noteworthy plugin changes</a></li>
+<li><p><a class="reference internal" href="#plugins" id="id9">Plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id10">Deprecation notices</a></p></li>
+<li><p><a class="reference internal" href="#noteworthy-plugin-changes" id="id11">Noteworthy plugin changes</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#porting-custom-scripts" id="id12">Porting custom scripts</a></li>
-<li><a class="reference internal" href="#networking" id="id13">Networking</a></li>
-<li><a class="reference internal" href="#dynamic-inventory-scripts" id="id14">Dynamic inventory scripts</a></li>
+<li><p><a class="reference internal" href="#porting-custom-scripts" id="id12">Porting custom scripts</a></p></li>
+<li><p><a class="reference internal" href="#networking" id="id13">Networking</a></p></li>
+<li><p><a class="reference internal" href="#dynamic-inventory-scripts" id="id14">Dynamic inventory scripts</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2297,13 +2300,13 @@
 <div class="section" id="playbook">
 <h2><a class="toc-backref" href="#id3">Playbook</a><a class="headerlink" href="#playbook" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The deprecated task option <code class="docutils literal notranslate"><span class="pre">always_run</span></code> has been removed, please use <code class="docutils literal notranslate"><span class="pre">check_mode:</span> <span class="pre">no</span></code> instead.</li>
+<li><p>The deprecated task option <code class="docutils literal notranslate"><span class="pre">always_run</span></code> has been removed, please use <code class="docutils literal notranslate"><span class="pre">check_mode:</span> <span class="pre">no</span></code> instead.</p></li>
 </ul>
 </div>
 <div class="section" id="deprecated">
 <h2><a class="toc-backref" href="#id4">Deprecated</a><a class="headerlink" href="#deprecated" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>In the <span class="xref std std-ref">nxos_igmp_interface module</span>, <code class="docutils literal notranslate"><span class="pre">oif_prefix</span></code> and <code class="docutils literal notranslate"><span class="pre">oif_source</span></code> properties are deprecated. Use <code class="docutils literal notranslate"><span class="pre">ois_ps</span></code> parameter with a dictionary of prefix and source to values instead.</li>
+<li><p>In the <span class="xref std std-ref">nxos_igmp_interface module</span>, <code class="docutils literal notranslate"><span class="pre">oif_prefix</span></code> and <code class="docutils literal notranslate"><span class="pre">oif_source</span></code> properties are deprecated. Use <code class="docutils literal notranslate"><span class="pre">ois_ps</span></code> parameter with a dictionary of prefix and source to values instead.</p></li>
 </ul>
 </div>
 <div class="section" id="modules">
@@ -2317,25 +2320,20 @@
 <h3><a class="toc-backref" href="#id7">Deprecation notices</a><a class="headerlink" href="#deprecation-notices" title="Permalink to this headline">¶</a></h3>
 <p>The following modules will be removed in Ansible 2.10. Please update your playbooks accordingly.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">k8s_raw</span></code> use <span class="xref std std-ref">k8s</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">openshift_raw</span></code> use <span class="xref std std-ref">k8s</span> instead.</li>
-<li><code class="docutils literal notranslate"><span class="pre">openshift_scale</span></code> use <span class="xref std std-ref">k8s_scale</span> instead.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k8s_raw</span></code> use <span class="xref std std-ref">k8s</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">openshift_raw</span></code> use <span class="xref std std-ref">k8s</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">openshift_scale</span></code> use <span class="xref std std-ref">k8s_scale</span> instead.</p></li>
 </ul>
 </div>
 <div class="section" id="noteworthy-module-changes">
 <h3><a class="toc-backref" href="#id8">Noteworthy module changes</a><a class="headerlink" href="#noteworthy-module-changes" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">upgrade</span></code> module option for <code class="docutils literal notranslate"><span class="pre">win_chocolatey</span></code> has been removed; use <code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">latest</span></code> instead.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">reboot</span></code> module option for <code class="docutils literal notranslate"><span class="pre">win_feature</span></code> has been removed; use the <code class="docutils literal notranslate"><span class="pre">win_reboot</span></code> action plugin instead.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">win_iis_webapppool</span></code> module no longer accepts a string for the <code class="docutils literal notranslate"><span class="pre">attributes</span></code> module option; use the free form dictionary value instead.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">name</span></code> module option for <code class="docutils literal notranslate"><span class="pre">win_package</span></code> has been removed; this is not used anywhere and should just be removed from your playbooks.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">win_regedit</span></code> module no longer automatically corrects the hive path <code class="docutils literal notranslate"><span class="pre">HCCC</span></code> to <code class="docutils literal notranslate"><span class="pre">HKCC</span></code>; use <code class="docutils literal notranslate"><span class="pre">HKCC</span></code> because this is the correct hive path.</p>
-</li>
-<li><p class="first">The <span class="xref std std-ref">file_module</span> now emits a deprecation warning when <code class="docutils literal notranslate"><span class="pre">src</span></code> is specified with a state
+<li><p>The <code class="docutils literal notranslate"><span class="pre">upgrade</span></code> module option for <code class="docutils literal notranslate"><span class="pre">win_chocolatey</span></code> has been removed; use <code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">latest</span></code> instead.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">reboot</span></code> module option for <code class="docutils literal notranslate"><span class="pre">win_feature</span></code> has been removed; use the <code class="docutils literal notranslate"><span class="pre">win_reboot</span></code> action plugin instead.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_iis_webapppool</span></code> module no longer accepts a string for the <code class="docutils literal notranslate"><span class="pre">attributes</span></code> module option; use the free form dictionary value instead.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">name</span></code> module option for <code class="docutils literal notranslate"><span class="pre">win_package</span></code> has been removed; this is not used anywhere and should just be removed from your playbooks.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_regedit</span></code> module no longer automatically corrects the hive path <code class="docutils literal notranslate"><span class="pre">HCCC</span></code> to <code class="docutils literal notranslate"><span class="pre">HKCC</span></code>; use <code class="docutils literal notranslate"><span class="pre">HKCC</span></code> because this is the correct hive path.</p></li>
+<li><p>The <span class="xref std std-ref">file_module</span> now emits a deprecation warning when <code class="docutils literal notranslate"><span class="pre">src</span></code> is specified with a state
 other than <code class="docutils literal notranslate"><span class="pre">hard</span></code> or <code class="docutils literal notranslate"><span class="pre">link</span></code> as it is only supposed to be useful with those.  This could have
 an effect on people who were depending on a buggy interaction between src and other state’s to
 place files into a subdirectory.  For instance:</p>
@@ -2348,29 +2346,19 @@ destination path like this:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">k8s_raw</span></code> and <code class="docutils literal notranslate"><span class="pre">openshift_raw</span></code> modules have been aliased to the new <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module supports all Kubernetes resources including those from Custom Resource Definitions and aggregated API servers. This includes all OpenShift resources.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module will not accept resources where subkeys have been snake_cased. This was a workaround that was suggested with the <code class="docutils literal notranslate"><span class="pre">k8s_raw</span></code> and <code class="docutils literal notranslate"><span class="pre">openshift_raw</span></code> modules.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module may not accept resources where the <code class="docutils literal notranslate"><span class="pre">api_version</span></code> has been changed to match the shortened version in the Kubernetes Python client. You should now specify the proper full Kubernetes <code class="docutils literal notranslate"><span class="pre">api_version</span></code> for a resource.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module can now process multi-document YAML files if they are passed with the <code class="docutils literal notranslate"><span class="pre">src</span></code> parameter. It will process each document as a separate resource. Resources provided inline with the <code class="docutils literal notranslate"><span class="pre">resource_definition</span></code> parameter must still be a single document.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module will not automatically change <code class="docutils literal notranslate"><span class="pre">Project</span></code> creation requests into <code class="docutils literal notranslate"><span class="pre">ProjectRequest</span></code> creation requests as the <code class="docutils literal notranslate"><span class="pre">openshift_raw</span></code> module did. You must now specify the <code class="docutils literal notranslate"><span class="pre">ProjectRequest</span></code> kind explicitly.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module will not automatically remove secrets from the Ansible return values (and by extension the log). In order to prevent secret values in a task from being logged, specify the <code class="docutils literal notranslate"><span class="pre">no_log</span></code> parameter on the task block.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">k8s_scale</span></code> module now supports scalable OpenShift objects, such as <code class="docutils literal notranslate"><span class="pre">DeploymentConfig</span></code>.</p>
-</li>
-<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">lineinfile</span></code> module was changed to show a warning when using an empty string as a regexp.
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s_raw</span></code> and <code class="docutils literal notranslate"><span class="pre">openshift_raw</span></code> modules have been aliased to the new <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module supports all Kubernetes resources including those from Custom Resource Definitions and aggregated API servers. This includes all OpenShift resources.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module will not accept resources where subkeys have been snake_cased. This was a workaround that was suggested with the <code class="docutils literal notranslate"><span class="pre">k8s_raw</span></code> and <code class="docutils literal notranslate"><span class="pre">openshift_raw</span></code> modules.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module may not accept resources where the <code class="docutils literal notranslate"><span class="pre">api_version</span></code> has been changed to match the shortened version in the Kubernetes Python client. You should now specify the proper full Kubernetes <code class="docutils literal notranslate"><span class="pre">api_version</span></code> for a resource.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module can now process multi-document YAML files if they are passed with the <code class="docutils literal notranslate"><span class="pre">src</span></code> parameter. It will process each document as a separate resource. Resources provided inline with the <code class="docutils literal notranslate"><span class="pre">resource_definition</span></code> parameter must still be a single document.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module will not automatically change <code class="docutils literal notranslate"><span class="pre">Project</span></code> creation requests into <code class="docutils literal notranslate"><span class="pre">ProjectRequest</span></code> creation requests as the <code class="docutils literal notranslate"><span class="pre">openshift_raw</span></code> module did. You must now specify the <code class="docutils literal notranslate"><span class="pre">ProjectRequest</span></code> kind explicitly.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> module will not automatically remove secrets from the Ansible return values (and by extension the log). In order to prevent secret values in a task from being logged, specify the <code class="docutils literal notranslate"><span class="pre">no_log</span></code> parameter on the task block.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s_scale</span></code> module now supports scalable OpenShift objects, such as <code class="docutils literal notranslate"><span class="pre">DeploymentConfig</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">lineinfile</span></code> module was changed to show a warning when using an empty string as a regexp.
 Since an empty regexp matches every line in a file, it will replace the last line in a file rather
 than inserting. If this is the desired behavior, use <code class="docutils literal notranslate"><span class="pre">'^'</span></code> which will match every line and
-will not trigger the warning.</p>
-</li>
-<li><p class="first">Openstack modules are no longer using <code class="docutils literal notranslate"><span class="pre">shade</span></code> library. Instead <code class="docutils literal notranslate"><span class="pre">openstacksdk</span></code> is used. Since <code class="docutils literal notranslate"><span class="pre">openstacksdk</span></code> should be already present as a dependency to <code class="docutils literal notranslate"><span class="pre">shade</span></code> no additional actions are required.</p>
-</li>
+will not trigger the warning.</p></li>
+<li><p>Openstack modules are no longer using <code class="docutils literal notranslate"><span class="pre">shade</span></code> library. Instead <code class="docutils literal notranslate"><span class="pre">openstacksdk</span></code> is used. Since <code class="docutils literal notranslate"><span class="pre">openstacksdk</span></code> should be already present as a dependency to <code class="docutils literal notranslate"><span class="pre">shade</span></code> no additional actions are required.</p></li>
 </ul>
 </div>
 </div>
@@ -2380,15 +2368,15 @@ will not trigger the warning.</p>
 <h3><a class="toc-backref" href="#id10">Deprecation notices</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>The following modules will be removed in Ansible 2.10. Please update your playbooks accordingly.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">openshift</span></code> use <code class="docutils literal notranslate"><span class="pre">k8s</span></code> instead.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">openshift</span></code> use <code class="docutils literal notranslate"><span class="pre">k8s</span></code> instead.</p></li>
 </ul>
 </div>
 <div class="section" id="noteworthy-plugin-changes">
 <h3><a class="toc-backref" href="#id11">Noteworthy plugin changes</a><a class="headerlink" href="#noteworthy-plugin-changes" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> lookup plugin now supports all Kubernetes resources including those from Custom Resource Definitions and aggregated API servers. This includes all OpenShift resources.</li>
-<li>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> lookup plugin may not accept resources where the <code class="docutils literal notranslate"><span class="pre">api_version</span></code> has been changed to match the shortened version in the Kubernetes Python client. You should now specify the proper full Kubernetes <code class="docutils literal notranslate"><span class="pre">api_version</span></code> for a resource.</li>
-<li>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> lookup plugin will no longer remove secrets from the Ansible return values (and by extension the log). In order to prevent secret values in a task from being logged, specify the <code class="docutils literal notranslate"><span class="pre">no_log</span></code> parameter on the task block.</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> lookup plugin now supports all Kubernetes resources including those from Custom Resource Definitions and aggregated API servers. This includes all OpenShift resources.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> lookup plugin may not accept resources where the <code class="docutils literal notranslate"><span class="pre">api_version</span></code> has been changed to match the shortened version in the Kubernetes Python client. You should now specify the proper full Kubernetes <code class="docutils literal notranslate"><span class="pre">api_version</span></code> for a resource.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> lookup plugin will no longer remove secrets from the Ansible return values (and by extension the log). In order to prevent secret values in a task from being logged, specify the <code class="docutils literal notranslate"><span class="pre">no_log</span></code> parameter on the task block.</p></li>
 </ul>
 </div>
 </div>
@@ -2403,7 +2391,7 @@ will not trigger the warning.</p>
 <div class="section" id="dynamic-inventory-scripts">
 <h2><a class="toc-backref" href="#id14">Dynamic inventory scripts</a><a class="headerlink" href="#dynamic-inventory-scripts" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">contrib/inventory/openstack.py</span></code> has been renamed to <code class="docutils literal notranslate"><span class="pre">contrib/inventory/openstack_inventory.py</span></code>. If you have used <code class="docutils literal notranslate"><span class="pre">openstack.py</span></code> as a name for your OpenStack dynamic inventory file, change it to <code class="docutils literal notranslate"><span class="pre">openstack_inventory.py</span></code>. Otherwise the file name will conflict with imports from <code class="docutils literal notranslate"><span class="pre">openstacksdk</span></code>.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">contrib/inventory/openstack.py</span></code> has been renamed to <code class="docutils literal notranslate"><span class="pre">contrib/inventory/openstack_inventory.py</span></code>. If you have used <code class="docutils literal notranslate"><span class="pre">openstack.py</span></code> as a name for your OpenStack dynamic inventory file, change it to <code class="docutils literal notranslate"><span class="pre">openstack_inventory.py</span></code>. Otherwise the file name will conflict with imports from <code class="docutils literal notranslate"><span class="pre">openstacksdk</span></code>.</p></li>
 </ul>
 </div>
 </div>
@@ -2434,7 +2422,7 @@ will not trigger the warning.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

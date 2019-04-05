@@ -2269,13 +2269,15 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#remove-an-existing-vmware-virtual-machine" id="id1">Remove an existing VMware virtual machine</a><ul>
-<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
-<li><a class="reference internal" href="#scenario-requirements" id="id3">Scenario Requirements</a></li>
-<li><a class="reference internal" href="#caveats" id="id4">Caveats</a></li>
-<li><a class="reference internal" href="#example-description" id="id5">Example Description</a><ul>
-<li><a class="reference internal" href="#what-to-expect" id="id6">What to expect</a></li>
-<li><a class="reference internal" href="#troubleshooting" id="id7">Troubleshooting</a></li>
+<li><p><a class="reference internal" href="#remove-an-existing-vmware-virtual-machine" id="id1">Remove an existing VMware virtual machine</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id2">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#scenario-requirements" id="id3">Scenario Requirements</a></p></li>
+<li><p><a class="reference internal" href="#caveats" id="id4">Caveats</a></p></li>
+<li><p><a class="reference internal" href="#example-description" id="id5">Example Description</a></p>
+<ul>
+<li><p><a class="reference internal" href="#what-to-expect" id="id6">What to expect</a></p></li>
+<li><p><a class="reference internal" href="#troubleshooting" id="id7">Troubleshooting</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2289,29 +2291,29 @@
 <div class="section" id="scenario-requirements">
 <h2><a class="toc-backref" href="#id3">Scenario Requirements</a><a class="headerlink" href="#scenario-requirements" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Software</p>
+<li><p>Software</p>
 <blockquote>
 <div><ul class="simple">
-<li>Ansible 2.5 or later must be installed.</li>
-<li>The Python module <code class="docutils literal notranslate"><span class="pre">Pyvmomi</span></code> must be installed on the Ansible control node (or Target host if not executing against localhost).</li>
-<li>We recommend installing the latest version with pip: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">Pyvmomi</span></code> (as the OS packages are usually out of date and incompatible).</li>
+<li><p>Ansible 2.5 or later must be installed.</p></li>
+<li><p>The Python module <code class="docutils literal notranslate"><span class="pre">Pyvmomi</span></code> must be installed on the Ansible control node (or Target host if not executing against localhost).</p></li>
+<li><p>We recommend installing the latest version with pip: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">Pyvmomi</span></code> (as the OS packages are usually out of date and incompatible).</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Hardware</p>
+<li><p>Hardware</p>
 <blockquote>
 <div><ul class="simple">
-<li>At least one standalone ESXi server or</li>
-<li>vCenter Server with at least one ESXi server</li>
+<li><p>At least one standalone ESXi server or</p></li>
+<li><p>vCenter Server with at least one ESXi server</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Access / Credentials</p>
+<li><p>Access / Credentials</p>
 <blockquote>
 <div><ul class="simple">
-<li>Ansible (or the target server) must have network access to the either vCenter server or the ESXi server</li>
-<li>Username and Password for vCenter or ESXi server</li>
-<li>Hosts in the ESXi cluster must have access to the datastore that the template resides on.</li>
+<li><p>Ansible (or the target server) must have network access to the either vCenter server or the ESXi server</p></li>
+<li><p>Username and Password for vCenter or ESXi server</p></li>
+<li><p>Hosts in the ESXi cluster must have access to the datastore that the template resides on.</p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -2320,13 +2322,13 @@
 <div class="section" id="caveats">
 <h2><a class="toc-backref" href="#id4">Caveats</a><a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>All variable names and VMware object names are case sensitive.</li>
-<li>You need to use Python 2.7.9 version in order to use <code class="docutils literal notranslate"><span class="pre">validate_certs</span></code> option, as this version is capable of changing the SSL verification behaviours.</li>
-<li><code class="docutils literal notranslate"><span class="pre">vmware_guest</span></code> module tries to mimick VMware Web UI and workflow, so the virtual machine must be in powered off state in order to remove it from the VMware inventory.</li>
+<li><p>All variable names and VMware object names are case sensitive.</p></li>
+<li><p>You need to use Python 2.7.9 version in order to use <code class="docutils literal notranslate"><span class="pre">validate_certs</span></code> option, as this version is capable of changing the SSL verification behaviours.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vmware_guest</span></code> module tries to mimick VMware Web UI and workflow, so the virtual machine must be in powered off state in order to remove it from the VMware inventory.</p></li>
 </ul>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">The removal VMware virtual machine using <code class="docutils literal notranslate"><span class="pre">vmware_guest</span></code> module is destructive operation and can not be reverted, so it is strongly recommended to take the backup of virtual machine and related files (vmx and vmdk files) before proceeding.</p>
+<p class="admonition-title">Warning</p>
+<p>The removal VMware virtual machine using <code class="docutils literal notranslate"><span class="pre">vmware_guest</span></code> module is destructive operation and can not be reverted, so it is strongly recommended to take the backup of virtual machine and related files (vmx and vmdk files) before proceeding.</p>
 </div>
 </div>
 <div class="section" id="example-description">
@@ -2364,9 +2366,9 @@
 <p>You can run these modules against another server that would then connect to the API if localhost does not have access to vCenter. If so, the required Python modules will need to be installed on that target server. We recommend installing the latest version with pip: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">Pyvmomi</span></code> (as the OS packages are usually out of date and incompatible).</p>
 <p>Before you begin, make sure you have:</p>
 <ul class="simple">
-<li>Hostname of the ESXi server or vCenter server</li>
-<li>Username and password for the ESXi or vCenter server</li>
-<li>Name of the existing Virtual Machine you want to remove</li>
+<li><p>Hostname of the ESXi server or vCenter server</p></li>
+<li><p>Username and password for the ESXi or vCenter server</p></li>
+<li><p>Name of the existing Virtual Machine you want to remove</p></li>
 </ul>
 <p>For now, you will be entering these directly, but in a more advanced playbook this can be abstracted out and stored in a more secure fashion using <a class="reference internal" href="../cli/ansible-vault.html#ansible-vault"><span class="std std-ref">ansible-vault</span></a> or using <a class="reference external" href="https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html">Ansible Tower credentials</a>.</p>
 <p>If your vCenter or ESXi server is not setup with proper CA certificates that can be verified from the Ansible server, then it is necessary to disable validation of these certificates by using the <code class="docutils literal notranslate"><span class="pre">validate_certs</span></code> parameter. To do this you need to set <code class="docutils literal notranslate"><span class="pre">validate_certs=False</span></code> in your playbook.</p>
@@ -2374,7 +2376,7 @@
 <div class="section" id="what-to-expect">
 <h3><a class="toc-backref" href="#id6">What to expect</a><a class="headerlink" href="#what-to-expect" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>You will not see any JSON output after this playbook completes as compared to other operations performed using <code class="docutils literal notranslate"><span class="pre">vmware_guest</span></code> module.</li>
+<li><p>You will not see any JSON output after this playbook completes as compared to other operations performed using <code class="docutils literal notranslate"><span class="pre">vmware_guest</span></code> module.</p></li>
 </ul>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">{</span>
 <span class="nt">    &quot;changed&quot;</span><span class="p">:</span> <span class="nv">true</span>
@@ -2382,17 +2384,17 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li>State is changed to <code class="docutils literal notranslate"><span class="pre">True</span></code> which notifies that the virtual machine is removed from the VMware inventory. This can take some time depending upon your environment and network connectivity.</li>
+<li><p>State is changed to <code class="docutils literal notranslate"><span class="pre">True</span></code> which notifies that the virtual machine is removed from the VMware inventory. This can take some time depending upon your environment and network connectivity.</p></li>
 </ul>
 </div>
 <div class="section" id="troubleshooting">
 <h3><a class="toc-backref" href="#id7">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
 <p>If your playbook fails:</p>
 <ul class="simple">
-<li>Check if the values provided for username and password are correct.</li>
-<li>Check if the datacenter you provided is available.</li>
-<li>Check if the virtual machine specified exists and you have permissions to access the datastore.</li>
-<li>Ensure the full folder path you specified already exists. It will not create folders automatically for you.</li>
+<li><p>Check if the values provided for username and password are correct.</p></li>
+<li><p>Check if the datacenter you provided is available.</p></li>
+<li><p>Check if the virtual machine specified exists and you have permissions to access the datastore.</p></li>
+<li><p>Ensure the full folder path you specified already exists. It will not create folders automatically for you.</p></li>
 </ul>
 </div>
 </div>
@@ -2424,7 +2426,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

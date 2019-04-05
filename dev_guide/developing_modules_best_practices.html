@@ -2269,17 +2269,17 @@
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#scoping-your-module-s" id="id1">Scoping your module(s)</a></li>
-<li><a class="reference internal" href="#designing-module-interfaces" id="id2">Designing module interfaces</a></li>
-<li><a class="reference internal" href="#general-guidelines-tips" id="id3">General guidelines &amp; tips</a></li>
-<li><a class="reference internal" href="#functions-and-methods" id="id4">Functions and Methods</a></li>
-<li><a class="reference internal" href="#python-tips" id="id5">Python tips</a></li>
-<li><a class="reference internal" href="#importing-and-using-shared-code" id="id6">Importing and using shared code</a></li>
-<li><a class="reference internal" href="#handling-module-failures" id="id7">Handling module failures</a></li>
-<li><a class="reference internal" href="#handling-exceptions-bugs-gracefully" id="id8">Handling exceptions (bugs) gracefully</a></li>
-<li><a class="reference internal" href="#creating-correct-and-informative-module-output" id="id9">Creating correct and informative module output</a></li>
-<li><a class="reference internal" href="#following-ansible-conventions" id="id10">Following Ansible conventions</a></li>
-<li><a class="reference internal" href="#module-security" id="id11">Module Security</a></li>
+<li><p><a class="reference internal" href="#scoping-your-module-s" id="id1">Scoping your module(s)</a></p></li>
+<li><p><a class="reference internal" href="#designing-module-interfaces" id="id2">Designing module interfaces</a></p></li>
+<li><p><a class="reference internal" href="#general-guidelines-tips" id="id3">General guidelines &amp; tips</a></p></li>
+<li><p><a class="reference internal" href="#functions-and-methods" id="id4">Functions and Methods</a></p></li>
+<li><p><a class="reference internal" href="#python-tips" id="id5">Python tips</a></p></li>
+<li><p><a class="reference internal" href="#importing-and-using-shared-code" id="id6">Importing and using shared code</a></p></li>
+<li><p><a class="reference internal" href="#handling-module-failures" id="id7">Handling module failures</a></p></li>
+<li><p><a class="reference internal" href="#handling-exceptions-bugs-gracefully" id="id8">Handling exceptions (bugs) gracefully</a></p></li>
+<li><p><a class="reference internal" href="#creating-correct-and-informative-module-output" id="id9">Creating correct and informative module output</a></p></li>
+<li><p><a class="reference internal" href="#following-ansible-conventions" id="id10">Following Ansible conventions</a></p></li>
+<li><p><a class="reference internal" href="#module-security" id="id11">Module Security</a></p></li>
 </ul>
 </div>
 <p>As you design and develop modules, follow these basic conventions and tips for clean, usable code:</p>
@@ -2287,52 +2287,50 @@
 <h2><a class="toc-backref" href="#id1">Scoping your module(s)</a><a class="headerlink" href="#scoping-your-module-s" title="Permalink to this headline">¶</a></h2>
 <p>Especially if you want to contribute your module(s) back to Ansible Core, make sure each module includes enough logic and functionality, but not too much. If you’re finding these guidelines tricky, consider <a class="reference internal" href="developing_modules.html#module-dev-should-you"><span class="std std-ref">whether you really need to write a module</span></a> at all.</p>
 <ul class="simple">
-<li>Each module should have a concise and well-defined functionality. Basically, follow the UNIX philosophy of doing one thing well.</li>
-<li>Do not add <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">info</span></code> state options to an existing module - create a new <code class="docutils literal notranslate"><span class="pre">_facts</span></code> module.</li>
-<li>Modules should not require that a user know all the underlying options of an API/tool to be used. For instance, if the legal values for a required module parameter cannot be documented, the module does not belong in Ansible Core.</li>
-<li>Modules should encompass much of the logic for interacting with a resource. A lightweight wrapper around a complex API forces users to offload too much logic into their playbooks. If you want to connect Ansible to a complex API, <a class="reference internal" href="developing_modules_in_groups.html#developing-modules-in-groups"><span class="std std-ref">create multiple modules</span></a> that interact with smaller individual pieces of the API.</li>
-<li>Avoid creating a module that does the work of other modules; this leads to code duplication and divergence, and makes things less uniform, unpredictable and harder to maintain. Modules should be the building blocks. If you are asking ‘how can I have a module execute other modules’ … you want to write a role.</li>
+<li><p>Each module should have a concise and well-defined functionality. Basically, follow the UNIX philosophy of doing one thing well.</p></li>
+<li><p>Do not add <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">info</span></code> state options to an existing module - create a new <code class="docutils literal notranslate"><span class="pre">_facts</span></code> module.</p></li>
+<li><p>Modules should not require that a user know all the underlying options of an API/tool to be used. For instance, if the legal values for a required module parameter cannot be documented, the module does not belong in Ansible Core.</p></li>
+<li><p>Modules should encompass much of the logic for interacting with a resource. A lightweight wrapper around a complex API forces users to offload too much logic into their playbooks. If you want to connect Ansible to a complex API, <a class="reference internal" href="developing_modules_in_groups.html#developing-modules-in-groups"><span class="std std-ref">create multiple modules</span></a> that interact with smaller individual pieces of the API.</p></li>
+<li><p>Avoid creating a module that does the work of other modules; this leads to code duplication and divergence, and makes things less uniform, unpredictable and harder to maintain. Modules should be the building blocks. If you are asking ‘how can I have a module execute other modules’ … you want to write a role.</p></li>
 </ul>
 </div>
 <div class="section" id="designing-module-interfaces">
 <h2><a class="toc-backref" href="#id2">Designing module interfaces</a><a class="headerlink" href="#designing-module-interfaces" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>If your module is addressing an object, the parameter for that object should be called <code class="docutils literal notranslate"><span class="pre">name</span></code> whenever possible, or accept <code class="docutils literal notranslate"><span class="pre">name</span></code> as an alias.</li>
-<li>Modules accepting boolean status should accept <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">no</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span></code>, or anything else a user may likely throw at them. The AnsibleModule common code supports this with <code class="docutils literal notranslate"><span class="pre">type='bool'</span></code>.</li>
-<li>Avoid <code class="docutils literal notranslate"><span class="pre">action</span></code>/<code class="docutils literal notranslate"><span class="pre">command</span></code>, they are imperative and not declarative, there are other ways to express the same thing.</li>
+<li><p>If your module is addressing an object, the parameter for that object should be called <code class="docutils literal notranslate"><span class="pre">name</span></code> whenever possible, or accept <code class="docutils literal notranslate"><span class="pre">name</span></code> as an alias.</p></li>
+<li><p>Modules accepting boolean status should accept <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">no</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span></code>, or anything else a user may likely throw at them. The AnsibleModule common code supports this with <code class="docutils literal notranslate"><span class="pre">type='bool'</span></code>.</p></li>
+<li><p>Avoid <code class="docutils literal notranslate"><span class="pre">action</span></code>/<code class="docutils literal notranslate"><span class="pre">command</span></code>, they are imperative and not declarative, there are other ways to express the same thing.</p></li>
 </ul>
 </div>
 <div class="section" id="general-guidelines-tips">
 <h2><a class="toc-backref" href="#id3">General guidelines &amp; tips</a><a class="headerlink" href="#general-guidelines-tips" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Each module should be self-contained in one file, so it can be be auto-transferred by Ansible.</li>
-<li>Always use the <code class="docutils literal notranslate"><span class="pre">hacking/test-module</span></code> script when developing modules - it will warn you about common pitfalls.</li>
-<li>If you have a local module that returns facts specific to your installations, a good name for this module is <code class="docutils literal notranslate"><span class="pre">site_facts</span></code>.</li>
-<li>Eliminate or minimize dependencies. If your module has dependencies, document them at the top of the module file and raise JSON error messages when dependency import fails.</li>
-<li>Don’t write to files directly; use a temporary file and then use the <code class="docutils literal notranslate"><span class="pre">atomic_move</span></code> function from <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.basic</span></code> to move the updated temporary file into place. This prevents data corruption and ensures that the correct context for the file is kept.</li>
-<li>Avoid creating caches. Ansible is designed without a central server or authority, so you cannot guarantee it will not run with different permissions, options or locations. If you need a central authority, have it on top of Ansible (for example, using bastion/cm/ci server or tower); do not try to build it into modules.</li>
-<li>If you package your module(s) in an RPM, install the modules on the control machine in <code class="docutils literal notranslate"><span class="pre">/usr/share/ansible</span></code>. Packaging modules in RPMs is optional.</li>
+<li><p>Each module should be self-contained in one file, so it can be be auto-transferred by Ansible.</p></li>
+<li><p>Always use the <code class="docutils literal notranslate"><span class="pre">hacking/test-module</span></code> script when developing modules - it will warn you about common pitfalls.</p></li>
+<li><p>If you have a local module that returns facts specific to your installations, a good name for this module is <code class="docutils literal notranslate"><span class="pre">site_facts</span></code>.</p></li>
+<li><p>Eliminate or minimize dependencies. If your module has dependencies, document them at the top of the module file and raise JSON error messages when dependency import fails.</p></li>
+<li><p>Don’t write to files directly; use a temporary file and then use the <code class="docutils literal notranslate"><span class="pre">atomic_move</span></code> function from <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.basic</span></code> to move the updated temporary file into place. This prevents data corruption and ensures that the correct context for the file is kept.</p></li>
+<li><p>Avoid creating caches. Ansible is designed without a central server or authority, so you cannot guarantee it will not run with different permissions, options or locations. If you need a central authority, have it on top of Ansible (for example, using bastion/cm/ci server or tower); do not try to build it into modules.</p></li>
+<li><p>If you package your module(s) in an RPM, install the modules on the control machine in <code class="docutils literal notranslate"><span class="pre">/usr/share/ansible</span></code>. Packaging modules in RPMs is optional.</p></li>
 </ul>
 </div>
 <div class="section" id="functions-and-methods">
 <h2><a class="toc-backref" href="#id4">Functions and Methods</a><a class="headerlink" href="#functions-and-methods" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Each function should be concise and should describe a meaningful amount of work.</li>
-<li>“Don’t repeat yourself” is generally a good philosophy.</li>
-<li>Function names should use underscores: <code class="docutils literal notranslate"><span class="pre">my_function_name</span></code>.</li>
-<li>Each function’s name should describes what it does.</li>
-<li>Each function should have a docstring.</li>
-<li>If your code is too nested, that’s usually a sign the loop body could benefit from being a function. Parts of our existing code are not the best examples of this at times.</li>
+<li><p>Each function should be concise and should describe a meaningful amount of work.</p></li>
+<li><p>“Don’t repeat yourself” is generally a good philosophy.</p></li>
+<li><p>Function names should use underscores: <code class="docutils literal notranslate"><span class="pre">my_function_name</span></code>.</p></li>
+<li><p>Each function’s name should describes what it does.</p></li>
+<li><p>Each function should have a docstring.</p></li>
+<li><p>If your code is too nested, that’s usually a sign the loop body could benefit from being a function. Parts of our existing code are not the best examples of this at times.</p></li>
 </ul>
 </div>
 <div class="section" id="python-tips">
 <h2><a class="toc-backref" href="#id5">Python tips</a><a class="headerlink" href="#python-tips" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">When fetching URLs, use <code class="docutils literal notranslate"><span class="pre">fetch_url</span></code> or <code class="docutils literal notranslate"><span class="pre">open_url</span></code> from <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.urls</span></code>. Do not use <code class="docutils literal notranslate"><span class="pre">urllib2</span></code>, which does not natively verify TLS certificates and so is insecure for https.</p>
-</li>
-<li><p class="first">Include a <code class="docutils literal notranslate"><span class="pre">main</span></code> function that wraps the normal execution.</p>
-</li>
-<li><p class="first">Call your <code class="docutils literal notranslate"><span class="pre">main</span></code> function from a conditional so you can import it into unit tests - for example:</p>
+<li><p>When fetching URLs, use <code class="docutils literal notranslate"><span class="pre">fetch_url</span></code> or <code class="docutils literal notranslate"><span class="pre">open_url</span></code> from <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.urls</span></code>. Do not use <code class="docutils literal notranslate"><span class="pre">urllib2</span></code>, which does not natively verify TLS certificates and so is insecure for https.</p></li>
+<li><p>Include a <code class="docutils literal notranslate"><span class="pre">main</span></code> function that wraps the normal execution.</p></li>
+<li><p>Call your <code class="docutils literal notranslate"><span class="pre">main</span></code> function from a conditional so you can import it into unit tests - for example:</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
@@ -2345,13 +2343,10 @@
 <div class="section" id="importing-and-using-shared-code">
 <span id="shared-code"></span><h2><a class="toc-backref" href="#id6">Importing and using shared code</a><a class="headerlink" href="#importing-and-using-shared-code" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Use shared code whenever possible - don’t reinvent the wheel. Ansible offers the <code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code> common Python code, plus <a class="reference internal" href="developing_module_utilities.html#appendix-module-utilities"><span class="std std-ref">utilities</span></a> for many common use cases and patterns.</p>
-</li>
-<li><p class="first">Import <code class="docutils literal notranslate"><span class="pre">ansible.module_utils</span></code> code in the same place as you import other libraries.</p>
-</li>
-<li><p class="first">Do NOT use wildcards (*) for importing other python modules; instead, list the function(s) you are importing (for example, <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">some.other_python_module.basic</span> <span class="pre">import</span> <span class="pre">otherFunction</span></code>).</p>
-</li>
-<li><p class="first">Import custom packages in <code class="docutils literal notranslate"><span class="pre">try</span></code>/<code class="docutils literal notranslate"><span class="pre">except</span></code> and handle them with <code class="docutils literal notranslate"><span class="pre">fail_json()</span></code> in <code class="docutils literal notranslate"><span class="pre">main()</span></code>. For example:</p>
+<li><p>Use shared code whenever possible - don’t reinvent the wheel. Ansible offers the <code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code> common Python code, plus <a class="reference internal" href="developing_module_utilities.html#appendix-module-utilities"><span class="std std-ref">utilities</span></a> for many common use cases and patterns.</p></li>
+<li><p>Import <code class="docutils literal notranslate"><span class="pre">ansible.module_utils</span></code> code in the same place as you import other libraries.</p></li>
+<li><p>Do NOT use wildcards (*) for importing other python modules; instead, list the function(s) you are importing (for example, <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">some.other_python_module.basic</span> <span class="pre">import</span> <span class="pre">otherFunction</span></code>).</p></li>
+<li><p>Import custom packages in <code class="docutils literal notranslate"><span class="pre">try</span></code>/<code class="docutils literal notranslate"><span class="pre">except</span></code> and handle them with <code class="docutils literal notranslate"><span class="pre">fail_json()</span></code> in <code class="docutils literal notranslate"><span class="pre">main()</span></code>. For example:</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">foo</span>
@@ -2376,38 +2371,38 @@
 <span id="module-failures"></span><h2><a class="toc-backref" href="#id7">Handling module failures</a><a class="headerlink" href="#handling-module-failures" title="Permalink to this headline">¶</a></h2>
 <p>When your module fails, help users understand what went wrong. If you are using the <code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code> common Python code, the <code class="docutils literal notranslate"><span class="pre">failed</span></code> element will be included for you automatically when you call <code class="docutils literal notranslate"><span class="pre">fail_json</span></code>. For polite module failure behavior:</p>
 <ul class="simple">
-<li>Include a key of <code class="docutils literal notranslate"><span class="pre">failed</span></code> along with a string explanation in <code class="docutils literal notranslate"><span class="pre">msg</span></code>. If you don’t do this, Ansible will use standard return codes: 0=success and non-zero=failure.</li>
-<li>Don’t raise a traceback (stacktrace). Ansible can deal with stacktraces and automatically converts anything unparseable into a failed result, but raising a stacktrace on module failure is not user-friendly.</li>
-<li>Do not use <code class="docutils literal notranslate"><span class="pre">sys.exit()</span></code>. Use <code class="docutils literal notranslate"><span class="pre">fail_json()</span></code> from the module object.</li>
+<li><p>Include a key of <code class="docutils literal notranslate"><span class="pre">failed</span></code> along with a string explanation in <code class="docutils literal notranslate"><span class="pre">msg</span></code>. If you don’t do this, Ansible will use standard return codes: 0=success and non-zero=failure.</p></li>
+<li><p>Don’t raise a traceback (stacktrace). Ansible can deal with stacktraces and automatically converts anything unparseable into a failed result, but raising a stacktrace on module failure is not user-friendly.</p></li>
+<li><p>Do not use <code class="docutils literal notranslate"><span class="pre">sys.exit()</span></code>. Use <code class="docutils literal notranslate"><span class="pre">fail_json()</span></code> from the module object.</p></li>
 </ul>
 </div>
 <div class="section" id="handling-exceptions-bugs-gracefully">
 <h2><a class="toc-backref" href="#id8">Handling exceptions (bugs) gracefully</a><a class="headerlink" href="#handling-exceptions-bugs-gracefully" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Validate upfront–fail fast and return useful and clear error messages.</li>
-<li>Use defensive programming–use a simple design for your module, handle errors gracefully, and avoid direct stacktraces.</li>
-<li>Fail predictably–if we must fail, do it in a way that is the most expected. Either mimic the underlying tool or the general way the system works.</li>
-<li>Give out a useful message on what you were doing and add exception messages to that.</li>
-<li>Avoid catchall exceptions, they are not very useful unless the underlying API gives very good error messages pertaining the attempted action.</li>
+<li><p>Validate upfront–fail fast and return useful and clear error messages.</p></li>
+<li><p>Use defensive programming–use a simple design for your module, handle errors gracefully, and avoid direct stacktraces.</p></li>
+<li><p>Fail predictably–if we must fail, do it in a way that is the most expected. Either mimic the underlying tool or the general way the system works.</p></li>
+<li><p>Give out a useful message on what you were doing and add exception messages to that.</p></li>
+<li><p>Avoid catchall exceptions, they are not very useful unless the underlying API gives very good error messages pertaining the attempted action.</p></li>
 </ul>
 </div>
 <div class="section" id="creating-correct-and-informative-module-output">
 <span id="module-output"></span><h2><a class="toc-backref" href="#id9">Creating correct and informative module output</a><a class="headerlink" href="#creating-correct-and-informative-module-output" title="Permalink to this headline">¶</a></h2>
 <p>Modules must output valid JSON only. Follow these guidelines for creating correct, useful module output:</p>
 <ul class="simple">
-<li>Make your top-level return type a hash (dictionary).</li>
-<li>Nest complex return values within the top-level hash.</li>
-<li>Incorporate any lists or simple scalar values within the top-level return hash.</li>
-<li>Do not send module output to standard error, because the system will merge standard out with standard error and prevent the JSON from parsing.</li>
-<li>Capture standard error and return it as a variable in the JSON on standard out. This is how the command module is implemented.</li>
-<li>Never do <code class="docutils literal notranslate"><span class="pre">print(&quot;some</span> <span class="pre">status</span> <span class="pre">message&quot;)</span></code> in a module, because it will not produce valid JSON output.</li>
-<li>Always return useful data, even when there is no change.</li>
-<li>Be consistent about returns (some modules are too random), unless it is detrimental to the state/action.</li>
-<li>Make returns reusable–most of the time you don’t want to read it, but you do want to process it and re-purpose it.</li>
-<li>Return diff if in diff mode. This is not required for all modules, as it won’t make sense for certain ones, but please include it when applicable.</li>
-<li>Enable your return values to be serialized as JSON with Python’s standard <a class="reference external" href="https://docs.python.org/3/library/json.html">JSON encoder and decoder</a> library. Basic python types (strings, int, dicts, lists, etc) are serializable.</li>
-<li>Do not return an object via exit_json(). Instead, convert the fields you need from the object into the fields of a dictionary and return the dictionary.</li>
-<li>Results from many hosts will be aggregated at once, so your module should return only relevant output. Returning the entire contents of a log file is generally bad form.</li>
+<li><p>Make your top-level return type a hash (dictionary).</p></li>
+<li><p>Nest complex return values within the top-level hash.</p></li>
+<li><p>Incorporate any lists or simple scalar values within the top-level return hash.</p></li>
+<li><p>Do not send module output to standard error, because the system will merge standard out with standard error and prevent the JSON from parsing.</p></li>
+<li><p>Capture standard error and return it as a variable in the JSON on standard out. This is how the command module is implemented.</p></li>
+<li><p>Never do <code class="docutils literal notranslate"><span class="pre">print(&quot;some</span> <span class="pre">status</span> <span class="pre">message&quot;)</span></code> in a module, because it will not produce valid JSON output.</p></li>
+<li><p>Always return useful data, even when there is no change.</p></li>
+<li><p>Be consistent about returns (some modules are too random), unless it is detrimental to the state/action.</p></li>
+<li><p>Make returns reusable–most of the time you don’t want to read it, but you do want to process it and re-purpose it.</p></li>
+<li><p>Return diff if in diff mode. This is not required for all modules, as it won’t make sense for certain ones, but please include it when applicable.</p></li>
+<li><p>Enable your return values to be serialized as JSON with Python’s standard <a class="reference external" href="https://docs.python.org/3/library/json.html">JSON encoder and decoder</a> library. Basic python types (strings, int, dicts, lists, etc) are serializable.</p></li>
+<li><p>Do not return an object via exit_json(). Instead, convert the fields you need from the object into the fields of a dictionary and return the dictionary.</p></li>
+<li><p>Results from many hosts will be aggregated at once, so your module should return only relevant output. Returning the entire contents of a log file is generally bad form.</p></li>
 </ul>
 <p>If a module returns stderr or otherwise fails to produce valid JSON, the actual output will still be shown in Ansible, but the command will not succeed.</p>
 </div>
@@ -2415,31 +2410,31 @@
 <span id="module-conventions"></span><h2><a class="toc-backref" href="#id10">Following Ansible conventions</a><a class="headerlink" href="#following-ansible-conventions" title="Permalink to this headline">¶</a></h2>
 <p>Ansible conventions offer a predictable user interface across all modules, playbooks, and roles. To follow Ansible conventions in your module development:</p>
 <ul class="simple">
-<li>Use consistent names across modules (yes, we have many legacy deviations - don’t make the problem worse!).</li>
-<li>Use consistent parameters (arguments) within your module(s).</li>
-<li>Normalize parameters with other modules - if Ansible and the API your module connects to use different names for the same parameter, add aliases to your parameters so the user can choose which names to use in tasks and playbooks.</li>
-<li>Return facts from <code class="docutils literal notranslate"><span class="pre">*_facts</span></code> modules in the <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code> field of the <a class="reference internal" href="../reference_appendices/common_return_values.html#common-return-values"><span class="std std-ref">result dictionary</span></a> so other modules can access them.</li>
-<li>Implement <code class="docutils literal notranslate"><span class="pre">check_mode</span></code> in all <code class="docutils literal notranslate"><span class="pre">*_facts</span></code> modules. Playbooks which conditionalize based on fact information will only conditionalize correctly in <code class="docutils literal notranslate"><span class="pre">check_mode</span></code> if the facts are returned in <code class="docutils literal notranslate"><span class="pre">check_mode</span></code>. Usually you can add <code class="docutils literal notranslate"><span class="pre">check_mode=True</span></code> when instantiating <code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code>.</li>
-<li>Use module-specific environment variables. For example, if you use the helpers in <code class="docutils literal notranslate"><span class="pre">module_utils.api</span></code> for basic authentication with <code class="docutils literal notranslate"><span class="pre">module_utils.urls.fetch_url()</span></code> and you fall back on environment variables for default values, use a module-specific environment variable like <code class="code docutils literal notranslate"><span class="pre">API_&lt;MODULENAME&gt;_USERNAME</span></code> to avoid conflict between modules.</li>
-<li>Keep module options simple and focused - if you’re loading a lot of choices/states on an existing option, consider adding a new, simple option instead.</li>
-<li>Keep options small when possible. Passing a large data structure to an option might save us a few tasks, but it adds a complex requirement that we cannot easily validate before passing on to the module.</li>
-<li>If you want to pass complex data to an option, write an expert module that allows this, along with several smaller modules that provide a more ‘atomic’ operation against the underlying APIs and services. Complex operations require complex data. Let the user choose whether to reflect that complexity in tasks and plays or in  vars files.</li>
-<li>Implement declarative operations (not CRUD) so the user can ignore existing state and focus on final state. For example, use <code class="docutils literal notranslate"><span class="pre">started/stopped</span></code>, <code class="docutils literal notranslate"><span class="pre">present/absent</span></code>.</li>
-<li>Strive for a consistent final state (aka idempotency). If running your module twice in a row against the same system would result in two different states, see if you can redesign or rewrite to achieve consistent final state. If you can’t, document the behavior and the reasons for it.</li>
-<li>Provide consistent return values within the standard Ansible return structure, even if NA/None are used for keys normally returned under other options.</li>
-<li>Follow additional guidelines that apply to families of modules if applicable. For example, AWS modules should follow <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/lib/ansible/modules/cloud/amazon/GUIDELINES.md">the Amazon guidelines</a></li>
+<li><p>Use consistent names across modules (yes, we have many legacy deviations - don’t make the problem worse!).</p></li>
+<li><p>Use consistent parameters (arguments) within your module(s).</p></li>
+<li><p>Normalize parameters with other modules - if Ansible and the API your module connects to use different names for the same parameter, add aliases to your parameters so the user can choose which names to use in tasks and playbooks.</p></li>
+<li><p>Return facts from <code class="docutils literal notranslate"><span class="pre">*_facts</span></code> modules in the <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code> field of the <a class="reference internal" href="../reference_appendices/common_return_values.html#common-return-values"><span class="std std-ref">result dictionary</span></a> so other modules can access them.</p></li>
+<li><p>Implement <code class="docutils literal notranslate"><span class="pre">check_mode</span></code> in all <code class="docutils literal notranslate"><span class="pre">*_facts</span></code> modules. Playbooks which conditionalize based on fact information will only conditionalize correctly in <code class="docutils literal notranslate"><span class="pre">check_mode</span></code> if the facts are returned in <code class="docutils literal notranslate"><span class="pre">check_mode</span></code>. Usually you can add <code class="docutils literal notranslate"><span class="pre">check_mode=True</span></code> when instantiating <code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code>.</p></li>
+<li><p>Use module-specific environment variables. For example, if you use the helpers in <code class="docutils literal notranslate"><span class="pre">module_utils.api</span></code> for basic authentication with <code class="docutils literal notranslate"><span class="pre">module_utils.urls.fetch_url()</span></code> and you fall back on environment variables for default values, use a module-specific environment variable like <code class="code docutils literal notranslate"><span class="pre">API_&lt;MODULENAME&gt;_USERNAME</span></code> to avoid conflict between modules.</p></li>
+<li><p>Keep module options simple and focused - if you’re loading a lot of choices/states on an existing option, consider adding a new, simple option instead.</p></li>
+<li><p>Keep options small when possible. Passing a large data structure to an option might save us a few tasks, but it adds a complex requirement that we cannot easily validate before passing on to the module.</p></li>
+<li><p>If you want to pass complex data to an option, write an expert module that allows this, along with several smaller modules that provide a more ‘atomic’ operation against the underlying APIs and services. Complex operations require complex data. Let the user choose whether to reflect that complexity in tasks and plays or in  vars files.</p></li>
+<li><p>Implement declarative operations (not CRUD) so the user can ignore existing state and focus on final state. For example, use <code class="docutils literal notranslate"><span class="pre">started/stopped</span></code>, <code class="docutils literal notranslate"><span class="pre">present/absent</span></code>.</p></li>
+<li><p>Strive for a consistent final state (aka idempotency). If running your module twice in a row against the same system would result in two different states, see if you can redesign or rewrite to achieve consistent final state. If you can’t, document the behavior and the reasons for it.</p></li>
+<li><p>Provide consistent return values within the standard Ansible return structure, even if NA/None are used for keys normally returned under other options.</p></li>
+<li><p>Follow additional guidelines that apply to families of modules if applicable. For example, AWS modules should follow <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/lib/ansible/modules/cloud/amazon/GUIDELINES.md">the Amazon guidelines</a></p></li>
 </ul>
 </div>
 <div class="section" id="module-security">
 <h2><a class="toc-backref" href="#id11">Module Security</a><a class="headerlink" href="#module-security" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Avoid passing user input from the shell.</li>
-<li>Always check return codes.</li>
-<li>You must always use <code class="docutils literal notranslate"><span class="pre">module.run_command</span></code>, not <code class="docutils literal notranslate"><span class="pre">subprocess</span></code> or <code class="docutils literal notranslate"><span class="pre">Popen</span></code> or <code class="docutils literal notranslate"><span class="pre">os.system</span></code>.</li>
-<li>Avoid using the shell unless absolutely necessary.</li>
-<li>If you must use the shell, you must pass <code class="docutils literal notranslate"><span class="pre">use_unsafe_shell=True</span></code> to <code class="docutils literal notranslate"><span class="pre">module.run_command</span></code>.</li>
-<li>If any variables in your module can come from user input with <code class="docutils literal notranslate"><span class="pre">use_unsafe_shell=True</span></code>, you must wrap them with <code class="docutils literal notranslate"><span class="pre">pipes.quote(x)</span></code>.</li>
-<li>When fetching URLs, use <code class="docutils literal notranslate"><span class="pre">fetch_url</span></code> or <code class="docutils literal notranslate"><span class="pre">open_url</span></code> from <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.urls</span></code>. Do not use <code class="docutils literal notranslate"><span class="pre">urllib2</span></code>, which does not natively verify TLS certificates and so is insecure for https.</li>
+<li><p>Avoid passing user input from the shell.</p></li>
+<li><p>Always check return codes.</p></li>
+<li><p>You must always use <code class="docutils literal notranslate"><span class="pre">module.run_command</span></code>, not <code class="docutils literal notranslate"><span class="pre">subprocess</span></code> or <code class="docutils literal notranslate"><span class="pre">Popen</span></code> or <code class="docutils literal notranslate"><span class="pre">os.system</span></code>.</p></li>
+<li><p>Avoid using the shell unless absolutely necessary.</p></li>
+<li><p>If you must use the shell, you must pass <code class="docutils literal notranslate"><span class="pre">use_unsafe_shell=True</span></code> to <code class="docutils literal notranslate"><span class="pre">module.run_command</span></code>.</p></li>
+<li><p>If any variables in your module can come from user input with <code class="docutils literal notranslate"><span class="pre">use_unsafe_shell=True</span></code>, you must wrap them with <code class="docutils literal notranslate"><span class="pre">pipes.quote(x)</span></code>.</p></li>
+<li><p>When fetching URLs, use <code class="docutils literal notranslate"><span class="pre">fetch_url</span></code> or <code class="docutils literal notranslate"><span class="pre">open_url</span></code> from <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.urls</span></code>. Do not use <code class="docutils literal notranslate"><span class="pre">urllib2</span></code>, which does not natively verify TLS certificates and so is insecure for https.</p></li>
 </ul>
 </div>
 </div>
@@ -2470,7 +2465,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

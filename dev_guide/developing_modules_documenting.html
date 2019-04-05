@@ -2270,24 +2270,24 @@
 <p>Every Ansible module written in Python must begin with seven standard sections in a particular order, followed by the code. The sections in order are:</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#python-shebang" id="id6">Python shebang</a></li>
-<li><a class="reference internal" href="#copyright-and-license" id="id7">Copyright and license</a></li>
-<li><a class="reference internal" href="#ansible-metadata-block" id="id8">ANSIBLE_METADATA block</a></li>
-<li><a class="reference internal" href="#documentation-block" id="id9">DOCUMENTATION block</a></li>
-<li><a class="reference internal" href="#examples-block" id="id10">EXAMPLES block</a></li>
-<li><a class="reference internal" href="#return-block" id="id11">RETURN block</a></li>
-<li><a class="reference internal" href="#python-imports" id="id12">Python imports</a></li>
+<li><p><a class="reference internal" href="#python-shebang" id="id6">Python shebang</a></p></li>
+<li><p><a class="reference internal" href="#copyright-and-license" id="id7">Copyright and license</a></p></li>
+<li><p><a class="reference internal" href="#ansible-metadata-block" id="id8">ANSIBLE_METADATA block</a></p></li>
+<li><p><a class="reference internal" href="#documentation-block" id="id9">DOCUMENTATION block</a></p></li>
+<li><p><a class="reference internal" href="#examples-block" id="id10">EXAMPLES block</a></p></li>
+<li><p><a class="reference internal" href="#return-block" id="id11">RETURN block</a></p></li>
+<li><p><a class="reference internal" href="#python-imports" id="id12">Python imports</a></p></li>
 </ul>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Why don’t the imports go first?</p>
-<p class="last">Keen Python programmers may notice that contrary to PEP 8’s advice we don’t put <code class="docutils literal notranslate"><span class="pre">imports</span></code> at the top of the file. This is because the <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> through <code class="docutils literal notranslate"><span class="pre">RETURN</span></code> sections are not used by the module code itself; they are essentially extra docstrings for the file. The imports are placed after these special variables for the same reason as PEP 8 puts the imports after the introductory comments and docstrings. This keeps the active parts of the code together and the pieces which are purely informational apart. The decision to exclude E402 is based on readability (which is what PEP 8 is about). Documentation strings in a module are much more similar to module level docstrings, than code, and are never utilized by the module itself. Placing the imports below this documentation and closer to the code, consolidates and groups all related code in a congruent manner to improve readability, debugging and understanding.</p>
+<p>Keen Python programmers may notice that contrary to PEP 8’s advice we don’t put <code class="docutils literal notranslate"><span class="pre">imports</span></code> at the top of the file. This is because the <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> through <code class="docutils literal notranslate"><span class="pre">RETURN</span></code> sections are not used by the module code itself; they are essentially extra docstrings for the file. The imports are placed after these special variables for the same reason as PEP 8 puts the imports after the introductory comments and docstrings. This keeps the active parts of the code together and the pieces which are purely informational apart. The decision to exclude E402 is based on readability (which is what PEP 8 is about). Documentation strings in a module are much more similar to module level docstrings, than code, and are never utilized by the module itself. Placing the imports below this documentation and closer to the code, consolidates and groups all related code in a congruent manner to improve readability, debugging and understanding.</p>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<p class="admonition-title">Warning</p>
 <p><strong>Copy old modules with care!</strong></p>
-<p class="last">Some older modules in Ansible Core have <code class="docutils literal notranslate"><span class="pre">imports</span></code> at the bottom of the file, <code class="docutils literal notranslate"><span class="pre">Copyright</span></code> notices with the full GPL prefix, and/or <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> fields in the wrong order. These are legacy files that need updating - do not copy them into new modules. Over time we’re updating and correcting older modules. Please follow the guidelines on this page!</p>
+<p>Some older modules in Ansible Core have <code class="docutils literal notranslate"><span class="pre">imports</span></code> at the bottom of the file, <code class="docutils literal notranslate"><span class="pre">Copyright</span></code> notices with the full GPL prefix, and/or <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> fields in the wrong order. These are legacy files that need updating - do not copy them into new modules. Over time we’re updating and correcting older modules. Please follow the guidelines on this page!</p>
 </div>
 <div class="section" id="python-shebang">
 <span id="shebang"></span><h2><a class="toc-backref" href="#id6">Python shebang</a><a class="headerlink" href="#python-shebang" title="Permalink to this headline">¶</a></h2>
@@ -2320,234 +2320,218 @@
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<ul class="last simple">
-<li><code class="docutils literal notranslate"><span class="pre">metadata_version</span></code> is the version of the <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> schema, <em>not</em> the version of the module.</li>
-<li>Promoting a module’s <code class="docutils literal notranslate"><span class="pre">status</span></code> or <code class="docutils literal notranslate"><span class="pre">supported_by</span></code> status should only be done by members of the Ansible Core Team.</li>
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">metadata_version</span></code> is the version of the <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> schema, <em>not</em> the version of the module.</p></li>
+<li><p>Promoting a module’s <code class="docutils literal notranslate"><span class="pre">status</span></code> or <code class="docutils literal notranslate"><span class="pre">supported_by</span></code> status should only be done by members of the Ansible Core Team.</p></li>
 </ul>
 </div>
 <div class="section" id="ansible-metadata-fields">
 <h3>Ansible metadata fields<a class="headerlink" href="#ansible-metadata-fields" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">metadata_version:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">An “X.Y” formatted string. X and Y are integers which
+<dl class="field-list simple">
+<dt class="field-odd">metadata_version</dt>
+<dd class="field-odd"><p>An “X.Y” formatted string. X and Y are integers which
 define the metadata format version. Modules shipped with Ansible are
 tied to an Ansible release, so we will only ship with a single version
 of the metadata. We’ll increment Y if we add fields or legal values
 to an existing field. We’ll increment X if we remove fields or values
 or change the type or meaning of a field.
 Current metadata_version is “1.1”</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">supported_by:</th><td class="field-body"><p class="first">Who supports the module.
+</dd>
+<dt class="field-even">supported_by</dt>
+<dd class="field-even"><p>Who supports the module.
 Default value is <code class="docutils literal notranslate"><span class="pre">community</span></code>. For information on what the support level values entail, please see
 <a class="reference internal" href="../user_guide/modules_support.html#modules-support"><span class="std std-ref">Modules Support</span></a>. Values are:</p>
 <ul class="simple">
-<li>core</li>
-<li>network</li>
-<li>certified</li>
-<li>community</li>
-<li>curated (<em>deprecated value - modules in this category should be core or
-certified instead</em>)</li>
+<li><p>core</p></li>
+<li><p>network</p></li>
+<li><p>certified</p></li>
+<li><p>community</p></li>
+<li><p>curated (<em>deprecated value - modules in this category should be core or
+certified instead</em>)</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">status:</th><td class="field-body"><p class="first">List of strings describing how stable the module is likely to be. See also <a class="reference internal" href="module_lifecycle.html#module-lifecycle"><span class="std std-ref">The lifecycle of an Ansible module</span></a>.
+</dd>
+<dt class="field-odd">status</dt>
+<dd class="field-odd"><p>List of strings describing how stable the module is likely to be. See also <a class="reference internal" href="module_lifecycle.html#module-lifecycle"><span class="std std-ref">The lifecycle of an Ansible module</span></a>.
 The default value is a single element list [“preview”]. The following strings are valid
 statuses and have the following meanings:</p>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">stableinterface:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">The module’s parameters are stable. Every effort will be made not to remove parameters or change
-their meaning. <strong>Not</strong> a rating of the module’s code quality.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">preview:</th><td class="field-body">The module is in tech preview. It may be
+<dl class="field-list simple">
+<dt class="field-odd">stableinterface</dt>
+<dd class="field-odd"><p>The module’s parameters are stable. Every effort will be made not to remove parameters or change
+their meaning. <strong>Not</strong> a rating of the module’s code quality.</p>
+</dd>
+<dt class="field-even">preview</dt>
+<dd class="field-even"><p>The module is in tech preview. It may be
 unstable, the parameters may change, or it may require libraries or
-web services that are themselves subject to incompatible changes.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">deprecated:</th><td class="field-body">The module is deprecated and will be removed in a future release.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">removed:</th><td class="field-body">The module is not present in the release. A stub is
+web services that are themselves subject to incompatible changes.</p>
+</dd>
+<dt class="field-odd">deprecated</dt>
+<dd class="field-odd"><p>The module is deprecated and will be removed in a future release.</p>
+</dd>
+<dt class="field-even">removed</dt>
+<dd class="field-even"><p>The module is not present in the release. A stub is
 kept so that documentation can be built. The documentation helps
-users port from the removed module to new modules.</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
+users port from the removed module to new modules.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </div>
 </div>
 <div class="section" id="documentation-block">
 <span id="id2"></span><h2><a class="toc-backref" href="#id9">DOCUMENTATION block</a><a class="headerlink" href="#documentation-block" title="Permalink to this headline">¶</a></h2>
 <p>After the shebang, the copyright line, the license, and the <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> section comes the <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> block. Ansible’s online module documentation is generated from the <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> blocks in each module’s source code. The <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> block must be valid YAML. You may find it easier to start writing your <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> string in an <a class="reference internal" href="../community/other_tools_and_programs.html#other-tools-and-programs"><span class="std std-ref">editor with YAML syntax highlighting</span></a> before you include it in your Python file. You can start by copying our <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/examples/DOCUMENTATION.yml">example documentation string</a> into your module file and modifying it. If you run into syntax issues in your YAML, you can validate it on the <a class="reference external" href="http://www.yamllint.com/">YAML Lint</a> website.</p>
-<dl class="docutils">
-<dt>Module documentation should briefly and accurately define what each module and option does, and how it works with others in the underlying system. Documentation should be written for broad audience–readable both by experts and non-experts.</dt>
-<dd><ul class="first last simple">
-<li>Descriptions should always start with a capital letter and end with a full stop. Consistency always helps.</li>
-<li>Verify that arguments in doc and module spec dict are identical.</li>
-<li>For password / secret arguments no_log=True should be set.</li>
-<li>If an optional parameter is sometimes required, reflect this fact in the documentation, e.g. “Required when C(state=present).”</li>
-<li>If your module allows <code class="docutils literal notranslate"><span class="pre">check_mode</span></code>, reflect this fact in the documentation.</li>
+<dl class="simple">
+<dt>Module documentation should briefly and accurately define what each module and option does, and how it works with others in the underlying system. Documentation should be written for broad audience–readable both by experts and non-experts.</dt><dd><ul class="simple">
+<li><p>Descriptions should always start with a capital letter and end with a full stop. Consistency always helps.</p></li>
+<li><p>Verify that arguments in doc and module spec dict are identical.</p></li>
+<li><p>For password / secret arguments no_log=True should be set.</p></li>
+<li><p>If an optional parameter is sometimes required, reflect this fact in the documentation, e.g. “Required when C(state=present).”</p></li>
+<li><p>If your module allows <code class="docutils literal notranslate"><span class="pre">check_mode</span></code>, reflect this fact in the documentation.</p></li>
 </ul>
 </dd>
 </dl>
 <p>Each documentation field is described below. Before committing your module documentation, please test it at the command line and as HTML:</p>
 <ul class="simple">
-<li>As long as your module file is <a class="reference internal" href="developing_locally.html#local-modules"><span class="std std-ref">available locally</span></a>, you can use <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-t</span> <span class="pre">module</span> <span class="pre">my_module_name</span></code> to view your module documentation at the command line. Any parsing errors will be obvious - you can view details by adding <code class="docutils literal notranslate"><span class="pre">-vvv</span></code> to the command.</li>
-<li>You should also <a class="reference internal" href="testing_documentation.html#testing-module-documentation"><span class="std std-ref">test the HTML output</span></a> of your module documentation.</li>
+<li><p>As long as your module file is <a class="reference internal" href="developing_locally.html#local-modules"><span class="std std-ref">available locally</span></a>, you can use <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-t</span> <span class="pre">module</span> <span class="pre">my_module_name</span></code> to view your module documentation at the command line. Any parsing errors will be obvious - you can view details by adding <code class="docutils literal notranslate"><span class="pre">-vvv</span></code> to the command.</p></li>
+<li><p>You should also <a class="reference internal" href="testing_documentation.html#testing-module-documentation"><span class="std std-ref">test the HTML output</span></a> of your module documentation.</p></li>
 </ul>
 <div class="section" id="documentation-fields">
 <h3>Documentation fields<a class="headerlink" href="#documentation-fields" title="Permalink to this headline">¶</a></h3>
 <p>All fields in the <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> block are lower-case. All fields are required unless specified otherwise:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">module:</th><td class="field-body"><ul class="first simple">
-<li>The name of the module.</li>
-<li>Must be the same as the filename, without the <code class="docutils literal notranslate"><span class="pre">.py</span></code> extension.</li>
+<dl class="field-list">
+<dt class="field-odd">module</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>The name of the module.</p></li>
+<li><p>Must be the same as the filename, without the <code class="docutils literal notranslate"><span class="pre">.py</span></code> extension.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">short_description:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
-<li>A short description which is displayed on the <a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a> page and <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-l</span></code>.</li>
-<li>The <code class="docutils literal notranslate"><span class="pre">short_description</span></code> is displayed by <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-l</span></code> without any category grouping,
-so it needs enough detail to explain the module’s purpose without the context of the directory structure in which it lives.</li>
-<li>Unlike <code class="docutils literal notranslate"><span class="pre">description:</span></code>, <code class="docutils literal notranslate"><span class="pre">short_description</span></code> should not have a trailing period/full stop.</li>
+</dd>
+<dt class="field-even">short_description</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>A short description which is displayed on the <a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a> page and <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-l</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">short_description</span></code> is displayed by <code class="docutils literal notranslate"><span class="pre">ansible-doc</span> <span class="pre">-l</span></code> without any category grouping,
+so it needs enough detail to explain the module’s purpose without the context of the directory structure in which it lives.</p></li>
+<li><p>Unlike <code class="docutils literal notranslate"><span class="pre">description:</span></code>, <code class="docutils literal notranslate"><span class="pre">short_description</span></code> should not have a trailing period/full stop.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">description:</th><td class="field-body"><ul class="first simple">
-<li>A detailed description (generally two or more sentences).</li>
-<li>Must be written in full sentences, i.e. with capital letters and periods/full stops.</li>
-<li>Shouldn’t mention the module name.</li>
+</dd>
+<dt class="field-odd">description</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>A detailed description (generally two or more sentences).</p></li>
+<li><p>Must be written in full sentences, i.e. with capital letters and periods/full stops.</p></li>
+<li><p>Shouldn’t mention the module name.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">version_added:</th><td class="field-body"><ul class="first simple">
-<li>The version of Ansible when the module was added.</li>
-<li>This is a string, and not a float, i.e. <code class="docutils literal notranslate"><span class="pre">version_added:</span> <span class="pre">&quot;2.1&quot;</span></code></li>
+</dd>
+<dt class="field-even">version_added</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>The version of Ansible when the module was added.</p></li>
+<li><p>This is a string, and not a float, i.e. <code class="docutils literal notranslate"><span class="pre">version_added:</span> <span class="pre">&quot;2.1&quot;</span></code></p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">author:</th><td class="field-body"><ul class="first simple">
-<li>Name of the module author in the form <code class="docutils literal notranslate"><span class="pre">First</span> <span class="pre">Last</span> <span class="pre">(&#64;GitHubID)</span></code>.</li>
-<li>Use a multi-line list if there is more than one author.</li>
+</dd>
+<dt class="field-odd">author</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>Name of the module author in the form <code class="docutils literal notranslate"><span class="pre">First</span> <span class="pre">Last</span> <span class="pre">(&#64;GitHubID)</span></code>.</p></li>
+<li><p>Use a multi-line list if there is more than one author.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">deprecated:</th><td class="field-body"><ul class="first simple">
-<li>Marks modules that will be removed in future releases. See also <a class="reference internal" href="module_lifecycle.html#module-lifecycle"><span class="std std-ref">The lifecycle of an Ansible module</span></a>.</li>
+</dd>
+<dt class="field-even">deprecated</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>Marks modules that will be removed in future releases. See also <a class="reference internal" href="module_lifecycle.html#module-lifecycle"><span class="std std-ref">The lifecycle of an Ansible module</span></a>.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">options:</th><td class="field-body"><ul class="first simple">
-<li>If the module has no options (for example, it’s a <code class="docutils literal notranslate"><span class="pre">_facts</span></code> module), all you need is one line: <code class="docutils literal notranslate"><span class="pre">options:</span> <span class="pre">{}</span></code>.</li>
-<li>If your module has options (in other words, accepts arguments), each option should be documented thoroughly. For each module argument/option, include:</li>
+</dd>
+<dt class="field-odd">options</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>If the module has no options (for example, it’s a <code class="docutils literal notranslate"><span class="pre">_facts</span></code> module), all you need is one line: <code class="docutils literal notranslate"><span class="pre">options:</span> <span class="pre">{}</span></code>.</p></li>
+<li><p>If your module has options (in other words, accepts arguments), each option should be documented thoroughly. For each module argument/option, include:</p></li>
 </ul>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">option-name:</th><td class="field-body"><ul class="first simple">
-<li>Declarative operation (not CRUD), to focus on the final state, for example <cite>online:</cite>, rather than <cite>is_online:</cite>.</li>
-<li>The name of the option should be consistent with the rest of the module, as well as other modules in the same category.</li>
+<dl class="field-list simple">
+<dt class="field-odd">option-name</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>Declarative operation (not CRUD), to focus on the final state, for example <cite>online:</cite>, rather than <cite>is_online:</cite>.</p></li>
+<li><p>The name of the option should be consistent with the rest of the module, as well as other modules in the same category.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">description:</th><td class="field-body"><ul class="first simple">
-<li>Detailed explanation of what this option does. It should be written in full sentences.</li>
-<li>Should not list the possible values (that’s what <code class="docutils literal notranslate"><span class="pre">choices:</span></code> is for, though it should explain <cite>what</cite> the values do if they aren’t obvious).</li>
-<li>If an optional parameter is sometimes required this need to be reflected in the documentation, e.g. “Required when I(state=present).”</li>
-<li>Mutually exclusive options must be documented as the final sentence on each of the options.</li>
+</dd>
+<dt class="field-even">description</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>Detailed explanation of what this option does. It should be written in full sentences.</p></li>
+<li><p>Should not list the possible values (that’s what <code class="docutils literal notranslate"><span class="pre">choices:</span></code> is for, though it should explain <cite>what</cite> the values do if they aren’t obvious).</p></li>
+<li><p>If an optional parameter is sometimes required this need to be reflected in the documentation, e.g. “Required when I(state=present).”</p></li>
+<li><p>Mutually exclusive options must be documented as the final sentence on each of the options.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">required:</th><td class="field-body"><ul class="first simple">
-<li>Only needed if <code class="docutils literal notranslate"><span class="pre">true</span></code>.</li>
-<li>If missing, we assume the option is not required.</li>
+</dd>
+<dt class="field-odd">required</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>Only needed if <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p>If missing, we assume the option is not required.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">default:</th><td class="field-body"><ul class="first simple">
-<li>If <code class="docutils literal notranslate"><span class="pre">required</span></code> is false/missing, <code class="docutils literal notranslate"><span class="pre">default</span></code> may be specified (assumed ‘null’ if missing).</li>
-<li>Ensure that the default parameter in the docs matches the default parameter in the code.</li>
-<li>The default option must not be listed as part of the description.</li>
-<li>If the option is a boolean value, you can use any of the boolean values recognized by Ansible:
-(such as true/false or yes/no).  Choose the one that reads better in the context of the option.</li>
+</dd>
+<dt class="field-even">default</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">required</span></code> is false/missing, <code class="docutils literal notranslate"><span class="pre">default</span></code> may be specified (assumed ‘null’ if missing).</p></li>
+<li><p>Ensure that the default parameter in the docs matches the default parameter in the code.</p></li>
+<li><p>The default option must not be listed as part of the description.</p></li>
+<li><p>If the option is a boolean value, you can use any of the boolean values recognized by Ansible:
+(such as true/false or yes/no).  Choose the one that reads better in the context of the option.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">choices:</th><td class="field-body"><ul class="first simple">
-<li>List of option values.</li>
-<li>Should be absent if empty.</li>
+</dd>
+<dt class="field-odd">choices</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>List of option values.</p></li>
+<li><p>Should be absent if empty.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">type:</th><td class="field-body"><ul class="first simple">
-<li>Specifies the data type that option accepts, must match the <code class="docutils literal notranslate"><span class="pre">argspec</span></code>.</li>
-<li>If an argument is <code class="docutils literal notranslate"><span class="pre">type='bool'</span></code>, this field should be set to <code class="docutils literal notranslate"><span class="pre">type:</span> <span class="pre">bool</span></code> and no <code class="docutils literal notranslate"><span class="pre">choices</span></code> should be specified.</li>
+</dd>
+<dt class="field-even">type</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>Specifies the data type that option accepts, must match the <code class="docutils literal notranslate"><span class="pre">argspec</span></code>.</p></li>
+<li><p>If an argument is <code class="docutils literal notranslate"><span class="pre">type='bool'</span></code>, this field should be set to <code class="docutils literal notranslate"><span class="pre">type:</span> <span class="pre">bool</span></code> and no <code class="docutils literal notranslate"><span class="pre">choices</span></code> should be specified.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">aliases:</th><td class="field-body"><ul class="first simple">
-<li>List of optional name aliases.</li>
-<li>Generally not needed.</li>
+</dd>
+<dt class="field-odd">aliases</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>List of optional name aliases.</p></li>
+<li><p>Generally not needed.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">version_added:</th><td class="field-body"><ul class="first simple">
-<li>Only needed if this option was extended after initial Ansible release, i.e. this is greater than the top level <cite>version_added</cite> field.</li>
-<li>This is a string, and not a float, i.e. <code class="docutils literal notranslate"><span class="pre">version_added:</span> <span class="pre">&quot;2.3&quot;</span></code>.</li>
+</dd>
+<dt class="field-even">version_added</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>Only needed if this option was extended after initial Ansible release, i.e. this is greater than the top level <cite>version_added</cite> field.</p></li>
+<li><p>This is a string, and not a float, i.e. <code class="docutils literal notranslate"><span class="pre">version_added:</span> <span class="pre">&quot;2.3&quot;</span></code>.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">suboptions:</th><td class="field-body"><ul class="first last simple">
-<li>If this option takes a dict, you can define it here.</li>
-<li>See <span class="xref std std-ref">azure_rm_securitygroup_module</span>, <span class="xref std std-ref">os_ironic_node_module</span> for examples.</li>
+</dd>
+<dt class="field-odd">suboptions</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>If this option takes a dict, you can define it here.</p></li>
+<li><p>See <span class="xref std std-ref">azure_rm_securitygroup_module</span>, <span class="xref std std-ref">os_ironic_node_module</span> for examples.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">requirements:</th><td class="field-body"><ul class="first simple">
-<li>List of requirements (if applicable).</li>
-<li>Include minimum versions.</li>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">requirements</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>List of requirements (if applicable).</p></li>
+<li><p>Include minimum versions.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">notes:</th><td class="field-body"><ul class="first last simple">
-<li>Details of any important information that doesn’t fit in one of the above sections.</li>
-<li>For example, whether <code class="docutils literal notranslate"><span class="pre">check_mode</span></code> is or is not supported, or links to external documentation.</li>
+</dd>
+<dt class="field-odd">notes</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>Details of any important information that doesn’t fit in one of the above sections.</p></li>
+<li><p>For example, whether <code class="docutils literal notranslate"><span class="pre">check_mode</span></code> is or is not supported, or links to external documentation.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </div>
 <div class="section" id="linking-within-module-documentation">
 <h3>Linking within module documentation<a class="headerlink" href="#linking-within-module-documentation" title="Permalink to this headline">¶</a></h3>
 <p>You can link from your module documentation to other module docs, other resources on docs.ansible.com, and resources elsewhere on the internet. The correct formats for these links are:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">L()</span></code> for Links with a heading. For example: <code class="docutils literal notranslate"><span class="pre">See</span> <span class="pre">L(IOS</span> <span class="pre">Platform</span> <span class="pre">Options</span> <span class="pre">guide,</span> <span class="pre">../network/user_guide/platform_ios.html).</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">U()</span></code> for URLs. For example: <code class="docutils literal notranslate"><span class="pre">See</span> <span class="pre">U(https://www.ansible.com/products/tower)</span> <span class="pre">for</span> <span class="pre">an</span> <span class="pre">overview.</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">I()</span></code> for option names. For example: <code class="docutils literal notranslate"><span class="pre">Required</span> <span class="pre">if</span> <span class="pre">I(state=present).</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">C()</span></code> for files and option values. For example: <code class="docutils literal notranslate"><span class="pre">If</span> <span class="pre">not</span> <span class="pre">set</span> <span class="pre">the</span> <span class="pre">environment</span> <span class="pre">variable</span> <span class="pre">C(ACME_PASSWORD)</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">used.</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">M()</span></code> for module names. For example: <code class="docutils literal notranslate"><span class="pre">See</span> <span class="pre">also</span> <span class="pre">M(win_copy)</span> <span class="pre">or</span> <span class="pre">M(win_template).</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">L()</span></code> for Links with a heading. For example: <code class="docutils literal notranslate"><span class="pre">See</span> <span class="pre">L(IOS</span> <span class="pre">Platform</span> <span class="pre">Options</span> <span class="pre">guide,</span> <span class="pre">../network/user_guide/platform_ios.html).</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U()</span></code> for URLs. For example: <code class="docutils literal notranslate"><span class="pre">See</span> <span class="pre">U(https://www.ansible.com/products/tower)</span> <span class="pre">for</span> <span class="pre">an</span> <span class="pre">overview.</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">I()</span></code> for option names. For example: <code class="docutils literal notranslate"><span class="pre">Required</span> <span class="pre">if</span> <span class="pre">I(state=present).</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C()</span></code> for files and option values. For example: <code class="docutils literal notranslate"><span class="pre">If</span> <span class="pre">not</span> <span class="pre">set</span> <span class="pre">the</span> <span class="pre">environment</span> <span class="pre">variable</span> <span class="pre">C(ACME_PASSWORD)</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">used.</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">M()</span></code> for module names. For example: <code class="docutils literal notranslate"><span class="pre">See</span> <span class="pre">also</span> <span class="pre">M(win_copy)</span> <span class="pre">or</span> <span class="pre">M(win_template).</span></code></p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">To refer a collection of modules, use <code class="docutils literal notranslate"><span class="pre">C(..)</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">Refer</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">C(win_*)</span> <span class="pre">modules.</span></code></p>
+<p class="admonition-title">Note</p>
+<p>To refer a collection of modules, use <code class="docutils literal notranslate"><span class="pre">C(..)</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">Refer</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">C(win_*)</span> <span class="pre">modules.</span></code></p>
 </div>
 </div>
 <div class="section" id="documentation-fragments">
@@ -2581,34 +2565,32 @@ so it needs enough detail to explain the module’s purpose without the context 
 <p>After the shebang, the copyright line, the license, the <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> section, <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> and <code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code> blocks comes the <code class="docutils literal notranslate"><span class="pre">RETURN</span></code> block. This section documents the information the module returns for use by other modules.</p>
 <p>If your module doesn’t return anything (apart from the standard returns), this section of your module should read: <code class="docutils literal notranslate"><span class="pre">RETURN</span> <span class="pre">=</span> <span class="pre">'''</span> <span class="pre">#</span> <span class="pre">'''</span></code>
 Otherwise, for each value returned, provide the following fields. All fields are required unless specified otherwise.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">return name:</th><td class="field-body"><p class="first">Name of the returned field.</p>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">description:</th><td class="field-body">Detailed description of what this value represents.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">returned:</th><td class="field-body">When this value is returned, such as <code class="docutils literal notranslate"><span class="pre">always</span></code>, or <code class="docutils literal notranslate"><span class="pre">on</span> <span class="pre">success</span></code>.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">type:</th><td class="field-body">Data type.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">sample:</th><td class="field-body">One or more examples.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">version_added:</th><td class="field-body">Only needed if this return was extended after initial Ansible release, i.e. this is greater than the top level <cite>version_added</cite> field.
-This is a string, and not a float, i.e. <code class="docutils literal notranslate"><span class="pre">version_added:</span> <span class="pre">&quot;2.3&quot;</span></code>.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">contains:</th><td class="field-body">Optional. To describe nested return values, set <code class="docutils literal notranslate"><span class="pre">type:</span> <span class="pre">complex</span></code> and repeat the elements above for each sub-field.</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">return name</dt>
+<dd class="field-odd"><p>Name of the returned field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">description</dt>
+<dd class="field-odd"><p>Detailed description of what this value represents.</p>
+</dd>
+<dt class="field-even">returned</dt>
+<dd class="field-even"><p>When this value is returned, such as <code class="docutils literal notranslate"><span class="pre">always</span></code>, or <code class="docutils literal notranslate"><span class="pre">on</span> <span class="pre">success</span></code>.</p>
+</dd>
+<dt class="field-odd">type</dt>
+<dd class="field-odd"><p>Data type.</p>
+</dd>
+<dt class="field-even">sample</dt>
+<dd class="field-even"><p>One or more examples.</p>
+</dd>
+<dt class="field-odd">version_added</dt>
+<dd class="field-odd"><p>Only needed if this return was extended after initial Ansible release, i.e. this is greater than the top level <cite>version_added</cite> field.
+This is a string, and not a float, i.e. <code class="docutils literal notranslate"><span class="pre">version_added:</span> <span class="pre">&quot;2.3&quot;</span></code>.</p>
+</dd>
+<dt class="field-even">contains</dt>
+<dd class="field-even"><p>Optional. To describe nested return values, set <code class="docutils literal notranslate"><span class="pre">type:</span> <span class="pre">complex</span></code> and repeat the elements above for each sub-field.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p>Here are two example <code class="docutils literal notranslate"><span class="pre">RETURN</span></code> sections, one with three simple fields and one with a complex nested field:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">RETURN = &#39;&#39;&#39;</span>
 <span class="l l-Scalar l-Scalar-Plain">dest</span><span class="p p-Indicator">:</span>
@@ -2689,7 +2671,7 @@ This is a string, and not a float, i.e. <code class="docutils literal notranslat
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

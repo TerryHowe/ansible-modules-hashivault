@@ -2269,22 +2269,25 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#infoblox-guide" id="id1">Infoblox Guide</a><ul>
-<li><a class="reference internal" href="#prerequisites" id="id2">Prerequisites</a></li>
-<li><a class="reference internal" href="#credentials-and-authenticating" id="id3">Credentials and authenticating</a></li>
-<li><a class="reference internal" href="#nios-lookup-plugins" id="id4">NIOS lookup plugins</a><ul>
-<li><a class="reference internal" href="#retrieving-all-network-views" id="id5">Retrieving all network views</a></li>
-<li><a class="reference internal" href="#retrieving-a-host-record" id="id6">Retrieving a host record</a></li>
+<li><p><a class="reference internal" href="#infoblox-guide" id="id1">Infoblox Guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#prerequisites" id="id2">Prerequisites</a></p></li>
+<li><p><a class="reference internal" href="#credentials-and-authenticating" id="id3">Credentials and authenticating</a></p></li>
+<li><p><a class="reference internal" href="#nios-lookup-plugins" id="id4">NIOS lookup plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#retrieving-all-network-views" id="id5">Retrieving all network views</a></p></li>
+<li><p><a class="reference internal" href="#retrieving-a-host-record" id="id6">Retrieving a host record</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#use-cases-with-modules" id="id7">Use cases with modules</a><ul>
-<li><a class="reference internal" href="#configuring-an-ipv4-network" id="id8">Configuring an IPv4 network</a></li>
-<li><a class="reference internal" href="#creating-a-host-record" id="id9">Creating a host record</a></li>
-<li><a class="reference internal" href="#creating-a-forward-dns-zone" id="id10">Creating a forward DNS zone</a></li>
-<li><a class="reference internal" href="#creating-a-reverse-dns-zone" id="id11">Creating a reverse DNS zone</a></li>
+<li><p><a class="reference internal" href="#use-cases-with-modules" id="id7">Use cases with modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#configuring-an-ipv4-network" id="id8">Configuring an IPv4 network</a></p></li>
+<li><p><a class="reference internal" href="#creating-a-host-record" id="id9">Creating a host record</a></p></li>
+<li><p><a class="reference internal" href="#creating-a-forward-dns-zone" id="id10">Creating a forward DNS zone</a></p></li>
+<li><p><a class="reference internal" href="#creating-a-reverse-dns-zone" id="id11">Creating a reverse DNS zone</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#dynamic-inventory-script" id="id12">Dynamic inventory script</a></li>
+<li><p><a class="reference internal" href="#dynamic-inventory-script" id="id12">Dynamic inventory script</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2292,8 +2295,8 @@
 <p>This guide describes how to use Ansible with the Infoblox Network Identity Operating System (NIOS). With Ansible integration, you can use Ansible playbooks to automate Infoblox Core Network Services for IP address management (IPAM), DNS, and inventory tracking.</p>
 <p>You can review simple example tasks in the documentation for any of the <span class="xref std std-ref">NIOS modules</span> or look at the <a class="reference internal" href="#use-cases-with-modules">Use cases with modules</a> section for more elaborate examples. See the <a class="reference external" href="https://www.infoblox.com/">Infoblox</a> website for more information on the Infoblox product.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You can retrieve most of the example playbooks used in this guide from the  <a class="reference external" href="https://github.com/network-automation/infoblox_ansible">network-automation/infoblox_ansible</a> GitHub repository.</p>
+<p class="admonition-title">Note</p>
+<p>You can retrieve most of the example playbooks used in this guide from the  <a class="reference external" href="https://github.com/network-automation/infoblox_ansible">network-automation/infoblox_ansible</a> GitHub repository.</p>
 </div>
 <div class="section" id="prerequisites">
 <h2><a class="toc-backref" href="#id2">Prerequisites</a><a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
@@ -2302,8 +2305,8 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You need an NIOS account with the WAPI feature enabled to use Ansible with Infoblox.</p>
+<p class="admonition-title">Note</p>
+<p>You need an NIOS account with the WAPI feature enabled to use Ansible with Infoblox.</p>
 </div>
 </div>
 <div class="section" id="credentials-and-authenticating">
@@ -2321,9 +2324,9 @@
 <h2><a class="toc-backref" href="#id4">NIOS lookup plugins</a><a class="headerlink" href="#nios-lookup-plugins" title="Permalink to this headline">¶</a></h2>
 <p>Ansible includes the following lookup plugins for NIOS:</p>
 <ul class="simple">
-<li><a class="reference internal" href="../plugins/lookup/nios.html#nios-lookup"><span class="std std-ref">nios</span></a> Uses the Infoblox WAPI API to fetch NIOS specified objects, for example network views, DNS views, and host records.</li>
-<li><a class="reference internal" href="../plugins/lookup/nios_next_ip.html#nios-next-ip-lookup"><span class="std std-ref">nios_next_ip</span></a> Provides the next available IP address from a network. You’ll see an example of this in <a class="reference internal" href="#creating-a-host-record">Creating a host record</a>.</li>
-<li><a class="reference internal" href="../plugins/lookup/nios_next_network.html#nios-next-network-lookup"><span class="std std-ref">nios_next_network</span></a> - Returns the next available network range for a network-container.</li>
+<li><p><a class="reference internal" href="../plugins/lookup/nios.html#nios-lookup"><span class="std std-ref">nios</span></a> Uses the Infoblox WAPI API to fetch NIOS specified objects, for example network views, DNS views, and host records.</p></li>
+<li><p><a class="reference internal" href="../plugins/lookup/nios_next_ip.html#nios-next-ip-lookup"><span class="std std-ref">nios_next_ip</span></a> Provides the next available IP address from a network. You’ll see an example of this in <a class="reference internal" href="#creating-a-host-record">Creating a host record</a>.</p></li>
+<li><p><a class="reference internal" href="../plugins/lookup/nios_next_network.html#nios-next-network-lookup"><span class="std std-ref">nios_next_network</span></a> - Returns the next available network range for a network-container.</p></li>
 </ul>
 <p>You must run the NIOS lookup plugins locally by specifying <code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">local</span></code>. See <a class="reference internal" href="../plugins/lookup.html#lookup-plugins"><span class="std std-ref">lookup plugins</span></a> for more detail.</p>
 <div class="section" id="retrieving-all-network-views">
@@ -2503,15 +2506,15 @@ localhost                  : ok=5    changed=0    unreachable=0    failed=0
 <h2><a class="toc-backref" href="#id12">Dynamic inventory script</a><a class="headerlink" href="#dynamic-inventory-script" title="Permalink to this headline">¶</a></h2>
 <p>You can use the Infoblox dynamic inventory script to import your network node inventory with Infoblox NIOS. To gather the inventory from Infoblox, you need two files:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/infoblox.yaml">infoblox.yaml</a> - A file that specifies the NIOS provider arguments and optional filters.</li>
-<li><a class="reference external" href="https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/infoblox.py">infoblox.py</a> - The python script that retrieves the NIOS inventory.</li>
+<li><p><a class="reference external" href="https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/infoblox.yaml">infoblox.yaml</a> - A file that specifies the NIOS provider arguments and optional filters.</p></li>
+<li><p><a class="reference external" href="https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/infoblox.py">infoblox.py</a> - The python script that retrieves the NIOS inventory.</p></li>
 </ul>
 <p>To use the Infoblox dynamic inventory script:</p>
 <ol class="arabic simple">
-<li>Download the <code class="docutils literal notranslate"><span class="pre">infoblox.yaml</span></code> file and save it in the <code class="docutils literal notranslate"><span class="pre">/etc/ansible</span></code> directory.</li>
-<li>Modify the <code class="docutils literal notranslate"><span class="pre">infoblox.yaml</span></code> file with your NIOS credentials.</li>
-<li>Download the <code class="docutils literal notranslate"><span class="pre">infoblox.py</span></code> file and save it in the <code class="docutils literal notranslate"><span class="pre">/etc/ansible/hosts</span></code> directory.</li>
-<li>Change the permissions on the <code class="docutils literal notranslate"><span class="pre">infoblox.py</span></code> file to make the file an executable:</li>
+<li><p>Download the <code class="docutils literal notranslate"><span class="pre">infoblox.yaml</span></code> file and save it in the <code class="docutils literal notranslate"><span class="pre">/etc/ansible</span></code> directory.</p></li>
+<li><p>Modify the <code class="docutils literal notranslate"><span class="pre">infoblox.yaml</span></code> file with your NIOS credentials.</p></li>
+<li><p>Download the <code class="docutils literal notranslate"><span class="pre">infoblox.py</span></code> file and save it in the <code class="docutils literal notranslate"><span class="pre">/etc/ansible/hosts</span></code> directory.</p></li>
+<li><p>Change the permissions on the <code class="docutils literal notranslate"><span class="pre">infoblox.py</span></code> file to make the file an executable:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo chmod +x /etc/ansible/hosts/infoblox.py
 </pre></div>
@@ -2522,18 +2525,18 @@ localhost                  : ok=5    changed=0    unreachable=0    failed=0
 </div>
 <p>You can also implicitly use the Infoblox dynamic inventory script by including it in your inventory directory (<code class="docutils literal notranslate"><span class="pre">etc/ansible/hosts</span></code> by default). See <a class="reference internal" href="../user_guide/intro_dynamic_inventory.html#dynamic-inventory"><span class="std std-ref">Working With Dynamic Inventory</span></a> for more details.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference external" href="https://www.infoblox.com//">Infoblox website</a></dt>
-<dd>The Infoblox website</dd>
-<dt><a class="reference external" href="https://www.infoblox.com/resources/deployment-guides/infoblox-and-ansible-integration">Infoblox and Ansible Deployment Guide</a></dt>
-<dd>The deployment guide for Ansible integration provided by Infoblox.</dd>
-<dt><a class="reference external" href="https://www.ansible.com/blog/infoblox-integration-in-ansible-2.5">Infoblox Integration in Ansible 2.5</a></dt>
-<dd>Ansible blog post about Infoblox.</dd>
-<dt><span class="xref std std-ref">Ansible NIOS modules</span></dt>
-<dd>The list of supported NIOS modules, with examples.</dd>
-<dt><a class="reference external" href="https://github.com/network-automation/infoblox_ansible">Infoblox Ansible Examples</a></dt>
-<dd>Infoblox example playbooks.</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://www.infoblox.com//">Infoblox website</a></dt><dd><p>The Infoblox website</p>
+</dd>
+<dt><a class="reference external" href="https://www.infoblox.com/resources/deployment-guides/infoblox-and-ansible-integration">Infoblox and Ansible Deployment Guide</a></dt><dd><p>The deployment guide for Ansible integration provided by Infoblox.</p>
+</dd>
+<dt><a class="reference external" href="https://www.ansible.com/blog/infoblox-integration-in-ansible-2.5">Infoblox Integration in Ansible 2.5</a></dt><dd><p>Ansible blog post about Infoblox.</p>
+</dd>
+<dt><span class="xref std std-ref">Ansible NIOS modules</span></dt><dd><p>The list of supported NIOS modules, with examples.</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/network-automation/infoblox_ansible">Infoblox Ansible Examples</a></dt><dd><p>Infoblox example playbooks.</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2565,7 +2568,7 @@ localhost                  : ok=5    changed=0    unreachable=0    failed=0
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

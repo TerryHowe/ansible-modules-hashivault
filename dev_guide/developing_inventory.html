@@ -2269,20 +2269,23 @@
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#inventory-sources" id="id6">Inventory sources</a></li>
-<li><a class="reference internal" href="#inventory-plugins" id="id7">Inventory plugins</a><ul>
-<li><a class="reference internal" href="#developing-an-inventory-plugin" id="id8">Developing an inventory plugin</a><ul>
-<li><a class="reference internal" href="#verify-file" id="id9">verify_file</a></li>
-<li><a class="reference internal" href="#parse" id="id10">parse</a></li>
+<li><p><a class="reference internal" href="#inventory-sources" id="id6">Inventory sources</a></p></li>
+<li><p><a class="reference internal" href="#inventory-plugins" id="id7">Inventory plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#developing-an-inventory-plugin" id="id8">Developing an inventory plugin</a></p>
+<ul>
+<li><p><a class="reference internal" href="#verify-file" id="id9">verify_file</a></p></li>
+<li><p><a class="reference internal" href="#parse" id="id10">parse</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#inventory-source-common-format" id="id11">Inventory source common format</a></li>
-<li><a class="reference internal" href="#the-auto-plugin" id="id12">The ‘auto’ plugin</a></li>
+<li><p><a class="reference internal" href="#inventory-source-common-format" id="id11">Inventory source common format</a></p></li>
+<li><p><a class="reference internal" href="#the-auto-plugin" id="id12">The ‘auto’ plugin</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#developing-inventory-scripts" id="id13">Inventory scripts</a><ul>
-<li><a class="reference internal" href="#inventory-script-conventions" id="id14">Inventory script conventions</a></li>
-<li><a class="reference internal" href="#tuning-the-external-inventory-script" id="id15">Tuning the external inventory script</a></li>
+<li><p><a class="reference internal" href="#developing-inventory-scripts" id="id13">Inventory scripts</a></p>
+<ul>
+<li><p><a class="reference internal" href="#inventory-script-conventions" id="id14">Inventory script conventions</a></p></li>
+<li><p><a class="reference internal" href="#tuning-the-external-inventory-script" id="id15">Tuning the external inventory script</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2301,32 +2304,32 @@ While with <a class="reference internal" href="../plugins/inventory.html#invento
 <p>Inventory sources are strings (i.e what you pass to <code class="docutils literal notranslate"><span class="pre">-i</span></code> in the command line),
 they can represent a path to a file/script or just be the raw data for the plugin to use.
 Here are some plugins and the type of source they use:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="54%" />
-<col width="46%" />
+<col style="width: 54%" />
+<col style="width: 46%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>Plugin</td>
-<td>Source</td>
+<tbody>
+<tr class="row-odd"><td><p>Plugin</p></td>
+<td><p>Source</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="../plugins/inventory/host_list.html#host-list-inventory"><span class="std std-ref">host list</span></a></td>
-<td>A comma separated list of hosts</td>
+<tr class="row-even"><td><p><a class="reference internal" href="../plugins/inventory/host_list.html#host-list-inventory"><span class="std std-ref">host list</span></a></p></td>
+<td><p>A comma separated list of hosts</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="../plugins/inventory/yaml.html#yaml-inventory"><span class="std std-ref">yaml</span></a></td>
-<td>Path to a YAML format data file</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../plugins/inventory/yaml.html#yaml-inventory"><span class="std std-ref">yaml</span></a></p></td>
+<td><p>Path to a YAML format data file</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="../plugins/inventory/constructed.html#constructed-inventory"><span class="std std-ref">constructed</span></a></td>
-<td>Path to a YAML configuration file</td>
+<tr class="row-even"><td><p><a class="reference internal" href="../plugins/inventory/constructed.html#constructed-inventory"><span class="std std-ref">constructed</span></a></p></td>
+<td><p>Path to a YAML configuration file</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="../plugins/inventory/ini.html#ini-inventory"><span class="std std-ref">ini</span></a></td>
-<td>Path to An ini formated data file</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../plugins/inventory/ini.html#ini-inventory"><span class="std std-ref">ini</span></a></p></td>
+<td><p>Path to An ini formated data file</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="../plugins/inventory/virtualbox.html#virtualbox-inventory"><span class="std std-ref">virtualbox</span></a></td>
-<td>Path to a YAML configuration file</td>
+<tr class="row-even"><td><p><a class="reference internal" href="../plugins/inventory/virtualbox.html#virtualbox-inventory"><span class="std std-ref">virtualbox</span></a></p></td>
+<td><p>Path to a YAML configuration file</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="../plugins/inventory/script.html#script-inventory"><span class="std std-ref">script plugin</span></a></td>
-<td>Path to an executable outputing JSON</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../plugins/inventory/script.html#script-inventory"><span class="std std-ref">script plugin</span></a></p></td>
+<td><p>Path to an executable outputing JSON</p></td>
 </tr>
 </tbody>
 </table>
@@ -2393,10 +2396,10 @@ from the <a class="reference internal" href="../plugins/inventory/host_list.html
 <p>It takes the following paramters:</p>
 <blockquote>
 <div><ul class="simple">
-<li>inventory: inventory object with existing data and the methods to add hosts/groups/variables to inventory</li>
-<li>loader: Ansible’s DataLoader. The DataLoader can read files, auto load JSON/YAML and decrypt vaulted data, and cache read files.</li>
-<li>path: string with inventory source (this is usually a path, but is not required)</li>
-<li>cache: indicates whether the plugin should use or avoid caches (cache plugin and/or loader)</li>
+<li><p>inventory: inventory object with existing data and the methods to add hosts/groups/variables to inventory</p></li>
+<li><p>loader: Ansible’s DataLoader. The DataLoader can read files, auto load JSON/YAML and decrypt vaulted data, and cache read files.</p></li>
+<li><p>path: string with inventory source (this is usually a path, but is not required)</p></li>
+<li><p>cache: indicates whether the plugin should use or avoid caches (cache plugin and/or loader)</p></li>
 </ul>
 </div></blockquote>
 <p>The base class does some minimal assignment for reuse in other methods.</p>
@@ -2501,7 +2504,7 @@ and potential group variables, or simply a list of hosts:</p>
 <div class="section" id="tuning-the-external-inventory-script">
 <span id="inventory-script-tuning"></span><h3><a class="toc-backref" href="#id15">Tuning the external inventory script</a><a class="headerlink" href="#tuning-the-external-inventory-script" title="Permalink to this headline">¶</a></h3>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.3.</span></p>
+<p><span class="versionmodified added">New in version 1.3.</span></p>
 </div>
 <p>The stock inventory script system detailed above works for all versions of Ansible,
 but calling <code class="docutils literal notranslate"><span class="pre">--host</span></code> for every host can be rather inefficient,
@@ -2563,20 +2566,20 @@ A skeleton example of this JSON object is:</p>
 </div>
 <p>An easy way to see how this should look is using <a class="reference internal" href="../cli/ansible-inventory.html#ansible-inventory"><span class="std std-ref">ansible-inventory</span></a>, which also supports <code class="docutils literal notranslate"><span class="pre">--list</span></code> and <code class="docutils literal notranslate"><span class="pre">--host</span></code> parameters like an inventory script would.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="developing_api.html"><span class="doc">Python API</span></a></dt>
-<dd>Python API to Playbooks and Ad Hoc Task Execution</dd>
-<dt><a class="reference internal" href="developing_modules.html"><span class="doc">Should you develop a module?</span></a></dt>
-<dd>How to develop modules</dd>
-<dt><a class="reference internal" href="developing_plugins.html"><span class="doc">Developing plugins</span></a></dt>
-<dd>How to develop plugins</dd>
-<dt><a class="reference external" href="https://www.ansible.com/products/tower">Ansible Tower</a></dt>
-<dd>REST API endpoint and GUI for Ansible, syncs with dynamic inventory</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Development Mailing List</a></dt>
-<dd>Mailing list for development topics</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="developing_api.html"><span class="doc">Python API</span></a></dt><dd><p>Python API to Playbooks and Ad Hoc Task Execution</p>
+</dd>
+<dt><a class="reference internal" href="developing_modules.html"><span class="doc">Should you develop a module?</span></a></dt><dd><p>How to develop modules</p>
+</dd>
+<dt><a class="reference internal" href="developing_plugins.html"><span class="doc">Developing plugins</span></a></dt><dd><p>How to develop plugins</p>
+</dd>
+<dt><a class="reference external" href="https://www.ansible.com/products/tower">Ansible Tower</a></dt><dd><p>REST API endpoint and GUI for Ansible, syncs with dynamic inventory</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Development Mailing List</a></dt><dd><p>Mailing list for development topics</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2609,7 +2612,7 @@ A skeleton example of this JSON object is:</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

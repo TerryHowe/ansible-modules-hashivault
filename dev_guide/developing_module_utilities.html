@@ -2272,86 +2272,85 @@
 </div>
 <p>The following is a list of <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> files and a general description. The module utility source code lives in the <code class="docutils literal notranslate"><span class="pre">./lib/ansible/module_utils</span></code> directory under your main Ansible path - for more details on any specific module utility, please see the source code.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p><strong>LICENSING REQUIREMENTS</strong>  Ansible enforces the following licensing requirements:</p>
-<ul class="last simple">
-<li><dl class="first docutils">
-<dt>Utilities (files in <code class="docutils literal notranslate"><span class="pre">lib/ansible/module_utils/</span></code>) may have one of two licenses:</dt>
-<dd><ul class="first last">
-<li>A <code class="docutils literal notranslate"><span class="pre">module_util</span></code> used <strong>only</strong> for a specific vendor’s hardware, provider, or service may be licensed under GPLv3+.</li>
-<li>All other <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> must be licensed under BSD, so GPL-licensed third-party and Galaxy modules can use them.</li>
-<li>If there’s doubt about the appropriate license for a <code class="docutils literal notranslate"><span class="pre">module_util</span></code>, the Ansible Core Team will decide during an Ansible Core Community Meeting.</li>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Utilities (files in <code class="docutils literal notranslate"><span class="pre">lib/ansible/module_utils/</span></code>) may have one of two licenses:</dt><dd><ul>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">module_util</span></code> used <strong>only</strong> for a specific vendor’s hardware, provider, or service may be licensed under GPLv3+.</p></li>
+<li><p>All other <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> must be licensed under BSD, so GPL-licensed third-party and Galaxy modules can use them.</p></li>
+<li><p>If there’s doubt about the appropriate license for a <code class="docutils literal notranslate"><span class="pre">module_util</span></code>, the Ansible Core Team will decide during an Ansible Core Community Meeting.</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>All other files shipped with Ansible, including all modules, must be licensed under the GPL license (GPLv3 or later).</li>
+<li><p>All other files shipped with Ansible, including all modules, must be licensed under the GPL license (GPLv3 or later).</p></li>
 </ul>
 </div>
 <ul class="simple">
-<li>api.py - Adds shared support for generic API modules.</li>
-<li>azure_rm_common.py - Definitions and utilities for Microsoft Azure Resource Manager template deployments.</li>
-<li>basic.py - General definitions and helper utilities for Ansible modules.</li>
-<li>cloudstack.py  - Utilities for CloudStack modules.</li>
-<li>database.py - Miscellaneous helper functions for PostGRES and MySQL</li>
-<li>docker_common.py - Definitions and helper utilities for modules working with Docker.</li>
-<li>ec2.py - Definitions and utilities for modules working with Amazon EC2</li>
-<li>facts/- Folder containing helper functions for modules that return facts. See <a class="reference external" href="https://github.com/ansible/ansible/pull/23012">https://github.com/ansible/ansible/pull/23012</a> for more information.</li>
-<li>gce.py - Definitions and helper functions for modules that work with Google Compute Engine resources.</li>
-<li>ismount.py - Contains single helper function that fixes os.path.ismount</li>
-<li>keycloak.py - Definitions and helper functions for modules working with the Keycloak API</li>
-<li>known_hosts.py - utilities for working with known_hosts file</li>
-<li>manageiq.py - Functions and utilities for modules that work with ManageIQ platform and its resources.</li>
-<li>memset.py - Helper functions and utilities for interacting with Memset’s API.</li>
-<li>mysql.py - Allows modules to connect to a MySQL instance</li>
-<li>netapp.py - Functions and utilities for modules that work with the NetApp storage platforms.</li>
-<li>network/a10/a10.py - Utilities used by the a10_server module to manage A10 Networks devices.</li>
-<li>network/aci/aci.py - Definitions and helper functions for modules that manage Cisco ACI Fabrics.</li>
-<li>network/aireos/aireos.py - Definitions and helper functions for modules that manage Cisco WLC devices.</li>
-<li>network/aos/aos.py - Module support utilities for managing Apstra AOS Server.</li>
-<li>network/aruba/aruba.py - Helper functions for modules working with Aruba networking devices.</li>
-<li>network/asa/asa.py - Module support utilities for managing Cisco ASA network devices.</li>
-<li>network/avi/avi.py - Helper functions for modules working with AVI networking devices.</li>
-<li>network/bigswitch/bigswitch_utils.py - Utilities used by the bigswitch module to manage Big Switch Networks devices.</li>
-<li>network/cloudengine/ce.py - Module support utilities for managing Huawei Cloudengine switch.</li>
-<li>network/cnos/cnos.py - Helper functions for modules working on devices running Lenovo CNOS.</li>
-<li>network/common/config.py - Configuration utility functions for use by networking modules</li>
-<li>network/common/netconf.py - Definitions and helper functions for modules that use Netconf transport.</li>
-<li>network/common/parsing.py - Definitions and helper functions for Network modules.</li>
-<li>network/common/network.py - Functions for running commands on networking devices</li>
-<li>network/common/utils.py - Defines commands and comparison operators and other utilises for use in networking modules</li>
-<li>network/dellos6/dellos6.py - Module support utilities for managing device running Dell OS6.</li>
-<li>network/dellos9/dellos9.py - Module support utilities for managing device running Dell OS9.</li>
-<li>network/dellos10/dellos10.py - Module support utilities for managing device running Dell OS10.</li>
-<li>network/enos/enos.py - Helper functions for modules working with Lenovo ENOS devices.</li>
-<li>network/eos/eos.py - Helper functions for modules working with EOS networking devices.</li>
-<li>network/fortios/fortios.py - Module support utilities for managing FortiOS devices.</li>
-<li>network/ios/ios.py - Definitions and helper functions for modules that manage Cisco IOS networking devices</li>
-<li>network/iosxr/iosxr.py - Definitions and helper functions for modules that manage Cisco IOS-XR networking devices.</li>
-<li>network/ironware/ironware.py - Module support utilities for managing Brocade IronWare devices.</li>
-<li>network/junos/junos.py -  Definitions and helper functions for modules that manage Junos networking devices.</li>
-<li>network/meraki/meraki.py - Utilities specifically for the Meraki network modules.</li>
-<li>network/netscaler/netscaler.py - Utilities specifically for the netscaler network modules.</li>
-<li>network/nso/nso.py - Utilities for modules that work with Cisco NSO.</li>
-<li>network/nxos/nxos.py - Contains definitions and helper functions specific to Cisco NXOS networking devices.</li>
-<li>network/onyx/onyx.py - Definitions and helper functions for modules that manage Mellanox ONYX networking devices.</li>
-<li>network/ordance/ordance.py - Module support utilities for managing Ordnance devices.</li>
-<li>network/sros/sros.py - Helper functions for modules working with Open vSwitch bridges.</li>
-<li>network/vyos/vyos.py - Definitions and functions for working with VyOS networking</li>
-<li>openstack.py - Utilities for modules that work with Openstack instances.</li>
-<li>openswitch.py - Definitions and helper functions for modules that manage OpenSwitch devices</li>
-<li>powershell.ps1 - Utilities for working with Microsoft Windows clients</li>
-<li>pure.py - Functions and utilities for modules that work with the Pure Storage storage platforms.</li>
-<li>pycompat24.py - Exception workaround for Python 2.4.</li>
-<li>rax.py -  Definitions and helper functions for modules that work with Rackspace resources.</li>
-<li>redhat.py - Functions for modules that manage Red Hat Network registration and subscriptions</li>
-<li>service.py - Contains utilities to enable modules to work with Linux services (placeholder, not in use).</li>
-<li>shell.py - Functions to allow modules to create shells and work with shell commands</li>
-<li>six/__init__.py - Bundled copy of the <a class="reference external" href="https://pythonhosted.org/six/">Six Python library</a> to aid in writing code compatible with both Python 2 and Python 3.</li>
-<li>splitter.py - String splitting and manipulation utilities for working with Jinja2 templates</li>
-<li>urls.py - Utilities for working with http and https requests</li>
-<li>vca.py - Contains utilities for modules that work with VMware vCloud Air</li>
-<li>vmware.py - Contains utilities for modules that work with VMware vSphere VMs</li>
+<li><p>api.py - Adds shared support for generic API modules.</p></li>
+<li><p>azure_rm_common.py - Definitions and utilities for Microsoft Azure Resource Manager template deployments.</p></li>
+<li><p>basic.py - General definitions and helper utilities for Ansible modules.</p></li>
+<li><p>cloudstack.py  - Utilities for CloudStack modules.</p></li>
+<li><p>database.py - Miscellaneous helper functions for PostGRES and MySQL</p></li>
+<li><p>docker_common.py - Definitions and helper utilities for modules working with Docker.</p></li>
+<li><p>ec2.py - Definitions and utilities for modules working with Amazon EC2</p></li>
+<li><p>facts/- Folder containing helper functions for modules that return facts. See <a class="reference external" href="https://github.com/ansible/ansible/pull/23012">https://github.com/ansible/ansible/pull/23012</a> for more information.</p></li>
+<li><p>gce.py - Definitions and helper functions for modules that work with Google Compute Engine resources.</p></li>
+<li><p>ismount.py - Contains single helper function that fixes os.path.ismount</p></li>
+<li><p>keycloak.py - Definitions and helper functions for modules working with the Keycloak API</p></li>
+<li><p>known_hosts.py - utilities for working with known_hosts file</p></li>
+<li><p>manageiq.py - Functions and utilities for modules that work with ManageIQ platform and its resources.</p></li>
+<li><p>memset.py - Helper functions and utilities for interacting with Memset’s API.</p></li>
+<li><p>mysql.py - Allows modules to connect to a MySQL instance</p></li>
+<li><p>netapp.py - Functions and utilities for modules that work with the NetApp storage platforms.</p></li>
+<li><p>network/a10/a10.py - Utilities used by the a10_server module to manage A10 Networks devices.</p></li>
+<li><p>network/aci/aci.py - Definitions and helper functions for modules that manage Cisco ACI Fabrics.</p></li>
+<li><p>network/aireos/aireos.py - Definitions and helper functions for modules that manage Cisco WLC devices.</p></li>
+<li><p>network/aos/aos.py - Module support utilities for managing Apstra AOS Server.</p></li>
+<li><p>network/aruba/aruba.py - Helper functions for modules working with Aruba networking devices.</p></li>
+<li><p>network/asa/asa.py - Module support utilities for managing Cisco ASA network devices.</p></li>
+<li><p>network/avi/avi.py - Helper functions for modules working with AVI networking devices.</p></li>
+<li><p>network/bigswitch/bigswitch_utils.py - Utilities used by the bigswitch module to manage Big Switch Networks devices.</p></li>
+<li><p>network/cloudengine/ce.py - Module support utilities for managing Huawei Cloudengine switch.</p></li>
+<li><p>network/cnos/cnos.py - Helper functions for modules working on devices running Lenovo CNOS.</p></li>
+<li><p>network/common/config.py - Configuration utility functions for use by networking modules</p></li>
+<li><p>network/common/netconf.py - Definitions and helper functions for modules that use Netconf transport.</p></li>
+<li><p>network/common/parsing.py - Definitions and helper functions for Network modules.</p></li>
+<li><p>network/common/network.py - Functions for running commands on networking devices</p></li>
+<li><p>network/common/utils.py - Defines commands and comparison operators and other utilises for use in networking modules</p></li>
+<li><p>network/dellos6/dellos6.py - Module support utilities for managing device running Dell OS6.</p></li>
+<li><p>network/dellos9/dellos9.py - Module support utilities for managing device running Dell OS9.</p></li>
+<li><p>network/dellos10/dellos10.py - Module support utilities for managing device running Dell OS10.</p></li>
+<li><p>network/enos/enos.py - Helper functions for modules working with Lenovo ENOS devices.</p></li>
+<li><p>network/eos/eos.py - Helper functions for modules working with EOS networking devices.</p></li>
+<li><p>network/fortios/fortios.py - Module support utilities for managing FortiOS devices.</p></li>
+<li><p>network/ios/ios.py - Definitions and helper functions for modules that manage Cisco IOS networking devices</p></li>
+<li><p>network/iosxr/iosxr.py - Definitions and helper functions for modules that manage Cisco IOS-XR networking devices.</p></li>
+<li><p>network/ironware/ironware.py - Module support utilities for managing Brocade IronWare devices.</p></li>
+<li><p>network/junos/junos.py -  Definitions and helper functions for modules that manage Junos networking devices.</p></li>
+<li><p>network/meraki/meraki.py - Utilities specifically for the Meraki network modules.</p></li>
+<li><p>network/netscaler/netscaler.py - Utilities specifically for the netscaler network modules.</p></li>
+<li><p>network/nso/nso.py - Utilities for modules that work with Cisco NSO.</p></li>
+<li><p>network/nxos/nxos.py - Contains definitions and helper functions specific to Cisco NXOS networking devices.</p></li>
+<li><p>network/onyx/onyx.py - Definitions and helper functions for modules that manage Mellanox ONYX networking devices.</p></li>
+<li><p>network/ordance/ordance.py - Module support utilities for managing Ordnance devices.</p></li>
+<li><p>network/sros/sros.py - Helper functions for modules working with Open vSwitch bridges.</p></li>
+<li><p>network/vyos/vyos.py - Definitions and functions for working with VyOS networking</p></li>
+<li><p>openstack.py - Utilities for modules that work with Openstack instances.</p></li>
+<li><p>openswitch.py - Definitions and helper functions for modules that manage OpenSwitch devices</p></li>
+<li><p>powershell.ps1 - Utilities for working with Microsoft Windows clients</p></li>
+<li><p>pure.py - Functions and utilities for modules that work with the Pure Storage storage platforms.</p></li>
+<li><p>pycompat24.py - Exception workaround for Python 2.4.</p></li>
+<li><p>rax.py -  Definitions and helper functions for modules that work with Rackspace resources.</p></li>
+<li><p>redhat.py - Functions for modules that manage Red Hat Network registration and subscriptions</p></li>
+<li><p>service.py - Contains utilities to enable modules to work with Linux services (placeholder, not in use).</p></li>
+<li><p>shell.py - Functions to allow modules to create shells and work with shell commands</p></li>
+<li><p>six/__init__.py - Bundled copy of the <a class="reference external" href="https://pythonhosted.org/six/">Six Python library</a> to aid in writing code compatible with both Python 2 and Python 3.</p></li>
+<li><p>splitter.py - String splitting and manipulation utilities for working with Jinja2 templates</p></li>
+<li><p>urls.py - Utilities for working with http and https requests</p></li>
+<li><p>vca.py - Contains utilities for modules that work with VMware vCloud Air</p></li>
+<li><p>vmware.py - Contains utilities for modules that work with VMware vSphere VMs</p></li>
 </ul>
 </div>
 
@@ -2381,7 +2380,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

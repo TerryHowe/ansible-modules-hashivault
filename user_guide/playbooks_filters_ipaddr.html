@@ -2265,7 +2265,7 @@
   <div class="section" id="ipaddr-filter">
 <h1>ipaddr filter<a class="headerlink" href="#ipaddr-filter" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.9.</span></p>
+<p><span class="versionmodified added">New in version 1.9.</span></p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ipaddr()</span></code> is a Jinja2 filter designed to provide an interface to the <a class="reference external" href="https://pypi.org/project/netaddr/">netaddr</a>
 Python package from within Ansible. It can operate on strings or lists of
@@ -2283,19 +2283,19 @@ It can usually be installed with either your system package manager or using
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#basic-tests" id="id1">Basic tests</a></li>
-<li><a class="reference internal" href="#filtering-lists" id="id2">Filtering lists</a></li>
-<li><a class="reference internal" href="#wrapping-ipv6-addresses-in-brackets" id="id3">Wrapping IPv6 addresses in [ ] brackets</a></li>
-<li><a class="reference internal" href="#basic-queries" id="id4">Basic queries</a></li>
-<li><a class="reference internal" href="#getting-information-about-hosts-and-networks" id="id5">Getting information about hosts and networks</a></li>
-<li><a class="reference internal" href="#getting-information-from-host-prefix-values" id="id6">Getting information from host/prefix values</a></li>
-<li><a class="reference internal" href="#converting-subnet-masks-to-cidr-notation" id="id7">Converting subnet masks to CIDR notation</a></li>
-<li><a class="reference internal" href="#ip-address-conversion" id="id8">IP address conversion</a></li>
-<li><a class="reference internal" href="#converting-ipv4-address-to-a-6to4-address" id="id9">Converting IPv4 address to a 6to4 address</a></li>
-<li><a class="reference internal" href="#ip-math" id="id10">IP Math</a></li>
-<li><a class="reference internal" href="#subnet-manipulation" id="id11">Subnet manipulation</a></li>
-<li><a class="reference internal" href="#subnet-merging" id="id12">Subnet Merging</a></li>
-<li><a class="reference internal" href="#mac-address-filter" id="id13">MAC address filter</a></li>
+<li><p><a class="reference internal" href="#basic-tests" id="id1">Basic tests</a></p></li>
+<li><p><a class="reference internal" href="#filtering-lists" id="id2">Filtering lists</a></p></li>
+<li><p><a class="reference internal" href="#wrapping-ipv6-addresses-in-brackets" id="id3">Wrapping IPv6 addresses in [ ] brackets</a></p></li>
+<li><p><a class="reference internal" href="#basic-queries" id="id4">Basic queries</a></p></li>
+<li><p><a class="reference internal" href="#getting-information-about-hosts-and-networks" id="id5">Getting information about hosts and networks</a></p></li>
+<li><p><a class="reference internal" href="#getting-information-from-host-prefix-values" id="id6">Getting information from host/prefix values</a></p></li>
+<li><p><a class="reference internal" href="#converting-subnet-masks-to-cidr-notation" id="id7">Converting subnet masks to CIDR notation</a></p></li>
+<li><p><a class="reference internal" href="#ip-address-conversion" id="id8">IP address conversion</a></p></li>
+<li><p><a class="reference internal" href="#converting-ipv4-address-to-a-6to4-address" id="id9">Converting IPv4 address to a 6to4 address</a></p></li>
+<li><p><a class="reference internal" href="#ip-math" id="id10">IP Math</a></p></li>
+<li><p><a class="reference internal" href="#subnet-manipulation" id="id11">Subnet manipulation</a></p></li>
+<li><p><a class="reference internal" href="#subnet-merging" id="id12">Subnet Merging</a></p></li>
+<li><p><a class="reference internal" href="#mac-address-filter" id="id13">MAC address filter</a></p></li>
 </ul>
 </div>
 <div class="section" id="basic-tests">
@@ -2398,9 +2398,9 @@ treat it as a query and return values modified by that query. Lists will
 contain only values that you are querying for.</p>
 <p>Types of queries include:</p>
 <ul class="simple">
-<li>query by name: <code class="docutils literal notranslate"><span class="pre">ipaddr('address')</span></code>, <code class="docutils literal notranslate"><span class="pre">ipv4('network')</span></code>;</li>
-<li>query by CIDR range: <code class="docutils literal notranslate"><span class="pre">ipaddr('192.168.0.0/24')</span></code>, <code class="docutils literal notranslate"><span class="pre">ipv6('2001:db8::/32')</span></code>;</li>
-<li>query by index number: <code class="docutils literal notranslate"><span class="pre">ipaddr('1')</span></code>, <code class="docutils literal notranslate"><span class="pre">ipaddr('-1')</span></code>;</li>
+<li><p>query by name: <code class="docutils literal notranslate"><span class="pre">ipaddr('address')</span></code>, <code class="docutils literal notranslate"><span class="pre">ipv4('network')</span></code>;</p></li>
+<li><p>query by CIDR range: <code class="docutils literal notranslate"><span class="pre">ipaddr('192.168.0.0/24')</span></code>, <code class="docutils literal notranslate"><span class="pre">ipv6('2001:db8::/32')</span></code>;</p></li>
+<li><p>query by index number: <code class="docutils literal notranslate"><span class="pre">ipaddr('1')</span></code>, <code class="docutils literal notranslate"><span class="pre">ipaddr('-1')</span></code>;</p></li>
 </ul>
 <p>If a query type is not recognized, Ansible will raise an error.</p>
 </div>
@@ -2640,7 +2640,7 @@ be automatically converted to a router address (with a <code class="docutils lit
 <div class="section" id="ip-math">
 <h2><a class="toc-backref" href="#topics">IP Math</a><a class="headerlink" href="#ip-math" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.7.</span></p>
+<p><span class="versionmodified added">New in version 2.7.</span></p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">ipmath()</span></code> filter can be used to do simple IP math/arithmetic.</p>
 <p>Here are a few simple examples:</p>
@@ -2761,7 +2761,7 @@ difference between the subnets.</p>
 <div class="section" id="subnet-merging">
 <h2><a class="toc-backref" href="#topics">Subnet Merging</a><a class="headerlink" href="#subnet-merging" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.6.</span></p>
+<p><span class="versionmodified added">New in version 2.6.</span></p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">cidr_merge()</span></code> filter can be used to merge subnets or individual addresses
 into their minimal representation, collapsing overlapping subnets and merging
@@ -2804,26 +2804,26 @@ convert it between various formats. Examples:</p>
 </pre></div>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_filters.html"><span class="doc">Filters</span></a></dt>
-<dd>Introduction to Jinja2 filters and their uses</dd>
-<dt><a class="reference internal" href="playbooks_conditionals.html"><span class="doc">Conditionals</span></a></dt>
-<dd>Conditional statements in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a></dt>
-<dd>All about variables</dd>
-<dt><a class="reference internal" href="playbooks_loops.html"><span class="doc">Loops</span></a></dt>
-<dd>Looping in playbooks</dd>
-<dt><a class="reference internal" href="playbooks_reuse_roles.html"><span class="doc">Roles</span></a></dt>
-<dd>Playbook organization by roles</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt>
-<dd>Best practices in playbooks</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_filters.html"><span class="doc">Filters</span></a></dt><dd><p>Introduction to Jinja2 filters and their uses</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_conditionals.html"><span class="doc">Conditionals</span></a></dt><dd><p>Conditional statements in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_variables.html"><span class="doc">Using Variables</span></a></dt><dd><p>All about variables</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_loops.html"><span class="doc">Loops</span></a></dt><dd><p>Looping in playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_reuse_roles.html"><span class="doc">Roles</span></a></dt><dd><p>Playbook organization by roles</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt><dd><p>Best practices in playbooks</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2846,7 +2846,7 @@ convert it between various formats. Examples:</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

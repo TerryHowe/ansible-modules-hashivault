@@ -2272,19 +2272,19 @@
 <div class="section" id="audience">
 <h3>Audience<a class="headerlink" href="#audience" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>This example is intended for network or system administrators who want to understand how to use Ansible to manage network devices.</li>
+<li><p>This example is intended for network or system administrators who want to understand how to use Ansible to manage network devices.</p></li>
 </ul>
 </div>
 <div class="section" id="prerequisites">
 <h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
 <p>This example requires the following:</p>
 <ul class="simple">
-<li><strong>Ansible 2.5</strong> (or higher) installed. See <a class="reference internal" href="../../installation_guide/intro_installation.html"><span class="doc">Installation Guide</span></a> for more information.</li>
-<li>One or more network devices that are compatible with Ansible.</li>
-<li>Basic understanding of YAML <a class="reference internal" href="../../reference_appendices/YAMLSyntax.html"><span class="doc">YAML Syntax</span></a>.</li>
-<li>Basic understanding of Jinja2 Templates. See <a class="reference internal" href="../../user_guide/playbooks_templating.html"><span class="doc">Templating (Jinja2)</span></a> for more information.</li>
-<li>Basic Linux command line use.</li>
-<li>Basic knowledge of network switch &amp; router configurations.</li>
+<li><p><strong>Ansible 2.5</strong> (or higher) installed. See <a class="reference internal" href="../../installation_guide/intro_installation.html"><span class="doc">Installation Guide</span></a> for more information.</p></li>
+<li><p>One or more network devices that are compatible with Ansible.</p></li>
+<li><p>Basic understanding of YAML <a class="reference internal" href="../../reference_appendices/YAMLSyntax.html"><span class="doc">YAML Syntax</span></a>.</p></li>
+<li><p>Basic understanding of Jinja2 Templates. See <a class="reference internal" href="../../user_guide/playbooks_templating.html"><span class="doc">Templating (Jinja2)</span></a> for more information.</p></li>
+<li><p>Basic Linux command line use.</p></li>
+<li><p>Basic knowledge of network switch &amp; router configurations.</p></li>
 </ul>
 </div>
 </div>
@@ -2371,33 +2371,31 @@
 </div>
 <p>If you use ssh-agent, you do not need the <code class="docutils literal notranslate"><span class="pre">ansible_ssh_pass</span></code> lines. If you use ssh keys, but not ssh-agent, and you have multiple keys, specify the key to use for each connection in the <code class="docutils literal notranslate"><span class="pre">[group:vars]</span></code> section with <code class="docutils literal notranslate"><span class="pre">ansible_ssh_private_key_file=/path/to/correct/key</span></code>. For more information on <code class="docutils literal notranslate"><span class="pre">ansible_ssh_</span></code> options see the <a class="reference internal" href="../../user_guide/intro_inventory.html#behavioral-parameters"><span class="std std-ref">List of Behavioral Inventory Parameters</span></a>.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Never store passwords in plain text.</p>
+<p class="admonition-title">Warning</p>
+<p>Never store passwords in plain text.</p>
 </div>
 <p>The “Vault” feature of Ansible allows you to keep sensitive data such as passwords or keys in encrypted files, rather than as plain text in your playbooks or roles. These vault files can then be distributed or placed in source control. See <a class="reference internal" href="../../user_guide/playbooks_vault.html"><span class="doc">Using Vault in playbooks</span></a> for more information.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">ansible_connection:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">Ansible uses the ansible-connection setting to determine how to connect to a remote device. When working with Ansible Networking, set this to <code class="docutils literal notranslate"><span class="pre">network_cli</span></code> so Ansible treats the remote node as a network device with a limited execution environment. Without this setting, Ansible would attempt to use ssh to connect to the remote and execute the Python script on the network device, which would fail because Python generally isn’t available on network devices.</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">ansible_network_os:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">Informs Ansible which Network platform this hosts corresponds to. This is required when using <code class="docutils literal notranslate"><span class="pre">network_cli</span></code> or <code class="docutils literal notranslate"><span class="pre">netconf</span></code>.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">ansible_user:</th><td class="field-body">The user to connect to the remote device (switch) as. Without this the user that is running <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code> would be used.
-Specifies which user on the network device the connection</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">ansible_ssh_pass:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">The corresponding password for <code class="docutils literal notranslate"><span class="pre">ansible_user</span></code> to log in as. If not specified SSH key will be used.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">ansible_become:</th><td class="field-body">If enable mode (privilege mode) should be used, see the next section.</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">ansible_become_method:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">Which type of <cite>become</cite> should be used, for <code class="docutils literal notranslate"><span class="pre">network_cli</span></code> the only valid choice is <code class="docutils literal notranslate"><span class="pre">enable</span></code>.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">ansible_connection</dt>
+<dd class="field-odd"><p>Ansible uses the ansible-connection setting to determine how to connect to a remote device. When working with Ansible Networking, set this to <code class="docutils literal notranslate"><span class="pre">network_cli</span></code> so Ansible treats the remote node as a network device with a limited execution environment. Without this setting, Ansible would attempt to use ssh to connect to the remote and execute the Python script on the network device, which would fail because Python generally isn’t available on network devices.</p>
+</dd>
+<dt class="field-even">ansible_network_os</dt>
+<dd class="field-even"><p>Informs Ansible which Network platform this hosts corresponds to. This is required when using <code class="docutils literal notranslate"><span class="pre">network_cli</span></code> or <code class="docutils literal notranslate"><span class="pre">netconf</span></code>.</p>
+</dd>
+<dt class="field-odd">ansible_user</dt>
+<dd class="field-odd"><p>The user to connect to the remote device (switch) as. Without this the user that is running <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code> would be used.
+Specifies which user on the network device the connection</p>
+</dd>
+<dt class="field-even">ansible_ssh_pass</dt>
+<dd class="field-even"><p>The corresponding password for <code class="docutils literal notranslate"><span class="pre">ansible_user</span></code> to log in as. If not specified SSH key will be used.</p>
+</dd>
+<dt class="field-odd">ansible_become</dt>
+<dd class="field-odd"><p>If enable mode (privilege mode) should be used, see the next section.</p>
+</dd>
+<dt class="field-even">ansible_become_method</dt>
+<dd class="field-even"><p>Which type of <cite>become</cite> should be used, for <code class="docutils literal notranslate"><span class="pre">network_cli</span></code> the only valid choice is <code class="docutils literal notranslate"><span class="pre">enable</span></code>.</p>
+</dd>
+</dl>
 <div class="section" id="privilege-escalation">
 <h4>Privilege escalation<a class="headerlink" href="#privilege-escalation" title="Permalink to this headline">¶</a></h4>
 <p>Certain network platforms, such as eos and ios, have the concept of different privilege modes. Certain network modules, such as those that modify system state including users, will only work in high privilege states. Ansible version 2.5 added support for <code class="docutils literal notranslate"><span class="pre">become</span></code> when using <code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">network_cli</span></code>. This allows privileges to be raised for the specific tasks that need them. Adding <code class="docutils literal notranslate"><span class="pre">become:</span> <span class="pre">yes</span></code> and <code class="docutils literal notranslate"><span class="pre">become_method:</span> <span class="pre">enable</span></code> informs Ansible to go into privilege mode before executing the task, as shown here:</p>
@@ -2587,11 +2585,11 @@ Specifies which user on the network device the connection</td>
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p>If you receive an connection error please double check the inventory and Playbook for typos or missing lines. If the issue still occurs follow the debug steps in <a class="reference internal" href="network_debug_troubleshooting.html"><span class="doc">Network Debug and Troubleshooting Guide</span></a>.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<ul class="last simple">
-<li><a class="reference internal" href="../index.html#network-guide"><span class="std std-ref">Ansible for Network Automation</span></a></li>
-<li><a class="reference internal" href="../../user_guide/intro_inventory.html"><span class="doc">Working with Inventory</span></a></li>
-<li><a class="reference internal" href="../../user_guide/playbooks_best_practices.html#best-practices-for-variables-and-vaults"><span class="std std-ref">Vault best practices</span></a></li>
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../index.html#network-guide"><span class="std std-ref">Ansible for Network Automation</span></a></p></li>
+<li><p><a class="reference internal" href="../../user_guide/intro_inventory.html"><span class="doc">Working with Inventory</span></a></p></li>
+<li><p><a class="reference internal" href="../../user_guide/playbooks_best_practices.html#best-practices-for-variables-and-vaults"><span class="std std-ref">Vault best practices</span></a></p></li>
 </ul>
 </div>
 </div>
@@ -2623,7 +2621,7 @@ Specifies which user on the network device the connection</td>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

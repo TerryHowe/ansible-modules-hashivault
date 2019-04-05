@@ -2269,10 +2269,11 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#using-vault-in-playbooks" id="id3">Using Vault in playbooks</a><ul>
-<li><a class="reference internal" href="#running-a-playbook-with-vault" id="id4">Running a Playbook With Vault</a></li>
-<li><a class="reference internal" href="#single-encrypted-variable" id="id5">Single Encrypted Variable</a></li>
-<li><a class="reference internal" href="#using-encrypt-string" id="id6">Using encrypt_string</a></li>
+<li><p><a class="reference internal" href="#using-vault-in-playbooks" id="id3">Using Vault in playbooks</a></p>
+<ul>
+<li><p><a class="reference internal" href="#running-a-playbook-with-vault" id="id4">Running a Playbook With Vault</a></p></li>
+<li><p><a class="reference internal" href="#single-encrypted-variable" id="id5">Single Encrypted Variable</a></p></li>
+<li><p><a class="reference internal" href="#using-encrypt-string" id="id6">Using encrypt_string</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2295,8 +2296,8 @@
 </div>
 <p>The password should be a string stored as a single line in the file.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You can also set <span class="target" id="index-0"></span><a class="reference internal" href="../reference_appendices/config.html#envvar-ANSIBLE_VAULT_PASSWORD_FILE"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">ANSIBLE_VAULT_PASSWORD_FILE</span></code></a> environment variable, e.g. <code class="docutils literal notranslate"><span class="pre">ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass.txt</span></code> and Ansible will automatically search for the password in that file.</p>
+<p class="admonition-title">Note</p>
+<p>You can also set <span class="target" id="index-0"></span><a class="reference internal" href="../reference_appendices/config.html#envvar-ANSIBLE_VAULT_PASSWORD_FILE"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">ANSIBLE_VAULT_PASSWORD_FILE</span></code></a> environment variable, e.g. <code class="docutils literal notranslate"><span class="pre">ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass.txt</span></code> and Ansible will automatically search for the password in that file.</p>
 </div>
 <p>If you are using a script instead of a flat file, ensure that it is marked as executable, and that the password is printed to standard output.  If your script needs to prompt for data, prompts can be sent to standard error.</p>
 <p>This is something you may wish to do if using Ansible from a continuous integration system like Jenkins.</p>
@@ -2353,7 +2354,7 @@ The string to encrypt can be provided via stdin, command line arguments, or via 
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

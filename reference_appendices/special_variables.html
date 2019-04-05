@@ -2269,66 +2269,66 @@
 <div class="section" id="magic">
 <h2>Magic<a class="headerlink" href="#magic" title="Permalink to this headline">¶</a></h2>
 <p>These variables are directly not settable by the user, Ansible will always override them to reflect internal state.</p>
-<dl class="docutils">
-<dt>ansible_check_mode</dt>
-<dd>Boolean that indicates if we are in check mode or not</dd>
-<dt>ansible_diff_mode</dt>
-<dd>Boolean that indicates if we are in diff mode or not</dd>
-<dt>ansible_forks</dt>
-<dd>Integer reflecting the number of maximum forks available to this run</dd>
-<dt>ansible_inventory_sources</dt>
-<dd>List of sources used as inventory</dd>
-<dt>ansible_play_batch</dt>
-<dd>List of active hosts in the current play run limited by the serial, aka ‘batch’. Failed/Unreachable hosts are not considered ‘active’.</dd>
-<dt>ansible_play_hosts</dt>
-<dd>The same as ansible_play_batch</dd>
-<dt>ansible_play_hosts_all</dt>
-<dd>List of all the hosts that were targeted by the play</dd>
-<dt>ansible_playbook_python</dt>
-<dd>The path to the python interpreter being used by Ansible on the controller</dd>
-<dt>ansible_serach_path</dt>
-<dd>Current search path for action plugins and lookups, i.e where we search for relative paths when you do <code class="docutils literal notranslate"><span class="pre">template:</span> <span class="pre">src=myfile</span></code></dd>
-<dt>ansible_verbosity</dt>
-<dd>Current verbosity setting for Ansible</dd>
-<dt>ansible_version</dt>
-<dd>Dictionary/map that contains information about the current running version of ansible, it has the following keys: full, major, minor, revision and string.</dd>
-<dt>group_names</dt>
-<dd>List of groups the current host is part of</dd>
-<dt>groups</dt>
-<dd>A dictionary/map with all the groups in inventory and each group has the list of hosts that belong to it</dd>
-<dt>hostvars</dt>
-<dd>A dictionary/map with all the hosts in inventory and variables assigned to them</dd>
-<dt>inventory_hostname</dt>
-<dd>The inventory name for the ‘current’ host being iterated over in the play</dd>
-<dt>inventory_hostname_short</dt>
-<dd>The short version of <cite>inventory_hostname</cite></dd>
-<dt>inventory_dir</dt>
-<dd>The directory of the inventory source in which the <cite>inventory_hostname</cite> was first defined</dd>
-<dt>inventory_file</dt>
-<dd>The file name of the inventory source in which the <cite>inventory_hostname</cite> was first defined</dd>
-<dt>omit</dt>
-<dd>Special variable that allows you to ‘omit’ an option in a task, i.e <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">user:</span> <span class="pre">name=bob</span> <span class="pre">home={{</span> <span class="pre">bobs_home|default(omit)}}</span></code></dd>
-<dt>play_hosts</dt>
-<dd>Deprecated, the same as ansbile_play_batch</dd>
-<dt>playbook_dir</dt>
-<dd>The path to the directory of the playbook that was passed to the <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code> command line.</dd>
-<dt>role_names</dt>
-<dd>The names of the rules currently imported into the current play.</dd>
-<dt>role_path</dt>
-<dd>The path to the dir of the currently running role</dd>
+<dl class="simple">
+<dt>ansible_check_mode</dt><dd><p>Boolean that indicates if we are in check mode or not</p>
+</dd>
+<dt>ansible_diff_mode</dt><dd><p>Boolean that indicates if we are in diff mode or not</p>
+</dd>
+<dt>ansible_forks</dt><dd><p>Integer reflecting the number of maximum forks available to this run</p>
+</dd>
+<dt>ansible_inventory_sources</dt><dd><p>List of sources used as inventory</p>
+</dd>
+<dt>ansible_play_batch</dt><dd><p>List of active hosts in the current play run limited by the serial, aka ‘batch’. Failed/Unreachable hosts are not considered ‘active’.</p>
+</dd>
+<dt>ansible_play_hosts</dt><dd><p>The same as ansible_play_batch</p>
+</dd>
+<dt>ansible_play_hosts_all</dt><dd><p>List of all the hosts that were targeted by the play</p>
+</dd>
+<dt>ansible_playbook_python</dt><dd><p>The path to the python interpreter being used by Ansible on the controller</p>
+</dd>
+<dt>ansible_serach_path</dt><dd><p>Current search path for action plugins and lookups, i.e where we search for relative paths when you do <code class="docutils literal notranslate"><span class="pre">template:</span> <span class="pre">src=myfile</span></code></p>
+</dd>
+<dt>ansible_verbosity</dt><dd><p>Current verbosity setting for Ansible</p>
+</dd>
+<dt>ansible_version</dt><dd><p>Dictionary/map that contains information about the current running version of ansible, it has the following keys: full, major, minor, revision and string.</p>
+</dd>
+<dt>group_names</dt><dd><p>List of groups the current host is part of</p>
+</dd>
+<dt>groups</dt><dd><p>A dictionary/map with all the groups in inventory and each group has the list of hosts that belong to it</p>
+</dd>
+<dt>hostvars</dt><dd><p>A dictionary/map with all the hosts in inventory and variables assigned to them</p>
+</dd>
+<dt>inventory_hostname</dt><dd><p>The inventory name for the ‘current’ host being iterated over in the play</p>
+</dd>
+<dt>inventory_hostname_short</dt><dd><p>The short version of <cite>inventory_hostname</cite></p>
+</dd>
+<dt>inventory_dir</dt><dd><p>The directory of the inventory source in which the <cite>inventory_hostname</cite> was first defined</p>
+</dd>
+<dt>inventory_file</dt><dd><p>The file name of the inventory source in which the <cite>inventory_hostname</cite> was first defined</p>
+</dd>
+<dt>omit</dt><dd><p>Special variable that allows you to ‘omit’ an option in a task, i.e <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">user:</span> <span class="pre">name=bob</span> <span class="pre">home={{</span> <span class="pre">bobs_home|default(omit)}}</span></code></p>
+</dd>
+<dt>play_hosts</dt><dd><p>Deprecated, the same as ansbile_play_batch</p>
+</dd>
+<dt>playbook_dir</dt><dd><p>The path to the directory of the playbook that was passed to the <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code> command line.</p>
+</dd>
+<dt>role_names</dt><dd><p>The names of the rules currently imported into the current play.</p>
+</dd>
+<dt>role_path</dt><dd><p>The path to the dir of the currently running role</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="facts">
 <h2>Facts<a class="headerlink" href="#facts" title="Permalink to this headline">¶</a></h2>
 <p>These are variables that contain information pertinent to the current host (<cite>inventory_hostname</cite>), they are only available if gathered first.</p>
-<dl class="docutils">
-<dt>ansible_facts</dt>
-<dd>Contains any facts gathered or cached for the <cite>inventory_hostname</cite>
-Facts are normally gathered by the M(setup) module automatically in a play, but any module can return facts.</dd>
-<dt>ansible_local</dt>
-<dd>Contains any ‘local facts’ gathred or cached for the <cite>inventory_hostname</cite>.
+<dl class="simple">
+<dt>ansible_facts</dt><dd><p>Contains any facts gathered or cached for the <cite>inventory_hostname</cite>
+Facts are normally gathered by the M(setup) module automatically in a play, but any module can return facts.</p>
+</dd>
+<dt>ansible_local</dt><dd><p>Contains any ‘local facts’ gathred or cached for the <cite>inventory_hostname</cite>.
 The keys available depend on the custom facts created.
-See the M(setup) module for more details.</dd>
+See the M(setup) module for more details.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="connection-variables">
@@ -2336,17 +2336,17 @@ See the M(setup) module for more details.</dd>
 <p>These are variables are normally used to set the specifics on how to execute actions on a target,
 most of them correspond to connection plugins but not all are specific to them, other plugins like shell, terminal and become are normally involved.
 Only the common ones are described as each connection/become/shell/etc plugin can define it’s own overrides and specific variables.</p>
-<dl class="docutils">
-<dt>ansible_become_user</dt>
-<dd>The user Ansible ‘becomes’ after using privilege escalation, this must be available to the ‘login user’.</dd>
-<dt>ansible_connecion</dt>
-<dd>The connection plugin actually used for the task on the target host.</dd>
-<dt>ansible_host</dt>
-<dd>The ip/name of the target host to use instead of <cite>inventory_hostname</cite>.</dd>
-<dt>ansible_python_interpreter</dt>
-<dd>The path to the Python executable Ansible should use on the target host.</dd>
-<dt>ansible_user</dt>
-<dd>The user Ansible ‘logs in’ as.</dd>
+<dl class="simple">
+<dt>ansible_become_user</dt><dd><p>The user Ansible ‘becomes’ after using privilege escalation, this must be available to the ‘login user’.</p>
+</dd>
+<dt>ansible_connecion</dt><dd><p>The connection plugin actually used for the task on the target host.</p>
+</dd>
+<dt>ansible_host</dt><dd><p>The ip/name of the target host to use instead of <cite>inventory_hostname</cite>.</p>
+</dd>
+<dt>ansible_python_interpreter</dt><dd><p>The path to the Python executable Ansible should use on the target host.</p>
+</dd>
+<dt>ansible_user</dt><dd><p>The user Ansible ‘logs in’ as.</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2377,7 +2377,7 @@ Only the common ones are described as each connection/become/shell/etc plugin ca
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

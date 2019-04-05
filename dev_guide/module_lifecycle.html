@@ -2268,37 +2268,36 @@
 <span id="module-lifecycle"></span><h1>The lifecycle of an Ansible module<a class="headerlink" href="#the-lifecycle-of-an-ansible-module" title="Permalink to this headline">¶</a></h1>
 <p>Modules in the main Ansible repo have a defined life cycle, from first introduction to final removal. The module life cycle is tied to the <cite>Ansible release cycle &lt;release_cycle&gt;</cite> and reflected in the <a class="reference internal" href="developing_modules_documenting.html#ansible-metadata-block"><span class="std std-ref">ANSIBLE_METADATA block</span></a>. A module may move through these four states:</p>
 <ol class="arabic simple">
-<li>When a module is first accepted into Ansible, we consider it in tech preview and mark it <code class="docutils literal notranslate"><span class="pre">preview</span></code>. Modules in <code class="docutils literal notranslate"><span class="pre">preview</span></code> are not stable. You may change the parameters or dependencies, expand or reduce the functionality of <code class="docutils literal notranslate"><span class="pre">preview</span></code> modules. Many modules remain <code class="docutils literal notranslate"><span class="pre">preview</span></code> for years.</li>
-<li>If a module matures, we may mark it <code class="docutils literal notranslate"><span class="pre">stableinterface</span></code> and commit to maintaining its parameters, dependencies, and functionality. We support (though we cannot guarantee) backwards compatibility for <code class="docutils literal notranslate"><span class="pre">stableinterface</span></code> modules, which means their parameters should be maintained with stable meanings.</li>
-<li>If a module’s target API changes radically, or if someone creates a better implementation of its functionality, we may mark it <code class="docutils literal notranslate"><span class="pre">deprecated</span></code>. Modules that are <code class="docutils literal notranslate"><span class="pre">deprecated</span></code> are still available but they are reaching the end of their life cycle. We retain deprecated modules for 4 release cycles with deprecation warnings to help users update playbooks and roles that use them.</li>
-<li>When a module has been deprecated for four release cycles, we remove the code and mark the stub file <code class="docutils literal notranslate"><span class="pre">removed</span></code>. Modules that are <code class="docutils literal notranslate"><span class="pre">removed</span></code> are no longer shipped with Ansible. The stub file helps users find alternative modules.</li>
+<li><p>When a module is first accepted into Ansible, we consider it in tech preview and mark it <code class="docutils literal notranslate"><span class="pre">preview</span></code>. Modules in <code class="docutils literal notranslate"><span class="pre">preview</span></code> are not stable. You may change the parameters or dependencies, expand or reduce the functionality of <code class="docutils literal notranslate"><span class="pre">preview</span></code> modules. Many modules remain <code class="docutils literal notranslate"><span class="pre">preview</span></code> for years.</p></li>
+<li><p>If a module matures, we may mark it <code class="docutils literal notranslate"><span class="pre">stableinterface</span></code> and commit to maintaining its parameters, dependencies, and functionality. We support (though we cannot guarantee) backwards compatibility for <code class="docutils literal notranslate"><span class="pre">stableinterface</span></code> modules, which means their parameters should be maintained with stable meanings.</p></li>
+<li><p>If a module’s target API changes radically, or if someone creates a better implementation of its functionality, we may mark it <code class="docutils literal notranslate"><span class="pre">deprecated</span></code>. Modules that are <code class="docutils literal notranslate"><span class="pre">deprecated</span></code> are still available but they are reaching the end of their life cycle. We retain deprecated modules for 4 release cycles with deprecation warnings to help users update playbooks and roles that use them.</p></li>
+<li><p>When a module has been deprecated for four release cycles, we remove the code and mark the stub file <code class="docutils literal notranslate"><span class="pre">removed</span></code>. Modules that are <code class="docutils literal notranslate"><span class="pre">removed</span></code> are no longer shipped with Ansible. The stub file helps users find alternative modules.</p></li>
 </ol>
 <div class="section" id="deprecating-modules">
 <span id="id1"></span><h2>Deprecating modules<a class="headerlink" href="#deprecating-modules" title="Permalink to this headline">¶</a></h2>
 <p>To deprecate a module, you must:</p>
 <ol class="arabic simple">
-<li>Rename the file so it starts with an <code class="docutils literal notranslate"><span class="pre">_</span></code>, for example, rename <code class="docutils literal notranslate"><span class="pre">old_cloud.py</span></code> to <code class="docutils literal notranslate"><span class="pre">_old_cloud.py</span></code>. This keeps the module available and marks it as deprecated on the module index pages.</li>
-<li>Mention the deprecation in the relevant <code class="docutils literal notranslate"><span class="pre">CHANGELOG</span></code>.</li>
-<li>Reference the deprecation in the relevant <code class="docutils literal notranslate"><span class="pre">porting_guide_x.y.rst</span></code>.</li>
-<li>Update <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> to contain <code class="docutils literal notranslate"><span class="pre">status:</span> <span class="pre">['deprecated']</span></code>.</li>
-<li>Add <code class="docutils literal notranslate"><span class="pre">deprecated:</span></code> to the documentation with the following sub-values:</li>
+<li><p>Rename the file so it starts with an <code class="docutils literal notranslate"><span class="pre">_</span></code>, for example, rename <code class="docutils literal notranslate"><span class="pre">old_cloud.py</span></code> to <code class="docutils literal notranslate"><span class="pre">_old_cloud.py</span></code>. This keeps the module available and marks it as deprecated on the module index pages.</p></li>
+<li><p>Mention the deprecation in the relevant <code class="docutils literal notranslate"><span class="pre">CHANGELOG</span></code>.</p></li>
+<li><p>Reference the deprecation in the relevant <code class="docutils literal notranslate"><span class="pre">porting_guide_x.y.rst</span></code>.</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> to contain <code class="docutils literal notranslate"><span class="pre">status:</span> <span class="pre">['deprecated']</span></code>.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">deprecated:</span></code> to the documentation with the following sub-values:</p></li>
 </ol>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">removed_in:</th><td class="field-body">A <code class="docutils literal notranslate"><span class="pre">string</span></code>, such as <code class="docutils literal notranslate"><span class="pre">&quot;2.9&quot;</span></code>; the version of Ansible where the module will be replaced with a docs-only module stub. Usually current release +4.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">why:</th><td class="field-body">Optional string that used to detail why this has been removed.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">alternative:</th><td class="field-body">Inform users they should do instead, i.e. <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">M(whatmoduletouseinstead)</span> <span class="pre">instead.</span></code>.</td>
-</tr>
-</tbody>
-</table>
+<div><dl class="field-list simple">
+<dt class="field-odd">removed_in</dt>
+<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">string</span></code>, such as <code class="docutils literal notranslate"><span class="pre">&quot;2.9&quot;</span></code>; the version of Ansible where the module will be replaced with a docs-only module stub. Usually current release +4.</p>
+</dd>
+<dt class="field-even">why</dt>
+<dd class="field-even"><p>Optional string that used to detail why this has been removed.</p>
+</dd>
+<dt class="field-odd">alternative</dt>
+<dd class="field-odd"><p>Inform users they should do instead, i.e. <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">M(whatmoduletouseinstead)</span> <span class="pre">instead.</span></code>.</p>
+</dd>
+</dl>
 </div></blockquote>
 <ul class="simple">
-<li>For an example of documenting deprecation, see this <a class="reference external" href="https://github.com/ansible/ansible/pull/43781/files">PR that deprecates multiple modules</a>.</li>
+<li><p>For an example of documenting deprecation, see this <a class="reference external" href="https://github.com/ansible/ansible/pull/43781/files">PR that deprecates multiple modules</a>.</p></li>
 </ul>
 </div>
 <div class="section" id="changing-a-module-name">
@@ -2341,7 +2340,7 @@ This example allows the <code class="docutils literal notranslate"><span class="
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

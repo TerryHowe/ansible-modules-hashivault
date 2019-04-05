@@ -2278,8 +2278,8 @@ playbooks as a template: lamp_haproxy. This example uses a lot of Ansible featur
 and group variables, and it also comes with an orchestration playbook that can do zero-downtime
 rolling upgrades of the web application stack.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><a class="reference external" href="https://github.com/ansible/ansible-examples/tree/master/lamp_haproxy">Click here for the latest playbooks for this example</a>.</p>
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="https://github.com/ansible/ansible-examples/tree/master/lamp_haproxy">Click here for the latest playbooks for this example</a>.</p>
 </div>
 <p>The playbooks deploy Apache, PHP, MySQL, Nagios, and HAProxy to a CentOS-based set of servers.</p>
 <p>We’re not going to cover how to run these playbooks here. Read the included README in the github project along with the
@@ -2329,8 +2329,8 @@ as push updates to all of the servers:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you’re not familiar with terms like playbooks and plays, you should review <a class="reference internal" href="../user_guide/playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a>.</p>
+<p class="admonition-title">Note</p>
+<p>If you’re not familiar with terms like playbooks and plays, you should review <a class="reference internal" href="../user_guide/playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a>.</p>
 </div>
 <p>In this playbook we have 5 plays. The first one targets <code class="docutils literal notranslate"><span class="pre">all</span></code> hosts and applies the <code class="docutils literal notranslate"><span class="pre">common</span></code> role to all of the hosts.
 This is for site-wide things like yum repository configuration, firewall configuration, and anything else that needs to apply to all of the servers.</p>
@@ -2459,10 +2459,10 @@ refers to orchestration as ‘conducting machines like an orchestra’, and has 
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>The <code class="docutils literal notranslate"><span class="pre">serial</span></code> keyword forces the play to be executed in ‘batches’. Each batch counts as a full play with a subselection of hosts.
-This has some consequences on play behavior. For example, if all hosts in a batch fails, the play fails, which in turn fails the entire run. You should consider this when combining with <code class="docutils literal notranslate"><span class="pre">max_fail_percentage</span></code>.</li>
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">serial</span></code> keyword forces the play to be executed in ‘batches’. Each batch counts as a full play with a subselection of hosts.
+This has some consequences on play behavior. For example, if all hosts in a batch fails, the play fails, which in turn fails the entire run. You should consider this when combining with <code class="docutils literal notranslate"><span class="pre">max_fail_percentage</span></code>.</p></li>
 </ul>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">pre_tasks</span></code> keyword just lets you list tasks to run before the roles are called. This will make more sense in a minute. If you look at the names of these tasks, you can see that we are disabling Nagios alerts and then removing the webserver that we are currently updating from the HAProxy load balancing pool.</p>
@@ -2505,18 +2505,18 @@ This has some consequences on play behavior. For example, if all hosts in a batc
 <p>For integration with Continuous Integration systems, you can easily trigger playbook runs using the <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code> command line tool, or, if you’re using <a class="reference internal" href="../reference_appendices/tower.html#ansible-tower"><span class="std std-ref">Ansible Tower</span></a>, the <code class="docutils literal notranslate"><span class="pre">tower-cli</span></code> or the built-in REST API.  (The tower-cli command ‘joblaunch’ will spawn a remote job over the REST API and is pretty slick).</p>
 <p>This should give you a good idea of how to structure a multi-tier application with Ansible, and orchestrate operations upon that app, with the eventual goal of continuous delivery to your customers. You could extend the idea of the rolling upgrade to lots of different parts of the app; maybe add front-end web servers along with application servers, for instance, or replace the SQL database with something like MongoDB or Riak. Ansible gives you the capability to easily manage complicated environments and automate common operations.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference external" href="https://github.com/ansible/ansible-examples/tree/master/lamp_haproxy">lamp_haproxy example</a></dt>
-<dd>The lamp_haproxy example discussed here.</dd>
-<dt><a class="reference internal" href="../user_guide/playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="../user_guide/playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">Roles</span></a></dt>
-<dd>An introduction to playbook roles</dd>
-<dt><a class="reference internal" href="../user_guide/playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt>
-<dd>An introduction to Ansible variables</dd>
-<dt><a class="reference external" href="https://www.ansible.com/use-cases/continuous-delivery">Ansible.com: Continuous Delivery</a></dt>
-<dd>An introduction to Continuous Delivery with Ansible</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples/tree/master/lamp_haproxy">lamp_haproxy example</a></dt><dd><p>The lamp_haproxy example discussed here.</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">Roles</span></a></dt><dd><p>An introduction to playbook roles</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt><dd><p>An introduction to Ansible variables</p>
+</dd>
+<dt><a class="reference external" href="https://www.ansible.com/use-cases/continuous-delivery">Ansible.com: Continuous Delivery</a></dt><dd><p>An introduction to Continuous Delivery with Ansible</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2548,7 +2548,7 @@ This has some consequences on play behavior. For example, if all hosts in a batc
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

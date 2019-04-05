@@ -2269,15 +2269,15 @@
 <p>The use of <code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">unicode_literals</span></code> has been deemed an anti-pattern.  The
 problems with it are:</p>
 <ul class="simple">
-<li>It makes it so one can’t jump into the middle of a file and know whether a bare literal string is
+<li><p>It makes it so one can’t jump into the middle of a file and know whether a bare literal string is
 a byte string or text string.  The programmer has to first check the top of the file to see if the
-import is there.</li>
-<li>It removes the ability to define native strings (a string which should be a byte string on python2
-and a text string on python3) via a string literal.</li>
-<li>It makes for more context switching.  A programmer could be reading one file which has
+import is there.</p></li>
+<li><p>It removes the ability to define native strings (a string which should be a byte string on python2
+and a text string on python3) via a string literal.</p></li>
+<li><p>It makes for more context switching.  A programmer could be reading one file which has
 <cite>unicode_literals</cite> and know that bare string literals are text strings but then switch to another
 file (perhaps tracing program execution into a third party library) and have to switch their
-understanding of what bare string literals are.</li>
+understanding of what bare string literals are.</p></li>
 </ul>
 </div>
 
@@ -2307,7 +2307,7 @@ understanding of what bare string literals are.</li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

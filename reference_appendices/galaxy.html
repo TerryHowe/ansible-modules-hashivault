@@ -2271,38 +2271,44 @@ creating and managing roles.</p>
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-galaxy" id="id3">Ansible Galaxy</a><ul>
-<li><a class="reference internal" href="#the-website" id="id4">The Website</a></li>
-<li><a class="reference internal" href="#the-command-line-tool" id="id5">The command line tool</a><ul>
-<li><a class="reference internal" href="#installing-roles" id="id6">Installing Roles</a><ul>
-<li><a class="reference internal" href="#roles-path" id="id7">roles_path</a></li>
-<li><a class="reference internal" href="#version" id="id8">version</a></li>
-<li><a class="reference internal" href="#installing-multiple-roles-from-a-file" id="id9">Installing multiple roles from a file</a></li>
-<li><a class="reference internal" href="#installing-multiple-roles-from-multiple-files" id="id10">Installing multiple roles from multiple files</a></li>
-<li><a class="reference internal" href="#dependencies" id="id11">Dependencies</a></li>
+<li><p><a class="reference internal" href="#ansible-galaxy" id="id3">Ansible Galaxy</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-website" id="id4">The Website</a></p></li>
+<li><p><a class="reference internal" href="#the-command-line-tool" id="id5">The command line tool</a></p>
+<ul>
+<li><p><a class="reference internal" href="#installing-roles" id="id6">Installing Roles</a></p>
+<ul>
+<li><p><a class="reference internal" href="#roles-path" id="id7">roles_path</a></p></li>
+<li><p><a class="reference internal" href="#version" id="id8">version</a></p></li>
+<li><p><a class="reference internal" href="#installing-multiple-roles-from-a-file" id="id9">Installing multiple roles from a file</a></p></li>
+<li><p><a class="reference internal" href="#installing-multiple-roles-from-multiple-files" id="id10">Installing multiple roles from multiple files</a></p></li>
+<li><p><a class="reference internal" href="#dependencies" id="id11">Dependencies</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#create-roles" id="id12">Create roles</a><ul>
-<li><a class="reference internal" href="#force" id="id13">Force</a></li>
-<li><a class="reference internal" href="#container-enabled" id="id14">Container Enabled</a></li>
-<li><a class="reference internal" href="#using-a-custom-role-skeleton" id="id15">Using a Custom Role Skeleton</a></li>
+<li><p><a class="reference internal" href="#create-roles" id="id12">Create roles</a></p>
+<ul>
+<li><p><a class="reference internal" href="#force" id="id13">Force</a></p></li>
+<li><p><a class="reference internal" href="#container-enabled" id="id14">Container Enabled</a></p></li>
+<li><p><a class="reference internal" href="#using-a-custom-role-skeleton" id="id15">Using a Custom Role Skeleton</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#search-for-roles" id="id16">Search for Roles</a></li>
-<li><a class="reference internal" href="#get-more-information-about-a-role" id="id17">Get more information about a role</a></li>
-<li><a class="reference internal" href="#list-installed-roles" id="id18">List installed roles</a></li>
-<li><a class="reference internal" href="#remove-an-installed-role" id="id19">Remove an installed role</a></li>
-<li><a class="reference internal" href="#authenticate-with-galaxy" id="id20">Authenticate with Galaxy</a></li>
-<li><a class="reference internal" href="#import-a-role" id="id21">Import a role</a><ul>
-<li><a class="reference internal" href="#branch" id="id22">Branch</a></li>
-<li><a class="reference internal" href="#role-name" id="id23">Role name</a></li>
-<li><a class="reference internal" href="#no-wait" id="id24">No wait</a></li>
+<li><p><a class="reference internal" href="#search-for-roles" id="id16">Search for Roles</a></p></li>
+<li><p><a class="reference internal" href="#get-more-information-about-a-role" id="id17">Get more information about a role</a></p></li>
+<li><p><a class="reference internal" href="#list-installed-roles" id="id18">List installed roles</a></p></li>
+<li><p><a class="reference internal" href="#remove-an-installed-role" id="id19">Remove an installed role</a></p></li>
+<li><p><a class="reference internal" href="#authenticate-with-galaxy" id="id20">Authenticate with Galaxy</a></p></li>
+<li><p><a class="reference internal" href="#import-a-role" id="id21">Import a role</a></p>
+<ul>
+<li><p><a class="reference internal" href="#branch" id="id22">Branch</a></p></li>
+<li><p><a class="reference internal" href="#role-name" id="id23">Role name</a></p></li>
+<li><p><a class="reference internal" href="#no-wait" id="id24">No wait</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#delete-a-role" id="id25">Delete a role</a></li>
-<li><a class="reference internal" href="#travis-integrations" id="id26">Travis integrations</a><ul>
-<li><a class="reference internal" href="#list-travis-integrations" id="id27">List Travis integrations</a></li>
-<li><a class="reference internal" href="#remove-travis-integrations" id="id28">Remove Travis integrations</a></li>
+<li><p><a class="reference internal" href="#delete-a-role" id="id25">Delete a role</a></p></li>
+<li><p><a class="reference internal" href="#travis-integrations" id="id26">Travis integrations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#list-travis-integrations" id="id27">List Travis integrations</a></p></li>
+<li><p><a class="reference internal" href="#remove-travis-integrations" id="id28">Remove Travis integrations</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2344,10 +2350,10 @@ The following provides an example of using <em>–roles-path</em> to install the
 </pre></div>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../installation_guide/intro_configuration.html#intro-configuration"><span class="std std-ref">Configuring Ansible</span></a></dt>
-<dd>All about configuration files</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../installation_guide/intro_configuration.html#intro-configuration"><span class="std std-ref">Configuring Ansible</span></a></dt><dd><p>All about configuration files</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2375,17 +2381,17 @@ file extension must be either <em>.yml</em> or <em>.yaml</em>.</p>
 “basic” format.</p>
 <p>Each role in the file will have one or more of the following attributes:</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>src</dt>
-<dd>The source of the role. Use the format <em>username.role_name</em>, if downloading from Galaxy; otherwise, provide a URL pointing
-to a repository within a git based SCM. See the examples below. This is a required attribute.</dd>
-<dt>scm</dt>
-<dd>Specify the SCM. As of this writing only <em>git</em> or <em>hg</em> are supported. See the examples below. Defaults to <em>git</em>.</dd>
-<dt>version:</dt>
-<dd>The version of the role to download. Provide a release tag value, commit hash, or branch name. Defaults to <em>master</em>.</dd>
-<dt>name:</dt>
-<dd>Download the role to a specific name. Defaults to the Galaxy name when downloading from Galaxy, otherwise it defaults
-to the name of the repository.</dd>
+<div><dl class="simple">
+<dt>src</dt><dd><p>The source of the role. Use the format <em>username.role_name</em>, if downloading from Galaxy; otherwise, provide a URL pointing
+to a repository within a git based SCM. See the examples below. This is a required attribute.</p>
+</dd>
+<dt>scm</dt><dd><p>Specify the SCM. As of this writing only <em>git</em> or <em>hg</em> are supported. See the examples below. Defaults to <em>git</em>.</p>
+</dd>
+<dt>version:</dt><dd><p>The version of the role to download. Provide a release tag value, commit hash, or branch name. Defaults to <em>master</em>.</p>
+</dd>
+<dt>name:</dt><dd><p>Download the role to a specific name. Defaults to the Galaxy name when downloading from Galaxy, otherwise it defaults
+to the name of the repository.</p>
+</dd>
 </dl>
 </div></blockquote>
 <p>Use the following example as a guide for specifying roles in <em>requirements.yml</em>:</p>
@@ -2467,8 +2473,8 @@ what tags and conditionals are applied.</p>
 </div>
 <p>When dependencies are encountered by <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span></code>, it will automatically install each dependency to the <code class="docutils literal notranslate"><span class="pre">roles_path</span></code>. To understand how dependencies are handled during play execution, see <a class="reference internal" href="../user_guide/playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">Roles</span></a>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">At the time of this writing, the Galaxy website expects all role dependencies to exist in Galaxy, and therefore dependencies to be specified in the
+<p class="admonition-title">Note</p>
+<p>At the time of this writing, the Galaxy website expects all role dependencies to exist in Galaxy, and therefore dependencies to be specified in the
 <code class="docutils literal notranslate"><span class="pre">username.role_name</span></code> format. If you import a role with a dependency where the <code class="docutils literal notranslate"><span class="pre">src</span></code> value is a URL, the import process will fail.</p>
 </div>
 </div>
@@ -2516,9 +2522,9 @@ the role using <a class="reference external" href="https://github.com/ansible/an
 </div>
 <p>When a skeleton is provided, init will:</p>
 <ul class="simple">
-<li>copy all files and directories from the skeleton to the new role</li>
-<li>any .j2 files found outside of a templates folder will be rendered as templates. The only useful variable at the moment is role_name</li>
-<li>The .git folder and any .git_keep files will not be copied</li>
+<li><p>copy all files and directories from the skeleton to the new role</p></li>
+<li><p>any .j2 files found outside of a templates folder will be rendered as templates. The only useful variable at the moment is role_name</p></li>
+<li><p>The .git folder and any .git_keep files will not be copied</p></li>
 </ul>
 <p>Alternatively, the role_skeleton and ignoring of files can be configured via ansible.cfg</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">[</span><span class="nv">galaxy</span><span class="p p-Indicator">]</span>
@@ -2712,14 +2718,14 @@ in <a class="reference external" href="https://docs.travis-ci.com/user/notificat
 </div>
 <p>Provide the ID of the integration to be disabled. You can find the ID by using the <em>–list</em> option.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../user_guide/playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">Roles</span></a></dt>
-<dd>All about ansible roles</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt>
-<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../user_guide/playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">Roles</span></a></dt><dd><p>All about ansible roles</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt><dd><p>Questions? Help? Ideas?  Stop by the list on Google Groups</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2753,7 +2759,7 @@ in <a class="reference external" href="https://docs.travis-ci.com/user/notificat
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2271,26 +2271,29 @@
 <p>What’s covered in this section:</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#introduction" id="id1">Introduction</a></li>
-<li><a class="reference internal" href="#aci-module-structure" id="id2">ACI module structure</a><ul>
-<li><a class="reference internal" href="#importing-objects-from-python-libraries" id="id3">Importing objects from Python libraries</a></li>
-<li><a class="reference internal" href="#defining-the-argument-spec" id="id4">Defining the argument spec</a></li>
-<li><a class="reference internal" href="#using-the-ansiblemodule-object" id="id5">Using the AnsibleModule object</a></li>
-<li><a class="reference internal" href="#mapping-variable-definition" id="id6">Mapping variable definition</a></li>
-<li><a class="reference internal" href="#using-the-acimodule-object" id="id7">Using the ACIModule object</a><ul>
-<li><a class="reference internal" href="#constructing-urls" id="id8">Constructing URLs</a></li>
-<li><a class="reference internal" href="#getting-the-existing-configuration" id="id9">Getting the existing configuration</a></li>
-<li><a class="reference internal" href="#when-state-is-present" id="id10">When state is present</a></li>
-<li><a class="reference internal" href="#when-state-is-absent" id="id11">When state is absent</a></li>
-<li><a class="reference internal" href="#exiting-the-module" id="id12">Exiting the module</a></li>
+<li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#aci-module-structure" id="id2">ACI module structure</a></p>
+<ul>
+<li><p><a class="reference internal" href="#importing-objects-from-python-libraries" id="id3">Importing objects from Python libraries</a></p></li>
+<li><p><a class="reference internal" href="#defining-the-argument-spec" id="id4">Defining the argument spec</a></p></li>
+<li><p><a class="reference internal" href="#using-the-ansiblemodule-object" id="id5">Using the AnsibleModule object</a></p></li>
+<li><p><a class="reference internal" href="#mapping-variable-definition" id="id6">Mapping variable definition</a></p></li>
+<li><p><a class="reference internal" href="#using-the-acimodule-object" id="id7">Using the ACIModule object</a></p>
+<ul>
+<li><p><a class="reference internal" href="#constructing-urls" id="id8">Constructing URLs</a></p></li>
+<li><p><a class="reference internal" href="#getting-the-existing-configuration" id="id9">Getting the existing configuration</a></p></li>
+<li><p><a class="reference internal" href="#when-state-is-present" id="id10">When state is present</a></p></li>
+<li><p><a class="reference internal" href="#when-state-is-absent" id="id11">When state is absent</a></p></li>
+<li><p><a class="reference internal" href="#exiting-the-module" id="id12">Exiting the module</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#testing-aci-library-functions" id="id13">Testing ACI library functions</a><ul>
-<li><a class="reference internal" href="#testing-for-sanity-checks" id="id14">Testing for sanity checks</a></li>
-<li><a class="reference internal" href="#testing-aci-integration-tests" id="id15">Testing ACI integration tests</a></li>
-<li><a class="reference internal" href="#testing-for-test-coverage" id="id16">Testing for test coverage</a></li>
+<li><p><a class="reference internal" href="#testing-aci-library-functions" id="id13">Testing ACI library functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#testing-for-sanity-checks" id="id14">Testing for sanity checks</a></p></li>
+<li><p><a class="reference internal" href="#testing-aci-integration-tests" id="id15">Testing ACI integration tests</a></p></li>
+<li><p><a class="reference internal" href="#testing-for-test-coverage" id="id16">Testing for test coverage</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2300,18 +2303,18 @@
 <p>Ansible already ships with a large collection of Cisco ACI modules, however the ACI object model is huge and covering all possible functionality would easily cover more than 1500 individual modules.</p>
 <p>If you are in need of specific functionality, you have 2 options:</p>
 <ul class="simple">
-<li>Learn the ACI object model and use the low-level APIC REST API using the <span class="xref std std-ref">aci_rest</span> module</li>
-<li>Write your own dedicated modules, which is actually quite easy</li>
+<li><p>Learn the ACI object model and use the low-level APIC REST API using the <span class="xref std std-ref">aci_rest</span> module</p></li>
+<li><p>Write your own dedicated modules, which is actually quite easy</p></li>
 </ul>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference external" href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/1-x/aci-fundamentals/b_ACI-Fundamentals/b_ACI-Fundamentals_chapter_010001.html">ACI Fundamentals: ACI Policy Model</a></dt>
-<dd>A good introduction to the ACI object model.</dd>
-<dt><a class="reference external" href="https://developer.cisco.com/docs/apic-mim-ref/">APIC Management Information Model reference</a></dt>
-<dd>Complete reference of the APIC object model.</dd>
-<dt><a class="reference external" href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/2-x/rest_cfg/2_1_x/b_Cisco_APIC_REST_API_Configuration_Guide.html">APIC REST API Configuration Guide</a></dt>
-<dd>Detailed guide on how the APIC REST API is designed and used, incl. many examples.</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/1-x/aci-fundamentals/b_ACI-Fundamentals/b_ACI-Fundamentals_chapter_010001.html">ACI Fundamentals: ACI Policy Model</a></dt><dd><p>A good introduction to the ACI object model.</p>
+</dd>
+<dt><a class="reference external" href="https://developer.cisco.com/docs/apic-mim-ref/">APIC Management Information Model reference</a></dt><dd><p>Complete reference of the APIC object model.</p>
+</dd>
+<dt><a class="reference external" href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/2-x/rest_cfg/2_1_x/b_Cisco_APIC_REST_API_Configuration_Guide.html">APIC REST API Configuration Guide</a></dt><dd><p>Detailed guide on how the APIC REST API is designed and used, incl. many examples.</p>
+</dd>
 </dl>
 </div>
 <p>So let’s look at how a typical ACI module is built up.</p>
@@ -2330,14 +2333,15 @@
 <h3><a class="toc-backref" href="#id4">Defining the argument spec</a><a class="headerlink" href="#defining-the-argument-spec" title="Permalink to this headline">¶</a></h3>
 <p>The first line adds the standard connection parameters to the module. After that, the next section will update the <code class="docutils literal notranslate"><span class="pre">argument_spec</span></code> dictionary with module-specific parameters. The module-specific parameters should include:</p>
 <ul class="simple">
-<li>the object_id (usually the name)</li>
-<li>the configurable properties of the object</li>
-<li>the parent object IDs (all parents up to the root)</li>
-<li>only child classes that are a 1-to-1 relationship (1-to-many/many-to-many require their own module to properly manage)</li>
-<li>the state<ul>
-<li><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">absent</span></code> to ensure object does not exist</li>
-<li><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">present</span></code> to ensure the object and configs exist; this is also the default</li>
-<li><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">query</span></code> to retrieve information about objects in the class</li>
+<li><p>the object_id (usually the name)</p></li>
+<li><p>the configurable properties of the object</p></li>
+<li><p>the parent object IDs (all parents up to the root)</p></li>
+<li><p>only child classes that are a 1-to-1 relationship (1-to-many/many-to-many require their own module to properly manage)</p></li>
+<li><p>the state</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">absent</span></code> to ensure object does not exist</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">present</span></code> to ensure the object and configs exist; this is also the default</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">query</span></code> to retrieve information about objects in the class</p></li>
 </ul>
 </li>
 </ul>
@@ -2356,8 +2360,8 @@
 </pre></div>
 </div>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">Do not provide default values for configuration arguments. Default values could cause unintended changes to the object.</p>
+<p class="admonition-title">Hint</p>
+<p>Do not provide default values for configuration arguments. Default values could cause unintended changes to the object.</p>
 </div>
 </div>
 <div class="section" id="using-the-ansiblemodule-object">
@@ -2397,33 +2401,34 @@
 </div>
 <p>The ACIModule has six main methods that are used by the modules:</p>
 <ul class="simple">
-<li>construct_url</li>
-<li>get_existing</li>
-<li>payload</li>
-<li>get_diff</li>
-<li>post_config</li>
-<li>delete_config</li>
+<li><p>construct_url</p></li>
+<li><p>get_existing</p></li>
+<li><p>payload</p></li>
+<li><p>get_diff</p></li>
+<li><p>post_config</p></li>
+<li><p>delete_config</p></li>
 </ul>
 <p>The first two methods are used regardless of what value is passed to the <code class="docutils literal notranslate"><span class="pre">state</span></code> parameter.</p>
 <div class="section" id="constructing-urls">
 <h4><a class="toc-backref" href="#id8">Constructing URLs</a><a class="headerlink" href="#constructing-urls" title="Permalink to this headline">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">construct_url()</span></code> method is used to dynamically build the appropriate URL to interact with the object, and the appropriate filter string that should be appended to the URL to filter the results.</p>
 <ul class="simple">
-<li>When the <code class="docutils literal notranslate"><span class="pre">state</span></code> is not <code class="docutils literal notranslate"><span class="pre">query</span></code>, the URL is the base URL to access the APIC plus the distinguished name to access the object. The filter string will restrict the returned data to just the configuration data.</li>
-<li>When <code class="docutils literal notranslate"><span class="pre">state</span></code> is <code class="docutils literal notranslate"><span class="pre">query</span></code>, the URL and filter string used depends on what parameters are passed to the object. This method handles the complexity so that it is easier to add new modules and so that all modules are consistent in what type of data is returned.</li>
+<li><p>When the <code class="docutils literal notranslate"><span class="pre">state</span></code> is not <code class="docutils literal notranslate"><span class="pre">query</span></code>, the URL is the base URL to access the APIC plus the distinguished name to access the object. The filter string will restrict the returned data to just the configuration data.</p></li>
+<li><p>When <code class="docutils literal notranslate"><span class="pre">state</span></code> is <code class="docutils literal notranslate"><span class="pre">query</span></code>, the URL and filter string used depends on what parameters are passed to the object. This method handles the complexity so that it is easier to add new modules and so that all modules are consistent in what type of data is returned.</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Our design goal is to take all ID parameters that have values, and return the most specific data possible. If you do not supply any ID parameters to the task, then all objects of the class will be returned. If your task does consist of ID parameters sed, then the data for the specific object is returned. If a partial set of ID parameters are passed, then the module will use the IDs that are passed to build the URL and filter strings appropriately.</p>
+<p class="admonition-title">Note</p>
+<p>Our design goal is to take all ID parameters that have values, and return the most specific data possible. If you do not supply any ID parameters to the task, then all objects of the class will be returned. If your task does consist of ID parameters sed, then the data for the specific object is returned. If a partial set of ID parameters are passed, then the module will use the IDs that are passed to build the URL and filter strings appropriately.</p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">construct_url()</span></code> method takes 2 required arguments:</p>
 <ul class="simple">
-<li><strong>self</strong> - passed automatically with the class instance</li>
-<li><strong>root_class</strong> - A dictionary consisting of <code class="docutils literal notranslate"><span class="pre">aci_class</span></code>, <code class="docutils literal notranslate"><span class="pre">aci_rn</span></code>, <code class="docutils literal notranslate"><span class="pre">target_filter</span></code>, and <code class="docutils literal notranslate"><span class="pre">module_object</span></code> keys<ul>
-<li><strong>aci_class</strong>: The name of the class used by the APIC, e.g. <code class="docutils literal notranslate"><span class="pre">fvTenant</span></code></li>
-<li><strong>aci_rn</strong>: The relative name of the object, e.g. <code class="docutils literal notranslate"><span class="pre">tn-ACME</span></code></li>
-<li><strong>target_filter</strong>: A dictionary with key-value pairs that make up the query string for selecting a subset of entries, e.g. <code class="docutils literal notranslate"><span class="pre">{'name':</span> <span class="pre">'ACME'}</span></code></li>
-<li><strong>module_object</strong>: The particular object for this class, e.g. <code class="docutils literal notranslate"><span class="pre">ACME</span></code></li>
+<li><p><strong>self</strong> - passed automatically with the class instance</p></li>
+<li><p><strong>root_class</strong> - A dictionary consisting of <code class="docutils literal notranslate"><span class="pre">aci_class</span></code>, <code class="docutils literal notranslate"><span class="pre">aci_rn</span></code>, <code class="docutils literal notranslate"><span class="pre">target_filter</span></code>, and <code class="docutils literal notranslate"><span class="pre">module_object</span></code> keys</p>
+<ul>
+<li><p><strong>aci_class</strong>: The name of the class used by the APIC, e.g. <code class="docutils literal notranslate"><span class="pre">fvTenant</span></code></p></li>
+<li><p><strong>aci_rn</strong>: The relative name of the object, e.g. <code class="docutils literal notranslate"><span class="pre">tn-ACME</span></code></p></li>
+<li><p><strong>target_filter</strong>: A dictionary with key-value pairs that make up the query string for selecting a subset of entries, e.g. <code class="docutils literal notranslate"><span class="pre">{'name':</span> <span class="pre">'ACME'}</span></code></p></li>
+<li><p><strong>module_object</strong>: The particular object for this class, e.g. <code class="docutils literal notranslate"><span class="pre">ACME</span></code></p></li>
 </ul>
 </li>
 </ul>
@@ -2441,38 +2446,42 @@
 <p>Some modules, like <code class="docutils literal notranslate"><span class="pre">aci_tenant</span></code>, are the root class and so they would not need to pass any additional arguments to the method.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">construct_url()</span></code> method takes 4 optional arguments, the first three imitate the root class as described above, but are for child objects:</p>
 <ul class="simple">
-<li>subclass_1 - A dictionary consisting of <code class="docutils literal notranslate"><span class="pre">aci_class</span></code>, <code class="docutils literal notranslate"><span class="pre">aci_rn</span></code>, <code class="docutils literal notranslate"><span class="pre">target_filter</span></code>, and <code class="docutils literal notranslate"><span class="pre">module_object</span></code> keys<ul>
-<li>Example: Application Profile Class (AP)</li>
+<li><p>subclass_1 - A dictionary consisting of <code class="docutils literal notranslate"><span class="pre">aci_class</span></code>, <code class="docutils literal notranslate"><span class="pre">aci_rn</span></code>, <code class="docutils literal notranslate"><span class="pre">target_filter</span></code>, and <code class="docutils literal notranslate"><span class="pre">module_object</span></code> keys</p>
+<ul>
+<li><p>Example: Application Profile Class (AP)</p></li>
 </ul>
 </li>
-<li>subclass_2 - A dictionary consisting of <code class="docutils literal notranslate"><span class="pre">aci_class</span></code>, <code class="docutils literal notranslate"><span class="pre">aci_rn</span></code>, <code class="docutils literal notranslate"><span class="pre">target_filter</span></code>, and <code class="docutils literal notranslate"><span class="pre">module_object</span></code> keys<ul>
-<li>Example: End Point Group (EPG)</li>
+<li><p>subclass_2 - A dictionary consisting of <code class="docutils literal notranslate"><span class="pre">aci_class</span></code>, <code class="docutils literal notranslate"><span class="pre">aci_rn</span></code>, <code class="docutils literal notranslate"><span class="pre">target_filter</span></code>, and <code class="docutils literal notranslate"><span class="pre">module_object</span></code> keys</p>
+<ul>
+<li><p>Example: End Point Group (EPG)</p></li>
 </ul>
 </li>
-<li>subclass_3 - A dictionary consisting of <code class="docutils literal notranslate"><span class="pre">aci_class</span></code>, <code class="docutils literal notranslate"><span class="pre">aci_rn</span></code>, <code class="docutils literal notranslate"><span class="pre">target_filter</span></code>, and <code class="docutils literal notranslate"><span class="pre">module_object</span></code> keys<ul>
-<li>Example: Binding a Contract to an EPG</li>
+<li><p>subclass_3 - A dictionary consisting of <code class="docutils literal notranslate"><span class="pre">aci_class</span></code>, <code class="docutils literal notranslate"><span class="pre">aci_rn</span></code>, <code class="docutils literal notranslate"><span class="pre">target_filter</span></code>, and <code class="docutils literal notranslate"><span class="pre">module_object</span></code> keys</p>
+<ul>
+<li><p>Example: Binding a Contract to an EPG</p></li>
 </ul>
 </li>
-<li>child_classes - The list of APIC names for the child classes supported by the modules.<ul>
-<li>This is a list, even if it is a list of one</li>
-<li>These are the unfriendly names used by the APIC</li>
-<li>These are used to limit the returned child_classes when possible</li>
-<li>Example: <code class="docutils literal notranslate"><span class="pre">child_classes=['fvRsBDSubnetToProfile',</span> <span class="pre">'fvRsNdPfxPol']</span></code></li>
+<li><p>child_classes - The list of APIC names for the child classes supported by the modules.</p>
+<ul>
+<li><p>This is a list, even if it is a list of one</p></li>
+<li><p>These are the unfriendly names used by the APIC</p></li>
+<li><p>These are used to limit the returned child_classes when possible</p></li>
+<li><p>Example: <code class="docutils literal notranslate"><span class="pre">child_classes=['fvRsBDSubnetToProfile',</span> <span class="pre">'fvRsNdPfxPol']</span></code></p></li>
 </ul>
 </li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Sometimes the APIC will require special characters ([, ], and -) or will use object metadata in the name (“vlanns” for VLAN pools); the module should handle adding special characters or joining of multiple parameters in order to keep expected inputs simple.</p>
+<p class="admonition-title">Note</p>
+<p>Sometimes the APIC will require special characters ([, ], and -) or will use object metadata in the name (“vlanns” for VLAN pools); the module should handle adding special characters or joining of multiple parameters in order to keep expected inputs simple.</p>
 </div>
 </div>
 <div class="section" id="getting-the-existing-configuration">
 <h4><a class="toc-backref" href="#id9">Getting the existing configuration</a><a class="headerlink" href="#getting-the-existing-configuration" title="Permalink to this headline">¶</a></h4>
 <p>Once the URL and filter string have been built, the module is ready to retrieve the existing configuration for the object:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">present</span></code> retrieves the configuration to use as a comparison against what was entered in the task. All values that are different than the existing values will be updated.</li>
-<li><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">absent</span></code> uses the existing configuration to see if the item exists and needs to be deleted.</li>
-<li><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">query</span></code> uses this to perform the query for the task and report back the existing data.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">present</span></code> retrieves the configuration to use as a comparison against what was entered in the task. All values that are different than the existing values will be updated.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">absent</span></code> uses the existing configuration to see if the item exists and needs to be deleted.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">query</span></code> uses this to perform the query for the task and report back the existing data.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aci</span><span class="o">.</span><span class="n">get_existing</span><span class="p">()</span>
 </pre></div>
@@ -2486,15 +2495,17 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">aci.payload()</span></code> method is used to build a dictionary of the proposed object configuration. All parameters that were not provided a value in the task will be removed from the dictionary (both for the object and its children). Any parameter that does have a value will be converted to a string and added to the final dictionary object that will be used for comparison against the existing configuration.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">aci.payload()</span></code> method takes two required arguments and 1 optional argument, depending on if the module manages child objects.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">aci_class</span></code> is the APIC name for the object’s class, e.g. <code class="docutils literal notranslate"><span class="pre">aci_class='fvBD'</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">class_config</span></code> is the appropriate dictionary to be used as the payload for the POST request<ul>
-<li>The keys should match the names used by the APIC.</li>
-<li>The values should be the corresponding value in <code class="docutils literal notranslate"><span class="pre">module.params</span></code>; these are the variables defined above</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aci_class</span></code> is the APIC name for the object’s class, e.g. <code class="docutils literal notranslate"><span class="pre">aci_class='fvBD'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">class_config</span></code> is the appropriate dictionary to be used as the payload for the POST request</p>
+<ul>
+<li><p>The keys should match the names used by the APIC.</p></li>
+<li><p>The values should be the corresponding value in <code class="docutils literal notranslate"><span class="pre">module.params</span></code>; these are the variables defined above</p></li>
 </ul>
 </li>
-<li><code class="docutils literal notranslate"><span class="pre">child_configs</span></code> is optional, and is a list of child config dictionaries.<ul>
-<li>The child configs include the full child object dictionary, not just the attributes configuration portion.</li>
-<li>The configuration portion is built the same way as the object.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">child_configs</span></code> is optional, and is a list of child config dictionaries.</p>
+<ul>
+<li><p>The child configs include the full child object dictionary, not just the attributes configuration portion.</p></li>
+<li><p>The configuration portion is built the same way as the object.</p></li>
 </ul>
 </li>
 </ul>
@@ -2651,10 +2662,10 @@ if __name__ == &#39;__main__&#39;:
 </pre></div>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="testing_sanity.html"><span class="doc">Sanity Tests</span></a></dt>
-<dd>Information on how to build sanity tests.</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="testing_sanity.html"><span class="doc">Sanity Tests</span></a></dt><dd><p>Information on how to build sanity tests.</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2665,8 +2676,8 @@ if __name__ == &#39;__main__&#39;:
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You may need to add <code class="docutils literal notranslate"><span class="pre">--python</span> <span class="pre">2.7</span></code> or <code class="docutils literal notranslate"><span class="pre">--python</span> <span class="pre">3.6</span></code> in order to use the correct python version for performing tests.</p>
+<p class="admonition-title">Note</p>
+<p>You may need to add <code class="docutils literal notranslate"><span class="pre">--python</span> <span class="pre">2.7</span></code> or <code class="docutils literal notranslate"><span class="pre">--python</span> <span class="pre">3.6</span></code> in order to use the correct python version for performing tests.</p>
 </div>
 <p>You may want to edit the used inventory at <em>./test/integration/inventory.networking</em> and add something like:</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[aci:vars]</span>
@@ -2681,10 +2692,10 @@ if __name__ == &#39;__main__&#39;:
 </pre></div>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="testing_integration.html"><span class="doc">Integration tests</span></a></dt>
-<dd>Information on how to build integration tests.</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="testing_integration.html"><span class="doc">Integration tests</span></a></dt><dd><p>Information on how to build integration tests.</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2725,7 +2736,7 @@ $ ./test/runner/ansible-test coverage report
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

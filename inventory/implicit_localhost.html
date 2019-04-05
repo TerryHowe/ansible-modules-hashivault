@@ -2285,13 +2285,13 @@
 <p>This ensures that the proper connection and Python are used to execute your tasks locally.
 You can override the built-in implicit version by creating a <code class="docutils literal notranslate"><span class="pre">localhost</span></code> host entry in your inventory. At that point, all implicit behaviors are ignored; the <code class="docutils literal notranslate"><span class="pre">localhost</span></code> in inventory is treated just like any other host. Group and host vars will apply, including connection vars, which includes the <code class="docutils literal notranslate"><span class="pre">ansible_python_interpreter</span></code> setting. This will also affect <code class="docutils literal notranslate"><span class="pre">delegate_to:</span> <span class="pre">localhost</span></code> and <code class="docutils literal notranslate"><span class="pre">local_action</span></code>, the latter being an alias to the former.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>This host is not targetable via any group, however it will use vars from <code class="docutils literal notranslate"><span class="pre">host_vars</span></code> and from the ‘all’ group.</li>
-<li>The <code class="docutils literal notranslate"><span class="pre">inventory_file</span></code> and <code class="docutils literal notranslate"><span class="pre">inventory_dir</span></code> magic variables are not available for the implicit localhost as they are dependent on <strong>each inventory host</strong>.</li>
-<li>This implicit host also gets triggered by using <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code> or <code class="docutils literal notranslate"><span class="pre">::1</span></code> as they are the IPv4 and IPv6 representations of ‘localhost’.</li>
-<li>Even though there are many ways to create it, there will only ever be ONE implicit localhost, using the name first used to create it.</li>
-<li>Having <code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">local</span></code> does NOT trigger an implicit localhost, you are just changing the connection for the <code class="docutils literal notranslate"><span class="pre">inventory_hostname</span></code>.</li>
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>This host is not targetable via any group, however it will use vars from <code class="docutils literal notranslate"><span class="pre">host_vars</span></code> and from the ‘all’ group.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">inventory_file</span></code> and <code class="docutils literal notranslate"><span class="pre">inventory_dir</span></code> magic variables are not available for the implicit localhost as they are dependent on <strong>each inventory host</strong>.</p></li>
+<li><p>This implicit host also gets triggered by using <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code> or <code class="docutils literal notranslate"><span class="pre">::1</span></code> as they are the IPv4 and IPv6 representations of ‘localhost’.</p></li>
+<li><p>Even though there are many ways to create it, there will only ever be ONE implicit localhost, using the name first used to create it.</p></li>
+<li><p>Having <code class="docutils literal notranslate"><span class="pre">connection:</span> <span class="pre">local</span></code> does NOT trigger an implicit localhost, you are just changing the connection for the <code class="docutils literal notranslate"><span class="pre">inventory_hostname</span></code>.</p></li>
 </ul>
 </div>
 </div>
@@ -2313,7 +2313,7 @@ You can override the built-in implicit version by creating a <code class="docuti
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

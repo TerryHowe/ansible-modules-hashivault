@@ -2267,20 +2267,22 @@
   <div class="section" id="dig-query-dns-using-the-dnspython-library">
 <span id="dig-lookup"></span><h1>dig - query DNS using the dnspython library<a class="headerlink" href="#dig-query-dns-using-the-dnspython-library" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 1.9.</span></p>
+<p><span class="versionmodified added">New in version 1.9.</span></p>
 </div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#synopsis" id="id1">Synopsis</a><ul>
-<li><a class="reference internal" href="#requirements" id="id2">Requirements</a></li>
+<li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requirements" id="id2">Requirements</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#parameters" id="id3">Parameters</a></li>
-<li><a class="reference internal" href="#notes" id="id4">Notes</a></li>
-<li><a class="reference internal" href="#examples" id="id5">Examples</a></li>
-<li><a class="reference internal" href="#return-values" id="id6">Return Values</a></li>
-<li><a class="reference internal" href="#status" id="id7">Status</a><ul>
-<li><a class="reference internal" href="#author" id="id8">Author</a></li>
+<li><p><a class="reference internal" href="#parameters" id="id3">Parameters</a></p></li>
+<li><p><a class="reference internal" href="#notes" id="id4">Notes</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id5">Examples</a></p></li>
+<li><p><a class="reference internal" href="#return-values" id="id6">Return Values</a></p></li>
+<li><p><a class="reference internal" href="#status" id="id7">Status</a></p>
+<ul>
+<li><p><a class="reference internal" href="#author" id="id8">Author</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2288,18 +2290,18 @@
 <div class="section" id="synopsis">
 <h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The dig lookup runs queries against DNS servers to retrieve DNS records for a specific name (FQDN - fully qualified domain name). It is possible to lookup any DNS record in this manner.</li>
-<li>There is a couple of different syntaxes that can be used to specify what record should be retrieved, and for which name. It is also possible to explicitly specify the DNS server(s) to use for lookups.</li>
-<li>In its simplest form, the dig lookup plugin can be used to retrieve an IPv4 address (DNS A record) associated with FQDN</li>
-<li>In addition to (default) A record, it is also possible to specify a different record type that should be queried. This can be done by either passing-in additional parameter of format qtype=TYPE to the dig lookup, or by appending /TYPE to the FQDN being queried.</li>
-<li>If multiple values are associated with the requested record, the results will be returned as a comma-separated list. In such cases you may want to pass option wantlist=True to the plugin, which will result in the record values being returned as a list over which you can iterate later on.</li>
-<li>By default, the lookup will rely on system-wide configured DNS servers for performing the query. It is also possible to explicitly specify DNS servers to query using the &#64;DNS_SERVER_1,DNS_SERVER_2,…,DNS_SERVER_N notation. This needs to be passed-in as an additional parameter to the lookup</li>
+<li><p>The dig lookup runs queries against DNS servers to retrieve DNS records for a specific name (FQDN - fully qualified domain name). It is possible to lookup any DNS record in this manner.</p></li>
+<li><p>There is a couple of different syntaxes that can be used to specify what record should be retrieved, and for which name. It is also possible to explicitly specify the DNS server(s) to use for lookups.</p></li>
+<li><p>In its simplest form, the dig lookup plugin can be used to retrieve an IPv4 address (DNS A record) associated with FQDN</p></li>
+<li><p>In addition to (default) A record, it is also possible to specify a different record type that should be queried. This can be done by either passing-in additional parameter of format qtype=TYPE to the dig lookup, or by appending /TYPE to the FQDN being queried.</p></li>
+<li><p>If multiple values are associated with the requested record, the results will be returned as a comma-separated list. In such cases you may want to pass option wantlist=True to the plugin, which will result in the record values being returned as a list over which you can iterate later on.</p></li>
+<li><p>By default, the lookup will rely on system-wide configured DNS servers for performing the query. It is also possible to explicitly specify DNS servers to query using the &#64;DNS_SERVER_1,DNS_SERVER_2,…,DNS_SERVER_N notation. This needs to be passed-in as an additional parameter to the lookup</p></li>
 </ul>
 <div class="section" id="requirements">
 <h3><a class="toc-backref" href="#id2">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
 <p>The below requirements are needed on the local master node that executes this lookup.</p>
 <ul class="simple">
-<li>dnspython (python library, <a class="reference external" href="http://www.dnspython.org/">http://www.dnspython.org/</a>)</li>
+<li><p>dnspython (python library, <a class="reference external" href="http://www.dnspython.org/">http://www.dnspython.org/</a>)</p></li>
 </ul>
 </div>
 </div>
@@ -2379,12 +2381,12 @@
 <div class="section" id="notes">
 <h2><a class="toc-backref" href="#id4">Notes</a><a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>ALL is not a record per-se, merely the listed fields are available for any record results you retrieve in the form of a dictionary.</li>
-<li>While the ‘dig’ lookup plugin supports anything which dnspython supports out of the box, only a subset can be converted into a dictionary.</li>
-<li>If you need to obtain the AAAA record (IPv6 address), you must specify the record type explicitly. Syntax for specifying the record type is shown in the examples below.</li>
-<li>The trailing dot in most of the examples listed is purely optional, but is specified for completeness/correctness sake.</li>
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>ALL is not a record per-se, merely the listed fields are available for any record results you retrieve in the form of a dictionary.</p></li>
+<li><p>While the ‘dig’ lookup plugin supports anything which dnspython supports out of the box, only a subset can be converted into a dictionary.</p></li>
+<li><p>If you need to obtain the AAAA record (IPv6 address), you must specify the record type explicitly. Syntax for specifying the record type is shown in the examples below.</p></li>
+<li><p>The trailing dot in most of the examples listed is purely optional, but is specified for completeness/correctness sake.</p></li>
 </ul>
 </div>
 </div>
@@ -2440,11 +2442,11 @@
 <div class="section" id="author">
 <h3><a class="toc-backref" href="#id8">Author</a><a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Jan-Piet Mens (&#64;jpmens) &lt;jpmens(at)gmail.com&gt;</li>
+<li><p>Jan-Piet Mens (&#64;jpmens) &lt;jpmens(at)gmail.com&gt;</p></li>
 </ul>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/plugins/lookup/dig.py">edit this document</a> to improve it.</p>
+<p class="admonition-title">Hint</p>
+<p>If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/plugins/lookup/dig.py">edit this document</a> to improve it.</p>
 </div>
 </div>
 </div>
@@ -2476,7 +2478,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

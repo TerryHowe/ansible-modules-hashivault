@@ -2270,11 +2270,13 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#cnos-platform-options" id="id2">CNOS Platform Options</a><ul>
-<li><a class="reference internal" href="#connections-available" id="id3">Connections Available</a></li>
-<li><a class="reference internal" href="#using-cli-in-ansible" id="id4">Using CLI in Ansible</a><ul>
-<li><a class="reference internal" href="#example-cli-group-vars-cnos-yml" id="id5">Example CLI <code class="docutils literal notranslate"><span class="pre">group_vars/cnos.yml</span></code></a></li>
-<li><a class="reference internal" href="#example-cli-task" id="id6">Example CLI Task</a></li>
+<li><p><a class="reference internal" href="#cnos-platform-options" id="id2">CNOS Platform Options</a></p>
+<ul>
+<li><p><a class="reference internal" href="#connections-available" id="id3">Connections Available</a></p></li>
+<li><p><a class="reference internal" href="#using-cli-in-ansible" id="id4">Using CLI in Ansible</a></p>
+<ul>
+<li><p><a class="reference internal" href="#example-cli-group-vars-cnos-yml" id="id5">Example CLI <code class="docutils literal notranslate"><span class="pre">group_vars/cnos.yml</span></code></a></p></li>
+<li><p><a class="reference internal" href="#example-cli-task" id="id6">Example CLI Task</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2283,62 +2285,62 @@
 </div>
 <div class="section" id="connections-available">
 <h2><a class="toc-backref" href="#id3">Connections Available</a><a class="headerlink" href="#connections-available" title="Permalink to this headline">¶</a></h2>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="36%" />
-<col width="64%" />
+<col style="width: 36%" />
+<col style="width: 64%" />
 </colgroup>
-<thead valign="bottom">
+<thead>
 <tr class="row-odd"><th class="head"></th>
-<th class="head">CLI</th>
+<th class="head"><p>CLI</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><strong>Protocol</strong></td>
-<td>SSH</td>
+<tbody>
+<tr class="row-even"><td><p><strong>Protocol</strong></p></td>
+<td><p>SSH</p></td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="line-block">
 <div class="line"><strong>Credentials</strong></div>
 <div class="line"><br /></div>
 </div>
 </td>
-<td><div class="first last line-block">
+<td><div class="line-block">
 <div class="line">uses SSH keys / SSH-agent if present</div>
 <div class="line">accepts <code class="docutils literal notranslate"><span class="pre">-u</span> <span class="pre">myuser</span> <span class="pre">-k</span></code> if using password</div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><strong>Indirect Access</strong></td>
-<td>via a bastion (jump host)</td>
+<tr class="row-even"><td><p><strong>Indirect Access</strong></p></td>
+<td><p>via a bastion (jump host)</p></td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="line-block">
 <div class="line"><strong>Connection Settings</strong></div>
 <div class="line"><br /></div>
 <div class="line"><br /></div>
 </div>
 </td>
-<td><div class="first last line-block">
+<td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">ansible_connection:</span> <span class="pre">network_cli</span></code></div>
 <div class="line"><br /></div>
 <div class="line"><br /></div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="line-block">
 <div class="line"><strong>Enable Mode</strong></div>
 <div class="line">(Privilege Escalation)</div>
 <div class="line"><br /></div>
 </div>
 </td>
-<td><div class="first last line-block">
+<td><div class="line-block">
 <div class="line">supported - use <code class="docutils literal notranslate"><span class="pre">ansible_become:</span> <span class="pre">yes</span></code></div>
 <div class="line">with <code class="docutils literal notranslate"><span class="pre">ansible_become_method:</span> <span class="pre">enable</span></code></div>
 <div class="line">and <code class="docutils literal notranslate"><span class="pre">ansible_become_pass:</span></code></div>
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><strong>Returned Data Format</strong></td>
-<td><code class="docutils literal notranslate"><span class="pre">stdout[0].</span></code></td>
+<tr class="row-odd"><td><p><strong>Returned Data Format</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">stdout[0].</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -2359,9 +2361,9 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li>If you are using SSH keys (including an ssh-agent) you can remove the <code class="docutils literal notranslate"><span class="pre">ansible_ssh_pass</span></code> configuration.</li>
-<li>If you are accessing your host directly (not through a bastion/jump host) you can remove the <code class="docutils literal notranslate"><span class="pre">ansible_ssh_common_args</span></code> configuration.</li>
-<li>If you are accessing your host through a bastion/jump host, you cannot include your SSH password in the <code class="docutils literal notranslate"><span class="pre">ProxyCommand</span></code> directive. To prevent secrets from leaking out (for example in <code class="docutils literal notranslate"><span class="pre">ps</span></code> output), SSH does not support providing passwords via environment variables.</li>
+<li><p>If you are using SSH keys (including an ssh-agent) you can remove the <code class="docutils literal notranslate"><span class="pre">ansible_ssh_pass</span></code> configuration.</p></li>
+<li><p>If you are accessing your host directly (not through a bastion/jump host) you can remove the <code class="docutils literal notranslate"><span class="pre">ansible_ssh_common_args</span></code> configuration.</p></li>
+<li><p>If you are accessing your host through a bastion/jump host, you cannot include your SSH password in the <code class="docutils literal notranslate"><span class="pre">ProxyCommand</span></code> directive. To prevent secrets from leaking out (for example in <code class="docutils literal notranslate"><span class="pre">ps</span></code> output), SSH does not support providing passwords via environment variables.</p></li>
 </ul>
 </div>
 <div class="section" id="example-cli-task">
@@ -2373,8 +2375,8 @@
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Never store passwords in plain text. We recommend using SSH keys to authenticate SSH connections. Ansible supports ssh-agent to manage your SSH keys. If you must use passwords to authenticate SSH connections, we recommend encrypting them with <a class="reference internal" href="../../user_guide/playbooks_vault.html#playbooks-vault"><span class="std std-ref">Ansible Vault</span></a>.</p>
+<p class="admonition-title">Warning</p>
+<p>Never store passwords in plain text. We recommend using SSH keys to authenticate SSH connections. Ansible supports ssh-agent to manage your SSH keys. If you must use passwords to authenticate SSH connections, we recommend encrypting them with <a class="reference internal" href="../../user_guide/playbooks_vault.html#playbooks-vault"><span class="std std-ref">Ansible Vault</span></a>.</p>
 </div>
 </div>
 </div>
@@ -2406,7 +2408,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

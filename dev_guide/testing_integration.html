@@ -2267,35 +2267,40 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#integration-tests" id="id1">Integration tests</a><ul>
-<li><a class="reference internal" href="#quick-start" id="id2">Quick Start</a></li>
-<li><a class="reference internal" href="#configuration" id="id3">Configuration</a></li>
-<li><a class="reference internal" href="#prerequisites" id="id4">Prerequisites</a></li>
-<li><a class="reference internal" href="#non-destructive-tests" id="id5">Non-destructive Tests</a></li>
-<li><a class="reference internal" href="#destructive-tests" id="id6">Destructive Tests</a></li>
-<li><a class="reference internal" href="#windows-tests" id="id7">Windows Tests</a></li>
-<li><a class="reference internal" href="#tests-in-docker-containers" id="id8">Tests in Docker containers</a><ul>
-<li><a class="reference internal" href="#running-integration-tests" id="id9">Running Integration Tests</a></li>
-<li><a class="reference internal" href="#container-images" id="id10">Container Images</a><ul>
-<li><a class="reference internal" href="#python-2" id="id11">Python 2</a></li>
-<li><a class="reference internal" href="#python-3" id="id12">Python 3</a></li>
+<li><p><a class="reference internal" href="#integration-tests" id="id1">Integration tests</a></p>
+<ul>
+<li><p><a class="reference internal" href="#quick-start" id="id2">Quick Start</a></p></li>
+<li><p><a class="reference internal" href="#configuration" id="id3">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#prerequisites" id="id4">Prerequisites</a></p></li>
+<li><p><a class="reference internal" href="#non-destructive-tests" id="id5">Non-destructive Tests</a></p></li>
+<li><p><a class="reference internal" href="#destructive-tests" id="id6">Destructive Tests</a></p></li>
+<li><p><a class="reference internal" href="#windows-tests" id="id7">Windows Tests</a></p></li>
+<li><p><a class="reference internal" href="#tests-in-docker-containers" id="id8">Tests in Docker containers</a></p>
+<ul>
+<li><p><a class="reference internal" href="#running-integration-tests" id="id9">Running Integration Tests</a></p></li>
+<li><p><a class="reference internal" href="#container-images" id="id10">Container Images</a></p>
+<ul>
+<li><p><a class="reference internal" href="#python-2" id="id11">Python 2</a></p></li>
+<li><p><a class="reference internal" href="#python-3" id="id12">Python 3</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#legacy-cloud-tests" id="id13">Legacy Cloud Tests</a></li>
-<li><a class="reference internal" href="#other-configuration-for-cloud-tests" id="id14">Other configuration for Cloud Tests</a></li>
-<li><a class="reference internal" href="#iam-policies-for-aws" id="id15">IAM policies for AWS</a><ul>
-<li><a class="reference internal" href="#testing-policies" id="id16">testing-policies</a></li>
-<li><a class="reference internal" href="#other-definitions-required" id="id17">Other Definitions required</a></li>
+<li><p><a class="reference internal" href="#legacy-cloud-tests" id="id13">Legacy Cloud Tests</a></p></li>
+<li><p><a class="reference internal" href="#other-configuration-for-cloud-tests" id="id14">Other configuration for Cloud Tests</a></p></li>
+<li><p><a class="reference internal" href="#iam-policies-for-aws" id="id15">IAM policies for AWS</a></p>
+<ul>
+<li><p><a class="reference internal" href="#testing-policies" id="id16">testing-policies</a></p></li>
+<li><p><a class="reference internal" href="#other-definitions-required" id="id17">Other Definitions required</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#network-tests" id="id18">Network Tests</a><ul>
-<li><a class="reference internal" href="#writing-network-integration-tests" id="id19">Writing network integration tests</a></li>
-<li><a class="reference internal" href="#running-network-integration-tests-locally" id="id20">Running network integration tests locally</a></li>
+<li><p><a class="reference internal" href="#network-tests" id="id18">Network Tests</a></p>
+<ul>
+<li><p><a class="reference internal" href="#writing-network-integration-tests" id="id19">Writing network integration tests</a></p></li>
+<li><p><a class="reference internal" href="#running-network-integration-tests-locally" id="id20">Running network integration tests locally</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#where-to-find-out-more" id="id21">Where to find out more</a></li>
+<li><p><a class="reference internal" href="#where-to-find-out-more" id="id21">Where to find out more</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2328,14 +2333,14 @@ later in this document.</p>
 <p>These tests will modify files in subdirectories, but will not do things that install or remove packages or things
 outside of those test subdirectories.  They will also not reconfigure or bounce system services.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Running integration tests within Docker</p>
-<p class="last">To protect your system from any potential changes caused by integration tests, and to ensure the a sensible set of dependencies are available we recommend that you always run integration tests with the <code class="docutils literal notranslate"><span class="pre">--docker</span></code> option. See the <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/test/runner/completion/docker.txt">list of supported docker images</a> for options.</p>
+<p>To protect your system from any potential changes caused by integration tests, and to ensure the a sensible set of dependencies are available we recommend that you always run integration tests with the <code class="docutils literal notranslate"><span class="pre">--docker</span></code> option. See the <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/test/runner/completion/docker.txt">list of supported docker images</a> for options.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Avoiding pulling new Docker images</p>
-<p class="last">Use the <code class="docutils literal notranslate"><span class="pre">--docker-no-pull</span></code> option to avoid pulling the latest container image. This is required when using custom local images that are not available for download.</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">--docker-no-pull</span></code> option to avoid pulling the latest container image. This is required when using custom local images that are not available for download.</p>
 </div>
 <p>Run as follows for all POSIX platform tests executed by our CI system:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">test/runner/ansible-test integration --docker fedora25 -v posix/ci/</span>
@@ -2384,9 +2389,9 @@ them against a production/critical Windows environment.</p>
 <p>If you have a Linux system with Docker installed, running integration tests using the same Docker containers used by
 the Ansible continuous integration (CI) system is recommended.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Docker on non-Linux</p>
-<p class="last">Using Docker Engine to run Docker on a non-Linux host (such as macOS) is not recommended.
+<p>Using Docker Engine to run Docker on a non-Linux host (such as macOS) is not recommended.
 Some tests may fail, depending on the image used for testing.
 Using the <code class="docutils literal notranslate"><span class="pre">--docker-privileged</span></code> option may resolve the issue.</p>
 </div>
@@ -2409,15 +2414,15 @@ For example, to run tests for the <code class="docutils literal notranslate"><sp
 <p>Most container images are for testing with Python 2:</p>
 <blockquote>
 <div><ul class="simple">
-<li>centos6</li>
-<li>centos7</li>
-<li>fedora24</li>
-<li>fedora25</li>
-<li>opensuse42.1</li>
-<li>opensuse42.2</li>
-<li>ubuntu1204</li>
-<li>ubuntu1404</li>
-<li>ubuntu1604</li>
+<li><p>centos6</p></li>
+<li><p>centos7</p></li>
+<li><p>fedora24</p></li>
+<li><p>fedora25</p></li>
+<li><p>opensuse42.1</p></li>
+<li><p>opensuse42.2</p></li>
+<li><p>ubuntu1204</p></li>
+<li><p>ubuntu1404</p></li>
+<li><p>ubuntu1604</p></li>
 </ul>
 </div></blockquote>
 </div>
@@ -2426,7 +2431,7 @@ For example, to run tests for the <code class="docutils literal notranslate"><sp
 <p>To test with Python 3 use the following images:</p>
 <blockquote>
 <div><ul class="simple">
-<li>ubuntu1604py3</li>
+<li><p>ubuntu1604py3</p></li>
 </ul>
 </div></blockquote>
 </div>
@@ -2539,7 +2544,7 @@ privileges.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

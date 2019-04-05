@@ -2269,29 +2269,33 @@
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#what-is-desired-state-configuration" id="id1">What is Desired State Configuration?</a></li>
-<li><a class="reference internal" href="#host-requirements" id="id2">Host Requirements</a></li>
-<li><a class="reference internal" href="#why-use-dsc" id="id3">Why Use DSC?</a></li>
-<li><a class="reference internal" href="#how-to-use-dsc" id="id4">How to Use DSC?</a><ul>
-<li><a class="reference internal" href="#property-types" id="id5">Property Types</a><ul>
-<li><a class="reference internal" href="#pscredential" id="id6">PSCredential</a></li>
-<li><a class="reference internal" href="#ciminstance-type" id="id7">CimInstance Type</a></li>
-<li><a class="reference internal" href="#arrays" id="id8">Arrays</a></li>
+<li><p><a class="reference internal" href="#what-is-desired-state-configuration" id="id1">What is Desired State Configuration?</a></p></li>
+<li><p><a class="reference internal" href="#host-requirements" id="id2">Host Requirements</a></p></li>
+<li><p><a class="reference internal" href="#why-use-dsc" id="id3">Why Use DSC?</a></p></li>
+<li><p><a class="reference internal" href="#how-to-use-dsc" id="id4">How to Use DSC?</a></p>
+<ul>
+<li><p><a class="reference internal" href="#property-types" id="id5">Property Types</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pscredential" id="id6">PSCredential</a></p></li>
+<li><p><a class="reference internal" href="#ciminstance-type" id="id7">CimInstance Type</a></p></li>
+<li><p><a class="reference internal" href="#arrays" id="id8">Arrays</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#run-as-another-user" id="id9">Run As Another User</a></li>
+<li><p><a class="reference internal" href="#run-as-another-user" id="id9">Run As Another User</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#custom-dsc-resources" id="id10">Custom DSC Resources</a><ul>
-<li><a class="reference internal" href="#finding-custom-dsc-resources" id="id11">Finding Custom DSC Resources</a></li>
-<li><a class="reference internal" href="#installing-a-custom-resource" id="id12">Installing a Custom Resource</a></li>
+<li><p><a class="reference internal" href="#custom-dsc-resources" id="id10">Custom DSC Resources</a></p>
+<ul>
+<li><p><a class="reference internal" href="#finding-custom-dsc-resources" id="id11">Finding Custom DSC Resources</a></p></li>
+<li><p><a class="reference internal" href="#installing-a-custom-resource" id="id12">Installing a Custom Resource</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#examples" id="id13">Examples</a><ul>
-<li><a class="reference internal" href="#extract-a-zip-file" id="id14">Extract a zip file</a></li>
-<li><a class="reference internal" href="#create-a-directory" id="id15">Create a directory</a></li>
-<li><a class="reference internal" href="#interact-with-azure" id="id16">Interact with Azure</a></li>
-<li><a class="reference internal" href="#setup-iis-website" id="id17">Setup IIS Website</a></li>
+<li><p><a class="reference internal" href="#examples" id="id13">Examples</a></p>
+<ul>
+<li><p><a class="reference internal" href="#extract-a-zip-file" id="id14">Extract a zip file</a></p></li>
+<li><p><a class="reference internal" href="#create-a-directory" id="id15">Create a directory</a></p></li>
+<li><p><a class="reference internal" href="#interact-with-azure" id="id16">Interact with Azure</a></p></li>
+<li><p><a class="reference internal" href="#setup-iis-website" id="id17">Setup IIS Website</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2322,22 +2326,22 @@ and Ansible <code class="docutils literal notranslate"><span class="pre">win_fil
 on the scenario.</p>
 <p>Reasons for using an Ansible module over a DSC resource:</p>
 <ul class="simple">
-<li>The host does not support PowerShell v5.0, or it cannot easily be upgraded</li>
-<li>The DSC resource does not offer a feature present in an Ansible module. For example
+<li><p>The host does not support PowerShell v5.0, or it cannot easily be upgraded</p></li>
+<li><p>The DSC resource does not offer a feature present in an Ansible module. For example
 win_regedit can manage the <code class="docutils literal notranslate"><span class="pre">REG_NONE</span></code> property type, while the DSC
-<code class="docutils literal notranslate"><span class="pre">Registry</span></code> resource cannot</li>
-<li>DSC resources have limited check mode support, while some Ansible modules have
-better checks</li>
-<li>DSC resources do not support diff mode, while some Ansible modules do</li>
-<li>Custom resources require further installation steps to be run on the host
-beforehand, while Ansible modules are in built-in to Ansible</li>
-<li>There are bugs in a DSC resource where an Ansible module works</li>
+<code class="docutils literal notranslate"><span class="pre">Registry</span></code> resource cannot</p></li>
+<li><p>DSC resources have limited check mode support, while some Ansible modules have
+better checks</p></li>
+<li><p>DSC resources do not support diff mode, while some Ansible modules do</p></li>
+<li><p>Custom resources require further installation steps to be run on the host
+beforehand, while Ansible modules are in built-in to Ansible</p></li>
+<li><p>There are bugs in a DSC resource where an Ansible module works</p></li>
 </ul>
 <p>Reasons for using a DSC resource over an Ansible module:</p>
 <ul class="simple">
-<li>The Ansible module does not support a feature present in a DSC resource</li>
-<li>There is no Ansible module available</li>
-<li>There are bugs in an existing Ansible module</li>
+<li><p>The Ansible module does not support a feature present in a DSC resource</p></li>
+<li><p>There is no Ansible module available</p></li>
+<li><p>There are bugs in an existing Ansible module</p></li>
 </ul>
 <p>In the end, it doesn’t matter whether the task is performed with DSC or an
 Ansible module; what matters is that the task is performed correctly and the
@@ -2404,8 +2408,8 @@ For example:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You should set <code class="docutils literal notranslate"><span class="pre">no_log:</span> <span class="pre">true</span></code> on the task definition in
+<p class="admonition-title">Note</p>
+<p>You should set <code class="docutils literal notranslate"><span class="pre">no_log:</span> <span class="pre">true</span></code> on the task definition in
 Ansible to ensure any credentials used are not stored in any log file or
 console output.</p>
 </div>
@@ -2517,8 +2521,8 @@ modules can be installed to manage other resources that are not usually availabl
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">DSC resources developed by Microsoft that start with <code class="docutils literal notranslate"><span class="pre">x</span></code>, means the
+<p class="admonition-title">Note</p>
+<p>DSC resources developed by Microsoft that start with <code class="docutils literal notranslate"><span class="pre">x</span></code>, means the
 resource is experimental and comes with no support.</p>
 </div>
 </div>
@@ -2526,9 +2530,9 @@ resource is experimental and comes with no support.</p>
 <h3><a class="toc-backref" href="#id12">Installing a Custom Resource</a><a class="headerlink" href="#installing-a-custom-resource" title="Permalink to this headline">¶</a></h3>
 <p>There are three ways that a DSC resource can be installed on a host:</p>
 <ul class="simple">
-<li>Manually with the <code class="docutils literal notranslate"><span class="pre">Install-Module</span></code> cmdlet</li>
-<li>Using the <code class="docutils literal notranslate"><span class="pre">win_psmodule</span></code> Ansible module</li>
-<li>Saving the module manually and copying it another host</li>
+<li><p>Manually with the <code class="docutils literal notranslate"><span class="pre">Install-Module</span></code> cmdlet</p></li>
+<li><p>Using the <code class="docutils literal notranslate"><span class="pre">win_psmodule</span></code> Ansible module</p></li>
+<li><p>Saving the module manually and copying it another host</p></li>
 </ul>
 <p>This is an example of installing the <code class="docutils literal notranslate"><span class="pre">xWebAdministration</span></code> resources using
 <code class="docutils literal notranslate"><span class="pre">win_psmodule</span></code>:</p>
@@ -2666,20 +2670,20 @@ paths.</p>
 </pre></div>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="index.html"><span class="doc">User Guide</span></a></dt>
-<dd>The documentation index</dd>
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt>
-<dd>Best practices advice</dd>
-<dt><span class="xref std std-ref">List of Windows Modules</span></dt>
-<dd>Windows specific module list, all implemented in PowerShell</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="index.html"><span class="doc">User Guide</span></a></dt><dd><p>The documentation index</p>
+</dd>
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt><dd><p>Best practices advice</p>
+</dd>
+<dt><span class="xref std std-ref">List of Windows Modules</span></dt><dd><p>Windows specific module list, all implemented in PowerShell</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2712,7 +2716,7 @@ paths.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

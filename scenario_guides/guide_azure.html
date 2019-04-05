@@ -2286,8 +2286,8 @@ root directory of the Ansible repo.</p>
 <h2>Authenticating with Azure<a class="headerlink" href="#authenticating-with-azure" title="Permalink to this headline">¶</a></h2>
 <p>Using the Azure Resource Manager modules requires authenticating with the Azure API. You can choose from two authentication strategies:</p>
 <ul class="simple">
-<li>Active Directory Username/Password</li>
-<li>Service Principal Credentials</li>
+<li><p>Active Directory Username/Password</p></li>
+<li><p>Service Principal Credentials</p></li>
 </ul>
 <p>Follow the directions for the strategy you wish to use, then proceed to <a class="reference internal" href="#providing-credentials-to-azure-modules">Providing Credentials to Azure Modules</a> for
 instructions on how to actually use the modules and authenticate with the Azure API.</p>
@@ -2296,24 +2296,24 @@ instructions on how to actually use the modules and authenticate with the Azure 
 <p>There is now a detailed official tutorial describing <a class="reference external" href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal">how to create a service principal</a>.</p>
 <p>After stepping through the tutorial you will have:</p>
 <ul class="simple">
-<li>Your Client ID, which is found in the “client id” box in the “Configure” page of your application in the Azure portal</li>
-<li>Your Secret key, generated when you created the application. You cannot show the key after creation.
-If you lost the key, you must create a new one in the “Configure” page of your application.</li>
-<li>And finally, a tenant ID. It’s a UUID (e.g. ABCDEFGH-1234-ABCD-1234-ABCDEFGHIJKL) pointing to the AD containing your
-application. You will find it in the URL from within the Azure portal, or in the “view endpoints” of any given URL.</li>
+<li><p>Your Client ID, which is found in the “client id” box in the “Configure” page of your application in the Azure portal</p></li>
+<li><p>Your Secret key, generated when you created the application. You cannot show the key after creation.
+If you lost the key, you must create a new one in the “Configure” page of your application.</p></li>
+<li><p>And finally, a tenant ID. It’s a UUID (e.g. ABCDEFGH-1234-ABCD-1234-ABCDEFGHIJKL) pointing to the AD containing your
+application. You will find it in the URL from within the Azure portal, or in the “view endpoints” of any given URL.</p></li>
 </ul>
 </div>
 <div class="section" id="using-active-directory-username-password">
 <h3>Using Active Directory Username/Password<a class="headerlink" href="#using-active-directory-username-password" title="Permalink to this headline">¶</a></h3>
 <p>To create an Active Directory username/password:</p>
 <ul class="simple">
-<li>Connect to the Azure Classic Portal with your admin account</li>
-<li>Create a user in your default AAD. You must NOT activate Multi-Factor Authentication</li>
-<li>Go to Settings - Administrators</li>
-<li>Click on Add and enter the email of the new user.</li>
-<li>Check the checkbox of the subscription you want to test with this user.</li>
-<li>Login to Azure Portal with this new user to change the temporary password to a new one. You will not be able to use the
-temporary password for OAuth login.</li>
+<li><p>Connect to the Azure Classic Portal with your admin account</p></li>
+<li><p>Create a user in your default AAD. You must NOT activate Multi-Factor Authentication</p></li>
+<li><p>Go to Settings - Administrators</p></li>
+<li><p>Click on Add and enter the email of the new user.</p></li>
+<li><p>Check the checkbox of the subscription you want to test with this user.</p></li>
+<li><p>Login to Azure Portal with this new user to change the temporary password to a new one. You will not be able to use the
+temporary password for OAuth login.</p></li>
 </ul>
 </div>
 <div class="section" id="providing-credentials-to-azure-modules">
@@ -2326,23 +2326,23 @@ order of precedence is parameters, then environment variables, and finally a fil
 <h4>Using Environment Variables<a class="headerlink" href="#using-environment-variables" title="Permalink to this headline">¶</a></h4>
 <p>To pass service principal credentials via the environment, define the following variables:</p>
 <ul class="simple">
-<li>AZURE_CLIENT_ID</li>
-<li>AZURE_SECRET</li>
-<li>AZURE_SUBSCRIPTION_ID</li>
-<li>AZURE_TENANT</li>
+<li><p>AZURE_CLIENT_ID</p></li>
+<li><p>AZURE_SECRET</p></li>
+<li><p>AZURE_SUBSCRIPTION_ID</p></li>
+<li><p>AZURE_TENANT</p></li>
 </ul>
 <p>To pass Active Directory username/password via the environment, define the following variables:</p>
 <ul class="simple">
-<li>AZURE_AD_USER</li>
-<li>AZURE_PASSWORD</li>
+<li><p>AZURE_AD_USER</p></li>
+<li><p>AZURE_PASSWORD</p></li>
 </ul>
 <p>To pass Active Directory username/password in ADFS via the environment, define the following variables:</p>
 <ul class="simple">
-<li>AZURE_AD_USER</li>
-<li>AZURE_PASSWORD</li>
-<li>AZURE_CLIENT_ID</li>
-<li>AZURE_TENANT</li>
-<li>AZURE_ADFS_AUTHORITY_URL</li>
+<li><p>AZURE_AD_USER</p></li>
+<li><p>AZURE_PASSWORD</p></li>
+<li><p>AZURE_CLIENT_ID</p></li>
+<li><p>AZURE_TENANT</p></li>
+<li><p>AZURE_ADFS_AUTHORITY_URL</p></li>
 </ul>
 <p>“AZURE_ADFS_AUTHORITY_URL” is optional. It’s necessary only when you have own ADFS authority like <a class="reference external" href="https://xxx.com/adfs">https://xxx.com/adfs</a>.</p>
 </div>
@@ -2365,23 +2365,23 @@ environment or pass a profile parameter to specify a specific profile.</p>
 <h4>Passing as Parameters<a class="headerlink" href="#passing-as-parameters" title="Permalink to this headline">¶</a></h4>
 <p>If you wish to pass credentials as parameters to a task, use the following parameters for service principal:</p>
 <ul class="simple">
-<li>client_id</li>
-<li>secret</li>
-<li>subscription_id</li>
-<li>tenant</li>
+<li><p>client_id</p></li>
+<li><p>secret</p></li>
+<li><p>subscription_id</p></li>
+<li><p>tenant</p></li>
 </ul>
 <p>Or, pass the following parameters for Active Directory username/password:</p>
 <ul class="simple">
-<li>ad_user</li>
-<li>password</li>
+<li><p>ad_user</p></li>
+<li><p>password</p></li>
 </ul>
 <p>Or, pass the following parameters for ADFS username/pasword:</p>
 <ul class="simple">
-<li>ad_user</li>
-<li>password</li>
-<li>client_id</li>
-<li>tenant</li>
-<li>adfs_authority_url</li>
+<li><p>ad_user</p></li>
+<li><p>password</p></li>
+<li><p>client_id</p></li>
+<li><p>tenant</p></li>
+<li><p>adfs_authority_url</p></li>
 </ul>
 <p>“adfs_authority_url” is optional. It’s necessary only when you have own ADFS authority like <a class="reference external" href="https://xxx.com/adfs">https://xxx.com/adfs</a>.</p>
 </div>
@@ -2553,13 +2553,13 @@ Azure resource groups, or even down to a specific host.</p>
 <h3>Host Groups<a class="headerlink" href="#host-groups" title="Permalink to this headline">¶</a></h3>
 <p>By default hosts are grouped by:</p>
 <ul class="simple">
-<li>azure (all hosts)</li>
-<li>location name</li>
-<li>resource group name</li>
-<li>security group name</li>
-<li>tag key</li>
-<li>tag key_value</li>
-<li>os_disk operating_system_type (Windows/Linux)</li>
+<li><p>azure (all hosts)</p></li>
+<li><p>location name</p></li>
+<li><p>resource group name</p></li>
+<li><p>security group name</p></li>
+<li><p>tag key</p></li>
+<li><p>tag key_value</p></li>
+<li><p>os_disk operating_system_type (Windows/Linux)</p></li>
 </ul>
 <p>You can control host groupings and host selection by either defining environment variables or creating an
 azure_rm.ini file in your current working directory.</p>
@@ -2569,31 +2569,31 @@ extension. This allows you to copy, rename and customize the inventory script an
 the same directory.</p>
 <p>Control grouping using the following variables defined in the environment:</p>
 <ul class="simple">
-<li>AZURE_GROUP_BY_RESOURCE_GROUP=yes</li>
-<li>AZURE_GROUP_BY_LOCATION=yes</li>
-<li>AZURE_GROUP_BY_SECURITY_GROUP=yes</li>
-<li>AZURE_GROUP_BY_TAG=yes</li>
-<li>AZURE_GROUP_BY_OS_FAMILY=yes</li>
+<li><p>AZURE_GROUP_BY_RESOURCE_GROUP=yes</p></li>
+<li><p>AZURE_GROUP_BY_LOCATION=yes</p></li>
+<li><p>AZURE_GROUP_BY_SECURITY_GROUP=yes</p></li>
+<li><p>AZURE_GROUP_BY_TAG=yes</p></li>
+<li><p>AZURE_GROUP_BY_OS_FAMILY=yes</p></li>
 </ul>
 <p>Select hosts within specific resource groups by assigning a comma separated list to:</p>
 <ul class="simple">
-<li>AZURE_RESOURCE_GROUPS=resource_group_a,resource_group_b</li>
+<li><p>AZURE_RESOURCE_GROUPS=resource_group_a,resource_group_b</p></li>
 </ul>
 <p>Select hosts for specific tag key by assigning a comma separated list of tag keys to:</p>
 <ul class="simple">
-<li>AZURE_TAGS=key1,key2,key3</li>
+<li><p>AZURE_TAGS=key1,key2,key3</p></li>
 </ul>
 <p>Select hosts for specific locations by assigning a comma separated list of locations to:</p>
 <ul class="simple">
-<li>AZURE_LOCATIONS=eastus,eastus2,westus</li>
+<li><p>AZURE_LOCATIONS=eastus,eastus2,westus</p></li>
 </ul>
 <p>Or, select hosts for specific tag key:value pairs by assigning a comma separated list key:value pairs to:</p>
 <ul class="simple">
-<li>AZURE_TAGS=key1:value1,key2:value2</li>
+<li><p>AZURE_TAGS=key1:value1,key2:value2</p></li>
 </ul>
 <p>If you don’t need the powerstate, you can improve performance by turning off powerstate fetching:</p>
 <ul class="simple">
-<li>AZURE_INCLUDE_POWERSTATE=no</li>
+<li><p>AZURE_INCLUDE_POWERSTATE=no</p></li>
 </ul>
 <p>A sample azure_rm.ini file is included along with the inventory script in contrib/inventory. An .ini
 file will contain the following:</p>
@@ -2693,7 +2693,7 @@ which takes precedence over the environment value.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

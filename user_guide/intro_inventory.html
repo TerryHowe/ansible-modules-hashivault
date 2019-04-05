@@ -2269,16 +2269,17 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#working-with-inventory" id="id4">Working with Inventory</a><ul>
-<li><a class="reference internal" href="#hosts-and-groups" id="id5">Hosts and Groups</a></li>
-<li><a class="reference internal" href="#host-variables" id="id6">Host Variables</a></li>
-<li><a class="reference internal" href="#group-variables" id="id7">Group Variables</a></li>
-<li><a class="reference internal" href="#groups-of-groups-and-group-variables" id="id8">Groups of Groups, and Group Variables</a></li>
-<li><a class="reference internal" href="#default-groups" id="id9">Default groups</a></li>
-<li><a class="reference internal" href="#splitting-out-host-and-group-specific-data" id="id10">Splitting Out Host and Group Specific Data</a></li>
-<li><a class="reference internal" href="#how-variables-are-merged" id="id11">How Variables Are Merged</a></li>
-<li><a class="reference internal" href="#list-of-behavioral-inventory-parameters" id="id12">List of Behavioral Inventory Parameters</a></li>
-<li><a class="reference internal" href="#non-ssh-connection-types" id="id13">Non-SSH connection types</a></li>
+<li><p><a class="reference internal" href="#working-with-inventory" id="id4">Working with Inventory</a></p>
+<ul>
+<li><p><a class="reference internal" href="#hosts-and-groups" id="id5">Hosts and Groups</a></p></li>
+<li><p><a class="reference internal" href="#host-variables" id="id6">Host Variables</a></p></li>
+<li><p><a class="reference internal" href="#group-variables" id="id7">Group Variables</a></p></li>
+<li><p><a class="reference internal" href="#groups-of-groups-and-group-variables" id="id8">Groups of Groups, and Group Variables</a></p></li>
+<li><p><a class="reference internal" href="#default-groups" id="id9">Default groups</a></p></li>
+<li><p><a class="reference internal" href="#splitting-out-host-and-group-specific-data" id="id10">Splitting Out Host and Group Specific Data</a></p></li>
+<li><p><a class="reference internal" href="#how-variables-are-merged" id="id11">How Variables Are Merged</a></p></li>
+<li><p><a class="reference internal" href="#list-of-behavioral-inventory-parameters" id="id12">List of Behavioral Inventory Parameters</a></p></li>
+<li><p><a class="reference internal" href="#non-ssh-connection-types" id="id13">Non-SSH connection types</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2350,8 +2351,8 @@ You can also describe hosts via variables:</p>
 Note that this is using a feature of the inventory file to define some special variables.
 Generally speaking, this is not the best way to define variables that describe your system policy, but we’ll share suggestions on doing this later.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Values passed in the INI format using the <code class="docutils literal notranslate"><span class="pre">key=value</span></code> syntax are not interpreted as Python literal structure
+<p class="admonition-title">Note</p>
+<p>Values passed in the INI format using the <code class="docutils literal notranslate"><span class="pre">key=value</span></code> syntax are not interpreted as Python literal structure
 (strings, numbers, tuples, lists, dicts, booleans, None), but as a string. For example <code class="docutils literal notranslate"><span class="pre">var=FALSE</span></code> would create a string equal to ‘FALSE’.
 Do not rely on types set during definition, always make sure you specify type with a filter when needed when consuming the variable.</p>
 </div>
@@ -2466,10 +2467,10 @@ You can apply variables using <code class="docutils literal notranslate"><span c
 Child groups have a couple of properties to note:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Any host that is member of a child group is automatically a member of the parent group.</li>
-<li>A child group’s variables will have higher precedence (override) a parent group’s variables.</li>
-<li>Groups can have multiple parents and children, but not circular relationships.</li>
-<li>Hosts can also be in multiple groups, but there will only be <strong>one</strong> instance of a host, merging the data from the multiple groups.</li>
+<li><p>Any host that is member of a child group is automatically a member of the parent group.</p></li>
+<li><p>A child group’s variables will have higher precedence (override) a parent group’s variables.</p></li>
+<li><p>Groups can have multiple parents and children, but not circular relationships.</p></li>
+<li><p>Hosts can also be in multiple groups, but there will only be <strong>one</strong> instance of a host, merging the data from the multiple groups.</p></li>
 </ul>
 </div></blockquote>
 </div>
@@ -2526,14 +2527,14 @@ is an excellent way to track changes to your inventory and host variables.</p>
 <span id="how-we-merge"></span><h2><a class="toc-backref" href="#id11">How Variables Are Merged</a><a class="headerlink" href="#how-variables-are-merged" title="Permalink to this headline">¶</a></h2>
 <p>By default variables are merged/flattened to the specific host before a play is run. This keeps Ansible focused on the Host and Task, so groups don’t really survive outside of inventory and host matching. By default, Ansible overwrites variables including the ones defined for a group and/or host (see the <cite>hash_merge</cite> setting to change this) . The order/precedence is (from lowest to highest):</p>
 <ul class="simple">
-<li>all group (because it is the ‘parent’ of all other groups)</li>
-<li>parent group</li>
-<li>child group</li>
-<li>host</li>
+<li><p>all group (because it is the ‘parent’ of all other groups)</p></li>
+<li><p>parent group</p></li>
+<li><p>child group</p></li>
+<li><p>host</p></li>
 </ul>
 <p>When groups of the same parent/child level are merged, it is done alphabetically, and the last group loaded overwrites the previous groups. For example, an a_group will be merged with b_group and b_group vars that match will overwrite the ones in a_group.</p>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.4.</span></p>
+<p><span class="versionmodified added">New in version 2.4.</span></p>
 </div>
 <p>Starting in Ansible version 2.4, users can use the group variable <code class="docutils literal notranslate"><span class="pre">ansible_group_priority</span></code> to change the merge order for groups of the same level (after the parent/child order is resolved). The larger the number, the later it will be merged, giving it higher priority. This variable defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code> if not set. For example:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">a_group</span><span class="p">:</span>
@@ -2550,87 +2551,87 @@ is an excellent way to track changes to your inventory and host variables.</p>
 <p>As described above, setting the following variables control how Ansible interacts with remote hosts.</p>
 <p>Host connection:</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Ansible does not expose a channel to allow communication between the user and the ssh process to accept a password manually to decrypt an ssh key when using the ssh connection plugin (which is the default). The use of <code class="docutils literal notranslate"><span class="pre">ssh-agent</span></code> is highly recommended.</p>
+<p class="admonition-title">Note</p>
+<p>Ansible does not expose a channel to allow communication between the user and the ssh process to accept a password manually to decrypt an ssh key when using the ssh connection plugin (which is the default). The use of <code class="docutils literal notranslate"><span class="pre">ssh-agent</span></code> is highly recommended.</p>
 </div>
-<dl class="docutils">
-<dt>ansible_connection</dt>
-<dd>Connection type to the host. This can be the name of any of ansible’s connection plugins. SSH protocol types are <code class="docutils literal notranslate"><span class="pre">smart</span></code>, <code class="docutils literal notranslate"><span class="pre">ssh</span></code> or <code class="docutils literal notranslate"><span class="pre">paramiko</span></code>.  The default is smart. Non-SSH based types are described in the next section.</dd>
+<dl class="simple">
+<dt>ansible_connection</dt><dd><p>Connection type to the host. This can be the name of any of ansible’s connection plugins. SSH protocol types are <code class="docutils literal notranslate"><span class="pre">smart</span></code>, <code class="docutils literal notranslate"><span class="pre">ssh</span></code> or <code class="docutils literal notranslate"><span class="pre">paramiko</span></code>.  The default is smart. Non-SSH based types are described in the next section.</p>
+</dd>
 </dl>
 <p>General for all connections:</p>
-<dl class="docutils">
-<dt>ansible_host</dt>
-<dd>The name of the host to connect to, if different from the alias you wish to give to it.</dd>
-<dt>ansible_port</dt>
-<dd>The ssh port number, if not 22</dd>
-<dt>ansible_user</dt>
-<dd>The default ssh user name to use.</dd>
+<dl class="simple">
+<dt>ansible_host</dt><dd><p>The name of the host to connect to, if different from the alias you wish to give to it.</p>
+</dd>
+<dt>ansible_port</dt><dd><p>The ssh port number, if not 22</p>
+</dd>
+<dt>ansible_user</dt><dd><p>The default ssh user name to use.</p>
+</dd>
 </dl>
 <p>Specific to the SSH connection:</p>
-<dl class="docutils">
-<dt>ansible_ssh_pass</dt>
-<dd>The ssh password to use (never store this variable in plain text; always use a vault. See <a class="reference internal" href="playbooks_best_practices.html#best-practices-for-variables-and-vaults"><span class="std std-ref">Variables and Vaults</span></a>)</dd>
-<dt>ansible_ssh_private_key_file</dt>
-<dd>Private key file used by ssh.  Useful if using multiple keys and you don’t want to use SSH agent.</dd>
-<dt>ansible_ssh_common_args</dt>
-<dd>This setting is always appended to the default command line for <strong class="command">sftp</strong>, <strong class="command">scp</strong>,
+<dl class="simple">
+<dt>ansible_ssh_pass</dt><dd><p>The ssh password to use (never store this variable in plain text; always use a vault. See <a class="reference internal" href="playbooks_best_practices.html#best-practices-for-variables-and-vaults"><span class="std std-ref">Variables and Vaults</span></a>)</p>
+</dd>
+<dt>ansible_ssh_private_key_file</dt><dd><p>Private key file used by ssh.  Useful if using multiple keys and you don’t want to use SSH agent.</p>
+</dd>
+<dt>ansible_ssh_common_args</dt><dd><p>This setting is always appended to the default command line for <strong class="command">sftp</strong>, <strong class="command">scp</strong>,
 and <strong class="command">ssh</strong>. Useful to configure a <code class="docutils literal notranslate"><span class="pre">ProxyCommand</span></code> for a certain host (or
-group).</dd>
-<dt>ansible_sftp_extra_args</dt>
-<dd>This setting is always appended to the default <strong class="command">sftp</strong> command line.</dd>
-<dt>ansible_scp_extra_args</dt>
-<dd>This setting is always appended to the default <strong class="command">scp</strong> command line.</dd>
-<dt>ansible_ssh_extra_args</dt>
-<dd>This setting is always appended to the default <strong class="command">ssh</strong> command line.</dd>
-<dt>ansible_ssh_pipelining</dt>
-<dd>Determines whether or not to use SSH pipelining. This can override the <code class="docutils literal notranslate"><span class="pre">pipelining</span></code> setting in <code class="file docutils literal notranslate"><span class="pre">ansible.cfg</span></code>.</dd>
-<dt>ansible_ssh_executable (added in version 2.2)</dt>
-<dd>This setting overrides the default behavior to use the system <strong class="command">ssh</strong>. This can override the <code class="docutils literal notranslate"><span class="pre">ssh_executable</span></code> setting in <code class="file docutils literal notranslate"><span class="pre">ansible.cfg</span></code>.</dd>
+group).</p>
+</dd>
+<dt>ansible_sftp_extra_args</dt><dd><p>This setting is always appended to the default <strong class="command">sftp</strong> command line.</p>
+</dd>
+<dt>ansible_scp_extra_args</dt><dd><p>This setting is always appended to the default <strong class="command">scp</strong> command line.</p>
+</dd>
+<dt>ansible_ssh_extra_args</dt><dd><p>This setting is always appended to the default <strong class="command">ssh</strong> command line.</p>
+</dd>
+<dt>ansible_ssh_pipelining</dt><dd><p>Determines whether or not to use SSH pipelining. This can override the <code class="docutils literal notranslate"><span class="pre">pipelining</span></code> setting in <code class="file docutils literal notranslate"><span class="pre">ansible.cfg</span></code>.</p>
+</dd>
+<dt>ansible_ssh_executable (added in version 2.2)</dt><dd><p>This setting overrides the default behavior to use the system <strong class="command">ssh</strong>. This can override the <code class="docutils literal notranslate"><span class="pre">ssh_executable</span></code> setting in <code class="file docutils literal notranslate"><span class="pre">ansible.cfg</span></code>.</p>
+</dd>
 </dl>
 <p>Privilege escalation (see <a class="reference internal" href="become.html"><span class="doc">Ansible Privilege Escalation</span></a> for further details):</p>
-<dl class="docutils">
-<dt>ansible_become</dt>
-<dd>Equivalent to <code class="docutils literal notranslate"><span class="pre">ansible_sudo</span></code> or <code class="docutils literal notranslate"><span class="pre">ansible_su</span></code>, allows to force privilege escalation</dd>
-<dt>ansible_become_method</dt>
-<dd>Allows to set privilege escalation method</dd>
-<dt>ansible_become_user</dt>
-<dd>Equivalent to <code class="docutils literal notranslate"><span class="pre">ansible_sudo_user</span></code> or <code class="docutils literal notranslate"><span class="pre">ansible_su_user</span></code>, allows to set the user you become through privilege escalation</dd>
-<dt>ansible_become_pass</dt>
-<dd>Equivalent to <code class="docutils literal notranslate"><span class="pre">ansible_sudo_pass</span></code> or <code class="docutils literal notranslate"><span class="pre">ansible_su_pass</span></code>, allows you to set the privilege escalation password (never store this variable in plain text; always use a vault. See <a class="reference internal" href="playbooks_best_practices.html#best-practices-for-variables-and-vaults"><span class="std std-ref">Variables and Vaults</span></a>)</dd>
-<dt>ansible_become_exe</dt>
-<dd>Equivalent to <code class="docutils literal notranslate"><span class="pre">ansible_sudo_exe</span></code> or <code class="docutils literal notranslate"><span class="pre">ansible_su_exe</span></code>, allows you to set the executable for the escalation method selected</dd>
-<dt>ansible_become_flags</dt>
-<dd>Equivalent to <code class="docutils literal notranslate"><span class="pre">ansible_sudo_flags</span></code> or <code class="docutils literal notranslate"><span class="pre">ansible_su_flags</span></code>, allows you to set the flags passed to the selected escalation method. This can be also set globally in <code class="file docutils literal notranslate"><span class="pre">ansible.cfg</span></code> in the <code class="docutils literal notranslate"><span class="pre">sudo_flags</span></code> option</dd>
+<dl class="simple">
+<dt>ansible_become</dt><dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">ansible_sudo</span></code> or <code class="docutils literal notranslate"><span class="pre">ansible_su</span></code>, allows to force privilege escalation</p>
+</dd>
+<dt>ansible_become_method</dt><dd><p>Allows to set privilege escalation method</p>
+</dd>
+<dt>ansible_become_user</dt><dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">ansible_sudo_user</span></code> or <code class="docutils literal notranslate"><span class="pre">ansible_su_user</span></code>, allows to set the user you become through privilege escalation</p>
+</dd>
+<dt>ansible_become_pass</dt><dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">ansible_sudo_pass</span></code> or <code class="docutils literal notranslate"><span class="pre">ansible_su_pass</span></code>, allows you to set the privilege escalation password (never store this variable in plain text; always use a vault. See <a class="reference internal" href="playbooks_best_practices.html#best-practices-for-variables-and-vaults"><span class="std std-ref">Variables and Vaults</span></a>)</p>
+</dd>
+<dt>ansible_become_exe</dt><dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">ansible_sudo_exe</span></code> or <code class="docutils literal notranslate"><span class="pre">ansible_su_exe</span></code>, allows you to set the executable for the escalation method selected</p>
+</dd>
+<dt>ansible_become_flags</dt><dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">ansible_sudo_flags</span></code> or <code class="docutils literal notranslate"><span class="pre">ansible_su_flags</span></code>, allows you to set the flags passed to the selected escalation method. This can be also set globally in <code class="file docutils literal notranslate"><span class="pre">ansible.cfg</span></code> in the <code class="docutils literal notranslate"><span class="pre">sudo_flags</span></code> option</p>
+</dd>
 </dl>
 <p>Remote host environment parameters:</p>
-<dl class="docutils" id="ansible-shell-type">
-<dt>ansible_shell_type</dt>
-<dd>The shell type of the target system. You should not use this setting unless you have set the
+<dl class="simple" id="ansible-shell-type">
+<dt>ansible_shell_type</dt><dd><p>The shell type of the target system. You should not use this setting unless you have set the
 <a class="reference internal" href="#ansible-shell-executable"><span class="std std-ref">ansible_shell_executable</span></a> to a non-Bourne (sh) compatible shell.  By default commands are
 formatted using <code class="docutils literal notranslate"><span class="pre">sh</span></code>-style syntax.  Setting this to <code class="docutils literal notranslate"><span class="pre">csh</span></code> or <code class="docutils literal notranslate"><span class="pre">fish</span></code> will cause commands
-executed on target systems to follow those shell’s syntax instead.</dd>
+executed on target systems to follow those shell’s syntax instead.</p>
+</dd>
 </dl>
-<dl class="docutils" id="ansible-python-interpreter">
-<dt>ansible_python_interpreter</dt>
-<dd>The target host python path. This is useful for systems with more
+<dl class="simple" id="ansible-python-interpreter">
+<dt>ansible_python_interpreter</dt><dd><p>The target host python path. This is useful for systems with more
 than one Python or not located at <strong class="command">/usr/bin/python</strong> such as *BSD, or where <strong class="command">/usr/bin/python</strong>
 is not a 2.X series Python.  We do not use the <strong class="command">/usr/bin/env</strong> mechanism as that requires the remote user’s
 path to be set right and also assumes the <strong class="program">python</strong> executable is named python, where the executable might
-be named something like <strong class="program">python2.6</strong>.</dd>
-<dt>ansible_*_interpreter</dt>
-<dd>Works for anything such as ruby or perl and works just like <a class="reference internal" href="#ansible-python-interpreter"><span class="std std-ref">ansible_python_interpreter</span></a>.
-This replaces shebang of modules which will run on that host.</dd>
+be named something like <strong class="program">python2.6</strong>.</p>
+</dd>
+<dt>ansible_*_interpreter</dt><dd><p>Works for anything such as ruby or perl and works just like <a class="reference internal" href="#ansible-python-interpreter"><span class="std std-ref">ansible_python_interpreter</span></a>.
+This replaces shebang of modules which will run on that host.</p>
+</dd>
 </dl>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.1.</span></p>
+<p><span class="versionmodified added">New in version 2.1.</span></p>
 </div>
-<dl class="docutils" id="ansible-shell-executable">
-<dt>ansible_shell_executable</dt>
-<dd>This sets the shell the ansible controller will use on the target machine,
+<dl class="simple" id="ansible-shell-executable">
+<dt>ansible_shell_executable</dt><dd><p>This sets the shell the ansible controller will use on the target machine,
 overrides <code class="docutils literal notranslate"><span class="pre">executable</span></code> in <code class="file docutils literal notranslate"><span class="pre">ansible.cfg</span></code> which defaults to
 <strong class="command">/bin/sh</strong>.  You should really only change it if is not possible
 to use <strong class="command">/bin/sh</strong> (i.e. <strong class="command">/bin/sh</strong> is not installed on the target
-machine or cannot be run from sudo.).</dd>
+machine or cannot be run from sudo.).</p>
+</dd>
 </dl>
 <p>Examples from an Ansible-INI host file:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">some_host         ansible_port=2222     ansible_user=manager</span>
@@ -2649,15 +2650,15 @@ The following non-SSH based connectors are available:</p>
 <p>This connector can be used to deploy the playbook to the control machine itself.</p>
 <p><strong>docker</strong></p>
 <p>This connector deploys the playbook directly into Docker containers using the local Docker client. The following parameters are processed by this connector:</p>
-<dl class="docutils">
-<dt>ansible_host</dt>
-<dd>The name of the Docker container to connect to.</dd>
-<dt>ansible_user</dt>
-<dd>The user name to operate within the container. The user must exist inside the container.</dd>
-<dt>ansible_become</dt>
-<dd>If set to <code class="docutils literal notranslate"><span class="pre">true</span></code> the <code class="docutils literal notranslate"><span class="pre">become_user</span></code> will be used to operate within the container.</dd>
-<dt>ansible_docker_extra_args</dt>
-<dd>Could be a string with any additional arguments understood by Docker, which are not command specific. This parameter is mainly used to configure a remote Docker daemon to use.</dd>
+<dl class="simple">
+<dt>ansible_host</dt><dd><p>The name of the Docker container to connect to.</p>
+</dd>
+<dt>ansible_user</dt><dd><p>The user name to operate within the container. The user must exist inside the container.</p>
+</dd>
+<dt>ansible_become</dt><dd><p>If set to <code class="docutils literal notranslate"><span class="pre">true</span></code> the <code class="docutils literal notranslate"><span class="pre">become_user</span></code> will be used to operate within the container.</p>
+</dd>
+<dt>ansible_docker_extra_args</dt><dd><p>Could be a string with any additional arguments understood by Docker, which are not command specific. This parameter is mainly used to configure a remote Docker daemon to use.</p>
+</dd>
 </dl>
 <p>Here is an example of how to instantly deploy to created containers:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">create jenkins container</span>
@@ -2682,23 +2683,23 @@ The following non-SSH based connectors are available:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you’re reading the docs from the beginning, this may be the first example you’ve seen of an Ansible playbook. This is not an inventory file.
+<p class="admonition-title">Note</p>
+<p>If you’re reading the docs from the beginning, this may be the first example you’ve seen of an Ansible playbook. This is not an inventory file.
 Playbooks will be covered in great detail later in the docs.</p>
 </div>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="intro_dynamic_inventory.html#intro-dynamic-inventory"><span class="std std-ref">Working With Dynamic Inventory</span></a></dt>
-<dd>Pulling inventory from dynamic sources, such as cloud providers</dd>
-<dt><a class="reference internal" href="intro_adhoc.html#intro-adhoc"><span class="std std-ref">Introduction To Ad-Hoc Commands</span></a></dt>
-<dd>Examples of basic commands</dd>
-<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt>
-<dd>Learning Ansible’s configuration, deployment, and orchestration language.</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt>
-<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="intro_dynamic_inventory.html#intro-dynamic-inventory"><span class="std std-ref">Working With Dynamic Inventory</span></a></dt><dd><p>Pulling inventory from dynamic sources, such as cloud providers</p>
+</dd>
+<dt><a class="reference internal" href="intro_adhoc.html#intro-adhoc"><span class="std std-ref">Introduction To Ad-Hoc Commands</span></a></dt><dd><p>Examples of basic commands</p>
+</dd>
+<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>Learning Ansible’s configuration, deployment, and orchestration language.</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt><dd><p>Questions? Help? Ideas?  Stop by the list on Google Groups</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2730,7 +2731,7 @@ Playbooks will be covered in great detail later in the docs.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

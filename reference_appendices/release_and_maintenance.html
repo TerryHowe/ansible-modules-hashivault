@@ -2269,18 +2269,20 @@
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#release-cycle" id="id13">Release cycle</a></li>
-<li><a class="reference internal" href="#release-status" id="id14">Release status</a></li>
-<li><a class="reference internal" href="#development-and-stable-version-maintenance-workflow" id="id15">Development and stable version maintenance workflow</a><ul>
-<li><a class="reference internal" href="#changelogs" id="id16">Changelogs</a><ul>
-<li><a class="reference internal" href="#creating-new-fragments" id="id17">Creating New Fragments</a></li>
+<li><p><a class="reference internal" href="#release-cycle" id="id13">Release cycle</a></p></li>
+<li><p><a class="reference internal" href="#release-status" id="id14">Release status</a></p></li>
+<li><p><a class="reference internal" href="#development-and-stable-version-maintenance-workflow" id="id15">Development and stable version maintenance workflow</a></p>
+<ul>
+<li><p><a class="reference internal" href="#changelogs" id="id16">Changelogs</a></p>
+<ul>
+<li><p><a class="reference internal" href="#creating-new-fragments" id="id17">Creating New Fragments</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#release-candidates" id="id18">Release candidates</a></li>
-<li><a class="reference internal" href="#feature-freeze" id="id19">Feature freeze</a></li>
+<li><p><a class="reference internal" href="#release-candidates" id="id18">Release candidates</a></p></li>
+<li><p><a class="reference internal" href="#feature-freeze" id="id19">Feature freeze</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#deprecation-cycle" id="id20">Deprecation Cycle</a></li>
+<li><p><a class="reference internal" href="#deprecation-cycle" id="id20">Deprecation Cycle</a></p></li>
 </ul>
 </div>
 <div class="section" id="release-cycle">
@@ -2301,68 +2303,68 @@ playbooks to run on newer versions.</p>
 </div>
 <div class="section" id="release-status">
 <span id="release-schedule"></span><h2><a class="toc-backref" href="#id14">Release status</a><a class="headerlink" href="#release-status" title="Permalink to this headline">¶</a></h2>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="17%" />
-<col width="29%" />
-<col width="54%" />
+<col style="width: 17%" />
+<col style="width: 29%" />
+<col style="width: 54%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Ansible Release</th>
-<th class="head">Latest Version</th>
-<th class="head">Status</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Ansible Release</p></th>
+<th class="head"><p>Latest Version</p></th>
+<th class="head"><p>Status</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>devel</td>
-<td>2.8 (unreleased, trunk)</td>
-<td>In development</td>
+<tbody>
+<tr class="row-even"><td><p>devel</p></td>
+<td><p>2.8 (unreleased, trunk)</p></td>
+<td><p>In development</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.7/changelogs/CHANGELOG-v2.7.rst">2.7</a></td>
-<td>2.7.0 (2018-10-04)</td>
-<td>Supported (security <strong>and</strong> general bug fixes)</td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.7/changelogs/CHANGELOG-v2.7.rst">2.7</a></p></td>
+<td><p>2.7.0 (2018-10-04)</p></td>
+<td><p>Supported (security <strong>and</strong> general bug fixes)</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.6/changelogs/CHANGELOG-v2.6.rst">2.6</a></td>
-<td>2.6.5 (2018-09-28)</td>
-<td>Supported (security <strong>and</strong> critical bug fixes)</td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.6/changelogs/CHANGELOG-v2.6.rst">2.6</a></p></td>
+<td><p>2.6.5 (2018-09-28)</p></td>
+<td><p>Supported (security <strong>and</strong> critical bug fixes)</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.5/changelogs/CHANGELOG-v2.5.rst">2.5</a></td>
-<td>2.5.9 (2018-09-10)</td>
-<td>Supported (security fixes)</td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.5/changelogs/CHANGELOG-v2.5.rst">2.5</a></p></td>
+<td><p>2.5.9 (2018-09-10)</p></td>
+<td><p>Supported (security fixes)</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.4/CHANGELOG.md">2.4</a></td>
-<td>2.4.6 (2018-07-05)</td>
-<td>Unsupported (end of life)</td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.4/CHANGELOG.md">2.4</a></p></td>
+<td><p>2.4.6 (2018-07-05)</p></td>
+<td><p>Unsupported (end of life)</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.3/CHANGELOG.md">2.3</a></td>
-<td>2.3.3 (2017-12-20)</td>
-<td>Unsupported (end of life)</td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.3/CHANGELOG.md">2.3</a></p></td>
+<td><p>2.3.3 (2017-12-20)</p></td>
+<td><p>Unsupported (end of life)</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.2/CHANGELOG.md">2.2</a></td>
-<td>2.2.3 (2017-05-09)</td>
-<td>Unsupported (end of life)</td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.2/CHANGELOG.md">2.2</a></p></td>
+<td><p>2.2.3 (2017-05-09)</p></td>
+<td><p>Unsupported (end of life)</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.1/CHANGELOG.md">2.1</a></td>
-<td>2.1.6 (2017-06-01)</td>
-<td>Unsupported (end of life)</td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.1/CHANGELOG.md">2.1</a></p></td>
+<td><p>2.1.6 (2017-06-01)</p></td>
+<td><p>Unsupported (end of life)</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.0/CHANGELOG.md">2.0</a></td>
-<td>2.0.2 (2016-04-19)</td>
-<td>Unsupported (end of life)</td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.0/CHANGELOG.md">2.0</a></p></td>
+<td><p>2.0.2 (2016-04-19)</p></td>
+<td><p>Unsupported (end of life)</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-1.9/CHANGELOG.md">1.9</a></td>
-<td>1.9.6 (2016-04-15)</td>
-<td>Unsupported (end of life)</td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/ansible/ansible/blob/stable-1.9/CHANGELOG.md">1.9</a></p></td>
+<td><p>1.9.6 (2016-04-15)</p></td>
+<td><p>Unsupported (end of life)</p></td>
 </tr>
-<tr class="row-even"><td>&lt;1.9</td>
-<td>n/a</td>
-<td>Unsupported (end of life)</td>
+<tr class="row-even"><td><p>&lt;1.9</p></td>
+<td><p>n/a</p></td>
+<td><p>Unsupported (end of life)</p></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Starting with Ansible-2.4, support lasts for 3 releases.  Thus Ansible-2.4 will receive
+<p class="admonition-title">Note</p>
+<p>Starting with Ansible-2.4, support lasts for 3 releases.  Thus Ansible-2.4 will receive
 security and general bug fixes when it is first released, security and critical bug fixes when
 2.5 is released, and <strong>only</strong> security fixes once 2.6 is released.</p>
 </div>
@@ -2377,8 +2379,8 @@ major release will only receive fixes for security issues and critical bugs. Ans
 security fixes to releases which are two releases old. This work is tracked on the
 <code class="docutils literal notranslate"><span class="pre">stable-&lt;version&gt;</span></code> git branches.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Support for three major releases began with Ansible-2.4. Ansible-2.3 and older versions
+<p class="admonition-title">Note</p>
+<p>Support for three major releases began with Ansible-2.4. Ansible-2.3 and older versions
 are only supported for two releases with the first stage including both security and general bug
 fixes while the second stage includes security and critical bug fixes</p>
 </div>
@@ -2394,19 +2396,19 @@ releases of Ansible, there can sometimes be exceptions for critical issues.</p>
 <h4><a class="toc-backref" href="#id17">Creating New Fragments</a><a class="headerlink" href="#creating-new-fragments" title="Permalink to this headline">¶</a></h4>
 <p>Create a new file with a unique and descriptive name in <code class="docutils literal notranslate"><span class="pre">changelogs/fragments/</span></code> that ends in <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> such as <code class="docutils literal notranslate"><span class="pre">user-40696-backup-shadow-file.yaml</span></code></p>
 <p>A single changelog fragment may contain multiple sections but most will only contain one section. Here are the valid sections and a description of each:</p>
-<dl class="docutils">
-<dt><strong>major_changes</strong></dt>
-<dd>Major changes to Ansible itself. Generally does not include module or plugin changes.</dd>
-<dt><strong>minor_changes</strong></dt>
-<dd>Minor changes to Ansible, modules, or plugins. This includes new features, new parameters added to modules, or behavior changes to existing parameters.</dd>
-<dt><strong>deprecated_features</strong></dt>
-<dd>Features that have been deprecated and are scheduled for removal in a future release.</dd>
-<dt><strong>removed_features</strong></dt>
-<dd>Features that were previously deprecated and are now removed.</dd>
-<dt><strong>bugfixes</strong></dt>
-<dd>Fixes that resolve issues. If there is a specific issue related to this bugfix, add a link in the changelog entry.</dd>
-<dt><strong>known_issues</strong></dt>
-<dd>Known issues that are currently not fixed or will not be fixed.</dd>
+<dl class="simple">
+<dt><strong>major_changes</strong></dt><dd><p>Major changes to Ansible itself. Generally does not include module or plugin changes.</p>
+</dd>
+<dt><strong>minor_changes</strong></dt><dd><p>Minor changes to Ansible, modules, or plugins. This includes new features, new parameters added to modules, or behavior changes to existing parameters.</p>
+</dd>
+<dt><strong>deprecated_features</strong></dt><dd><p>Features that have been deprecated and are scheduled for removal in a future release.</p>
+</dd>
+<dt><strong>removed_features</strong></dt><dd><p>Features that were previously deprecated and are now removed.</p>
+</dd>
+<dt><strong>bugfixes</strong></dt><dd><p>Fixes that resolve issues. If there is a specific issue related to this bugfix, add a link in the changelog entry.</p>
+</dd>
+<dt><strong>known_issues</strong></dt><dd><p>Known issues that are currently not fixed or will not be fixed.</p>
+</dd>
 </dl>
 <p>Most changelog entries will be <code class="docutils literal notranslate"><span class="pre">bugfixes</span></code> or <code class="docutils literal notranslate"><span class="pre">minor_changes</span></code>. When writing a changelog entry that pertains to a particular module, start the entry with <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">[module</span> <span class="pre">name]</span> <span class="pre">-</span></code> and include a link to the related issue if one exists. Here are some examples:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">bugfixes</span><span class="p">:</span>
@@ -2458,20 +2460,20 @@ For example, something deprecated in 2.5 will be removed in 2.9, assuming we don
 The tracking is tied to the number of releases, not the release numbering.</p>
 <p>For modules/plugins, we keep the documentation after the removal for users of older versions.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../community/committer_guidelines.html#community-committer-guidelines"><span class="std std-ref">Committers Guidelines</span></a></dt>
-<dd>Guidelines for Ansible core contributors and maintainers</dd>
-<dt><a class="reference internal" href="test_strategies.html#testing-strategies"><span class="std std-ref">Testing Strategies</span></a></dt>
-<dd>Testing strategies</dd>
-<dt><a class="reference internal" href="../community/index.html#ansible-community-guide"><span class="std std-ref">Ansible Community Guide</span></a></dt>
-<dd>Community information and contributing</dd>
-<dt><a class="reference external" href="https://releases.ansible.com/ansible/">Ansible release tarballs</a></dt>
-<dd>Ansible release tarballs</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Development Mailing List</a></dt>
-<dd>Mailing list for development topics</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../community/committer_guidelines.html#community-committer-guidelines"><span class="std std-ref">Committers Guidelines</span></a></dt><dd><p>Guidelines for Ansible core contributors and maintainers</p>
+</dd>
+<dt><a class="reference internal" href="test_strategies.html#testing-strategies"><span class="std std-ref">Testing Strategies</span></a></dt><dd><p>Testing strategies</p>
+</dd>
+<dt><a class="reference internal" href="../community/index.html#ansible-community-guide"><span class="std std-ref">Ansible Community Guide</span></a></dt><dd><p>Community information and contributing</p>
+</dd>
+<dt><a class="reference external" href="https://releases.ansible.com/ansible/">Ansible release tarballs</a></dt><dd><p>Ansible release tarballs</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Development Mailing List</a></dt><dd><p>Mailing list for development topics</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2503,7 +2505,7 @@ The tracking is tied to the number of releases, not the release numbering.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

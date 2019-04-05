@@ -2273,40 +2273,47 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ansible-2-4-porting-guide" id="id1">Ansible 2.4 Porting Guide</a><ul>
-<li><a class="reference internal" href="#python-version" id="id2">Python version</a></li>
-<li><a class="reference internal" href="#inventory" id="id3">Inventory</a><ul>
-<li><a class="reference internal" href="#initial-playbook-relative-group-vars-and-host-vars" id="id4">Initial playbook relative group_vars and host_vars</a></li>
+<li><p><a class="reference internal" href="#ansible-2-4-porting-guide" id="id1">Ansible 2.4 Porting Guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#python-version" id="id2">Python version</a></p></li>
+<li><p><a class="reference internal" href="#inventory" id="id3">Inventory</a></p>
+<ul>
+<li><p><a class="reference internal" href="#initial-playbook-relative-group-vars-and-host-vars" id="id4">Initial playbook relative group_vars and host_vars</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#deprecated" id="id5">Deprecated</a><ul>
-<li><a class="reference internal" href="#specifying-inventory-sources" id="id6">Specifying Inventory sources</a></li>
-<li><a class="reference internal" href="#use-of-multiple-tags" id="id7">Use of multiple tags</a></li>
-<li><a class="reference internal" href="#other-caveats" id="id8">Other caveats</a></li>
+<li><p><a class="reference internal" href="#deprecated" id="id5">Deprecated</a></p>
+<ul>
+<li><p><a class="reference internal" href="#specifying-inventory-sources" id="id6">Specifying Inventory sources</a></p></li>
+<li><p><a class="reference internal" href="#use-of-multiple-tags" id="id7">Use of multiple tags</a></p></li>
+<li><p><a class="reference internal" href="#other-caveats" id="id8">Other caveats</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#modules" id="id9">Modules</a><ul>
-<li><a class="reference internal" href="#modules-removed" id="id10">Modules removed</a></li>
-<li><a class="reference internal" href="#deprecation-notices" id="id11">Deprecation notices</a></li>
-<li><a class="reference internal" href="#noteworthy-module-changes" id="id12">Noteworthy module changes</a></li>
+<li><p><a class="reference internal" href="#modules" id="id9">Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#modules-removed" id="id10">Modules removed</a></p></li>
+<li><p><a class="reference internal" href="#deprecation-notices" id="id11">Deprecation notices</a></p></li>
+<li><p><a class="reference internal" href="#noteworthy-module-changes" id="id12">Noteworthy module changes</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#plugins" id="id13">Plugins</a><ul>
-<li><a class="reference internal" href="#vars-plugin-changes" id="id14">Vars plugin changes</a></li>
-<li><a class="reference internal" href="#inventory-plugins" id="id15">Inventory plugins</a></li>
-<li><a class="reference internal" href="#callback-plugins" id="id16">Callback plugins</a></li>
-<li><a class="reference internal" href="#template-lookup-plugin-escaping-strings" id="id17">Template lookup plugin: Escaping Strings</a></li>
+<li><p><a class="reference internal" href="#plugins" id="id13">Plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#vars-plugin-changes" id="id14">Vars plugin changes</a></p></li>
+<li><p><a class="reference internal" href="#inventory-plugins" id="id15">Inventory plugins</a></p></li>
+<li><p><a class="reference internal" href="#callback-plugins" id="id16">Callback plugins</a></p></li>
+<li><p><a class="reference internal" href="#template-lookup-plugin-escaping-strings" id="id17">Template lookup plugin: Escaping Strings</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#tests" id="id18">Tests</a><ul>
-<li><a class="reference internal" href="#tests-succeeded-failed" id="id19">Tests succeeded/failed</a></li>
+<li><p><a class="reference internal" href="#tests" id="id18">Tests</a></p>
+<ul>
+<li><p><a class="reference internal" href="#tests-succeeded-failed" id="id19">Tests succeeded/failed</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#networking" id="id20">Networking</a><ul>
-<li><a class="reference internal" href="#persistent-connection" id="id21">Persistent Connection</a></li>
+<li><p><a class="reference internal" href="#networking" id="id20">Networking</a></p>
+<ul>
+<li><p><a class="reference internal" href="#persistent-connection" id="id21">Persistent Connection</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#configuration" id="id22">Configuration</a></li>
+<li><p><a class="reference internal" href="#configuration" id="id22">Configuration</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2356,29 +2363,29 @@ are also deprecated.  Replace them with the configuration key <code class="docut
 <h2><a class="toc-backref" href="#id9">Modules</a><a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
 <p>Major changes in popular modules are detailed here</p>
 <ul class="simple">
-<li>The <span class="xref std std-ref">win_shell</span> and <span class="xref std std-ref">win_command</span> modules now properly preserve quoted arguments in the command-line. Tasks that attempted to work around the issue by adding extra quotes/escaping may need to be reworked to remove the superfluous escaping. See <a class="reference external" href="https://github.com/ansible/ansible/issues/23019">Issue 23019</a> for additional detail.</li>
+<li><p>The <span class="xref std std-ref">win_shell</span> and <span class="xref std std-ref">win_command</span> modules now properly preserve quoted arguments in the command-line. Tasks that attempted to work around the issue by adding extra quotes/escaping may need to be reworked to remove the superfluous escaping. See <a class="reference external" href="https://github.com/ansible/ansible/issues/23019">Issue 23019</a> for additional detail.</p></li>
 </ul>
 <div class="section" id="modules-removed">
 <h3><a class="toc-backref" href="#id10">Modules removed</a><a class="headerlink" href="#modules-removed" title="Permalink to this headline">¶</a></h3>
 <p>The following modules no longer exist:</p>
 <ul class="simple">
-<li>None</li>
+<li><p>None</p></li>
 </ul>
 </div>
 <div class="section" id="deprecation-notices">
 <h3><a class="toc-backref" href="#id11">Deprecation notices</a><a class="headerlink" href="#deprecation-notices" title="Permalink to this headline">¶</a></h3>
 <p>The following modules will be removed in Ansible 2.8. Please update your playbooks accordingly.</p>
 <ul class="simple">
-<li><span class="xref std std-ref">azure</span>, use <span class="xref std std-ref">azure_rm_virtualmachine</span>, which uses the new Resource Manager SDK.</li>
-<li><span class="xref std std-ref">win_msi</span>, use <span class="xref std std-ref">win_package</span> instead</li>
+<li><p><span class="xref std std-ref">azure</span>, use <span class="xref std std-ref">azure_rm_virtualmachine</span>, which uses the new Resource Manager SDK.</p></li>
+<li><p><span class="xref std std-ref">win_msi</span>, use <span class="xref std std-ref">win_package</span> instead</p></li>
 </ul>
 </div>
 <div class="section" id="noteworthy-module-changes">
 <h3><a class="toc-backref" href="#id12">Noteworthy module changes</a><a class="headerlink" href="#noteworthy-module-changes" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>The <span class="xref std std-ref">win_get_url</span>  module has the dictionary <code class="docutils literal notranslate"><span class="pre">win_get_url</span></code> in its results deprecated, its content is now also available directly in the resulting output, like other modules. This dictionary will be removed in Ansible 2.8.</li>
-<li>The <span class="xref std std-ref">win_unzip</span> module no longer includes the dictionary <code class="docutils literal notranslate"><span class="pre">win_unzip</span></code> in its results; the contents are now included directly in the resulting output, like other modules.</li>
-<li>The <span class="xref std std-ref">win_package</span> module return values <code class="docutils literal notranslate"><span class="pre">exit_code</span></code> and <code class="docutils literal notranslate"><span class="pre">restart_required</span></code> have been deprecated in favour of <code class="docutils literal notranslate"><span class="pre">rc</span></code> and <code class="docutils literal notranslate"><span class="pre">reboot_required</span></code> respectively. The deprecated return values will be removed in Ansible 2.6.</li>
+<li><p>The <span class="xref std std-ref">win_get_url</span>  module has the dictionary <code class="docutils literal notranslate"><span class="pre">win_get_url</span></code> in its results deprecated, its content is now also available directly in the resulting output, like other modules. This dictionary will be removed in Ansible 2.8.</p></li>
+<li><p>The <span class="xref std std-ref">win_unzip</span> module no longer includes the dictionary <code class="docutils literal notranslate"><span class="pre">win_unzip</span></code> in its results; the contents are now included directly in the resulting output, like other modules.</p></li>
+<li><p>The <span class="xref std std-ref">win_package</span> module return values <code class="docutils literal notranslate"><span class="pre">exit_code</span></code> and <code class="docutils literal notranslate"><span class="pre">restart_required</span></code> have been deprecated in favour of <code class="docutils literal notranslate"><span class="pre">rc</span></code> and <code class="docutils literal notranslate"><span class="pre">reboot_required</span></code> respectively. The deprecated return values will be removed in Ansible 2.6.</p></li>
 </ul>
 </div>
 </div>
@@ -2390,10 +2397,10 @@ are also deprecated.  Replace them with the configuration key <code class="docut
 <p>There have been many changes to the implementation of vars plugins, but both users and developers should not need to change anything to keep current setups working. Developers should consider changing their plugins take advantage of new features.</p>
 <p>The most notable difference to users is that vars plugins now get invoked on demand instead of at inventory build time.  This should make them more efficient for large inventories, especially when using a subset of the hosts.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>This also creates a difference with group/host_vars when using them adjacent to playbooks. Before, the ‘first’ playbook loaded determined the variables; now the ‘current’ playbook does. We are looking to fix this soon, since ‘all playbooks’ in the path should be considered for variable loading.</li>
-<li>In 2.4.1 we added a toggle to allow you to control this behaviour, ‘top’ will be the pre 2.4, ‘bottom’ will use the current playbook hosting the task and ‘all’ will use them all from top to bottom.</li>
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>This also creates a difference with group/host_vars when using them adjacent to playbooks. Before, the ‘first’ playbook loaded determined the variables; now the ‘current’ playbook does. We are looking to fix this soon, since ‘all playbooks’ in the path should be considered for variable loading.</p></li>
+<li><p>In 2.4.1 we added a toggle to allow you to control this behaviour, ‘top’ will be the pre 2.4, ‘bottom’ will use the current playbook hosting the task and ‘all’ will use them all from top to bottom.</p></li>
 </ul>
 </div>
 </div>
@@ -2406,16 +2413,16 @@ are also deprecated.  Replace them with the configuration key <code class="docut
 <h3><a class="toc-backref" href="#id16">Callback plugins</a><a class="headerlink" href="#callback-plugins" title="Permalink to this headline">¶</a></h3>
 <p>Users:</p>
 <ul class="simple">
-<li>Callbacks are now using the new configuration system.  Users should not need to change anything as the old system still works,
-but you might see a deprecation notice if any callbacks used are not inheriting from the built in classes. Developers need to update them as stated below.</li>
+<li><p>Callbacks are now using the new configuration system.  Users should not need to change anything as the old system still works,
+but you might see a deprecation notice if any callbacks used are not inheriting from the built in classes. Developers need to update them as stated below.</p></li>
 </ul>
 <p>Developers:</p>
 <ul class="simple">
-<li>If your callback does not inherit from <code class="docutils literal notranslate"><span class="pre">CallbackBase</span></code> (directly or indirectly via another callback), it will still work, but issue a deprecation notice.
+<li><p>If your callback does not inherit from <code class="docutils literal notranslate"><span class="pre">CallbackBase</span></code> (directly or indirectly via another callback), it will still work, but issue a deprecation notice.
 To avoid this and ensure it works in the future change it to inherit from <code class="docutils literal notranslate"><span class="pre">CallbackBase</span></code> so it has the new options handling methods and properties.
-You can also implement the new options handling methods and properties but that won’t automatically inherit changes added in the future.  You can look at <code class="docutils literal notranslate"><span class="pre">CallbackBase</span></code> itself and/or <code class="docutils literal notranslate"><span class="pre">AnsiblePlugin</span></code> for details.</li>
-<li>Any callbacks inheriting from other callbacks might need to also be updated to contain the same documented options
-as the parent or the options won’t be available.  This is noted in the developer guide.</li>
+You can also implement the new options handling methods and properties but that won’t automatically inherit changes added in the future.  You can look at <code class="docutils literal notranslate"><span class="pre">CallbackBase</span></code> itself and/or <code class="docutils literal notranslate"><span class="pre">AnsiblePlugin</span></code> for details.</p></li>
+<li><p>Any callbacks inheriting from other callbacks might need to also be updated to contain the same documented options
+as the parent or the options won’t be available.  This is noted in the developer guide.</p></li>
 </ul>
 </div>
 <div class="section" id="template-lookup-plugin-escaping-strings">
@@ -2479,9 +2486,9 @@ escaping rules apply to both.</p>
 <h2><a class="toc-backref" href="#id22">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <p>The configuration system has had some major changes. Users should be unaffected except for the following:</p>
 <ul class="simple">
-<li>All relative paths defined are relative to the <cite>ansible.cfg</cite> file itself. Previously they varied by setting. The new behavior should be more predictable.</li>
-<li>A new macro <code class="docutils literal notranslate"><span class="pre">{{CWD}}</span></code> is available for paths, which will make paths relative to the ‘current working directory’,
-this is unsafe but some users really want to rely on this behaviour.</li>
+<li><p>All relative paths defined are relative to the <cite>ansible.cfg</cite> file itself. Previously they varied by setting. The new behavior should be more predictable.</p></li>
+<li><p>A new macro <code class="docutils literal notranslate"><span class="pre">{{CWD}}</span></code> is available for paths, which will make paths relative to the ‘current working directory’,
+this is unsafe but some users really want to rely on this behaviour.</p></li>
 </ul>
 <p>Developers that were working directly with the previous API should revisit their usage as some methods (for example, <code class="docutils literal notranslate"><span class="pre">get_config</span></code>) were  kept for backwards compatibility but will warn users that the function has been deprecated.</p>
 <p>The new configuration has been designed to minimize the need for code changes in core for new plugins.  The plugins just need to document their settings and the configuration system will use the documentation to provide what they need. This is still a work in progress; currently only ‘callback’ and ‘connection’ plugins support this.  More  details will be added to the specific plugin developer guides.</p>
@@ -2514,7 +2521,7 @@ this is unsafe but some users really want to rely on this behaviour.</li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

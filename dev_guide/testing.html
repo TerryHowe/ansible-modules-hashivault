@@ -2269,67 +2269,66 @@
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#introduction" id="id1">Introduction</a></li>
-<li><a class="reference internal" href="#types-of-tests" id="id2">Types of tests</a></li>
-<li><a class="reference internal" href="#testing-within-github-shippable" id="id3">Testing within GitHub &amp; Shippable</a><ul>
-<li><a class="reference internal" href="#organization" id="id4">Organization</a></li>
-<li><a class="reference internal" href="#rerunning-a-failing-ci-job" id="id5">Rerunning a failing CI job</a></li>
+<li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#types-of-tests" id="id2">Types of tests</a></p></li>
+<li><p><a class="reference internal" href="#testing-within-github-shippable" id="id3">Testing within GitHub &amp; Shippable</a></p>
+<ul>
+<li><p><a class="reference internal" href="#organization" id="id4">Organization</a></p></li>
+<li><p><a class="reference internal" href="#rerunning-a-failing-ci-job" id="id5">Rerunning a failing CI job</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#how-to-test-a-pr" id="id6">How to test a PR</a><ul>
-<li><a class="reference internal" href="#setup-checking-out-a-pull-request" id="id7">Setup: Checking out a Pull Request</a></li>
-<li><a class="reference internal" href="#testing-the-pull-request" id="id8">Testing the Pull Request</a><ul>
-<li><a class="reference internal" href="#code-coverage-online" id="id9">Code Coverage Online</a></li>
+<li><p><a class="reference internal" href="#how-to-test-a-pr" id="id6">How to test a PR</a></p>
+<ul>
+<li><p><a class="reference internal" href="#setup-checking-out-a-pull-request" id="id7">Setup: Checking out a Pull Request</a></p></li>
+<li><p><a class="reference internal" href="#testing-the-pull-request" id="id8">Testing the Pull Request</a></p>
+<ul>
+<li><p><a class="reference internal" href="#code-coverage-online" id="id9">Code Coverage Online</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#want-to-know-more-about-testing" id="id10">Want to know more about testing?</a></li>
+<li><p><a class="reference internal" href="#want-to-know-more-about-testing" id="id10">Want to know more about testing?</a></p></li>
 </ul>
 </div>
 <div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id1">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>This document describes:</p>
 <ul class="simple">
-<li>how Ansible is tested</li>
-<li>how to test Ansible locally</li>
-<li>how to extend the testing capabilities</li>
+<li><p>how Ansible is tested</p></li>
+<li><p>how to test Ansible locally</p></li>
+<li><p>how to extend the testing capabilities</p></li>
 </ul>
 </div>
 <div class="section" id="types-of-tests">
 <h2><a class="toc-backref" href="#id2">Types of tests</a><a class="headerlink" href="#types-of-tests" title="Permalink to this headline">¶</a></h2>
 <p>At a high level we have the following classifications of tests:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">compile:</th><td class="field-body"><ul class="first simple">
-<li><a class="reference internal" href="testing_compile.html#testing-compile"><span class="std std-ref">Compile Tests</span></a></li>
-<li>Test python code against a variety of Python versions.</li>
+<dl class="field-list simple">
+<dt class="field-odd">compile</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="testing_compile.html#testing-compile"><span class="std std-ref">Compile Tests</span></a></p></li>
+<li><p>Test python code against a variety of Python versions.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">sanity:</th><td class="field-body"><ul class="first simple">
-<li><a class="reference internal" href="testing_sanity.html#testing-sanity"><span class="std std-ref">Sanity Tests</span></a></li>
-<li>Sanity tests are made up of scripts and tools used to perform static code analysis.</li>
-<li>The primary purpose of these tests is to enforce Ansible coding standards and requirements.</li>
+</dd>
+<dt class="field-even">sanity</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="testing_sanity.html#testing-sanity"><span class="std std-ref">Sanity Tests</span></a></p></li>
+<li><p>Sanity tests are made up of scripts and tools used to perform static code analysis.</p></li>
+<li><p>The primary purpose of these tests is to enforce Ansible coding standards and requirements.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">integration:</th><td class="field-body"><ul class="first simple">
-<li><a class="reference internal" href="testing_integration.html#testing-integration"><span class="std std-ref">Integration tests</span></a></li>
-<li>Functional tests of modules and Ansible core functionality.</li>
+</dd>
+<dt class="field-odd">integration</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="testing_integration.html#testing-integration"><span class="std std-ref">Integration tests</span></a></p></li>
+<li><p>Functional tests of modules and Ansible core functionality.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">units:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="testing_units.html#testing-units"><span class="std std-ref">Unit Tests</span></a></li>
-<li>Tests directly against individual parts of the code base.</li>
+</dd>
+<dt class="field-even">units</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="testing_units.html#testing-units"><span class="std std-ref">Unit Tests</span></a></p></li>
+<li><p>Tests directly against individual parts of the code base.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p>If you’re a developer, one of the most valuable things you can do is look at the GitHub
 issues list and help fix bugs.  We almost always prioritize bug fixing over feature
 development.</p>
@@ -2369,13 +2368,13 @@ bugs in action will also be a great way to help.</p>
 <h3><a class="toc-backref" href="#id5">Rerunning a failing CI job</a><a class="headerlink" href="#rerunning-a-failing-ci-job" title="Permalink to this headline">¶</a></h3>
 <p>Occasionally you may find your PR fails due to a reason unrelated to your change. This could happen for several reasons, including:</p>
 <ul class="simple">
-<li>a temporary issue accessing an external resource, such as a yum or git repo</li>
-<li>a timeout creating a virtual machine to run the tests on</li>
+<li><p>a temporary issue accessing an external resource, such as a yum or git repo</p></li>
+<li><p>a timeout creating a virtual machine to run the tests on</p></li>
 </ul>
 <p>If either of these issues appear to be the case, you can rerun the Shippable test by:</p>
 <ul class="simple">
-<li>closing and re-opening the PR</li>
-<li>making another change to the PR and pushing to GitHub</li>
+<li><p>closing and re-opening the PR</p></li>
+<li><p>making another change to the PR and pushing to GitHub</p></li>
 </ul>
 <p>If the issue persists, please contact us in <code class="docutils literal notranslate"><span class="pre">#ansible-devel</span></code> on Freenode IRC.</p>
 </div>
@@ -2388,16 +2387,16 @@ bugs in action will also be a great way to help.</p>
 <h3><a class="toc-backref" href="#id7">Setup: Checking out a Pull Request</a><a class="headerlink" href="#setup-checking-out-a-pull-request" title="Permalink to this headline">¶</a></h3>
 <p>You can do this by:</p>
 <ul class="simple">
-<li>checking out Ansible</li>
-<li>making a test branch off the main branch</li>
-<li>merging a GitHub issue</li>
-<li>testing</li>
-<li>commenting on that particular issue on GitHub</li>
+<li><p>checking out Ansible</p></li>
+<li><p>making a test branch off the main branch</p></li>
+<li><p>merging a GitHub issue</p></li>
+<li><p>testing</p></li>
+<li><p>commenting on that particular issue on GitHub</p></li>
 </ul>
 <p>Here’s how:</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Testing source code from GitHub pull requests sent to us does have some inherent risk, as the source code
+<p class="admonition-title">Warning</p>
+<p>Testing source code from GitHub pull requests sent to us does have some inherent risk, as the source code
 sent may have mistakes or malicious code that could have a negative impact on your system. We recommend
 doing all testing on a virtual machine, whether a cloud instance, or locally.  Some users like Vagrant
 or Docker for this, but they are optional. It is also useful to have virtual machines of different Linux or
@@ -2414,9 +2413,9 @@ and destination repositories. It will look something like this:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Only test <code class="docutils literal notranslate"><span class="pre">ansible:devel</span></code></p>
-<p class="last">It is important that the PR request target be <code class="docutils literal notranslate"><span class="pre">ansible:devel</span></code>, as we do not accept pull requests into any other branch. Dot releases are cherry-picked manually by Ansible staff.</p>
+<p>It is important that the PR request target be <code class="docutils literal notranslate"><span class="pre">ansible:devel</span></code>, as we do not accept pull requests into any other branch. Dot releases are cherry-picked manually by Ansible staff.</p>
 </div>
 <p>The username and branch at the end are the important parts, which will be turned into git commands as follows:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">git checkout -b testing_PRXXXX devel</span>
@@ -2425,12 +2424,12 @@ and destination repositories. It will look something like this:</p>
 </div>
 <p>The first command creates and switches to a new branch named <code class="docutils literal notranslate"><span class="pre">testing_PRXXXX</span></code>, where the XXXX is the actual issue number associated with the pull request (for example, 1234). This branch is based on the <code class="docutils literal notranslate"><span class="pre">devel</span></code> branch. The second command pulls the new code from the users feature branch into the newly created branch.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If the GitHub user interface shows that the pull request will not merge cleanly, we do not recommend proceeding if you are not somewhat familiar with git and coding, as you will have to resolve a merge conflict. This is the responsibility of the original pull request contributor.</p>
+<p class="admonition-title">Note</p>
+<p>If the GitHub user interface shows that the pull request will not merge cleanly, we do not recommend proceeding if you are not somewhat familiar with git and coding, as you will have to resolve a merge conflict. This is the responsibility of the original pull request contributor.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Some users do not create feature branches, which can cause problems when they have multiple, unrelated commits in their version of <code class="docutils literal notranslate"><span class="pre">devel</span></code>. If the source looks like <code class="docutils literal notranslate"><span class="pre">someuser:devel</span></code>, make sure there is only one commit listed on the pull request.</p>
+<p class="admonition-title">Note</p>
+<p>Some users do not create feature branches, which can cause problems when they have multiple, unrelated commits in their version of <code class="docutils literal notranslate"><span class="pre">devel</span></code>. If the source looks like <code class="docutils literal notranslate"><span class="pre">someuser:devel</span></code>, make sure there is only one commit listed on the pull request.</p>
 </div>
 <p>The Ansible source includes a script that allows you to use Ansible directly from source without requiring a
 full installation that is frequently used by developers on Ansible.</p>
@@ -2446,9 +2445,9 @@ set as long as your shell session is open.</p>
 <p>At this point, you should be ready to begin testing!</p>
 <p>Some ideas of what to test are:</p>
 <ul class="simple">
-<li>Create a test Playbook with the examples in and check if they function correctly</li>
-<li>Test to see if any Python backtraces returned (that’s a bug)</li>
-<li>Test on different operating systems, or against different library versions</li>
+<li><p>Create a test Playbook with the examples in and check if they function correctly</p></li>
+<li><p>Test to see if any Python backtraces returned (that’s a bug)</p></li>
+<li><p>Test on different operating systems, or against different library versions</p></li>
 </ul>
 <p>Any potential issues should be added as comments on the pull request (and it’s acceptable to comment if the feature works as well), remembering to include the output of <code class="docutils literal notranslate"><span class="pre">ansible</span> <span class="pre">--version</span></code></p>
 <p>Example:</p>
@@ -2520,7 +2519,7 @@ testing. See <a class="reference internal" href="testing_running_locally.html"><
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

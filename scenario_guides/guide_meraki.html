@@ -2268,18 +2268,19 @@
 <span id="meraki-guide"></span><h1>Cisco Meraki Guide<a class="headerlink" href="#cisco-meraki-guide" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#what-is-cisco-meraki" id="id1">What is Cisco Meraki?</a><ul>
-<li><a class="reference internal" href="#ms-switches" id="id2">MS Switches</a></li>
-<li><a class="reference internal" href="#mx-firewalls" id="id3">MX Firewalls</a></li>
-<li><a class="reference internal" href="#mr-wireless-access-points" id="id4">MR Wireless Access Points</a></li>
+<li><p><a class="reference internal" href="#what-is-cisco-meraki" id="id1">What is Cisco Meraki?</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ms-switches" id="id2">MS Switches</a></p></li>
+<li><p><a class="reference internal" href="#mx-firewalls" id="id3">MX Firewalls</a></p></li>
+<li><p><a class="reference internal" href="#mr-wireless-access-points" id="id4">MR Wireless Access Points</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#using-the-meraki-modules" id="id5">Using the Meraki modules</a></li>
-<li><a class="reference internal" href="#common-parameters" id="id6">Common Parameters</a></li>
-<li><a class="reference internal" href="#meraki-authentication" id="id7">Meraki Authentication</a></li>
-<li><a class="reference internal" href="#returned-data-structures" id="id8">Returned Data Structures</a></li>
-<li><a class="reference internal" href="#handling-returned-data" id="id9">Handling Returned Data</a></li>
-<li><a class="reference internal" href="#error-handling" id="id10">Error Handling</a></li>
+<li><p><a class="reference internal" href="#using-the-meraki-modules" id="id5">Using the Meraki modules</a></p></li>
+<li><p><a class="reference internal" href="#common-parameters" id="id6">Common Parameters</a></p></li>
+<li><p><a class="reference internal" href="#meraki-authentication" id="id7">Meraki Authentication</a></p></li>
+<li><p><a class="reference internal" href="#returned-data-structures" id="id8">Returned Data Structures</a></p></li>
+<li><p><a class="reference internal" href="#handling-returned-data" id="id9">Handling Returned Data</a></p></li>
+<li><p><a class="reference internal" href="#error-handling" id="id10">Error Handling</a></p></li>
 </ul>
 </div>
 <div class="section" id="what-is-cisco-meraki">
@@ -2324,35 +2325,35 @@
 <h2><a class="toc-backref" href="#id6">Common Parameters</a><a class="headerlink" href="#common-parameters" title="Permalink to this headline">¶</a></h2>
 <p>All Ansible Meraki modules support the following parameters which affect communication with the Meraki Dashboard API. Most of these should only be used by Meraki developers and not the general public.</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>host</dt>
-<dd>Hostname or IP of Meraki Dashboard.</dd>
-<dt>use_https</dt>
-<dd>Specifies whether communication should be over HTTPS. (Defaults to <code class="docutils literal notranslate"><span class="pre">yes</span></code>)</dd>
-<dt>use_proxy</dt>
-<dd>Whether to use a proxy for any communication.</dd>
-<dt>validate_certs</dt>
-<dd>Determine whether certificates should be validated or trusted. (Defaults to <code class="docutils literal notranslate"><span class="pre">yes</span></code>)</dd>
+<div><dl class="simple">
+<dt>host</dt><dd><p>Hostname or IP of Meraki Dashboard.</p>
+</dd>
+<dt>use_https</dt><dd><p>Specifies whether communication should be over HTTPS. (Defaults to <code class="docutils literal notranslate"><span class="pre">yes</span></code>)</p>
+</dd>
+<dt>use_proxy</dt><dd><p>Whether to use a proxy for any communication.</p>
+</dd>
+<dt>validate_certs</dt><dd><p>Determine whether certificates should be validated or trusted. (Defaults to <code class="docutils literal notranslate"><span class="pre">yes</span></code>)</p>
+</dd>
 </dl>
 </div></blockquote>
 <p>These are the common parameters which are used for most every module.</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>org_name</dt>
-<dd>Name of organization to perform actions in.</dd>
-<dt>org_id</dt>
-<dd>ID of organization to perform actions in.</dd>
-<dt>net_name</dt>
-<dd>Name of network to perform actions in.</dd>
-<dt>net_id</dt>
-<dd>ID of network to perform actions in.</dd>
-<dt>state</dt>
-<dd>General specification of what action to take. <code class="docutils literal notranslate"><span class="pre">query</span></code> does lookups. <code class="docutils literal notranslate"><span class="pre">present</span></code> creates or edits. <code class="docutils literal notranslate"><span class="pre">absent</span></code> deletes.</dd>
+<div><dl class="simple">
+<dt>org_name</dt><dd><p>Name of organization to perform actions in.</p>
+</dd>
+<dt>org_id</dt><dd><p>ID of organization to perform actions in.</p>
+</dd>
+<dt>net_name</dt><dd><p>Name of network to perform actions in.</p>
+</dd>
+<dt>net_id</dt><dd><p>ID of network to perform actions in.</p>
+</dd>
+<dt>state</dt><dd><p>General specification of what action to take. <code class="docutils literal notranslate"><span class="pre">query</span></code> does lookups. <code class="docutils literal notranslate"><span class="pre">present</span></code> creates or edits. <code class="docutils literal notranslate"><span class="pre">absent</span></code> deletes.</p>
+</dd>
 </dl>
 </div></blockquote>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">Use the <code class="docutils literal notranslate"><span class="pre">org_id</span></code> and <code class="docutils literal notranslate"><span class="pre">net_id</span></code> parameters when possible. <code class="docutils literal notranslate"><span class="pre">org_name</span></code> and <code class="docutils literal notranslate"><span class="pre">net_name</span></code> require additional behind-the-scenes API calls to learn the ID values. <code class="docutils literal notranslate"><span class="pre">org_id</span></code> and <code class="docutils literal notranslate"><span class="pre">net_id</span></code> will perform faster.</p>
+<p class="admonition-title">Hint</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">org_id</span></code> and <code class="docutils literal notranslate"><span class="pre">net_id</span></code> parameters when possible. <code class="docutils literal notranslate"><span class="pre">org_name</span></code> and <code class="docutils literal notranslate"><span class="pre">net_name</span></code> require additional behind-the-scenes API calls to learn the ID values. <code class="docutils literal notranslate"><span class="pre">org_id</span></code> and <code class="docutils literal notranslate"><span class="pre">net_id</span></code> will perform faster.</p>
 </div>
 </div>
 <div class="section" id="meraki-authentication">
@@ -2414,7 +2415,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

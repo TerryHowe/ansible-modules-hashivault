@@ -19,14 +19,14 @@
   <!-- End Google Tag Manager Data Layer -->
 
   
-  <title>hashivault_audit_list - Hashicorp Vault audit list module &mdash; Ansible Documentation</title>
+  <title>hashivault_cluster_status - Hashicorp Vault cluster status module &mdash; Ansible Documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_audit_list_module.html"/>
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_cluster_status_module.html"/>
   
 
   
@@ -2251,10 +2251,10 @@
 
           <ul class="wy-breadcrumbs">
   <li><a href="../index.html">Docs</a> &raquo;</li>
-  <li><a href="">hashivault_audit_list - Hashicorp Vault audit list module</a></li>
+  <li><a href="">hashivault_cluster_status - Hashicorp Vault cluster status module</a></li>
   
     <li class="wy-breadcrumbs-aside">
-      <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_audit_list.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr" class="icon icon-github"> Edit on GitHub</a>
+      <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_cluster_status.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr" class="icon icon-github"> Edit on GitHub</a>
     </li>
   
 </ul>
@@ -2262,10 +2262,10 @@
 
           <div id="page-content">
           
-  <div class="section" id="hashivault-audit-list-hashicorp-vault-audit-list-module">
-<span id="hashivault-audit-list-module"></span><h1>hashivault_audit_list - Hashicorp Vault audit list module<a class="headerlink" href="#hashivault-audit-list-hashicorp-vault-audit-list-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="hashivault-cluster-status-hashicorp-vault-cluster-status-module">
+<span id="hashivault-cluster-status-module"></span><h1>hashivault_cluster_status - Hashicorp Vault cluster status module<a class="headerlink" href="#hashivault-cluster-status-hashicorp-vault-cluster-status-module" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
-<p><span class="versionmodified added">New in version 2.2.0.</span></p>
+<p><span class="versionmodified added">New in version 3.16.4.</span></p>
 </div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -2283,7 +2283,7 @@
 <div class="section" id="synopsis">
 <h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Module to list audit backends in Hashicorp Vault.</p></li>
+<li><p>Module to get cluster status of Hashicorp Vault.</p></li>
 </ul>
 </div>
 <div class="section" id="parameters">
@@ -2362,6 +2362,17 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
+                <b>standby_ok</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                                                            <b>Default:</b><br/><div style="color: blue">no</div>
+                                </td>
+                                                            <td>
+                                                                    <div>Specifies if being a standby should still return the active status code instead of the standby status code - password to login to vault.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
                 <b>token</b>
                                                                         </td>
                             <td>
@@ -2411,7 +2422,9 @@
 <div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
   <span class="nt">tasks</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">hashivault_audit_list</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">hashivault_cluster_status</span><span class="p">:</span>
+      <span class="nt">register</span><span class="p">:</span> <span class="s">&#39;vault_cluster_status&#39;</span>
+    <span class="p p-Indicator">-</span> <span class="nt">debug</span><span class="p">:</span> <span class="nt">msg=&quot;Cluster is initialized</span><span class="p">:</span> <span class="cp">{{</span><span class="nv">vault_cluster_status.status.initialized</span><span class="cp">}}</span><span class="s">&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -2430,7 +2443,7 @@
 </ul>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_audit_list.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
+<p>If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_cluster_status.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
 </div>
 </div>
 </div>

@@ -2269,19 +2269,21 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#plugin-guidelines" id="id2">Developing plugins</a><ul>
-<li><a class="reference internal" href="#writing-plugins-in-python" id="id3">Writing plugins in Python</a></li>
-<li><a class="reference internal" href="#raising-errors" id="id4">Raising errors</a></li>
-<li><a class="reference internal" href="#string-encoding" id="id5">String encoding</a></li>
-<li><a class="reference internal" href="#plugin-configuration-documentation-standards" id="id6">Plugin configuration &amp; documentation standards</a></li>
-<li><a class="reference internal" href="#developing-particular-plugin-types" id="id7">Developing particular plugin types</a><ul>
-<li><a class="reference internal" href="#callback-plugins" id="id8">Callback plugins</a></li>
-<li><a class="reference internal" href="#connection-plugins" id="id9">Connection plugins</a></li>
-<li><a class="reference internal" href="#filter-plugins" id="id10">Filter plugins</a></li>
-<li><a class="reference internal" href="#inventory-plugins" id="id11">Inventory plugins</a></li>
-<li><a class="reference internal" href="#lookup-plugins" id="id12">Lookup plugins</a></li>
-<li><a class="reference internal" href="#test-plugins" id="id13">Test plugins</a></li>
-<li><a class="reference internal" href="#vars-plugins" id="id14">Vars plugins</a></li>
+<li><p><a class="reference internal" href="#plugin-guidelines" id="id2">Developing plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#writing-plugins-in-python" id="id3">Writing plugins in Python</a></p></li>
+<li><p><a class="reference internal" href="#raising-errors" id="id4">Raising errors</a></p></li>
+<li><p><a class="reference internal" href="#string-encoding" id="id5">String encoding</a></p></li>
+<li><p><a class="reference internal" href="#plugin-configuration-documentation-standards" id="id6">Plugin configuration &amp; documentation standards</a></p></li>
+<li><p><a class="reference internal" href="#developing-particular-plugin-types" id="id7">Developing particular plugin types</a></p>
+<ul>
+<li><p><a class="reference internal" href="#callback-plugins" id="id8">Callback plugins</a></p></li>
+<li><p><a class="reference internal" href="#connection-plugins" id="id9">Connection plugins</a></p></li>
+<li><p><a class="reference internal" href="#filter-plugins" id="id10">Filter plugins</a></p></li>
+<li><p><a class="reference internal" href="#inventory-plugins" id="id11">Inventory plugins</a></p></li>
+<li><p><a class="reference internal" href="#lookup-plugins" id="id12">Lookup plugins</a></p></li>
+<li><p><a class="reference internal" href="#test-plugins" id="id13">Test plugins</a></p></li>
+<li><p><a class="reference internal" href="#vars-plugins" id="id14">Vars plugins</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2290,10 +2292,10 @@
 </div>
 <p>Plugins augment Ansible’s core functionality with logic and features that are accessible to all modules. Ansible ships with a number of handy plugins, and you can easily write your own. All plugins must:</p>
 <ul class="simple">
-<li>be written in Python</li>
-<li>raise errors</li>
-<li>return strings in unicode</li>
-<li>conform to Ansible’s configuration and documentation standards</li>
+<li><p>be written in Python</p></li>
+<li><p>raise errors</p></li>
+<li><p>return strings in unicode</p></li>
+<li><p>conform to Ansible’s configuration and documentation standards</p></li>
 </ul>
 <p>Once you’ve reviewed these general guidelines, you can skip to the particular type of plugin you want to develop.</p>
 <div class="section" id="writing-plugins-in-python">
@@ -2551,29 +2553,29 @@ Most of the work now  happens in the <code class="docutils literal notranslate">
 <p>The parameters are:</p>
 <blockquote>
 <div><ul class="simple">
-<li>loader: Ansible’s DataLoader. The DataLoader can read files, auto-load JSON/YAML and decrypt vaulted data, and cache read files.</li>
-<li>path: this is ‘directory data’ for every inventory source and the current play’s playbook directory, so they can search for data in reference to them. <code class="docutils literal notranslate"><span class="pre">get_vars</span></code> will be called at least once per available path.</li>
-<li>entities: these are host or group names that are pertinent to the variables needed. The plugin will get called once for hosts and again for groups.</li>
+<li><p>loader: Ansible’s DataLoader. The DataLoader can read files, auto-load JSON/YAML and decrypt vaulted data, and cache read files.</p></li>
+<li><p>path: this is ‘directory data’ for every inventory source and the current play’s playbook directory, so they can search for data in reference to them. <code class="docutils literal notranslate"><span class="pre">get_vars</span></code> will be called at least once per available path.</p></li>
+<li><p>entities: these are host or group names that are pertinent to the variables needed. The plugin will get called once for hosts and again for groups.</p></li>
 </ul>
 </div></blockquote>
 <p>This <code class="docutils literal notranslate"><span class="pre">get</span> <span class="pre">vars</span></code> method just needs to return a dictionary structure with the variables.</p>
 <p>Since Ansible version 2.4, vars plugins only execute as needed when preparing to execute a task. This avoids the costly ‘always execute’ behavior that occurred during inventory construction in older versions of Ansible.</p>
 <p>For example vars plugins, see the source code for the <a class="reference external" href="https://github.com/ansible/ansible/tree/devel/lib/ansible/plugins/vars">vars plugins included with Ansible Core</a>.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt>
-<dd>List of all modules</dd>
-<dt><a class="reference internal" href="developing_api.html"><span class="doc">Python API</span></a></dt>
-<dd>Learn about the Python API for task execution</dd>
-<dt><a class="reference internal" href="developing_inventory.html"><span class="doc">Developing dynamic inventory</span></a></dt>
-<dd>Learn about how to develop dynamic inventory sources</dd>
-<dt><a class="reference internal" href="developing_modules.html"><span class="doc">Should you develop a module?</span></a></dt>
-<dd>Learn about how to write Ansible modules</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Mailing List</a></dt>
-<dd>The development mailing list</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a></dt><dd><p>List of all modules</p>
+</dd>
+<dt><a class="reference internal" href="developing_api.html"><span class="doc">Python API</span></a></dt><dd><p>Learn about the Python API for task execution</p>
+</dd>
+<dt><a class="reference internal" href="developing_inventory.html"><span class="doc">Developing dynamic inventory</span></a></dt><dd><p>Learn about how to develop dynamic inventory sources</p>
+</dd>
+<dt><a class="reference internal" href="developing_modules.html"><span class="doc">Should you develop a module?</span></a></dt><dd><p>Learn about how to write Ansible modules</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Mailing List</a></dt><dd><p>The development mailing list</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2606,7 +2608,7 @@ Most of the work now  happens in the <code class="docutils literal notranslate">
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

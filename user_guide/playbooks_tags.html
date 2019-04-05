@@ -2271,8 +2271,8 @@ a specific part of it rather than running <em>everything</em> in the playbook.
 Ansible supports a “tags:” attribute for this reason.</p>
 <p>When you execute a playbook, you can filter tasks based on tags in two ways:</p>
 <ul class="simple">
-<li>On the command line, with the <code class="docutils literal notranslate"><span class="pre">--tags</span></code> or <code class="docutils literal notranslate"><span class="pre">--skip-tags</span></code> options</li>
-<li>In Ansible configuration settings, with the <code class="docutils literal notranslate"><span class="pre">TAGS_RUN</span></code> and <code class="docutils literal notranslate"><span class="pre">TAGS_SKIP</span></code> options</li>
+<li><p>On the command line, with the <code class="docutils literal notranslate"><span class="pre">--tags</span></code> or <code class="docutils literal notranslate"><span class="pre">--skip-tags</span></code> options</p></li>
+<li><p>In Ansible configuration settings, with the <code class="docutils literal notranslate"><span class="pre">TAGS_RUN</span></code> and <code class="docutils literal notranslate"><span class="pre">TAGS_SKIP</span></code> options</p></li>
 </ul>
 <p>Tags can be applied to <em>many</em> structures in Ansible (see “tag inheritance”,
 below), but its simplest use is with indivdual tasks. Here is an example
@@ -2388,8 +2388,8 @@ as the attributes applied to an include, only affect the include itself.</p>
 by running <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code> with the <code class="docutils literal notranslate"><span class="pre">--list-tasks</span></code> option. You can
 display all tags applied to the tasks with the <code class="docutils literal notranslate"><span class="pre">--list-tags</span></code> option.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The above information does not apply to <cite>include_tasks</cite>, <cite>include_roles</cite>,
+<p class="admonition-title">Note</p>
+<p>The above information does not apply to <cite>include_tasks</cite>, <cite>include_roles</cite>,
 or other dynamic includes. Tags applied to either of these only tag the
 include itself.</p>
 </div>
@@ -2436,7 +2436,7 @@ itself should also be tagged.</p>
 </pre></div>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.5.</span></p>
+<p><span class="versionmodified added">New in version 2.5.</span></p>
 </div>
 <p>Another special tag is <code class="docutils literal notranslate"><span class="pre">never</span></code>, which will prevent a task from running unless a tag is specifically requested.</p>
 <p>Example:</p>
@@ -2450,16 +2450,16 @@ itself should also be tagged.</p>
 and all tasks respectively.</p>
 <p>By default, Ansible runs as if <code class="docutils literal notranslate"><span class="pre">--tags</span> <span class="pre">all</span></code> had been specified.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_reuse_roles.html"><span class="doc">Roles</span></a></dt>
-<dd>Playbook organization by roles</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_reuse_roles.html"><span class="doc">Roles</span></a></dt><dd><p>Playbook organization by roles</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2491,7 +2491,7 @@ and all tasks respectively.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

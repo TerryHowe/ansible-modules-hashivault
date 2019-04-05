@@ -2273,29 +2273,33 @@ This document covers details specific to using Ansible for Windows.</p>
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#use-cases" id="id1">Use Cases</a><ul>
-<li><a class="reference internal" href="#installing-software" id="id2">Installing Software</a></li>
-<li><a class="reference internal" href="#installing-updates" id="id3">Installing Updates</a></li>
-<li><a class="reference internal" href="#set-up-users-and-groups" id="id4">Set Up Users and Groups</a><ul>
-<li><a class="reference internal" href="#local" id="id5">Local</a></li>
-<li><a class="reference internal" href="#domain" id="id6">Domain</a></li>
+<li><p><a class="reference internal" href="#use-cases" id="id1">Use Cases</a></p>
+<ul>
+<li><p><a class="reference internal" href="#installing-software" id="id2">Installing Software</a></p></li>
+<li><p><a class="reference internal" href="#installing-updates" id="id3">Installing Updates</a></p></li>
+<li><p><a class="reference internal" href="#set-up-users-and-groups" id="id4">Set Up Users and Groups</a></p>
+<ul>
+<li><p><a class="reference internal" href="#local" id="id5">Local</a></p></li>
+<li><p><a class="reference internal" href="#domain" id="id6">Domain</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#running-commands" id="id7">Running Commands</a><ul>
-<li><a class="reference internal" href="#choosing-command-or-shell" id="id8">Choosing Command or Shell</a></li>
-<li><a class="reference internal" href="#argument-rules" id="id9">Argument Rules</a></li>
+<li><p><a class="reference internal" href="#running-commands" id="id7">Running Commands</a></p>
+<ul>
+<li><p><a class="reference internal" href="#choosing-command-or-shell" id="id8">Choosing Command or Shell</a></p></li>
+<li><p><a class="reference internal" href="#argument-rules" id="id9">Argument Rules</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#creating-and-running-a-scheduled-task" id="id10">Creating and Running a Scheduled Task</a></li>
+<li><p><a class="reference internal" href="#creating-and-running-a-scheduled-task" id="id10">Creating and Running a Scheduled Task</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#path-formatting-for-windows" id="id11">Path Formatting for Windows</a><ul>
-<li><a class="reference internal" href="#yaml-style" id="id12">YAML Style</a></li>
-<li><a class="reference internal" href="#legacy-key-value-style" id="id13">Legacy key=value Style</a></li>
+<li><p><a class="reference internal" href="#path-formatting-for-windows" id="id11">Path Formatting for Windows</a></p>
+<ul>
+<li><p><a class="reference internal" href="#yaml-style" id="id12">YAML Style</a></p></li>
+<li><p><a class="reference internal" href="#legacy-key-value-style" id="id13">Legacy key=value Style</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#limitations" id="id14">Limitations</a></li>
-<li><a class="reference internal" href="#developing-windows-modules" id="id15">Developing Windows Modules</a></li>
+<li><p><a class="reference internal" href="#limitations" id="id14">Limitations</a></p></li>
+<li><p><a class="reference internal" href="#developing-windows-modules" id="id15">Developing Windows Modules</a></p></li>
 </ul>
 </div>
 <div class="section" id="use-cases">
@@ -2306,12 +2310,12 @@ Below are some examples and info about common tasks.</p>
 <h3><a class="toc-backref" href="#id2">Installing Software</a><a class="headerlink" href="#installing-software" title="Permalink to this headline">¶</a></h3>
 <p>There are three main ways that Ansible can be used to install software:</p>
 <ul class="simple">
-<li>Using the <code class="docutils literal notranslate"><span class="pre">win_chocolatey</span></code> module. This sources the program data from the default
+<li><p>Using the <code class="docutils literal notranslate"><span class="pre">win_chocolatey</span></code> module. This sources the program data from the default
 public <a class="reference external" href="https://chocolatey.org/">Chocolatey</a> repository. Internal repositories can
-be used instead by setting the <code class="docutils literal notranslate"><span class="pre">source</span></code> option.</li>
-<li>Using the <code class="docutils literal notranslate"><span class="pre">win_package</span></code> module. This installs software using an MSI or .exe installer
-from a local/network path or URL.</li>
-<li>Using the <code class="docutils literal notranslate"><span class="pre">win_command</span></code> or <code class="docutils literal notranslate"><span class="pre">win_shell</span></code> module to run an installer manually.</li>
+be used instead by setting the <code class="docutils literal notranslate"><span class="pre">source</span></code> option.</p></li>
+<li><p>Using the <code class="docutils literal notranslate"><span class="pre">win_package</span></code> module. This installs software using an MSI or .exe installer
+from a local/network path or URL.</p></li>
+<li><p>Using the <code class="docutils literal notranslate"><span class="pre">win_command</span></code> or <code class="docutils literal notranslate"><span class="pre">win_shell</span></code> module to run an installer manually.</p></li>
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">win_chocolatey</span></code> module is recommended since it has the most complete logic for checking to see if a package has already been installed and is up-to-date.</p>
 <p>Below are some examples of using all three options to install 7-Zip:</p>
@@ -2367,12 +2371,12 @@ access to components restricted by WinRM. The best method to bypass these
 issues is to use <code class="docutils literal notranslate"><span class="pre">become</span></code> with the task. With <code class="docutils literal notranslate"><span class="pre">become</span></code>, Ansible will run
 the installer as if it were run interactively on the host.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Many installers do not properly pass back error information over WinRM. In these cases, if the install has been  verified to work locally the recommended method is to use become.</p>
+<p class="admonition-title">Note</p>
+<p>Many installers do not properly pass back error information over WinRM. In these cases, if the install has been  verified to work locally the recommended method is to use become.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Some installers restart the WinRM or HTTP services, or cause them to become temporarily unavailable, making Ansible assume the system is unreachable.</p>
+<p class="admonition-title">Note</p>
+<p>Some installers restart the WinRM or HTTP services, or cause them to become temporarily unavailable, making Ansible assume the system is unreachable.</p>
 </div>
 </div>
 <div class="section" id="installing-updates">
@@ -2382,8 +2386,8 @@ or hotfixes on a host. The module <code class="docutils literal notranslate"><sp
 updates by category, while <code class="docutils literal notranslate"><span class="pre">win_hotfix</span></code> can be used to install a single
 update or hotfix file that has been downloaded locally.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The <code class="docutils literal notranslate"><span class="pre">win_hotfix</span></code> module has a requirement that the DISM PowerShell cmdlets are
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">win_hotfix</span></code> module has a requirement that the DISM PowerShell cmdlets are
 present. These cmdlets were only added by default on Windows Server 2012
 and newer and must be installed on older Windows hosts.</p>
 </div>
@@ -2543,8 +2547,8 @@ to a shell executable like <code class="docutils literal notranslate"><span clas
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Some commands like <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>, <code class="docutils literal notranslate"><span class="pre">del</span></code>, and <code class="docutils literal notranslate"><span class="pre">copy</span></code> only exist in
+<p class="admonition-title">Note</p>
+<p>Some commands like <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>, <code class="docutils literal notranslate"><span class="pre">del</span></code>, and <code class="docutils literal notranslate"><span class="pre">copy</span></code> only exist in
 the CMD shell. To run them with <code class="docutils literal notranslate"><span class="pre">win_command</span></code> they must be
 prefixed with <code class="docutils literal notranslate"><span class="pre">cmd.exe</span> <span class="pre">/c</span></code>.</p>
 </div>
@@ -2554,20 +2558,20 @@ prefixed with <code class="docutils literal notranslate"><span class="pre">cmd.e
 <p>When running a command through <code class="docutils literal notranslate"><span class="pre">win_command</span></code>, the standard Windows argument
 rules apply:</p>
 <ul class="simple">
-<li>Each argument is delimited by a white space, which can either be a space or a
-tab.</li>
-<li>An argument can be surrounded by double quotes <code class="docutils literal notranslate"><span class="pre">&quot;</span></code>. Anything inside these
-quotes is interpreted as a single argument even if it contains whitespace.</li>
-<li>A double quote preceded by a backslash <code class="docutils literal notranslate"><span class="pre">\</span></code> is interpreted as just a double
-quote <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> and not as an argument delimiter.</li>
-<li>Backslashes are interpreted literally unless it immediately preceeds double
-quotes; for example <code class="docutils literal notranslate"><span class="pre">\</span></code> == <code class="docutils literal notranslate"><span class="pre">\</span></code> and <code class="docutils literal notranslate"><span class="pre">\&quot;</span></code> == <code class="docutils literal notranslate"><span class="pre">&quot;</span></code></li>
-<li>If an even number of backslashes is followed by a double quote, one
+<li><p>Each argument is delimited by a white space, which can either be a space or a
+tab.</p></li>
+<li><p>An argument can be surrounded by double quotes <code class="docutils literal notranslate"><span class="pre">&quot;</span></code>. Anything inside these
+quotes is interpreted as a single argument even if it contains whitespace.</p></li>
+<li><p>A double quote preceded by a backslash <code class="docutils literal notranslate"><span class="pre">\</span></code> is interpreted as just a double
+quote <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> and not as an argument delimiter.</p></li>
+<li><p>Backslashes are interpreted literally unless it immediately preceeds double
+quotes; for example <code class="docutils literal notranslate"><span class="pre">\</span></code> == <code class="docutils literal notranslate"><span class="pre">\</span></code> and <code class="docutils literal notranslate"><span class="pre">\&quot;</span></code> == <code class="docutils literal notranslate"><span class="pre">&quot;</span></code></p></li>
+<li><p>If an even number of backslashes is followed by a double quote, one
 backslash is used in the argument for every pair, and the double quote is
-used as a string delimiter for the argument.</li>
-<li>If an odd number of backslashes is followed by a double quote, one backslash
+used as a string delimiter for the argument.</p></li>
+<li><p>If an odd number of backslashes is followed by a double quote, one backslash
 is used in the argument for every pair, and the double quote is escaped and
-made a literal double quote in the argument.</li>
+made a literal double quote in the argument.</p></li>
 </ul>
 <p>With those rules in mind, here are some examples of quoting:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">win_command</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">C:\temp\executable.exe argument1 &quot;argument 2&quot; &quot;C:\path\with space&quot; &quot;double \&quot;quoted\&quot;&quot;</span>
@@ -2629,8 +2633,8 @@ running:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The modules used in the above example were updated/added in Ansible
+<p class="admonition-title">Note</p>
+<p>The modules used in the above example were updated/added in Ansible
 version 2.5.</p>
 </div>
 </div>
@@ -2647,27 +2651,27 @@ as an escape character on POSIX systems.</p>
 <p>When using the YAML syntax for tasks, the rules are well-defined by the YAML
 standard:</p>
 <ul class="simple">
-<li>When using a normal string (without quotes), YAML will not consider the
-backslash an escape character.</li>
-<li>When using single quotes <code class="docutils literal notranslate"><span class="pre">'</span></code>, YAML will not consider the backslash an
-escape character.</li>
-<li>When using double quotes <code class="docutils literal notranslate"><span class="pre">&quot;</span></code>, the backslash is considered an escape
-character and needs to escaped with another backslash.</li>
+<li><p>When using a normal string (without quotes), YAML will not consider the
+backslash an escape character.</p></li>
+<li><p>When using single quotes <code class="docutils literal notranslate"><span class="pre">'</span></code>, YAML will not consider the backslash an
+escape character.</p></li>
+<li><p>When using double quotes <code class="docutils literal notranslate"><span class="pre">&quot;</span></code>, the backslash is considered an escape
+character and needs to escaped with another backslash.</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You should only quote strings when it is absolutely
+<p class="admonition-title">Note</p>
+<p>You should only quote strings when it is absolutely
 necessary or required by YAML, and then use single quotes.</p>
 </div>
 <p>The YAML specification considers the following <a class="reference external" href="http://yaml.org/spec/current.html#id2517668">escape sequences</a>:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">\0</span></code>, <code class="docutils literal notranslate"><span class="pre">\\</span></code>, <code class="docutils literal notranslate"><span class="pre">\&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">\_</span></code>, <code class="docutils literal notranslate"><span class="pre">\a</span></code>, <code class="docutils literal notranslate"><span class="pre">\b</span></code>, <code class="docutils literal notranslate"><span class="pre">\e</span></code>, <code class="docutils literal notranslate"><span class="pre">\f</span></code>, <code class="docutils literal notranslate"><span class="pre">\n</span></code>, <code class="docutils literal notranslate"><span class="pre">\r</span></code>, <code class="docutils literal notranslate"><span class="pre">\t</span></code>,
-<code class="docutils literal notranslate"><span class="pre">\v</span></code>, <code class="docutils literal notranslate"><span class="pre">\L</span></code>, <code class="docutils literal notranslate"><span class="pre">\N</span></code> and <code class="docutils literal notranslate"><span class="pre">\P</span></code> – Single character escape</li>
-<li><code class="docutils literal notranslate"><span class="pre">&lt;TAB&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;SPACE&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;NBSP&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;LNSP&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;PSP&gt;</span></code> – Special
-characters</li>
-<li><code class="docutils literal notranslate"><span class="pre">\x..</span></code> – 2-digit hex escape</li>
-<li><code class="docutils literal notranslate"><span class="pre">\u....</span></code> – 4-digit hex escape</li>
-<li><code class="docutils literal notranslate"><span class="pre">\U........</span></code> – 8-digit hex escape</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\0</span></code>, <code class="docutils literal notranslate"><span class="pre">\\</span></code>, <code class="docutils literal notranslate"><span class="pre">\&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">\_</span></code>, <code class="docutils literal notranslate"><span class="pre">\a</span></code>, <code class="docutils literal notranslate"><span class="pre">\b</span></code>, <code class="docutils literal notranslate"><span class="pre">\e</span></code>, <code class="docutils literal notranslate"><span class="pre">\f</span></code>, <code class="docutils literal notranslate"><span class="pre">\n</span></code>, <code class="docutils literal notranslate"><span class="pre">\r</span></code>, <code class="docutils literal notranslate"><span class="pre">\t</span></code>,
+<code class="docutils literal notranslate"><span class="pre">\v</span></code>, <code class="docutils literal notranslate"><span class="pre">\L</span></code>, <code class="docutils literal notranslate"><span class="pre">\N</span></code> and <code class="docutils literal notranslate"><span class="pre">\P</span></code> – Single character escape</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;TAB&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;SPACE&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;NBSP&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;LNSP&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;PSP&gt;</span></code> – Special
+characters</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\x..</span></code> – 2-digit hex escape</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\u....</span></code> – 4-digit hex escape</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\U........</span></code> – 8-digit hex escape</p></li>
 </ul>
 <p>Here are some examples on how to write Windows paths:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">GOOD</span>
@@ -2705,12 +2709,12 @@ Ansible.</p>
 <p>The Ansible key=value parser parse_kv() considers the following escape
 sequences:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">\</span></code>, <code class="docutils literal notranslate"><span class="pre">'</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">\a</span></code>, <code class="docutils literal notranslate"><span class="pre">\b</span></code>, <code class="docutils literal notranslate"><span class="pre">\f</span></code>, <code class="docutils literal notranslate"><span class="pre">\n</span></code>, <code class="docutils literal notranslate"><span class="pre">\r</span></code>, <code class="docutils literal notranslate"><span class="pre">\t</span></code> and
-<code class="docutils literal notranslate"><span class="pre">\v</span></code> – Single character escape</li>
-<li><code class="docutils literal notranslate"><span class="pre">\x..</span></code> – 2-digit hex escape</li>
-<li><code class="docutils literal notranslate"><span class="pre">\u....</span></code> – 4-digit hex escape</li>
-<li><code class="docutils literal notranslate"><span class="pre">\U........</span></code> – 8-digit hex escape</li>
-<li><code class="docutils literal notranslate"><span class="pre">\N{...}</span></code> – Unicode character by name</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\</span></code>, <code class="docutils literal notranslate"><span class="pre">'</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">\a</span></code>, <code class="docutils literal notranslate"><span class="pre">\b</span></code>, <code class="docutils literal notranslate"><span class="pre">\f</span></code>, <code class="docutils literal notranslate"><span class="pre">\n</span></code>, <code class="docutils literal notranslate"><span class="pre">\r</span></code>, <code class="docutils literal notranslate"><span class="pre">\t</span></code> and
+<code class="docutils literal notranslate"><span class="pre">\v</span></code> – Single character escape</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\x..</span></code> – 2-digit hex escape</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\u....</span></code> – 4-digit hex escape</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\U........</span></code> – 8-digit hex escape</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\N{...}</span></code> – Unicode character by name</p></li>
 </ul>
 <p>This means that the backslash is an escape character for some sequences, and it
 is usually safer to escape a backslash when in this form.</p>
@@ -2742,8 +2746,8 @@ is usually safer to escape a backslash when in this form.</p>
 <h2><a class="toc-backref" href="#id14">Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
 <p>Some things you cannot do with Ansible and Windows are:</p>
 <ul class="simple">
-<li>Upgrade PowerShell</li>
-<li>Interact with the WinRM listeners</li>
+<li><p>Upgrade PowerShell</p></li>
+<li><p>Interact with the WinRM listeners</p></li>
 </ul>
 <p>Because WinRM is reliant on the services being online and running during normal operations, you cannot upgrade PowerShell or interact with WinRM listeners with Ansible. Both of these actions will cause the connection to fail. This can technically be avoided by using <code class="docutils literal notranslate"><span class="pre">async</span></code> or a scheduled task, but those methods are fragile if the process it runs breaks the underlying connection Ansible uses, and are best left to the bootstrapping process or before an image is
 created.</p>
@@ -2754,20 +2758,20 @@ created.</p>
 guides for Windows modules differ substantially from those for standard standard modules. Please see
 <a class="reference internal" href="../dev_guide/developing_modules_general_windows.html#developing-modules-general-windows"><span class="std std-ref">Windows module development walkthrough</span></a> for more information.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="index.html"><span class="doc">User Guide</span></a></dt>
-<dd>The documentation index</dd>
-<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt>
-<dd>Best practices advice</dd>
-<dt><span class="xref std std-ref">List of Windows Modules</span></dt>
-<dd>Windows specific module list, all implemented in PowerShell</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="index.html"><span class="doc">User Guide</span></a></dt><dd><p>The documentation index</p>
+</dd>
+<dt><a class="reference internal" href="playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt><dd><p>Best practices advice</p>
+</dd>
+<dt><span class="xref std std-ref">List of Windows Modules</span></dt><dd><p>Windows specific module list, all implemented in PowerShell</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2799,7 +2803,7 @@ guides for Windows modules differ substantially from those for standard standard
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

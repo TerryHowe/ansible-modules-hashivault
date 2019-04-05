@@ -2267,13 +2267,15 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#validate-modules" id="id1">validate-modules</a><ul>
-<li><a class="reference internal" href="#usage" id="id2">Usage</a></li>
-<li><a class="reference internal" href="#help" id="id3">Help</a></li>
-<li><a class="reference internal" href="#extending-validate-modules" id="id4">Extending validate-modules</a></li>
-<li><a class="reference internal" href="#codes" id="id5">Codes</a><ul>
-<li><a class="reference internal" href="#errors" id="id6">Errors</a></li>
-<li><a class="reference internal" href="#warnings" id="id7">Warnings</a></li>
+<li><p><a class="reference internal" href="#validate-modules" id="id1">validate-modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#usage" id="id2">Usage</a></p></li>
+<li><p><a class="reference internal" href="#help" id="id3">Help</a></p></li>
+<li><p><a class="reference internal" href="#extending-validate-modules" id="id4">Extending validate-modules</a></p></li>
+<li><p><a class="reference internal" href="#codes" id="id5">Codes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#errors" id="id6">Errors</a></p></li>
+<li><p><a class="reference internal" href="#warnings" id="id7">Warnings</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2285,32 +2287,32 @@
 <p>Originally developed by Matt Martz (&#64;sivel)</p>
 <div class="section" id="usage">
 <h2><a class="toc-backref" href="#id2">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<div class="code shell highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">cd /path/to/ansible/source</span>
-<span class="l l-Scalar l-Scalar-Plain">source hacking/env-setup</span>
-<span class="l l-Scalar l-Scalar-Plain">ansible-test sanity --test validate-modules</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /path/to/ansible/source
+<span class="nb">source</span> hacking/env-setup
+ansible-test sanity --test validate-modules
 </pre></div>
 </div>
 </div>
 <div class="section" id="help">
 <h2><a class="toc-backref" href="#id3">Help</a><a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
-<div class="code shell highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">usage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">validate-modules [-h] [-w] [--exclude EXCLUDE] [--arg-spec]</span>
-                        <span class="l l-Scalar l-Scalar-Plain">[--base-branch BASE_BRANCH] [--format {json,plain}]</span>
-                        <span class="l l-Scalar l-Scalar-Plain">[--output OUTPUT]</span>
-                        <span class="l l-Scalar l-Scalar-Plain">modules [modules ...]</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>usage: validate-modules <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-w<span class="o">]</span> <span class="o">[</span>--exclude EXCLUDE<span class="o">]</span> <span class="o">[</span>--arg-spec<span class="o">]</span>
+                        <span class="o">[</span>--base-branch BASE_BRANCH<span class="o">]</span> <span class="o">[</span>--format <span class="o">{</span>json,plain<span class="o">}]</span>
+                        <span class="o">[</span>--output OUTPUT<span class="o">]</span>
+                        modules <span class="o">[</span>modules ...<span class="o">]</span>
 
-<span class="nt">positional arguments</span><span class="p">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">modules               Path to module or module directory</span>
+positional arguments:
+  modules               Path to module or module directory
 
-<span class="nt">optional arguments</span><span class="p">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">-h, --help            show this help message and exit</span>
-  <span class="l l-Scalar l-Scalar-Plain">-w, --warnings        Show warnings</span>
-  <span class="l l-Scalar l-Scalar-Plain">--exclude EXCLUDE     RegEx exclusion pattern</span>
-  <span class="l l-Scalar l-Scalar-Plain">--arg-spec            Analyze module argument spec</span>
-  <span class="l l-Scalar l-Scalar-Plain">--base-branch BASE_BRANCH</span>
-                        <span class="l l-Scalar l-Scalar-Plain">Used in determining if new options were added</span>
-  <span class="l l-Scalar l-Scalar-Plain">--format {json,plain}</span>
-                        <span class="l l-Scalar l-Scalar-Plain">Output format. Default</span><span class="p p-Indicator">:</span> <span class="s">&quot;plain&quot;</span>
-  <span class="l l-Scalar l-Scalar-Plain">--output OUTPUT       Output location, use &quot;-&quot; for stdout. Default &quot;-&quot;</span>
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  -w, --warnings        Show warnings
+  --exclude EXCLUDE     RegEx exclusion pattern
+  --arg-spec            Analyze module argument spec
+  --base-branch BASE_BRANCH
+                        Used in determining <span class="k">if</span> new options were added
+  --format <span class="o">{</span>json,plain<span class="o">}</span>
+                        Output format. Default: <span class="s2">&quot;plain&quot;</span>
+  --output OUTPUT       Output location, use <span class="s2">&quot;-&quot;</span> <span class="k">for</span> stdout. Default <span class="s2">&quot;-&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -2322,271 +2324,271 @@
 <h2><a class="toc-backref" href="#id5">Codes</a><a class="headerlink" href="#codes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="errors">
 <h3><a class="toc-backref" href="#id6">Errors</a><a class="headerlink" href="#errors" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="8%" />
-<col width="92%" />
+<col style="width: 8%" />
+<col style="width: 92%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>code</td>
-<td>sample message</td>
+<tbody>
+<tr class="row-odd"><td><p>code</p></td>
+<td><p>sample message</p></td>
 </tr>
-<tr class="row-even"><td><strong>1xx</strong></td>
-<td><strong>Locations</strong></td>
+<tr class="row-even"><td><p><strong>1xx</strong></p></td>
+<td><p><strong>Locations</strong></p></td>
 </tr>
-<tr class="row-odd"><td>101</td>
-<td>Interpreter line is not <code class="docutils literal notranslate"><span class="pre">#!/usr/bin/python</span></code></td>
+<tr class="row-odd"><td><p>101</p></td>
+<td><p>Interpreter line is not <code class="docutils literal notranslate"><span class="pre">#!/usr/bin/python</span></code></p></td>
 </tr>
-<tr class="row-even"><td>102</td>
-<td>Interpreter line is not <code class="docutils literal notranslate"><span class="pre">#!powershell</span></code></td>
+<tr class="row-even"><td><p>102</p></td>
+<td><p>Interpreter line is not <code class="docutils literal notranslate"><span class="pre">#!powershell</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>103</td>
-<td>Did not find a call to <code class="docutils literal notranslate"><span class="pre">main()</span></code> (or <code class="docutils literal notranslate"><span class="pre">removed_module()</span></code> in the case of deprecated &amp; docs only modules)</td>
+<tr class="row-odd"><td><p>103</p></td>
+<td><p>Did not find a call to <code class="docutils literal notranslate"><span class="pre">main()</span></code> (or <code class="docutils literal notranslate"><span class="pre">removed_module()</span></code> in the case of deprecated &amp; docs only modules)</p></td>
 </tr>
-<tr class="row-even"><td>104</td>
-<td>Call to <code class="docutils literal notranslate"><span class="pre">main()</span></code> not the last line (or <code class="docutils literal notranslate"><span class="pre">removed_module()</span></code> in the case of deprecated &amp; docs only modules)</td>
+<tr class="row-even"><td><p>104</p></td>
+<td><p>Call to <code class="docutils literal notranslate"><span class="pre">main()</span></code> not the last line (or <code class="docutils literal notranslate"><span class="pre">removed_module()</span></code> in the case of deprecated &amp; docs only modules)</p></td>
 </tr>
-<tr class="row-odd"><td>105</td>
-<td>GPLv3 license header not found</td>
+<tr class="row-odd"><td><p>105</p></td>
+<td><p>GPLv3 license header not found</p></td>
 </tr>
-<tr class="row-even"><td>106</td>
-<td>Import found before documentation variables. All imports must appear below
-<code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code>/<code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code>/<code class="docutils literal notranslate"><span class="pre">RETURN</span></code>/<code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code></td>
+<tr class="row-even"><td><p>106</p></td>
+<td><p>Import found before documentation variables. All imports must appear below
+<code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code>/<code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code>/<code class="docutils literal notranslate"><span class="pre">RETURN</span></code>/<code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>107</td>
-<td>Imports should be directly below <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code>/<code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code>/<code class="docutils literal notranslate"><span class="pre">RETURN</span></code>/<code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code></td>
+<tr class="row-odd"><td><p>107</p></td>
+<td><p>Imports should be directly below <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code>/<code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code>/<code class="docutils literal notranslate"><span class="pre">RETURN</span></code>/<code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code></p></td>
 </tr>
-<tr class="row-even"><td>108</td>
-<td>GPLv3 license header should be the <a class="reference internal" href="developing_modules_documenting.html#copyright"><span class="std std-ref">short form</span></a> for new modules</td>
+<tr class="row-even"><td><p>108</p></td>
+<td><p>GPLv3 license header should be the <a class="reference internal" href="developing_modules_documenting.html#copyright"><span class="std std-ref">short form</span></a> for new modules</p></td>
 </tr>
-<tr class="row-odd"><td>109</td>
-<td>Next to last line is not <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code></td>
-</tr>
-<tr class="row-even"><td></td>
-<td>&#160;</td>
-</tr>
-<tr class="row-odd"><td><strong>2xx</strong></td>
-<td><strong>Imports</strong></td>
-</tr>
-<tr class="row-even"><td>201</td>
-<td>Did not find a <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> import</td>
-</tr>
-<tr class="row-odd"><td>203</td>
-<td><code class="docutils literal notranslate"><span class="pre">requests</span></code> import found, should use <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.urls</span></code> instead</td>
-</tr>
-<tr class="row-even"><td>204</td>
-<td><code class="docutils literal notranslate"><span class="pre">boto</span></code> import found, new modules should use <code class="docutils literal notranslate"><span class="pre">boto3</span></code></td>
-</tr>
-<tr class="row-odd"><td>205</td>
-<td><code class="docutils literal notranslate"><span class="pre">sys.exit()</span></code> call found. Should be <code class="docutils literal notranslate"><span class="pre">exit_json</span></code>/<code class="docutils literal notranslate"><span class="pre">fail_json</span></code></td>
-</tr>
-<tr class="row-even"><td>206</td>
-<td><code class="docutils literal notranslate"><span class="pre">WANT_JSON</span></code> not found in module</td>
-</tr>
-<tr class="row-odd"><td>207</td>
-<td><code class="docutils literal notranslate"><span class="pre">REPLACER_WINDOWS</span></code> not found in module</td>
-</tr>
-<tr class="row-even"><td>208</td>
-<td><code class="docutils literal notranslate"><span class="pre">module_utils</span></code> imports should import specific components, not <code class="docutils literal notranslate"><span class="pre">*</span></code></td>
-</tr>
-<tr class="row-odd"><td>209</td>
-<td>Only the following <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">__future__</span></code> imports are allowed:
-<code class="docutils literal notranslate"><span class="pre">absolute_import</span></code>, <code class="docutils literal notranslate"><span class="pre">division</span></code>, and <code class="docutils literal notranslate"><span class="pre">print_function</span></code>.</td>
-</tr>
-<tr class="row-even"><td>210</td>
-<td><code class="docutils literal notranslate"><span class="pre">subprocess.Popen</span></code> used instead of <code class="docutils literal notranslate"><span class="pre">module.run_command</span></code></td>
-</tr>
-<tr class="row-odd"><td>211</td>
-<td><code class="docutils literal notranslate"><span class="pre">os.call</span></code> used instead of <code class="docutils literal notranslate"><span class="pre">module.run_command</span></code></td>
+<tr class="row-odd"><td><p>109</p></td>
+<td><p>Next to last line is not <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code></p></td>
 </tr>
 <tr class="row-even"><td></td>
-<td>&#160;</td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><strong>3xx</strong></td>
-<td><strong>Documentation</strong></td>
+<tr class="row-odd"><td><p><strong>2xx</strong></p></td>
+<td><p><strong>Imports</strong></p></td>
 </tr>
-<tr class="row-even"><td>301</td>
-<td>No <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> provided</td>
+<tr class="row-even"><td><p>201</p></td>
+<td><p>Did not find a <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> import</p></td>
 </tr>
-<tr class="row-odd"><td>302</td>
-<td><code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> is not valid YAML</td>
+<tr class="row-odd"><td><p>203</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">requests</span></code> import found, should use <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.urls</span></code> instead</p></td>
 </tr>
-<tr class="row-even"><td>303</td>
-<td><code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> fragment missing</td>
+<tr class="row-even"><td><p>204</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boto</span></code> import found, new modules should use <code class="docutils literal notranslate"><span class="pre">boto3</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>304</td>
-<td>Unknown <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> error</td>
+<tr class="row-odd"><td><p>205</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sys.exit()</span></code> call found. Should be <code class="docutils literal notranslate"><span class="pre">exit_json</span></code>/<code class="docutils literal notranslate"><span class="pre">fail_json</span></code></p></td>
 </tr>
-<tr class="row-even"><td>305</td>
-<td>Invalid <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> schema</td>
+<tr class="row-even"><td><p>206</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">WANT_JSON</span></code> not found in module</p></td>
 </tr>
-<tr class="row-odd"><td>306</td>
-<td>Module level <code class="docutils literal notranslate"><span class="pre">version_added</span></code> is not a valid version number</td>
+<tr class="row-odd"><td><p>207</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">REPLACER_WINDOWS</span></code> not found in module</p></td>
 </tr>
-<tr class="row-even"><td>307</td>
-<td>Module level <code class="docutils literal notranslate"><span class="pre">version_added</span></code> is incorrect</td>
+<tr class="row-even"><td><p>208</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">module_utils</span></code> imports should import specific components, not <code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>308</td>
-<td><code class="docutils literal notranslate"><span class="pre">version_added</span></code> for new option is not a valid version number</td>
+<tr class="row-odd"><td><p>209</p></td>
+<td><p>Only the following <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">__future__</span></code> imports are allowed:
+<code class="docutils literal notranslate"><span class="pre">absolute_import</span></code>, <code class="docutils literal notranslate"><span class="pre">division</span></code>, and <code class="docutils literal notranslate"><span class="pre">print_function</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td>309</td>
-<td><code class="docutils literal notranslate"><span class="pre">version_added</span></code> for new option is incorrect</td>
+<tr class="row-even"><td><p>210</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">subprocess.Popen</span></code> used instead of <code class="docutils literal notranslate"><span class="pre">module.run_command</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>310</td>
-<td>No <code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code> provided</td>
+<tr class="row-odd"><td><p>211</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">os.call</span></code> used instead of <code class="docutils literal notranslate"><span class="pre">module.run_command</span></code></p></td>
 </tr>
-<tr class="row-even"><td>311</td>
-<td><code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code> is not valid YAML</td>
+<tr class="row-even"><td></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>312</td>
-<td>No <code class="docutils literal notranslate"><span class="pre">RETURN</span></code> documentation provided</td>
+<tr class="row-odd"><td><p><strong>3xx</strong></p></td>
+<td><p><strong>Documentation</strong></p></td>
 </tr>
-<tr class="row-even"><td>313</td>
-<td><code class="docutils literal notranslate"><span class="pre">RETURN</span></code> is not valid YAML</td>
+<tr class="row-even"><td><p>301</p></td>
+<td><p>No <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> provided</p></td>
 </tr>
-<tr class="row-odd"><td>314</td>
-<td>No <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> provided</td>
+<tr class="row-odd"><td><p>302</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> is not valid YAML</p></td>
 </tr>
-<tr class="row-even"><td>315</td>
-<td><code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> was not provided as a dict, YAML not supported</td>
+<tr class="row-even"><td><p>303</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> fragment missing</p></td>
 </tr>
-<tr class="row-odd"><td>316</td>
-<td>Invalid <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> schema</td>
+<tr class="row-odd"><td><p>304</p></td>
+<td><p>Unknown <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> error</p></td>
 </tr>
-<tr class="row-even"><td>317</td>
-<td>option is marked as required but specifies a default.
-Arguments with a default should not be marked as required</td>
+<tr class="row-even"><td><p>305</p></td>
+<td><p>Invalid <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> schema</p></td>
 </tr>
-<tr class="row-odd"><td>318</td>
-<td>Module marked as deprecated or removed in at least one of the filename, its metadata, or
+<tr class="row-odd"><td><p>306</p></td>
+<td><p>Module level <code class="docutils literal notranslate"><span class="pre">version_added</span></code> is not a valid version number</p></td>
+</tr>
+<tr class="row-even"><td><p>307</p></td>
+<td><p>Module level <code class="docutils literal notranslate"><span class="pre">version_added</span></code> is incorrect</p></td>
+</tr>
+<tr class="row-odd"><td><p>308</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">version_added</span></code> for new option is not a valid version number</p></td>
+</tr>
+<tr class="row-even"><td><p>309</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">version_added</span></code> for new option is incorrect</p></td>
+</tr>
+<tr class="row-odd"><td><p>310</p></td>
+<td><p>No <code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code> provided</p></td>
+</tr>
+<tr class="row-even"><td><p>311</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code> is not valid YAML</p></td>
+</tr>
+<tr class="row-odd"><td><p>312</p></td>
+<td><p>No <code class="docutils literal notranslate"><span class="pre">RETURN</span></code> documentation provided</p></td>
+</tr>
+<tr class="row-even"><td><p>313</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RETURN</span></code> is not valid YAML</p></td>
+</tr>
+<tr class="row-odd"><td><p>314</p></td>
+<td><p>No <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> provided</p></td>
+</tr>
+<tr class="row-even"><td><p>315</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> was not provided as a dict, YAML not supported</p></td>
+</tr>
+<tr class="row-odd"><td><p>316</p></td>
+<td><p>Invalid <code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> schema</p></td>
+</tr>
+<tr class="row-even"><td><p>317</p></td>
+<td><p>option is marked as required but specifies a default.
+Arguments with a default should not be marked as required</p></td>
+</tr>
+<tr class="row-odd"><td><p>318</p></td>
+<td><p>Module marked as deprecated or removed in at least one of the filename, its metadata, or
 in DOCUMENTATION (setting DOCUMENTATION.deprecated for deprecation or removing all
-documentation for removed) but not in all three places.</td>
+documentation for removed) but not in all three places.</p></td>
 </tr>
-<tr class="row-even"><td>319</td>
-<td><code class="docutils literal notranslate"><span class="pre">RETURN</span></code> fragments missing  or invalid</td>
+<tr class="row-even"><td><p>319</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RETURN</span></code> fragments missing  or invalid</p></td>
 </tr>
-<tr class="row-odd"><td>320</td>
-<td><code class="docutils literal notranslate"><span class="pre">DOCUMENTATION.options</span></code> must be a dictionary/hash when used</td>
+<tr class="row-odd"><td><p>320</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DOCUMENTATION.options</span></code> must be a dictionary/hash when used</p></td>
 </tr>
-<tr class="row-even"><td>321</td>
-<td><code class="docutils literal notranslate"><span class="pre">Exception</span></code> attempting to import module for <code class="docutils literal notranslate"><span class="pre">argument_spec</span></code> introspection</td>
+<tr class="row-even"><td><p>321</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Exception</span></code> attempting to import module for <code class="docutils literal notranslate"><span class="pre">argument_spec</span></code> introspection</p></td>
 </tr>
-<tr class="row-odd"><td>322</td>
-<td>argument is listed in the argument_spec, but not documented in the module</td>
+<tr class="row-odd"><td><p>322</p></td>
+<td><p>argument is listed in the argument_spec, but not documented in the module</p></td>
 </tr>
-<tr class="row-even"><td>323</td>
-<td>argument is listed in DOCUMENTATION.options, but not accepted by the module</td>
+<tr class="row-even"><td><p>323</p></td>
+<td><p>argument is listed in DOCUMENTATION.options, but not accepted by the module</p></td>
 </tr>
-<tr class="row-odd"><td>324</td>
-<td>Value for “default” from the argument_spec does not match the documentation</td>
+<tr class="row-odd"><td><p>324</p></td>
+<td><p>Value for “default” from the argument_spec does not match the documentation</p></td>
 </tr>
-<tr class="row-even"><td>325</td>
-<td>argument_spec defines type=”bool” but documentation does not</td>
+<tr class="row-even"><td><p>325</p></td>
+<td><p>argument_spec defines type=”bool” but documentation does not</p></td>
 </tr>
-<tr class="row-odd"><td>326</td>
-<td>Value for “choices” from the argument_spec does not match the documentation</td>
+<tr class="row-odd"><td><p>326</p></td>
+<td><p>Value for “choices” from the argument_spec does not match the documentation</p></td>
 </tr>
-<tr class="row-even"><td>327</td>
-<td>Default value from the documentation is not compatible with type defined in the argument_spec</td>
+<tr class="row-even"><td><p>327</p></td>
+<td><p>Default value from the documentation is not compatible with type defined in the argument_spec</p></td>
 </tr>
-<tr class="row-odd"><td>328</td>
-<td>Choices value from the documentation is not compatible with type defined in the argument_spec</td>
+<tr class="row-odd"><td><p>328</p></td>
+<td><p>Choices value from the documentation is not compatible with type defined in the argument_spec</p></td>
 </tr>
-<tr class="row-even"><td>329</td>
-<td>Default value from the argument_spec is not compatible with type defined in the argument_spec</td>
+<tr class="row-even"><td><p>329</p></td>
+<td><p>Default value from the argument_spec is not compatible with type defined in the argument_spec</p></td>
 </tr>
-<tr class="row-odd"><td>330</td>
-<td>Choices value from the argument_spec is not compatible with type defined in the argument_spec</td>
+<tr class="row-odd"><td><p>330</p></td>
+<td><p>Choices value from the argument_spec is not compatible with type defined in the argument_spec</p></td>
 </tr>
-<tr class="row-even"><td>331</td>
-<td>argument in argument_spec must be a dictionary/hash when used</td>
+<tr class="row-even"><td><p>331</p></td>
+<td><p>argument in argument_spec must be a dictionary/hash when used</p></td>
 </tr>
-<tr class="row-odd"><td>332</td>
-<td><code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code> schema validation error</td>
+<tr class="row-odd"><td><p>332</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code> schema validation error</p></td>
 </tr>
-<tr class="row-even"><td>333</td>
-<td><code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA.status</span></code> of deprecated or removed can’t include other statuses</td>
+<tr class="row-even"><td><p>333</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA.status</span></code> of deprecated or removed can’t include other statuses</p></td>
 </tr>
-<tr class="row-odd"><td>334</td>
-<td><code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> cannot be changed in a point release for a stable branch</td>
-</tr>
-<tr class="row-even"><td></td>
-<td>&#160;</td>
-</tr>
-<tr class="row-odd"><td><strong>4xx</strong></td>
-<td><strong>Syntax</strong></td>
-</tr>
-<tr class="row-even"><td>401</td>
-<td>Python <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> while parsing module</td>
-</tr>
-<tr class="row-odd"><td>403</td>
-<td>Type comparison using <code class="docutils literal notranslate"><span class="pre">type()</span></code> found. Use <code class="docutils literal notranslate"><span class="pre">isinstance()</span></code> instead</td>
+<tr class="row-odd"><td><p>334</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> cannot be changed in a point release for a stable branch</p></td>
 </tr>
 <tr class="row-even"><td></td>
-<td>&#160;</td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><strong>5xx</strong></td>
-<td><strong>Naming</strong></td>
+<tr class="row-odd"><td><p><strong>4xx</strong></p></td>
+<td><p><strong>Syntax</strong></p></td>
 </tr>
-<tr class="row-even"><td>501</td>
-<td>Official Ansible modules must have a <code class="docutils literal notranslate"><span class="pre">.py</span></code> extension for python
-modules or a <code class="docutils literal notranslate"><span class="pre">.ps1</span></code> for powershell modules</td>
+<tr class="row-even"><td><p>401</p></td>
+<td><p>Python <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> while parsing module</p></td>
 </tr>
-<tr class="row-odd"><td>502</td>
-<td>Ansible module subdirectories must contain an <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code></td>
+<tr class="row-odd"><td><p>403</p></td>
+<td><p>Type comparison using <code class="docutils literal notranslate"><span class="pre">type()</span></code> found. Use <code class="docutils literal notranslate"><span class="pre">isinstance()</span></code> instead</p></td>
 </tr>
-<tr class="row-even"><td>503</td>
-<td>Missing python documentation file</td>
+<tr class="row-even"><td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>5xx</strong></p></td>
+<td><p><strong>Naming</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>501</p></td>
+<td><p>Official Ansible modules must have a <code class="docutils literal notranslate"><span class="pre">.py</span></code> extension for python
+modules or a <code class="docutils literal notranslate"><span class="pre">.ps1</span></code> for powershell modules</p></td>
+</tr>
+<tr class="row-odd"><td><p>502</p></td>
+<td><p>Ansible module subdirectories must contain an <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>503</p></td>
+<td><p>Missing python documentation file</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="warnings">
 <h3><a class="toc-backref" href="#id7">Warnings</a><a class="headerlink" href="#warnings" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="7%" />
-<col width="93%" />
+<col style="width: 7%" />
+<col style="width: 93%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>code</td>
-<td>sample message</td>
+<tbody>
+<tr class="row-odd"><td><p>code</p></td>
+<td><p>sample message</p></td>
 </tr>
-<tr class="row-even"><td><strong>1xx</strong></td>
-<td><strong>Locations</strong></td>
+<tr class="row-even"><td><p><strong>1xx</strong></p></td>
+<td><p><strong>Locations</strong></p></td>
 </tr>
-<tr class="row-odd"><td>107</td>
-<td>Imports should be directly below <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code>/<code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code>/<code class="docutils literal notranslate"><span class="pre">RETURN</span></code>/<code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> for legacy modules</td>
+<tr class="row-odd"><td><p>107</p></td>
+<td><p>Imports should be directly below <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code>/<code class="docutils literal notranslate"><span class="pre">EXAMPLES</span></code>/<code class="docutils literal notranslate"><span class="pre">RETURN</span></code>/<code class="docutils literal notranslate"><span class="pre">ANSIBLE_METADATA</span></code> for legacy modules</p></td>
 </tr>
 <tr class="row-even"><td></td>
-<td>&#160;</td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><strong>2xx</strong></td>
-<td><strong>Imports</strong></td>
+<tr class="row-odd"><td><p><strong>2xx</strong></p></td>
+<td><p><strong>Imports</strong></p></td>
 </tr>
-<tr class="row-even"><td>208</td>
-<td><code class="docutils literal notranslate"><span class="pre">module_utils</span></code> imports should import specific components for legacy module, not <code class="docutils literal notranslate"><span class="pre">*</span></code></td>
+<tr class="row-even"><td><p>208</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">module_utils</span></code> imports should import specific components for legacy module, not <code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>291</td>
-<td>Try/Except <code class="docutils literal notranslate"><span class="pre">HAS_</span></code> expression missing</td>
+<tr class="row-odd"><td><p>291</p></td>
+<td><p>Try/Except <code class="docutils literal notranslate"><span class="pre">HAS_</span></code> expression missing</p></td>
 </tr>
-<tr class="row-even"><td>292</td>
-<td>Did not find <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.basic</span></code> import</td>
+<tr class="row-even"><td><p>292</p></td>
+<td><p>Did not find <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.basic</span></code> import</p></td>
 </tr>
 <tr class="row-odd"><td></td>
-<td>&#160;</td>
+<td></td>
 </tr>
-<tr class="row-even"><td><strong>3xx</strong></td>
-<td><strong>Documentation</strong></td>
+<tr class="row-even"><td><p><strong>3xx</strong></p></td>
+<td><p><strong>Documentation</strong></p></td>
 </tr>
-<tr class="row-odd"><td>312</td>
-<td>No <code class="docutils literal notranslate"><span class="pre">RETURN</span></code> documentation provided for legacy module</td>
+<tr class="row-odd"><td><p>312</p></td>
+<td><p>No <code class="docutils literal notranslate"><span class="pre">RETURN</span></code> documentation provided for legacy module</p></td>
 </tr>
-<tr class="row-even"><td>391</td>
-<td>Unknown pre-existing <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> error</td>
+<tr class="row-even"><td><p>391</p></td>
+<td><p>Unknown pre-existing <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> error</p></td>
 </tr>
-<tr class="row-odd"><td>392</td>
-<td>Pre-existing <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> fragment missing</td>
+<tr class="row-odd"><td><p>392</p></td>
+<td><p>Pre-existing <code class="docutils literal notranslate"><span class="pre">DOCUMENTATION</span></code> fragment missing</p></td>
 </tr>
 </tbody>
 </table>
@@ -2611,7 +2613,7 @@ modules or a <code class="docutils literal notranslate"><span class="pre">.ps1</
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

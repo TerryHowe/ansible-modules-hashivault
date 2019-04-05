@@ -2276,8 +2276,8 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">starting in 2.0.1 the setup task from gather_facts also inherits the environment directive from the play, you might need to use the <cite>|default</cite> filter to avoid errors if setting this at play level.</p>
+<p class="admonition-title">Note</p>
+<p>starting in 2.0.1 the setup task from gather_facts also inherits the environment directive from the play, you might need to use the <cite>|default</cite> filter to avoid errors if setting this at play level.</p>
 </div>
 </div>
 <div class="section" id="how-do-i-handle-different-machines-needing-different-user-accounts-or-ports-to-log-in-with">
@@ -2393,13 +2393,13 @@ $ pip3 install ansible
 bindings on systems such as Red Hat Enterprise Linux or Fedora that have SELinux enabled) then you
 need to install them into the virtualenv.  There are two methods:</p>
 <ul>
-<li><p class="first">When you create the virtualenv, specify <code class="docutils literal notranslate"><span class="pre">--system-site-packages</span></code> to make use of any libraries
+<li><p>When you create the virtualenv, specify <code class="docutils literal notranslate"><span class="pre">--system-site-packages</span></code> to make use of any libraries
 installed in the system’s Python:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ virtualenv ansible --system-site-packages
 </pre></div>
 </div>
 </li>
-<li><p class="first">Copy those files in manually from the system.  For instance, for SELinux bindings you might do:</p>
+<li><p>Copy those files in manually from the system.  For instance, for SELinux bindings you might do:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ virtualenv ansible --system-site-packages
 $ cp -r -v /usr/lib64/python3.*/site-packages/selinux/ ./py3-ansible/lib64/python3.*/site-packages/
 $ cp -v /usr/lib64/python3.*/site-packages/*selinux*.so ./py3-ansible/lib64/python3.*/site-packages/
@@ -2411,8 +2411,8 @@ $ cp -v /usr/lib64/python3.*/site-packages/*selinux*.so ./py3-ansible/lib64/pyth
 <div class="section" id="running-on-bsd">
 <h3>Running on BSD<a class="headerlink" href="#running-on-bsd" title="Permalink to this headline">¶</a></h3>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../user_guide/intro_bsd.html#working-with-bsd"><span class="std std-ref">Working with BSD</span></a></p>
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../user_guide/intro_bsd.html#working-with-bsd"><span class="std std-ref">Working with BSD</span></a></p>
 </div>
 </div>
 <div class="section" id="running-on-solaris">
@@ -2421,7 +2421,7 @@ $ cp -v /usr/lib64/python3.*/site-packages/*selinux*.so ./py3-ansible/lib64/pyth
 tmp directory Ansible uses ( <code class="file docutils literal notranslate"><span class="pre">~/.ansible/tmp</span></code>). If you see module failures on Solaris machines, this
 is likely the problem. There are several workarounds:</p>
 <ul>
-<li><p class="first">You can set <code class="docutils literal notranslate"><span class="pre">remote_tmp</span></code> to a path that will expand correctly with the shell you are using (see the plugin documentation for <a class="reference internal" href="../plugins/shell/csh.html#csh-shell"><span class="std std-ref">C shell</span></a>, <a class="reference internal" href="../plugins/shell/fish.html#fish-shell"><span class="std std-ref">fish shell</span></a>, and <a class="reference internal" href="../plugins/shell/powershell.html#powershell-shell"><span class="std std-ref">Powershell</span></a>).  For
+<li><p>You can set <code class="docutils literal notranslate"><span class="pre">remote_tmp</span></code> to a path that will expand correctly with the shell you are using (see the plugin documentation for <a class="reference internal" href="../plugins/shell/csh.html#csh-shell"><span class="std std-ref">C shell</span></a>, <a class="reference internal" href="../plugins/shell/fish.html#fish-shell"><span class="std std-ref">fish shell</span></a>, and <a class="reference internal" href="../plugins/shell/powershell.html#powershell-shell"><span class="std std-ref">Powershell</span></a>).  For
 example, in the ansible config file you can set:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">remote_tmp=$HOME/.ansible/tmp</span>
 </pre></div>
@@ -2431,7 +2431,7 @@ example, in the ansible config file you can set:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">You can set <a class="reference internal" href="../user_guide/intro_inventory.html#ansible-shell-executable"><span class="std std-ref">ansible_shell_executable</span></a> to the path to a POSIX compatible shell.  For
+<li><p>You can set <a class="reference internal" href="../user_guide/intro_inventory.html#ansible-shell-executable"><span class="std std-ref">ansible_shell_executable</span></a> to the path to a POSIX compatible shell.  For
 instance, many Solaris hosts have a POSIX shell located at <code class="file docutils literal notranslate"><span class="pre">/usr/xpg4/bin/sh</span></code> so you can set
 this in inventory like so:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">solaris1 ansible_shell_executable=/usr/xpg4/bin/sh</span>
@@ -2630,8 +2630,8 @@ risky because the parameters and values passed to <code class="docutils literal 
 be overwritten by malicious values in the <code class="docutils literal notranslate"><span class="pre">host</span> <span class="pre">facts</span></code> on a compromised
 target machine. To mitigate this risk:</p>
 <ul class="simple">
-<li>set bulk variables at a level of precedence greater than <code class="docutils literal notranslate"><span class="pre">host</span> <span class="pre">facts</span></code> in the order of precedence found in <a class="reference internal" href="../user_guide/playbooks_variables.html#ansible-variable-precedence"><span class="std std-ref">Variable precedence: Where should I put a variable?</span></a> (the example above is safe because play vars take precedence over facts)</li>
-<li>disable the <a class="reference internal" href="config.html#inject-facts-as-vars"><span class="std std-ref">INJECT_FACTS_AS_VARS</span></a> configuration setting to prevent fact values from colliding with variables (this will also disable the original warning)</li>
+<li><p>set bulk variables at a level of precedence greater than <code class="docutils literal notranslate"><span class="pre">host</span> <span class="pre">facts</span></code> in the order of precedence found in <a class="reference internal" href="../user_guide/playbooks_variables.html#ansible-variable-precedence"><span class="std std-ref">Variable precedence: Where should I put a variable?</span></a> (the example above is safe because play vars take precedence over facts)</p></li>
+<li><p>disable the <a class="reference internal" href="config.html#inject-facts-as-vars"><span class="std std-ref">INJECT_FACTS_AS_VARS</span></a> configuration setting to prevent fact values from colliding with variables (this will also disable the original warning)</p></li>
 </ul>
 </div>
 <div class="section" id="can-i-get-training-on-ansible">
@@ -2704,16 +2704,16 @@ but you can still access the orignal via <code class="docutils literal notransla
 <span id="i-dont-see-my-question"></span><h2>I don’t see my question here<a class="headerlink" href="#i-don-t-see-my-question-here" title="Permalink to this headline">¶</a></h2>
 <p>Please see the section below for a link to IRC and the Google Group, where you can ask your question there.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../user_guide/playbooks.html"><span class="doc">Working With Playbooks</span></a></dt>
-<dd>An introduction to playbooks</dd>
-<dt><a class="reference internal" href="../user_guide/playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt>
-<dd>Best practices advice</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">User Mailing List</a></dt>
-<dd>Have a question?  Stop by the google group!</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../user_guide/playbooks.html"><span class="doc">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/playbooks_best_practices.html"><span class="doc">Best Practices</span></a></dt><dd><p>Best practices advice</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2745,7 +2745,7 @@ but you can still access the orignal via <code class="docutils literal notransla
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2302,30 +2302,30 @@ adopting these new modules if possible.</p>
 <p>It’s easy to create a GCP account with credentials for Ansible. You have multiple options to
 get your credentials - here are two of the most common options:</p>
 <ul class="simple">
-<li>Service Accounts (Recommended): Use JSON service accounts with specific permissions.</li>
-<li>Machine Accounts: Use the permissions associated with the GCP Instance you’re using Ansible on.</li>
+<li><p>Service Accounts (Recommended): Use JSON service accounts with specific permissions.</p></li>
+<li><p>Machine Accounts: Use the permissions associated with the GCP Instance you’re using Ansible on.</p></li>
 </ul>
 <p>For the following examples, we’ll be using service account credentials.</p>
 <p>To work with the GCP modules, you’ll first need to get some credentials in the
 JSON format:</p>
 <ol class="arabic simple">
-<li><a class="reference external" href="https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount">Create a Service Account</a></li>
-<li><a class="reference external" href="https://support.google.com/cloud/answer/6158849?hl=en&amp;ref_topic=6262490#serviceaccounts">Download JSON credentials</a></li>
+<li><p><a class="reference external" href="https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount">Create a Service Account</a></p></li>
+<li><p><a class="reference external" href="https://support.google.com/cloud/answer/6158849?hl=en&amp;ref_topic=6262490#serviceaccounts">Download JSON credentials</a></p></li>
 </ol>
 <p>Once you have your credentials, there are two different ways to provide them to Ansible:</p>
 <ul class="simple">
-<li>by specifying them directly as module parameters</li>
-<li>by setting environment variables</li>
+<li><p>by specifying them directly as module parameters</p></li>
+<li><p>by setting environment variables</p></li>
 </ul>
 <div class="section" id="providing-credentials-as-module-parameters">
 <h3>Providing Credentials as Module Parameters<a class="headerlink" href="#providing-credentials-as-module-parameters" title="Permalink to this headline">¶</a></h3>
 <p>For the GCE modules you can specify the credentials as arguments:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">auth_kind</span></code>: type of authentication being used (choices: machineaccount, serviceaccount, application)</li>
-<li><code class="docutils literal notranslate"><span class="pre">service_account_email</span></code>: email associated with the project</li>
-<li><code class="docutils literal notranslate"><span class="pre">service_account_file</span></code>: path to the JSON credentials file</li>
-<li><code class="docutils literal notranslate"><span class="pre">project</span></code>: id of the project</li>
-<li><code class="docutils literal notranslate"><span class="pre">scopes</span></code>: The specific scopes that you want the actions to use.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auth_kind</span></code>: type of authentication being used (choices: machineaccount, serviceaccount, application)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service_account_email</span></code>: email associated with the project</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service_account_file</span></code>: path to the JSON credentials file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project</span></code>: id of the project</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scopes</span></code>: The specific scopes that you want the actions to use.</p></li>
 </ul>
 <p>For example, to create a new IP address using the <cite>gcp_compute_address</cite> module,
 you can use the following configuration:</p>
@@ -2509,7 +2509,7 @@ in the ‘new_instances’ group, if so desired.  Any sort of arbitrary configur
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

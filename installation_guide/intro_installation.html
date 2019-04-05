@@ -2269,26 +2269,28 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#intro-installation-guide" id="id8">Installation Guide</a><ul>
-<li><a class="reference internal" href="#basics-what-will-be-installed" id="id9">Basics / What Will Be Installed</a></li>
-<li><a class="reference internal" href="#what-version-to-pick" id="id10">What Version To Pick?</a></li>
-<li><a class="reference internal" href="#control-machine-requirements" id="id11">Control Machine Requirements</a></li>
-<li><a class="reference internal" href="#managed-node-requirements" id="id12">Managed Node Requirements</a></li>
-<li><a class="reference internal" href="#installing-the-control-machine" id="id13">Installing the Control Machine</a><ul>
-<li><a class="reference internal" href="#latest-release-via-dnf-or-yum" id="id14">Latest Release via DNF or Yum</a></li>
-<li><a class="reference internal" href="#latest-releases-via-apt-ubuntu" id="id15">Latest Releases via Apt (Ubuntu)</a></li>
-<li><a class="reference internal" href="#latest-releases-via-apt-debian" id="id16">Latest Releases via Apt (Debian)</a></li>
-<li><a class="reference internal" href="#latest-releases-via-portage-gentoo" id="id17">Latest Releases via Portage (Gentoo)</a></li>
-<li><a class="reference internal" href="#latest-releases-via-pkg-freebsd" id="id18">Latest Releases via pkg (FreeBSD)</a></li>
-<li><a class="reference internal" href="#latest-releases-on-macos" id="id19">Latest Releases on macOS</a></li>
-<li><a class="reference internal" href="#latest-releases-via-opencsw-solaris" id="id20">Latest Releases via OpenCSW (Solaris)</a></li>
-<li><a class="reference internal" href="#latest-releases-via-pacman-arch-linux" id="id21">Latest Releases via Pacman (Arch Linux)</a></li>
-<li><a class="reference internal" href="#latest-releases-via-pip" id="id22">Latest Releases via Pip</a></li>
-<li><a class="reference internal" href="#tarballs-of-tagged-releases" id="id23">Tarballs of Tagged Releases</a></li>
-<li><a class="reference internal" href="#running-from-source" id="id24">Running From Source</a></li>
+<li><p><a class="reference internal" href="#intro-installation-guide" id="id8">Installation Guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#basics-what-will-be-installed" id="id9">Basics / What Will Be Installed</a></p></li>
+<li><p><a class="reference internal" href="#what-version-to-pick" id="id10">What Version To Pick?</a></p></li>
+<li><p><a class="reference internal" href="#control-machine-requirements" id="id11">Control Machine Requirements</a></p></li>
+<li><p><a class="reference internal" href="#managed-node-requirements" id="id12">Managed Node Requirements</a></p></li>
+<li><p><a class="reference internal" href="#installing-the-control-machine" id="id13">Installing the Control Machine</a></p>
+<ul>
+<li><p><a class="reference internal" href="#latest-release-via-dnf-or-yum" id="id14">Latest Release via DNF or Yum</a></p></li>
+<li><p><a class="reference internal" href="#latest-releases-via-apt-ubuntu" id="id15">Latest Releases via Apt (Ubuntu)</a></p></li>
+<li><p><a class="reference internal" href="#latest-releases-via-apt-debian" id="id16">Latest Releases via Apt (Debian)</a></p></li>
+<li><p><a class="reference internal" href="#latest-releases-via-portage-gentoo" id="id17">Latest Releases via Portage (Gentoo)</a></p></li>
+<li><p><a class="reference internal" href="#latest-releases-via-pkg-freebsd" id="id18">Latest Releases via pkg (FreeBSD)</a></p></li>
+<li><p><a class="reference internal" href="#latest-releases-on-macos" id="id19">Latest Releases on macOS</a></p></li>
+<li><p><a class="reference internal" href="#latest-releases-via-opencsw-solaris" id="id20">Latest Releases via OpenCSW (Solaris)</a></p></li>
+<li><p><a class="reference internal" href="#latest-releases-via-pacman-arch-linux" id="id21">Latest Releases via Pacman (Arch Linux)</a></p></li>
+<li><p><a class="reference internal" href="#latest-releases-via-pip" id="id22">Latest Releases via Pip</a></p></li>
+<li><p><a class="reference internal" href="#tarballs-of-tagged-releases" id="id23">Tarballs of Tagged Releases</a></p></li>
+<li><p><a class="reference internal" href="#running-from-source" id="id24">Running From Source</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ansible-on-github" id="id25">Ansible on GitHub</a></li>
+<li><p><a class="reference internal" href="#ansible-on-github" id="id25">Ansible on GitHub</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2316,12 +2318,12 @@ information about running from source.  It’s not necessary to install the prog
 <p>Currently Ansible can be run from any machine with Python 2 (version 2.7) or Python 3 (versions 3.5 and higher) installed. Windows isn’t supported for the control machine.</p>
 <p>This includes Red Hat, Debian, CentOS, macOS, any of the BSDs, and so on.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">macOS by default is configured for a small number of file handles, so if you want to use 15 or more forks you’ll need to raise the ulimit with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">launchctl</span> <span class="pre">limit</span> <span class="pre">maxfiles</span> <span class="pre">unlimited</span></code>. This command can also fix any “Too many open files” error.</p>
+<p class="admonition-title">Note</p>
+<p>macOS by default is configured for a small number of file handles, so if you want to use 15 or more forks you’ll need to raise the ulimit with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">launchctl</span> <span class="pre">limit</span> <span class="pre">maxfiles</span> <span class="pre">unlimited</span></code>. This command can also fix any “Too many open files” error.</p>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Please note that some modules and plugins have additional requirements. For modules these need to be satisfied on the ‘target’ machine and should be listed in the module specific docs.</p>
+<p class="admonition-title">Warning</p>
+<p>Please note that some modules and plugins have additional requirements. For modules these need to be satisfied on the ‘target’ machine and should be listed in the module specific docs.</p>
 </div>
 </div>
 <div class="section" id="managed-node-requirements">
@@ -2331,14 +2333,13 @@ default this uses sftp. If that’s not available, you can switch to scp in
 <code class="file docutils literal notranslate"><span class="pre">ansible.cfg</span></code>.  You also need Python 2 (version 2.6 or later) or Python 3 (version 3.5 or
 later).</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last">
-<li><p class="first">If you have SELinux enabled on remote nodes, you will also want to install
+<p class="admonition-title">Note</p>
+<ul>
+<li><p>If you have SELinux enabled on remote nodes, you will also want to install
 libselinux-python on them before using any copy/file/template related functions in Ansible. You
 can use the <span class="xref std std-ref">yum module</span> or <span class="xref std std-ref">dnf module</span> in Ansible to install this package on remote systems
-that do not have it.</p>
-</li>
-<li><p class="first">By default, Ansible uses the python interpreter located at <code class="file docutils literal notranslate"><span class="pre">/usr/bin/python</span></code> to run its
+that do not have it.</p></li>
+<li><p>By default, Ansible uses the python interpreter located at <code class="file docutils literal notranslate"><span class="pre">/usr/bin/python</span></code> to run its
 modules.  However, some Linux distributions may only have a Python 3 interpreter installed to
 <code class="file docutils literal notranslate"><span class="pre">/usr/bin/python3</span></code> by default.  On those systems, you may see an error like:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;module_stdout&quot;</span><span class="p">:</span> <span class="nt">&quot;/bin/sh</span><span class="p">:</span> <span class="nt">/usr/bin/python</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">No such file or directory\r\n&quot;</span>
@@ -2349,7 +2350,7 @@ modules.  However, some Linux distributions may only have a Python 3 interpreter
 modules to use. You will still need to set <a class="reference internal" href="../user_guide/intro_inventory.html#ansible-python-interpreter"><span class="std std-ref">ansible_python_interpreter</span></a> if the Python
 2 interpreter is not installed to <strong class="command">/usr/bin/python</strong>.</p>
 </li>
-<li><p class="first">Ansible’s “raw” module (for executing commands in a quick and dirty way) and the script module
+<li><p>Ansible’s “raw” module (for executing commands in a quick and dirty way) and the script module
 don’t even need Python installed.  So technically, you can use Ansible to install a compatible
 version of Python using the <span class="xref std std-ref">raw module</span>, which then allows you to use everything else.
 For example, if you need to bootstrap Python 2 onto a RHEL-based system, you can install it
@@ -2399,8 +2400,8 @@ $ sudo apt-get install ansible
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">On older Ubuntu distributions, “software-properties-common” is called “python-software-properties”.</p>
+<p class="admonition-title">Note</p>
+<p>On older Ubuntu distributions, “software-properties-common” is called “python-software-properties”.</p>
 </div>
 <p>Debian/Ubuntu packages can also be built from the source checkout, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ make deb
@@ -2422,8 +2423,8 @@ $ sudo apt-get install ansible
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This method has been verified with the Trusty sources in Debian Jessie and Stretch but may not be supported in earlier versions.</p>
+<p class="admonition-title">Note</p>
+<p>This method has been verified with the Trusty sources in Debian Jessie and Stretch but may not be supported in earlier versions.</p>
 </div>
 </div>
 <div class="section" id="latest-releases-via-portage-gentoo">
@@ -2436,8 +2437,8 @@ $ sudo apt-get install ansible
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The current default Python slot on Gentoo is version 3.4.  Ansible needs Python-3.5 or higher so
+<p class="admonition-title">Note</p>
+<p>The current default Python slot on Gentoo is version 3.4.  Ansible needs Python-3.5 or higher so
 you will need to <cite>:ref:`bootstrap &lt;managed_node_requirements&gt;</cite> a compatible version onto the
 machines.</p>
 </div>
@@ -2492,7 +2493,7 @@ your version of Python, you can get pip by:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$ sudo easy_install pip</span>
 </pre></div>
 </div>
-<p>Then install Ansible with <a class="footnote-reference" href="#id7" id="id5">[1]</a>:</p>
+<p>Then install Ansible with <a class="footnote-reference brackets" href="#id7" id="id5">1</a>:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$ sudo pip install ansible</span>
 </pre></div>
 </div>
@@ -2506,8 +2507,8 @@ your version of Python, you can get pip by:</p>
 </div>
 <p>Readers that use virtualenv can also install Ansible under virtualenv, though we’d recommend to not worry about it and just install Ansible globally. Do not use easy_install to install Ansible directly.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Older versions of pip defaults to <a class="reference external" href="http://pypi.python.org/simple">http://pypi.python.org/simple</a>, which no longer works.
+<p class="admonition-title">Note</p>
+<p>Older versions of pip defaults to <a class="reference external" href="http://pypi.python.org/simple">http://pypi.python.org/simple</a>, which no longer works.
 Please make sure you have an updated pip (version 10 or greater) installed before installing Ansible.
 Refer <a class="reference external" href="https://pip.pypa.io/en/stable/installing/#installation">here</a> about installing latest pip.</p>
 </div>
@@ -2527,8 +2528,8 @@ when they are implemented and easily contribute to the project. Because there is
 nothing to install, following the development version is significantly easier than most
 open source projects.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you are intending to use Tower as the Control Machine, do not use a source install. Please use OS package manager (like <code class="docutils literal notranslate"><span class="pre">apt/yum</span></code>) or <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install a stable version.</p>
+<p class="admonition-title">Note</p>
+<p>If you are intending to use Tower as the Control Machine, do not use a source install. Please use OS package manager (like <code class="docutils literal notranslate"><span class="pre">apt/yum</span></code>) or <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install a stable version.</p>
 </div>
 <p>To install from source, clone the Ansible git repository:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/ansible/ansible.git --recursive
@@ -2552,7 +2553,7 @@ $ <span class="nb">cd</span> ./ansible
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$ sudo easy_install pip</span>
 </pre></div>
 </div>
-<p>Ansible also uses the following Python modules that need to be installed <a class="footnote-reference" href="#id7" id="id6">[1]</a>:</p>
+<p>Ansible also uses the following Python modules that need to be installed <a class="footnote-reference brackets" href="#id7" id="id6">1</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo pip install -r ./requirements.txt
 </pre></div>
 </div>
@@ -2575,8 +2576,8 @@ $ <span class="nb">export</span> <span class="nv">ANSIBLE_INVENTORY</span><span 
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">ANSIBLE_INVENTORY is available starting at 1.9 and substitutes the deprecated ANSIBLE_HOSTS</p>
+<p class="admonition-title">Note</p>
+<p>ANSIBLE_INVENTORY is available starting at 1.9 and substitutes the deprecated ANSIBLE_HOSTS</p>
 </div>
 <p>You can read more about the inventory file in later parts of the manual.</p>
 <p>Now let’s test things with a ping command:</p>
@@ -2592,26 +2593,25 @@ $ <span class="nb">export</span> <span class="nv">ANSIBLE_INVENTORY</span><span 
 you have a GitHub account.  This is also where we keep the issue tracker for sharing
 bugs and feature ideas.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="../user_guide/intro_adhoc.html#intro-adhoc"><span class="std std-ref">Introduction To Ad-Hoc Commands</span></a></dt>
-<dd>Examples of basic commands</dd>
-<dt><a class="reference internal" href="../user_guide/playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt>
-<dd>Learning ansible’s configuration management language</dd>
-<dt><a class="reference internal" href="../reference_appendices/faq.html#installation-faqs"><span class="std std-ref">How do I handle the package dependencies required by Ansible package dependencies during Ansible installation ?</span></a></dt>
-<dd>Ansible Installation related to FAQs</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt>
-<dd>Questions? Help? Ideas?  Stop by the list on Google Groups</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt>
-<dd>#ansible IRC chat channel</dd>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../user_guide/intro_adhoc.html#intro-adhoc"><span class="std std-ref">Introduction To Ad-Hoc Commands</span></a></dt><dd><p>Examples of basic commands</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>Learning ansible’s configuration management language</p>
+</dd>
+<dt><a class="reference internal" href="../reference_appendices/faq.html#installation-faqs"><span class="std std-ref">How do I handle the package dependencies required by Ansible package dependencies during Ansible installation ?</span></a></dt><dd><p>Ansible Installation related to FAQs</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-project">Mailing List</a></dt><dd><p>Questions? Help? Ideas?  Stop by the list on Google Groups</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
 </dl>
 </div>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id5">1</a>, <a class="fn-backref" href="#id6">2</a>)</em> If you have issues with the “pycrypto” package install on macOS, then you may need to try <code class="docutils literal notranslate"><span class="pre">CC=clang</span> <span class="pre">sudo</span> <span class="pre">-E</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pycrypto</span></code>.</td></tr>
-</tbody>
-</table>
+<dl class="footnote brackets">
+<dt class="label" id="id7"><span class="brackets">1</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id6">2</a>)</span></dt>
+<dd><p>If you have issues with the “pycrypto” package install on macOS, then you may need to try <code class="docutils literal notranslate"><span class="pre">CC=clang</span> <span class="pre">sudo</span> <span class="pre">-E</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pycrypto</span></code>.</p>
+</dd>
+</dl>
 </div>
 </div>
 
@@ -2641,7 +2641,7 @@ bugs and feature ideas.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

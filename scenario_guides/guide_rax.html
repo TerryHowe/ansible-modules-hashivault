@@ -2269,8 +2269,8 @@
 <div class="section" id="introduction">
 <span id="rax-introduction"></span><h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This section of the documentation is under construction. We are in the process of adding more examples about the Rackspace modules and how they work together.  Once complete, there will also be examples for Rackspace Cloud in <a class="reference external" href="https://github.com/ansible/ansible-examples/">ansible-examples</a>.</p>
+<p class="admonition-title">Note</p>
+<p>This section of the documentation is under construction. We are in the process of adding more examples about the Rackspace modules and how they work together.  Once complete, there will also be examples for Rackspace Cloud in <a class="reference external" href="https://github.com/ansible/ansible-examples/">ansible-examples</a>.</p>
 </div>
 <p>Ansible contains a number of core modules for interacting with Rackspace Cloud.</p>
 <p>The purpose of this section is to explain how to put Ansible modules together
@@ -2318,8 +2318,8 @@ this information.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">pyrax may be installed in the global Python package scope or in a virtual environment.  There are no special considerations to keep in mind when installing pyrax.</p>
+<p class="admonition-title">Note</p>
+<p>pyrax may be installed in the global Python package scope or in a virtual environment.  There are no special considerations to keep in mind when installing pyrax.</p>
 </div>
 </div>
 </div>
@@ -2329,14 +2329,14 @@ this information.</p>
 <p>The ‘rax’ module provides the ability to provision instances within Rackspace Cloud.  Typically the provisioning task will be performed from your Ansible control server (in our example, localhost) against the Rackspace cloud API.  This is done for several reasons:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Avoiding installing the pyrax library on remote nodes</li>
-<li>No need to encrypt and distribute credentials to remote nodes</li>
-<li>Speed and simplicity</li>
+<li><p>Avoiding installing the pyrax library on remote nodes</p></li>
+<li><p>No need to encrypt and distribute credentials to remote nodes</p></li>
+<li><p>Speed and simplicity</p></li>
 </ul>
 </div></blockquote>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Authentication with the Rackspace-related modules is handled by either
+<p class="admonition-title">Note</p>
+<p>Authentication with the Rackspace-related modules is handled by either
 specifying your username and API key as environment variables or passing
 them as module arguments, or by specifying the location of a credentials
 file.</p>
@@ -2390,13 +2390,13 @@ to the next section.</p>
 <span id="raxpy"></span><h3>rax.py<a class="headerlink" href="#rax-py" title="Permalink to this headline">¶</a></h3>
 <p>To use the rackspace dynamic inventory script, copy <code class="docutils literal notranslate"><span class="pre">rax.py</span></code> into your inventory directory and make it executable. You can specify a credentials file for <code class="docutils literal notranslate"><span class="pre">rax.py</span></code> utilizing the <code class="docutils literal notranslate"><span class="pre">RAX_CREDS_FILE</span></code> environment variable.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Dynamic inventory scripts (like <code class="docutils literal notranslate"><span class="pre">rax.py</span></code>) are saved in <code class="docutils literal notranslate"><span class="pre">/usr/share/ansible/inventory</span></code> if Ansible has been installed globally.  If installed to a virtualenv, the inventory scripts are installed to <code class="docutils literal notranslate"><span class="pre">$VIRTUALENV/share/inventory</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>Dynamic inventory scripts (like <code class="docutils literal notranslate"><span class="pre">rax.py</span></code>) are saved in <code class="docutils literal notranslate"><span class="pre">/usr/share/ansible/inventory</span></code> if Ansible has been installed globally.  If installed to a virtualenv, the inventory scripts are installed to <code class="docutils literal notranslate"><span class="pre">$VIRTUALENV/share/inventory</span></code>.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Users of <a class="reference internal" href="../reference_appendices/tower.html#ansible-tower"><span class="std std-ref">Ansible Tower</span></a> will note that dynamic inventory is natively supported by Tower, and all you have to do is associate a group with your Rackspace Cloud credentials, and it will easily synchronize without going through these steps:</p>
-<div class="last highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$ RAX_CREDS_FILE=~/.raxpub ansible all -i rax.py -m setup</span>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$ RAX_CREDS_FILE=~/.raxpub ansible all -i rax.py -m setup</span>
 </pre></div>
 </div>
 </div>
@@ -2979,10 +2979,10 @@ and less information has to be shared with remote hosts.</p>
 <span id="pending-information"></span><h3>Orchestration in the Rackspace Cloud<a class="headerlink" href="#orchestration-in-the-rackspace-cloud" title="Permalink to this headline">¶</a></h3>
 <p>Ansible is a powerful orchestration tool, and rax modules allow you the opportunity to orchestrate complex tasks, deployments, and configurations.  The key here is to automate provisioning of infrastructure, like any other piece of software in an environment.  Complex deployments might have previously required manual manipulation of load balancers, or manual provisioning of servers.  Utilizing the rax modules included with Ansible, one can make the deployment of additional nodes contingent on the current number of running nodes, or the configuration of a clustered application dependent on the number of nodes with common metadata.  One could automate the following scenarios, for example:</p>
 <ul class="simple">
-<li>Servers that are removed from a Cloud Load Balancer one-by-one, updated, verified, and returned to the load balancer pool</li>
-<li>Expansion of an already-online environment, where nodes are provisioned, bootstrapped, configured, and software installed</li>
-<li>A procedure where app log files are uploaded to a central location, like Cloud Files, before a node is decommissioned</li>
-<li>Servers and load balancers that have DNS records created and destroyed on creation and decommissioning, respectively</li>
+<li><p>Servers that are removed from a Cloud Load Balancer one-by-one, updated, verified, and returned to the load balancer pool</p></li>
+<li><p>Expansion of an already-online environment, where nodes are provisioned, bootstrapped, configured, and software installed</p></li>
+<li><p>A procedure where app log files are uploaded to a central location, like Cloud Files, before a node is decommissioned</p></li>
+<li><p>Servers and load balancers that have DNS records created and destroyed on creation and decommissioning, respectively</p></li>
 </ul>
 </div>
 </div>
@@ -3014,7 +3014,7 @@ and less information has to be shared with remote hosts.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2268,340 +2268,330 @@
 <span id="id1"></span><h1>Playbook Keywords<a class="headerlink" href="#playbook-keywords" title="Permalink to this headline">¶</a></h1>
 <p>These are the keywords available on common playbook objects.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Please note:</p>
-<ul class="last simple">
-<li>Aliases for the directives are not reflected here, nor are mutable one. For example,
-<a class="reference internal" href="#term-action"><span class="xref std std-term">action</span></a> in task can be substituted by the name of any Ansible module.</li>
-<li>The keywords do not have <code class="docutils literal notranslate"><span class="pre">version_added</span></code> information at this time</li>
-<li>Some keywords set defaults for the objects inside of them rather than for the objects
-themselves</li>
+<ul class="simple">
+<li><p>Aliases for the directives are not reflected here, nor are mutable one. For example,
+<a class="reference internal" href="#term-action"><span class="xref std std-term">action</span></a> in task can be substituted by the name of any Ansible module.</p></li>
+<li><p>The keywords do not have <code class="docutils literal notranslate"><span class="pre">version_added</span></code> information at this time</p></li>
+<li><p>Some keywords set defaults for the objects inside of them rather than for the objects
+themselves</p></li>
 </ul>
 </div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#play" id="id2">Play</a></li>
-<li><a class="reference internal" href="#role" id="id3">Role</a></li>
-<li><a class="reference internal" href="#block" id="id4">Block</a></li>
-<li><a class="reference internal" href="#task" id="id5">Task</a></li>
+<li><p><a class="reference internal" href="#play" id="id2">Play</a></p></li>
+<li><p><a class="reference internal" href="#role" id="id3">Role</a></p></li>
+<li><p><a class="reference internal" href="#block" id="id4">Block</a></p></li>
+<li><p><a class="reference internal" href="#task" id="id5">Task</a></p></li>
 </ul>
 </div>
 <div class="section" id="play">
 <h2><a class="toc-backref" href="#id2">Play</a><a class="headerlink" href="#play" title="Permalink to this headline">¶</a></h2>
-<dl class="glossary docutils">
-<dt id="term-any-errors-fatal">any_errors_fatal</dt>
-<dd>Force any un-handled task errors on any host to propagate to all hosts and end the play.</dd>
-<dt id="term-become">become</dt>
-<dd>Boolean that controls if privilege escalation is used or not on <a class="reference internal" href="glossary.html#term-task"><span class="xref std std-term">Task</span></a> execution.</dd>
-<dt id="term-become-flags">become_flags</dt>
-<dd>A string of flag(s) to pass to the privilege escalation program when <a class="reference internal" href="#term-90"><span class="xref std std-term">become</span></a> is True.</dd>
-<dt id="term-become-method">become_method</dt>
-<dd>Which method of privilege escalation to use (such as sudo or su).</dd>
-<dt id="term-become-user">become_user</dt>
-<dd>User that you ‘become’ after using privilege escalation. The remote/login user must have permissions to become this user.</dd>
-<dt id="term-check-mode">check_mode</dt>
-<dd><p class="first">A boolean that controls if a task is executed in ‘check’ mode</p>
-<div class="last admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../user_guide/playbooks_checkmode.html#check-mode-dry"><span class="std std-ref">Check Mode (“Dry Run”)</span></a></p>
+<dl class="glossary">
+<dt id="term-any-errors-fatal">any_errors_fatal</dt><dd><p>Force any un-handled task errors on any host to propagate to all hosts and end the play.</p>
+</dd>
+<dt id="term-become">become</dt><dd><p>Boolean that controls if privilege escalation is used or not on <a class="reference internal" href="glossary.html#term-task"><span class="xref std std-term">Task</span></a> execution.</p>
+</dd>
+<dt id="term-become-flags">become_flags</dt><dd><p>A string of flag(s) to pass to the privilege escalation program when <a class="reference internal" href="#term-90"><span class="xref std std-term">become</span></a> is True.</p>
+</dd>
+<dt id="term-become-method">become_method</dt><dd><p>Which method of privilege escalation to use (such as sudo or su).</p>
+</dd>
+<dt id="term-become-user">become_user</dt><dd><p>User that you ‘become’ after using privilege escalation. The remote/login user must have permissions to become this user.</p>
+</dd>
+<dt id="term-check-mode">check_mode</dt><dd><p>A boolean that controls if a task is executed in ‘check’ mode</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../user_guide/playbooks_checkmode.html#check-mode-dry"><span class="std std-ref">Check Mode (“Dry Run”)</span></a></p>
 </div>
 </dd>
-<dt id="term-connection">connection</dt>
-<dd><p class="first">Allows you to change the connection plugin used for tasks to execute on the target.</p>
-<div class="last admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../plugins/connection.html#using-connection"><span class="std std-ref">Using Connection Plugins</span></a></p>
+<dt id="term-connection">connection</dt><dd><p>Allows you to change the connection plugin used for tasks to execute on the target.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../plugins/connection.html#using-connection"><span class="std std-ref">Using Connection Plugins</span></a></p>
 </div>
 </dd>
-<dt id="term-debugger">debugger</dt>
-<dd>Enable debugging tasks based on state of the task result. See <a class="reference internal" href="../user_guide/playbooks_debugger.html#playbook-debugger"><span class="std std-ref">Playbook Debugger</span></a></dd>
-<dt id="term-diff">diff</dt>
-<dd>Toggle to make tasks return ‘diff’ information or not.</dd>
-<dt id="term-environment">environment</dt>
-<dd>A dictionary that gets converted into environment vars to be provided for the task upon execution.</dd>
-<dt id="term-fact-path">fact_path</dt>
-<dd>Set the fact path option for the fact gathering plugin controlled by <a class="reference internal" href="#term-gather-facts"><span class="xref std std-term">gather_facts</span></a>.</dd>
-<dt id="term-force-handlers">force_handlers</dt>
-<dd>Will force notified handler execution for hosts even if they failed during the play. Will not trigger if the play itself fails.</dd>
-<dt id="term-gather-facts">gather_facts</dt>
-<dd>A boolean that controls if the play will automatically run the ‘setup’ task to gather facts for the hosts.</dd>
-<dt id="term-gather-subset">gather_subset</dt>
-<dd>Allows you to pass subset options to the  fact gathering plugin controlled by <a class="reference internal" href="#term-gather-facts"><span class="xref std std-term">gather_facts</span></a>.</dd>
-<dt id="term-gather-timeout">gather_timeout</dt>
-<dd>Allows you to set the timeout for the fact gathering plugin controlled by <a class="reference internal" href="#term-gather-facts"><span class="xref std std-term">gather_facts</span></a>.</dd>
-<dt id="term-handlers">handlers</dt>
-<dd>A section with tasks that are treated as handlers, these won’t get executed normally, only when notified after each section of tasks is complete.</dd>
-<dt id="term-hosts">hosts</dt>
-<dd>A list of groups, hosts or host pattern that translates into a list of hosts that are the play’s target.</dd>
-<dt id="term-ignore-errors">ignore_errors</dt>
-<dd>Boolean that allows you to ignore task failures and continue with play. It does not affect connection errors.</dd>
-<dt id="term-ignore-unreachable">ignore_unreachable</dt>
-<dd>Boolean that allows you to ignore unreachable hosts and continue with play. This does not affect other task errors (see <a class="reference internal" href="#term-104"><span class="xref std std-term">ignore_errors</span></a>) but is useful for groups of volatile/ephemeral hosts.</dd>
-<dt id="term-max-fail-percentage">max_fail_percentage</dt>
-<dd>can be used to abort the run after a given percentage of hosts in the current batch has failed.</dd>
-<dt id="term-module-defaults">module_defaults</dt>
-<dd>Specifies default parameter values for modules.</dd>
-<dt id="term-name">name</dt>
-<dd>Identifier. Can be used for documentation, in or tasks/handlers.</dd>
-<dt id="term-no-log">no_log</dt>
-<dd>Boolean that controls information disclosure.</dd>
-<dt id="term-order">order</dt>
-<dd>Controls the sorting of hosts as they are used for executing the play. Possible values are inventory (default), sorted, reverse_sorted, reverse_inventory and shuffle.</dd>
-<dt id="term-port">port</dt>
-<dd>Used to override the default port used in a connection.</dd>
-<dt id="term-post-tasks">post_tasks</dt>
-<dd>A list of tasks to execute after the <a class="reference internal" href="#term-tasks"><span class="xref std std-term">tasks</span></a> section.</dd>
-<dt id="term-pre-tasks">pre_tasks</dt>
-<dd>A list of tasks to execute before <a class="reference internal" href="#term-roles"><span class="xref std std-term">roles</span></a>.</dd>
-<dt id="term-remote-user">remote_user</dt>
-<dd>User used to log into the target via the connection plugin.</dd>
-<dt id="term-roles">roles</dt>
-<dd>List of roles to be imported into the play</dd>
-<dt id="term-run-once">run_once</dt>
-<dd>Boolean that will bypass the host loop, forcing the task to attempt to execute on the first host available and afterwards apply any results and facts to all active hosts in the same batch.</dd>
-<dt id="term-serial">serial</dt>
-<dd><p class="first">Explicitly define how Ansible batches the execution of the current play on the play’s target</p>
-<div class="last admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../user_guide/playbooks_delegation.html#rolling-update-batch-size"><span class="std std-ref">Rolling Update Batch Size</span></a></p>
+<dt id="term-debugger">debugger</dt><dd><p>Enable debugging tasks based on state of the task result. See <a class="reference internal" href="../user_guide/playbooks_debugger.html#playbook-debugger"><span class="std std-ref">Playbook Debugger</span></a></p>
+</dd>
+<dt id="term-diff">diff</dt><dd><p>Toggle to make tasks return ‘diff’ information or not.</p>
+</dd>
+<dt id="term-environment">environment</dt><dd><p>A dictionary that gets converted into environment vars to be provided for the task upon execution.</p>
+</dd>
+<dt id="term-fact-path">fact_path</dt><dd><p>Set the fact path option for the fact gathering plugin controlled by <a class="reference internal" href="#term-gather-facts"><span class="xref std std-term">gather_facts</span></a>.</p>
+</dd>
+<dt id="term-force-handlers">force_handlers</dt><dd><p>Will force notified handler execution for hosts even if they failed during the play. Will not trigger if the play itself fails.</p>
+</dd>
+<dt id="term-gather-facts">gather_facts</dt><dd><p>A boolean that controls if the play will automatically run the ‘setup’ task to gather facts for the hosts.</p>
+</dd>
+<dt id="term-gather-subset">gather_subset</dt><dd><p>Allows you to pass subset options to the  fact gathering plugin controlled by <a class="reference internal" href="#term-gather-facts"><span class="xref std std-term">gather_facts</span></a>.</p>
+</dd>
+<dt id="term-gather-timeout">gather_timeout</dt><dd><p>Allows you to set the timeout for the fact gathering plugin controlled by <a class="reference internal" href="#term-gather-facts"><span class="xref std std-term">gather_facts</span></a>.</p>
+</dd>
+<dt id="term-handlers">handlers</dt><dd><p>A section with tasks that are treated as handlers, these won’t get executed normally, only when notified after each section of tasks is complete.</p>
+</dd>
+<dt id="term-hosts">hosts</dt><dd><p>A list of groups, hosts or host pattern that translates into a list of hosts that are the play’s target.</p>
+</dd>
+<dt id="term-ignore-errors">ignore_errors</dt><dd><p>Boolean that allows you to ignore task failures and continue with play. It does not affect connection errors.</p>
+</dd>
+<dt id="term-ignore-unreachable">ignore_unreachable</dt><dd><p>Boolean that allows you to ignore unreachable hosts and continue with play. This does not affect other task errors (see <a class="reference internal" href="#term-104"><span class="xref std std-term">ignore_errors</span></a>) but is useful for groups of volatile/ephemeral hosts.</p>
+</dd>
+<dt id="term-max-fail-percentage">max_fail_percentage</dt><dd><p>can be used to abort the run after a given percentage of hosts in the current batch has failed.</p>
+</dd>
+<dt id="term-module-defaults">module_defaults</dt><dd><p>Specifies default parameter values for modules.</p>
+</dd>
+<dt id="term-name">name</dt><dd><p>Identifier. Can be used for documentation, in or tasks/handlers.</p>
+</dd>
+<dt id="term-no-log">no_log</dt><dd><p>Boolean that controls information disclosure.</p>
+</dd>
+<dt id="term-order">order</dt><dd><p>Controls the sorting of hosts as they are used for executing the play. Possible values are inventory (default), sorted, reverse_sorted, reverse_inventory and shuffle.</p>
+</dd>
+<dt id="term-port">port</dt><dd><p>Used to override the default port used in a connection.</p>
+</dd>
+<dt id="term-post-tasks">post_tasks</dt><dd><p>A list of tasks to execute after the <a class="reference internal" href="#term-tasks"><span class="xref std std-term">tasks</span></a> section.</p>
+</dd>
+<dt id="term-pre-tasks">pre_tasks</dt><dd><p>A list of tasks to execute before <a class="reference internal" href="#term-roles"><span class="xref std std-term">roles</span></a>.</p>
+</dd>
+<dt id="term-remote-user">remote_user</dt><dd><p>User used to log into the target via the connection plugin.</p>
+</dd>
+<dt id="term-roles">roles</dt><dd><p>List of roles to be imported into the play</p>
+</dd>
+<dt id="term-run-once">run_once</dt><dd><p>Boolean that will bypass the host loop, forcing the task to attempt to execute on the first host available and afterwards apply any results and facts to all active hosts in the same batch.</p>
+</dd>
+<dt id="term-serial">serial</dt><dd><p>Explicitly define how Ansible batches the execution of the current play on the play’s target</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../user_guide/playbooks_delegation.html#rolling-update-batch-size"><span class="std std-ref">Rolling Update Batch Size</span></a></p>
 </div>
 </dd>
-<dt id="term-strategy">strategy</dt>
-<dd>Allows you to choose the connection plugin to use for the play.</dd>
-<dt id="term-tags">tags</dt>
-<dd>Tags applied to the task or included tasks, this allows selecting subsets of tasks from the command line.</dd>
-<dt id="term-tasks">tasks</dt>
-<dd>Main list of tasks to execute in the play, they run after <a class="reference internal" href="#term-roles"><span class="xref std std-term">roles</span></a> and before <a class="reference internal" href="#term-post-tasks"><span class="xref std std-term">post_tasks</span></a>.</dd>
-<dt id="term-vars">vars</dt>
-<dd>Dictionary/map of variables</dd>
-<dt id="term-vars-files">vars_files</dt>
-<dd>List of files that contain vars to include in the play.</dd>
-<dt id="term-vars-prompt">vars_prompt</dt>
-<dd>list of variables to prompt for.</dd>
+<dt id="term-strategy">strategy</dt><dd><p>Allows you to choose the connection plugin to use for the play.</p>
+</dd>
+<dt id="term-tags">tags</dt><dd><p>Tags applied to the task or included tasks, this allows selecting subsets of tasks from the command line.</p>
+</dd>
+<dt id="term-tasks">tasks</dt><dd><p>Main list of tasks to execute in the play, they run after <a class="reference internal" href="#term-roles"><span class="xref std std-term">roles</span></a> and before <a class="reference internal" href="#term-post-tasks"><span class="xref std std-term">post_tasks</span></a>.</p>
+</dd>
+<dt id="term-vars">vars</dt><dd><p>Dictionary/map of variables</p>
+</dd>
+<dt id="term-vars-files">vars_files</dt><dd><p>List of files that contain vars to include in the play.</p>
+</dd>
+<dt id="term-vars-prompt">vars_prompt</dt><dd><p>list of variables to prompt for.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="role">
 <h2><a class="toc-backref" href="#id3">Role</a><a class="headerlink" href="#role" title="Permalink to this headline">¶</a></h2>
-<dl class="glossary docutils">
-<dt id="term-37">any_errors_fatal</dt>
-<dd>Force any un-handled task errors on any host to propagate to all hosts and end the play.</dd>
-<dt id="term-38">become</dt>
-<dd>Boolean that controls if privilege escalation is used or not on <a class="reference internal" href="glossary.html#term-task"><span class="xref std std-term">Task</span></a> execution.</dd>
-<dt id="term-39">become_flags</dt>
-<dd>A string of flag(s) to pass to the privilege escalation program when <a class="reference internal" href="#term-90"><span class="xref std std-term">become</span></a> is True.</dd>
-<dt id="term-40">become_method</dt>
-<dd>Which method of privilege escalation to use (such as sudo or su).</dd>
-<dt id="term-41">become_user</dt>
-<dd>User that you ‘become’ after using privilege escalation. The remote/login user must have permissions to become this user.</dd>
-<dt id="term-42">check_mode</dt>
-<dd><p class="first">A boolean that controls if a task is executed in ‘check’ mode</p>
-<div class="last admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../user_guide/playbooks_checkmode.html#check-mode-dry"><span class="std std-ref">Check Mode (“Dry Run”)</span></a></p>
+<dl class="glossary">
+<dt id="term-37">any_errors_fatal</dt><dd><p>Force any un-handled task errors on any host to propagate to all hosts and end the play.</p>
+</dd>
+<dt id="term-38">become</dt><dd><p>Boolean that controls if privilege escalation is used or not on <a class="reference internal" href="glossary.html#term-task"><span class="xref std std-term">Task</span></a> execution.</p>
+</dd>
+<dt id="term-39">become_flags</dt><dd><p>A string of flag(s) to pass to the privilege escalation program when <a class="reference internal" href="#term-90"><span class="xref std std-term">become</span></a> is True.</p>
+</dd>
+<dt id="term-40">become_method</dt><dd><p>Which method of privilege escalation to use (such as sudo or su).</p>
+</dd>
+<dt id="term-41">become_user</dt><dd><p>User that you ‘become’ after using privilege escalation. The remote/login user must have permissions to become this user.</p>
+</dd>
+<dt id="term-42">check_mode</dt><dd><p>A boolean that controls if a task is executed in ‘check’ mode</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../user_guide/playbooks_checkmode.html#check-mode-dry"><span class="std std-ref">Check Mode (“Dry Run”)</span></a></p>
 </div>
 </dd>
-<dt id="term-43">connection</dt>
-<dd><p class="first">Allows you to change the connection plugin used for tasks to execute on the target.</p>
-<div class="last admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../plugins/connection.html#using-connection"><span class="std std-ref">Using Connection Plugins</span></a></p>
+<dt id="term-43">connection</dt><dd><p>Allows you to change the connection plugin used for tasks to execute on the target.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../plugins/connection.html#using-connection"><span class="std std-ref">Using Connection Plugins</span></a></p>
 </div>
 </dd>
-<dt id="term-44">debugger</dt>
-<dd>Enable debugging tasks based on state of the task result. See <a class="reference internal" href="../user_guide/playbooks_debugger.html#playbook-debugger"><span class="std std-ref">Playbook Debugger</span></a></dd>
-<dt id="term-delegate-facts">delegate_facts</dt>
-<dd>Boolean that allows you to apply facts to a delegated host instead of inventory_hostname.</dd>
-<dt id="term-delegate-to">delegate_to</dt>
-<dd>Host to execute task instead of the target (inventory_hostname). Connection vars from the delegated host will also be used for the task.</dd>
-<dt id="term-47">diff</dt>
-<dd>Toggle to make tasks return ‘diff’ information or not.</dd>
-<dt id="term-48">environment</dt>
-<dd>A dictionary that gets converted into environment vars to be provided for the task upon execution.</dd>
-<dt id="term-49">ignore_errors</dt>
-<dd>Boolean that allows you to ignore task failures and continue with play. It does not affect connection errors.</dd>
-<dt id="term-50">ignore_unreachable</dt>
-<dd>Boolean that allows you to ignore unreachable hosts and continue with play. This does not affect other task errors (see <a class="reference internal" href="#term-104"><span class="xref std std-term">ignore_errors</span></a>) but is useful for groups of volatile/ephemeral hosts.</dd>
-<dt id="term-51">module_defaults</dt>
-<dd>Specifies default parameter values for modules.</dd>
-<dt id="term-52">name</dt>
-<dd>Identifier. Can be used for documentation, in or tasks/handlers.</dd>
-<dt id="term-53">no_log</dt>
-<dd>Boolean that controls information disclosure.</dd>
-<dt id="term-54">port</dt>
-<dd>Used to override the default port used in a connection.</dd>
-<dt id="term-55">remote_user</dt>
-<dd>User used to log into the target via the connection plugin.</dd>
-<dt id="term-56">run_once</dt>
-<dd>Boolean that will bypass the host loop, forcing the task to attempt to execute on the first host available and afterwards apply any results and facts to all active hosts in the same batch.</dd>
-<dt id="term-57">tags</dt>
-<dd>Tags applied to the task or included tasks, this allows selecting subsets of tasks from the command line.</dd>
-<dt id="term-58">vars</dt>
-<dd>Dictionary/map of variables</dd>
-<dt id="term-when">when</dt>
-<dd>Conditional expression, determines if an iteration of a task is run or not.</dd>
+<dt id="term-44">debugger</dt><dd><p>Enable debugging tasks based on state of the task result. See <a class="reference internal" href="../user_guide/playbooks_debugger.html#playbook-debugger"><span class="std std-ref">Playbook Debugger</span></a></p>
+</dd>
+<dt id="term-delegate-facts">delegate_facts</dt><dd><p>Boolean that allows you to apply facts to a delegated host instead of inventory_hostname.</p>
+</dd>
+<dt id="term-delegate-to">delegate_to</dt><dd><p>Host to execute task instead of the target (inventory_hostname). Connection vars from the delegated host will also be used for the task.</p>
+</dd>
+<dt id="term-47">diff</dt><dd><p>Toggle to make tasks return ‘diff’ information or not.</p>
+</dd>
+<dt id="term-48">environment</dt><dd><p>A dictionary that gets converted into environment vars to be provided for the task upon execution.</p>
+</dd>
+<dt id="term-49">ignore_errors</dt><dd><p>Boolean that allows you to ignore task failures and continue with play. It does not affect connection errors.</p>
+</dd>
+<dt id="term-50">ignore_unreachable</dt><dd><p>Boolean that allows you to ignore unreachable hosts and continue with play. This does not affect other task errors (see <a class="reference internal" href="#term-104"><span class="xref std std-term">ignore_errors</span></a>) but is useful for groups of volatile/ephemeral hosts.</p>
+</dd>
+<dt id="term-51">module_defaults</dt><dd><p>Specifies default parameter values for modules.</p>
+</dd>
+<dt id="term-52">name</dt><dd><p>Identifier. Can be used for documentation, in or tasks/handlers.</p>
+</dd>
+<dt id="term-53">no_log</dt><dd><p>Boolean that controls information disclosure.</p>
+</dd>
+<dt id="term-54">port</dt><dd><p>Used to override the default port used in a connection.</p>
+</dd>
+<dt id="term-55">remote_user</dt><dd><p>User used to log into the target via the connection plugin.</p>
+</dd>
+<dt id="term-56">run_once</dt><dd><p>Boolean that will bypass the host loop, forcing the task to attempt to execute on the first host available and afterwards apply any results and facts to all active hosts in the same batch.</p>
+</dd>
+<dt id="term-57">tags</dt><dd><p>Tags applied to the task or included tasks, this allows selecting subsets of tasks from the command line.</p>
+</dd>
+<dt id="term-58">vars</dt><dd><p>Dictionary/map of variables</p>
+</dd>
+<dt id="term-when">when</dt><dd><p>Conditional expression, determines if an iteration of a task is run or not.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="block">
 <h2><a class="toc-backref" href="#id4">Block</a><a class="headerlink" href="#block" title="Permalink to this headline">¶</a></h2>
-<dl class="glossary docutils">
-<dt id="term-always">always</dt>
-<dd>List of tasks, in a block, that execute no matter if there is an error in the block or not.</dd>
-<dt id="term-61">any_errors_fatal</dt>
-<dd>Force any un-handled task errors on any host to propagate to all hosts and end the play.</dd>
-<dt id="term-62">become</dt>
-<dd>Boolean that controls if privilege escalation is used or not on <a class="reference internal" href="glossary.html#term-task"><span class="xref std std-term">Task</span></a> execution.</dd>
-<dt id="term-63">become_flags</dt>
-<dd>A string of flag(s) to pass to the privilege escalation program when <a class="reference internal" href="#term-90"><span class="xref std std-term">become</span></a> is True.</dd>
-<dt id="term-64">become_method</dt>
-<dd>Which method of privilege escalation to use (such as sudo or su).</dd>
-<dt id="term-65">become_user</dt>
-<dd>User that you ‘become’ after using privilege escalation. The remote/login user must have permissions to become this user.</dd>
-<dt id="term-block">block</dt>
-<dd>List of tasks in a block.</dd>
-<dt id="term-67">check_mode</dt>
-<dd><p class="first">A boolean that controls if a task is executed in ‘check’ mode</p>
-<div class="last admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../user_guide/playbooks_checkmode.html#check-mode-dry"><span class="std std-ref">Check Mode (“Dry Run”)</span></a></p>
+<dl class="glossary">
+<dt id="term-always">always</dt><dd><p>List of tasks, in a block, that execute no matter if there is an error in the block or not.</p>
+</dd>
+<dt id="term-61">any_errors_fatal</dt><dd><p>Force any un-handled task errors on any host to propagate to all hosts and end the play.</p>
+</dd>
+<dt id="term-62">become</dt><dd><p>Boolean that controls if privilege escalation is used or not on <a class="reference internal" href="glossary.html#term-task"><span class="xref std std-term">Task</span></a> execution.</p>
+</dd>
+<dt id="term-63">become_flags</dt><dd><p>A string of flag(s) to pass to the privilege escalation program when <a class="reference internal" href="#term-90"><span class="xref std std-term">become</span></a> is True.</p>
+</dd>
+<dt id="term-64">become_method</dt><dd><p>Which method of privilege escalation to use (such as sudo or su).</p>
+</dd>
+<dt id="term-65">become_user</dt><dd><p>User that you ‘become’ after using privilege escalation. The remote/login user must have permissions to become this user.</p>
+</dd>
+<dt id="term-block">block</dt><dd><p>List of tasks in a block.</p>
+</dd>
+<dt id="term-67">check_mode</dt><dd><p>A boolean that controls if a task is executed in ‘check’ mode</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../user_guide/playbooks_checkmode.html#check-mode-dry"><span class="std std-ref">Check Mode (“Dry Run”)</span></a></p>
 </div>
 </dd>
-<dt id="term-68">connection</dt>
-<dd><p class="first">Allows you to change the connection plugin used for tasks to execute on the target.</p>
-<div class="last admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../plugins/connection.html#using-connection"><span class="std std-ref">Using Connection Plugins</span></a></p>
+<dt id="term-68">connection</dt><dd><p>Allows you to change the connection plugin used for tasks to execute on the target.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../plugins/connection.html#using-connection"><span class="std std-ref">Using Connection Plugins</span></a></p>
 </div>
 </dd>
-<dt id="term-69">debugger</dt>
-<dd>Enable debugging tasks based on state of the task result. See <a class="reference internal" href="../user_guide/playbooks_debugger.html#playbook-debugger"><span class="std std-ref">Playbook Debugger</span></a></dd>
-<dt id="term-70">delegate_facts</dt>
-<dd>Boolean that allows you to apply facts to a delegated host instead of inventory_hostname.</dd>
-<dt id="term-71">delegate_to</dt>
-<dd>Host to execute task instead of the target (inventory_hostname). Connection vars from the delegated host will also be used for the task.</dd>
-<dt id="term-72">diff</dt>
-<dd>Toggle to make tasks return ‘diff’ information or not.</dd>
-<dt id="term-73">environment</dt>
-<dd>A dictionary that gets converted into environment vars to be provided for the task upon execution.</dd>
-<dt id="term-74">ignore_errors</dt>
-<dd>Boolean that allows you to ignore task failures and continue with play. It does not affect connection errors.</dd>
-<dt id="term-75">ignore_unreachable</dt>
-<dd>Boolean that allows you to ignore unreachable hosts and continue with play. This does not affect other task errors (see <a class="reference internal" href="#term-104"><span class="xref std std-term">ignore_errors</span></a>) but is useful for groups of volatile/ephemeral hosts.</dd>
-<dt id="term-76">module_defaults</dt>
-<dd>Specifies default parameter values for modules.</dd>
-<dt id="term-77">name</dt>
-<dd>Identifier. Can be used for documentation, in or tasks/handlers.</dd>
-<dt id="term-78">no_log</dt>
-<dd>Boolean that controls information disclosure.</dd>
-<dt id="term-79">port</dt>
-<dd>Used to override the default port used in a connection.</dd>
-<dt id="term-80">remote_user</dt>
-<dd>User used to log into the target via the connection plugin.</dd>
-<dt id="term-rescue">rescue</dt>
-<dd>List of tasks in a <a class="reference internal" href="#term-block"><span class="xref std std-term">block</span></a> that run if there is a task error in the main <a class="reference internal" href="#term-block"><span class="xref std std-term">block</span></a> list.</dd>
-<dt id="term-82">run_once</dt>
-<dd>Boolean that will bypass the host loop, forcing the task to attempt to execute on the first host available and afterwards apply any results and facts to all active hosts in the same batch.</dd>
-<dt id="term-83">tags</dt>
-<dd>Tags applied to the task or included tasks, this allows selecting subsets of tasks from the command line.</dd>
-<dt id="term-84">vars</dt>
-<dd>Dictionary/map of variables</dd>
-<dt id="term-85">when</dt>
-<dd>Conditional expression, determines if an iteration of a task is run or not.</dd>
+<dt id="term-69">debugger</dt><dd><p>Enable debugging tasks based on state of the task result. See <a class="reference internal" href="../user_guide/playbooks_debugger.html#playbook-debugger"><span class="std std-ref">Playbook Debugger</span></a></p>
+</dd>
+<dt id="term-70">delegate_facts</dt><dd><p>Boolean that allows you to apply facts to a delegated host instead of inventory_hostname.</p>
+</dd>
+<dt id="term-71">delegate_to</dt><dd><p>Host to execute task instead of the target (inventory_hostname). Connection vars from the delegated host will also be used for the task.</p>
+</dd>
+<dt id="term-72">diff</dt><dd><p>Toggle to make tasks return ‘diff’ information or not.</p>
+</dd>
+<dt id="term-73">environment</dt><dd><p>A dictionary that gets converted into environment vars to be provided for the task upon execution.</p>
+</dd>
+<dt id="term-74">ignore_errors</dt><dd><p>Boolean that allows you to ignore task failures and continue with play. It does not affect connection errors.</p>
+</dd>
+<dt id="term-75">ignore_unreachable</dt><dd><p>Boolean that allows you to ignore unreachable hosts and continue with play. This does not affect other task errors (see <a class="reference internal" href="#term-104"><span class="xref std std-term">ignore_errors</span></a>) but is useful for groups of volatile/ephemeral hosts.</p>
+</dd>
+<dt id="term-76">module_defaults</dt><dd><p>Specifies default parameter values for modules.</p>
+</dd>
+<dt id="term-77">name</dt><dd><p>Identifier. Can be used for documentation, in or tasks/handlers.</p>
+</dd>
+<dt id="term-78">no_log</dt><dd><p>Boolean that controls information disclosure.</p>
+</dd>
+<dt id="term-79">port</dt><dd><p>Used to override the default port used in a connection.</p>
+</dd>
+<dt id="term-80">remote_user</dt><dd><p>User used to log into the target via the connection plugin.</p>
+</dd>
+<dt id="term-rescue">rescue</dt><dd><p>List of tasks in a <a class="reference internal" href="#term-block"><span class="xref std std-term">block</span></a> that run if there is a task error in the main <a class="reference internal" href="#term-block"><span class="xref std std-term">block</span></a> list.</p>
+</dd>
+<dt id="term-82">run_once</dt><dd><p>Boolean that will bypass the host loop, forcing the task to attempt to execute on the first host available and afterwards apply any results and facts to all active hosts in the same batch.</p>
+</dd>
+<dt id="term-83">tags</dt><dd><p>Tags applied to the task or included tasks, this allows selecting subsets of tasks from the command line.</p>
+</dd>
+<dt id="term-84">vars</dt><dd><p>Dictionary/map of variables</p>
+</dd>
+<dt id="term-85">when</dt><dd><p>Conditional expression, determines if an iteration of a task is run or not.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="task">
 <h2><a class="toc-backref" href="#id5">Task</a><a class="headerlink" href="#task" title="Permalink to this headline">¶</a></h2>
-<dl class="glossary docutils">
-<dt id="term-action">action</dt>
-<dd>The ‘action’ to execute for a task, it normally translates into a C(module) or action plugin.</dd>
-<dt id="term-87">any_errors_fatal</dt>
-<dd>Force any un-handled task errors on any host to propagate to all hosts and end the play.</dd>
-<dt id="term-args">args</dt>
-<dd><em>DEPRECATED</em>, A secondary way to add arguments into a task. Takes a dictionary in which keys map to options and values.</dd>
-<dt id="term-async">async</dt>
-<dd>Run a task asynchronously if the C(action) supports this; value is maximum runtime in seconds.</dd>
-<dt id="term-90">become</dt>
-<dd>Boolean that controls if privilege escalation is used or not on <a class="reference internal" href="glossary.html#term-task"><span class="xref std std-term">Task</span></a> execution.</dd>
-<dt id="term-91">become_flags</dt>
-<dd>A string of flag(s) to pass to the privilege escalation program when <a class="reference internal" href="#term-90"><span class="xref std std-term">become</span></a> is True.</dd>
-<dt id="term-92">become_method</dt>
-<dd>Which method of privilege escalation to use (such as sudo or su).</dd>
-<dt id="term-93">become_user</dt>
-<dd>User that you ‘become’ after using privilege escalation. The remote/login user must have permissions to become this user.</dd>
-<dt id="term-changed-when">changed_when</dt>
-<dd>Conditional expression that overrides the task’s normal ‘changed’ status.</dd>
-<dt id="term-95">check_mode</dt>
-<dd><p class="first">A boolean that controls if a task is executed in ‘check’ mode</p>
-<div class="last admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../user_guide/playbooks_checkmode.html#check-mode-dry"><span class="std std-ref">Check Mode (“Dry Run”)</span></a></p>
+<dl class="glossary">
+<dt id="term-action">action</dt><dd><p>The ‘action’ to execute for a task, it normally translates into a C(module) or action plugin.</p>
+</dd>
+<dt id="term-87">any_errors_fatal</dt><dd><p>Force any un-handled task errors on any host to propagate to all hosts and end the play.</p>
+</dd>
+<dt id="term-args">args</dt><dd><p><em>DEPRECATED</em>, A secondary way to add arguments into a task. Takes a dictionary in which keys map to options and values.</p>
+</dd>
+<dt id="term-async">async</dt><dd><p>Run a task asynchronously if the C(action) supports this; value is maximum runtime in seconds.</p>
+</dd>
+<dt id="term-90">become</dt><dd><p>Boolean that controls if privilege escalation is used or not on <a class="reference internal" href="glossary.html#term-task"><span class="xref std std-term">Task</span></a> execution.</p>
+</dd>
+<dt id="term-91">become_flags</dt><dd><p>A string of flag(s) to pass to the privilege escalation program when <a class="reference internal" href="#term-90"><span class="xref std std-term">become</span></a> is True.</p>
+</dd>
+<dt id="term-92">become_method</dt><dd><p>Which method of privilege escalation to use (such as sudo or su).</p>
+</dd>
+<dt id="term-93">become_user</dt><dd><p>User that you ‘become’ after using privilege escalation. The remote/login user must have permissions to become this user.</p>
+</dd>
+<dt id="term-changed-when">changed_when</dt><dd><p>Conditional expression that overrides the task’s normal ‘changed’ status.</p>
+</dd>
+<dt id="term-95">check_mode</dt><dd><p>A boolean that controls if a task is executed in ‘check’ mode</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../user_guide/playbooks_checkmode.html#check-mode-dry"><span class="std std-ref">Check Mode (“Dry Run”)</span></a></p>
 </div>
 </dd>
-<dt id="term-96">connection</dt>
-<dd><p class="first">Allows you to change the connection plugin used for tasks to execute on the target.</p>
-<div class="last admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../plugins/connection.html#using-connection"><span class="std std-ref">Using Connection Plugins</span></a></p>
+<dt id="term-96">connection</dt><dd><p>Allows you to change the connection plugin used for tasks to execute on the target.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../plugins/connection.html#using-connection"><span class="std std-ref">Using Connection Plugins</span></a></p>
 </div>
 </dd>
-<dt id="term-97">debugger</dt>
-<dd>Enable debugging tasks based on state of the task result. See <a class="reference internal" href="../user_guide/playbooks_debugger.html#playbook-debugger"><span class="std std-ref">Playbook Debugger</span></a></dd>
-<dt id="term-delay">delay</dt>
-<dd>Number of seconds to delay between retries. This setting is only used in combination with <a class="reference internal" href="#term-until"><span class="xref std std-term">until</span></a>.</dd>
-<dt id="term-99">delegate_facts</dt>
-<dd>Boolean that allows you to apply facts to a delegated host instead of inventory_hostname.</dd>
-<dt id="term-100">delegate_to</dt>
-<dd>Host to execute task instead of the target (inventory_hostname). Connection vars from the delegated host will also be used for the task.</dd>
-<dt id="term-101">diff</dt>
-<dd>Toggle to make tasks return ‘diff’ information or not.</dd>
-<dt id="term-102">environment</dt>
-<dd>A dictionary that gets converted into environment vars to be provided for the task upon execution.</dd>
-<dt id="term-failed-when">failed_when</dt>
-<dd>Conditional expression that overrides the task’s normal ‘failed’ status.</dd>
-<dt id="term-104">ignore_errors</dt>
-<dd>Boolean that allows you to ignore task failures and continue with play. It does not affect connection errors.</dd>
-<dt id="term-105">ignore_unreachable</dt>
-<dd>Boolean that allows you to ignore unreachable hosts and continue with play. This does not affect other task errors (see <a class="reference internal" href="#term-104"><span class="xref std std-term">ignore_errors</span></a>) but is useful for groups of volatile/ephemeral hosts.</dd>
-<dt id="term-local-action">local_action</dt>
-<dd>Same as action but also implies <code class="docutils literal notranslate"><span class="pre">delegate_to:</span> <span class="pre">localhost</span></code></dd>
-<dt id="term-loop">loop</dt>
-<dd>Takes a list for the task to iterate over, saving each list element into the <code class="docutils literal notranslate"><span class="pre">item</span></code> variable (configurable via loop_control)</dd>
-<dt id="term-loop-control">loop_control</dt>
-<dd><p class="first">Several keys here allow you to modify/set loop behaviour in a task.</p>
-<div class="last admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../user_guide/playbooks_loops.html#loop-control"><span class="std std-ref">Loop Control</span></a></p>
+<dt id="term-97">debugger</dt><dd><p>Enable debugging tasks based on state of the task result. See <a class="reference internal" href="../user_guide/playbooks_debugger.html#playbook-debugger"><span class="std std-ref">Playbook Debugger</span></a></p>
+</dd>
+<dt id="term-delay">delay</dt><dd><p>Number of seconds to delay between retries. This setting is only used in combination with <a class="reference internal" href="#term-until"><span class="xref std std-term">until</span></a>.</p>
+</dd>
+<dt id="term-99">delegate_facts</dt><dd><p>Boolean that allows you to apply facts to a delegated host instead of inventory_hostname.</p>
+</dd>
+<dt id="term-100">delegate_to</dt><dd><p>Host to execute task instead of the target (inventory_hostname). Connection vars from the delegated host will also be used for the task.</p>
+</dd>
+<dt id="term-101">diff</dt><dd><p>Toggle to make tasks return ‘diff’ information or not.</p>
+</dd>
+<dt id="term-102">environment</dt><dd><p>A dictionary that gets converted into environment vars to be provided for the task upon execution.</p>
+</dd>
+<dt id="term-failed-when">failed_when</dt><dd><p>Conditional expression that overrides the task’s normal ‘failed’ status.</p>
+</dd>
+<dt id="term-104">ignore_errors</dt><dd><p>Boolean that allows you to ignore task failures and continue with play. It does not affect connection errors.</p>
+</dd>
+<dt id="term-105">ignore_unreachable</dt><dd><p>Boolean that allows you to ignore unreachable hosts and continue with play. This does not affect other task errors (see <a class="reference internal" href="#term-104"><span class="xref std std-term">ignore_errors</span></a>) but is useful for groups of volatile/ephemeral hosts.</p>
+</dd>
+<dt id="term-local-action">local_action</dt><dd><p>Same as action but also implies <code class="docutils literal notranslate"><span class="pre">delegate_to:</span> <span class="pre">localhost</span></code></p>
+</dd>
+<dt id="term-loop">loop</dt><dd><p>Takes a list for the task to iterate over, saving each list element into the <code class="docutils literal notranslate"><span class="pre">item</span></code> variable (configurable via loop_control)</p>
+</dd>
+<dt id="term-loop-control">loop_control</dt><dd><p>Several keys here allow you to modify/set loop behaviour in a task.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../user_guide/playbooks_loops.html#loop-control"><span class="std std-ref">Loop Control</span></a></p>
 </div>
 </dd>
-<dt id="term-109">module_defaults</dt>
-<dd>Specifies default parameter values for modules.</dd>
-<dt id="term-110">name</dt>
-<dd>Identifier. Can be used for documentation, in or tasks/handlers.</dd>
-<dt id="term-111">no_log</dt>
-<dd>Boolean that controls information disclosure.</dd>
-<dt id="term-notify">notify</dt>
-<dd>List of handlers to notify when the task returns a ‘changed=True’ status.</dd>
-<dt id="term-poll">poll</dt>
-<dd>Sets the polling interval in seconds for async tasks (default 10s).</dd>
-<dt id="term-114">port</dt>
-<dd>Used to override the default port used in a connection.</dd>
-<dt id="term-register">register</dt>
-<dd>Name of variable that will contain task status and module return data.</dd>
-<dt id="term-116">remote_user</dt>
-<dd>User used to log into the target via the connection plugin.</dd>
-<dt id="term-retries">retries</dt>
-<dd>Number of retries before giving up in a <a class="reference internal" href="#term-until"><span class="xref std std-term">until</span></a> loop. This setting is only used in combination with <a class="reference internal" href="#term-until"><span class="xref std std-term">until</span></a>.</dd>
-<dt id="term-118">run_once</dt>
-<dd>Boolean that will bypass the host loop, forcing the task to attempt to execute on the first host available and afterwards apply any results and facts to all active hosts in the same batch.</dd>
-<dt id="term-119">tags</dt>
-<dd>Tags applied to the task or included tasks, this allows selecting subsets of tasks from the command line.</dd>
-<dt id="term-until">until</dt>
-<dd>This keyword implies a ‘<a class="reference internal" href="#term-retries"><span class="xref std std-term">retries</span></a> loop’ that will go on until the condition supplied here is met or we hit the <a class="reference internal" href="#term-retries"><span class="xref std std-term">retries</span></a> limit.</dd>
-<dt id="term-121">vars</dt>
-<dd>Dictionary/map of variables</dd>
-<dt id="term-122">when</dt>
-<dd>Conditional expression, determines if an iteration of a task is run or not.</dd>
-<dt id="term-with-lookup-plugin">with_&lt;lookup_plugin&gt;</dt>
-<dd>The same as <code class="docutils literal notranslate"><span class="pre">loop</span></code> but magically adds the output of any lookup plugin to generate the item list.</dd>
+<dt id="term-109">module_defaults</dt><dd><p>Specifies default parameter values for modules.</p>
+</dd>
+<dt id="term-110">name</dt><dd><p>Identifier. Can be used for documentation, in or tasks/handlers.</p>
+</dd>
+<dt id="term-111">no_log</dt><dd><p>Boolean that controls information disclosure.</p>
+</dd>
+<dt id="term-notify">notify</dt><dd><p>List of handlers to notify when the task returns a ‘changed=True’ status.</p>
+</dd>
+<dt id="term-poll">poll</dt><dd><p>Sets the polling interval in seconds for async tasks (default 10s).</p>
+</dd>
+<dt id="term-114">port</dt><dd><p>Used to override the default port used in a connection.</p>
+</dd>
+<dt id="term-register">register</dt><dd><p>Name of variable that will contain task status and module return data.</p>
+</dd>
+<dt id="term-116">remote_user</dt><dd><p>User used to log into the target via the connection plugin.</p>
+</dd>
+<dt id="term-retries">retries</dt><dd><p>Number of retries before giving up in a <a class="reference internal" href="#term-until"><span class="xref std std-term">until</span></a> loop. This setting is only used in combination with <a class="reference internal" href="#term-until"><span class="xref std std-term">until</span></a>.</p>
+</dd>
+<dt id="term-118">run_once</dt><dd><p>Boolean that will bypass the host loop, forcing the task to attempt to execute on the first host available and afterwards apply any results and facts to all active hosts in the same batch.</p>
+</dd>
+<dt id="term-119">tags</dt><dd><p>Tags applied to the task or included tasks, this allows selecting subsets of tasks from the command line.</p>
+</dd>
+<dt id="term-until">until</dt><dd><p>This keyword implies a ‘<a class="reference internal" href="#term-retries"><span class="xref std std-term">retries</span></a> loop’ that will go on until the condition supplied here is met or we hit the <a class="reference internal" href="#term-retries"><span class="xref std std-term">retries</span></a> limit.</p>
+</dd>
+<dt id="term-121">vars</dt><dd><p>Dictionary/map of variables</p>
+</dd>
+<dt id="term-122">when</dt><dd><p>Conditional expression, determines if an iteration of a task is run or not.</p>
+</dd>
+<dt id="term-with-lookup-plugin">with_&lt;lookup_plugin&gt;</dt><dd><p>The same as <code class="docutils literal notranslate"><span class="pre">loop</span></code> but magically adds the output of any lookup plugin to generate the item list.</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2632,7 +2622,7 @@ themselves</li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

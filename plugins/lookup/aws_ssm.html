@@ -2267,18 +2267,20 @@
   <div class="section" id="aws-ssm-get-the-value-for-a-ssm-parameter-or-all-parameters-under-a-path">
 <span id="aws-ssm-lookup"></span><h1>aws_ssm - Get the value for a SSM parameter or all parameters under a path.<a class="headerlink" href="#aws-ssm-get-the-value-for-a-ssm-parameter-or-all-parameters-under-a-path" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 2.5.</span></p>
+<p><span class="versionmodified added">New in version 2.5.</span></p>
 </div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#synopsis" id="id1">Synopsis</a><ul>
-<li><a class="reference internal" href="#requirements" id="id2">Requirements</a></li>
+<li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requirements" id="id2">Requirements</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#parameters" id="id3">Parameters</a></li>
-<li><a class="reference internal" href="#examples" id="id4">Examples</a></li>
-<li><a class="reference internal" href="#status" id="id5">Status</a><ul>
-<li><a class="reference internal" href="#author" id="id6">Author</a></li>
+<li><p><a class="reference internal" href="#parameters" id="id3">Parameters</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id4">Examples</a></p></li>
+<li><p><a class="reference internal" href="#status" id="id5">Status</a></p>
+<ul>
+<li><p><a class="reference internal" href="#author" id="id6">Author</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2286,17 +2288,17 @@
 <div class="section" id="synopsis">
 <h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Get the value for an Amazon Simple Systems Manager parameter or a hierarchy of parameters. The first argument you pass the lookup can either be a parameter name or a hierarchy of parameters. Hierarchies start with a forward slash and end with the parameter name. Up to 5 layers may be specified.</li>
-<li>If looking up an explicitly listed parameter by name which does not exist then the lookup will return a None value which will be interpreted by Jinja2 as an empty string.  You can use the <code class="docutils literal notranslate"><span class="pre">`default`</span></code> filter to give a default value in this case but must set the second parameter to true (see examples below)</li>
-<li>When looking up a path for parameters under it a dictionary will be returned for each path. If there is no parameter under that path then the return will be successful but the dictionary will be empty.</li>
-<li>If the lookup fails due to lack of permissions or due to an AWS client error then the aws_ssm will generate an error, normally crashing the current ansible task.  This is normally the right thing since ignoring a value that IAM isn’t giving access to could cause bigger problems and wrong behavour or loss of data.  If you want to continue in this case then you will have to set up two ansible tasks, one which sets a variable and ignores failures one which uses the value of that variable with a default.  See the examples below.</li>
+<li><p>Get the value for an Amazon Simple Systems Manager parameter or a hierarchy of parameters. The first argument you pass the lookup can either be a parameter name or a hierarchy of parameters. Hierarchies start with a forward slash and end with the parameter name. Up to 5 layers may be specified.</p></li>
+<li><p>If looking up an explicitly listed parameter by name which does not exist then the lookup will return a None value which will be interpreted by Jinja2 as an empty string.  You can use the <code class="docutils literal notranslate"><span class="pre">`default`</span></code> filter to give a default value in this case but must set the second parameter to true (see examples below)</p></li>
+<li><p>When looking up a path for parameters under it a dictionary will be returned for each path. If there is no parameter under that path then the return will be successful but the dictionary will be empty.</p></li>
+<li><p>If the lookup fails due to lack of permissions or due to an AWS client error then the aws_ssm will generate an error, normally crashing the current ansible task.  This is normally the right thing since ignoring a value that IAM isn’t giving access to could cause bigger problems and wrong behavour or loss of data.  If you want to continue in this case then you will have to set up two ansible tasks, one which sets a variable and ignores failures one which uses the value of that variable with a default.  See the examples below.</p></li>
 </ul>
 <div class="section" id="requirements">
 <h3><a class="toc-backref" href="#id2">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
 <p>The below requirements are needed on the local master node that executes this lookup.</p>
 <ul class="simple">
-<li>boto3</li>
-<li>botocore</li>
+<li><p>boto3</p></li>
+<li><p>botocore</p></li>
 </ul>
 </div>
 </div>
@@ -2412,13 +2414,13 @@
 <div class="section" id="author">
 <h3><a class="toc-backref" href="#id6">Author</a><a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Bill Wang &lt;ozbillwang(at)gmail.com&gt;</li>
-<li>Marat Bakeev &lt;hawara(at)gmail.com&gt;</li>
-<li>Michael De La Rue &lt;<a class="reference external" href="mailto:siblemitcom&#46;mddlr&#37;&#52;&#48;spamgourmet&#46;com">siblemitcom<span>&#46;</span>mddlr<span>&#64;</span>spamgourmet<span>&#46;</span>com</a>&gt;</li>
+<li><p>Bill Wang &lt;ozbillwang(at)gmail.com&gt;</p></li>
+<li><p>Marat Bakeev &lt;hawara(at)gmail.com&gt;</p></li>
+<li><p>Michael De La Rue &lt;<a class="reference external" href="mailto:siblemitcom&#46;mddlr&#37;&#52;&#48;spamgourmet&#46;com">siblemitcom<span>&#46;</span>mddlr<span>&#64;</span>spamgourmet<span>&#46;</span>com</a>&gt;</p></li>
 </ul>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/plugins/lookup/aws_ssm.py">edit this document</a> to improve it.</p>
+<p class="admonition-title">Hint</p>
+<p>If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/plugins/lookup/aws_ssm.py">edit this document</a> to improve it.</p>
 </div>
 </div>
 </div>
@@ -2450,7 +2452,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

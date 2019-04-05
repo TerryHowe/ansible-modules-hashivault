@@ -2270,13 +2270,15 @@
 <div class="contents topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#netconf-enabled-platform-options" id="id2">Netconf enabled Platform Options</a><ul>
-<li><a class="reference internal" href="#connections-available" id="id3">Connections Available</a></li>
-<li><a class="reference internal" href="#using-netconf-in-ansible-2-6-onwards" id="id4">Using NETCONF in Ansible 2.6 onwards</a><ul>
-<li><a class="reference internal" href="#enabling-netconf" id="id5">Enabling NETCONF</a></li>
-<li><a class="reference internal" href="#example-netconf-inventory-junos-vars" id="id6">Example NETCONF inventory <code class="docutils literal notranslate"><span class="pre">[junos:vars]</span></code></a></li>
-<li><a class="reference internal" href="#example-netconf-task" id="id7">Example NETCONF Task</a></li>
-<li><a class="reference internal" href="#example-netconf-task-with-configurable-variables" id="id8">Example NETCONF Task with configurable variables</a></li>
+<li><p><a class="reference internal" href="#netconf-enabled-platform-options" id="id2">Netconf enabled Platform Options</a></p>
+<ul>
+<li><p><a class="reference internal" href="#connections-available" id="id3">Connections Available</a></p></li>
+<li><p><a class="reference internal" href="#using-netconf-in-ansible-2-6-onwards" id="id4">Using NETCONF in Ansible 2.6 onwards</a></p>
+<ul>
+<li><p><a class="reference internal" href="#enabling-netconf" id="id5">Enabling NETCONF</a></p></li>
+<li><p><a class="reference internal" href="#example-netconf-inventory-junos-vars" id="id6">Example NETCONF inventory <code class="docutils literal notranslate"><span class="pre">[junos:vars]</span></code></a></p></li>
+<li><p><a class="reference internal" href="#example-netconf-task" id="id7">Example NETCONF Task</a></p></li>
+<li><p><a class="reference internal" href="#example-netconf-task-with-configurable-variables" id="id8">Example NETCONF Task with configurable variables</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2285,44 +2287,44 @@
 </div>
 <div class="section" id="connections-available">
 <h2><a class="toc-backref" href="#id3">Connections Available</a><a class="headerlink" href="#connections-available" title="Permalink to this headline">¶</a></h2>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="22%" />
-<col width="78%" />
+<col style="width: 22%" />
+<col style="width: 78%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head"><div class="first last line-block">
+<thead>
+<tr class="row-odd"><th class="head"><div class="line-block">
 <div class="line"><br /></div>
 <div class="line"><br /></div>
 </div>
 </th>
-<th class="head"><div class="first last line-block">
+<th class="head"><div class="line-block">
 <div class="line">NETCONF</div>
 <div class="line">* all modules except <code class="docutils literal notranslate"><span class="pre">junos_netconf</span></code>, which enables NETCONF</div>
 </div>
 </th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><strong>Protocol</strong></td>
-<td>XML over SSH</td>
+<tbody>
+<tr class="row-even"><td><p><strong>Protocol</strong></p></td>
+<td><p>XML over SSH</p></td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="line-block">
 <div class="line"><strong>Credentials</strong></div>
 <div class="line"><br /></div>
 </div>
 </td>
-<td><div class="first last line-block">
+<td><div class="line-block">
 <div class="line">uses SSH keys / SSH-agent if present</div>
 <div class="line">accepts <code class="docutils literal notranslate"><span class="pre">-u</span> <span class="pre">myuser</span> <span class="pre">-k</span></code> if using password</div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><strong>Indirect Access</strong></td>
-<td>via a bastion (jump host)</td>
+<tr class="row-even"><td><p><strong>Indirect Access</strong></p></td>
+<td><p>via a bastion (jump host)</p></td>
 </tr>
-<tr class="row-odd"><td><strong>Connection Settings</strong></td>
-<td><code class="docutils literal notranslate"><span class="pre">ansible_connection:</span> <span class="pre">netconf</span></code></td>
+<tr class="row-odd"><td><p><strong>Connection Settings</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ansible_connection:</span> <span class="pre">netconf</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -2334,8 +2336,8 @@
 <h3><a class="toc-backref" href="#id5">Enabling NETCONF</a><a class="headerlink" href="#enabling-netconf" title="Permalink to this headline">¶</a></h3>
 <p>Before you can use NETCONF to connect to a switch, you must:</p>
 <ul class="simple">
-<li>install the <code class="docutils literal notranslate"><span class="pre">ncclient</span></code> Python package on your control node(s) with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ncclient</span></code></li>
-<li>enable NETCONF on the Junos OS device(s)</li>
+<li><p>install the <code class="docutils literal notranslate"><span class="pre">ncclient</span></code> Python package on your control node(s) with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ncclient</span></code></p></li>
+<li><p>enable NETCONF on the Junos OS device(s)</p></li>
 </ul>
 <p>To enable NETCONF on a new switch via Ansible, use the platform specific module via the CLI connection or set it manually.
 For example set up your platform-level variables just like in the CLI example above, then run a playbook task like this:</p>
@@ -2378,8 +2380,8 @@ For example set up your platform-level variables just like in the CLI example ab
 </div>
 <p>Note: For nectonf connection plugin configurable variables .. _Refer: <a class="reference external" href="https://docs.ansible.com/ansible/latest/plugins/connection/netconf.html">https://docs.ansible.com/ansible/latest/plugins/connection/netconf.html</a></p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Never store passwords in plain text. We recommend using SSH keys to authenticate SSH connections. Ansible supports ssh-agent to manage your SSH keys. If you must use passwords to authenticate SSH connections, we recommend encrypting them with <a class="reference internal" href="../../user_guide/playbooks_vault.html#playbooks-vault"><span class="std std-ref">Ansible Vault</span></a>.</p>
+<p class="admonition-title">Warning</p>
+<p>Never store passwords in plain text. We recommend using SSH keys to authenticate SSH connections. Ansible supports ssh-agent to manage your SSH keys. If you must use passwords to authenticate SSH connections, we recommend encrypting them with <a class="reference internal" href="../../user_guide/playbooks_vault.html#playbooks-vault"><span class="std std-ref">Ansible Vault</span></a>.</p>
 </div>
 </div>
 </div>
@@ -2411,7 +2413,7 @@ For example set up your platform-level variables just like in the CLI example ab
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

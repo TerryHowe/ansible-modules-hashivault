@@ -2269,15 +2269,15 @@
 <div class="contents local topic" id="topics">
 <p class="topic-title first">Topics</p>
 <ul class="simple">
-<li><a class="reference internal" href="#submitting-a-group-of-modules" id="id1">Submitting a group of modules</a></li>
-<li><a class="reference internal" href="#before-you-start-coding" id="id2">Before you start coding</a></li>
-<li><a class="reference internal" href="#naming-convention" id="id3">Naming convention</a></li>
-<li><a class="reference internal" href="#speak-to-us" id="id4">Speak to us</a></li>
-<li><a class="reference internal" href="#where-to-get-support" id="id5">Where to get support</a></li>
-<li><a class="reference internal" href="#your-first-pull-request" id="id6">Your first pull request</a></li>
-<li><a class="reference internal" href="#subsequent-prs" id="id7">Subsequent PRs</a></li>
-<li><a class="reference internal" href="#maintaining-your-modules" id="id8">Maintaining your modules</a></li>
-<li><a class="reference internal" href="#new-to-git-or-github" id="id9">New to git or GitHub</a></li>
+<li><p><a class="reference internal" href="#submitting-a-group-of-modules" id="id1">Submitting a group of modules</a></p></li>
+<li><p><a class="reference internal" href="#before-you-start-coding" id="id2">Before you start coding</a></p></li>
+<li><p><a class="reference internal" href="#naming-convention" id="id3">Naming convention</a></p></li>
+<li><p><a class="reference internal" href="#speak-to-us" id="id4">Speak to us</a></p></li>
+<li><p><a class="reference internal" href="#where-to-get-support" id="id5">Where to get support</a></p></li>
+<li><p><a class="reference internal" href="#your-first-pull-request" id="id6">Your first pull request</a></p></li>
+<li><p><a class="reference internal" href="#subsequent-prs" id="id7">Subsequent PRs</a></p></li>
+<li><p><a class="reference internal" href="#maintaining-your-modules" id="id8">Maintaining your modules</a></p></li>
+<li><p><a class="reference internal" href="#new-to-git-or-github" id="id9">New to git or GitHub</a></p></li>
 </ul>
 </div>
 <div class="section" id="submitting-a-group-of-modules">
@@ -2286,20 +2286,19 @@
 <p>This document is intended for both companies wishing to add modules for their own products as well as users of 3rd party products wishing to add Ansible functionality.</p>
 <p>It’s based on module development tips and tricks that the Ansible core team and community have accumulated.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p><strong>LICENSING REQUIREMENTS</strong>  Ansible enforces the following licensing requirements:</p>
-<ul class="last simple">
-<li><dl class="first docutils">
-<dt>Utilities (files in <code class="docutils literal notranslate"><span class="pre">lib/ansible/module_utils/</span></code>) may have one of two licenses:</dt>
-<dd><ul class="first last">
-<li>A <code class="docutils literal notranslate"><span class="pre">module_util</span></code> used <strong>only</strong> for a specific vendor’s hardware, provider, or service may be licensed under GPLv3+.</li>
-<li>All other <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> must be licensed under BSD, so GPL-licensed third-party and Galaxy modules can use them.</li>
-<li>If there’s doubt about the appropriate license for a <code class="docutils literal notranslate"><span class="pre">module_util</span></code>, the Ansible Core Team will decide during an Ansible Core Community Meeting.</li>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Utilities (files in <code class="docutils literal notranslate"><span class="pre">lib/ansible/module_utils/</span></code>) may have one of two licenses:</dt><dd><ul>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">module_util</span></code> used <strong>only</strong> for a specific vendor’s hardware, provider, or service may be licensed under GPLv3+.</p></li>
+<li><p>All other <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> must be licensed under BSD, so GPL-licensed third-party and Galaxy modules can use them.</p></li>
+<li><p>If there’s doubt about the appropriate license for a <code class="docutils literal notranslate"><span class="pre">module_util</span></code>, the Ansible Core Team will decide during an Ansible Core Community Meeting.</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>All other files shipped with Ansible, including all modules, must be licensed under the GPL license (GPLv3 or later).</li>
+<li><p>All other files shipped with Ansible, including all modules, must be licensed under the GPL license (GPLv3 or later).</p></li>
 </ul>
 </div>
 </div>
@@ -2307,15 +2306,15 @@
 <h2><a class="toc-backref" href="#id2">Before you start coding</a><a class="headerlink" href="#before-you-start-coding" title="Permalink to this headline">¶</a></h2>
 <p>Although it’s tempting to get straight into coding, there are a few things to be aware of first. This list of prerequisites is designed to help ensure that you develop high-quality modules that flow easily through the review process and get into Ansible more quickly.</p>
 <ul class="simple">
-<li>Read though all the pages linked off <a class="reference internal" href="developing_modules.html"><span class="doc">Should you develop a module?</span></a>; paying particular focus to the <a class="reference internal" href="developing_modules_checklist.html"><span class="doc">Contributing your module to Ansible</span></a>.</li>
-<li>New modules must be PEP 8 compliant. See <a class="reference internal" href="testing_pep8.html"><span class="doc">PEP 8</span></a> for more information.</li>
-<li>Starting with Ansible version 2.7, all new modules must <a class="reference internal" href="developing_python_3.html#developing-python-3"><span class="std std-ref">support Python 2.7+ and Python 3.5+</span></a>. If this is an issue, please contact us (see the “Speak to us” section later in this document to learn how).</li>
-<li>Have a look at the existing modules and how they’ve been named in the <a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a>, especially in the same functional area (such as cloud, networking, databases).</li>
-<li>Shared code can be placed into <code class="docutils literal notranslate"><span class="pre">lib/ansible/module_utils/</span></code></li>
-<li>Shared documentation (for example describing common arguments) can be placed in <code class="docutils literal notranslate"><span class="pre">lib/ansible/utils/module_docs_fragments/</span></code>.</li>
-<li>With great power comes great responsibility: Ansible module maintainers have a duty to help keep modules up to date. As with all successful community projects, module maintainers should keep a watchful eye for reported issues and contributions.</li>
-<li>Although not required, unit and/or integration tests are strongly recommended. Unit tests are especially valuable when external resources (such as cloud or network devices) are required. For more information see <a class="reference internal" href="testing.html"><span class="doc">Testing Ansible</span></a> and the <a class="reference external" href="https://github.com/ansible/community/blob/master/meetings/README.md">Testing Working Group</a>.
-* Starting with Ansible 2.4 all <span class="xref std std-ref">network_modules</span> MUST have unit tests.</li>
+<li><p>Read though all the pages linked off <a class="reference internal" href="developing_modules.html"><span class="doc">Should you develop a module?</span></a>; paying particular focus to the <a class="reference internal" href="developing_modules_checklist.html"><span class="doc">Contributing your module to Ansible</span></a>.</p></li>
+<li><p>New modules must be PEP 8 compliant. See <a class="reference internal" href="testing_pep8.html"><span class="doc">PEP 8</span></a> for more information.</p></li>
+<li><p>Starting with Ansible version 2.7, all new modules must <a class="reference internal" href="developing_python_3.html#developing-python-3"><span class="std std-ref">support Python 2.7+ and Python 3.5+</span></a>. If this is an issue, please contact us (see the “Speak to us” section later in this document to learn how).</p></li>
+<li><p>Have a look at the existing modules and how they’ve been named in the <a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a>, especially in the same functional area (such as cloud, networking, databases).</p></li>
+<li><p>Shared code can be placed into <code class="docutils literal notranslate"><span class="pre">lib/ansible/module_utils/</span></code></p></li>
+<li><p>Shared documentation (for example describing common arguments) can be placed in <code class="docutils literal notranslate"><span class="pre">lib/ansible/utils/module_docs_fragments/</span></code>.</p></li>
+<li><p>With great power comes great responsibility: Ansible module maintainers have a duty to help keep modules up to date. As with all successful community projects, module maintainers should keep a watchful eye for reported issues and contributions.</p></li>
+<li><p>Although not required, unit and/or integration tests are strongly recommended. Unit tests are especially valuable when external resources (such as cloud or network devices) are required. For more information see <a class="reference internal" href="testing.html"><span class="doc">Testing Ansible</span></a> and the <a class="reference external" href="https://github.com/ansible/community/blob/master/meetings/README.md">Testing Working Group</a>.
+* Starting with Ansible 2.4 all <span class="xref std std-ref">network_modules</span> MUST have unit tests.</p></li>
 </ul>
 </div>
 <div class="section" id="naming-convention">
@@ -2325,9 +2324,9 @@
 <p>Each module should have the above (or similar) prefix; see existing <a class="reference internal" href="../modules/list_of_all_modules.html#all-modules"><span class="std std-ref">All modules</span></a> for existing examples.</p>
 <p><strong>Note:</strong></p>
 <ul class="simple">
-<li>File and directory names are always in lower case</li>
-<li>Words are separated with an underscore (<code class="docutils literal notranslate"><span class="pre">_</span></code>) character</li>
-<li>Module names should be in the singular, rather than plural, eg <code class="docutils literal notranslate"><span class="pre">command</span></code> not <code class="docutils literal notranslate"><span class="pre">commands</span></code></li>
+<li><p>File and directory names are always in lower case</p></li>
+<li><p>Words are separated with an underscore (<code class="docutils literal notranslate"><span class="pre">_</span></code>) character</p></li>
+<li><p>Module names should be in the singular, rather than plural, eg <code class="docutils literal notranslate"><span class="pre">command</span></code> not <code class="docutils literal notranslate"><span class="pre">commands</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="speak-to-us">
@@ -2341,9 +2340,9 @@
 <p>Ansible has a thriving and knowledgeable community of module developers that is a great resource for getting your questions answered.</p>
 <p>In the <a class="reference internal" href="../community/index.html#ansible-community-guide"><span class="std std-ref">Ansible Community Guide</span></a> you can find how to:</p>
 <ul class="simple">
-<li>Subscribe to the Mailing Lists - We suggest “Ansible Development List” (for codefreeze info) and “Ansible Announce list”</li>
-<li><code class="docutils literal notranslate"><span class="pre">#ansible-devel</span></code> - We have found that IRC <code class="docutils literal notranslate"><span class="pre">#ansible-devel</span></code> on FreeNode’s IRC network works best for module developers so we can have an interactive dialogue.</li>
-<li>IRC meetings - Join the various weekly IRC meetings <a class="reference external" href="https://github.com/ansible/community/blob/master/meetings/README.md">meeting schedule and agenda page</a></li>
+<li><p>Subscribe to the Mailing Lists - We suggest “Ansible Development List” (for codefreeze info) and “Ansible Announce list”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#ansible-devel</span></code> - We have found that IRC <code class="docutils literal notranslate"><span class="pre">#ansible-devel</span></code> on FreeNode’s IRC network works best for module developers so we can have an interactive dialogue.</p></li>
+<li><p>IRC meetings - Join the various weekly IRC meetings <a class="reference external" href="https://github.com/ansible/community/blob/master/meetings/README.md">meeting schedule and agenda page</a></p></li>
 </ul>
 </div>
 <div class="section" id="your-first-pull-request">
@@ -2351,18 +2350,18 @@
 <p>Now that you’ve reviewed this document, you should be ready to open your first pull request.</p>
 <p>The first PR is slightly different to the rest because it:</p>
 <ul class="simple">
-<li>defines the namespace</li>
-<li>provides a basis for detailed review that will help shape your future PRs</li>
-<li>may include shared documentation (<cite>docs_fragments</cite>) that multiple modules require</li>
-<li>may include shared code (<cite>module_utils</cite>) that multiple modules require</li>
+<li><p>defines the namespace</p></li>
+<li><p>provides a basis for detailed review that will help shape your future PRs</p></li>
+<li><p>may include shared documentation (<cite>docs_fragments</cite>) that multiple modules require</p></li>
+<li><p>may include shared code (<cite>module_utils</cite>) that multiple modules require</p></li>
 </ul>
 <p>The first PR should include the following files:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">lib/ansible/modules/$category/$topic/__init__.py</span></code> - An empty file to initialize namespace and allow Python to import the files. <em>Required new file</em></li>
-<li><code class="docutils literal notranslate"><span class="pre">lib/ansible/modules/$category/$topic/$yourfirstmodule.py</span></code> - A single module. <em>Required new file</em></li>
-<li><code class="docutils literal notranslate"><span class="pre">lib/ansible/utils/module_docs_fragments/$topic.py</span></code> - Code documentation, such as details regarding common arguments. <em>Optional new file</em></li>
-<li><code class="docutils literal notranslate"><span class="pre">lib/ansible/module_utils/$topic.py</span></code> - Code shared between more than one module, such as common arguments. <em>Optional new file</em></li>
-<li><code class="docutils literal notranslate"><span class="pre">docs/docsite/rst/dev_guide/developing_module_utilities.rst</span></code> - Document your new <cite>module_utils</cite> file. <em>Optional update to existing file</em></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/ansible/modules/$category/$topic/__init__.py</span></code> - An empty file to initialize namespace and allow Python to import the files. <em>Required new file</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/ansible/modules/$category/$topic/$yourfirstmodule.py</span></code> - A single module. <em>Required new file</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/ansible/utils/module_docs_fragments/$topic.py</span></code> - Code documentation, such as details regarding common arguments. <em>Optional new file</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/ansible/module_utils/$topic.py</span></code> - Code shared between more than one module, such as common arguments. <em>Optional new file</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs/docsite/rst/dev_guide/developing_module_utilities.rst</span></code> - Document your new <cite>module_utils</cite> file. <em>Optional update to existing file</em></p></li>
 </ul>
 <p>And that’s it.</p>
 <p>Before pushing your PR to GitHub it’s a good idea to review the <a class="reference internal" href="developing_modules_checklist.html"><span class="doc">Contributing your module to Ansible</span></a> again.</p>
@@ -2376,9 +2375,9 @@
 <p>Raise exactly one PR per module for the remaining modules.</p>
 <p>Over the years we’ve experimented with different sized module PRs, ranging from one module to many tens of modules, and during that time we’ve found the following:</p>
 <ul class="simple">
-<li>A PR with a single file gets a higher quality review</li>
-<li>PRs with multiple modules are harder for the creator to ensure all feedback has been applied</li>
-<li>PRs with many modules take a lot more work to review, and tend to get passed over for easier-to-review PRs.</li>
+<li><p>A PR with a single file gets a higher quality review</p></li>
+<li><p>PRs with multiple modules are harder for the creator to ensure all feedback has been applied</p></li>
+<li><p>PRs with many modules take a lot more work to review, and tend to get passed over for easier-to-review PRs.</p></li>
 </ul>
 <p>You can raise up to five PRs at once (5 PRs = 5 new modules) <strong>after</strong> your first PR has been merged. We’ve found this is a good batch size to keep the review process flowing.</p>
 </div>
@@ -2397,9 +2396,9 @@ Review the autogenerated module documentation for each of your modules, found in
 <h2><a class="toc-backref" href="#id9">New to git or GitHub</a><a class="headerlink" href="#new-to-git-or-github" title="Permalink to this headline">¶</a></h2>
 <p>We realize this may be your first use of Git or GitHub. The following guides may be of use:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://help.github.com/articles/fork-a-repo/">How to create a fork of ansible/ansible</a></li>
-<li><a class="reference external" href="https://help.github.com/articles/syncing-a-fork/">How to sync (update) your fork</a></li>
-<li><a class="reference external" href="https://help.github.com/articles/about-pull-requests/">How to create a Pull Request (PR)</a></li>
+<li><p><a class="reference external" href="https://help.github.com/articles/fork-a-repo/">How to create a fork of ansible/ansible</a></p></li>
+<li><p><a class="reference external" href="https://help.github.com/articles/syncing-a-fork/">How to sync (update) your fork</a></p></li>
+<li><p><a class="reference external" href="https://help.github.com/articles/about-pull-requests/">How to create a Pull Request (PR)</a></p></li>
 </ul>
 <p>Please note that in the Ansible Git Repo the main branch is called <code class="docutils literal notranslate"><span class="pre">devel</span></code> rather than <code class="docutils literal notranslate"><span class="pre">master</span></code>, which is used in the official GitHub documentation</p>
 <p>After your first PR has been merged ensure you “sync your fork” with <code class="docutils literal notranslate"><span class="pre">ansible/ansible</span></code> to ensure you’ve pulled in the directory structure and and shared code or documentation previously created.</p>
@@ -2433,7 +2432,7 @@ Review the autogenerated module documentation for each of your modules, found in
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 26, 2019.<br/>
+  <p>Last updated on Apr 05, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>
