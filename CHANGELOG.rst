@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+3.17.1 (2019-04-05)
+-------------------
+- Support metadata for v1 reads. [Terry Howe]
+- Convert to use twine. [Terry Howe]
+
+
 3.17.0 (2019-04-05)
 -------------------
 - Add read metadata. [Terry Howe]
