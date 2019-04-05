@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 # Make sure you have a ~/.pypirc file first
 #
@@ -20,4 +21,11 @@ git push origin master
 git tag --force  -a $VERSION -m v$VERSION
 git push origin --tags
 #python setup.py register -r pypi
-python setup.py sdist upload -r pypi
+
+# old school
+# python setup.py sdist upload -r pypi
+
+# twine
+python setup.py sdist bdist_wheel
+#twine upload -u username -p password --repository-url https://test.pypi.org/legacy/ dist/*
+twine upload dist/*
