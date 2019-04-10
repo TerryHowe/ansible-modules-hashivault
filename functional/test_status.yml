@@ -29,3 +29,18 @@
       register: 'vault_status'
     - assert: { that: "{{vault_status.changed}} == False" }
     - assert: { that: "{{vault_status.rc}} == 0" }
+
+    - name: Get hashivault_cluster_status
+      hashivault_cluster_status:
+        method: GET
+      register: 'vault_status'
+    - assert: { that: "{{vault_status.changed}} == False" }
+    - assert: { that: "{{vault_status.rc}} == 0" }
+
+    - name: Get hashivault_cluster_status
+      hashivault_cluster_status:
+        standby_ok: false
+        method: GET
+      register: 'vault_status'
+    - assert: { that: "{{vault_status.changed}} == False" }
+    - assert: { that: "{{vault_status.rc}} == 0" }
