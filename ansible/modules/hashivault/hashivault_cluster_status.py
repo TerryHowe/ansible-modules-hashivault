@@ -61,7 +61,7 @@ options:
         default: False
     method:
       description:
-        - Method to use to get cluster status, supported methods: HEAD (produces: 000 (empty body)) and GET (produces: 000 application/json)
+        - Method to use to get cluster status, supported methods are HEAD (produces 000 (empty body)) and GET (produces 000 application/json)
       default: HEAD
 '''
 EXAMPLES = '''
@@ -77,7 +77,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['standby_ok'] = dict(required=False, type='bool', default=True)
-    argspec['method'] = dict(required=False, type='string', default="HEAD")
+    argspec['method'] = dict(required=False, default="HEAD")
     module = hashivault_init(argspec)
     result = hashivault_cluster_status(module.params)
     if result.get('failed'):
