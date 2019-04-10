@@ -56,9 +56,13 @@ options:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
     standby_ok:
-        description: Specifies if being a standby should still return the active status code instead of the standby status code
-            - password to login to vault.
+        description:
+            - Specifies if being a standby should still return the active status code instead of the standby status code
         default: False
+    method:
+      description:
+        - Method to use to get cluster status, supported methods: HEAD (produces: 000 (empty body)) and GET (produces: 000 application/json)
+      default: HEAD
 '''
 EXAMPLES = '''
 ---
@@ -73,6 +77,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['standby_ok'] = dict(required=False, type='bool', default=True)
+    argspec['method'] = dict(required=False, type='string', default="HEAD")
     module = hashivault_init(argspec)
     result = hashivault_cluster_status(module.params)
     if result.get('failed'):
@@ -84,7 +89,7 @@ def main():
 @hashiwrapper
 def hashivault_cluster_status(params):
     client = hashivault_client(params)
-    response = client.sys.read_health_status(standby_ok=params.get("standby_ok"))
+    response = client.sys.read_health_status(standby_ok=params.get("standby_ok"), method=params.get("method"))
     from requests.models import Response
     if isinstance(response, Response):
         try:
@@ -92,7 +97,7 @@ def hashivault_cluster_status(params):
         except Exception:
             status = response.content
     else:
-        status = str(response)
+        status = response
     return {'status': status}
 
 
