@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+3.17.3 (2019-04-11)
+-------------------
+- Add `mount_point` option to the lookup plugin. [Piotr Śliwka]
+
+
 3.17.2 (2019-04-11)
 -------------------
 - Add the support for the http method and return json in case of GET
