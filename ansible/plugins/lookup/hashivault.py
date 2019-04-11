@@ -46,6 +46,7 @@ class LookupModule(LookupBase):
             key = None
         default = kwargs.get('default', None)
         version = kwargs.get('version')
+        mount_point = kwargs.get('mount_point', 'secret')
         params = {
             'url': self._get_url(environments),
             'verify': self._get_verify(environments),
@@ -53,7 +54,7 @@ class LookupModule(LookupBase):
             'key': key,
             'default': default,
             'version': version,
-            'mount_point': 'secret',
+            'mount_point': mount_point,
         }
         authtype = self._get_environment(environments, 'VAULT_AUTHTYPE', 'token')
         params['authtype'] = authtype
