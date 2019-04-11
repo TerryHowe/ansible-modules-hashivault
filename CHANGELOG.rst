@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+3.17.2 (2019-04-11)
+-------------------
+- Add the support for the http method and return json in case of GET
+  method. [Damien Goldenberg]
+
+
 3.17.1 (2019-04-05)
 -------------------
 - Support metadata for v1 reads. [Terry Howe]
