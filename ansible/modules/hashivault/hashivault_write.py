@@ -184,7 +184,7 @@ def hashivault_write(module):
                 return result
             if not read_data:
                 read_data = {}
-            read_data = read_data.get('data', {})
+            read_data = read_data['data']['data']
 
             write_data = dict(read_data)
             write_data.update(data)
