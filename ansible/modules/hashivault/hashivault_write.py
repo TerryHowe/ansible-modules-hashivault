@@ -187,7 +187,7 @@ def hashivault_write(module):
             read_data = read_data.get('data', {})
             
             if version == 2:
-                read_data = read_data.get['data']['data']
+                read_data = read_data.get('data', {})
 
             write_data = dict(read_data)
             write_data.update(data)
