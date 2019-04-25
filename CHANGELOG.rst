@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+3.17.4 (2019-04-25)
+-------------------
+- Fix kv2 secret write. [Vincent Mazenod]
+
+
 3.17.3 (2019-04-11)
 -------------------
 - Add `mount_point` option to the lookup plugin. [Piotr Śliwka]
