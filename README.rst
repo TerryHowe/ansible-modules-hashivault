@@ -35,7 +35,7 @@ Install this Ansible module:
 In most cases the Hashicorp Vault modules should be run on localhost.
 
 Environmental Variables
--------------------
+-----------------------
 
 The following variables need to be exported to the environment where you run ansible
 in order to authenticate to your HashiCorp Vault instance:

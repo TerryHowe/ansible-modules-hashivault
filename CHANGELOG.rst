@@ -4,7 +4,7 @@ Changelog
 
 3.17.5 (2019-05-16)
 -------------------
-- Allow to create custom approle secret id. [Wojciech Podgórski]
+- Allow to create custom approle secret id. [Wojciech Podgorski]
 
 
 3.17.4 (2019-04-25)

@@ -18,6 +18,7 @@ setup(
     version='3.17.5',
     description='Ansible Modules for Hashicorp Vault',
     long_description=long_description,
+    long_description_content_type='text/x-rst',
     author='Terry Howe',
     author_email='terrylhowe@example.com',
     url='https://github.com/TerryHowe/ansible-modules-hashivault',
