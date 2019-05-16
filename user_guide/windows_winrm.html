@@ -2398,7 +2398,7 @@ decoded by anyone. Basic authentication can only be used for local accounts (not
 </div>
 <p>Basic authentication is not enabled by default on a Windows host but can be
 enabled by running the following in PowerShell:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">Set</span><span class="o">-</span><span class="n">Item</span> <span class="o">-</span><span class="n">Path</span> <span class="n">WSMan</span><span class="p">:</span><span class="err">\</span><span class="n">localhost</span><span class="err">\</span><span class="n">Service</span><span class="err">\</span><span class="n">Auth</span><span class="err">\</span><span class="n">Basic</span> <span class="o">-</span><span class="n">Value</span> <span class="err">$</span><span class="k">true</span>
 </pre></div>
 </div>
 </div>
@@ -2415,7 +2415,7 @@ pairs, but the file format and key generation process is different.</p>
 </div>
 <p>Certificate authentication is not enabled by default on a Windows host but can
 be enabled by running the following in PowerShell:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>Set-Item -Path WSMan:\localhost\Service\Auth\Certificate -Value $true
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">Set</span><span class="o">-</span><span class="n">Item</span> <span class="o">-</span><span class="n">Path</span> <span class="n">WSMan</span><span class="p">:</span><span class="err">\</span><span class="n">localhost</span><span class="err">\</span><span class="n">Service</span><span class="err">\</span><span class="n">Auth</span><span class="err">\</span><span class="n">Certificate</span> <span class="o">-</span><span class="n">Value</span> <span class="err">$</span><span class="k">true</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -2461,28 +2461,28 @@ rm openssl.conf
 </pre></div>
 </div>
 <p>To generate a certificate with <code class="docutils literal notranslate"><span class="pre">New-SelfSignedCertificate</span></code>:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span># set the name of the local user that will have the key mapped
-$username = &quot;username&quot;
-$output_path = &quot;C:\temp&quot;
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span># <span class="nv">set</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">local</span> <span class="nv">user</span> <span class="nv">that</span> <span class="nv">will</span> <span class="nv">have</span> <span class="nv">the</span> <span class="nv">key</span> <span class="nv">mapped</span>
+$<span class="nv">username</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">username</span><span class="s2">&quot;</span>
+$<span class="nv">output_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">C:</span><span class="se">\t</span><span class="s">emp</span><span class="s2">&quot;</span>
 
-# instead of generating a file, the cert will be added to the personal
-# LocalComputer folder in the certificate store
-$cert = New-SelfSignedCertificate -Type Custom `
-    -Subject &quot;CN=$username&quot; `
-    -TextExtension @(&quot;2.5.29.37={text}1.3.6.1.5.5.7.3.2&quot;,&quot;2.5.29.17={text}upn=$username@localhost&quot;) `
-    -KeyUsage DigitalSignature,KeyEncipherment `
-    -KeyAlgorithm RSA `
-    -KeyLength 2048
+# <span class="nv">instead</span> <span class="nv">of</span> <span class="nv">generating</span> <span class="nv">a</span> <span class="nv">file</span>, <span class="nv">the</span> <span class="nv">cert</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">added</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">personal</span>
+# <span class="nv">LocalComputer</span> <span class="nv">folder</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">certificate</span> <span class="nv">store</span>
+<span class="mh">$ce</span><span class="nv">rt</span> <span class="o">=</span> <span class="nv">New</span><span class="o">-</span><span class="nv">SelfSignedCertificate</span> <span class="o">-</span><span class="nv">Type</span> <span class="nv">Custom</span> `
+    <span class="o">-</span><span class="nv">Subject</span> <span class="s2">&quot;</span><span class="s">CN=$username</span><span class="s2">&quot;</span> `
+    <span class="o">-</span><span class="nv">TextExtension</span> @<span class="ss">(</span><span class="s2">&quot;</span><span class="s">2.5.29.37={text}1.3.6.1.5.5.7.3.2</span><span class="s2">&quot;</span>,<span class="s2">&quot;</span><span class="s">2.5.29.17={text}upn=$username@localhost</span><span class="s2">&quot;</span><span class="ss">)</span> `
+    <span class="o">-</span><span class="nv">KeyUsage</span> <span class="nv">DigitalSignature</span>,<span class="nv">KeyEncipherment</span> `
+    <span class="o">-</span><span class="nv">KeyAlgorithm</span> <span class="nv">RSA</span> `
+    <span class="o">-</span><span class="nv">KeyLength</span> <span class="mi">2048</span>
 
-# export the public key
-$pem_output = @()
-$pem_output += &quot;-----BEGIN CERTIFICATE-----&quot;
-$pem_output += [System.Convert]::ToBase64String($cert.RawData) -replace &quot;.{64}&quot;, &quot;$&amp;`n&quot;
-$pem_output += &quot;-----END CERTIFICATE-----&quot;
-[System.IO.File]::WriteAllLines(&quot;$output_path\cert.pem&quot;, $pem_output)
+# <span class="nv">export</span> <span class="nv">the</span> <span class="nv">public</span> <span class="nv">key</span>
+$<span class="nv">pem_output</span> <span class="o">=</span> @<span class="ss">()</span>
+$<span class="nv">pem_output</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="s">-----BEGIN CERTIFICATE-----</span><span class="s2">&quot;</span>
+$<span class="nv">pem_output</span> <span class="o">+=</span> [<span class="nv">System</span>.<span class="nv">Convert</span>]::<span class="nv">ToBase64String</span><span class="ss">(</span><span class="mh">$ce</span><span class="nv">rt</span>.<span class="nv">RawData</span><span class="ss">)</span> <span class="o">-</span><span class="nv">replace</span> <span class="s2">&quot;</span><span class="s">.{64}</span><span class="s2">&quot;</span>, <span class="s2">&quot;</span><span class="s">$&amp;`n</span><span class="s2">&quot;</span>
+$<span class="nv">pem_output</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="s">-----END CERTIFICATE-----</span><span class="s2">&quot;</span>
+[<span class="nv">System</span>.<span class="nv">IO</span>.<span class="nv">File</span>]::<span class="nv">WriteAllLines</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">$output_path\cert.pem</span><span class="s2">&quot;</span>, $<span class="nv">pem_output</span><span class="ss">)</span>
 
-# export the private key in a PFX file
-[System.IO.File]::WriteAllBytes(&quot;$output_path\cert.pfx&quot;, $cert.Export(&quot;Pfx&quot;))
+# <span class="nv">export</span> <span class="nv">the</span> <span class="nv">private</span> <span class="nv">key</span> <span class="nv">in</span> <span class="nv">a</span> <span class="nv">PFX</span> <span class="nv">file</span>
+[<span class="nv">System</span>.<span class="nv">IO</span>.<span class="nv">File</span>]::<span class="nv">WriteAllBytes</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">$output_path\cert.pfx</span><span class="s2">&quot;</span>, <span class="mh">$ce</span><span class="nv">rt</span>.<span class="nv">Export</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">Pfx</span><span class="s2">&quot;</span><span class="ss">))</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -2500,15 +2500,15 @@ imported into the <code class="docutils literal notranslate"><span class="pre">T
 in the <code class="docutils literal notranslate"><span class="pre">Trusted</span> <span class="pre">People</span></code> folder of the <code class="docutils literal notranslate"><span class="pre">LocalMachine</span></code> store. For this example,
 both the issuing certificate and public key are the same.</p>
 <p>Following example shows how to import the issuing certificate:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$cert = New-Object -TypeName System.Security.Cryptography.X509Certificates.X509Certificate2
-$cert.Import(&quot;cert.pem&quot;)
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">$</span><span class="n">cert</span> <span class="o">=</span> <span class="k">New</span><span class="o">-</span><span class="k">Object</span> <span class="o">-</span><span class="n">TypeName</span> <span class="k">System</span><span class="p">.</span><span class="k">Security</span><span class="p">.</span><span class="n">Cryptography</span><span class="p">.</span><span class="n">X509Certificates</span><span class="p">.</span><span class="n">X509Certificate2</span>
+<span class="err">$</span><span class="n">cert</span><span class="p">.</span><span class="n">Import</span><span class="p">(</span><span class="ss">&quot;cert.pem&quot;</span><span class="p">)</span>
 
-$store_name = [System.Security.Cryptography.X509Certificates.StoreName]::Root
-$store_location = [System.Security.Cryptography.X509Certificates.StoreLocation]::LocalMachine
-$store = New-Object -TypeName System.Security.Cryptography.X509Certificates.X509Store -ArgumentList $store_name, $store_location
-$store.Open(&quot;MaxAllowed&quot;)
-$store.Add($cert)
-$store.Close()
+<span class="err">$</span><span class="n">store_name</span> <span class="o">=</span> <span class="p">[</span><span class="k">System</span><span class="p">.</span><span class="k">Security</span><span class="p">.</span><span class="n">Cryptography</span><span class="p">.</span><span class="n">X509Certificates</span><span class="p">.</span><span class="n">StoreName</span><span class="p">]::</span><span class="n">Root</span>
+<span class="err">$</span><span class="n">store_location</span> <span class="o">=</span> <span class="p">[</span><span class="k">System</span><span class="p">.</span><span class="k">Security</span><span class="p">.</span><span class="n">Cryptography</span><span class="p">.</span><span class="n">X509Certificates</span><span class="p">.</span><span class="n">StoreLocation</span><span class="p">]::</span><span class="n">LocalMachine</span>
+<span class="err">$</span><span class="n">store</span> <span class="o">=</span> <span class="k">New</span><span class="o">-</span><span class="k">Object</span> <span class="o">-</span><span class="n">TypeName</span> <span class="k">System</span><span class="p">.</span><span class="k">Security</span><span class="p">.</span><span class="n">Cryptography</span><span class="p">.</span><span class="n">X509Certificates</span><span class="p">.</span><span class="n">X509Store</span> <span class="o">-</span><span class="n">ArgumentList</span> <span class="err">$</span><span class="n">store_name</span><span class="p">,</span> <span class="err">$</span><span class="n">store_location</span>
+<span class="err">$</span><span class="n">store</span><span class="p">.</span><span class="k">Open</span><span class="p">(</span><span class="ss">&quot;MaxAllowed&quot;</span><span class="p">)</span>
+<span class="err">$</span><span class="n">store</span><span class="p">.</span><span class="k">Add</span><span class="p">(</span><span class="err">$</span><span class="n">cert</span><span class="p">)</span>
+<span class="err">$</span><span class="n">store</span><span class="p">.</span><span class="k">Close</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -2517,15 +2517,15 @@ $store.Close()
 certificate will already be imported and this step can be skipped.</p>
 </div>
 <p>The code to import the client certificate public key is:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$cert = New-Object -TypeName System.Security.Cryptography.X509Certificates.X509Certificate2
-$cert.Import(&quot;cert.pem&quot;)
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">$</span><span class="n">cert</span> <span class="o">=</span> <span class="k">New</span><span class="o">-</span><span class="k">Object</span> <span class="o">-</span><span class="n">TypeName</span> <span class="k">System</span><span class="p">.</span><span class="k">Security</span><span class="p">.</span><span class="n">Cryptography</span><span class="p">.</span><span class="n">X509Certificates</span><span class="p">.</span><span class="n">X509Certificate2</span>
+<span class="err">$</span><span class="n">cert</span><span class="p">.</span><span class="n">Import</span><span class="p">(</span><span class="ss">&quot;cert.pem&quot;</span><span class="p">)</span>
 
-$store_name = [System.Security.Cryptography.X509Certificates.StoreName]::TrustedPeople
-$store_location = [System.Security.Cryptography.X509Certificates.StoreLocation]::LocalMachine
-$store = New-Object -TypeName System.Security.Cryptography.X509Certificates.X509Store -ArgumentList $store_name, $store_location
-$store.Open(&quot;MaxAllowed&quot;)
-$store.Add($cert)
-$store.Close()
+<span class="err">$</span><span class="n">store_name</span> <span class="o">=</span> <span class="p">[</span><span class="k">System</span><span class="p">.</span><span class="k">Security</span><span class="p">.</span><span class="n">Cryptography</span><span class="p">.</span><span class="n">X509Certificates</span><span class="p">.</span><span class="n">StoreName</span><span class="p">]::</span><span class="n">TrustedPeople</span>
+<span class="err">$</span><span class="n">store_location</span> <span class="o">=</span> <span class="p">[</span><span class="k">System</span><span class="p">.</span><span class="k">Security</span><span class="p">.</span><span class="n">Cryptography</span><span class="p">.</span><span class="n">X509Certificates</span><span class="p">.</span><span class="n">StoreLocation</span><span class="p">]::</span><span class="n">LocalMachine</span>
+<span class="err">$</span><span class="n">store</span> <span class="o">=</span> <span class="k">New</span><span class="o">-</span><span class="k">Object</span> <span class="o">-</span><span class="n">TypeName</span> <span class="k">System</span><span class="p">.</span><span class="k">Security</span><span class="p">.</span><span class="n">Cryptography</span><span class="p">.</span><span class="n">X509Certificates</span><span class="p">.</span><span class="n">X509Store</span> <span class="o">-</span><span class="n">ArgumentList</span> <span class="err">$</span><span class="n">store_name</span><span class="p">,</span> <span class="err">$</span><span class="n">store_location</span>
+<span class="err">$</span><span class="n">store</span><span class="p">.</span><span class="k">Open</span><span class="p">(</span><span class="ss">&quot;MaxAllowed&quot;</span><span class="p">)</span>
+<span class="err">$</span><span class="n">store</span><span class="p">.</span><span class="k">Add</span><span class="p">(</span><span class="err">$</span><span class="n">cert</span><span class="p">)</span>
+<span class="err">$</span><span class="n">store</span><span class="p">.</span><span class="k">Close</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2533,21 +2533,21 @@ $store.Close()
 <h4><a class="toc-backref" href="#id7">Mapping a Certificate to an Account</a><a class="headerlink" href="#mapping-a-certificate-to-an-account" title="Permalink to this headline">¶</a></h4>
 <p>Once the certificate has been imported, it needs to be mapped to the local user account.</p>
 <p>This can be done with the following PowerShell command:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$username = &quot;username&quot;
-$password = ConvertTo-SecureString -String &quot;password&quot; -AsPlainText -Force
-$credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $username, $password
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$<span class="nv">username</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">username</span><span class="s2">&quot;</span>
+$<span class="nv">password</span> <span class="o">=</span> <span class="nv">ConvertTo</span><span class="o">-</span><span class="nv">SecureString</span> <span class="o">-</span><span class="nv">String</span> <span class="s2">&quot;</span><span class="s">password</span><span class="s2">&quot;</span> <span class="o">-</span><span class="nv">AsPlainText</span> <span class="o">-</span><span class="nv">Force</span>
+<span class="mh">$c</span><span class="nv">redential</span> <span class="o">=</span> <span class="nv">New</span><span class="o">-</span><span class="nv">Object</span> <span class="o">-</span><span class="nv">TypeName</span> <span class="nv">System</span>.<span class="nv">Management</span>.<span class="nv">Automation</span>.<span class="nv">PSCredential</span> <span class="o">-</span><span class="nv">ArgumentList</span> $<span class="nv">username</span>, $<span class="nv">password</span>
 
-# this is the issuer thumbprint which in the case of a self generated cert
-# is the public key thumbprint, additional logic may be required for other
-# scenarios
-$thumbprint = (Get-ChildItem -Path cert:\LocalMachine\root | Where-Object { $_.Subject -eq &quot;CN=$username&quot; }).Thumbprint
+# <span class="nv">this</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">issuer</span> <span class="nv">thumbprint</span> <span class="nv">which</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">case</span> <span class="nv">of</span> <span class="nv">a</span> <span class="nv">self</span> <span class="nv">generated</span> <span class="nv">cert</span>
+# <span class="nv">is</span> <span class="nv">the</span> <span class="nv">public</span> <span class="nv">key</span> <span class="nv">thumbprint</span>, <span class="nv">additional</span> <span class="nv">logic</span> <span class="nv">may</span> <span class="nv">be</span> <span class="nv">required</span> <span class="k">for</span> <span class="nv">other</span>
+# <span class="nv">scenarios</span>
+$<span class="nv">thumbprint</span> <span class="o">=</span> <span class="ss">(</span><span class="nv">Get</span><span class="o">-</span><span class="nv">ChildItem</span> <span class="o">-</span><span class="nv">Path</span> <span class="nv">cert</span>:\<span class="nv">LocalMachine</span>\<span class="nv">root</span> <span class="o">|</span> <span class="nv">Where</span><span class="o">-</span><span class="nv">Object</span> { $<span class="nv">_</span>.<span class="nv">Subject</span> <span class="o">-</span><span class="nv">eq</span> <span class="s2">&quot;</span><span class="s">CN=$username</span><span class="s2">&quot;</span> }<span class="ss">)</span>.<span class="nv">Thumbprint</span>
 
-New-Item -Path WSMan:\localhost\ClientCertificate `
-    -Subject &quot;$username@localhost&quot; `
-    -URI * `
-    -Issuer $thumbprint `
-    -Credential $credential `
-    -Force
+<span class="nv">New</span><span class="o">-</span><span class="nv">Item</span> <span class="o">-</span><span class="nv">Path</span> <span class="nv">WSMan</span>:\<span class="nv">localhost</span>\<span class="nv">ClientCertificate</span> `
+    <span class="o">-</span><span class="nv">Subject</span> <span class="s2">&quot;</span><span class="s">$username@localhost</span><span class="s2">&quot;</span> `
+    <span class="o">-</span><span class="nv">URI</span> <span class="o">*</span> `
+    <span class="o">-</span><span class="nv">Issuer</span> $<span class="nv">thumbprint</span> `
+    <span class="o">-</span><span class="nv">Credential</span> <span class="mh">$c</span><span class="nv">redential</span> `
+    <span class="o">-</span><span class="nv">Force</span>
 </pre></div>
 </div>
 <p>Once this is complete, the hostvar <code class="docutils literal notranslate"><span class="pre">ansible_winrm_cert_pem</span></code> should be set to
@@ -2755,7 +2755,7 @@ message encryption over HTTP.</p>
 </div>
 <p>CredSSP authentication is not enabled by default on a Windows host, but can
 be enabled by running the following in PowerShell:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>Enable-WSManCredSSP -Role Server -Force
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">Enable</span><span class="o">-</span><span class="n">WSManCredSSP</span> <span class="o">-</span><span class="k">Role</span> <span class="n">Server</span> <span class="o">-</span><span class="k">Force</span>
 </pre></div>
 </div>
 <div class="section" id="installing-credssp-library">
@@ -2783,15 +2783,15 @@ has no way of supporting TLS 1.2</p></li>
 needs to be installed.</p>
 <p>Once the update has been applied and the Windows host rebooted, run the following
 PowerShell commands to enable TLS 1.2:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$reg_path = &quot;HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProvider\SCHANNEL\Protocols\TLS 1.2&quot;
-New-Item -Path $reg_path
-New-Item -Path &quot;$reg_path\Server&quot;
-New-Item -Path &quot;$reg_path\Client&quot;
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">$</span><span class="n">reg_path</span> <span class="o">=</span> <span class="ss">&quot;HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProvider\SCHANNEL\Protocols\TLS 1.2&quot;</span>
+<span class="k">New</span><span class="o">-</span><span class="n">Item</span> <span class="o">-</span><span class="n">Path</span> <span class="err">$</span><span class="n">reg_path</span>
+<span class="k">New</span><span class="o">-</span><span class="n">Item</span> <span class="o">-</span><span class="n">Path</span> <span class="ss">&quot;$reg_path\Server&quot;</span>
+<span class="k">New</span><span class="o">-</span><span class="n">Item</span> <span class="o">-</span><span class="n">Path</span> <span class="ss">&quot;$reg_path\Client&quot;</span>
 
-New-ItemProperty -Path &quot;$reg_path\Server&quot; -Name &quot;Enabled&quot; -Value 1 -PropertyType DWord
-New-ItemProperty -Path &quot;$reg_path\Server&quot; -Name &quot;DisabledByDefault&quot; -Value 0 -PropertyType DWord
-New-ItemProperty -Path &quot;$reg_path\Client&quot; -Name &quot;Enabled&quot; -Value 1 -PropertyType DWord
-New-ItemProperty -Path &quot;$reg_path\Client&quot; -Name &quot;DisabledByDefault&quot; -Value 0 -PropertyType DWord
+<span class="k">New</span><span class="o">-</span><span class="n">ItemProperty</span> <span class="o">-</span><span class="n">Path</span> <span class="ss">&quot;$reg_path\Server&quot;</span> <span class="o">-</span><span class="n">Name</span> <span class="ss">&quot;Enabled&quot;</span> <span class="o">-</span><span class="n">Value</span> <span class="mi">1</span> <span class="o">-</span><span class="n">PropertyType</span> <span class="n">DWord</span>
+<span class="k">New</span><span class="o">-</span><span class="n">ItemProperty</span> <span class="o">-</span><span class="n">Path</span> <span class="ss">&quot;$reg_path\Server&quot;</span> <span class="o">-</span><span class="n">Name</span> <span class="ss">&quot;DisabledByDefault&quot;</span> <span class="o">-</span><span class="n">Value</span> <span class="mi">0</span> <span class="o">-</span><span class="n">PropertyType</span> <span class="n">DWord</span>
+<span class="k">New</span><span class="o">-</span><span class="n">ItemProperty</span> <span class="o">-</span><span class="n">Path</span> <span class="ss">&quot;$reg_path\Client&quot;</span> <span class="o">-</span><span class="n">Name</span> <span class="ss">&quot;Enabled&quot;</span> <span class="o">-</span><span class="n">Value</span> <span class="mi">1</span> <span class="o">-</span><span class="n">PropertyType</span> <span class="n">DWord</span>
+<span class="k">New</span><span class="o">-</span><span class="n">ItemProperty</span> <span class="o">-</span><span class="n">Path</span> <span class="ss">&quot;$reg_path\Client&quot;</span> <span class="o">-</span><span class="n">Name</span> <span class="ss">&quot;DisabledByDefault&quot;</span> <span class="o">-</span><span class="n">Value</span> <span class="mi">0</span> <span class="o">-</span><span class="n">PropertyType</span> <span class="n">DWord</span>
 </pre></div>
 </div>
 </div>
@@ -2806,12 +2806,12 @@ certificate. With CredSSP, message transport still occurs over the WinRM listene
 but the TLS-encrypted messages inside the channel use the service-level certificate.</p>
 </div>
 <p>To explicitly set the certificate to use for CredSSP:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span># note the value $certificate_thumbprint will be different in each
-# situation, this needs to be set based on the cert that is used.
-$certificate_thumbprint = &quot;7C8DCBD5427AFEE6560F4AF524E325915F51172C&quot;
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">note</span> <span class="n">the</span> <span class="n">value</span> <span class="err">$</span><span class="n">certificate_thumbprint</span> <span class="n">will</span> <span class="n">be</span> <span class="n">different</span> <span class="k">in</span> <span class="k">each</span>
+<span class="o">#</span> <span class="n">situation</span><span class="p">,</span> <span class="n">this</span> <span class="n">needs</span> <span class="k">to</span> <span class="n">be</span> <span class="k">set</span> <span class="n">based</span> <span class="k">on</span> <span class="n">the</span> <span class="n">cert</span> <span class="n">that</span> <span class="k">is</span> <span class="n">used</span><span class="p">.</span>
+<span class="err">$</span><span class="n">certificate_thumbprint</span> <span class="o">=</span> <span class="ss">&quot;7C8DCBD5427AFEE6560F4AF524E325915F51172C&quot;</span>
 
-# set the thumbprint value
-Set-Item -Path WSMan:\localhost\Service\CertificateThumbprint -Value $certificate_thumbprint
+<span class="o">#</span> <span class="k">set</span> <span class="n">the</span> <span class="n">thumbprint</span> <span class="n">value</span>
+<span class="k">Set</span><span class="o">-</span><span class="n">Item</span> <span class="o">-</span><span class="n">Path</span> <span class="n">WSMan</span><span class="p">:</span><span class="err">\</span><span class="n">localhost</span><span class="err">\</span><span class="n">Service</span><span class="err">\</span><span class="n">CertificateThumbprint</span> <span class="o">-</span><span class="n">Value</span> <span class="err">$</span><span class="n">certificate_thumbprint</span>
 </pre></div>
 </div>
 </div>
@@ -2821,7 +2821,7 @@ Set-Item -Path WSMan:\localhost\Service\CertificateThumbprint -Value $certificat
 <h2><a class="toc-backref" href="#id19">Non-Administrator Accounts</a><a class="headerlink" href="#non-administrator-accounts" title="Permalink to this headline">¶</a></h2>
 <p>WinRM is configured by default to only allow connections from accounts in the local
 <code class="docutils literal notranslate"><span class="pre">Administrators</span></code> group. This can be changed by running:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>winrm configSDDL default
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">winrm</span> <span class="n">configSDDL</span> <span class="k">default</span>
 </pre></div>
 </div>
 <p>This will display an ACL editor, where new users or groups may be added. To run commands
@@ -2851,7 +2851,7 @@ in the host vars.</p>
 should only be used for development and debugging purposes, as anything sent
 from Ansible can viewed by anyone on the network. To disable the encryption
 requirement, run the following from PowerShell on the target host:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>Set-Item -Path WSMan:\localhost\Service\AllowUnencrypted -Value $true
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">Set</span><span class="o">-</span><span class="n">Item</span> <span class="o">-</span><span class="n">Path</span> <span class="n">WSMan</span><span class="p">:</span><span class="err">\</span><span class="n">localhost</span><span class="err">\</span><span class="n">Service</span><span class="err">\</span><span class="n">AllowUnencrypted</span> <span class="o">-</span><span class="n">Value</span> <span class="err">$</span><span class="k">true</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -3079,7 +3079,7 @@ restrictions but can only run a command and not modules.</p></li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Apr 25, 2019.<br/>
+  <p>Last updated on May 16, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>
