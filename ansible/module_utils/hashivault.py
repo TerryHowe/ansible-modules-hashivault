@@ -25,9 +25,8 @@ def hashivault_argspec():
     )
     return argument_spec
 
-
-def hashivault_init(argument_spec, supports_check_mode=False):
-    return AnsibleModule(argument_spec=argument_spec, supports_check_mode=supports_check_mode)
+def hashivault_init(argument_spec, supports_check_mode=False, required_if=None, required_together=None, required_one_of=None, mutually_exclusive=None):
+    return AnsibleModule(argument_spec=argument_spec, supports_check_mode=supports_check_mode, required_together=required_together, mutually_exclusive=mutually_exclusive)
 
 
 def get_ec2_iam_role():
