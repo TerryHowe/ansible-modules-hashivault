@@ -4,6 +4,8 @@ from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
 import json
+import sys
+from ast import literal_eval
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -139,15 +141,25 @@ def hashivault_azure_secret_engine_config(module):
         client_secret = params.get('client_secret')
 
     # check if engine is enabled
-    print(client.sys.list_mounted_secrets_engines()['data'].keys())
-    if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
-         return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
+    if sys.version_info[0] < 3:
+        if (mount_point + "/") not in json.dumps(client.sys.list_mounted_secrets_engines()['data'].keys()):
+            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
+    elif (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
+        return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
     
     # check if current config matches desired config values, if they match, set changed to false to prevent action
     current = client.secrets.azure.read_config()
-    if current.items() < params.items(): 
+    if sys.version_info[0] < 3:
         changed = False
-
+        current_dict = literal_eval(json.dumps(current))
+        for k, v in current_dict.items():
+            for k2, v2, in params.items():
+                if k == k2:
+                    if v != v2:
+                        changed = True
+    else:
+        if current.items() < params.items():
+            changed = False
     # if configs dont match and checkmode is off, complete the change
     if changed == True and not module.check_mode:
         result = client.secrets.azure.configure(tenant_id=tenant_id, subscription_id=subscription_id, client_id=client_id, client_secret=client_secret, mount_point=mount_point)
