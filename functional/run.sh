@@ -20,6 +20,7 @@ ansible-playbook -v test_lookup.yml
 ansible-playbook -v test_delete.yml
 ansible-playbook -v test_auth.yml
 ansible-playbook -v test_secret_list.yml
+ansible-playbook -vvv test_azure_config.yml
 ansible-playbook -v test_policy.yml
 ansible-playbook -v test_status.yml
 ansible-playbook -v test_not_there.yml
