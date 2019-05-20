@@ -3,9 +3,7 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
-import json
-import sys
-from ast import literal_eval
+import json, sys
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -151,15 +149,13 @@ def hashivault_azure_secret_engine_config(module):
     current = client.secrets.azure.read_config()
     if sys.version_info[0] < 3:
         changed = False
-        current_dict = literal_eval(json.dumps(current))
-        for k, v in current_dict.items():
-            for k2, v2, in params.items():
-                if k == k2:
-                    if v != v2:
-                        changed = True
+        mismatched = {k:v for k, v in current.items() if params[k] != v}
+        if mismatched:
+            changed = True
     else:
         if current.items() < params.items():
             changed = False
+
     # if configs dont match and checkmode is off, complete the change
     if changed == True and not module.check_mode:
         result = client.secrets.azure.configure(tenant_id=tenant_id, subscription_id=subscription_id, client_id=client_id, client_secret=client_secret, mount_point=mount_point)
