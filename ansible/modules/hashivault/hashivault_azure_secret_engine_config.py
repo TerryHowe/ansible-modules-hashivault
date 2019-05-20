@@ -139,9 +139,9 @@ def hashivault_azure_secret_engine_config(module):
         client_secret = params.get('client_secret')
 
     # check if engine is enabled
-    client.sys.list_auth_methods().keys()
-    if (mount_point + "/") not in client.sys.list_auth_methods().keys():
-         return {'failed': True, 'msg': 'auth backend is not enabled', 'rc': 1}
+    print(client.sys.list_mounted_secrets_engines()['data'].keys())
+    if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
+         return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
     
     # check if current config matches desired config values, if they match, set changed to false to prevent action
     current = client.secrets.azure.read_config()
