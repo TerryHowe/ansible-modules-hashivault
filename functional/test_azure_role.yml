@@ -1,0 +1,70 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+    subscription_id: "xyz"
+    client_id: ""
+    client_secret: ""
+    tenant_id: ""
+    azure_role1: [{ "role_name": "Contributor","scope": "/subscriptions/xyz"}]
+    azure_role2: [{ "role_name": "Contributor","scope": "/subscriptions/xyz"}, { "role_name": "Reader","scope": "/subscriptions/xyz"}]
+  tasks:
+    - hashivault_secret_disable:
+        name: azure
+      failed_when: false
+
+    - name: fail before mount is configured
+      hashivault_azure_secret_engine_role:
+        name: test
+        azure_role: "{{ azure_role1 }}"
+      failed_when: false
+      register: fail_config
+
+    - assert: { that: "{{ fail_config.changed }} == False" } # fail
+    
+    - name: enable azure secret engine
+      hashivault_secret_enable:
+        name: azure
+        backend: azure
+         
+    - name: configure azure mount
+      hashivault_azure_secret_engine_config:
+        subscription_id: "{{ subscription_id }}"
+        client_id: "{{ client_id }}"
+        client_secret: "{{ client_secret }}"
+        tenant_id: "{{ tenant_id }}"
+
+    - name: write 1 azure_role
+      hashivault_azure_secret_engine_role:
+        name: test
+        azure_role: "{{ azure_role1 }}"
+      register: success_write
+
+    - assert: { that: "{{ success_write.changed }} == True" } # changed
+
+    - name: idem same azure_role
+      hashivault_azure_secret_engine_role:
+        name: test
+        azure_role: "{{ azure_role1 }}"
+      register: idem_write
+
+    - assert: { that: "{{ idem_write.changed }} == False" } # not changed    
+
+    - name: overwrite existing
+      hashivault_azure_secret_engine_role:
+        name: test
+        azure_role: "{{ azure_role2 }}"
+      register: overwrite
+
+    - assert: { that: "{{ overwrite.changed }} == True" } # changed
+
+    # since we're doing dict compare, ensure that a dict with less obj
+    # correctly is overwritten
+    - name: ensure smaller azure_role successfully overwrites
+      hashivault_azure_secret_engine_role:
+        name: test
+        azure_role: "{{ azure_role1 }}"
+      register: overwrite_smaller
+
+    - assert: { that: "{{ overwrite_smaller.changed }} == True" } # changed
