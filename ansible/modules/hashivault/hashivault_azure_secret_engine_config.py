@@ -124,6 +124,10 @@ def hashivault_azure_secret_engine_config(module):
     config_file = params.get('config_file')
     mount_point = params.get('mount_point')
 
+    # do not want a trailing slash in mount_point
+    if mount_point[-1]:
+        mount_point = mount_point.strip('/')
+
     # if config_file is set, set sub_id, ten_id, client_id, client_secret from file
     # else set from passed args
     if config_file:

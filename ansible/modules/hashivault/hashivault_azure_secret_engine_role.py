@@ -58,17 +58,17 @@ options:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
     mount_point:
-        descrition:
+        description:
             - name of the secret engine mount name.
-        default: `azure`
+        default: azure
     name:
-        descrition:
+        description:
             - name of the role in vault
     azure_role:
-        descrition:
+        description:
             - list of nested dicts filled with role content [{"role_name":"", "scope":""}]
     azure_role_file:
-        descrition:
+        description:
             - file with a single dict, azure_role
 '''
 EXAMPLES = '''
