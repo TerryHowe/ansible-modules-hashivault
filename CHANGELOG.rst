@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+3.17.6 (2019-05-23)
+-------------------
+- Azure configuration support. [Drew Mullen]
+- Allow required_if, etc to be passed. [Drew Mullen]
+- Make twine happy. [Terry Howe]
+
+
 3.17.5 (2019-05-16)
 -------------------
 - Allow to create custom approle secret id. [Wojciech Podgorski]
