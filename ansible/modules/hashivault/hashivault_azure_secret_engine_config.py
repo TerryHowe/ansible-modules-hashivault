@@ -59,7 +59,7 @@ options:
     mount_point:
         description:
             - name of the secret engine mount name.
-        default: 'azure'
+        default: azure
     subscription_id:
         description:
             - azure SPN subscription id
@@ -105,10 +105,9 @@ def main():
     argspec['client_secret'] = dict(required=False, type='str')
     argspec['environment'] = dict(required=False, type='str', default='AzurePublicCloud')
     argspec['config_file'] = dict(required=False, type='str', default=None)
-    supports_check_mode=True
     required_together=[['subscription_id', 'client_id', 'client_secret', 'tenant_id']]
 
-    module = hashivault_init(argspec, supports_check_mode, required_together)
+    module = hashivault_init(argspec, supports_check_mode=True, required_together=required_together)
     result = hashivault_azure_secret_engine_config(module)
     if result.get('failed'):
         module.fail_json(**result)
@@ -125,7 +124,7 @@ def hashivault_azure_secret_engine_config(module):
     mount_point = params.get('mount_point')
 
     # do not want a trailing slash in mount_point
-    if mount_point[-1]:
+    if mount_point:
         mount_point = mount_point.strip('/')
 
     # if config_file is set, set sub_id, ten_id, client_id, client_secret from file
@@ -159,7 +158,9 @@ def hashivault_azure_secret_engine_config(module):
 
     # if configs dont match and checkmode is off, complete the change
     if changed == True and not module.check_mode:
-        result = client.secrets.azure.configure(tenant_id=tenant_id, subscription_id=subscription_id, client_id=client_id, client_secret=client_secret, mount_point=mount_point)
+        result = client.secrets.azure.configure(tenant_id=tenant_id, subscription_id=subscription_id,
+                                                client_id=client_id, client_secret=client_secret,
+                                                mount_point=mount_point)
     
     return {'changed': changed}
 

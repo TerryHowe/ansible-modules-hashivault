@@ -87,7 +87,6 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    # argspec['state'] = dict(required=False, type='str', default='present', choices=['present', 'absent']) delete role is not supported at this time
     argspec['name'] = dict(required=True, type='str')
     argspec['azure_role'] = dict(required=False, type='str')
     argspec['azure_role_file'] = dict(required=False, type='str')
@@ -95,7 +94,7 @@ def main():
     supports_check_mode=True
     mutually_exclusive=[['azure_role','azure_role_file']]
 
-    module = hashivault_init(argspec, supports_check_mode, mutually_exclusive)
+    module = hashivault_init(argspec, supports_check_mode=supports_check_mode, mutually_exclusive=mutually_exclusive)
     result = hashivault_azure_secret_engine_role(module)
     if result.get('failed'):
         module.fail_json(**result)
