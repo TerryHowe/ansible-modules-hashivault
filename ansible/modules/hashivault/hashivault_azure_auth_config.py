@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 
 DOCUMENTATION = '''
 ---
 module: hashivault_azure_auth_config
-version_added: "3.17.6"
+version_added: "3.17.7"
 short_description: Hashicorp Vault azure auth config
 description:
     - Module to configure an azure auth mount 

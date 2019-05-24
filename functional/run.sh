@@ -19,6 +19,8 @@ ansible-playbook -v test_list.yml
 ansible-playbook -v test_lookup.yml
 ansible-playbook -v test_delete.yml
 ansible-playbook -v test_auth.yml
+ansible-playbook -v test_auth_method.yml
+ansible-playbook -v test_azure_auth_config.yml
 ansible-playbook -v test_secret_list.yml
 ansible-playbook -v test_azure_config.yml
 # ansible-playbook -v test_azure_role.yml cannot run without true azure connectivity
