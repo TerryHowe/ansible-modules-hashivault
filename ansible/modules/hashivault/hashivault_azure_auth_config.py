@@ -77,8 +77,12 @@ options:
             - alternate way to pass SPN vars. must be json object
     environment:
         description:
-            - azure environment. you probably do not want to change this
+            - azure environment. default is likely OK
         default: AzurePublicCloud
+    resource:
+        description:
+            - the azure AD resource the auth method accesses. default is likely OK
+        default: https://management.azure.com
 '''
 EXAMPLES = '''
 ---
