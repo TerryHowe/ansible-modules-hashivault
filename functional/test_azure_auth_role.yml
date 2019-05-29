@@ -41,3 +41,11 @@
       register: idem_config
     
     - assert: { that: "{{ idem_config.changed }} == False" }
+
+    - name: delete role
+      hashivault_azure_auth_role:
+        name: test
+        state: absent
+      register: del_config
+    
+    - assert: { that: "{{ del_config.changed }} == True" }
