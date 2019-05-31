@@ -4,14 +4,16 @@ from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
 
-ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
+ANSIBLE_METADATA = {'status': ['deprecated'], 'alternative': 'Use M(hashivault_auth_method) instead.',
+                    'why': 'This module does not fit the standard pattern',
+                    'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
 module: hashivault_auth_enable
 version_added: "2.2.0"
 short_description: Hashicorp Vault auth enable module
 description:
-    - Module to enable authentication backends in Hashicorp Vault.
+    - Use hashivault_auth_method instead.
 options:
     url:
         description:
