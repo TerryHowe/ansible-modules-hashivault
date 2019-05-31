@@ -2,6 +2,14 @@ Changelog
 =========
 
 
+3.17.7 (2019-05-31)
+-------------------
+- Deprecate hashivault_auth_enable. [Terry Howe]
+- Add new hashivault_auth_method module. [Drew Mullen]
+- Add new hashivault_azure_auth_role module. [Drew Mullen]
+- Add new hashivault_azure_auth_config module. [Drew Mullen]
+
+
 3.17.6 (2019-05-23)
 -------------------
 - Azure configuration support. [Drew Mullen]
