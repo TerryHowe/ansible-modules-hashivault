@@ -1,0 +1,69 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+      plugin_name: blergh
+      allowed_roles: ["flergh"]
+      allowed_roles2: ["splurgh", "doesnt-exist"]
+      username: "user@dbnamer"
+      password: "P@ssw0rd"
+      connection_url: "postgresql://{{'{{username}}'}}:{{'{{password}}'}}@cool-modern-db-name"
+  tasks:
+    - name: start with engine disabled
+      hashivault_secret_disable:
+        name: database
+         
+    - name: make sure test fails when no mount exists
+      hashivault_db_secret_engine_config:
+        name: test
+        plugin_name: "{{ plugin_name }}"
+        allowed_roles: "{{ allowed_roles }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        connection_url: "{{ connection_url }}"
+      register: fail_config
+      failed_when: false
+
+    - assert: { that: "{{ fail_config.changed }} == False" }
+    
+    - name: enable database secret engine
+      hashivault_secret_enable:
+        name: database
+        backend: database
+         
+    - name: successfully configure
+      hashivault_db_secret_engine_config:
+        name: test
+        plugin_name: "{{ plugin_name }}"
+        allowed_roles: "{{ allowed_roles }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        connection_url: "{{ connection_url }}"
+      register: success_config
+
+    - assert: { that: "{{ success_config.changed }} == True" }
+
+    - name: skip 2nd config attempt with same values
+      hashivault_db_secret_engine_config:
+        name: test
+        plugin_name: "{{ plugin_name }}"
+        allowed_roles: "{{ allowed_roles }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        connection_url: "{{ connection_url }}"
+      register: idem_config
+    
+    - assert: { that: "{{ idem_config.changed }} == False" }
+
+    - name: attempt 3rd config with different values
+      hashivault_db_secret_engine_config:
+        name: test
+        plugin_name: "{{ plugin_name }}"
+        allowed_roles: "{{ allowed_roles2 }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        connection_url: "{{ connection_url }}"
+      register: overwrite_config
+    
+    - assert: { that: "{{ overwrite_config.changed }} == True" }
