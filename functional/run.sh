@@ -24,6 +24,7 @@ ansible-playbook -v test_azure_auth_config.yml
 # ansible-playbook -v test_azure_auth_role.yml wont work till hvac 9.2, issues/451 
 ansible-playbook -v test_secret_list.yml
 # ansible-playbook -v test_db_config.yml cannot run without true db connectivity
+# ansible-playbook -v test_db_role.yml cannot run without true db connectivity
 ansible-playbook -v test_azure_config.yml
 # ansible-playbook -v test_azure_role.yml cannot run without true azure connectivity
 ansible-playbook -v test_policy.yml
