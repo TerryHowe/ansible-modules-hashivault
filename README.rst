@@ -232,8 +232,9 @@ Handle auth backends::
         - hashivault_auth_list:
           register: 'vault_auth_list'
         - block:
-          - hashivault_auth_enable:
-              name: "userpass"
+          - hashivault_auth_method:
+              method_type: "userpass"
+              state: "enabled"
             register: 'vault_auth_enable'
           when: "'userpass/' not in vault_auth_list.backends"
 

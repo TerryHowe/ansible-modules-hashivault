@@ -1,0 +1,29 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - hashivault_auth_method:
+        method_type: azure
+        state: disabled
+
+    - hashivault_auth_method:
+        method_type: azure
+        state: disabled
+      register: disable_idem
+
+    - assert: { that: "{{ disable_idem.changed }} == False" }
+    
+    - name: enable azure secret engine
+      hashivault_auth_method:
+        method_type: azure
+      register: enable_chg
+
+    - assert: { that: "{{ enable_chg.changed }} == True" }
+
+    - hashivault_auth_method:
+        method_type: azure
+        state: disabled
+      register: disable_chg
+
+    - assert: { that: "{{ disable_chg.changed }} == True" }
