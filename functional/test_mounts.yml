@@ -1,0 +1,80 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - hashivault_secret_engine:
+        name: kv
+        state: absent
+
+    - hashivault_secret_engine:
+        name: blergh
+        state: absent
+
+    - name: enable with config defaults
+      hashivault_secret_engine:
+        name: kv
+        state: present
+      register: success_config
+
+    - assert: { that: "{{ success_config.changed }} == True" }
+
+    - name: skip with config defaults
+      hashivault_secret_engine:
+        name: kv
+        state: present
+      register: skip_config
+
+    - assert: { that: "{{ skip_config.changed }} == False" }
+
+    - name: changed with config vars
+      hashivault_secret_engine:
+        name: kv
+        state: present
+        config: {'default_lease_ttl': 1234567}
+      register: chg_config
+
+    - assert: { that: "{{ chg_config.changed }} == True" }
+
+    - name: changed to version 2
+      hashivault_secret_engine:
+        name: kv
+        state: present
+        config: {'default_lease_ttl': 1234567}
+        options: {'version': '2'}
+      register: chg_version
+
+    - assert: { that: "{{ chg_version.changed }} == True" }
+
+    - name: dont fail when options passed to non kv
+      hashivault_secret_engine:
+        name: blergh
+        backend: gcp
+        state: present
+        config: {'default_lease_ttl': 1234567}
+        options: {'version': '2'}
+      register: dont_pass_options
+
+    - assert: { that: "{{ dont_pass_options.changed }} == True" }
+
+    - name: cleanup 1
+      hashivault_secret_engine:
+        name: blergh
+        backend: gcp
+        state: absent
+        config: {'default_lease_ttl': 1234567}
+        options: {'version': '2'}
+      register: disable
+
+    - assert: { that: "{{ disable.changed }} == True" }
+
+    - name: cleanup 2
+      hashivault_secret_engine:
+        name: kv
+        backend: kv
+        state: absent
+        config: {'default_lease_ttl': 1234567}
+        options: {'version': '2'}
+      register: disable2
+
+    - assert: { that: "{{ disable2.changed }} == True" }
