@@ -10,7 +10,7 @@ export HOME
 
 source ./vaultenv.sh
 ansible-playbook -v test_enable_kv.yml
-ansible-playbook -v test_mounts.yml
+# ansible-playbook -v test_mounts.yml enable after hvac 9.2 released
 ansible-playbook -v test_write.yml
 ansible-playbook -v test_check.yml --check
 ansible-playbook -v test_read.yml
