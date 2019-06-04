@@ -71,6 +71,7 @@ options:
     config:
         description:
             - configuration set on auth method. expects a dict
+        default: {'default_lease_ttl':DEFAULT_TTL, 'max_lease_ttl':DEFAULT_TTL, 'force_no_cache':False, 'token_type': 'default-service'}
 '''
 EXAMPLES = '''
 ---
@@ -88,7 +89,7 @@ def main():
     argspec['description'] = dict(required=False, type='str')
     argspec['state'] = dict(required=False, type='str', default='enabled', choices=['enabled','disabled','enable','disable'])
     argspec['mount_point'] = dict(required=False, type='str', default=None)
-    argspec['config'] = dict(required=False, type='dict', default={'default_lease_ttl':DEFAULT_TTL, 'max_lease_ttl':DEFAULT_TTL, 'force_no_cache':False, 'token_type': 'default-service'}) 
+    argspec['config'] = dict(required=False, type='dict', default={'default_lease_ttl':DEFAULT_TTL, 'max_lease_ttl':DEFAULT_TTL, 'force_no_cache':False, 'token_type': 'default-service'})
     module = hashivault_init(argspec)
     result = hashivault_auth_method(module)
     if result.get('failed'):
