@@ -126,6 +126,8 @@ def hashivault_azure_auth_config(module):
     changed = False
     config_file = params.get('config_file')
     mount_point = params.get('mount_point')
+    desired_state = dict()
+    current_state = dict()
 
     # do not want a trailing slash in mount_point
     if mount_point[-1]:
@@ -134,16 +136,17 @@ def hashivault_azure_auth_config(module):
     # if config_file is set, set sub_id, ten_id, client_id, client_secret from file
     # else set from passed args
     if config_file:
-        config = json.loads(open(params.get('config_file'), 'r').read())
-        tenant_id = config.get('tenant_id')
-        client_id = config.get('client_id')
-        client_secret = config.get('client_secret')       
-        resource = config.get('resource')       
+        desired_state = json.loads(open(params.get('config_file'), 'r').read())     
+        if 'resource' not in desired_state:
+            desired_state['resource'] = params.get('resource')
+        if 'environment' not in desired_state:
+            desired_state['environment'] = params.get('environment')
     else:
-        tenant_id = params.get('tenant_id')
-        client_id = params.get('client_id')
-        client_secret = params.get('client_secret')
-        resource = params.get('resource')       
+        desired_state['tenant_id'] = params.get('tenant_id')
+        desired_state['client_id'] = params.get('client_id')
+        desired_state['client_secret'] = params.get('client_secret')
+        desired_state['resource'] = params.get('resource')       
+        desired_state['environment'] = params.get('environment')       
 
     # check if engine is enabled
     if (mount_point + "/") not in client.sys.list_auth_methods()['data'].keys():
@@ -151,19 +154,23 @@ def hashivault_azure_auth_config(module):
 
     # check if any config exists
     try:
-        current = client.auth.azure.read_config()
+        current_state = client.auth.azure.read_config()
     except:
         changed = True
 
     # check if current config matches desired config values, if they dont match, set changed true
-    if changed == False:
-        mismatched = {k:v for k, v in current.items() if params[k] != v}
-        if mismatched:
+    for k, v in current_state.items():
+        if v != desired_state[k]:
             changed = True
+
+    # if changed == False:
+    #     mismatched = {k:v for k, v in current.items() if params[k] != v}
+    #     if mismatched:
+    #         changed = True
 
     # if configs dont match and checkmode is off, complete the change
     if changed == True and not module.check_mode:
-        result = client.auth.azure.configure(tenant_id=tenant_id, client_id=client_id, client_secret=client_secret, resource=resource, mount_point=mount_point)
+        result = client.auth.azure.configure(mount_point=mount_point, **desired_state)
     
     return {'changed': changed}
 
