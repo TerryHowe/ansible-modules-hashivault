@@ -68,7 +68,7 @@ options:
     config:
         description:
             - config of secret backend
-        default: {'default_lease_ttl': 2764800, 'max_lease_ttl': 2764800, 'force_no_cache': False}
+        default: "{'default_lease_ttl': 2764800, 'max_lease_ttl': 2764800, 'force_no_cache': False}"
     state:
         description:
             - state of secret backend
