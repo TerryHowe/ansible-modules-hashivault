@@ -68,11 +68,10 @@ options:
     config:
         description:
             - config of secret backend
-        default: "dictionary with default_lease_ttl, max_lease_ttl, and force_no_cache defaulted"
+        default: "{'default_lease_ttl': 2764800, 'max_lease_ttl': 2764800, 'force_no_cache': False}"
     state:
         description:
-            - state of secret backend
-        choices: enabled, present, disabled, absent
+            - state of secret backend. choices: enabled, present, disabled, absent
     options:
         description:
             - Specifies mount type specific options that are passed to the backend. NOT included unless backend == kv
