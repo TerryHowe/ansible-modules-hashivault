@@ -6,8 +6,8 @@
       plugin_name: blergh
       allowed_roles: ["flergh"]
       allowed_roles2: ["splurgh", "doesnt-exist"]
-      username: "user@dbnamer"
-      password: "P@ssw0rd"
+      db_username: "user@dbnamer"
+      db_password: "P@ssw0rd"
       connection_url: "postgresql://{{'{{username}}'}}:{{'{{password}}'}}@cool-modern-db-name"
   tasks:
     - name: start with engine disabled
@@ -19,8 +19,8 @@
         name: test
         plugin_name: "{{ plugin_name }}"
         allowed_roles: "{{ allowed_roles }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
+        db_username: "{{ db_username }}"
+        db_password: "{{ db_password }}"
         connection_url: "{{ connection_url }}"
       register: fail_config
       failed_when: false
@@ -37,8 +37,8 @@
         name: test
         plugin_name: "{{ plugin_name }}"
         allowed_roles: "{{ allowed_roles }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
+        db_username: "{{ db_username }}"
+        db_password: "{{ db_password }}"
         connection_url: "{{ connection_url }}"
       register: success_config
 
@@ -49,8 +49,8 @@
         name: test
         plugin_name: "{{ plugin_name }}"
         allowed_roles: "{{ allowed_roles }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
+        db_username: "{{ db_username }}"
+        db_password: "{{ db_password }}"
         connection_url: "{{ connection_url }}"
       register: idem_config
     
@@ -61,8 +61,8 @@
         name: test
         plugin_name: "{{ plugin_name }}"
         allowed_roles: "{{ allowed_roles2 }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
+        db_username: "{{ db_username }}"
+        db_password: "{{ db_password }}"
         connection_url: "{{ connection_url }}"
       register: overwrite_config
     
