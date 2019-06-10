@@ -68,7 +68,7 @@ options:
     config:
         description:
             - config of secret backend
-        default: "{'default_lease_ttl': 2764800, 'max_lease_ttl': 2764800, 'force_no_cache': False}"
+        default: {'default_lease_ttl': 2764800, 'max_lease_ttl': 2764800, 'force_no_cache': False}
     state:
         description:
             - state of secret backend. choices: enabled, present, disabled, absent
@@ -94,7 +94,7 @@ def main():
     argspec['state'] = dict(required=False, type='str', choices=['present', 'enabled', 'absent', 'disabled'], default='present')
     argspec['options'] = dict(required=False, type='dict', default={'version': '1'})
     module = hashivault_init(argspec)
-    result = hashivault_secret_enable(module)
+    result = hashivault_secret_engine(module)
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -102,7 +102,7 @@ def main():
 
 
 @hashiwrapper
-def hashivault_secret_enable(module):
+def hashivault_secret_engine(module):
     params = module.params
     client = hashivault_auth_client(params)
     name = params.get('name')
@@ -111,7 +111,7 @@ def hashivault_secret_enable(module):
     config = params.get('config')
     state = params.get('state')
     options = params.get('options')
-    desired_state = dict()
+    current_state = dict()
     exists = False
     changed = False
 
