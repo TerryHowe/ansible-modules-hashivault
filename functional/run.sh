@@ -10,7 +10,7 @@ export HOME
 
 source ./vaultenv.sh
 ansible-playbook -v test_enable_kv.yml
-# ansible-playbook -v test_mounts.yml enable after hvac 9.2 released
+ansible-playbook -v test_mounts.yml
 ansible-playbook -v test_write.yml
 ansible-playbook -v test_check.yml --check
 ansible-playbook -v test_read.yml
@@ -22,7 +22,7 @@ ansible-playbook -v test_delete.yml
 ansible-playbook -v test_auth.yml
 ansible-playbook -v test_auth_method.yml
 ansible-playbook -v test_azure_auth_config.yml
-# ansible-playbook -v test_azure_auth_role.yml wont work till hvac 9.2, issues/451 
+ansible-playbook -v test_azure_auth_role.yml
 ansible-playbook -v test_secret_list.yml
 # ansible-playbook -v test_db_config.yml cannot run without true db connectivity
 # ansible-playbook -v test_db_role.yml cannot run without true db connectivity
