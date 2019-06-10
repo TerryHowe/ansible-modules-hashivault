@@ -133,9 +133,9 @@ def main():
     argspec['num_uses'] = dict(required=False, type='int', default=0)
 
     supports_check_mode=True
-    required_one_of=[['bound_service_principal_ids', 'bound_group_ids', 'bound_locations', 'bound_subscription_ids', 'bound_resource_groups', 'bound_scale_sets', 'role_file', 'state']]
+    # required_one_of=[['bound_service_principal_ids', 'bound_group_ids', 'bound_locations', 'bound_subscription_ids', 'bound_resource_groups', 'bound_scale_sets', 'role_file', 'state']]
 
-    module = hashivault_init(argspec, supports_check_mode, required_one_of)
+    module = hashivault_init(argspec, supports_check_mode) #, required_one_of)
     result = hashivault_azure_auth_role(module)
     if result.get('failed'):
         module.fail_json(**result)
