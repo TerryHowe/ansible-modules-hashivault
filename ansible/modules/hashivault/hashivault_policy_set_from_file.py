@@ -7,7 +7,7 @@ from ansible.module_utils.hashivault import hashiwrapper
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivault_policy_set_file
+module: hashivault_policy_set_from_file
 version_added: "2.1.0"
 short_description: Hashicorp Vault policy set from a file module
 description:
@@ -66,7 +66,7 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_policy_set_file:
+    - hashivault_policy_set_from_file:
       rules_file: /path/to/policy_file.hcl
 '''
 
