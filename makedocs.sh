@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -x
+#!/usr/bin/env bash
 export PLUGINS=''
 rm -rf ansible-repo
 mkdir ansible-repo && cd ansible-repo
