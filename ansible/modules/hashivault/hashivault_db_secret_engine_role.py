@@ -173,10 +173,10 @@ def hashivault_db_secret_engine_role(module):
 
     # check if role exists
     try:
-        existing_roles = client.secrets.database.read_role(name=name, mount_point=mount_point)
+        client.secrets.database.read_role(name=name, mount_point=mount_point)
         # this role exists
         exists = True
-    except:
+    except Exception:
         # no roles exist yet
         pass
 

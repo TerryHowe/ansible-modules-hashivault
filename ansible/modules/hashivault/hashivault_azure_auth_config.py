@@ -163,11 +163,6 @@ def hashivault_azure_auth_config(module):
         if v != desired_state[k]:
             changed = True
 
-    # if changed == False:
-    #     mismatched = {k:v for k, v in current.items() if params[k] != v}
-    #     if mismatched:
-    #         changed = True
-
     # if configs dont match and checkmode is off, complete the change
     if changed == True and not module.check_mode:
         result = client.auth.azure.configure(mount_point=mount_point, **desired_state)

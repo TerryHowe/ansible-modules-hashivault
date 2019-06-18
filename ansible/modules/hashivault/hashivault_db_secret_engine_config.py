@@ -176,7 +176,7 @@ def hashivault_db_secret_engine_config(module):
     try:
         current_state = client.secrets.database.read_connection(name=name)
         exists = True
-    except:
+    except Exception:
         # does not exist
         pass
     

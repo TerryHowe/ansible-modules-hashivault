@@ -81,8 +81,8 @@ EXAMPLES = '''
 - hosts: localhost
   tasks:
     - hashivault_secret_engine:
-        name: "ephemeral"
-        backend: "generic"
+        name: ephemeral
+        backend: generic
 '''
 
 def main():
@@ -121,7 +121,7 @@ def hashivault_secret_engine(module):
         # does the mount exist already?
         current_state = client.sys.read_mount_configuration(path=name)['data']
         exists = True
-    except:
+    except Exception:
         # doesnt exist
         pass
     

@@ -109,8 +109,6 @@ def hashivault_auth_method(module):
     state = params.get('state')
     exists = False
     changed = False
-    desired_state = dict()
-    current_state = dict()
 
     if mount_point == None:
         mount_point = method_type
@@ -118,7 +116,7 @@ def hashivault_auth_method(module):
     auth_methods = client.sys.list_auth_methods()
     path = (mount_point or method_type) + u"/"
 
-    # does auth method enabled already?
+    # Is auth method enabled already?
     if path in auth_methods['data'].keys():
         exists = True
 

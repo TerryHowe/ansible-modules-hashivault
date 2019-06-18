@@ -59,7 +59,7 @@ options:
     mount_point:
         description:
             - name of the secret engine mount name.
-        default: 'azure'
+        default: azure
     subscription_id:
         description:
             - azure SPN subscription id
@@ -105,10 +105,9 @@ def main():
     argspec['client_secret'] = dict(required=False, type='str')
     argspec['environment'] = dict(required=False, type='str', default='AzurePublicCloud')
     argspec['config_file'] = dict(required=False, type='str', default=None)
-    supports_check_mode=True
     required_together=[['subscription_id', 'client_id', 'client_secret', 'tenant_id']]
 
-    module = hashivault_init(argspec, supports_check_mode, required_together)
+    module = hashivault_init(argspec, supports_check_mode=True, required_together=required_together)
     result = hashivault_azure_secret_engine_config(module)
     if result.get('failed'):
         module.fail_json(**result)
