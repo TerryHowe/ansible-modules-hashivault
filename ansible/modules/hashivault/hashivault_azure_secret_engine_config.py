@@ -59,7 +59,7 @@ options:
     mount_point:
         description:
             - name of the secret engine mount name.
-        default: azure
+        default: 'azure'
     subscription_id:
         description:
             - azure SPN subscription id
@@ -87,12 +87,12 @@ EXAMPLES = '''
     - hashivault_azure_secret_engine_config:
         subscription_id: 1234
         tenant_id: 5689-1234
-        tenant_id: 5689-1234
         client_id: 1012-1234
         client_secret: 1314-1234
 
     - hashivault_azure_secret_engine_config:
         config_file: /home/drewbuntu/azure-config.json
+        mount_point: azure
 '''
 
 
@@ -105,9 +105,10 @@ def main():
     argspec['client_secret'] = dict(required=False, type='str')
     argspec['environment'] = dict(required=False, type='str', default='AzurePublicCloud')
     argspec['config_file'] = dict(required=False, type='str', default=None)
+    supports_check_mode=True
     required_together=[['subscription_id', 'client_id', 'client_secret', 'tenant_id']]
 
-    module = hashivault_init(argspec, supports_check_mode=True, required_together=required_together)
+    module = hashivault_init(argspec, supports_check_mode, required_together)
     result = hashivault_azure_secret_engine_config(module)
     if result.get('failed'):
         module.fail_json(**result)
@@ -119,48 +120,41 @@ def main():
 def hashivault_azure_secret_engine_config(module):
     params = module.params
     client = hashivault_auth_client(params)
-    changed = True
+    changed = False
     config_file = params.get('config_file')
     mount_point = params.get('mount_point')
+    desired_state = dict()
 
     # do not want a trailing slash in mount_point
-    if mount_point:
+    if mount_point[-1]:
         mount_point = mount_point.strip('/')
 
     # if config_file is set, set sub_id, ten_id, client_id, client_secret from file
     # else set from passed args
     if config_file:
-        config = json.loads(open(params.get('config_file'), 'r').read())
-        tenant_id = config.get('tenant_id')
-        subscription_id = config.get('subscription_id')
-        client_id = config.get('client_id')
-        client_secret = config.get('client_secret')       
+        desired_state = json.loads(open(params.get('config_file'), 'r').read())
+        if 'environment' not in desired_state:
+            desired_state['environment'] = 'AzurePublicCloud' 
     else:
-        tenant_id = params.get('tenant_id')
-        subscription_id = params.get('subscription_id')
-        client_id = params.get('client_id')
-        client_secret = params.get('client_secret')
+        desired_state['tenant_id'] = params.get('tenant_id')
+        desired_state['subscription_id'] = params.get('subscription_id')
+        desired_state['client_id'] = params.get('client_id')
+        desired_state['client_secret'] = params.get('client_secret')
+        desired_state['environment'] = params.get('environment')    
 
     # check if engine is enabled
     if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
         return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
     
     # check if current config matches desired config values, if they match, set changed to false to prevent action
-    current = client.secrets.azure.read_config()
-    if sys.version_info[0] < 3:
-        changed = False
-        mismatched = {k:v for k, v in current.items() if params[k] != v}
-        if mismatched:
+    current_state = client.secrets.azure.read_config()
+    for k, v in current_state.items():
+        if v != desired_state[k]:
             changed = True
-    else:
-        if current.items() < params.items():
-            changed = False
 
     # if configs dont match and checkmode is off, complete the change
     if changed == True and not module.check_mode:
-        result = client.secrets.azure.configure(tenant_id=tenant_id, subscription_id=subscription_id,
-                                                client_id=client_id, client_secret=client_secret,
-                                                mount_point=mount_point)
+        result = client.secrets.azure.configure(mount_point=mount_point, **desired_state)
     
     return {'changed': changed}
 
