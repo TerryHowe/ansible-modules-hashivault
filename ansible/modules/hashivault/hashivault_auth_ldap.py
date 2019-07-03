@@ -75,7 +75,7 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_ldap_configure:
+    - hashivault_auth_ldap:
         config: 
             user_dn: "{{ auth_ldap_userdn }}"
             group_dn: "{{ auth_ldap_groupdn }}"
@@ -111,14 +111,14 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default=None)
     argspec['config'] = dict(required=False, type='dict', default=None)
     module = hashivault_init(argspec)
-    result = hashivault_ldap_configure(module)
+    result = hashivault_auth_ldap(module)
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
 
 @hashiwrapper
-def hashivault_ldap_configure(module):
+def hashivault_auth_ldap(module):
     params = module.params
     client = hashivault_auth_client(params)
     mount_point = params.get('mount_point')

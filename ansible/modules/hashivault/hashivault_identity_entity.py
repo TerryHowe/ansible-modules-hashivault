@@ -72,7 +72,7 @@ options:
             - entity policies.
     state:
         description:
-            - whether crete/update or delete the entity
+            - whether create/update or delete the entity
 '''
 EXAMPLES = '''
 ---
