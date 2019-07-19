@@ -7,11 +7,11 @@ from ansible.module_utils.hashivault import hashiwrapper
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivault_auth_method
+module: hashivault_idenity_group
 version_added: "3.17.7"
-short_description: Hashicorp Vault ldap configuration module
+short_description: Hashicorp Vault identity group configuration module
 description:
-    - Module to configure the LDAP authentication method in Hashicorp Vault.
+    - Module to configure identity groups in Hashicorp Vault.
 options:
     url:
         description:
@@ -95,7 +95,7 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_ldap_configure:
+    - hashivault_identity_group:
         name: 'my-group'
         policies: 
             - 'my-policy'
@@ -109,19 +109,17 @@ EXAMPLES = '''
         url: "{{ vault_url }}"
 '''
 
-DEFAULT_MOUNT_POINT = 'identity'
-DEFAULT_GROUP_TYPE = 'internal'
 
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=False, type='str', default=None)
     argspec['id'] = dict(required=False, type='str', default=None)
-    argspec['group_type'] = dict(required=False, type='str', default=None)
-    argspec['mount_point'] = dict(required=False, type='str', default=None)
-    argspec['metadata'] = dict(required=False, type='dict', default=None)
-    argspec['policies'] = dict(required=False, type='list', default=None)
-    argspec['member_group_ids'] = dict(required=False, type='list', default=None)
-    argspec['member_entity_ids'] = dict(required=False, type='list', default=None)
+    argspec['group_type'] = dict(required=False, type='str', default='internal')
+    argspec['mount_point'] = dict(required=False, type='str', default='identity')
+    argspec['metadata'] = dict(required=False, type='dict', default={})
+    argspec['policies'] = dict(required=False, type='list', default=[])
+    argspec['member_group_ids'] = dict(required=False, type='list', default=[])
+    argspec['member_entity_ids'] = dict(required=False, type='list', default=[])
     argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
     module = hashivault_init(argspec)
     result = hashivault_identity_group(module.params)
@@ -133,35 +131,50 @@ def main():
 
 def hashivault_identity_group_update(group_details, client, group_id, group_name, group_type, group_metadata,
                                       group_policies, group_member_group_ids, group_member_entity_ids, mount_point):
-    set_member_group_ids = False
+    changed = False
 
-    if group_metadata is None:
-        group_metadata = group_details['metadata']
-    if group_policies is None:
-        group_policies = group_details['policies']
-
-    if group_member_group_ids is None:
-        group_member_group_ids = group_details['member_group_ids']
-
-    if group_member_entity_ids is None:
-        group_member_entity_ids = group_details['member_entity_ids']
-
-    # new member group id's and existing id's
-    if group_member_group_ids is not None and group_details['member_group_ids'] is not None:
+    # if the groups were created without any entity members, group members, or policies,
+    # then vault will return null for each respectively
+    # if they were created with these and then all were removed it returns an empty list
+    # for each respectively. The below is required to account for this
+    
+    # existing member_group_ids
+    if group_details['member_group_ids'] is not None:
         if set(group_details['member_group_ids']) != set(group_member_group_ids):
-            set_member_group_ids = True
-    # new member group id's and none existing
-    elif group_member_group_ids is not None:
-        set_member_group_ids = True
+            changed = True
+    # new member_group_ids and none existing
+    elif len(group_member_group_ids) > 0:
+        changed = True
 
+    # existing policies
+    if group_details['policies'] is not None:
+        if set(group_details['policies']) != set(group_policies):
+            changed = True
+    # new policies and none existing
+    elif len(group_policies) > 0:
+        changed = True
+
+    # existing member_entity_ids
+    if group_details['member_entity_ids'] is not None:
+        if set(group_details['member_entity_ids']) != set(group_member_entity_ids):
+            changed = True
+    # new member_entity_ids and none existing
+    elif len(group_member_entity_ids) > 0:
+        changed = True
+    
+    # existing metadata
+    if group_details['metadata'] is not None:
+        if group_details['metadata'] != group_metadata:
+            changed = True
+    # new metadata and none existing
+    elif len(group_metadata) > 0:
+        changed = True
+    
     if group_details['name'] != group_name or \
         group_details['type'] != group_type or \
-        group_details['metadata'] != group_metadata or \
-        set(group_details['policies']) != set(group_policies) or \
-        set(group_details['member_entity_ids']) != set(group_member_entity_ids) or \
-        set_member_group_ids:
+        changed:
         try:
-            client.secrets.identity.update_group(
+            response = client.secrets.identity.update_group(
                 group_id=group_id,
                 name=group_name,
                 group_type=group_type,
@@ -173,7 +186,9 @@ def hashivault_identity_group_update(group_details, client, group_id, group_name
             )
         except Exception as e:
             return {'failed': True, 'msg': str(e)}
-        return {'changed': True}
+        if response.status_code == 204:
+            return {'changed': True}
+        return {'changed': True, 'data': response}
     return {'changed': False}
 
 
@@ -188,12 +203,6 @@ def hashivault_identity_group_create_or_update(params):
     group_member_group_ids = params.get('member_group_ids')
     group_member_entity_ids = params.get('member_entity_ids')
     
-    if mount_point is None:
-        mount_point = DEFAULT_MOUNT_POINT
-    
-    if group_type is None:
-        group_type = DEFAULT_GROUP_TYPE
-
     if group_id is not None:
         try:
             group_details = client.secrets.identity.read_group(group_id=group_id)
@@ -256,8 +265,6 @@ def hashivault_identity_group(params):
         return hashivault_identity_group_create_or_update(params)
     elif state == 'absent':
         return hashivault_identity_group_delete(params)
-    else:
-        return {'failed': True, 'msg': 'Unknown state'}
 
 
 if __name__ == '__main__':

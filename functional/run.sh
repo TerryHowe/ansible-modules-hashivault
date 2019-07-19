@@ -40,6 +40,7 @@ ansible-playbook -v test_read_write_file.yml
 ansible-playbook -v test_environment_lookup.yml
 ansible-playbook -v test_unseal.yml
 ansible-playbook -v test_rekey.yml
+ansible-playbook -v test_identity_group.yml
 # test_rekey.yml changes unseal keys, need to update VAULT_KEYS
 # for further test, if any.
 source ./vaultenv.sh

@@ -9,7 +9,7 @@ import json
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivault_auth_method
+module: hashivault_auth_ldap
 version_added: "3.17.7"
 short_description: Hashicorp Vault ldap configuration module
 description:
