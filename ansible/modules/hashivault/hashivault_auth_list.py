@@ -81,7 +81,7 @@ def hashivault_auth_list(params):
     result = client.sys.list_auth_methods()
     if isinstance(result, dict):
         result = result.get('data', result)
-    return {'changed': True, 'backends': result}
+    return {'changed': False, 'backends': result}
 
 
 if __name__ == '__main__':
