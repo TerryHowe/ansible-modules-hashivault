@@ -2,6 +2,17 @@ Changelog
 =========
 
 
+3.18.0 (2019-07-24)
+-------------------
+- Added hashivault_auth_ldap and hashivault_identity_group [Jason
+  Neurohr]
+- Updated hashivault_auth_list.py to return False for changed. [Jason
+  Neurohr]
+- Fix some pep warnings and docs issues. [Terry Howe]
+- Fix various idempotence checks. [Drew Mullen]
+- Secret eng mgmt. [Drew Mullen]
+
+
 3.17.7 (2019-05-31)
 -------------------
 - Deprecate hashivault_auth_enable. [Terry Howe]
