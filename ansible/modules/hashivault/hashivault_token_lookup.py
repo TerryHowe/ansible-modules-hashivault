@@ -80,7 +80,7 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['lookup_token'] = dict(required=False, type='str')
+    argspec['lookup_token'] = dict(required=False, type='str', no_log=True)
     argspec['accessor'] = dict(required=False, type='bool', default=False)
     argspec['wrap_ttl'] = dict(required=False, type='int')
     module = hashivault_init(argspec)

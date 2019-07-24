@@ -70,7 +70,7 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['keys'] = dict(required=True, type='str')
+    argspec['keys'] = dict(required=True, type='str', no_log=True)
     module = hashivault_init(argspec)
     result = hashivault_unseal(module.params)
     if result.get('failed'):

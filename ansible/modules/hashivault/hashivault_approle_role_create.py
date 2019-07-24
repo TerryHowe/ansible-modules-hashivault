@@ -101,7 +101,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
-    argspec['bind_secret_id'] = dict(required=False, type='bool')
+    argspec['bind_secret_id'] = dict(required=False, type='bool', no_log=True)
     argspec['bound_cidr_list'] = dict(required=False, type='list')
     argspec['policies'] = dict(required=True, type='list')
     argspec['secret_id_num_uses'] = dict(required=False, type='str')

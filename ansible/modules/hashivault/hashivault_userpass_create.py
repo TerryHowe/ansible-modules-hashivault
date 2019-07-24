@@ -86,7 +86,7 @@ def main():
     argspec['name'] = dict(required=True, type='str')
     argspec['pass'] = dict(required=True, type='str')
     argspec['policies'] = dict(required=False, type='str', default='default')
-    argspec['mount_point'] = dict(required=False, type='str', default='userpass')
+    argspec['mount_point'] = dict(required=False, type='str', default='userpass', no_log=True)
     module = hashivault_init(argspec)
     result = hashivault_userpass_create(module.params)
     if result.get('failed'):

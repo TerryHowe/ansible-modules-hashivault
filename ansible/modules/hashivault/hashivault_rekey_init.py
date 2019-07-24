@@ -82,7 +82,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['secret_shares'] = dict(required=False, type='int', default=5)
     argspec['secret_threshold'] = dict(required=False, type='int', default=3)
-    argspec['pgp_keys'] = dict(required=False, type='list', default=[])
+    argspec['pgp_keys'] = dict(required=False, type='list', default=[], no_log=True)
     argspec['backup'] = dict(required=False, type='bool', default=False)
     module = hashivault_init(argspec)
     result = hashivault_rekey_init(module.params)

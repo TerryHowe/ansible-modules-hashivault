@@ -96,7 +96,7 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default='secret')
     argspec['secret'] = dict(required=True, type='str')
     argspec['update'] = dict(required=False, default=False, type='bool')
-    argspec['data'] = dict(required=False, default={}, type='dict')
+    argspec['data'] = dict(required=False, default={}, type='dict', no_log=True)
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_write(module)
     if result.get('failed'):

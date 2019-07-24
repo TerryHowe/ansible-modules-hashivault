@@ -81,7 +81,7 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['renew_token'] = dict(required=False, type='str')
+    argspec['renew_token'] = dict(required=False, type='str', no_log=True)
     argspec['increment'] = dict(required=False, type='str', default=None)
     argspec['wrap_ttl'] = dict(required=False, type='int')
     module = hashivault_init(argspec)

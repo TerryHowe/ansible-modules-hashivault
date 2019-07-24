@@ -74,7 +74,7 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['key'] = dict(required=False, type='str')
+    argspec['key'] = dict(required=False, type='str', no_log=True)
     argspec['nonce'] = dict(required=True, type='str')
     module = hashivault_init(argspec)
     result = hashivault_generate_root(module.params)
