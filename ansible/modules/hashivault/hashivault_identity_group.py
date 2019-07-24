@@ -7,7 +7,7 @@ from ansible.module_utils.hashivault import hashiwrapper
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivault_idenity_group
+module: hashivault_identity_group
 version_added: "3.17.7"
 short_description: Hashicorp Vault identity group configuration module
 description:

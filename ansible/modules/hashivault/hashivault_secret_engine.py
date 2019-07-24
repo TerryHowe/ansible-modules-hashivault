@@ -8,7 +8,7 @@ DEFAULT_TTL = 2764800
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivualt_secret_engine
+module: hashivault_secret_engine
 version_added: "3.17.8"
 short_description: Hashicorp Vault secret enable/disable module
 description:
