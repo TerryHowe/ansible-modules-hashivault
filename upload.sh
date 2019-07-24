@@ -3,6 +3,7 @@
 # Make sure you have a ~/.pypirc file first
 #
 pip install gitchangelog
+pip install twine
 OLDVERSION=$(grep version setup.py | sed -e "s/.*='//" -e "s/',//")
 vi setup.py
 VERSION=$(grep version setup.py | sed -e "s/.*='//" -e "s/',//")
