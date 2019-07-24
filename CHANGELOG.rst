@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+3.18.1 (2019-07-24)
+-------------------
+- Set no_log for some values. [Terry Howe]
+- Fix some documentation typos. [Terry Howe]
+- Fix the doc and upload script. [Terry Howe]
+
+
 3.18.0 (2019-07-24)
 -------------------
 - Added hashivault_auth_ldap and hashivault_identity_group [Jason
