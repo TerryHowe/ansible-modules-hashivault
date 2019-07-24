@@ -2295,16 +2295,16 @@ Introduced in version 2.4, Ansible has inventory plugins to make this flexible a
 <span id="inventoryformat"></span><h2><a class="toc-backref" href="#id5">Hosts and Groups</a><a class="headerlink" href="#hosts-and-groups" title="Permalink to this headline">¶</a></h2>
 <p>The inventory file can be in one of many formats, depending on the inventory plugins you have.
 For this example, the format for <code class="docutils literal notranslate"><span class="pre">/etc/ansible/hosts</span></code> is an INI-like (one of Ansible’s defaults) and looks like this:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">mail</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">mail</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
 
-<span class="o">[</span><span class="n">webservers</span><span class="o">]</span><span class="w"></span>
-<span class="n">foo</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
-<span class="n">bar</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="p">[</span><span class="n">webservers</span><span class="p">]</span>
+<span class="n">foo</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
+<span class="n">bar</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
 
-<span class="o">[</span><span class="n">dbservers</span><span class="o">]</span><span class="w"></span>
-<span class="n">one</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
-<span class="n">two</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
-<span class="n">three</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="p">[</span><span class="n">dbservers</span><span class="p">]</span>
+<span class="n">one</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
+<span class="n">two</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
+<span class="n">three</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
 </pre></div>
 </div>
 <p>The headings in brackets are group names, which are used in classifying systems
@@ -2357,21 +2357,21 @@ Generally speaking, this is not the best way to define variables that describe y
 Do not rely on types set during definition, always make sure you specify type with a filter when needed when consuming the variable.</p>
 </div>
 <p>If you are adding a lot of hosts following similar patterns, you can do this rather than listing each hostname:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">[webservers]</span>
-<span class="na">www[01:50].example.com</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">webservers</span><span class="p">]</span>
+<span class="n">www</span><span class="p">[</span><span class="mi">01</span><span class="p">:</span><span class="mi">50</span><span class="p">].</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
 </pre></div>
 </div>
 <p>For numeric patterns, leading zeros can be included or removed, as desired. Ranges are inclusive.  You can also define alphabetic ranges:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">[databases]</span>
-<span class="na">db-[a:f].example.com</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">databases</span><span class="p">]</span>
+<span class="n">db</span><span class="o">-</span><span class="p">[</span><span class="n">a</span><span class="p">:</span><span class="n">f</span><span class="p">].</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
 </pre></div>
 </div>
 <p>You can also select the connection type and user on a per host basis:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">[targets]</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">targets</span><span class="p">]</span>
 
-<span class="na">localhost              ansible_connection</span><span class="o">=</span><span class="s">local</span>
-<span class="na">other1.example.com     ansible_connection</span><span class="o">=</span><span class="s">ssh        ansible_user=mpdehaan</span>
-<span class="na">other2.example.com     ansible_connection</span><span class="o">=</span><span class="s">ssh        ansible_user=mdehaan</span>
+<span class="n">localhost</span>              <span class="n">ansible_connection</span><span class="o">=</span><span class="k">local</span>
+<span class="n">other1</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>     <span class="n">ansible_connection</span><span class="o">=</span><span class="n">ssh</span>        <span class="n">ansible_user</span><span class="o">=</span><span class="n">mpdehaan</span>
+<span class="n">other2</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>     <span class="n">ansible_connection</span><span class="o">=</span><span class="n">ssh</span>        <span class="n">ansible_user</span><span class="o">=</span><span class="n">mdehaan</span>
 </pre></div>
 </div>
 <p>As mentioned above, setting these in the inventory file is only a shorthand, and we’ll discuss how to store them in individual files in the ‘host_vars’ directory a bit later on.</p>
@@ -2379,9 +2379,9 @@ Do not rely on types set during definition, always make sure you specify type wi
 <div class="section" id="host-variables">
 <span id="id1"></span><h2><a class="toc-backref" href="#id6">Host Variables</a><a class="headerlink" href="#host-variables" title="Permalink to this headline">¶</a></h2>
 <p>As described above, it is easy to assign variables to hosts that will be used later in playbooks:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">[atlanta]</span>
-<span class="na">host1 http_port</span><span class="o">=</span><span class="s">80 maxRequestsPerChild=808</span>
-<span class="na">host2 http_port</span><span class="o">=</span><span class="s">303 maxRequestsPerChild=909</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">atlanta</span><span class="p">]</span>
+<span class="n">host1</span> <span class="n">http_port</span><span class="o">=</span><span class="mi">80</span> <span class="n">maxRequestsPerChild</span><span class="o">=</span><span class="mi">808</span>
+<span class="n">host2</span> <span class="n">http_port</span><span class="o">=</span><span class="mi">303</span> <span class="n">maxRequestsPerChild</span><span class="o">=</span><span class="mi">909</span>
 </pre></div>
 </div>
 </div>
@@ -2389,13 +2389,13 @@ Do not rely on types set during definition, always make sure you specify type wi
 <span id="id2"></span><h2><a class="toc-backref" href="#id7">Group Variables</a><a class="headerlink" href="#group-variables" title="Permalink to this headline">¶</a></h2>
 <p>Variables can also be applied to an entire group at once:</p>
 <p>The INI way:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">[atlanta]</span>
-<span class="na">host1</span>
-<span class="na">host2</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">atlanta</span><span class="p">]</span>
+<span class="n">host1</span>
+<span class="n">host2</span>
 
-<span class="k">[atlanta:vars]</span>
-<span class="na">ntp_server</span><span class="o">=</span><span class="s">ntp.atlanta.example.com</span>
-<span class="na">proxy</span><span class="o">=</span><span class="s">proxy.atlanta.example.com</span>
+<span class="p">[</span><span class="n">atlanta</span><span class="p">:</span><span class="n">vars</span><span class="p">]</span>
+<span class="n">ntp_server</span><span class="o">=</span><span class="n">ntp</span><span class="p">.</span><span class="n">atlanta</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
+<span class="n">proxy</span><span class="o">=</span><span class="n">proxy</span><span class="p">.</span><span class="n">atlanta</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
 </pre></div>
 </div>
 <p>The YAML version:</p>
@@ -2414,29 +2414,29 @@ Do not rely on types set during definition, always make sure you specify type wi
 <span id="subgroups"></span><h2><a class="toc-backref" href="#id8">Groups of Groups, and Group Variables</a><a class="headerlink" href="#groups-of-groups-and-group-variables" title="Permalink to this headline">¶</a></h2>
 <p>It is also possible to make groups of groups using the <code class="docutils literal notranslate"><span class="pre">:children</span></code> suffix in INI or the <code class="docutils literal notranslate"><span class="pre">children:</span></code> entry in YAML.
 You can apply variables using <code class="docutils literal notranslate"><span class="pre">:vars</span></code> or <code class="docutils literal notranslate"><span class="pre">vars:</span></code>:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">[atlanta]</span>
-<span class="na">host1</span>
-<span class="na">host2</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">atlanta</span><span class="p">]</span>
+<span class="n">host1</span>
+<span class="n">host2</span>
 
-<span class="k">[raleigh]</span>
-<span class="na">host2</span>
-<span class="na">host3</span>
+<span class="p">[</span><span class="n">raleigh</span><span class="p">]</span>
+<span class="n">host2</span>
+<span class="n">host3</span>
 
-<span class="k">[southeast:children]</span>
-<span class="na">atlanta</span>
-<span class="na">raleigh</span>
+<span class="p">[</span><span class="n">southeast</span><span class="p">:</span><span class="n">children</span><span class="p">]</span>
+<span class="n">atlanta</span>
+<span class="n">raleigh</span>
 
-<span class="k">[southeast:vars]</span>
-<span class="na">some_server</span><span class="o">=</span><span class="s">foo.southeast.example.com</span>
-<span class="na">halon_system_timeout</span><span class="o">=</span><span class="s">30</span>
-<span class="na">self_destruct_countdown</span><span class="o">=</span><span class="s">60</span>
-<span class="na">escape_pods</span><span class="o">=</span><span class="s">2</span>
+<span class="p">[</span><span class="n">southeast</span><span class="p">:</span><span class="n">vars</span><span class="p">]</span>
+<span class="n">some_server</span><span class="o">=</span><span class="n">foo</span><span class="p">.</span><span class="n">southeast</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
+<span class="n">halon_system_timeout</span><span class="o">=</span><span class="mi">30</span>
+<span class="n">self_destruct_countdown</span><span class="o">=</span><span class="mi">60</span>
+<span class="n">escape_pods</span><span class="o">=</span><span class="mi">2</span>
 
-<span class="k">[usa:children]</span>
-<span class="na">southeast</span>
-<span class="na">northeast</span>
-<span class="na">southwest</span>
-<span class="na">northwest</span>
+<span class="p">[</span><span class="n">usa</span><span class="p">:</span><span class="n">children</span><span class="p">]</span>
+<span class="n">southeast</span>
+<span class="n">northeast</span>
+<span class="n">southwest</span>
+<span class="n">northwest</span>
 </pre></div>
 </div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">all</span><span class="p">:</span>
@@ -2731,7 +2731,7 @@ Playbooks will be covered in great detail later in the docs.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on May 31, 2019.<br/>
+  <p>Last updated on Jul 24, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

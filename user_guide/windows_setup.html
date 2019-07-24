@@ -2323,28 +2323,28 @@ to determine whether a host meets those requirements.</p>
 <p>Ansible requires PowerShell version 3.0 and .NET Framework 4.0 or newer to function on older operating systems like Server 2008 and Windows 7. The base image does not meet this
 requirement. You can use the <a class="reference external" href="https://github.com/jborean93/ansible-windows/blob/master/scripts/Upgrade-PowerShell.ps1">Upgrade-PowerShell.ps1</a> script to update these.</p>
 <p>This is an example of how to run this script from PowerShell:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">$</span><span class="n">url</span> <span class="o">=</span> <span class="ss">&quot;https://raw.githubusercontent.com/jborean93/ansible-windows/master/scripts/Upgrade-PowerShell.ps1&quot;</span>
-<span class="err">$</span><span class="n">file</span> <span class="o">=</span> <span class="ss">&quot;$env:temp\Upgrade-PowerShell.ps1&quot;</span>
-<span class="err">$</span><span class="n">username</span> <span class="o">=</span> <span class="ss">&quot;Administrator&quot;</span>
-<span class="err">$</span><span class="n">password</span> <span class="o">=</span> <span class="ss">&quot;Password&quot;</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$url = &quot;https://raw.githubusercontent.com/jborean93/ansible-windows/master/scripts/Upgrade-PowerShell.ps1&quot;
+$file = &quot;$env:temp\Upgrade-PowerShell.ps1&quot;
+$username = &quot;Administrator&quot;
+$password = &quot;Password&quot;
 
-<span class="p">(</span><span class="k">New</span><span class="o">-</span><span class="k">Object</span> <span class="o">-</span><span class="n">TypeName</span> <span class="k">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadFile</span><span class="p">(</span><span class="err">$</span><span class="n">url</span><span class="p">,</span> <span class="err">$</span><span class="n">file</span><span class="p">)</span>
-<span class="k">Set</span><span class="o">-</span><span class="n">ExecutionPolicy</span> <span class="o">-</span><span class="n">ExecutionPolicy</span> <span class="n">Unrestricted</span> <span class="o">-</span><span class="k">Force</span>
+(New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force
 
-<span class="o">#</span> <span class="k">version</span> <span class="n">can</span> <span class="n">be</span> <span class="mi">3</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">.</span><span class="mi">0</span> <span class="k">or</span> <span class="mi">5</span><span class="p">.</span><span class="mi">1</span>
-<span class="o">&amp;</span><span class="err">$</span><span class="n">file</span> <span class="o">-</span><span class="k">Version</span> <span class="mi">5</span><span class="p">.</span><span class="mi">1</span> <span class="o">-</span><span class="n">Username</span> <span class="err">$</span><span class="n">username</span> <span class="o">-</span><span class="n">Password</span> <span class="err">$</span><span class="n">password</span> <span class="o">-</span><span class="k">Verbose</span>
+# version can be 3.0, 4.0 or 5.1
+&amp;$file -Version 5.1 -Username $username -Password $password -Verbose
 </pre></div>
 </div>
 <p>Once completed, you will need to remove auto logon
 and set the execution policy back to the default of <code class="docutils literal notranslate"><span class="pre">Restricted</span></code>. You can
 do this with the following PowerShell commands:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">this</span> <span class="n">isn</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">needed</span> <span class="n">but</span> <span class="k">is</span> <span class="n">a</span> <span class="n">good</span> <span class="k">security</span> <span class="n">practice</span> <span class="k">to</span> <span class="n">complete</span>
-<span class="k">Set</span><span class="o">-</span><span class="n">ExecutionPolicy</span> <span class="o">-</span><span class="n">ExecutionPolicy</span> <span class="n">Restricted</span> <span class="o">-</span><span class="k">Force</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span># this isn&#39;t needed but is a good security practice to complete
+Set-ExecutionPolicy -ExecutionPolicy Restricted -Force
 
-<span class="err">$</span><span class="n">reg_winlogon_path</span> <span class="o">=</span> <span class="ss">&quot;HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon&quot;</span>
-<span class="k">Set</span><span class="o">-</span><span class="n">ItemProperty</span> <span class="o">-</span><span class="n">Path</span> <span class="err">$</span><span class="n">reg_winlogon_path</span> <span class="o">-</span><span class="n">Name</span> <span class="n">AutoAdminLogon</span> <span class="o">-</span><span class="n">Value</span> <span class="mi">0</span>
-<span class="n">Remove</span><span class="o">-</span><span class="n">ItemProperty</span> <span class="o">-</span><span class="n">Path</span> <span class="err">$</span><span class="n">reg_winlogon_path</span> <span class="o">-</span><span class="n">Name</span> <span class="n">DefaultUserName</span> <span class="o">-</span><span class="n">ErrorAction</span> <span class="n">SilentlyContinue</span>
-<span class="n">Remove</span><span class="o">-</span><span class="n">ItemProperty</span> <span class="o">-</span><span class="n">Path</span> <span class="err">$</span><span class="n">reg_winlogon_path</span> <span class="o">-</span><span class="n">Name</span> <span class="n">DefaultPassword</span> <span class="o">-</span><span class="n">ErrorAction</span> <span class="n">SilentlyContinue</span>
+$reg_winlogon_path = &quot;HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon&quot;
+Set-ItemProperty -Path $reg_winlogon_path -Name AutoAdminLogon -Value 0
+Remove-ItemProperty -Path $reg_winlogon_path -Name DefaultUserName -ErrorAction SilentlyContinue
+Remove-ItemProperty -Path $reg_winlogon_path -Name DefaultPassword -ErrorAction SilentlyContinue
 </pre></div>
 </div>
 <p>The script works by checking to see what programs need to be installed
@@ -2382,11 +2382,11 @@ Ansible will fail to execute certain commands on the Windows host. These
 hotfixes should installed as part of the system bootstapping or
 imaging process. The script <a class="reference external" href="https://github.com/jborean93/ansible-windows/blob/master/scripts/Install-WMF3Hotfix.ps1">Install-WMF3Hotfix.ps1</a> can be used to install the hotfix on affected hosts.</p>
 <p>The following PowerShell command will install the hotfix:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">$</span><span class="n">url</span> <span class="o">=</span> <span class="ss">&quot;https://raw.githubusercontent.com/jborean93/ansible-windows/master/scripts/Install-WMF3Hotfix.ps1&quot;</span>
-<span class="err">$</span><span class="n">file</span> <span class="o">=</span> <span class="ss">&quot;$env:temp\Install-WMF3Hotfix.ps1&quot;</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$url = &quot;https://raw.githubusercontent.com/jborean93/ansible-windows/master/scripts/Install-WMF3Hotfix.ps1&quot;
+$file = &quot;$env:temp\Install-WMF3Hotfix.ps1&quot;
 
-<span class="p">(</span><span class="k">New</span><span class="o">-</span><span class="k">Object</span> <span class="o">-</span><span class="n">TypeName</span> <span class="k">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadFile</span><span class="p">(</span><span class="err">$</span><span class="n">url</span><span class="p">,</span> <span class="err">$</span><span class="n">file</span><span class="p">)</span>
-<span class="n">powershell</span><span class="p">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">ExecutionPolicy</span> <span class="n">ByPass</span> <span class="o">-</span><span class="n">File</span> <span class="err">$</span><span class="n">file</span> <span class="o">-</span><span class="k">Verbose</span>
+(New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
+powershell.exe -ExecutionPolicy ByPass -File $file -Verbose
 </pre></div>
 </div>
 </div>
@@ -2403,12 +2403,12 @@ can be used to set up the basics. This script sets up both HTTP and HTTPS
 listeners with a self-signed certificate and enables the <code class="docutils literal notranslate"><span class="pre">Basic</span></code>
 authentication option on the service.</p>
 <p>To use this script, run the following in PowerShell:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">$</span><span class="n">url</span> <span class="o">=</span> <span class="ss">&quot;https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1&quot;</span>
-<span class="err">$</span><span class="n">file</span> <span class="o">=</span> <span class="ss">&quot;$env:temp\ConfigureRemotingForAnsible.ps1&quot;</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$url = &quot;https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1&quot;
+$file = &quot;$env:temp\ConfigureRemotingForAnsible.ps1&quot;
 
-<span class="p">(</span><span class="k">New</span><span class="o">-</span><span class="k">Object</span> <span class="o">-</span><span class="n">TypeName</span> <span class="k">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadFile</span><span class="p">(</span><span class="err">$</span><span class="n">url</span><span class="p">,</span> <span class="err">$</span><span class="n">file</span><span class="p">)</span>
+(New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
 
-<span class="n">powershell</span><span class="p">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">ExecutionPolicy</span> <span class="n">ByPass</span> <span class="o">-</span><span class="n">File</span> <span class="err">$</span><span class="n">file</span>
+powershell.exe -ExecutionPolicy ByPass -File $file
 </pre></div>
 </div>
 <p>There are different switches and parameters (like <code class="docutils literal notranslate"><span class="pre">-EnableCredSSP</span></code> and
@@ -2471,8 +2471,8 @@ value.</p></li>
 thumbprint of the certificate in the Windows Certificate Store that is used
 in the connection. To get the details of the certificate itself, run this
 command with the relevant certificate thumbprint in PowerShell:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">$</span><span class="n">thumbprint</span> <span class="o">=</span> <span class="ss">&quot;E6CDAA82EEAF2ECE8546E05DB7F3E01AA47D76CE&quot;</span>
-<span class="k">Get</span><span class="o">-</span><span class="n">ChildItem</span> <span class="o">-</span><span class="n">Path</span> <span class="n">cert</span><span class="p">:</span><span class="err">\</span><span class="n">LocalMachine</span><span class="err">\</span><span class="n">My</span> <span class="o">-</span><span class="n">Recurse</span> <span class="o">|</span> <span class="k">Where</span><span class="o">-</span><span class="k">Object</span> <span class="err">{</span> <span class="err">$</span><span class="n">_</span><span class="p">.</span><span class="n">Thumbprint</span> <span class="o">-</span><span class="n">eq</span> <span class="err">$</span><span class="n">thumbprint</span> <span class="err">}</span> <span class="o">|</span> <span class="k">Select</span><span class="o">-</span><span class="k">Object</span> <span class="o">*</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$thumbprint = &quot;E6CDAA82EEAF2ECE8546E05DB7F3E01AA47D76CE&quot;
+Get-ChildItem -Path cert:\LocalMachine\My -Recurse | Where-Object { $_.Thumbprint -eq $thumbprint } | Select-Object *
 </pre></div>
 </div>
 </li>
@@ -2492,15 +2492,15 @@ without any user input. For more information on group policy objects, see the
 <a class="reference external" href="https://msdn.microsoft.com/en-us/library/aa374162(v=vs.85).aspx">Group Policy Objects documentation</a>.</p></li>
 <li><p>Using PowerShell to create the listener with a specific configuration. This
 can be done by running the following PowerShell commands:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">$</span><span class="n">selector_set</span> <span class="o">=</span> <span class="o">@</span><span class="err">{</span>
-    <span class="n">Address</span> <span class="o">=</span> <span class="ss">&quot;*&quot;</span>
-    <span class="n">Transport</span> <span class="o">=</span> <span class="ss">&quot;HTTPS&quot;</span>
-<span class="err">}</span>
-<span class="err">$</span><span class="n">value_set</span> <span class="o">=</span> <span class="o">@</span><span class="err">{</span>
-    <span class="n">CertificateThumbprint</span> <span class="o">=</span> <span class="ss">&quot;E6CDAA82EEAF2ECE8546E05DB7F3E01AA47D76CE&quot;</span>
-<span class="err">}</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$selector_set = @{
+    Address = &quot;*&quot;
+    Transport = &quot;HTTPS&quot;
+}
+$value_set = @{
+    CertificateThumbprint = &quot;E6CDAA82EEAF2ECE8546E05DB7F3E01AA47D76CE&quot;
+}
 
-<span class="k">New</span><span class="o">-</span><span class="n">WSManInstance</span> <span class="o">-</span><span class="n">ResourceURI</span> <span class="ss">&quot;winrm/config/Listener&quot;</span> <span class="o">-</span><span class="n">SelectorSet</span> <span class="err">$</span><span class="n">selector_set</span> <span class="o">-</span><span class="n">ValueSet</span> <span class="err">$</span><span class="n">value_set</span>
+New-WSManInstance -ResourceURI &quot;winrm/config/Listener&quot; -SelectorSet $selector_set -ValueSet $value_set
 </pre></div>
 </div>
 <p>To see the other options with this PowerShell cmdlet, see
@@ -2517,11 +2517,11 @@ certificate being present in this store, most commands will fail.</p>
 <div class="section" id="delete-winrm-listener">
 <h4><a class="toc-backref" href="#id7">Delete WinRM Listener</a><a class="headerlink" href="#delete-winrm-listener" title="Permalink to this headline">¶</a></h4>
 <p>To remove a WinRM listener:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">remove</span> <span class="k">all</span> <span class="n">listeners</span>
-<span class="n">Remove</span><span class="o">-</span><span class="n">Item</span> <span class="o">-</span><span class="n">Path</span> <span class="n">WSMan</span><span class="p">:</span><span class="err">\</span><span class="n">localhost</span><span class="err">\</span><span class="n">Listener</span><span class="err">\</span><span class="o">*</span> <span class="o">-</span><span class="n">Recurse</span> <span class="o">-</span><span class="k">Force</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span># remove all listeners
+Remove-Item -Path WSMan:\localhost\Listener\* -Recurse -Force
 
-<span class="o">#</span> <span class="k">only</span> <span class="n">remove</span> <span class="n">listeners</span> <span class="n">that</span> <span class="k">are</span> <span class="n">run</span> <span class="n">over</span> <span class="n">HTTPS</span>
-<span class="k">Get</span><span class="o">-</span><span class="n">ChildItem</span> <span class="o">-</span><span class="n">Path</span> <span class="n">WSMan</span><span class="p">:</span><span class="err">\</span><span class="n">localhost</span><span class="err">\</span><span class="n">Listener</span> <span class="o">|</span> <span class="k">Where</span><span class="o">-</span><span class="k">Object</span> <span class="err">{</span> <span class="err">$</span><span class="n">_</span><span class="p">.</span><span class="n">Keys</span> <span class="o">-</span><span class="k">contains</span> <span class="ss">&quot;Transport=HTTPS&quot;</span> <span class="err">}</span> <span class="o">|</span> <span class="n">Remove</span><span class="o">-</span><span class="n">Item</span> <span class="o">-</span><span class="n">Recurse</span> <span class="o">-</span><span class="k">Force</span>
+# only remove listeners that are run over HTTPS
+Get-ChildItem -Path WSMan:\localhost\Listener | Where-Object { $_.Keys -contains &quot;Transport=HTTPS&quot; } | Remove-Item -Recurse -Force
 </pre></div>
 </div>
 <div class="admonition note">
@@ -2607,20 +2607,20 @@ per shell, including the shell’s child processes.</p></li>
 </ul>
 <p>To modify a setting under the <code class="docutils literal notranslate"><span class="pre">Service</span></code> key in PowerShell, the following
 command can be used:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span># <span class="nv">substitute</span> {<span class="nv">path</span>} <span class="nv">with</span> <span class="nv">the</span> <span class="nv">path</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">option</span> <span class="nv">after</span> <span class="nv">winrm</span><span class="o">/</span><span class="nv">config</span><span class="o">/</span><span class="nv">Service</span>
-<span class="nv">Set</span><span class="o">-</span><span class="nv">Item</span> <span class="o">-</span><span class="nv">Path</span> <span class="nv">WSMan</span>:\<span class="nv">localhost</span>\<span class="nv">Service</span>\{<span class="nv">path</span>} <span class="o">-</span><span class="nv">Value</span> <span class="s2">&quot;</span><span class="s">value here</span><span class="s2">&quot;</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span># substitute {path} with the path to the option after winrm/config/Service
+Set-Item -Path WSMan:\localhost\Service\{path} -Value &quot;value here&quot;
 
-# <span class="k">for</span> <span class="nv">example</span>, <span class="nv">to</span> <span class="nv">change</span> <span class="nv">Service</span>\<span class="nv">Auth</span>\<span class="nv">CbtHardeningLevel</span> <span class="nv">run</span>
-<span class="nv">Set</span><span class="o">-</span><span class="nv">Item</span> <span class="o">-</span><span class="nv">Path</span> <span class="nv">WSMan</span>:\<span class="nv">localhost</span>\<span class="nv">Service</span>\<span class="nv">Auth</span>\<span class="nv">CbtHardeningLevel</span> <span class="o">-</span><span class="nv">Value</span> <span class="nv">Strict</span>
+# for example, to change Service\Auth\CbtHardeningLevel run
+Set-Item -Path WSMan:\localhost\Service\Auth\CbtHardeningLevel -Value Strict
 </pre></div>
 </div>
 <p>To modify a setting under the <code class="docutils literal notranslate"><span class="pre">Winrs</span></code> key in PowerShell, the following
 command can be used:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span># <span class="nv">substitute</span> {<span class="nv">path</span>} <span class="nv">with</span> <span class="nv">the</span> <span class="nv">path</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">option</span> <span class="nv">after</span> <span class="nv">winrm</span><span class="o">/</span><span class="nv">config</span><span class="o">/</span><span class="nv">Winrs</span>
-<span class="nv">Set</span><span class="o">-</span><span class="nv">Item</span> <span class="o">-</span><span class="nv">Path</span> <span class="nv">WSMan</span>:\<span class="nv">localhost</span>\<span class="nv">Shell</span>\{<span class="nv">path</span>} <span class="o">-</span><span class="nv">Value</span> <span class="s2">&quot;</span><span class="s">value here</span><span class="s2">&quot;</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span># substitute {path} with the path to the option after winrm/config/Winrs
+Set-Item -Path WSMan:\localhost\Shell\{path} -Value &quot;value here&quot;
 
-# <span class="k">for</span> <span class="nv">example</span>, <span class="nv">to</span> <span class="nv">change</span> <span class="nv">Winrs</span>\<span class="nv">MaxShellRunTime</span> <span class="nv">run</span>
-<span class="nv">Set</span><span class="o">-</span><span class="nv">Item</span> <span class="o">-</span><span class="nv">Path</span> <span class="nv">WSMan</span>:\<span class="nv">localhost</span>\<span class="nv">Shell</span>\<span class="nv">MaxShellRunTime</span> <span class="o">-</span><span class="nv">Value</span> <span class="mi">2147483647</span>
+# for example, to change Winrs\MaxShellRunTime run
+Set-Item -Path WSMan:\localhost\Shell\MaxShellRunTime -Value 2147483647
 </pre></div>
 </div>
 <div class="admonition note">
@@ -2762,7 +2762,7 @@ Windows host.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on May 31, 2019.<br/>
+  <p>Last updated on Jul 24, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>
