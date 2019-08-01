@@ -67,15 +67,9 @@ options:
     config_file:
         description:
             - optional: location of file containing relevant db configuration info. use either this or the following ansible params in your play
-    db_username:
+    connection_details:
         description:
             - root level username for database credential. can be optionally passed inside connection_url but then you may not use rotation feature
-    db_password:
-        description:
-            - root level password for database credential. can be optionally passed inside connection_url but then you may not use rotation feature
-    connection_url:
-        description:
-            - fully qualified connection string for db. you can pass username:password as variables so they can be rotated; see examples below, syntax is tricky.
     plugin_name:
         description:
             - name of database plugin used. see out of the box list at https://www.vaultproject.io/docs/secrets/databases/index.html
@@ -117,15 +111,14 @@ def main():
     argspec['state'] = dict(required=False, type='str', default='present', choices=['present', 'absent'])
     argspec['mount_point'] = dict(required=False, type='str', default='database')
     argspec['config_file'] = dict(required=False, type='str', default=None)
-    argspec['db_username'] = dict(required=False, type='str')
-    argspec['db_password'] = dict(required=False, type='str', no_log=True)
     argspec['plugin_name'] = dict(required=False, type='str')
-    argspec['connection_url'] = dict(required=False, type='str')
     argspec['allowed_roles'] = dict(required=False, type='list', default=[])
-    argspec['verify_connection'] = dict(required=False, type='bool', default=True)
     argspec['root_credentials_rotate_statements'] = dict(required=False, type='list', default=[])
+    argspec['verify_connection'] = dict(required=False, type='bool', default=True)
+    argspec['connection_details'] = dict(required=True, type='dict')
+
     supports_check_mode=True
-    required_one_of=[['config_file', 'connection_url']]
+    required_one_of=[['config_file', 'connection_details']]
 
     module = hashivault_init(argspec, supports_check_mode, required_one_of=required_one_of)
     result = hashivault_db_secret_engine_config(module)
@@ -159,11 +152,11 @@ def hashivault_db_secret_engine_config(module):
         desired_state['plugin_name'] = params.get('plugin_name')
         desired_state['allowed_roles'] = params.get('allowed_roles')
         desired_state['verify_connection'] = params.get('verify_connection')
-        desired_state['root_credentials_rotate_statements'] = params.get('root_credentials_rotate_statements')       
-        desired_state['connection_url'] = params.get('connection_url')       
-        desired_state['username'] = params.get('db_username')       
-        desired_state['password'] = params.get('db_password')       
-    
+        desired_state['root_credentials_rotate_statements'] = params.get('root_credentials_rotate_statements')
+        connection_details = params.get('connection_details')
+        desired_state.update(connection_details)
+        del connection_details["password"]
+
     # not a required param but must ensure a value for current vs desired object comparison
     if 'root_credentials_rotate_statements' not in desired_state:
         desired_state['root_credentials_rotate_statements'] = []
@@ -188,7 +181,7 @@ def hashivault_db_secret_engine_config(module):
         for k, v in current_state['data'].items():
             # connection_url is passed as a nested item
             if k == 'connection_details':
-                if v['connection_url'] != desired_state['connection_url']:
+                if len(set(v.items()) - set(params.get('connection_details').items())):
                     changed = True
             else:
                 if v != desired_state[k]:
