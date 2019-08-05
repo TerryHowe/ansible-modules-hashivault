@@ -167,7 +167,6 @@ def hashivault_db_secret_engine_role(module):
         desired_state['db_name'] = params.get('db_name')
 
     # check if engine is enabled
-    print(client.sys.list_mounted_secrets_engines()['data'].keys())
     if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
         return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
 
