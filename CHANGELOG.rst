@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+3.18.2 (2019-08-06)
+-------------------
+- Fix the compatibility of the db role module with python 2.7. [Damien
+  Goldenberg]
+
+
 3.18.1 (2019-07-24)
 -------------------
 - Set no_log for some values. [Terry Howe]
