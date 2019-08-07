@@ -7,7 +7,7 @@ from ansible.module_utils.hashivault import hashiwrapper
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivault_identity_group
+module: hashivault_ldap_group
 version_added: "3.18.3"
 short_description: Hashicorp Vault LDAP group configuration module
 description:
@@ -58,7 +58,7 @@ options:
     mount_point:
         description:
             - location where this method/backend is mounted. also known as "path"
-        default: identity
+        default: ldap
     name:
         description:
             - name of the group
