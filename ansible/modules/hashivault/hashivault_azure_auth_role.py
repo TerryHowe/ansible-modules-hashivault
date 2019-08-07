@@ -198,9 +198,16 @@ def hashivault_azure_auth_role(module):
 
     # compare current_state to desired_state
     if exists and state == 'present' and not changed:
-        current_state = client.auth.azure.read_role(name=name)   
+        current_state = client.auth.azure.read_role(name=name)
+        # Map a couplle elements
+        if 'ttl' not in current_state and 'token_ttl' in current_state:
+            current_state['ttl'] = current_state['token_ttl']
+        if 'max_ttl' not in current_state and 'token_max_ttl' in current_state:
+            current_state['max_ttl'] = current_state['token_max_ttl']
+        if 'period' not in current_state and 'token_period' in current_state:
+            current_state['period'] = current_state['token_period']
         for k, v in desired_state.items():
-            if v != current_state[k]:
+            if k in current_state and v != current_state[k]:
                 changed = True
     elif exists and state == 'absent':
         changed = True
