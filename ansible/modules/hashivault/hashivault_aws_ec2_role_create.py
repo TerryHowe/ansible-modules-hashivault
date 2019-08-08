@@ -109,6 +109,9 @@ options:
     token_ttl:
         description:
             - The TTL period of tokens issued using this role, provided as a number of seconds
+        mount_point:
+            description:
+                - location where this auth_method will be mounted. also known as "path"
 '''
 EXAMPLES = '''
 ---
@@ -141,6 +144,7 @@ def main():
     argspec['resolve_aws_unique_ids'] = dict(required=False, type='bool')
     argspec['token_max_ttl'] = dict(required=False, type='int')
     argspec['token_ttl'] = dict(required=False, type='int')
+    argspec['mount_point'] = dict(required=False, default='aws/', type='str')
     module = hashivault_init(argspec)
     result = hashivault_aws_ec2_role_create(module.params)
 
@@ -169,6 +173,7 @@ def hashivault_aws_ec2_role_create(params):
     ]
     name = params.get('name')
     policies = params.get('policies')
+    mount_point = params.get('mount_point')
     client = hashivault_auth_client(params)
     kwargs = {
         'policies': policies,
@@ -178,14 +183,14 @@ def hashivault_aws_ec2_role_create(params):
         if value is not None:
             kwargs[arg] = value
 
-    if 'aws/' not in client.sys.list_auth_methods().keys():
+    if mount_point not in client.sys.list_auth_methods().keys():
         return {'failed': True, 'msg': 'aws auth backend is not enabled', 'rc': 1}
 
     try:
         if client.get_role(name, 'aws'):
             return {'changed': False}
     except InvalidPath:
-        client.create_role(name, mount_point='aws', **kwargs)
+        client.create_role(name, mount_point=mount_point, **kwargs)
         return {'changed': True}
 
 
