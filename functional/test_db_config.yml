@@ -6,9 +6,10 @@
       plugin_name: blergh
       allowed_roles: ["flergh"]
       allowed_roles2: ["splurgh", "doesnt-exist"]
-      db_username: "user@dbnamer"
-      db_password: "P@ssw0rd"
-      connection_url: "postgresql://{{'{{username}}'}}:{{'{{password}}'}}@cool-modern-db-name"
+      connection_details:
+        username: "user@dbnamer"
+        password: "P@ssw0rd"
+        connection_url: "postgresql://{{'{{username}}'}}:{{'{{password}}'}}@cool-modern-db-name"
   tasks:
     - name: start with engine disabled
       hashivault_secret_disable:
@@ -19,9 +20,10 @@
         name: test
         plugin_name: "{{ plugin_name }}"
         allowed_roles: "{{ allowed_roles }}"
-        db_username: "{{ db_username }}"
-        db_password: "{{ db_password }}"
-        connection_url: "{{ connection_url }}"
+        connection_details:
+          username: "{{ db_username }}"
+          password: "{{ db_password }}"
+          connection_url: "{{ connection_url }}"
       register: fail_config
       failed_when: false
 
@@ -37,9 +39,10 @@
         name: test
         plugin_name: "{{ plugin_name }}"
         allowed_roles: "{{ allowed_roles }}"
-        db_username: "{{ db_username }}"
-        db_password: "{{ db_password }}"
-        connection_url: "{{ connection_url }}"
+        connection_details:
+          username: "{{ db_username }}"
+          password: "{{ db_password }}"
+          connection_url: "{{ connection_url }}"
       register: success_config
 
     - assert: { that: "{{ success_config.changed }} == True" }
@@ -49,9 +52,10 @@
         name: test
         plugin_name: "{{ plugin_name }}"
         allowed_roles: "{{ allowed_roles }}"
-        db_username: "{{ db_username }}"
-        db_password: "{{ db_password }}"
-        connection_url: "{{ connection_url }}"
+        connection_details:
+          username: "{{ db_username }}"
+          password: "{{ db_password }}"
+          connection_url: "{{ connection_url }}"
       register: idem_config
     
     - assert: { that: "{{ idem_config.changed }} == False" }
@@ -61,9 +65,10 @@
         name: test
         plugin_name: "{{ plugin_name }}"
         allowed_roles: "{{ allowed_roles2 }}"
-        db_username: "{{ db_username }}"
-        db_password: "{{ db_password }}"
-        connection_url: "{{ connection_url }}"
+        connection_details:
+          username: "{{ db_username }}"
+          password: "{{ db_password }}"
+          connection_url: "{{ connection_url }}"
       register: overwrite_config
     
     - assert: { that: "{{ overwrite_config.changed }} == True" }
