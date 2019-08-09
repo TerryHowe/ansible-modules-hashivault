@@ -109,9 +109,9 @@ options:
     token_ttl:
         description:
             - The TTL period of tokens issued using this role, provided as a number of seconds
-        mount_point:
-            description:
-                - location where this auth_method will be mounted. also known as "path"
+    mount_point:
+        description:
+            - location where this auth_method will be mounted. also known as "path"
 '''
 EXAMPLES = '''
 ---
