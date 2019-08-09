@@ -58,6 +58,10 @@ options:
     name:
         description:
             - role name.
+    mount_point:
+        description:
+            - mount point for role
+        default: approle
     bind_secret_id:
         description:
             - Require secret_id to be presented when logging in using this AppRole.
@@ -101,6 +105,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
+    argspec['mount_point'] = dict(required=False, type='str', default='approle')
     argspec['bind_secret_id'] = dict(required=False, type='bool', no_log=True)
     argspec['bound_cidr_list'] = dict(required=False, type='list')
     argspec['policies'] = dict(required=True, type='list')
@@ -122,6 +127,7 @@ def main():
 @hashiwrapper
 def hashivault_approle_role_create(params):
     args = [
+        'mount_point',
         'bind_secret_id',
         'bound_cidr_list',
         'secret_id_num_uses',

@@ -58,6 +58,10 @@ options:
     name:
         description:
             - role name.
+    mount_point:
+        description:
+            - mount point for role
+        default: approle
 '''
 EXAMPLES = '''
 ---
@@ -73,6 +77,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
+    argspec['mount_point'] = dict(required=False, type='str', default='approle')
     module = hashivault_init(argspec)
     result = hashivault_approle_role_get(module.params)
     if result.get('failed'):
@@ -85,7 +90,8 @@ def main():
 def hashivault_approle_role_get(params):
     name = params.get('name')
     client = hashivault_auth_client(params)
-    return {'role': client.get_role(name)}
+    result = client.get_role(name, mount_point=params.get('mount_point'))
+    return {'role': result}
 
 
 if __name__ == '__main__':

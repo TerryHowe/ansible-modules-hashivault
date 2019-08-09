@@ -55,6 +55,10 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
+    mount_point:
+        description:
+            - mount point for role
+        default: approle
 '''
 EXAMPLES = '''
 ---
@@ -68,6 +72,7 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
+    argspec['mount_point'] = dict(required=False, type='str', default='approle')
     module = hashivault_init(argspec)
     result = hashivault_approle_role_list(module.params)
     if result.get('failed'):
@@ -79,7 +84,7 @@ def main():
 @hashiwrapper
 def hashivault_approle_role_list(params):
     client = hashivault_auth_client(params)
-    roles = client.list_roles()
+    roles = client.list_roles(mount_point=params.get('mount_point'))
     roles = roles.get('data', {}).get('keys', [])
     return {'roles': roles}
 

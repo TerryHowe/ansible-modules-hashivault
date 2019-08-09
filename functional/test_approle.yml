@@ -2,7 +2,6 @@
 - hosts: localhost
   gather_facts: no
   vars:
-    testrole: 'testrole'
     namespace: 'application'
     rules: >
         path "secret/{{namespace}}/*" {
@@ -39,8 +38,8 @@
       register: 'vault_role_list'
     - assert: { that: "{{vault_role_list.changed}} == False" }
     - assert: { that: "{{vault_role_list.rc}} == 0" }
-    - fail: msg="role {{testrole}} not in list"
-      when: testrole not in vault_role_list.roles
+    - fail: msg="role testrole not in list {{vault_role_list.roles}}"
+      when: '"testrole" not in vault_role_list.roles'
 
     - name: get role
       hashivault_approle_role_get:
@@ -48,8 +47,6 @@
       register: 'vault_role'
     - assert: { that: "{{vault_role.changed}} == False" }
     - assert: { that: "{{vault_role.rc}} == 0" }
-    - fail: msg="role {{testrole}} not in list"
-      when: testrole not in vault_role_list.roles
 
     - name: get role id
       hashivault_approle_role_id:
@@ -136,3 +133,51 @@
     - assert: { that: "{{vault_role_secret_list.rc}} == 0" }
     - fail: msg="secret {{delete_secret_id_accessor}} shoud not be in list"
       when: delete_secret_id_accessor in vault_role_secret_list.secrets
+
+    #
+    # mount_point
+    #
+    - name: enable lightning approle authentication
+      hashivault_auth_enable:
+        name: approle
+        mount_point: lightning
+
+    - name: create role on mount_point
+      hashivault_approle_role_create:
+        name: bigspark
+        mount_point: lightning
+        policies:
+          - approle_test_policy
+      register: 'vault_role_create'
+    - assert: { that: "{{vault_role_create.changed}} == True" }
+    - assert: { that: "{{vault_role_create.rc}} == 0" }
+
+    - name: list roles
+      hashivault_approle_role_list:
+        mount_point: lightning
+      register: 'vault_role_list'
+    - assert: { that: "{{vault_role_list.changed}} == False" }
+    - assert: { that: "{{vault_role_list.rc}} == 0" }
+    - fail: msg="role bigspark not in list"
+      when: '"bigspark" not in vault_role_list.roles'
+
+    - name: get role
+      hashivault_approle_role_get:
+        name: bigspark
+        mount_point: lightning
+      register: 'vault_role'
+    - assert: { that: "{{vault_role.changed}} == False" }
+    - assert: { that: "{{vault_role.rc}} == 0" }
+
+    - name: get role id
+      hashivault_approle_role_id:
+        name: bigspark
+        mount_point: lightning
+      register: 'vault_role_id'
+    - assert: { that: "{{vault_role_id.changed}} == False" }
+    - assert: { that: "{{vault_role_id.rc}} == 0" }
+    - assert:
+        that:
+          - vault_role_id.id|default('') != ''
+    - set_fact:
+        role_id: "{{vault_role_id.id}}"
