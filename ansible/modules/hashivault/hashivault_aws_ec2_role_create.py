@@ -187,7 +187,7 @@ def hashivault_aws_ec2_role_create(params):
         return {'failed': True, 'msg': 'aws auth backend is not enabled', 'rc': 1}
 
     try:
-        if client.get_role(name, 'aws'):
+        if client.get_role(name, mount_point):
             return {'changed': False}
     except InvalidPath:
         client.create_role(name, mount_point=mount_point, **kwargs)
