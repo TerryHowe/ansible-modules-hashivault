@@ -69,7 +69,7 @@ options:
             - optional: location of file containing relevant db configuration info. use either this or the following ansible params in your play
     connection_details:
         description:
-            - root level username for database credential. can be optionally passed inside connection_url but then you may not use rotation feature
+            - root level database credential for example username, password, connection_url.
     plugin_name:
         description:
             - name of database plugin used. see out of the box list at https://www.vaultproject.io/docs/secrets/databases/index.html
@@ -94,9 +94,10 @@ EXAMPLES = '''
         name: test
         plugin_name: "postgresql-database-plugin" #https://www.vaultproject.io/docs/secrets/databases/index.html
         allowed_roles: ["my-role"]
-        db_username: "myuser@dbname"
-        db_password: "P@ssw0rd"
-        connection_url: "postgresql://{{'{{username}}'}}:{{'{{password}}'}}@blergh-db.com:5230"
+        connection_details:
+            username: "myuser@dbname"
+            password: "P@ssw0rd"
+            connection_url: "postgresql://{{'{{username}}'}}:{{'{{password}}'}}@blergh-db.com:5230"
         state: "present
 
     - hashivault_db_secret_engine_config:
