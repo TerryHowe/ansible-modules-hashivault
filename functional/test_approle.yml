@@ -105,14 +105,14 @@
     - assert: { that: "'{{vault_role_secret_get.secret.secret_id_accessor}}' == '{{approle_secret_id_accessor}}'" }
 
 # unsupported by docker image
-#    - name: get secret accessor
-#      hashivault_approle_role_secret_accessor_get:
-#        name: testrole
-#        accessor: "{{approle_secret_id_accessor}}"
-#      register: 'vault_role_secret_accessor_get'
-#    - assert: { that: "{{vault_role_secret_accessor_get.changed}} == False" }
-#    - assert: { that: "{{vault_role_secret_accessor_get.rc}} == 0" }
-#    - assert: { that: "'{{vault_role_secret_accessor_get.secret.secret_id}}' == '{{approle_secret_id}}'" }
+    - name: get secret accessor
+      hashivault_approle_role_secret_accessor_get:
+        name: testrole
+        accessor: "{{approle_secret_id_accessor}}"
+      register: 'vault_role_secret_accessor_get'
+    - assert: { that: "{{vault_role_secret_accessor_get.changed}} == False" }
+    - assert: { that: "{{vault_role_secret_accessor_get.rc}} == 0" }
+    - assert: { that: "'{{vault_role_secret_accessor_get.secret.secret_id_accessor}}' != ''" }
 
     - name: create secret to delete
       hashivault_approle_role_secret:
