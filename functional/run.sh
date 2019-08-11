@@ -50,6 +50,8 @@ ansible-playbook -v test_approle.yml
 source ./approlenv.sh
 ansible-playbook -v --extra-vars='namespace=application/' test_write.yml test_read.yml test_lookup.yml
 source ./vaultenv.sh
+ansible-playbook -v test_approle_mount_point.yml
+ansible-playbook -v test_approle_old.yml
 
 # userpass
 ansible-playbook -v test_userpass.yml
