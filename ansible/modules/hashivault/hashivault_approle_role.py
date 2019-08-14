@@ -124,8 +124,8 @@ def main():
     argspec['token_max_ttl'] = dict(required=False, type='str')
     argspec['period'] = dict(required=False, type='str')
     argspec['enable_local_secret_ids'] = dict(required=False, type='bool')
-    module = hashivault_init(argspec)
-    result = hashivault_approle_role(module.params)
+    module = hashivault_init(argspec, supports_check_mode=True)
+    result = hashivault_approle_role(module)
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -133,7 +133,8 @@ def main():
 
 
 @hashiwrapper
-def hashivault_approle_role(params):
+def hashivault_approle_role(module):
+    params = module.params
     state = params.get('state')
     mount_point = params.get('mount_point')
     name = params.get('name')
@@ -167,17 +168,25 @@ def hashivault_approle_role(params):
                 else:
                     missing.append(key)
             if changed:
-                client.update_role(name, mount_point=mount_point, **desired_state)
+                if not module.check_mode:
+                    client.update_role(name, mount_point=mount_point, **desired_state)
                 return {'changed': True, 'missing': missing}
             return {'changed': False, 'missing': missing}
         except Exception:
-            client.create_role(name, mount_point=mount_point, **desired_state)
+            if not module.check_mode:
+                client.create_role(name, mount_point=mount_point, **desired_state)
         return {'changed': True}
     elif state == 'absent':
-        client.delete_role(name, mount_point=mount_point)
+        if module.check_mode:
+            try:
+                client.get_role(name, mount_point=mount_point)
+            except Exception:
+                return {'changed': False}
+            return {'changed': True}
+        else:
+            client.delete_role(name, mount_point=mount_point)
         return {'changed': True}
-    else:
-        return {'failed': True, 'msg': 'Unkown state value: {}'.format(state)}
+    return {'failed': True, 'msg': 'Unkown state value: {}'.format(state)}
 
 
 if __name__ == '__main__':
