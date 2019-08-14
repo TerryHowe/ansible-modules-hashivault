@@ -11,51 +11,49 @@
           capabilities = ["list"]
         }
   tasks:
-    - name: Set approle policy
-      hashivault_policy_set:
-        name: "approle_test_policy"
-        rules: "{{rules}}"
-      register: 'vault_policy_set'
-    - assert: { that: "{{vault_policy_set.rc}} == 0" }
-
-    - name: enable approle authentication
+    - name: enable lightning approle authentication
       hashivault_auth_enable:
         name: approle
+        mount_point: lightning
 
     - name: delete role
       hashivault_approle_role:
-        name: testrole
+        name: bigspark
+        mount_point: lightning
         state: absent
       failed_when: false
 
-    - name: create role
+    - name: create role on mount_point
       hashivault_approle_role:
-        name: testrole
+        name: bigspark
+        mount_point: lightning
         policies:
           - approle_test_policy
-        state: present
       register: 'vault_role_create'
     - assert: { that: "{{vault_role_create.changed}} == True" }
     - assert: { that: "{{vault_role_create.rc}} == 0" }
 
     - name: list roles
       hashivault_approle_role_list:
+        mount_point: lightning
       register: 'vault_role_list'
     - assert: { that: "{{vault_role_list.changed}} == False" }
     - assert: { that: "{{vault_role_list.rc}} == 0" }
-    - fail: msg="role testrole not in list {{vault_role_list.roles}}"
-      when: '"testrole" not in vault_role_list.roles'
+    - fail: msg="role bigspark not in list"
+      when: '"bigspark" not in vault_role_list.roles'
 
     - name: get role
       hashivault_approle_role_get:
-        name: testrole
+        name: bigspark
+        mount_point: lightning
       register: 'vault_role'
     - assert: { that: "{{vault_role.changed}} == False" }
     - assert: { that: "{{vault_role.rc}} == 0" }
 
     - name: get role id
       hashivault_approle_role_id:
-        name: testrole
+        name: bigspark
+        mount_point: lightning
       register: 'vault_role_id'
     - assert: { that: "{{vault_role_id.changed}} == False" }
     - assert: { that: "{{vault_role_id.rc}} == 0" }
@@ -63,11 +61,12 @@
         that:
           - vault_role_id.id|default('') != ''
     - set_fact:
-        approle_role_id: "{{vault_role_id.id}}" # For template
+        role_id: "{{vault_role_id.id}}"
 
     - name: create role secret id
       hashivault_approle_role_secret:
-        name: testrole
+        name: bigspark
+        mount_point: lightning
         state: present
       register: 'vault_role_secret_create'
     - assert: { that: "{{vault_role_secret_create.changed}} == True" }
@@ -81,14 +80,10 @@
     - set_fact:
         approle_secret_id_accessor: "{{vault_role_secret_create.data.secret_id_accessor}}"
 
-    - template:
-        src: "{{playbook_dir}}/templates/approlenv.sh.j2"
-        dest: "{{playbook_dir}}/approlenv.sh"
-        mode: 0700
-
     - name: list secrets
       hashivault_approle_role_secret_list:
-        name: testrole
+        name: bigspark
+        mount_point: lightning
       register: 'vault_role_secret_list'
     - assert: { that: "{{vault_role_secret_list.changed}} == False" }
     - assert: { that: "{{vault_role_secret_list.rc}} == 0" }
@@ -97,7 +92,8 @@
 
     - name: get secret
       hashivault_approle_role_secret_get:
-        name: testrole
+        name: bigspark
+        mount_point: lightning
         secret: "{{approle_secret_id}}"
       register: 'vault_role_secret_get'
     - assert: { that: "{{vault_role_secret_get.changed}} == False" }
@@ -107,37 +103,10 @@
 # unsupported by docker image
     - name: get secret accessor
       hashivault_approle_role_secret_accessor_get:
-        name: testrole
+        name: bigspark
+        mount_point: lightning
         accessor: "{{approle_secret_id_accessor}}"
       register: 'vault_role_secret_accessor_get'
     - assert: { that: "{{vault_role_secret_accessor_get.changed}} == False" }
     - assert: { that: "{{vault_role_secret_accessor_get.rc}} == 0" }
     - assert: { that: "'{{vault_role_secret_accessor_get.secret.secret_id_accessor}}' != ''" }
-
-    - name: create secret to delete
-      hashivault_approle_role_secret:
-        name: testrole
-        state: present
-      register: 'vault_role_secret_create'
-    - set_fact:
-        approle_secret_id: "{{vault_role_secret_create.data.secret_id}}"
-    - set_fact:
-        approle_secret_id_accessor: "{{vault_role_secret_create.data.secret_id_accessor}}"
-
-    - name: delete secret
-      hashivault_approle_role_secret:
-        name: testrole
-        secret: "{{approle_secret_id}}"
-        state: absent
-      register: 'vault_role_secret_delete'
-    - assert: { that: "{{vault_role_secret_delete.changed}} == True" }
-    - assert: { that: "{{vault_role_secret_delete.rc}} == 0" }
-
-    - name: make sure secret is gone
-      hashivault_approle_role_secret_list:
-        name: testrole
-      register: 'vault_role_secret_list'
-    - assert: { that: "{{vault_role_secret_list.changed}} == False" }
-    - assert: { that: "{{vault_role_secret_list.rc}} == 0" }
-    - fail: msg="secret {{approle_secret_id_accessor}} shoud not be in list"
-      when: approle_secret_id_accessor in vault_role_secret_list.secrets

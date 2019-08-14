@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from hvac.exceptions import InvalidPath
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -58,6 +59,10 @@ options:
     name:
         description:
             - role name.
+    mount_point:
+        description:
+            - mount point for role
+        default: approle
 '''
 EXAMPLES = '''
 ---
@@ -73,6 +78,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
+    argspec['mount_point'] = dict(required=False, type='str', default='approle')
     module = hashivault_init(argspec)
     result = hashivault_approle_role_secret_list(module.params)
     if result.get('failed'):
@@ -84,10 +90,14 @@ def main():
 @hashiwrapper
 def hashivault_approle_role_secret_list(params):
     name = params.get('name')
+    mount_point = params.get('mount_point')
     client = hashivault_auth_client(params)
-    secrets = client.list_role_secrets(name)
+    try:
+        secrets = client.list_role_secrets(name, mount_point=mount_point)
+    except InvalidPath as ex:
+        return {'secrets': []}
     secrets = secrets.get('data', {}).get('keys', [])
-    return {'secrets': secrets}
+    return {'secrets': str(secrets)}
 
 
 if __name__ == '__main__':

@@ -58,6 +58,10 @@ options:
     name:
         description:
             - role name.
+    mount_point:
+        description:
+            - mount point for role
+        default: approle
     accessor:
         description:
             - accessor id.
@@ -77,6 +81,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
+    argspec['mount_point'] = dict(required=False, type='str', default='approle')
     argspec['accessor'] = dict(required=True, type='str')
     module = hashivault_init(argspec)
     result = hashivault_approle_role_secret_accessor_get(module.params)
@@ -89,9 +94,10 @@ def main():
 @hashiwrapper
 def hashivault_approle_role_secret_accessor_get(params):
     name = params.get('name')
+    mount_point = params.get('mount_point')
     accessor = params.get('accessor')
     client = hashivault_auth_client(params)
-    return {'secret': client.get_role_secret_id_accessor(name, accessor)['data']}
+    return {'secret': client.get_role_secret_id_accessor(name, accessor, mount_point=mount_point)['data']}
 
 
 if __name__ == '__main__':

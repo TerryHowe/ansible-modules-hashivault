@@ -1,7 +1,7 @@
 export VAULT_ADDR='{{lookup('env','VAULT_ADDR')}}'
 export VAULT_AUTHTYPE=approle
-export VAULT_ROLE_ID='{{ role_id }}'
-export VAULT_SECRET_ID='{{ secret_id }}'
+export VAULT_ROLE_ID='{{ approle_role_id }}'
+export VAULT_SECRET_ID='{{ approle_secret_id }}'
 unset VAULT_TOKEN
 unset VAULT_KEYS
 unset VAULT_USER
