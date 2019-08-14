@@ -5,7 +5,7 @@ from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
 
-ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
+ANSIBLE_METADATA = {'status': ['deprecated'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
 module: hashivault_approle_role_secret_create
@@ -13,7 +13,7 @@ version_added: "3.8.0"
 short_description: Hashicorp Vault approle role secret id create module
 description:
     - Module to get an approle role secret id from Hashicorp Vault in Pull mode
-      or create custom approle role secret id in Push mode.
+      or create custom approle role secret id in Push mode. Use hashivault_approle_role_secret instead.
 options:
     url:
         description:
