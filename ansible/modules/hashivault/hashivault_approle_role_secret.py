@@ -114,8 +114,8 @@ def main():
     argspec['metadata'] = dict(required=False, type='dict')
     argspec['wrap_ttl'] = dict(required=False, type='str')
     argspec['secret'] = dict(required=False, type='str', default='notspecified')
-    module = hashivault_init(argspec)
-    result = hashivault_approle_role_secret_create(module.params)
+    module = hashivault_init(argspec, supports_check_mode=True)
+    result = hashivault_approle_role_secret_create(module)
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -123,7 +123,8 @@ def main():
 
 
 @hashiwrapper
-def hashivault_approle_role_secret_create(params):
+def hashivault_approle_role_secret_create(module):
+    params = module.params
     state = params.get('state')
     name = params.get('name')
     mount_point = params.get('mount_point')
@@ -135,11 +136,19 @@ def hashivault_approle_role_secret_create(params):
         metadata = params.get('metadata')
         wrap_ttl = params.get('wrap_ttl')
         if custom_secret_id is not None:
+            if module.check_mode:
+                try:
+                    client.get_role_secret_id(name, custom_secret_id, mount_point=mount_point)
+                except Exception:
+                    return {'changed': True}
+                return {'changed': False}
             result = client.create_role_custom_secret_id(role_name=name,
-                                                         mount_point=mount_point,
-                                                         secret_id=custom_secret_id,
-                                                         meta=metadata)
+                                                             mount_point=mount_point,
+                                                             secret_id=custom_secret_id,
+                                                             meta=metadata)
         else:
+            if module.check_mode:
+                return {'changed': True}
             result = client.create_role_secret_id(role_name=name,
                                                   mount_point=mount_point,
                                                   meta=metadata,
@@ -148,7 +157,14 @@ def hashivault_approle_role_secret_create(params):
         return {'changed': True, 'data': result.get('data', {})}
     elif state == 'absent':
         secret = params.get('secret')
-        client.delete_role_secret_id(name, secret, mount_point=mount_point)
+        if module.check_mode:
+            try:
+                client.get_role_secret_id(name, secret, mount_point=mount_point)
+            except Exception:
+                return {'changed': False}
+            return {'changed': True}
+        else:
+            client.delete_role_secret_id(name, secret, mount_point=mount_point)
         return {'changed': True}
     else:
         return {'failed': True, 'msg': 'Unkown state value: {}'.format(state)}
