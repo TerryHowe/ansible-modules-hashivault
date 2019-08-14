@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 
 DOCUMENTATION = '''
 ---
 module: hashivault_approle_role_secret
-version_added: "3.8.0"
+version_added: "4.0.0"
 short_description: Hashicorp Vault approle role secret id manager
 description:
     - Create, update and delete approle secrets.
