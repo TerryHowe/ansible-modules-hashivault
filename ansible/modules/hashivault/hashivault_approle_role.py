@@ -3,6 +3,7 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
+import json
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -106,6 +107,9 @@ EXAMPLES = '''
     - hashivault_approle_role:
         name: ashley
         state: absent
+    - hashivault_approle_role:
+        name: terry
+        role_file: path/to/file.json
 '''
 
 
@@ -113,6 +117,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
     argspec['name'] = dict(required=True, type='str')
+    argspec['role_file'] = dict(required=False, type='str')
     argspec['mount_point'] = dict(required=False, type='str', default='approle')
     argspec['bind_secret_id'] = dict(required=False, type='bool', no_log=True)
     argspec['bound_cidr_list'] = dict(required=False, type='list')
@@ -136,6 +141,7 @@ def main():
 def hashivault_approle_role(module):
     params = module.params
     state = params.get('state')
+    role_file = params.get('role_file')
     mount_point = params.get('mount_point')
     name = params.get('name')
     client = hashivault_auth_client(params)
@@ -153,10 +159,13 @@ def hashivault_approle_role(module):
             'enable_local_secret_ids',
         ]
         desired_state = {}
-        for arg in args:
-            value = params.get(arg)
-            if value is not None:
-                desired_state[arg] = value
+        if role_file:
+            desired_state = json.loads(open(params.get('role_file'), 'r').read())
+        else:
+            for arg in args:
+                value = params.get(arg)
+                if value is not None:
+                    desired_state[arg] = value
         try:
             current_state = client.get_role(name, mount_point=mount_point)
             changed = False
