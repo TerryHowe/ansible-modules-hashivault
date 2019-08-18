@@ -1,0 +1,86 @@
+---
+- hosts: localhost
+  connection: localhost
+  tasks:
+    
+    - hashivault_namespace:
+        name: hvtest
+        state: absent
+
+    - hashivault_namespace:
+        name: hvtest
+      register: first_create
+
+    - assert: { that: "{{first_create.changed}} == True" }
+
+    - hashivault_namespace:
+        name: hvtest
+      register: idem_create
+
+    - assert: { that: "{{idem_create.changed}} == False" }
+
+    - hashivault_namespace:
+        name: child
+        namespace: hvtest
+      register: second_create
+
+    - assert: { that: "{{second_create.changed}} == True" }
+    
+    - hashivault_namespace:
+        name: child
+        namespace: hvtest
+      register: second_idem_create
+
+    - assert: { that: "{{second_idem_create.changed}} == False" }
+
+    - hashivault_namespace:
+        name: child2
+        namespace: hvtest/child
+      register: third_create
+
+    - assert: { that: "{{third_create.changed}} == True" }
+
+    - hashivault_namespace:
+        name: child2
+        namespace: hvtest/child
+      register: third_idem_create
+
+    - assert: { that: "{{third_idem_create.changed}} == False" }
+
+    - hashivault_namespace:
+        name: hvtest
+        state: absent
+      register: delete_fail
+      failed_when: False
+    - assert: { that: "{{delete_fail.rc}} != 0" }
+
+
+    - hashivault_namespace:
+        name: child2
+        namespace: hvtest/child
+        state: absent
+      register: delete_one
+
+    - assert: { that: "{{delete_one.changed}} == True" }
+
+    - hashivault_namespace:
+        name: child
+        namespace: hvtest
+        state: absent
+      register: delete_two
+
+    - assert: { that: "{{delete_two.changed}} == True" }
+
+    - hashivault_namespace:
+        name: hvtest
+        state: absent
+      register: delete_three
+
+    - assert: { that: "{{delete_three.changed}} == True" }
+
+    - hashivault_namespace:
+        name: hvtest
+        state: absent
+      register: delete_idem
+
+    - assert: { that: "{{delete_idem.changed}} == False" }
