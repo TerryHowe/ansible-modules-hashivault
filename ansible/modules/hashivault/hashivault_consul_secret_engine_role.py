@@ -153,8 +153,9 @@ def hashivault_consul_secret_engine_role(module):
     if name[-1] == '/':
         name = name.strip('/')
 
-    if desired_state['token_type'] == "client" and \
-            (desired_state['token_type'] == "" or len(desired_state['token_type']) == 0):
+    if state == "present" and \
+            desired_state['token_type'] == "client" and \
+            (desired_state['policy'] == "" and len(desired_state['policies']) == 0):
         return {'failed': True, 'msg': 'provide policy or policies for client token', 'rc': 1}
 
     if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
@@ -174,14 +175,14 @@ def hashivault_consul_secret_engine_role(module):
     if exists and state == 'present' and not changed:
         current_state = client.secrets.consul.read_role(name, mount_point=mount_point)['data']
         for k, v in desired_state.items():
-            if v != current_state[k]:
+            if k in current_state and v != current_state[k]:
                 changed = True
     elif exists and state == 'absent':
         changed = True
-    
+
     if changed and state == 'present' and not module.check_mode:
         client.secrets.consul.create_or_update_role(name, mount_point=mount_point, **desired_state)
-    
+
     elif changed and state == 'absent' and not module.check_mode:
         client.secrets.consul.delete_role(name, mount_point=mount_point)
 

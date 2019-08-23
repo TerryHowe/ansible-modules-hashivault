@@ -5,7 +5,7 @@
   vars:
     address: consul.local:8500
     scheme: https
-    token: myAwesomeConsulManagementToken
+    consul_token: myAwesomeConsulManagementToken
   tasks:
     - name: start with engine disabled
       hashivault_secret_disable:
@@ -15,7 +15,7 @@
       hashivault_consul_secret_engine_config:
         address: "{{ address }}"
         scheme: "{{ scheme }}"
-        token: "{{ token }}"
+        consul_token: "{{ consul_token }}"
       register: fail_config
       failed_when: false
 
@@ -30,7 +30,7 @@
       hashivault_consul_secret_engine_config:
         address: "{{ address }}"
         scheme: "{{ scheme }}"
-        token: "{{ token }}"
+        consul_token: "{{ consul_token }}"
       register: success_config
 
     - assert: { that: "{{ success_config.changed }} == True" }

@@ -65,7 +65,7 @@ options:
     scheme:
         description:
             -  Specifies the URL scheme to use
-    token:
+    consul_token:
         description:
             - Specifies the Consul ACL token to use. This must be a management type token.
 '''
@@ -85,7 +85,7 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default='consul')
     argspec['address'] = dict(required=True, type='str')
     argspec['scheme'] = dict(required=True, type='str')
-    argspec['token'] = dict(required=True, type='str')
+    argspec['consul_token'] = dict(required=True, type='str')
 
     supports_check_mode=True
 
@@ -104,7 +104,7 @@ def hashivault_consul_secret_engine_config(module):
     mount_point = params.get('mount_point')
     address = params.get('address')
     scheme = params.get('scheme')
-    token = params.get('token')
+    token = params.get('consul_token')
 
     if mount_point[-1]:
         mount_point = mount_point.strip('/')

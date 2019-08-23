@@ -5,7 +5,7 @@
   vars:
     address: consul.local:8500
     scheme: https
-    token: myAwesomeConsulManagementToken
+    consul_token: myAwesomeConsulManagementToken
     role_name: test
     policy: a2V5ICIvZm9vL2JhciIgeyBwb2xpY3kgPSAicmVhZCIgfQ==
   tasks:
@@ -18,12 +18,13 @@
       hashivault_consul_secret_engine_config:
         address: "{{ address }}"
         scheme: "{{ scheme }}"
-        token: "{{ token }}"
+        consul_token: "{{ consul_token }}"
 
-    - name: successfully write a role
+    - name: fail write a role
       hashivault_consul_secret_engine_role:
         name: "{{ role_name }}"
       register: fail_write
+      failed_when: false
 
     - assert: { that: "{{ fail_write.changed }} == False" }
 
