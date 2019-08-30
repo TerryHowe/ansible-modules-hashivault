@@ -4,13 +4,11 @@ Changelog
 
 4.0.0 (2019-08-14)
 ------------------
-- Deprecate creat and delete approle modules. [Terry Howe]
+- Deprecate create and delete approle modules. [Terry Howe]
 - Add check_mode support for approle. [Terry Howe]
 - Approle secret mount point support. [Terry Howe]
 - Add proper approle modules. [Terry Howe]
-- Updated hashivault_ldap_group.py module name and options text. [Jason
-  Neurohr]
-- Added a module to add ldap groups. [Jason Neurohr]
+- Added hashivault_ldap_group module. [Jason Neurohr]
 - Make aws role create idempotent. [Terry Howe]
 - Db engine config plugin can be used for all db plugins. [Damien
   Goldenberg]
