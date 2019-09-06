@@ -6,8 +6,9 @@
       hashivault_secret_disable:
         name: "kv2"
       failed_when: False
+
     - name: Enable kv2 secret store
-      hashivault_secret_enable:
+      hashivault_secret_engine:
         name: "kv2"
         backend: "kv"
         options:
@@ -17,7 +18,7 @@
     - assert: { that: "{{vault_secret_enable.rc}} == 0" }
 
     - name: Enable same secret store again and check it doesn't fail
-      hashivault_secret_enable:
+      hashivault_secret_engine:
         name: "kv2"
         backend: "kv"
         options:
