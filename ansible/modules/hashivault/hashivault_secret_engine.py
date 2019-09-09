@@ -138,6 +138,7 @@ def hashivault_secret_engine(module):
             config['max_lease_ttl'] = DEFAULT_TTL
         if 'force_no_cache' not in config:
             config['force_no_cache'] = False
+        options['version'] = str(options['version'])
 
         for k, v in current_state.items(): #while not changed?
             # options is passed in ['data'] but set outside 'config':{}, manually check

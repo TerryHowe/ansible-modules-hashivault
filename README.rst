@@ -229,25 +229,10 @@ Handle auth backends::
     ---
     - hosts: localhost
       tasks:
-        - hashivault_auth_list:
-          register: 'vault_auth_list'
-        - block:
-          - hashivault_auth_method:
-              method_type: "userpass"
-              state: "enabled"
-            register: 'vault_auth_enable'
-          when: "'userpass/' not in vault_auth_list.backends"
+        - hashivault_auth_method:
+            method_type: "userpass"
+            state: "enabled"
 
-Tune auth backends::
-
-    ---
-    - hosts: localhost
-      tasks:
-        - name: Tune ephermal secret store
-          hashivault_mount_tune:
-            mount_point: ephemeral
-            default_lease_ttl: 3600
-            max_lease_ttl: 8600
 
 Audit Backends
 --------------
@@ -288,14 +273,16 @@ Secret Backends
 Enable and disable various secret backends::
 
     ---
-    - hashivault_secret_list:
-      register: 'hashivault_secret_list'
-    - hashivault_secret_enable:
-        name: "ephemeral"
-        backend: "generic"
-    - hashivault_secret_disable:
-        name: "ephemeral"
-        backend: "generic"
+    - hashivault_secret_engine:
+        name: secret
+        backend: kv
+        options:
+          version: 2
+        config:
+          default_lease_ttl: 1500
+    - hashivault_secret_engine:
+        name: secret
+        state: absent
 
 Token Manipulation
 ------------------

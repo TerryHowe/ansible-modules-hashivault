@@ -3,11 +3,13 @@
   gather_facts: no
   tasks:
     - name: Make sure kv2 secret store is disabled
-      hashivault_secret_disable:
+      hashivault_secret_engine:
         name: "kv2"
+        state: absent
       failed_when: False
+
     - name: Enable kv2 secret store
-      hashivault_secret_enable:
+      hashivault_secret_engine:
         name: "kv2"
         backend: "kv"
         options:
@@ -17,7 +19,7 @@
     - assert: { that: "{{vault_secret_enable.rc}} == 0" }
 
     - name: Enable same secret store again and check it doesn't fail
-      hashivault_secret_enable:
+      hashivault_secret_engine:
         name: "kv2"
         backend: "kv"
         options:
@@ -88,26 +90,35 @@
     - assert: { that: "'{{vault_read.msg}}' == 'Secret secret/kv2/name is not in vault'" }
 
     - name: Tune kv2 secret store
-      hashivault_mount_tune:
-        mount_point: kv2
-        default_lease_ttl: 3600
-        max_lease_ttl: 8600
+      hashivault_secret_engine:
+        backend: kv
+        name: kv2
+        options:
+          version: 2
+        config:
+          default_lease_ttl: 3600
+          max_lease_ttl: 8600
       register: vault_tune
     - assert: { that: "{{ vault_tune.changed }} == True" }
     - assert: { that: "{{ vault_tune.rc }} == 0" }
 
     - name: Idempotent tuning kv2 secret store
-      hashivault_mount_tune:
-        mount_point: kv2
-        default_lease_ttl: 3600
-        max_lease_ttl: 8600
+      hashivault_secret_engine:
+        backend: kv
+        name: kv2
+        options:
+          version: 2
+        config:
+          default_lease_ttl: 3600
+          max_lease_ttl: 8600
       register: vault_tune
     - assert: { that: "{{ vault_tune.changed }} == False" }
     - assert: { that: "{{ vault_tune.rc }} == 0" }
 
     - name: Disable kv2 secret store
-      hashivault_secret_disable:
+      hashivault_secret_engine:
         name: "kv2"
+        state: absent
       register: 'vault_secret_disable'
     - assert: { that: "{{vault_secret_enable.changed}} == True" }
     - assert: { that: "{{vault_secret_enable.rc}} == 0" }
