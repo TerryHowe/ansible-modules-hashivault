@@ -8,8 +8,10 @@
     consul_token: myAwesomeConsulManagementToken
   tasks:
     - name: start with engine disabled
-      hashivault_secret_disable:
+      hashivault_secret_engine:
         name: consul
+        backend: consul
+        state: absent
          
     - name: make sure test fails when no mount exists
       hashivault_consul_secret_engine_config:
