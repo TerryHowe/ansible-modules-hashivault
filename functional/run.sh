@@ -28,7 +28,7 @@ ansible-playbook -v test_secret_list.yml
 # ansible-playbook -v test_db_config.yml cannot run without true db connectivity
 # ansible-playbook -v test_db_role.yml cannot run without true db connectivity
 ansible-playbook -v test_consul_config.yml
-ansible-playbook -v test_consul_role.yml
+ansible-playbook -vvv test_consul_role.yml
 ansible-playbook -v test_azure_config.yml
 # ansible-playbook -v test_azure_role.yml cannot run without true azure connectivity
 ansible-playbook -v test_policy.yml
