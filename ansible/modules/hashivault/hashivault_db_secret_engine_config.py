@@ -182,10 +182,10 @@ def hashivault_db_secret_engine_config(module):
         for k, v in current_state['data'].items():
             # connection_url is passed as a nested item
             if k == 'connection_details':
-                for i in params.get('connection_details'):
-                    if params.get('connection_details')[i] != v[i]:
-                        changed = True
-                        break
+                if v['username'] != desired_state['username']:
+                    changed = True
+                if v['connection_url'] != desired_state['connection_url']:
+                    changed = True
             else:
                 if v != desired_state[k]:
                     changed = True
