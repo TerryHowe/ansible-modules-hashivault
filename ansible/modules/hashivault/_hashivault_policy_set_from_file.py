@@ -90,19 +90,29 @@ def hashivault_policy_set_from_file(module):
     client = hashivault_auth_client(params)
     name = params.get('name')
     rules = open(params.get('rules_file'), 'r').read()
+    changed = False
+    exists = False
+    current = str()
 
+    # does policy exit
     try:
         current = client.get_policy(name)
+        exists = True
     except:
         if module.check_mode:
             changed = True
+        else:
+            return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
 
-## need to redo this
-    if current == rules:
-        return {'changed': False}
+    # does current policy match desired
+    if exists:
+        if current != rules:
+            changed = True
 
-    client.sys.create_or_update_policy(name, rules)
-    return {'changed': True}
+    if exists and changed and not module.check_mode:
+        client.sys.create_or_update_policy(name, rules)
+
+    return {'changed': changed}
 
 
 if __name__ == '__main__':

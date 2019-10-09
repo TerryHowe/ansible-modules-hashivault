@@ -173,6 +173,8 @@ def hashivault_db_secret_engine_role(module):
     except:
         if module.check_mode:
             changed = True
+        else:
+            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
 
     # check if role exists
     try:

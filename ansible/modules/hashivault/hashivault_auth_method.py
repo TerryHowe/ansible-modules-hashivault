@@ -123,6 +123,8 @@ def hashivault_auth_method(module):
     except:
         if module.check_mode:
             changed = True
+        else:
+            return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
 
     # if its off and we want it on
     if (state == 'enabled' or state == 'enable') and exists == False:
