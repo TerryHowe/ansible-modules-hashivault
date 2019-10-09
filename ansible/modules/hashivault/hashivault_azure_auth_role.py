@@ -180,8 +180,12 @@ def hashivault_azure_auth_role(module):
 
 
     # check if engine is enabled
-    if (mount_point + "/") not in client.sys.list_auth_methods()['data'].keys():
-        return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
+    try:
+        if (mount_point + "/") not in client.sys.list_auth_methods()['data'].keys():
+            return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
+    except:
+        if module.check_mode:
+            changed = True
 
     # check if role exists
     try:

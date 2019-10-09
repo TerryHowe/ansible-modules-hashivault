@@ -148,7 +148,7 @@ def hashivault_db_secret_engine_config(module):
     # if config_file is set value from file
     # else set from passed args
     if config_file:
-        desired_state = json.loads(open(params.get('config_file'), 'r').read())    
+        desired_state = json.loads(open(params.get('config_file'), 'r').read())
     else:
         desired_state['plugin_name'] = params.get('plugin_name')
         desired_state['allowed_roles'] = params.get('allowed_roles')
@@ -163,8 +163,12 @@ def hashivault_db_secret_engine_config(module):
         desired_state['root_credentials_rotate_statements'] = []
 
     # check if engine is enabled
-    if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
-        return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
+    try:
+        if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
+            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
+    except:
+        if module.check_mode:
+            changed = True
 
     # check if any config exists
     try:
@@ -173,7 +177,7 @@ def hashivault_db_secret_engine_config(module):
     except Exception:
         # does not exist
         pass
-    
+
     if (exists and state == 'absent') or (not exists and state == 'present'):
         changed = True
 
