@@ -101,7 +101,7 @@ EXAMPLES = '''
         name: tester
         db_name: test
         creation_statements: []
-        
+
 
     - hashivault_db_secret_engine_role:
         name: tester
@@ -167,8 +167,12 @@ def hashivault_db_secret_engine_role(module):
         desired_state['db_name'] = params.get('db_name')
 
     # check if engine is enabled
-    if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
-        return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
+    try:
+        if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
+            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
+    except:
+        if module.check_mode:
+            changed = True
 
     # check if role exists
     try:
@@ -190,12 +194,12 @@ def hashivault_db_secret_engine_role(module):
                 changed = True
     elif exists and state == 'absent':
         changed = True
-    
+
     # make the changes!
 
     if changed and state == 'present' and not module.check_mode:
         client.secrets.database.create_role(name=name, mount_point=mount_point, **desired_state)
-    
+
     elif changed and state == 'absent' and not module.check_mode:
         client.secrets.database.delete_role(name=name, mount_point=mount_point)
 
