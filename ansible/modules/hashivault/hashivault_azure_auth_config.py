@@ -155,6 +155,8 @@ def hashivault_azure_auth_config(module):
     except:
         if module.check_mode:
             changed = True
+        else:
+            return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
 
     try:
         current_state = client.auth.azure.read_config()

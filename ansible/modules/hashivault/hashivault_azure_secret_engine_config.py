@@ -149,6 +149,8 @@ def hashivault_azure_secret_engine_config(module):
     except:
         if module.check_mode:
             changed = True
+        else:
+            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
 
     # check if current config matches desired config values, if they match, set changed to false to prevent action
     try:
