@@ -12,7 +12,7 @@ module: hashivault_azure_auth_config
 version_added: "3.17.7"
 short_description: Hashicorp Vault azure auth config
 description:
-    - Module to configure an azure auth mount 
+    - Module to configure an azure auth mount
 options:
     url:
         description:
@@ -60,9 +60,6 @@ options:
         description:
             - name of the secret engine mount name.
         default: azure
-    subscription_id:
-        description:
-            - azure SPN subscription id
     tenant_id:
         description:
             - azure SPN tenant id
@@ -89,7 +86,6 @@ EXAMPLES = '''
 - hosts: localhost
   tasks:
     - hashivault_azure_auth_config:
-        subscription_id: 1234
         tenant_id: 5689-1234
         client_id: 1012-1234
         client_secret: 1314-1234
@@ -128,6 +124,7 @@ def hashivault_azure_auth_config(module):
     mount_point = params.get('mount_point')
     desired_state = dict()
     current_state = dict()
+    enabled_methods = list()
 
     # do not want a trailing slash in mount_point
     if mount_point[-1]:
@@ -136,7 +133,7 @@ def hashivault_azure_auth_config(module):
     # if config_file is set, set sub_id, ten_id, client_id, client_secret from file
     # else set from passed args
     if config_file:
-        desired_state = json.loads(open(params.get('config_file'), 'r').read())     
+        desired_state = json.loads(open(params.get('config_file'), 'r').read())
         if 'resource' not in desired_state:
             desired_state['resource'] = params.get('resource')
         if 'environment' not in desired_state:
@@ -145,14 +142,20 @@ def hashivault_azure_auth_config(module):
         desired_state['tenant_id'] = params.get('tenant_id')
         desired_state['client_id'] = params.get('client_id')
         desired_state['client_secret'] = params.get('client_secret')
-        desired_state['resource'] = params.get('resource')       
-        desired_state['environment'] = params.get('environment')       
+        desired_state['resource'] = params.get('resource')
+        desired_state['environment'] = params.get('environment')
 
-    # check if engine is enabled
-    if (mount_point + "/") not in client.sys.list_auth_methods()['data'].keys():
-        return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
+    # check if mount exists
+    # if errors but check mode is enabled then pass as "changed"
+    # while this is technically incorrect, its more likely helpful than hurtful
+    try:
+        enabled_methods = client.sys.list_auth_methods()['data'].keys()
+        if (mount_point + "/") not in enabled_methods:
+            return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
+    except:
+        if module.check_mode:
+            changed = True
 
-    # check if any config exists
     try:
         current_state = client.auth.azure.read_config()
     except:
@@ -166,7 +169,7 @@ def hashivault_azure_auth_config(module):
     # if configs dont match and checkmode is off, complete the change
     if changed == True and not module.check_mode:
         result = client.auth.azure.configure(mount_point=mount_point, **desired_state)
-    
+
     return {'changed': changed}
 
 
