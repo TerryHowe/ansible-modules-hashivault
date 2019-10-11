@@ -1,0 +1,54 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+    oidc_discovery_url: values
+    oidc_client_id: dont
+    oidc_client_secret: matter
+  tasks:
+    - hashivault_auth_method:
+        method_type: oidc
+        state: disabled
+      failed_when: false
+         
+    - name: make sure test fails when no mount exists
+      hashivault_oidc_auth_method_config:
+        oidc_discovery_url: "{{ oidc_discovery_url }}"
+        oidc_client_id: "{{ oidc_client_id }}"
+        oidc_client_secret: "{{ oidc_client_secret }}"
+      register: fail_config
+      failed_when: false
+
+    - assert: { that: "{{ fail_config.changed }} == False" }
+    
+    - name: enable oidc auth method 
+      hashivault_auth_method:
+        method_type: oidc
+         
+    - name: successfully configure method
+      hashivault_oidc_auth_method_config:
+        oidc_discovery_url: "{{ oidc_discovery_url }}"
+        oidc_client_id: "{{ oidc_client_id }}"
+        oidc_client_secret: "{{ oidc_client_secret }}"
+      register: success_config
+
+    - assert: { that: "{{ success_config.changed }} == True" }
+
+    - name: attempt 2nd config with same values
+      hashivault_oidc_auth_method_config:
+        oidc_discovery_url: "{{ oidc_discovery_url }}"
+        oidc_client_id: "{{ oidc_client_id }}"
+        oidc_client_secret: "{{ oidc_client_secret }}"
+      register: idem_config
+    
+    - assert: { that: "{{ idem_config.changed }} == False" }
+
+    - name: attempt 3rd config with different values
+      hashivault_oidc_auth_method_config:
+        oidc_discovery_url: banana
+        oidc_client_id: mango
+        oidc_client_secret: pancake
+      register: overwrite_config
+    
+    - assert: { that: "{{ overwrite_config.changed }} == True" }
