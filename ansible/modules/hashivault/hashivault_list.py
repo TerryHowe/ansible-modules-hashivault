@@ -69,6 +69,14 @@ options:
               itself will not be returned, but subpaths like
               C(/secret/foo/bar) will.'
         default: ''
+    version:
+        description:
+            - version of the kv engine (int)
+        default: 1
+    mount_point:
+        description:
+            - secret mount point
+        default: secret
 '''
 RETURN = '''
 ---
@@ -84,6 +92,7 @@ EXAMPLES = '''
   tasks:
     - hashivault_list:
         secret: 'giant'
+        version: 2
       register: 'fie'
     - debug: msg="Known secrets are {{ fie.secrets|join(', ') }}"
 '''
@@ -91,6 +100,8 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
+    argspec['version'] = dict(required=False, type='int', default=1)
+    argspec['mount_point'] = dict(required=False, type='str', default='secret')
     argspec['secret'] = dict(default='', type='str')
     module = hashivault_init(argspec)
     result = hashivault_list(module.params)
@@ -104,16 +115,30 @@ def main():
 def hashivault_list(params):
     result = {"changed": False, "rc": 0}
     client = hashivault_auth_client(params)
+    version = params.get('version')
+    mount_point = params.get('mount_point')
     secret = params.get('secret')
+
     if secret.startswith('/'):
         secret = secret.lstrip('/')
-    else:
-        secret = 'secret/' + secret
+    # for backwards compatibiltiy with old hashivault_list module
+    if secret.startswith('metadata/'):
+        version = 2
+        secret = secret.lstrip('metadata/')
+
+    response = None
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        response = client.list(secret)
-        if not response:
+        try:
+            if version == 2:
+                response = client.secrets.kv.v2.list_secrets(path=secret, mount_point=mount_point)
+            else:
+                response = client.secrets.kv.v1.list_secrets(path=secret, mount_point=mount_point)
+        except Exception as e:
+          if response is None:
             response = {}
+          else:
+            return {'failed': True, 'msg': str(e)}
         result['secrets'] = response.get('data', {}).get('keys', [])
     return result
 

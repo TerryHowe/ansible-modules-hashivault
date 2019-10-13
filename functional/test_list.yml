@@ -2,6 +2,12 @@
 - hosts: localhost
   gather_facts: no
   tasks:
+    - hashivault_secret_engine:
+        name: dummyv2
+        backend: kv
+        options:
+          version: 2
+        state: present
     - hashivault_write:
         secret: 'listone'
         data:
@@ -11,6 +17,19 @@
         secret: 'list/two'
         data:
           wednesday: 'threde'
+    - hashivault_write:
+        secret: 'listone'
+        data:
+            monday: 'one'
+            tuesday: 'two'
+        version: 2
+        mount_point: dummyv2
+    - hashivault_write:
+        secret: 'list/two'
+        data:
+          wednesday: 'threde'
+        version: 2
+        mount_point: dummyv2
 
     - name: Make sure we got our two secrets in list
       hashivault_list: {}
@@ -29,6 +48,33 @@
     - name: List secrets in folder
       hashivault_list:
         secret: list
+      register: vault_list
+    - assert: { that: vault_list.rc == 0 }
+    - assert: { that: "'two' in vault_list.secrets" }
+
+    - name: Make sure we got our two secrets in list
+      hashivault_list:
+        mount_point: dummyv2
+        version: 2
+      register: vault_list
+    - assert: { that: "vault_list.rc == 0" }
+    - assert: { that: "'listone' in vault_list.secrets" }
+    - assert: { that: "'list/' in vault_list.secrets" }
+
+    - name: List secrets not in folder
+      hashivault_list:
+        secret: 'whatutalkinbout'
+        mount_point: dummyv2
+        version: 2
+      register: vault_list
+    - assert: { that: "vault_list.rc == 0" }
+    - assert: { that: "vault_list.secrets|length == 0" }
+
+    - name: List secrets in folder
+      hashivault_list:
+        secret: list
+        mount_point: dummyv2
+        version: 2
       register: vault_list
     - assert: { that: vault_list.rc == 0 }
     - assert: { that: "'two' in vault_list.secrets" }
