@@ -75,6 +75,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
     argspec['rules'] = dict(required=True, type='str')
+    argspec['rules_file'] = dict(required=False, type='bool', default=False)
     module = hashivault_init(argspec)
     result = hashivault_policy_set(module.params)
     if result.get('failed'):
@@ -88,6 +89,9 @@ def hashivault_policy_set(params):
     client = hashivault_auth_client(params)
     name = params.get('name')
     rules = params.get('rules')
+    rules_file = params.get('rules_file')
+    if rules_file:
+        rules = open(rules, 'r').read()
     current = client.get_policy(name)
     if current == rules:
         return {'changed': False}

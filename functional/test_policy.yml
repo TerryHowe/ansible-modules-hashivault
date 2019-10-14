@@ -66,6 +66,23 @@
       when: namespace not in vault_policy_list.policies
     - assert: { that: "{{vault_policy_list.rc}} == 0" }
 
+    - name: Set new policy from file
+      hashivault_policy_set:
+        name: "{{namespace}}"
+        rules: "templates/policy_rules.hcl"
+        rules_file: True
+      register: 'vault_policy_set'
+    - assert: { that: "{{vault_policy_set.changed}} == True" }
+    - assert: { that: "{{vault_policy_set.rc}} == 0" }
+
+    - name: Validate file policy
+      hashivault_policy_get:
+        name: "{{namespace}}"
+      register: 'vault_policy_get'
+    - set_fact:
+        actual: "{{vault_policy_get.rules | regex_replace('\n', '') | regex_replace(' ', '')}}"
+    - assert: { that: "'{{bobs_expected}}' == '{{actual}}'" }
+
     - name: Get rid of our new policy
       hashivault_policy_delete:
         name: '{{namespace}}'
