@@ -1,0 +1,52 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+    oidc_discovery_url: values
+    oidc_client_id: dont
+    oidc_client_secret: matter
+  tasks:
+    - hashivault_auth_method:
+        method_type: oidc
+        state: disabled
+      failed_when: false
+         
+    - name: enable oidc secret engine
+      hashivault_auth_method:
+        method_type: oidc
+         
+    - name: successfully configure mount
+      hashivault_oidc_auth_method_config:
+        oidc_discovery_url: "{{ oidc_discovery_url }}"
+        oidc_client_id: "{{ oidc_client_id }}"
+        oidc_client_secret: "{{ oidc_client_secret }}"
+
+    - name: create 1st role
+      hashivault_oidc_auth_role:
+        name: "test"
+        bound_audiences: ["123456"]
+        allowed_redirect_uris: ["https://123456.com/callback"]
+        token_policies: ["test"]
+      register: success_config
+    
+    - assert: { that: "{{ success_config.changed }} == True" }
+
+    - name: idempotently create role
+      hashivault_oidc_auth_role:
+        name: "test"
+        bound_audiences: ["123456"]
+        allowed_redirect_uris: ["https://123456.com/callback"]
+        token_policies: ["test"]
+      register: idem_config
+    
+    - assert: { that: "{{ idem_config.changed }} == False" }
+
+    - name: delete role
+      hashivault_oidc_auth_role:
+        name: "test"
+        state: absent
+        allowed_redirect_uris: ["https://123456.com/callback"]
+      register: del_config
+      
+    - assert: { that: "{{ del_config.changed }} == True" }
