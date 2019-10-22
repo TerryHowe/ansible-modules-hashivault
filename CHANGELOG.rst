@@ -2,6 +2,30 @@ Changelog
 =========
 
 
+4.2.0 (2019-10-22)
+------------------
+- Deprecate hashivault_policy_set_from_file. [Terry Howe]
+- Add OIDC auth method config module. [Lynn Dong]
+- Altered hashivault_list.py to use the hvac list_secrets method. [Jason
+  Neurohr]
+- Fix db idempotency check. [Drew Mullen]
+- Rename deprecated modules. [Terry Howe]
+- Update examples to avoid deprecated modules. [Drew Mullen]
+- Tune and disable should use secret_engine instead. [Drew Mullen]
+- Deprecate tuning module. [Drew Mullen]
+- Cast options[version] to string for idempotence check. [Drew Mullen]
+- Fix some cases where casting raise exception. [Damien Goldenberg]
+
+
+4.1.0 (2019-08-30)
+------------------
+- Version 4.1.0. [Terry Howe]
+- Provide module to manage namespaces (ent only) [Drew Mullen]
+
+  clean up comments
+- Approle can accept params in a file with role_file. [Drew Mullen]
+
+
 4.0.0 (2019-08-14)
 ------------------
 - Deprecate create and delete approle modules. [Terry Howe]
