@@ -4,14 +4,14 @@ from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
 
-ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
+ANSIBLE_METADATA = {'status': ['deprecated'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
 module: hashivault_policy_set_from_file
 version_added: "2.1.0"
 short_description: Hashicorp Vault policy set from a file module
 description:
-    - Module to set a policy from a file in Hashicorp Vault.
+    - Module to set a policy from a file in Hashicorp Vault. Use hashivault_policy_set instead.
 options:
     url:
         description:
