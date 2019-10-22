@@ -19,14 +19,14 @@
   <!-- End Google Tag Manager Data Layer -->
 
   
-  <title>hashivault_userpass_delete - Hashicorp Vault userpass delete module &mdash; Ansible Documentation</title>
+  <title>hashivault_oidc_auth_method_config - Hashicorp Vault OIDC auth method config &mdash; Ansible Documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_userpass_delete_module.html"/>
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_oidc_auth_method_config_module.html"/>
   
 
   
@@ -2251,10 +2251,10 @@
 
           <ul class="wy-breadcrumbs">
   <li><a href="../index.html">Docs</a> &raquo;</li>
-  <li><a href="">hashivault_userpass_delete - Hashicorp Vault userpass delete module</a></li>
+  <li><a href="">hashivault_oidc_auth_method_config - Hashicorp Vault OIDC auth method config</a></li>
   
     <li class="wy-breadcrumbs-aside">
-      <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_userpass_delete.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr" class="icon icon-github"> Edit on GitHub</a>
+      <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_oidc_auth_method_config.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr" class="icon icon-github"> Edit on GitHub</a>
     </li>
   
 </ul>
@@ -2262,10 +2262,10 @@
 
           <div id="page-content">
           
-  <div class="section" id="hashivault-userpass-delete-hashicorp-vault-userpass-delete-module">
-<span id="hashivault-userpass-delete-module"></span><h1>hashivault_userpass_delete - Hashicorp Vault userpass delete module<a class="headerlink" href="#hashivault-userpass-delete-hashicorp-vault-userpass-delete-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="hashivault-oidc-auth-method-config-hashicorp-vault-oidc-auth-method-config">
+<span id="hashivault-oidc-auth-method-config-module"></span><h1>hashivault_oidc_auth_method_config - Hashicorp Vault OIDC auth method config<a class="headerlink" href="#hashivault-oidc-auth-method-config-hashicorp-vault-oidc-auth-method-config" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
-<p><span class="versionmodified added">New in version 2.2.0.</span></p>
+<p><span class="versionmodified added">New in version 4.1.1.</span></p>
 </div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -2283,7 +2283,7 @@
 <div class="section" id="synopsis">
 <h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Module to delete userpass users in Hashicorp Vault. Use hashicorp_userpass instead.</p></li>
+<li><p>Module to configure an OIDC auth mount</p></li>
 </ul>
 </div>
 <div class="section" id="parameters">
@@ -2303,6 +2303,16 @@
                                 </td>
                                                             <td>
                                                                     <div>authentication type to use: token, userpass, github, ldap, approle</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>bound_issuer</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>The value against which to match the iss claim in a JWT.</div>
                                                                             </td>
         </tr>
                             <tr>
@@ -2351,23 +2361,104 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
-                <b>mount_point</b>
-                                                                        </td>
-                            <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">userpass</div>
-                                </td>
-                                                            <td>
-                                                                    <div>default The &quot;path&quot; (app-id) the auth backend is mounted on.</div>
-                                                                            </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <b>name</b>
+                <b>default_role</b>
                                                                         </td>
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                                                    <div>user name.</div>
+                                                                    <div>The default role to use if none is provided during login.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>jwks_ca_pem</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>The CA certificate or chain of certificates, in PEM format, to use to validate connections to the JWKS URL. If not set, system certificates are used.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>jwks_url</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>JWKS URL to use to authenticate signatures. Cannot be used with &quot;oidc_discovery_url&quot; or &quot;jwt_validation_pubkeys&quot;.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>jwt_supported_algs</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">RS256</div>
+                                </td>
+                                                            <td>
+                                                                    <div>A list of supported signing algorithms.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>jwt_validation_pubkeys</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>A list of PEM-encoded public keys to use to authenticate signatures locally. Cannot be used with &quot;jwks_url&quot; or &quot;oidc_discovery_url&quot;.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>mount_point</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">oidc</div>
+                                </td>
+                                                            <td>
+                                                                    <div>name of the secret engine mount name.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>oidc_client_id</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>The OAuth Client ID from the provider for OIDC roles.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>oidc_client_secret</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>The OAuth Client Secret from the provider for OIDC roles.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>oidc_discovery_ca_pem</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>The CA certificate or chain of certificates, in PEM format, to use to validate connections to the OIDC Discovery URL. If not set, system certificates are used.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>oidc_discovery_url</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>The OIDC Discovery URL, without any .well-known component (base path). Cannot be used with &quot;jwks_url&quot; or &quot;jwt_validation_pubkeys&quot;.</div>
                                                                             </td>
         </tr>
                             <tr>
@@ -2432,14 +2523,18 @@
 <div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
   <span class="nt">tasks</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">hashivault_userpass_delete</span><span class="p">:</span>
-      <span class="nt">name</span><span class="p">:</span> <span class="s">&#39;bob&#39;</span>
+    <span class="p p-Indicator">-</span> <span class="nt">hashivault_oidc_auth_method_config</span><span class="p">:</span>
+        <span class="nt">oidc_discovery_url</span><span class="p">:</span> <span class="s">&quot;https://accounts.google.com&quot;</span>
+        <span class="nt">oidc_client_id</span><span class="p">:</span> <span class="s">&quot;123456&quot;</span>
+        <span class="nt">oidc_client_secret</span><span class="p">:</span> <span class="s">&quot;123456&quot;</span>
+        <span class="nt">default_role</span><span class="p">:</span> <span class="s">&quot;gmail&quot;</span>
+        <span class="nt">verify</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">False</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="status">
 <h2><a class="toc-backref" href="#id4">Status</a><a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
-<p>This module is flagged as <strong>deprecated</strong> which means that .</p>
+<p>This module is flagged as <strong>stableinterface</strong> which means that the maintainers for this module guarantee that no backward incompatible interface changes will be made.</p>
 </div>
 <div class="section" id="maintenance">
 <h2><a class="toc-backref" href="#id5">Maintenance</a><a class="headerlink" href="#maintenance" title="Permalink to this headline">¶</a></h2>
@@ -2452,7 +2547,7 @@
 </ul>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_userpass_delete.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
+<p>If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_oidc_auth_method_config.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
 </div>
 </div>
 </div>
@@ -2475,7 +2570,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Aug 30, 2019.<br/>
+  <p>Last updated on Oct 22, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

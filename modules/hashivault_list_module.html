@@ -2352,6 +2352,17 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
+                <b>mount_point</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">secret</div>
+                                </td>
+                                                            <td>
+                                                                    <div>secret mount point</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
                 <b>password</b>
                                                                         </td>
                             <td>
@@ -2416,6 +2427,17 @@
                                                                     <div>if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing</div>
                                                                             </td>
         </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>version</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">1</div>
+                                </td>
+                                                            <td>
+                                                                    <div>version of the kv engine (int)</div>
+                                                                            </td>
+        </tr>
                     </table>
 <br/></div>
 <div class="section" id="examples">
@@ -2425,6 +2447,7 @@
   <span class="nt">tasks</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="nt">hashivault_list</span><span class="p">:</span>
         <span class="nt">secret</span><span class="p">:</span> <span class="s">&#39;giant&#39;</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
       <span class="nt">register</span><span class="p">:</span> <span class="s">&#39;fie&#39;</span>
     <span class="p p-Indicator">-</span> <span class="nt">debug</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">msg=&quot;Known secrets are </span><span class="cp">{{</span> <span class="nv">fie.secrets</span><span class="o">|</span><span class="nf">join</span><span class="o">(</span><span class="s1">&#39;, &#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="l l-Scalar l-Scalar-Plain">&quot;</span>
 </pre></div>
@@ -2492,7 +2515,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Aug 30, 2019.<br/>
+  <p>Last updated on Oct 22, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>
