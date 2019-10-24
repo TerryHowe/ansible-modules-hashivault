@@ -123,6 +123,7 @@ def hashivault_azure_secret_engine_config(module):
     config_file = params.get('config_file')
     mount_point = params.get('mount_point')
     desired_state = dict()
+    current_state = dict()
 
     # do not want a trailing slash in mount_point
     if mount_point[-1]:
@@ -142,11 +143,21 @@ def hashivault_azure_secret_engine_config(module):
         desired_state['environment'] = params.get('environment')    
 
     # check if engine is enabled
-    if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
-        return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
-    
+    try:
+        if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
+            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
+    except:
+        if module.check_mode:
+            changed = True
+        else:
+            return {'failed': True, 'msg': 'secret engine is not enabled or namespace does not exist', 'rc': 1}
+
     # check if current config matches desired config values, if they match, set changed to false to prevent action
-    current_state = client.secrets.azure.read_config()
+    try:
+        current_state = client.secrets.azure.read_config()
+    except:
+        changed = True
+
     for k, v in current_state.items():
         if v != desired_state[k]:
             changed = True
@@ -154,7 +165,7 @@ def hashivault_azure_secret_engine_config(module):
     # if configs dont match and checkmode is off, complete the change
     if changed == True and not module.check_mode:
         result = client.secrets.azure.configure(mount_point=mount_point, **desired_state)
-    
+
     return {'changed': changed}
 
 

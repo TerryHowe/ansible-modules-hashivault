@@ -124,8 +124,14 @@ def hashivault_azure_secret_engine_role(module):
         azure_role = json.loads(open(params.get('azure_role_file'), 'r').read())['azure_role']
 
     # check if engine is enabled
-    if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
-        return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
+    try:
+        if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
+            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
+    except:
+        if module.check_mode:
+            changed = True
+        else:
+            return {'failed': True, 'msg': 'secret engine is not enabled or namespace does not exist', 'rc': 1}
 
     # check if role exists or any at all
     try:
