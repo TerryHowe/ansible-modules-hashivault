@@ -90,7 +90,8 @@ def main():
     argspec['state'] = dict(required=False, type='str', default='enabled', choices=['enabled','disabled','enable','disable'])
     argspec['mount_point'] = dict(required=False, type='str', default=None)
     argspec['config'] = dict(required=False, type='dict', default={'default_lease_ttl':DEFAULT_TTL, 'max_lease_ttl':DEFAULT_TTL, 'force_no_cache':False, 'token_type': 'default-service'})
-    module = hashivault_init(argspec)
+    supports_check_mode = True
+    module = hashivault_init(argspec, supports_check_mode=supports_check_mode)
     result = hashivault_auth_method(module)
     if result.get('failed'):
         module.fail_json(**result)
@@ -124,7 +125,7 @@ def hashivault_auth_method(module):
         if module.check_mode:
             changed = True
         else:
-            return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
+            return {'failed': True, 'msg': 'auth mount is not enabled or namespace does not exist', 'rc': 1}
 
     # if its off and we want it on
     if (state == 'enabled' or state == 'enable') and exists == False:

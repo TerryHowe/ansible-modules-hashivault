@@ -131,7 +131,7 @@ def hashivault_azure_secret_engine_role(module):
         if module.check_mode:
             changed = True
         else:
-            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
+            return {'failed': True, 'msg': 'secret engine is not enabled or namespace does not exist', 'rc': 1}
 
     # check if role exists or any at all
     try:

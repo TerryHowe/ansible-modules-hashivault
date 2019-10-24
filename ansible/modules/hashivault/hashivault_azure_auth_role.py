@@ -187,7 +187,7 @@ def hashivault_azure_auth_role(module):
         if module.check_mode:
             changed = True
         else:
-            return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
+            return {'failed': True, 'msg': 'auth mount is not enabled or namespace does not exist', 'rc': 1}
 
     # check if role exists
     try:

@@ -170,7 +170,7 @@ def hashivault_db_secret_engine_config(module):
         if module.check_mode:
             changed = True
         else:
-            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
+            return {'failed': True, 'msg': 'secret engine is not enabled or namespace does not exist', 'rc': 1}
 
     # check if any config exists
     try:
