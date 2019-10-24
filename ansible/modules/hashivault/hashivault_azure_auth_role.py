@@ -102,7 +102,7 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-      hashivault_azure_auth_role:
+    - hashivault_azure_auth_role:
         name: "test"
         policies: ["test"]
         bound_subscription_ids: ["6a1d5988-5917-4221-b224-904cd7e24a25"]
@@ -133,7 +133,6 @@ def main():
     argspec['num_uses'] = dict(required=False, type='int', default=0)
 
     supports_check_mode=True
-    # required_one_of=[['bound_service_principal_ids', 'bound_group_ids', 'bound_locations', 'bound_subscription_ids', 'bound_resource_groups', 'bound_scale_sets', 'role_file', 'state']]
 
     module = hashivault_init(argspec, supports_check_mode) #, required_one_of)
     result = hashivault_azure_auth_role(module)
@@ -205,7 +204,7 @@ def hashivault_azure_auth_role(module):
     # compare current_state to desired_state
     if exists and state == 'present' and not changed:
         current_state = client.auth.azure.read_role(name=name)
-        # Map a couplle elements
+        # Map a couple elements
         if 'ttl' not in current_state and 'token_ttl' in current_state:
             current_state['ttl'] = current_state['token_ttl']
         if 'max_ttl' not in current_state and 'token_max_ttl' in current_state:
