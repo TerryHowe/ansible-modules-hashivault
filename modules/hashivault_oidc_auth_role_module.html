@@ -19,14 +19,14 @@
   <!-- End Google Tag Manager Data Layer -->
 
   
-  <title>Lookups &mdash; Ansible Documentation</title>
+  <title>hashivault_oidc_auth_role - Hashicorp Vault OIDC secret engine role &mdash; Ansible Documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_lookups.html"/>
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_oidc_auth_role_module.html"/>
   
 
   
@@ -62,9 +62,7 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Python Version and Templating" href="playbooks_python_version.html" />
-    <link rel="prev" title="Tests" href="playbooks_tests.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 
@@ -363,17 +361,17 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">Using Ansible</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Ansible Quickstart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intro_getting_started.html">Getting Started</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="intro_getting_started.html#foreword">Foreword</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_getting_started.html#remote-connection-information">Remote Connection Information</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_getting_started.html#your-first-commands">Your first commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_getting_started.html#host-key-checking">Host Key Checking</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/quickstart.html">Ansible Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/intro_getting_started.html">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_getting_started.html#foreword">Foreword</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_getting_started.html#remote-connection-information">Remote Connection Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_getting_started.html#your-first-commands">Your first commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_getting_started.html#host-key-checking">Host Key Checking</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_line_tools.html">Working with Command Line Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/command_line_tools.html">Working with Command Line Tools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../cli/ansible.html">ansible</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../cli/ansible.html#synopsis">Synopsis</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../cli/ansible.html#description">Description</a></li>
@@ -478,215 +476,215 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="intro_adhoc.html">Introduction To Ad-Hoc Commands</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="intro_adhoc.html#parallelism-and-shell-commands">Parallelism and Shell Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_adhoc.html#file-transfer">File Transfer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_adhoc.html#managing-packages">Managing Packages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_adhoc.html#users-and-groups">Users and Groups</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_adhoc.html#deploying-from-source-control">Deploying From Source Control</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_adhoc.html#managing-services">Managing Services</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_adhoc.html#time-limited-background-operations">Time Limited Background Operations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_adhoc.html#gathering-facts">Gathering Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/intro_adhoc.html">Introduction To Ad-Hoc Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_adhoc.html#parallelism-and-shell-commands">Parallelism and Shell Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_adhoc.html#file-transfer">File Transfer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_adhoc.html#managing-packages">Managing Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_adhoc.html#users-and-groups">Users and Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_adhoc.html#deploying-from-source-control">Deploying From Source Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_adhoc.html#managing-services">Managing Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_adhoc.html#time-limited-background-operations">Time Limited Background Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_adhoc.html#gathering-facts">Gathering Facts</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="intro_inventory.html">Working with Inventory</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="intro_inventory.html#hosts-and-groups">Hosts and Groups</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_inventory.html#host-variables">Host Variables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_inventory.html#group-variables">Group Variables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_inventory.html#groups-of-groups-and-group-variables">Groups of Groups, and Group Variables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_inventory.html#default-groups">Default groups</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_inventory.html#splitting-out-host-and-group-specific-data">Splitting Out Host and Group Specific Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_inventory.html#how-variables-are-merged">How Variables Are Merged</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_inventory.html#list-of-behavioral-inventory-parameters">List of Behavioral Inventory Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_inventory.html#non-ssh-connection-types">Non-SSH connection types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/intro_inventory.html">Working with Inventory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_inventory.html#hosts-and-groups">Hosts and Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_inventory.html#host-variables">Host Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_inventory.html#group-variables">Group Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_inventory.html#groups-of-groups-and-group-variables">Groups of Groups, and Group Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_inventory.html#default-groups">Default groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_inventory.html#splitting-out-host-and-group-specific-data">Splitting Out Host and Group Specific Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_inventory.html#how-variables-are-merged">How Variables Are Merged</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_inventory.html#list-of-behavioral-inventory-parameters">List of Behavioral Inventory Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_inventory.html#non-ssh-connection-types">Non-SSH connection types</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="intro_dynamic_inventory.html">Working With Dynamic Inventory</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="intro_dynamic_inventory.html#inventory-script-example-cobbler">Inventory Script Example: Cobbler</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_dynamic_inventory.html#inventory-script-example-aws-ec2">Inventory Script Example: AWS EC2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_dynamic_inventory.html#inventory-script-example-openstack">Inventory Script Example: OpenStack</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="intro_dynamic_inventory.html#explicit-use-of-openstack-inventory-script">Explicit use of OpenStack inventory script</a></li>
-<li class="toctree-l4"><a class="reference internal" href="intro_dynamic_inventory.html#implicit-use-of-openstack-inventory-script">Implicit use of OpenStack inventory script</a></li>
-<li class="toctree-l4"><a class="reference internal" href="intro_dynamic_inventory.html#refreshing-the-cache">Refreshing the cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/intro_dynamic_inventory.html">Working With Dynamic Inventory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_dynamic_inventory.html#inventory-script-example-cobbler">Inventory Script Example: Cobbler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_dynamic_inventory.html#inventory-script-example-aws-ec2">Inventory Script Example: AWS EC2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_dynamic_inventory.html#inventory-script-example-openstack">Inventory Script Example: OpenStack</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/intro_dynamic_inventory.html#explicit-use-of-openstack-inventory-script">Explicit use of OpenStack inventory script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/intro_dynamic_inventory.html#implicit-use-of-openstack-inventory-script">Implicit use of OpenStack inventory script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/intro_dynamic_inventory.html#refreshing-the-cache">Refreshing the cache</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="intro_dynamic_inventory.html#other-inventory-scripts">Other inventory scripts</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_dynamic_inventory.html#using-inventory-directories-and-multiple-inventory-sources">Using Inventory Directories and Multiple Inventory Sources</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_dynamic_inventory.html#static-groups-of-dynamic-groups">Static Groups of Dynamic Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_dynamic_inventory.html#other-inventory-scripts">Other inventory scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_dynamic_inventory.html#using-inventory-directories-and-multiple-inventory-sources">Using Inventory Directories and Multiple Inventory Sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_dynamic_inventory.html#static-groups-of-dynamic-groups">Static Groups of Dynamic Groups</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="playbooks.html">Working With Playbooks</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="playbooks_intro.html">Intro to Playbooks</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_intro.html#about-playbooks">About Playbooks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_intro.html#playbook-language-example">Playbook Language Example</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_intro.html#basics">Basics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_intro.html#action-shorthand">Action Shorthand</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_intro.html#handlers-running-operations-on-change">Handlers: Running Operations On Change</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_intro.html#executing-a-playbook">Executing A Playbook</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_intro.html#ansible-pull">Ansible-Pull</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_intro.html#tips-and-tricks">Tips and Tricks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/playbooks.html">Working With Playbooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_intro.html">Intro to Playbooks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_intro.html#about-playbooks">About Playbooks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_intro.html#playbook-language-example">Playbook Language Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_intro.html#basics">Basics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_intro.html#action-shorthand">Action Shorthand</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_intro.html#handlers-running-operations-on-change">Handlers: Running Operations On Change</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_intro.html#executing-a-playbook">Executing A Playbook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_intro.html#ansible-pull">Ansible-Pull</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_intro.html#tips-and-tricks">Tips and Tricks</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="playbooks_reuse.html">Creating Reusable Playbooks</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_reuse_includes.html">Including and Importing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_reuse_roles.html">Roles</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_reuse.html#dynamic-vs-static">Dynamic vs. Static</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_reuse.html#differences-between-static-and-dynamic">Differences Between Static and Dynamic</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_reuse.html#tradeoffs-and-pitfalls-between-includes-and-imports">Tradeoffs and Pitfalls Between Includes and Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_reuse.html">Creating Reusable Playbooks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_reuse_includes.html">Including and Importing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_reuse_roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_reuse.html#dynamic-vs-static">Dynamic vs. Static</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_reuse.html#differences-between-static-and-dynamic">Differences Between Static and Dynamic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_reuse.html#tradeoffs-and-pitfalls-between-includes-and-imports">Tradeoffs and Pitfalls Between Includes and Imports</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="playbooks_variables.html">Using Variables</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#creating-valid-variable-names">Creating valid variable names</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#defining-variables-in-inventory">Defining variables in inventory</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#defining-variables-in-a-playbook">Defining variables in a playbook</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#defining-variables-in-included-files-and-roles">Defining variables in included files and roles</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#using-variables-with-jinja2">Using variables with Jinja2</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#transforming-variables-with-jinja2-filters">Transforming variables with Jinja2 filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#hey-wait-a-yaml-gotcha">Hey wait, a YAML gotcha</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#variables-discovered-from-systems-facts">Variables discovered from systems: Facts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#registering-variables">Registering variables</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#accessing-complex-variable-data">Accessing complex variable data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#accessing-information-about-other-hosts-with-magic-variables">Accessing information about other hosts with magic variables</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#defining-variables-in-files">Defining variables in files</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#passing-variables-on-the-command-line">Passing variables on the command line</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#variable-precedence-where-should-i-put-a-variable">Variable precedence: Where should I put a variable?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_variables.html#using-advanced-variable-syntax">Using advanced variable syntax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_variables.html">Using Variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#creating-valid-variable-names">Creating valid variable names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#defining-variables-in-inventory">Defining variables in inventory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#defining-variables-in-a-playbook">Defining variables in a playbook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#defining-variables-in-included-files-and-roles">Defining variables in included files and roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#using-variables-with-jinja2">Using variables with Jinja2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#transforming-variables-with-jinja2-filters">Transforming variables with Jinja2 filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#hey-wait-a-yaml-gotcha">Hey wait, a YAML gotcha</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#variables-discovered-from-systems-facts">Variables discovered from systems: Facts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#registering-variables">Registering variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#accessing-complex-variable-data">Accessing complex variable data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#accessing-information-about-other-hosts-with-magic-variables">Accessing information about other hosts with magic variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#defining-variables-in-files">Defining variables in files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#passing-variables-on-the-command-line">Passing variables on the command line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable">Variable precedence: Where should I put a variable?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_variables.html#using-advanced-variable-syntax">Using advanced variable syntax</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="playbooks_templating.html">Templating (Jinja2)</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html">Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_tests.html">Tests</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Lookups</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_python_version.html">Python Version and Templating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_templating.html">Templating (Jinja2)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html">Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_tests.html">Tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_lookups.html">Lookups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_python_version.html">Python Version and Templating</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="playbooks_conditionals.html">Conditionals</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_conditionals.html#the-when-statement">The When Statement</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_conditionals.html#loops-and-conditionals">Loops and Conditionals</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_conditionals.html#loading-in-custom-facts">Loading in Custom Facts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_conditionals.html#applying-when-to-roles-imports-and-includes">Applying ‘when’ to roles, imports, and includes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_conditionals.html#conditional-imports">Conditional Imports</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_conditionals.html#selecting-files-and-templates-based-on-variables">Selecting Files And Templates Based On Variables</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_conditionals.html#register-variables">Register Variables</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_conditionals.html#commonly-used-facts">Commonly Used Facts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_conditionals.html">Conditionals</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_conditionals.html#the-when-statement">The When Statement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_conditionals.html#loops-and-conditionals">Loops and Conditionals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_conditionals.html#loading-in-custom-facts">Loading in Custom Facts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_conditionals.html#applying-when-to-roles-imports-and-includes">Applying ‘when’ to roles, imports, and includes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_conditionals.html#conditional-imports">Conditional Imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_conditionals.html#selecting-files-and-templates-based-on-variables">Selecting Files And Templates Based On Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_conditionals.html#register-variables">Register Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_conditionals.html#commonly-used-facts">Commonly Used Facts</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="playbooks_loops.html">Loops</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_loops.html#standard-loops">Standard Loops</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_loops.html#complex-loops">Complex loops</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_loops.html#using-lookup-vs-query-with-loop">Using lookup vs query with loop</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_loops.html#do-until-loops">Do-Until Loops</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_loops.html#using-register-with-a-loop">Using register with a loop</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_loops.html#looping-over-the-inventory">Looping over the inventory</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_loops.html#loop-control">Loop Control</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_loops.html#migrating-from-with-x-to-loop">Migrating from with_X to loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_loops.html">Loops</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_loops.html#standard-loops">Standard Loops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_loops.html#complex-loops">Complex loops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_loops.html#using-lookup-vs-query-with-loop">Using lookup vs query with loop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_loops.html#do-until-loops">Do-Until Loops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_loops.html#using-register-with-a-loop">Using register with a loop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_loops.html#looping-over-the-inventory">Looping over the inventory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_loops.html#loop-control">Loop Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_loops.html#migrating-from-with-x-to-loop">Migrating from with_X to loop</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="playbooks_blocks.html">Blocks</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_blocks.html#error-handling">Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_blocks.html">Blocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_blocks.html#error-handling">Error Handling</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="playbooks_special_topics.html">Advanced Playbooks Features</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="become.html">Understanding Privilege Escalation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_async.html">Asynchronous Actions and Polling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_checkmode.html">Check Mode (“Dry Run”)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_debugger.html">Playbook Debugger</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_delegation.html">Delegation, Rolling Updates, and Local Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_environment.html">Setting the Environment (and Working With Proxies)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_environment.html#working-with-language-specific-version-managers">Working With Language-Specific Version Managers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_error_handling.html">Error Handling In Playbooks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_advanced_syntax.html">Advanced Syntax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_special_topics.html">Advanced Playbooks Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html">Understanding Privilege Escalation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_async.html">Asynchronous Actions and Polling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_checkmode.html">Check Mode (“Dry Run”)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_debugger.html">Playbook Debugger</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_delegation.html">Delegation, Rolling Updates, and Local Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_environment.html">Setting the Environment (and Working With Proxies)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_environment.html#working-with-language-specific-version-managers">Working With Language-Specific Version Managers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_error_handling.html">Error Handling In Playbooks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_advanced_syntax.html">Advanced Syntax</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../plugins/plugins.html">Working With Plugins</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_prompts.html">Prompts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_tags.html">Tags</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_vault.html">Using Vault in playbooks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_startnstep.html">Start and Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_prompts.html">Prompts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_tags.html">Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_vault.html">Using Vault in playbooks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_startnstep.html">Start and Step</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Lookups</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_module_defaults.html">Module defaults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_lookups.html">Lookups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_module_defaults.html">Module defaults</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="playbooks_strategies.html">Strategies</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_strategies.html#strategy-plugins">Strategy Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_strategies.html">Strategies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_strategies.html#strategy-plugins">Strategy Plugins</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="playbooks_best_practices.html">Best Practices</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#content-organization">Content Organization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#staging-vs-production">Staging vs Production</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#rolling-updates">Rolling Updates</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#always-mention-the-state">Always Mention The State</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#group-by-roles">Group By Roles</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#operating-system-and-distribution-variance">Operating System and Distribution Variance</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#bundling-ansible-modules-with-playbooks">Bundling Ansible Modules With Playbooks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#whitespace-and-comments">Whitespace and Comments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#always-name-tasks">Always Name Tasks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#keep-it-simple">Keep It Simple</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#version-control">Version Control</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_best_practices.html#variables-and-vaults">Variables and Vaults</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="become.html">Understanding Privilege Escalation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="become.html#id1">Become</a></li>
-<li class="toctree-l3"><a class="reference internal" href="become.html#directives">Directives</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="become.html#connection-variables">Connection variables</a></li>
-<li class="toctree-l4"><a class="reference internal" href="become.html#command-line-options">Command line options</a></li>
-<li class="toctree-l4"><a class="reference internal" href="become.html#for-those-from-pre-1-9-sudo-and-su-still-work">For those from Pre 1.9 , sudo and su still work!</a></li>
-<li class="toctree-l4"><a class="reference internal" href="become.html#limitations">Limitations</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="become.html#become-and-networks">Become and Networks</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="become.html#setting-enable-mode-for-all-tasks">Setting enable mode for all tasks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="become.html#authorize-and-auth-pass">authorize and auth_pass</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="become.html#become-and-windows">Become and Windows</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="become.html#administrative-rights">Administrative Rights</a></li>
-<li class="toctree-l4"><a class="reference internal" href="become.html#local-service-accounts">Local Service Accounts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="become.html#accounts-without-a-password">Accounts without a Password</a></li>
-<li class="toctree-l4"><a class="reference internal" href="become.html#become-flags">Become Flags</a></li>
-<li class="toctree-l4"><a class="reference internal" href="become.html#id2">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_best_practices.html">Best Practices</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#content-organization">Content Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#staging-vs-production">Staging vs Production</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#rolling-updates">Rolling Updates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#always-mention-the-state">Always Mention The State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#group-by-roles">Group By Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#operating-system-and-distribution-variance">Operating System and Distribution Variance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#bundling-ansible-modules-with-playbooks">Bundling Ansible Modules With Playbooks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#whitespace-and-comments">Whitespace and Comments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#always-name-tasks">Always Name Tasks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#keep-it-simple">Keep It Simple</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#version-control">Version Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_best_practices.html#variables-and-vaults">Variables and Vaults</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="vault.html">Ansible Vault</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#what-can-be-encrypted-with-vault">What Can Be Encrypted With Vault</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#creating-encrypted-files">Creating Encrypted Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#editing-encrypted-files">Editing Encrypted Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#rekeying-encrypted-files">Rekeying Encrypted Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#encrypting-unencrypted-files">Encrypting Unencrypted Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#decrypting-encrypted-files">Decrypting Encrypted Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#viewing-encrypted-files">Viewing Encrypted Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#use-encrypt-string-to-create-encrypted-variables-to-embed-in-yaml">Use encrypt_string to create encrypted variables to embed in yaml</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#vault-ids-and-multiple-vault-passwords">Vault Ids and Multiple Vault Passwords</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#providing-vault-passwords">Providing Vault Passwords</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="vault.html#multiple-vault-passwords">Multiple vault passwords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/become.html">Understanding Privilege Escalation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/become.html#id1">Become</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/become.html#directives">Directives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html#connection-variables">Connection variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html#command-line-options">Command line options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html#for-those-from-pre-1-9-sudo-and-su-still-work">For those from Pre 1.9 , sudo and su still work!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html#limitations">Limitations</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#speeding-up-vault-operations">Speeding Up Vault Operations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#vault-format">Vault Format</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vault.html#vault-payload-format-1-1">Vault Payload Format 1.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/become.html#become-and-networks">Become and Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html#setting-enable-mode-for-all-tasks">Setting enable mode for all tasks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html#authorize-and-auth-pass">authorize and auth_pass</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="intro_patterns.html">Working with Patterns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules.html">Working With Modules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="modules_intro.html">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/become.html#become-and-windows">Become and Windows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html#administrative-rights">Administrative Rights</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html#local-service-accounts">Local Service Accounts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html#accounts-without-a-password">Accounts without a Password</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html#become-flags">Become Flags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/become.html#id2">Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/vault.html">Ansible Vault</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#what-can-be-encrypted-with-vault">What Can Be Encrypted With Vault</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#creating-encrypted-files">Creating Encrypted Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#editing-encrypted-files">Editing Encrypted Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#rekeying-encrypted-files">Rekeying Encrypted Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#encrypting-unencrypted-files">Encrypting Unencrypted Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#decrypting-encrypted-files">Decrypting Encrypted Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#viewing-encrypted-files">Viewing Encrypted Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#use-encrypt-string-to-create-encrypted-variables-to-embed-in-yaml">Use encrypt_string to create encrypted variables to embed in yaml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#vault-ids-and-multiple-vault-passwords">Vault Ids and Multiple Vault Passwords</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#providing-vault-passwords">Providing Vault Passwords</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/vault.html#multiple-vault-passwords">Multiple vault passwords</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#speeding-up-vault-operations">Speeding Up Vault Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#vault-format">Vault Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/vault.html#vault-payload-format-1-1">Vault Payload Format 1.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/intro_patterns.html">Working with Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/modules.html">Working With Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/modules_intro.html">Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference_appendices/common_return_values.html">Return Values</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../reference_appendices/common_return_values.html#common">Common</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../reference_appendices/common_return_values.html#internal-use">Internal use</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="modules_support.html">Module Maintenance &amp; Support</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="modules_support.html#maintenance">Maintenance</a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules_support.html#issue-reporting">Issue Reporting</a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules_support.html#support">Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/modules_support.html">Module Maintenance &amp; Support</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/modules_support.html#maintenance">Maintenance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/modules_support.html#issue-reporting">Issue Reporting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/modules_support.html#support">Support</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/modules_by_category.html">Module Index</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../modules/list_of_all_modules.html">All modules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../modules/list_of_hashivault_modules.html">Hashivault modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules_by_category.html">Module Index</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="list_of_all_modules.html">All modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="list_of_hashivault_modules.html">Hashivault modules</a></li>
 </ul>
 </li>
 </ul>
@@ -748,104 +746,104 @@
 <li class="toctree-l4"><a class="reference internal" href="../plugins/vars.html#plugin-lists">Plugin Lists</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="playbooks_filters.html">Filters</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#filters-for-formatting-data">Filters For Formatting Data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#forcing-variables-to-be-defined">Forcing Variables To Be Defined</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#defaulting-undefined-variables">Defaulting Undefined Variables</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#omitting-parameters">Omitting Parameters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#list-filters">List Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#set-theory-filters">Set Theory Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#dict-filter">Dict Filter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#items2dict-filter">items2dict filter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#zip-and-zip-longest-filters">zip and zip_longest filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#subelements-filter">subelements Filter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#random-mac-address-filter">Random Mac Address Filter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#random-number-filter">Random Number Filter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#shuffle-filter">Shuffle Filter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#math">Math</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#json-query-filter">JSON Query Filter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#ip-address-filter">IP address filter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#network-cli-filters">Network CLI filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#network-xml-filters">Network XML filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#hashing-filters">Hashing filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#combining-hashes-dictionaries">Combining hashes/dictionaries</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#extracting-values-from-containers">Extracting values from containers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#comment-filter">Comment Filter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#url-split-filter">URL Split Filter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#regular-expression-filters">Regular Expression Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#id8">Other Useful Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#combination-filters">Combination Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_filters.html#debugging-filters">Debugging Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_filters.html">Filters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#filters-for-formatting-data">Filters For Formatting Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#forcing-variables-to-be-defined">Forcing Variables To Be Defined</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#defaulting-undefined-variables">Defaulting Undefined Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#omitting-parameters">Omitting Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#list-filters">List Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#set-theory-filters">Set Theory Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#dict-filter">Dict Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#items2dict-filter">items2dict filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#zip-and-zip-longest-filters">zip and zip_longest filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#subelements-filter">subelements Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#random-mac-address-filter">Random Mac Address Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#random-number-filter">Random Number Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#shuffle-filter">Shuffle Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#math">Math</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#json-query-filter">JSON Query Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#ip-address-filter">IP address filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#network-cli-filters">Network CLI filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#network-xml-filters">Network XML filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#hashing-filters">Hashing filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#combining-hashes-dictionaries">Combining hashes/dictionaries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#extracting-values-from-containers">Extracting values from containers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#comment-filter">Comment Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#url-split-filter">URL Split Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#regular-expression-filters">Regular Expression Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#id8">Other Useful Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#combination-filters">Combination Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_filters.html#debugging-filters">Debugging Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="playbooks_tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_tests.html#test-syntax">Test syntax</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_tests.html#testing-strings">Testing strings</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_tests.html#version-comparison">Version Comparison</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_tests.html#set-theory-tests">Set theory tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_tests.html#testing-paths">Testing paths</a></li>
-<li class="toctree-l4"><a class="reference internal" href="playbooks_tests.html#task-results">Task results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/playbooks_tests.html">Tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_tests.html#test-syntax">Test syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_tests.html#testing-strings">Testing strings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_tests.html#version-comparison">Version Comparison</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_tests.html#set-theory-tests">Set theory tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_tests.html#testing-paths">Testing paths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/playbooks_tests.html#task-results">Task results</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="plugin_filtering_config.html">Plugin Filter Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/plugin_filtering_config.html">Plugin Filter Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="intro_bsd.html">BSD Support</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="intro_bsd.html#working-with-bsd">Working with BSD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_bsd.html#bootstrapping-bsd">Bootstrapping BSD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_bsd.html#setting-the-python-interpreter">Setting the Python interpreter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_bsd.html#which-modules-are-available">Which modules are available?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_bsd.html#using-bsd-as-the-control-machine">Using BSD as the control machine</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_bsd.html#bsd-facts">BSD Facts</a></li>
-<li class="toctree-l3"><a class="reference internal" href="intro_bsd.html#bsd-efforts-and-contributions">BSD Efforts and Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/intro_bsd.html">BSD Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_bsd.html#working-with-bsd">Working with BSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_bsd.html#bootstrapping-bsd">Bootstrapping BSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_bsd.html#setting-the-python-interpreter">Setting the Python interpreter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_bsd.html#which-modules-are-available">Which modules are available?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_bsd.html#using-bsd-as-the-control-machine">Using BSD as the control machine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_bsd.html#bsd-facts">BSD Facts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/intro_bsd.html#bsd-efforts-and-contributions">BSD Efforts and Contributions</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Guides</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="windows_setup.html">Setting up a Windows Host</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="windows_setup.html#host-requirements">Host Requirements</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_setup.html#winrm-setup">WinRM Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/windows.html">Windows Guides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/windows_setup.html">Setting up a Windows Host</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_setup.html#host-requirements">Host Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_setup.html#winrm-setup">WinRM Setup</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="windows_winrm.html">Windows Remote Management</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="windows_winrm.html#what-is-winrm">What is WinRM?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_winrm.html#authentication-options">Authentication Options</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_winrm.html#non-administrator-accounts">Non-Administrator Accounts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_winrm.html#winrm-encryption">WinRM Encryption</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_winrm.html#inventory-options">Inventory Options</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_winrm.html#ipv6-addresses">IPv6 Addresses</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_winrm.html#https-certificate-validation">HTTPS Certificate Validation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_winrm.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/windows_winrm.html">Windows Remote Management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_winrm.html#what-is-winrm">What is WinRM?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_winrm.html#authentication-options">Authentication Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_winrm.html#non-administrator-accounts">Non-Administrator Accounts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_winrm.html#winrm-encryption">WinRM Encryption</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_winrm.html#inventory-options">Inventory Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_winrm.html#ipv6-addresses">IPv6 Addresses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_winrm.html#https-certificate-validation">HTTPS Certificate Validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_winrm.html#limitations">Limitations</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="windows_usage.html">Using Ansible and Windows</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="windows_usage.html#use-cases">Use Cases</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_usage.html#path-formatting-for-windows">Path Formatting for Windows</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_usage.html#limitations">Limitations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_usage.html#developing-windows-modules">Developing Windows Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/windows_usage.html">Using Ansible and Windows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_usage.html#use-cases">Use Cases</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_usage.html#path-formatting-for-windows">Path Formatting for Windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_usage.html#limitations">Limitations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_usage.html#developing-windows-modules">Developing Windows Modules</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="windows_dsc.html">Desired State Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="windows_dsc.html#what-is-desired-state-configuration">What is Desired State Configuration?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_dsc.html#host-requirements">Host Requirements</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_dsc.html#why-use-dsc">Why Use DSC?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_dsc.html#how-to-use-dsc">How to Use DSC?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_dsc.html#custom-dsc-resources">Custom DSC Resources</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_dsc.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/windows_dsc.html">Desired State Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_dsc.html#what-is-desired-state-configuration">What is Desired State Configuration?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_dsc.html#host-requirements">Host Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_dsc.html#why-use-dsc">Why Use DSC?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_dsc.html#how-to-use-dsc">How to Use DSC?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_dsc.html#custom-dsc-resources">Custom DSC Resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_dsc.html#examples">Examples</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="windows_faq.html">Windows Frequently Asked Questions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#does-ansible-work-with-windows-xp-or-server-2003">Does Ansible work with Windows XP or Server 2003?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#can-i-manage-windows-nano-server">Can I Manage Windows Nano Server?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#can-ansible-run-on-windows">Can Ansible run on Windows?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#can-i-use-ssh-keys-to-authenticate">Can I use SSH keys to authenticate?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#why-can-i-run-a-command-locally-that-does-not-work-under-ansible">Why can I run a command locally that does not work under Ansible?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#this-program-won-t-install-with-ansible">This program won’t install with Ansible</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#what-modules-are-available">What modules are available?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#can-i-run-python-modules">Can I run Python modules?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#can-i-connect-over-ssh">Can I connect over SSH?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#why-is-connecting-to-the-host-via-ssh-failing">Why is connecting to the host via ssh failing?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#why-are-my-credentials-are-being-rejected">Why are my credentials are being rejected?</a></li>
-<li class="toctree-l4"><a class="reference internal" href="windows_faq.html#why-am-i-getting-an-error-ssl-certificate-verify-failed">Why am I getting an error SSL CERTIFICATE_VERIFY_FAILED?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user_guide/windows_faq.html">Windows Frequently Asked Questions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#does-ansible-work-with-windows-xp-or-server-2003">Does Ansible work with Windows XP or Server 2003?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#can-i-manage-windows-nano-server">Can I Manage Windows Nano Server?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#can-ansible-run-on-windows">Can Ansible run on Windows?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#can-i-use-ssh-keys-to-authenticate">Can I use SSH keys to authenticate?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#why-can-i-run-a-command-locally-that-does-not-work-under-ansible">Why can I run a command locally that does not work under Ansible?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#this-program-won-t-install-with-ansible">This program won’t install with Ansible</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#what-modules-are-available">What modules are available?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#can-i-run-python-modules">Can I run Python modules?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#can-i-connect-over-ssh">Can I connect over SSH?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#why-is-connecting-to-the-host-via-ssh-failing">Why is connecting to the host via ssh failing?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#why-are-my-credentials-are-being-rejected">Why are my credentials are being rejected?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../user_guide/windows_faq.html#why-am-i-getting-an-error-ssl-certificate-verify-failed">Why am I getting an error SSL CERTIFICATE_VERIFY_FAILED?</a></li>
 </ul>
 </li>
 </ul>
@@ -1665,9 +1663,9 @@
 </ul>
 <p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../modules/modules_by_category.html">Module Index</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../modules/list_of_all_modules.html">All modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../modules/list_of_hashivault_modules.html">Hashivault modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules_by_category.html">Module Index</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="list_of_all_modules.html">All modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="list_of_hashivault_modules.html">Hashivault modules</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reference_appendices/playbooks_keywords.html">Playbook Keywords</a><ul>
@@ -2253,10 +2251,10 @@
 
           <ul class="wy-breadcrumbs">
   <li><a href="../index.html">Docs</a> &raquo;</li>
-  <li><a href="">Lookups</a></li>
+  <li><a href="">hashivault_oidc_auth_role - Hashicorp Vault OIDC secret engine role</a></li>
   
     <li class="wy-breadcrumbs-aside">
-      <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/user_guide/playbooks_lookups.rst?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr" class="icon icon-github"> Edit on GitHub</a>
+      <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_oidc_auth_role.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr" class="icon icon-github"> Edit on GitHub</a>
     </li>
   
 </ul>
@@ -2264,65 +2262,361 @@
 
           <div id="page-content">
           
-  <div class="section" id="lookups">
-<span id="playbooks-lookups"></span><h1><a class="toc-backref" href="#id3">Lookups</a><a class="headerlink" href="#lookups" title="Permalink to this headline">¶</a></h1>
-<p>Lookup plugins allow access to outside data sources. Like all templating, these plugins are evaluated on the Ansible control machine, and can include reading the filesystem as well as contacting external datastores and services. This data is then made available using the standard templating system in Ansible.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul class="simple">
-<li><p>Lookups occur on the local computer, not on the remote computer.</p></li>
-<li><p>They are executed with in the directory containing the role or play, as opposed to local tasks which are executed with the directory of the executed script.</p></li>
-<li><p>You can pass wantlist=True to lookups to use in jinja2 template “for” loops.</p></li>
-<li><p>Lookups are an advanced feature. You should have a good working knowledge of Ansible plays before incorporating them.</p></li>
-</ul>
+  <div class="section" id="hashivault-oidc-auth-role-hashicorp-vault-oidc-secret-engine-role">
+<span id="hashivault-oidc-auth-role-module"></span><h1>hashivault_oidc_auth_role - Hashicorp Vault OIDC secret engine role<a class="headerlink" href="#hashivault-oidc-auth-role-hashicorp-vault-oidc-secret-engine-role" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 4.1.1.</span></p>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Some lookups pass arguments to a shell. When using variables from a remote/untrusted source, use the <cite>|quote</cite> filter to ensure safe usage.</p>
-</div>
-<div class="contents topic" id="topics">
-<p class="topic-title first">Topics</p>
+<div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#lookups" id="id3">Lookups</a></p>
+<li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
+<li><p><a class="reference internal" href="#parameters" id="id2">Parameters</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id3">Examples</a></p></li>
+<li><p><a class="reference internal" href="#status" id="id4">Status</a></p></li>
+<li><p><a class="reference internal" href="#maintenance" id="id5">Maintenance</a></p>
 <ul>
-<li><p><a class="reference internal" href="#lookups-and-loops" id="id4">Lookups and loops</a></p></li>
-<li><p><a class="reference internal" href="#lookups-and-variables" id="id5">Lookups and variables</a></p></li>
+<li><p><a class="reference internal" href="#author" id="id6">Author</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="lookups-and-loops">
-<span id="id1"></span><h2><a class="toc-backref" href="#id4">Lookups and loops</a><a class="headerlink" href="#lookups-and-loops" title="Permalink to this headline">¶</a></h2>
-<p><em>lookup plugins</em> are a way to query external data sources, such as shell commands or even key value stores.</p>
-<p>Before Ansible 2.5, lookups were mostly used indirectly in <code class="docutils literal notranslate"><span class="pre">with_&lt;lookup&gt;</span></code> constructs for looping. Starting with Ansible version 2.5, lookups are used more explicitly as part of Jinja2 expressions fed into the <code class="docutils literal notranslate"><span class="pre">loop</span></code> keyword.</p>
+<div class="section" id="synopsis">
+<h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Module to define an OIDC role that vault can generate dynamic credentials for vault</p></li>
+</ul>
 </div>
-<div class="section" id="lookups-and-variables">
-<span id="id2"></span><h2><a class="toc-backref" href="#id5">Lookups and variables</a><a class="headerlink" href="#lookups-and-variables" title="Permalink to this headline">¶</a></h2>
-<p>One way of using lookups is to populate variables. These macros are evaluated each time they are used in a task (or template):</p>
-<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">vars</span><span class="p">:</span>
-  <span class="nt">motd_value</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">lookup</span><span class="o">(</span><span class="s1">&#39;file&#39;</span><span class="o">,</span> <span class="s1">&#39;/etc/motd&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span>
-<span class="nt">tasks</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">debug</span><span class="p">:</span>
-      <span class="nt">msg</span><span class="p">:</span> <span class="s">&quot;motd</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="cp">{{</span> <span class="nv">motd_value</span> <span class="cp">}}</span><span class="s">&quot;</span>
+<div class="section" id="parameters">
+<h2><a class="toc-backref" href="#id2">Parameters</a><a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<table  border=0 cellpadding=0 class="documentation-table">
+    <tr>
+        <th colspan="1">Parameter</th>
+        <th>Choices/<font color="blue">Defaults</font></th>
+                    <th width="100%">Comments</th>
+    </tr>
+                <tr>
+                                                            <td colspan="1">
+                <b>allowed_redirect_uris</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>The list of allowed values for redirect_uri during OIDC logins.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>bound_audiences</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>List of `aud` claims to match against. Any match is sufficient.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>bound_claims</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>If set, a map of claims/values to match against. The expected value may be a single string or a list of strings.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>bound_subject</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>If set, requires that the sub claim matches this value.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>ca_cert</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_CACERT</div>
+                                </td>
+                                                            <td>
+                                                                    <div>path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>ca_path</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_CAPATH</div>
+                                </td>
+                                                            <td>
+                                                                    <div>path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>claim_mappings</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>If set, a map of claims (keys) to be copied to specified metadata fields (values).</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>client_cert</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_CLIENT_CERT</div>
+                                </td>
+                                                            <td>
+                                                                    <div>path to a PEM-encoded client certificate for TLS authentication to the Vault server</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>client_key</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_CLIENT_KEY</div>
+                                </td>
+                                                            <td>
+                                                                    <div>path to an unencrypted PEM-encoded private key matching the client certificate</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>groups_claim</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>The claim to use to uniquely identify the set of groups to which the user belongs; this will be used as the names for the Identity group aliases created due to a successful login. The claim value must be a list of strings.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>mount_point</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">oidc</div>
+                                </td>
+                                                            <td>
+                                                                    <div>name of the secret engine mount name.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>name</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>name of the role in vault</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>oidc_scopes</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>If set, a list of OIDC scopes to be used with an OIDC role. The standard scope &quot;openid&quot; is automatically included and need not be specified.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>password</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_PASSWORD</div>
+                                </td>
+                                                            <td>
+                                                                    <div>password to login to vault.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>token</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_TOKEN</div>
+                                </td>
+                                                            <td>
+                                                                    <div>token for vault</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>token_bound_cidrs</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>List of CIDR blocks; if set, specifies blocks of IP addresses which can authenticate successfully, and ties the resulting token to these blocks as well.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>token_explicit_max_ttl</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>If set, will encode an explicit max TTL onto the token. This is a hard cap even if token_ttl and token_max_ttl would otherwise allow a renewal.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>token_max_ttl</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>The maximum lifetime for generated tokens. This current value of this will be referenced at renewal time.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>token_no_default_policy</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>If set, the default policy will not be set on generated tokens; otherwise it will be added to the policies set in token_policies.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>token_num_uses</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>The maximum number of times a generated token may be used (within its lifetime); 0 means unlimited.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>token_period</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>If set, indicates that the token generated using this role should never expire. The token should be renewed within the duration specified by this value. At each renewal, the token&#x27;s TTL will be set to the value of this parameter.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>token_policies</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>List of policies to encode onto generated tokens. Depending on the auth method, this list may be supplemented by user/group/other values.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>token_ttl</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>The incremental lifetime for generated tokens. This current value of this will be referenced at renewal time.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>token_type</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>{&quot;The type of token that should be generated. Can be service, batch, or default to use the mount&#x27;s tuned default (which unless changed will be service tokens). For token store roles, there are two additional possibilities&quot;: &#x27;default-service and default-batch which specify the type to return unless the client requests a different type at generation time.&#x27;}</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>url</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_ADDR</div>
+                                </td>
+                                                            <td>
+                                                                    <div>url for vault</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>user_claim</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">sub</div>
+                                </td>
+                                                            <td>
+                                                                    <div>The claim to use to uniquely identify the user; this will be used as the name for the Identity entity alias created due to a successful login. The claim value must be a string.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>username</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_USER</div>
+                                </td>
+                                                            <td>
+                                                                    <div>username to login to vault.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>verify</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_SKIP_VERIFY</div>
+                                </td>
+                                                            <td>
+                                                                    <div>if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing</div>
+                                                                            </td>
+        </tr>
+                    </table>
+<br/></div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id3">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+  <span class="nt">tasks</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">hashivault_oidc_auth_role</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;gmail&quot;</span>
+        <span class="nt">bound_audiences</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;123-456.apps.googleusercontent.com&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">allowed_redirect_uris</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;https://vault.com:8200/ui/vault/auth/oidc/oidc/callback&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">token_policies</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;test&quot;</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
-<p>For more details and a complete list of lookup plugins available, please see <a class="reference internal" href="../plugins/plugins.html#plugins-lookup"><span class="std std-ref">Working With Plugins</span></a>.</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
-</dd>
-<dt><a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span class="std std-ref">Conditionals</span></a></dt><dd><p>Conditional statements in playbooks</p>
-</dd>
-<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt><dd><p>All about variables</p>
-</dd>
-<dt><a class="reference internal" href="playbooks_loops.html#playbooks-loops"><span class="std std-ref">Loops</span></a></dt><dd><p>Looping in playbooks</p>
-</dd>
-<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">User Mailing List</a></dt><dd><p>Have a question?  Stop by the google group!</p>
-</dd>
-<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
-</dd>
-</dl>
+</div>
+<div class="section" id="status">
+<h2><a class="toc-backref" href="#id4">Status</a><a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
+<p>This module is flagged as <strong>stableinterface</strong> which means that the maintainers for this module guarantee that no backward incompatible interface changes will be made.</p>
+</div>
+<div class="section" id="maintenance">
+<h2><a class="toc-backref" href="#id5">Maintenance</a><a class="headerlink" href="#maintenance" title="Permalink to this headline">¶</a></h2>
+<p>This module is flagged as <strong>community</strong> which means that it is maintained by the Ansible Community. See <a class="reference internal" href="../user_guide/modules_support.html#modules-support"><span class="std std-ref">Module Maintenance &amp; Support</span></a> for more info.</p>
+<p>For a list of other modules that are also maintained by the Ansible Community, see <a class="reference internal" href="community_maintained.html#community-supported"><span class="std std-ref">here</span></a>.</p>
+<div class="section" id="author">
+<h3><a class="toc-backref" href="#id6">Author</a><a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>UNKNOWN</p></li>
+</ul>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_oidc_auth_role.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
+</div>
 </div>
 </div>
 </div>
@@ -2331,15 +2625,6 @@
           </div>
           <div id="search-results"><gcse:searchresults-only></div>
           <footer>
-  
-    <div class="rst-footer-buttons">
-      
-        <a href="playbooks_python_version.html" class="btn btn-neutral float-right" title="Python Version and Templating"/>Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="playbooks_tests.html" class="btn btn-neutral" title="Tests"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
