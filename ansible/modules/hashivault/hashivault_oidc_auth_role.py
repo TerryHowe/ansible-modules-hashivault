@@ -53,6 +53,10 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
+    namespace:
+        description:
+            - namespace for vault
+        default: to environment variable VAULT_NAMESPACE
     mount_point:
         description:
             - name of the secret engine mount name.
@@ -85,6 +89,7 @@ options:
     allowed_redirect_uris:
         description:
             - The list of allowed values for redirect_uri during OIDC logins.
+            - When using nested namespaces, use url encoding '%2F' instead of '/'
     token_ttl:
         description:
             - The incremental lifetime for generated tokens. This current value of this will be referenced at renewal time.
@@ -121,6 +126,14 @@ EXAMPLES = '''
         name: "gmail"
         bound_audiences: ["123-456.apps.googleusercontent.com"]
         allowed_redirect_uris: ["https://vault.com:8200/ui/vault/auth/oidc/oidc/callback"]
+        token_policies: ["test"]
+
+- hosts: localhost
+  tasks:
+    - hashivault_oidc_auth_role:
+        name: "nested_ns_role"
+        bound_audiences: ["123-456.apps.googleusercontent.com"]
+        allowed_redirect_uris: ["https://vault.com:8200/ui/vault/auth/oidc/oidc/callback?namespace=namespaceone%2Fnamespacetwo"]
         token_policies: ["test"]
 '''
 
@@ -174,7 +187,8 @@ def hashivault_oidc_auth_role(module):
     changed = False
 
     token = params['token']
-    headers = {'X-Vault-Token': token}
+    namespace = params['namespace']
+    headers = {'X-Vault-Token': token, 'X-Vault-Namespace': namespace}
     url = params['url']
     verify = params['verify']
 
