@@ -2,12 +2,16 @@ Changelog
 =========
 
 
+4.2.2 (2019-10-29)
+------------------
+- Fix auth method. [Drew Mullen]
+
+
 4.2.1 (2019-10-24)
 ------------------
 - Add OIDC auth role and functional test. [Lynn Dong]
 - Check mode param for auth method, clarify error. [Drew Mullen]
 - Fix idemp for namespaces. [Drew Mullen]
-  path error when not check mode
 - Updates to fix check mode regarding namespaces. [Drew Mullen]
 - Pass check mode if no namespace. [Drew Mullen]
 
