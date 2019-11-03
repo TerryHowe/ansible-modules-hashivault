@@ -57,6 +57,10 @@ options:
         description:
             - password to login to vault.
         default: to environment variable VAULT_PASSWORD
+    namespace:
+        description:
+            - namespace for vault
+        default: to environment variable VAULT_NAMESPACE
     mount_point:
         description:
             - name of the secret engine mount name.
@@ -140,7 +144,8 @@ def hashivault_oidc_auth_method_config(module):
     exists = False
 
     token = params['token'] 
-    headers = {'X-Vault-Token': token}
+    namespace = params['namespace']
+    headers = {'X-Vault-Token': token, 'X-Vault-Namespace': namespace}
     url = params['url']
     verify = params['verify']
 
