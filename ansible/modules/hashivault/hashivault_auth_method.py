@@ -109,6 +109,7 @@ def hashivault_auth_method(module):
     state = params.get('state')
     exists = False
     changed = False
+    created = False
 
     if mount_point == None:
         mount_point = method_type
@@ -144,13 +145,14 @@ def hashivault_auth_method(module):
     # brand new
     if changed and not exists and not module.check_mode and (state == 'enabled' or state == 'enable'):
         client.sys.enable_auth_method(method_type, description=description, path=mount_point, config=config)
+        created = True
     # delete existing
     if changed and not module.check_mode and (state == 'disabled' or state == 'disable'):
         client.sys.disable_auth_method(path=mount_point)
     # update existing
     if changed and exists and not module.check_mode and (state == 'enabled' or state == 'enable'):
         client.sys.tune_auth_method(description=description, path=mount_point, **config)
-    return {'changed': changed}
+    return {'changed': changed, 'created': created}
 
 if __name__ == '__main__':
     main()
