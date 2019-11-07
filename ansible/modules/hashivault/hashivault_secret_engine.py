@@ -113,6 +113,7 @@ def hashivault_secret_engine(module):
     options = params.get('options')
     current_state = dict()
     exists = False
+    created = False
     changed = False
 
     if not backend:
@@ -157,6 +158,7 @@ def hashivault_secret_engine(module):
             client.sys.enable_secrets_engine(backend, description=description, path=name, config=config, options=options)
         else:
             client.sys.enable_secrets_engine(backend, description=description, path=name, config=config)
+        created = True
         
     # needs to be updated
     elif changed and exists and (state == 'present' or state == 'enabled') and not module.check_mode:
@@ -169,7 +171,7 @@ def hashivault_secret_engine(module):
     elif changed and (state == 'absent' or state == 'disabled') and not module.check_mode:
         client.sys.disable_secrets_engine(path=name)
 
-    return {'changed': changed}
+    return {'changed': changed, 'created': created}
 
 
 if __name__ == '__main__':
