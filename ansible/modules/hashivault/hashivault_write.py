@@ -73,6 +73,9 @@ options:
     data:
         description:
             - Keys and values to write.
+    alternate_data:
+        description:
+            - Keys and values to write. Use this if you need the returned data.
     update:
         description:
             - Update rather than overwrite.
@@ -97,6 +100,7 @@ def main():
     argspec['secret'] = dict(required=True, type='str')
     argspec['update'] = dict(required=False, default=False, type='bool')
     argspec['data'] = dict(required=False, default={}, type='dict', no_log=True)
+    argspec['alternate_data'] = dict(required=False, default={}, type='dict')
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_write(module)
     if result.get('failed'):
@@ -152,6 +156,7 @@ def hashivault_write(module):
     mount_point = params.get('mount_point')
     secret = params.get('secret')
     data = params.get('data')
+    data = data or params.get('alternate_data')
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
