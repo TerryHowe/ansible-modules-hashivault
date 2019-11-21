@@ -2,6 +2,15 @@ Changelog
 =========
 
 
+4.2.3 (2019-11-21)
+------------------
+- Provide logged alternate data for write to get returned data. [Terry
+  Howe]
+- Added new return var to auth mount. [DrMagPie]
+- Added var to defirentiate new and updated engines. [DrMagPie]
+- Enable OIDC auth and role in namespaces. [Lynn Dong]
+
+
 4.2.2 (2019-10-29)
 ------------------
 - Fix auth method. [Drew Mullen]
