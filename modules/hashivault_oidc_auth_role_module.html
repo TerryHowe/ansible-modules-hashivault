@@ -2302,6 +2302,7 @@
                                                                                                                                                         </td>
                                                             <td>
                                                                     <div>The list of allowed values for redirect_uri during OIDC logins.</div>
+                                                <div>When using nested namespaces, use url encoding &#x27;%2F&#x27; instead of &#x27;/&#x27;</div>
                                                                             </td>
         </tr>
                             <tr>
@@ -2417,6 +2418,17 @@
                                                                                                                                                         </td>
                                                             <td>
                                                                     <div>name of the role in vault</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>namespace</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">to environment variable VAULT_NAMESPACE</div>
+                                </td>
+                                                            <td>
+                                                                    <div>namespace for vault</div>
                                                                             </td>
         </tr>
                             <tr>
@@ -2597,6 +2609,14 @@
         <span class="nt">bound_audiences</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;123-456.apps.googleusercontent.com&quot;</span><span class="p p-Indicator">]</span>
         <span class="nt">allowed_redirect_uris</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;https://vault.com:8200/ui/vault/auth/oidc/oidc/callback&quot;</span><span class="p p-Indicator">]</span>
         <span class="nt">token_policies</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;test&quot;</span><span class="p p-Indicator">]</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+  <span class="nt">tasks</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">hashivault_oidc_auth_role</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;nested_ns_role&quot;</span>
+        <span class="nt">bound_audiences</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;123-456.apps.googleusercontent.com&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">allowed_redirect_uris</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;https://vault.com:8200/ui/vault/auth/oidc/oidc/callback?namespace=namespaceone%2Fnamespacetwo&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">token_policies</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;test&quot;</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 </div>
@@ -2638,7 +2658,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Oct 29, 2019.<br/>
+  <p>Last updated on Nov 21, 2019.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>
