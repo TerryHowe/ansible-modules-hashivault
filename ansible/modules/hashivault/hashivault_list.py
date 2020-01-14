@@ -133,7 +133,10 @@ def hashivault_list(params):
             if version == 2:
                 response = client.secrets.kv.v2.list_secrets(path=secret, mount_point=mount_point)
             else:
-                response = client.secrets.kv.v1.list_secrets(path=secret, mount_point=mount_point)
+                if mount_point == "secret" and version == 1:
+                    response = client.list(secret)
+                else:
+                    response = client.secrets.kv.v1.list_secrets(path=secret, mount_point=mount_point)
         except Exception as e:
           if response is None:
             response = {}
