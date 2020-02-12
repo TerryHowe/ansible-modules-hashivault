@@ -221,7 +221,8 @@ def hashivault_auth_ldap(module):
 
     # check current config
     if exists:
-        result = client.auth.ldap.read_configuration()['data']
+        result = client.auth.ldap.read_configuration(
+            mount_point=desired_state['mount_point'])['data']
         # some keys need to be remapped to match desired state (and HVAC implementation)
         current_state['discover_dn'] = result['discoverdn']
         current_state['group_attr'] = result['groupattr']
