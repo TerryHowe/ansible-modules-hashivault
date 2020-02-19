@@ -145,16 +145,17 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default='oidc')
     argspec['user_claim'] = dict(required=False, type='str', default='sub')
     argspec['allowed_redirect_uris'] = dict(required=True, type='list')
-    argspec['bound_audiences'] = dict(required=False, type='list') 
+    argspec['bound_audiences'] = dict(required=False, type='list', default=[])
     argspec['bound_subject'] = dict(required=False, type='str', default='')
     argspec['bound_claims'] = dict(required=False, type='dict')
     argspec['groups_claim'] = dict(required=False, type='str', default='')
-    argspec['claim_mappings'] = dict(required=False, type='dict') 
+    argspec['claim_mappings'] = dict(required=False, type='dict')
     argspec['oidc_scopes'] = dict(required=False, type='list', default=[])
     argspec['token_ttl'] = dict(required=False, type='int', default=0)
     argspec['token_max_ttl'] = dict(required=False, type='int', default=0)
     argspec['token_policies'] = dict(required=False, type='list', default=[])
-    argspec['token_bound_cidrs'] = dict(required=False, type='list', default=[]) 
+    argspec['policies'] = dict(required=False, type='list', default=[])
+    argspec['token_bound_cidrs'] = dict(required=False, type='list', default=[])
     argspec['token_explicit_max_ttl'] = dict(required=False, type='int', default=0)
     argspec['token_no_default_policy'] = dict(required=False, type='bool', default=False)
     argspec['token_num_uses'] = dict(required=False, type='int', default=0)
@@ -164,9 +165,9 @@ def main():
     argspec['expiration_leeway'] = dict(required=False, type='int', default=0)
     argspec['not_before_leeway'] = dict(required=False, type='int', default=0)
 
-    supports_check_mode=False
+    supports_check_mode = False
 
-    module = hashivault_init(argspec, supports_check_mode) 
+    module = hashivault_init(argspec, supports_check_mode)
     result = hashivault_oidc_auth_role(module)
     if result.get('failed'):
         module.fail_json(**result)
@@ -191,6 +192,8 @@ def hashivault_oidc_auth_role(module):
     headers = {'X-Vault-Token': token, 'X-Vault-Namespace': namespace}
     url = params['url']
     verify = params['verify']
+    ca_cert = params['ca_cert']
+    ca_path = params['ca_path']
 
     # do not want a trailing slash in name and mount_point
     if name[-1] == '/':
@@ -211,6 +214,7 @@ def hashivault_oidc_auth_role(module):
     desired_state['token_max_ttl'] = params.get('token_max_ttl')
     desired_state['token_no_default_policy'] = params.get('token_no_default_policy')
     desired_state['token_policies'] = params.get('token_policies')
+    desired_state['policies'] = params.get('policies')
     desired_state['token_type'] = params.get('token_type')
     desired_state['user_claim'] = params.get('user_claim')
     desired_state['token_period'] = params.get('token_period')
@@ -219,11 +223,10 @@ def hashivault_oidc_auth_role(module):
     desired_state['expiration_leeway'] = params.get('expiration_leeway')
     desired_state['not_before_leeway'] = params.get('not_before_leeway')
 
-
     # check if engine is enabled
     try:
-      if (mount_point + "/") not in client.sys.list_auth_methods()['data'].keys():
-        return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
+        if (mount_point + "/") not in client.sys.list_auth_methods()['data'].keys():
+            return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
     except:
         if module.check_mode:
             changed = True
@@ -231,14 +234,20 @@ def hashivault_oidc_auth_role(module):
             return {'failed': True, 'msg': 'auth mount is not enabled or namespace is not created', 'rc': 1}
 
     # check if role exists
+    s = requests.Session()
     try:
-        current_state = requests.get(url + '/v1/auth/' + mount_point + '/role/' + name, verify=verify, headers=headers)
+        if verify:
+            if ca_cert is not None:
+                verify = ca_cert
+            elif ca_path is not None:
+                verify = ca_path
+        current_state = s.get(url + '/v1/auth/' + mount_point + '/role/' + name, verify=verify, headers=headers)
         if current_state.status_code == 404:
-            changed = True
+            exists = False
         elif current_state.status_code == 200:
             exists = True
     except:
-        changed = True 
+        changed = True
 
     if not exists and state == 'present':
         changed = True
@@ -247,28 +256,34 @@ def hashivault_oidc_auth_role(module):
 
     desired_state['role_type'] = "oidc"
     desired_state['verbose_oidc_logging'] = False
+    if len(desired_state['token_policies']) == 0 and len(desired_state['policies']) > 0:
+        desired_state['token_policies'] = desired_state['policies']
+    if len(desired_state['policies']) == 0 and len(desired_state['token_policies']) > 0:
+        desired_state['policies'] = desired_state['token_policies']
 
-   #check if current role matches desired role values, if they dont match, set changed true
+    # check if current role matches desired role values, if they dont match, set changed true
     if exists and state == 'present':
         current_state = current_state.json()['data']
-        for k, v in current_state.items():
-            if v != desired_state[k]:
+        for k, v in desired_state.items():
+            if v != current_state[k]:
                 changed = True
+                break
+
+    method = None
+    if changed and state == 'present' and not module.check_mode:
+        method = 'POST'
+    elif changed and state == 'absent' and not module.check_mode:
+        method = 'DELETE'
 
     # make the changes!
-    if changed and state == 'present' and not module.check_mode:
-        config_status = requests.post(url + '/v1/auth/' + mount_point + '/role/' + name, verify=verify, headers=headers, json=desired_state)
-        try:
-            config_status.raise_for_status()
-        except:
-            return {'failed': True, 'msg': config_status.text, 'rc': 1}
+    if method is not None:
+        req = requests.Request(method, url + '/v1/auth/' + mount_point + '/role/' + name, headers=headers,
+                               json=desired_state)
+        prepped = s.prepare_request(req)
+        resp = s.send(prepped)
+        if resp.status_code != 200 and resp.status_code != 202 and resp.status_code != 201 and resp.status_code != 204:
+            return {'failed': True, 'msg': str(resp.text), 'rc': 1}
         return {'changed': changed}
-    elif changed and state == 'absent' and not module.check_mode:
-        config_status = requests.delete(url + '/v1/auth/' + mount_point + '/role/' + name, verify=verify, headers=headers, json=desired_state)
-        try:
-            config_status.raise_for_status()
-        except:
-            return {'failed': True, 'msg': config_status.text, 'rc': 1}
     return {'changed': changed}
 
 
