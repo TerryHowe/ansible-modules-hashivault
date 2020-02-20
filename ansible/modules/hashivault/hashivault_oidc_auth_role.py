@@ -235,6 +235,7 @@ def hashivault_oidc_auth_role(module):
 
     # check if role exists
     s = requests.Session()
+    exists = False
     try:
         if verify:
             if ca_cert is not None:
@@ -242,9 +243,7 @@ def hashivault_oidc_auth_role(module):
             elif ca_path is not None:
                 verify = ca_path
         current_state = s.get(url + '/v1/auth/' + mount_point + '/role/' + name, verify=verify, headers=headers)
-        if current_state.status_code == 404:
-            exists = False
-        elif current_state.status_code == 200:
+        if current_state.status_code == 200:
             exists = True
     except:
         changed = True
@@ -281,7 +280,7 @@ def hashivault_oidc_auth_role(module):
                                json=desired_state)
         prepped = s.prepare_request(req)
         resp = s.send(prepped)
-        if resp.status_code != 200 and resp.status_code != 202 and resp.status_code != 201 and resp.status_code != 204:
+        if resp.status_code not in [200, 201, 202, 204]:
             return {'failed': True, 'msg': str(resp.text), 'rc': 1}
         return {'changed': changed}
     return {'changed': changed}
