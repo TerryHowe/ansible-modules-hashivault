@@ -120,6 +120,7 @@ def hashivault_auth_method(module):
         path = (mount_point or method_type) + u"/"
 
         # Is auth method enabled already?
+
         if path in auth_methods['data'].keys():
             exists = True
     except:
@@ -144,7 +145,7 @@ def hashivault_auth_method(module):
             config['force_no_cache'] = False
         if 'token_type' not in config:
             config['token_type'] = 'default-service'
-        if current_state['data'] != config:
+        if not current_state['data'].items() >= config.items():
             changed = True
 
     # brand new
