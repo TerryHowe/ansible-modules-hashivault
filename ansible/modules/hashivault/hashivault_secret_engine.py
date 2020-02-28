@@ -92,7 +92,7 @@ def main():
     argspec['description'] = dict(required=False, type='str')
     argspec['config'] = dict(required=False, type='dict', default={'default_lease_ttl': DEFAULT_TTL, 'max_lease_ttl': DEFAULT_TTL, 'force_no_cache': False})
     argspec['state'] = dict(required=False, type='str', choices=['present', 'enabled', 'absent', 'disabled'], default='present')
-    argspec['options'] = dict(required=False, type='dict', default={'version': '1'})
+    argspec['options'] = dict(required=False, type='dict', default={})
     module = hashivault_init(argspec)
     result = hashivault_secret_engine(module)
     if result.get('failed'):
@@ -123,10 +123,10 @@ def hashivault_secret_engine(module):
         current_state = client.sys.read_mount_configuration(path=name)['data']
         exists = True
     except Exception:
-        # doesnt exist
+        # doesn't exist
         pass
-    
-    # doesnt exist and should or does exist and shouldnt
+
+    # doesn't exist and should or does exist and shouldn't
     if (exists and state == 'absent') or (exists and state == 'disabled') or (not exists and state == 'present') or (not exists and state == 'enabled'):
         changed = True
 
@@ -139,35 +139,33 @@ def hashivault_secret_engine(module):
             config['max_lease_ttl'] = DEFAULT_TTL
         if 'force_no_cache' not in config:
             config['force_no_cache'] = False
-        options['version'] = str(options['version'])
+        if 'version' in options:
+            options['version'] = str(options['version'])
 
-        for k, v in current_state.items(): #while not changed?
-            # options is passed in ['data'] but set outside 'config':{}, manually check
-            if k == 'options':
-                if v != options:
-                    changed = True
-            elif v != config[k]:
-                changed = True
-        
-    # make changes!
-    # only pass 'options' when working on a kv backend
-    
-    # doesnt exist and should
+        # Creates temp dict that combines config and options into one dict
+        config_with_options = config.copy()
+        if options:
+            config_with_options['options'] = options.copy()
+        # Only check values that you want to change, not if Vault API has other parameters that are different
+        if not current_state.items() >= config_with_options.items():
+            changed = True
+
+    # doesn't exist and should
     if changed and not exists and (state == 'present' or state == 'enabled') and not module.check_mode:
         if backend == 'kv':
             client.sys.enable_secrets_engine(backend, description=description, path=name, config=config, options=options)
         else:
             client.sys.enable_secrets_engine(backend, description=description, path=name, config=config)
         created = True
-        
+
     # needs to be updated
     elif changed and exists and (state == 'present' or state == 'enabled') and not module.check_mode:
         if backend == 'kv':
             client.sys.tune_mount_configuration(description=description, path=name, options=options, **config)
         else:
             client.sys.tune_mount_configuration(description=description, path=name, **config)
-    
-    # exists and shouldnt    
+
+    # exists and shouldn't
     elif changed and (state == 'absent' or state == 'disabled') and not module.check_mode:
         client.sys.disable_secrets_engine(path=name)
 
