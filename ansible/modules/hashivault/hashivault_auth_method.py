@@ -120,7 +120,6 @@ def hashivault_auth_method(module):
         path = (mount_point or method_type) + u"/"
 
         # Is auth method enabled already?
-
         if path in auth_methods['data'].keys():
             exists = True
     except:
