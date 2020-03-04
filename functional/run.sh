@@ -60,6 +60,7 @@ ansible-playbook -v test_approle_old.yml
 # userpass
 ansible-playbook -v test_userpass.yml
 ansible-playbook -v test_userpass_idempotent.yml
+ansible-playbook -v test_userpass_no_pass.yml
 source ./userpassenv.sh
 ansible-playbook -v --extra-vars='namespace=userpass/' test_write.yml test_read.yml test_lookup.yml
 source ./vaultenv.sh
