@@ -3,6 +3,7 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
+from future.utils import viewitems
 
 DEFAULT_TTL = 2764800
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
@@ -147,7 +148,7 @@ def hashivault_secret_engine(module):
         if options:
             config_with_options['options'] = options.copy()
         # Only check values that you want to change, not if Vault API has other parameters that are different
-        if not current_state.items() >= config_with_options.items():
+        if not viewitems(current_state) >= viewitems(config_with_options):
             changed = True
 
     # doesn't exist and should
