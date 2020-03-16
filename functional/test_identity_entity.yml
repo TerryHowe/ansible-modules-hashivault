@@ -25,6 +25,22 @@
     - assert: { that: "{{vault_identity.changed}} == False" }
     - assert: { that: "{{vault_identity.rc}} == 0" }
 
+    - name: Update remove policy
+      hashivault_identity_entity:
+        name: bob
+        policies: null
+      register: vault_identity
+    - assert: { that: "{{vault_identity.changed}} == False" }
+    - assert: { that: "{{vault_identity.rc}} == 0" }
+
+    - name: Update readd policy
+      hashivault_identity_entity:
+        name: bob
+        policies: bob
+      register: vault_identity
+    - assert: { that: "{{vault_identity.changed}} == False" }
+    - assert: { that: "{{vault_identity.rc}} == 0" }
+
     - name: Update
       hashivault_identity_entity:
         name: bob
