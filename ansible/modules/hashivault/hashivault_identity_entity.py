@@ -110,7 +110,8 @@ def hashivault_identity_entity_update(entity_details, client, entity_id, entity_
         entity_disabled = entity_details['disabled']
 
     if entity_details['name'] != entity_name or entity_details['disabled'] != entity_disabled or \
-       entity_details['metadata'] != entity_metadata or set(entity_details['policies']) != set(entity_policies):
+            entity_details['metadata'] != entity_metadata or \
+            set([] if entity_details['policies'] is None else entity_details['policies']) != set(entity_policies):
         try:
             client.secrets.identity.update_entity(
                 entity_id=entity_id,
