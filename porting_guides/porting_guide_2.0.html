@@ -2271,7 +2271,7 @@
 <p>We suggest you read this page along with <a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.0/CHANGELOG.md">Ansible Changelog for 2.0</a> to understand what updates you may need to make.</p>
 <p>This document is part of a collection on porting. The complete list of porting guides can be found at <a class="reference internal" href="porting_guides.html#porting-guides"><span class="std std-ref">porting guides</span></a>.</p>
 <div class="contents topic" id="topics">
-<p class="topic-title first">Topics</p>
+<p class="topic-title">Topics</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#ansible-2-0-porting-guide" id="id7">Ansible 2.0 Porting Guide</a></p>
 <ul>
@@ -2541,10 +2541,10 @@ populates the callback with them.  Here’s a short snippet that shows you how:<
 
 <span class="k">class</span> <span class="nc">CallbackModule</span><span class="p">(</span><span class="n">CallbackBase</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">playbook</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">playbook_name</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">play</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playbook</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playbook_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">v2_playbook_on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">playbook</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">playbook</span> <span class="o">=</span> <span class="n">playbook</span>
@@ -2586,7 +2586,7 @@ populates the callback with them.  Here’s a short snippet that shows you how:<
 <h3><a class="toc-backref" href="#id18">Lookup plugins</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>As a simple example we are going to make a hybrid <code class="docutils literal notranslate"><span class="pre">fileglob</span></code> lookup plugin.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">)</span>
-<span class="vm">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span>
+<span class="n">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">glob</span>
@@ -2598,7 +2598,7 @@ populates the callback with them.  Here’s a short snippet that shows you how:<
     <span class="c1"># ansible-1.9.x</span>
 
     <span class="k">class</span> <span class="nc">LookupBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basedir</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">runner</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basedir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">runner</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">runner</span> <span class="o">=</span> <span class="n">runner</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">basedir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">runner</span><span class="o">.</span><span class="n">basedir</span>
 
@@ -2616,7 +2616,7 @@ populates the callback with them.  Here’s a short snippet that shows you how:<
 <span class="k">class</span> <span class="nc">LookupModule</span><span class="p">(</span><span class="n">LookupBase</span><span class="p">):</span>
 
     <span class="c1"># For ansible-1.9.x, we added inject=None as valid argument</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">terms</span><span class="p">,</span> <span class="n">inject</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">terms</span><span class="p">,</span> <span class="n">inject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="c1"># ansible-2.0, but we made this work for ansible-1.9.x too !</span>
         <span class="n">basedir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_basedir</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span>
@@ -2705,7 +2705,7 @@ populates the callback with them.  Here’s a short snippet that shows you how:<
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Nov 21, 2019.<br/>
+  <p>Last updated on Mar 20, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

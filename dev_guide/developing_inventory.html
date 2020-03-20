@@ -2267,7 +2267,7 @@
   <div class="section" id="developing-dynamic-inventory">
 <span id="developing-inventory"></span><h1>Developing dynamic inventory<a class="headerlink" href="#developing-dynamic-inventory" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="topics">
-<p class="topic-title first">Topics</p>
+<p class="topic-title">Topics</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#inventory-sources" id="id6">Inventory sources</a></p></li>
 <li><p><a class="reference internal" href="#inventory-plugins" id="id7">Inventory plugins</a></p>
@@ -2366,11 +2366,11 @@ but they can be ‘re-executed’ via the <code class="docutils literal notransl
 <p>This method is used by Ansible to make a quick determination if the inventory source is usable by the plugin. It does not need to be 100% accurate as there might be overlap in what plugins can handle and Ansible will try the enabled plugins (in order) by default.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">verify_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; return true/false if this is possibly a valid file for this plugin to consume &#39;&#39;&#39;</span>
-    <span class="n">valid</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">if</span> <span class="nb">super</span><span class="p">(</span><span class="n">InventoryModule</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">verify_file</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
         <span class="c1"># base class verifies that file exists and is readable by current user</span>
         <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;virtualbox.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;virtualbox.yml&#39;</span><span class="p">,</span> <span class="s1">&#39;vbox.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;vbox.yml&#39;</span><span class="p">)):</span>
-            <span class="n">valid</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="n">valid</span>
 </pre></div>
 </div>
@@ -2380,11 +2380,11 @@ from the <a class="reference internal" href="../plugins/inventory/host_list.html
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">verify_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; don&#39;t call base class as we don&#39;t expect a path, but a host list &#39;&#39;&#39;</span>
     <span class="n">host_list</span> <span class="o">=</span> <span class="n">path</span>
-    <span class="n">valid</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">b_path</span> <span class="o">=</span> <span class="n">to_bytes</span><span class="p">(</span><span class="n">host_list</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;surrogate_or_strict&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">b_path</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;,&#39;</span> <span class="ow">in</span> <span class="n">host_list</span><span class="p">:</span>
         <span class="c1"># the path does NOT exist and there is a comma to indicate this is a &#39;host list&#39;</span>
-        <span class="n">valid</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="n">valid</span>
 </pre></div>
 </div>
@@ -2403,7 +2403,7 @@ from the <a class="reference internal" href="../plugins/inventory/host_list.html
 </ul>
 </div></blockquote>
 <p>The base class does some minimal assignment for reuse in other methods.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inventory</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inventory</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
  <span class="bp">self</span><span class="o">.</span><span class="n">loader</span> <span class="o">=</span> <span class="n">loader</span>
  <span class="bp">self</span><span class="o">.</span><span class="n">inventory</span> <span class="o">=</span> <span class="n">inventory</span>
@@ -2414,7 +2414,7 @@ from the <a class="reference internal" href="../plugins/inventory/host_list.html
 To facilitate this there are a few of helper functions used in the example below:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span> <span class="o">=</span> <span class="s1">&#39;myplugin&#39;</span>
 
-<span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inventory</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inventory</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
      <span class="c1"># call base method to ensure properties are available for use with other helper methods</span>
      <span class="nb">super</span><span class="p">(</span><span class="n">InventoryModule</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">inventory</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
@@ -2612,7 +2612,7 @@ A skeleton example of this JSON object is:</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Nov 21, 2019.<br/>
+  <p>Last updated on Mar 20, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

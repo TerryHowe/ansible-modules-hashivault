@@ -2369,7 +2369,7 @@
 <p>The following section creates an AnsibleModule instance. The module should support check-mode, so we pass the <code class="docutils literal notranslate"><span class="pre">argument_spec</span></code> and  <code class="docutils literal notranslate"><span class="pre">supports_check_mode</span></code> arguments. Since these modules support querying the APIC for all objects of the module’s class, the object/parent IDs should only be required if <code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">absent</span></code> or <code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">present</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="o">=</span> <span class="n">AnsibleModule</span><span class="p">(</span>
     <span class="n">argument_spec</span><span class="o">=</span><span class="n">argument_spec</span><span class="p">,</span>
-    <span class="n">supports_check_mode</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">supports_check_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">required_if</span><span class="o">=</span><span class="p">[</span>
         <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;absent&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="s1">&#39;parent_id&#39;</span><span class="p">]],</span>
         <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;present&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;object_id&#39;</span><span class="p">,</span> <span class="s1">&#39;parent_id&#39;</span><span class="p">]],</span>
@@ -2385,7 +2385,7 @@
 <span class="n">object_prop1</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;object_prop1&#39;</span><span class="p">]</span>
 <span class="n">object_prop2</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;object_prop2&#39;</span><span class="p">]</span>
 <span class="n">object_prop3</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;object_prop3&#39;</span><span class="p">]</span>
-<span class="k">if</span> <span class="n">object_prop3</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">object_prop3</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">object_prop3</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">object_prop3</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">module</span><span class="o">.</span><span class="n">fail_json</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Valid object_prop3 values are between x and (y-1)&#39;</span><span class="p">)</span>
 <span class="n">child_object_id</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39; child_objec_id&#39;</span><span class="p">]</span>
 <span class="n">child_object_prop</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;child_object_prop&#39;</span><span class="p">]</span>
@@ -2436,7 +2436,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aci</span><span class="o">.</span><span class="n">construct_url</span><span class="p">(</span>
     <span class="n">root_class</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
         <span class="n">aci_class</span><span class="o">=</span><span class="s1">&#39;fvTenant&#39;</span><span class="p">,</span>
-        <span class="n">aci_rn</span><span class="o">=</span><span class="s1">&#39;tn-{0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tenant</span><span class="p">),</span>
+        <span class="n">aci_rn</span><span class="o">=</span><span class="s1">&#39;tn-</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tenant</span><span class="p">),</span>
         <span class="n">target_filter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">tenant</span><span class="p">},</span>
         <span class="n">module_object</span><span class="o">=</span><span class="n">tenant</span><span class="p">,</span>
     <span class="p">),</span>
@@ -2538,30 +2538,30 @@ Example: <code class="docutils literal notranslate"><span class="pre">aci.post_c
 </div>
 <div class="section" id="example-code">
 <h5>Example code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h5>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="k">state</span> <span class="o">==</span> <span class="s1">&#39;present&#39;</span><span class="p">:</span>
-    <span class="n">aci</span><span class="p">.</span><span class="n">payload</span><span class="p">(</span>
-        <span class="n">aci_class</span><span class="o">=</span><span class="s1">&#39;&lt;object APIC class&gt;&#39;</span><span class="p">,</span>
-        <span class="n">class_config</span><span class="o">=</span><span class="n">dict</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">object_id</span><span class="p">,</span>
-            <span class="n">prop1</span><span class="o">=</span><span class="n">object_prop1</span><span class="p">,</span>
-            <span class="n">prop2</span><span class="o">=</span><span class="n">object_prop2</span><span class="p">,</span>
-            <span class="n">prop3</span><span class="o">=</span><span class="n">object_prop3</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="n">child_configs</span><span class="o">=</span><span class="p">[</span>
-            <span class="n">dict</span><span class="p">(</span>
-                <span class="s1">&#39;&lt;child APIC class&gt;&#39;</span><span class="o">=</span><span class="n">dict</span><span class="p">(</span>
-                    <span class="n">attributes</span><span class="o">=</span><span class="n">dict</span><span class="p">(</span>
-                        <span class="n">child_key</span><span class="o">=</span><span class="n">child_object_id</span><span class="p">,</span>
-                        <span class="n">child_prop</span><span class="o">=</span><span class="n">child_object_prop</span>
-                    <span class="p">),</span>
-                <span class="p">),</span>
-            <span class="p">),</span>
-        <span class="p">],</span>
-    <span class="p">)</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>if state == &#39;present&#39;:
+    aci.payload(
+        aci_class=&#39;&lt;object APIC class&gt;&#39;,
+        class_config=dict(
+            name=object_id,
+            prop1=object_prop1,
+            prop2=object_prop2,
+            prop3=object_prop3,
+        ),
+        child_configs=[
+            dict(
+                &#39;&lt;child APIC class&gt;&#39;=dict(
+                    attributes=dict(
+                        child_key=child_object_id,
+                        child_prop=child_object_prop
+                    ),
+                ),
+            ),
+        ],
+    )
 
-    <span class="n">aci</span><span class="p">.</span><span class="n">get_diff</span><span class="p">(</span><span class="n">aci_class</span><span class="o">=</span><span class="s1">&#39;&lt;object APIC class&gt;&#39;</span><span class="p">)</span>
+    aci.get_diff(aci_class=&#39;&lt;object APIC class&gt;&#39;)
 
-    <span class="n">aci</span><span class="p">.</span><span class="n">post_config</span><span class="p">()</span>
+    aci.post_config()
 </pre></div>
 </div>
 </div>
@@ -2569,18 +2569,18 @@ Example: <code class="docutils literal notranslate"><span class="pre">aci.post_c
 <div class="section" id="when-state-is-absent">
 <h4><a class="toc-backref" href="#id11">When state is absent</a><a class="headerlink" href="#when-state-is-absent" title="Permalink to this headline">¶</a></h4>
 <p>If the task sets the state to absent, then the <code class="docutils literal notranslate"><span class="pre">delete_config()</span></code> method is all that is needed. This method does not take any arguments, and handles check mode.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">elif</span> <span class="k">state</span> <span class="o">==</span> <span class="s1">&#39;absent&#39;</span><span class="p">:</span>
-    <span class="n">aci</span><span class="p">.</span><span class="n">delete_config</span><span class="p">()</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>elif state == &#39;absent&#39;:
+    aci.delete_config()
 </pre></div>
 </div>
 </div>
 <div class="section" id="exiting-the-module">
 <h4><a class="toc-backref" href="#id12">Exiting the module</a><a class="headerlink" href="#exiting-the-module" title="Permalink to this headline">¶</a></h4>
 <p>To have the module exit, call the ACIModule method <code class="docutils literal notranslate"><span class="pre">exit_json()</span></code>. This method automatically takes care of returning the common return values for you.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>    <span class="n">aci</span><span class="p">.</span><span class="n">exit_json</span><span class="p">()</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>    aci.exit_json()
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+if __name__ == &#39;__main__&#39;:
+    main()
 </pre></div>
 </div>
 </div>
@@ -2736,7 +2736,7 @@ $ ./test/runner/ansible-test coverage report
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Nov 21, 2019.<br/>
+  <p>Last updated on Mar 20, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

@@ -2267,7 +2267,7 @@
   <div class="section" id="ansible-and-python-3">
 <span id="developing-python-3"></span><h1>Ansible and Python 3<a class="headerlink" href="#ansible-and-python-3" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="topics">
-<p class="topic-title first">Topics</p>
+<p class="topic-title">Topics</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#minimum-version-of-python-3-x-and-python-2-x" id="id1">Minimum version of Python 3.x and Python 2.x</a></p></li>
 <li><p><a class="reference internal" href="#developing-ansible-code-that-supports-python-2-and-python-3" id="id2">Developing Ansible code that supports Python 2 and Python 3</a></p>
@@ -2528,7 +2528,7 @@ or back to the string type that their parameters received.</p>
 to make certain constructs act the same way on Python 2 and Python 3:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make coding more python3-ish</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">)</span>
-<span class="vm">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span>
+<span class="n">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">__metaclass__</span> <span class="pre">=</span> <span class="pre">type</span></code> makes all classes defined in the file into new-style
@@ -2622,10 +2622,10 @@ octals must be specified as <code class="docutils literal notranslate"><span cla
 strings together.  However, one commonly used feature of <code class="docutils literal notranslate"><span class="pre">format()</span></code> wasn’t
 added until Python 2.7, so you need to remember not to use it in Ansible code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Does not work in Python 2.6!</span>
-<span class="n">new_string</span> <span class="o">=</span> <span class="s2">&quot;Dear {}, Welcome to {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+<span class="n">new_string</span> <span class="o">=</span> <span class="s2">&quot;Dear </span><span class="si">{}</span><span class="s2">, Welcome to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
 
 <span class="c1"># Use this instead</span>
-<span class="n">new_string</span> <span class="o">=</span> <span class="s2">&quot;Dear {0}, Welcome to {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+<span class="n">new_string</span> <span class="o">=</span> <span class="s2">&quot;Dear </span><span class="si">{0}</span><span class="s2">, Welcome to </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Both of the format strings above map positional arguments of the <code class="docutils literal notranslate"><span class="pre">format()</span></code>
@@ -2696,7 +2696,7 @@ for more information.</p>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Nov 21, 2019.<br/>
+  <p>Last updated on Mar 20, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

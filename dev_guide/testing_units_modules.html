@@ -2265,7 +2265,7 @@
   <div class="section" id="unit-testing-ansible-modules">
 <span id="testing-units-modules"></span><h1><a class="toc-backref" href="#id1">Unit Testing Ansible Modules</a><a class="headerlink" href="#unit-testing-ansible-modules" title="Permalink to this headline">¶</a></h1>
 <div class="contents topic" id="topics">
-<p class="topic-title first">Topics</p>
+<p class="topic-title">Topics</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#unit-testing-ansible-modules" id="id1">Unit Testing Ansible Modules</a></p>
 <ul>
@@ -2473,7 +2473,7 @@ above, either by throwing an exception or ensuring that they haven’t been call
 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">AnsibleExitJson</span><span class="p">)</span> <span class="k">as</span> <span class="n">result</span><span class="p">:</span>
     <span class="k">return</span> <span class="o">=</span> <span class="n">my_module</span><span class="o">.</span><span class="n">test_this_function</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">argument</span><span class="p">)</span>
 <span class="n">module</span><span class="o">.</span><span class="n">fail_json</span><span class="o">.</span><span class="n">assert_not_called</span><span class="p">()</span>
-<span class="k">assert</span> <span class="k">return</span><span class="p">[</span><span class="s2">&quot;changed&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span>
+<span class="k">assert</span> <span class="k">return</span><span class="p">[</span><span class="s2">&quot;changed&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span>
 </pre></div>
 </div>
 </div>
@@ -2585,7 +2585,7 @@ is difficult to examine. This can be mitigated by replacing it (and <a class="re
 a function that raises an exception:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">exit_json</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">if</span> <span class="s1">&#39;changed&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;changed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;changed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">raise</span> <span class="n">AnsibleExitJson</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2611,7 +2611,7 @@ Web Services).</p>
 the arguments as above, set up the appropriate exit exception and then run the module:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This test is based around pytest&#39;s features for individual test functions</span>
 <span class="kn">import</span> <span class="nn">pytest</span>
-<span class="kn">import</span> <span class="nn">ansible.modules.module.group.my_modulle</span> <span class="kn">as</span> <span class="nn">my_module</span>
+<span class="kn">import</span> <span class="nn">ansible.modules.module.group.my_modulle</span> <span class="k">as</span> <span class="nn">my_module</span>
 
 <span class="k">def</span> <span class="nf">test_main_function</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">):</span>
     <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setattr</span><span class="p">(</span><span class="n">my_module</span><span class="o">.</span><span class="n">AnsibleModule</span><span class="p">,</span> <span class="s2">&quot;exit_json&quot;</span><span class="p">,</span> <span class="n">fake_exit_json</span><span class="p">)</span>
@@ -2673,17 +2673,17 @@ mock for <a class="reference internal" href="../api/index.html#Ansible.get_bin_p
 <span class="k">def</span> <span class="nf">exit_json</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;function to patch over exit_json; package return data into an exception&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="s1">&#39;changed&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;changed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;changed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">raise</span> <span class="n">AnsibleExitJson</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">fail_json</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;function to patch over fail_json; package return data into an exception&quot;&quot;&quot;</span>
-    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;failed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;failed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">raise</span> <span class="n">AnsibleFailJson</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">get_bin_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_bin_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Mock AnsibleModule.get_bin_path&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;my_command&#39;</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;/usr/bin/my_command&#39;</span>
@@ -2736,11 +2736,11 @@ moving module configuration and initialization into a separate function. For exa
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">argument_spec</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
     <span class="c1"># module function variables</span>
     <span class="n">state</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;absent&#39;</span><span class="p">,</span> <span class="s1">&#39;present&#39;</span><span class="p">,</span> <span class="s1">&#39;rebooted&#39;</span><span class="p">,</span> <span class="s1">&#39;restarted&#39;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;present&#39;</span><span class="p">),</span>
-    <span class="n">apply_immediately</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
-    <span class="n">wait</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+    <span class="n">apply_immediately</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="n">wait</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
     <span class="n">wait_timeout</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">600</span><span class="p">),</span>
     <span class="n">allocated_storage</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">]),</span>
-    <span class="n">db_instance_identifier</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">db_instance_identifier</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">aliases</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">setup_module_object</span><span class="p">():</span>
@@ -2842,7 +2842,7 @@ Extreme Programming (XP), Clean Coding.  Uncle Bob talks through how to benfit f
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Nov 21, 2019.<br/>
+  <p>Last updated on Mar 20, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

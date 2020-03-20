@@ -2267,7 +2267,7 @@
   <div class="section" id="plugin-guidelines">
 <span id="developing-plugins"></span><span id="id1"></span><h1><a class="toc-backref" href="#id2">Developing plugins</a><a class="headerlink" href="#plugin-guidelines" title="Permalink to this headline">¶</a></h1>
 <div class="contents topic" id="topics">
-<p class="topic-title first">Topics</p>
+<p class="topic-title">Topics</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#plugin-guidelines" id="id2">Developing plugins</a></p>
 <ul>
@@ -2363,7 +2363,7 @@ For a complete list of methods that you can override, please see <code class="do
 but with an extra option so you can see how configuration works in Ansible version 2.4 and later:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make coding more python3-ish, this is required for contributions to Ansible</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">)</span>
-<span class="vm">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span>
+<span class="n">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span>
 
 <span class="c1"># not only visible to ansible-doc, it also &#39;declares&#39; the options the plugin requires and how to configure them.</span>
 <span class="n">DOCUMENTATION</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
@@ -2399,7 +2399,7 @@ but with an extra option so you can see how configuration works in Ansible versi
     <span class="n">CALLBACK_NAME</span> <span class="o">=</span> <span class="s1">&#39;timer&#39;</span>
 
     <span class="c1"># only needed if you ship it and don&#39;t want to enable by default</span>
-    <span class="n">CALLBACK_NEEDS_WHITELIST</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">CALLBACK_NEEDS_WHITELIST</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
@@ -2454,7 +2454,7 @@ but with an extra option so you can see how configuration works in Ansible versi
 <p>Here’s a simple lookup plugin implementation — this lookup returns the contents of a text file as a variable:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># python 3 headers, required if submitting to Ansible</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">)</span>
-<span class="vm">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span>
+<span class="n">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span>
 
 <span class="n">DOCUMENTATION</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">      lookup: file</span>
@@ -2483,7 +2483,7 @@ but with an extra option so you can see how configuration works in Ansible versi
 
 <span class="k">class</span> <span class="nc">LookupModule</span><span class="p">(</span><span class="n">LookupBase</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">terms</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">terms</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
 
         <span class="c1"># lookups in general are expected to both take a list as input and output a list</span>
@@ -2540,7 +2540,7 @@ but with an extra option so you can see how configuration works in Ansible versi
 <p>Vars plugins inject additional variable data into Ansible runs that did not come from an inventory source, playbook, or command line. Playbook constructs like ‘host_vars’ and ‘group_vars’ work using vars plugins.</p>
 <p>Vars plugins were partially implemented in Ansible 2.0 and rewritten to be fully implemented starting with Ansible 2.4.</p>
 <p>Older plugins used a <code class="docutils literal notranslate"><span class="pre">run</span></code> method as their main body/work:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">vault_password</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">vault_password</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">pass</span> <span class="c1"># your code goes here</span>
 </pre></div>
 </div>
@@ -2608,7 +2608,7 @@ Most of the work now  happens in the <code class="docutils literal notranslate">
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Nov 21, 2019.<br/>
+  <p>Last updated on Mar 20, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

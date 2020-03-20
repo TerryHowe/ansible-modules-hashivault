@@ -2283,7 +2283,7 @@ representation that Ansible can turn back into a list.  In Python3, those
 methods return a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict-views" title="(in Python v3.8)"><span class="xref std std-ref">dictionary view</span></a> object.  The
 string representation that Jinja2 returns for dictionary views cannot be parsed back
 into a list by Ansible.  It is, however, easy to make this portable by
-using the <a class="reference external" href="https://jinja.palletsprojects.com/en/2.10.x/templates/#list" title="(in Jinja v2.10.x)"><code class="xref py py-func docutils literal notranslate"><span class="pre">list</span></code></a> filter whenever using <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict.keys" title="(in Python v3.8)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dict.keys()</span></code></a>,
+using the <a class="reference external" href="https://jinja.palletsprojects.com/en/2.11.x/templates/#list" title="(in Jinja v2.11.x)"><code class="xref py py-func docutils literal notranslate"><span class="pre">list</span></code></a> filter whenever using <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict.keys" title="(in Python v3.8)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dict.keys()</span></code></a>,
 <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict.values" title="(in Python v3.8)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dict.values()</span></code></a>, or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict.items" title="(in Python v3.8)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">dict.items()</span></code></a>:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">vars</span><span class="p">:</span>
   <span class="nt">hosts</span><span class="p">:</span>
@@ -2323,7 +2323,7 @@ compatible with both Python2 and Python3:</p>
 <p class="admonition-title">See also</p>
 <ul class="simple">
 <li><p>The <a class="reference internal" href="#pb-py-compat-dict-views"><span class="std std-ref">Dictionary Views</span></a> entry for information on
-why the <a class="reference external" href="https://jinja.palletsprojects.com/en/2.10.x/templates/#list" title="(in Jinja v2.10.x)"><code class="xref py py-func docutils literal notranslate"><span class="pre">list</span> <span class="pre">filter</span></code></a> is necessary
+why the <a class="reference external" href="https://jinja.palletsprojects.com/en/2.11.x/templates/#list" title="(in Jinja v2.11.x)"><code class="xref py py-func docutils literal notranslate"><span class="pre">list</span> <span class="pre">filter</span></code></a> is necessary
 here.</p></li>
 </ul>
 </div>
@@ -2356,7 +2356,7 @@ here.</p></li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Nov 21, 2019.<br/>
+  <p>Last updated on Mar 20, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

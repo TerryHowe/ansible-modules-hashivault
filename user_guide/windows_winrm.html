@@ -2269,7 +2269,7 @@
 <p>Unlike Linux/Unix hosts, which use SSH by default, Windows hosts are
 configured with WinRM. This topic covers how to configure and use WinRM with Ansible.</p>
 <div class="contents local topic" id="topics">
-<p class="topic-title first">Topics</p>
+<p class="topic-title">Topics</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#what-is-winrm" id="id1">What is WinRM?</a></p></li>
 <li><p><a class="reference internal" href="#authentication-options" id="id2">Authentication Options</a></p>
@@ -2755,7 +2755,7 @@ message encryption over HTTP.</p>
 </div>
 <p>CredSSP authentication is not enabled by default on a Windows host, but can
 be enabled by running the following in PowerShell:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">Enable</span><span class="o">-</span><span class="n">WSManCredSSP</span> <span class="o">-</span><span class="k">Role</span> <span class="n">Server</span> <span class="o">-</span><span class="k">Force</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>Enable-WSManCredSSP -Role Server -Force
 </pre></div>
 </div>
 <div class="section" id="installing-credssp-library">
@@ -2821,7 +2821,7 @@ Set-Item -Path WSMan:\localhost\Service\CertificateThumbprint -Value $certificat
 <h2><a class="toc-backref" href="#id19">Non-Administrator Accounts</a><a class="headerlink" href="#non-administrator-accounts" title="Permalink to this headline">¶</a></h2>
 <p>WinRM is configured by default to only allow connections from accounts in the local
 <code class="docutils literal notranslate"><span class="pre">Administrators</span></code> group. This can be changed by running:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">winrm</span> <span class="n">configSDDL</span> <span class="k">default</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>winrm configSDDL default
 </pre></div>
 </div>
 <p>This will display an ACL editor, where new users or groups may be added. To run commands
@@ -3079,7 +3079,7 @@ restrictions but can only run a command and not modules.</p></li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Nov 21, 2019.<br/>
+  <p>Last updated on Mar 20, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>
