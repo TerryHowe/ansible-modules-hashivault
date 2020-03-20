@@ -2,6 +2,17 @@ Changelog
 =========
 
 
+4.2.4 (2020-03-20)
+------------------
+- Fix #204. [Philipp Hossner]
+- Check HTTP status code with an array and fix 'exists' state.
+  [Guillaume Rémy]
+- Refactored the oidc_auth_role module. [Guillaume Rémy]
+- Defaulting members to None when creating groups. [Guillaume Rémy]
+- Pass mount_point, so current configuration for mointpoint other than
+  "ldap" could be read. [Michał Suszko]
+
+
 4.2.3 (2019-11-21)
 ------------------
 - Provide logged alternate data for write to get returned data. [Terry
