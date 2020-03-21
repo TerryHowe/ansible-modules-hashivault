@@ -8,7 +8,7 @@ ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 
 DOCUMENTATION = '''
 ---
 module: hashivault_identity_group_alias
-version_added: "3.13.0"
+version_added: "4.3.0"
 short_description: Hashicorp Vault group alias manage module
 description:
     - Module to manage identity group aliases in Hashicorp Vault.
@@ -60,7 +60,7 @@ options:
             - Name of the alias. Name should be the identifier of the client in the authentication source.
     alias_id:
         description:
-            - ID of the group alias. If set, updates the  corresponding group alias.
+            - ID of the group alias. If set, updates the corresponding group alias.
     group_name:
         description:
             - Group name to which this alias belongs to.
