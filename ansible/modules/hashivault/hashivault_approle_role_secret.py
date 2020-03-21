@@ -145,9 +145,7 @@ def hashivault_approle_role_secret_create(module):
             result = client.create_role_custom_secret_id(role_name=name,
                                                              mount_point=mount_point,
                                                              secret_id=custom_secret_id,
-                                                             meta=metadata,
-                                                             cidr_list=cidr_list,
-                                                             wrap_ttl=wrap_ttl)
+                                                             meta=metadata)
         else:
             if module.check_mode:
                 return {'changed': True}

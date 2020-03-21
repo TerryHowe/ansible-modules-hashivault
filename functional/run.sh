@@ -51,6 +51,7 @@ source ./vaultenv.sh
 
 # approle
 ansible-playbook -v test_approle.yml
+ansible-playbook -v test_approle_check_mode.yml
 source ./approlenv.sh
 ansible-playbook -v --extra-vars='namespace=application/' test_write.yml test_read.yml test_lookup.yml
 source ./vaultenv.sh

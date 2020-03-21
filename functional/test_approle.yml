@@ -141,73 +141,13 @@
     - fail: msg="secret {{approle_secret_id_accessor}} shoud not be in list"
       when: approle_secret_id_accessor in vault_role_secret_list.secrets
 
-    # check_mode
-    - name: create role check_mode exists
-      hashivault_approle_role:
-        name: testrole
-        policies:
-          - approle_test_policy
-        state: present
-      check_mode: true
-      register: 'vault_role_create'
-    - assert: { that: "{{vault_role_create.changed}} == False" }
-    - assert: { that: "{{vault_role_create.rc}} == 0" }
-
-    - name: create role check_mode does not exist
-      hashivault_approle_role:
-        name: testrole_two
-        policies:
-          - approle_test_policy
-        state: present
-      check_mode: true
-      register: 'vault_role_create'
-    - assert: { that: "{{vault_role_create.changed}} == True" }
-    - assert: { that: "{{vault_role_create.rc}} == 0" }
-
-    - name: delete role check_mode exists
-      hashivault_approle_role:
-        name: testrole
-        state: absent
-      check_mode: true
-      register: 'vault_role_create'
-    - assert: { that: "{{vault_role_create.changed}} == True" }
-    - assert: { that: "{{vault_role_create.rc}} == 0" }
-
-    - name: delete role check_mode does not exist
-      hashivault_approle_role:
-        name: testrole_two
-        state: absent
-      check_mode: true
-      register: 'vault_role_create'
-    - assert: { that: "{{vault_role_create.changed}} == False" }
-    - assert: { that: "{{vault_role_create.rc}} == 0" }
-
-    - name: create secret for check_mode test
+    - name: create secret wrap_ttl
       hashivault_approle_role_secret:
         name: testrole
         state: present
+        wrap_ttl: 30s
       register: 'vault_role_secret_create'
     - set_fact:
-        approle_secret_id: "{{vault_role_secret_create.data.secret_id}}"
+        approle_secret_id: "{{vault_role_secret_create.wrap_info.token}}"
     - set_fact:
-        approle_secret_id_accessor: "{{vault_role_secret_create.data.secret_id_accessor}}"
-
-    - name: delete secret exists check_mode
-      hashivault_approle_role_secret:
-        name: testrole
-        secret: "{{approle_secret_id}}"
-        state: absent
-      check_mode: true
-      register: 'vault_role_secret_delete'
-    - assert: { that: "{{vault_role_secret_delete.changed}} == True" }
-    - assert: { that: "{{vault_role_secret_delete.rc}} == 0" }
-
-    - name: delete secret does not exist check_mode
-      hashivault_approle_role_secret:
-        name: testrole_two
-        secret: "{{approle_secret_id}}"
-        state: absent
-      check_mode: true
-      register: 'vault_role_secret_delete'
-    - assert: { that: "{{vault_role_secret_delete.changed}} == False" }
-    - assert: { that: "{{vault_role_secret_delete.rc}} == 0" }
+        approle_secret_id_accessor: "{{vault_role_secret_create.wrap_info.accessor}}"
