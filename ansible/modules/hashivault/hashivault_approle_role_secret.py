@@ -145,7 +145,9 @@ def hashivault_approle_role_secret_create(module):
             result = client.create_role_custom_secret_id(role_name=name,
                                                              mount_point=mount_point,
                                                              secret_id=custom_secret_id,
-                                                             meta=metadata)
+                                                             meta=metadata,
+                                                             cidr_list=cidr_list,
+                                                             wrap_ttl=wrap_ttl)
         else:
             if module.check_mode:
                 return {'changed': True}
@@ -154,7 +156,13 @@ def hashivault_approle_role_secret_create(module):
                                                   meta=metadata,
                                                   cidr_list=cidr_list,
                                                   wrap_ttl=wrap_ttl)
-        return {'changed': True, 'data': result.get('data', {})}
+
+        if wrap_ttl is None:
+            response_key = 'data'
+        else:
+            response_key = 'wrap_info'
+
+        return {'changed': True, response_key: result.get(response_key, {})}
     elif state == 'absent':
         secret = params.get('secret')
         if module.check_mode:
