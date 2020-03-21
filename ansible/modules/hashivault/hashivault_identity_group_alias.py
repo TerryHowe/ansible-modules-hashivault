@@ -155,14 +155,14 @@ def hashivault_identity_group_alias_delete(client, alias_id, alias_name, mount_a
         if alias_id is not None:
             if alias_id not in list_of_aliases['data']['keys']:
                 return {'changed': False}
-            client.secrets.identity.delete_group_alias(alias_id=alias_id)
+            client.secrets.identity.delete_group_alias(entity_id=alias_id)
             return {'changed': True}
         elif alias_name is not None:
             for key, value in dict(list_of_aliases['data']['key_info']).items():
                 if value['mount_accessor'] == mount_accessor and \
                         value['name'] == alias_name and \
                         value['canonical_id'] == canonical_id:
-                    client.secrets.identity.delete_group_alias(alias_id=key)
+                    client.secrets.identity.delete_group_alias(entity_id=key)
                     return {'changed': True}
             return {'changed': False}
         return {'failed': True, 'msg': 'Either alias_id or name must be provided'}
