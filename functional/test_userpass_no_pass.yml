@@ -62,7 +62,7 @@
     - assert: { that: "{{hashivault_userpass_update_no_pass_token.changed}} == True" }
     - assert: { that: "{{hashivault_userpass_update_no_pass_token.rc}} == 0" }
 
-    - name: Set cidr without pass
+    - name: Change policies without pass
       hashivault_userpass:
         name: "{{username}}"
         password: ""
@@ -70,6 +70,19 @@
       register: 'hashivault_userpass_update_no_pass'
     - assert: { that: "{{hashivault_userpass_update_no_pass.changed}} == True" }
     - assert: { that: "{{hashivault_userpass_update_no_pass.rc}} == 0" }
+
+    - name: Set cidr without pass is not possible
+      hashivault_userpass:
+        name: "{{username}}"
+        password: ""
+        token_bound_cidrs: 127.0.0.1
+      ignore_errors: True
+      register: 'hashivault_userpass_update_no_pass_err'
+    - debug:
+        var: hashivault_userpass_update_no_pass_err
+    - assert: { that: "{{hashivault_userpass_update_no_pass_err.changed}} == False" }
+    - assert: { that: "{{hashivault_userpass_update_no_pass_err.rc}} == 1" }
+    - assert: { that: "'token_bound_cidrs can only be changed if user_pass is specified and user_pass_update is True' == '{{hashivault_userpass_update_no_pass_err.msg}}'" }
 
     - name: Create token with updated user
       hashivault_token_create:
