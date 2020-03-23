@@ -114,7 +114,7 @@ def hashivault_userpass_update(client, user_details, user_name, user_pass, user_
     token_bound_cidrs_changed = False
     password_change_allowed = user_pass_update and user_pass
 
-    if set(user_details['data']['policies']) != set(user_policies):
+    if set(user_details['data'].get('policies', [])) != set(user_policies):
         policies_changed = True
 
     if set(user_details['data']['token_bound_cidrs']) != set(token_bound_cidrs):

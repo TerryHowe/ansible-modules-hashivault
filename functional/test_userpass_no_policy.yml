@@ -1,0 +1,56 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    username: 'bob'
+    userpass: 'Th3m@n!!'
+    bobs_rules: >
+      path "secret/*" {
+        capabilities = ["create", "read", "update", "delete", "list"]
+      }
+      path "auth/token/create*" {
+        capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+      }
+      path "auth/token/lookup*" {
+        capabilities = ["read", "list"]
+      }
+      path "auth/token/lookup/*" {
+        capabilities = ["read", "list"]
+      }
+      path "sys/policy" {
+        capabilities = ["read"]
+      }
+      path "sys/policy/*" {
+        capabilities = ["create", "read", "update", "delete", "list"]
+      }
+
+  tasks:
+    - name: Enable kv2 secret store
+      hashivault_userpass:
+        name: "{{username}}"
+        state: absent
+      no_log: True
+
+    #- pause:
+    #    prompt: "Make sure org.foo.FooOverload exception is not present"
+
+    - name: Create userpass for bob via POST to omit the policies field
+      uri:
+        url: "{{ lookup('env','VAULT_ADDR') }}/v1/auth/userpass/users/{{username}}"
+        method: POST
+        return_content: yes
+        body_format: json
+        body:
+          password: "{{userpass}}"
+        headers:
+          X-Vault-Token: "{{ lookup('env','VAULT_TOKEN') }}"
+        status_code: 204
+
+    - name: Update policies
+      hashivault_userpass:
+        name: "{{username}}"
+        password: ""
+        policies: ["policy-bob", "default"]
+      register: 'hashivault_userpass_update_policies'
+    - assert: { that: "{{hashivault_userpass_update_policies.changed}} == True" }
+    - assert: { that: "{{hashivault_userpass_update_policies.rc}} == 0" }
