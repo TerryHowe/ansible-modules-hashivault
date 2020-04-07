@@ -162,7 +162,8 @@ def hashivault_userpass(params):
             user_details = client.read_userpass(name, mount_point=mount_point)
         except Exception:
             if password is not None:
-                client.create_userpass(name, password, policies, token_bound_cidrs=token_bound_cidrs)
+                client.create_userpass(name, password, policies, token_bound_cidrs=token_bound_cidrs,
+                                       mount_point=mount_point)
                 return {'changed': True}
             else:
                 return {'failed': True, 'msg': 'pass must be provided for new users'}
