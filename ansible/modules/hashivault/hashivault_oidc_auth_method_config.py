@@ -193,7 +193,7 @@ def hashivault_oidc_auth_method_config(module):
     if exists:
       current_state = current_state.json()['data']
       for k, v in current_state.items():
-        if v != desired_state[k]:
+        if k in desired_state and v != desired_state[k]:
             changed = True
     
     desired_state['oidc_client_secret'] = params.get('oidc_client_secret') 
