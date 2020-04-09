@@ -82,14 +82,22 @@ EXAMPLES = '''
 '''
 
 DEFAULT_TTL = 2764800
+DEFAULT_CONFIG = {
+    'default_lease_ttl':DEFAULT_TTL,
+    'max_lease_ttl':DEFAULT_TTL,
+    'force_no_cache':False,
+    'token_type': 'default-service'
+}
 
 def main():
     argspec = hashivault_argspec()
     argspec['method_type'] = dict(required=True, type='str')
-    argspec['description'] = dict(required=False, type='str')
-    argspec['state'] = dict(required=False, type='str', default='enabled', choices=['enabled','disabled','enable','disable'])
+    argspec['description'] = dict(required=False, type='str', default='')
+    argspec['state'] = dict(required=False, type='str', default='enabled',
+                            choices=['enabled','disabled','enable','disable'])
     argspec['mount_point'] = dict(required=False, type='str', default=None)
-    argspec['config'] = dict(required=False, type='dict', default={'default_lease_ttl':DEFAULT_TTL, 'max_lease_ttl':DEFAULT_TTL, 'force_no_cache':False, 'token_type': 'default-service'})
+    argspec['config'] = dict(required=False, type='dict',
+                             default=DEFAULT_CONFIG)
     supports_check_mode = True
     module = hashivault_init(argspec, supports_check_mode=supports_check_mode)
     result = hashivault_auth_method(module)
@@ -107,10 +115,13 @@ def hashivault_auth_method(module):
     description = params.get('description')
     mount_point = params.get('mount_point')
     config = params.get('config')
-    state = params.get('state')
+    if params.get('state') in ['enabled','enable']:
+        state = 'enabled'
+    else:
+        state = 'disabled'
     exists = False
     changed = False
-    created = False
+    create = False
 
     if mount_point == None:
         mount_point = method_type
@@ -123,41 +134,42 @@ def hashivault_auth_method(module):
         if path in auth_methods['data'].keys():
             exists = True
     except:
-        if module.check_mode:
-            changed = True
+        pass
 
-    # if its off and we want it on
-    if (state == 'enabled' or state == 'enable') and exists == False:
+    changes = []
+    if state == 'enabled' and exists == False:
         changed = True
-    # if its on and we want it off
-    elif (state == 'disabled' or state == 'disable') and exists == True:
+        create = True
+    elif state == 'disabled' and exists == True:
         changed = True
+    elif exists and state == 'enabled':
+        current_state = client.sys.read_auth_method_tuning(path=mount_point)['data']
+        if 'description' in current_state:
+            if description != current_state['description']:
+                changed = True
+                changes.append('description')
+        for key in config.keys():
+            if key not in current_state:
+                changed = True
+                changes.append('bogus_' + key)
+            elif current_state[key] != config[key]:
+                changed = True
+                changes.append(key)
 
-    # its on, we want it on, need to check current config vs desired
-    if not changed and exists and (state == 'enabled' or state == 'enable'):
-        current_state = client.sys.read_auth_method_tuning(path=mount_point)
-        if 'default_lease_ttl' not in config:
-            config['default_lease_ttl'] = DEFAULT_TTL
-        if 'max_lease_ttl' not in config:
-            config['max_lease_ttl'] = DEFAULT_TTL
-        if 'force_no_cache' not in config:
-            config['force_no_cache'] = False
-        if 'token_type' not in config:
-            config['token_type'] = 'default-service'
-        if current_state['data'] != config:
-            changed = True
+    if module.check_mode:
+        return {'changed': changed, 'created': create, 'state': state}
+    if not changed:
+        return {'changed': changed, 'created': False, 'state': state}
 
-    # brand new
-    if changed and not exists and not module.check_mode and (state == 'enabled' or state == 'enable'):
-        client.sys.enable_auth_method(method_type, description=description, path=mount_point, config=config)
-        created = True
-    # delete existing
-    if changed and not module.check_mode and (state == 'disabled' or state == 'disable'):
+    if state == 'enabled':
+        if create:
+            client.sys.enable_auth_method(method_type, description=description, path=mount_point, config=config)
+        else:
+            client.sys.tune_auth_method(description=description, path=mount_point, **config)
+    if state == 'disabled':
         client.sys.disable_auth_method(path=mount_point)
-    # update existing
-    if changed and exists and not module.check_mode and (state == 'enabled' or state == 'enable'):
-        client.sys.tune_auth_method(description=description, path=mount_point, **config)
-    return {'changed': changed, 'created': created}
+
+    return {'changed': changed, 'created': create, 'state': state, 'changes': changes}
 
 if __name__ == '__main__':
     main()
