@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 
 DOCUMENTATION = '''
 ---
 module: hashivault_k8s_auth_config
-version_added: "3.17.7"
+version_added: "4.3.0"
 short_description: Hashicorp Vault k8s auth config
 description:
     - Module to configure an k8s auth mount
