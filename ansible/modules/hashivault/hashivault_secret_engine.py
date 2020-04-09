@@ -163,9 +163,9 @@ def hashivault_secret_engine(module):
     # needs to be updated
     elif changed and exists and (state == 'present' or state == 'enabled') and not module.check_mode:
         if backend == 'kv':
-            client.sys.tune_mount_configuration(description=description, path=name, options=options, **config)
+            client.sys.tune_mount_configuration(path=name, description=description, options=options, **config)
         else:
-            client.sys.tune_mount_configuration(description=description, path=name, **config)
+            client.sys.tune_mount_configuration(path=name, description=description, **config)
     
     # exists and shouldnt    
     elif changed and (state == 'absent' or state == 'disabled') and not module.check_mode:
