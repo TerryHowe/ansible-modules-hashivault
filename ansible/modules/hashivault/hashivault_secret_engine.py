@@ -89,7 +89,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
     argspec['backend'] = dict(required=False, type='str', default='')
-    argspec['description'] = dict(required=False, type='str')
+    argspec['description'] = dict(required=False, type='str', default='')
     argspec['config'] = dict(required=False, type='dict', default={'default_lease_ttl': DEFAULT_TTL, 'max_lease_ttl': DEFAULT_TTL, 'force_no_cache': False})
     argspec['state'] = dict(required=False, type='str', choices=['present', 'enabled', 'absent', 'disabled'], default='present')
     argspec['options'] = dict(required=False, type='dict', default={'version': '1'})
@@ -125,9 +125,11 @@ def hashivault_secret_engine(module):
     except Exception:
         # doesnt exist
         pass
-    
+
     # doesnt exist and should or does exist and shouldnt
-    if (exists and state == 'absent') or (exists and state == 'disabled') or (not exists and state == 'present') or (not exists and state == 'enabled'):
+    if (exists and (state == 'absent' or state == 'disabled')):
+        changed = True
+    if (not exists and (state == 'present' or state == 'enabled')):
         changed = True
 
     # want to exist so we'll check current state against desired state
@@ -146,12 +148,15 @@ def hashivault_secret_engine(module):
             if k == 'options':
                 if v != options:
                     changed = True
-            elif v != config[k]:
+            elif k == 'description':
+                if v != description:
+                    changed = True
+            elif k in config and v != config[k]:
                 changed = True
-        
+
     # make changes!
     # only pass 'options' when working on a kv backend
-    
+
     # doesnt exist and should
     if changed and not exists and (state == 'present' or state == 'enabled') and not module.check_mode:
         if backend == 'kv':
@@ -159,15 +164,15 @@ def hashivault_secret_engine(module):
         else:
             client.sys.enable_secrets_engine(backend, description=description, path=name, config=config)
         created = True
-        
+
     # needs to be updated
     elif changed and exists and (state == 'present' or state == 'enabled') and not module.check_mode:
         if backend == 'kv':
             client.sys.tune_mount_configuration(path=name, description=description, options=options, **config)
         else:
             client.sys.tune_mount_configuration(path=name, description=description, **config)
-    
-    # exists and shouldnt    
+
+    # exists and shouldn't
     elif changed and (state == 'absent' or state == 'disabled') and not module.check_mode:
         client.sys.disable_secrets_engine(path=name)
 
