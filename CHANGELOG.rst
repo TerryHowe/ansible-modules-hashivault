@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+4.3.1 (2020-04-09)
+------------------
+- Clean up hashivault_auth_method. [Terry Howe]
+- Avoid oid auth method config problem. [Terry Howe]
+
+
 4.3.0 (2020-04-09)
 ------------------
 - Fix for hvac 0.10.1. [Terry Howe]
