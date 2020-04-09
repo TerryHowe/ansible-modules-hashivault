@@ -15,7 +15,7 @@ long_description = open('README.rst', 'r').read()
 
 setup(
     name='ansible-modules-hashivault',
-    version='4.2.4',
+    version='4.3.0',
     description='Ansible Modules for Hashicorp Vault',
     long_description=long_description,
     long_description_content_type='text/x-rst',
