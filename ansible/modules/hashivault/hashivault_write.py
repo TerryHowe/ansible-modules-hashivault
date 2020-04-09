@@ -210,9 +210,11 @@ def hashivault_write(module):
                     else:
                         returned_data = client.write(secret_path, **write_data)
                     if returned_data:
-                        result['data'] = returned_data
-                        if returned_data is None:
-                            result['data'] = ''
+                        from requests.models import Response
+                        if isinstance(returned_data, Response):
+                            result['data'] = returned_data.text
+                        else:
+                            result['data'] = returned_data
                 except Exception as e:
                     result['rc'] = 1
                     result['failed'] = True

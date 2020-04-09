@@ -224,7 +224,10 @@ def hashivault_identity_group_create_or_update(params):
                 member_entity_ids=group_member_entity_ids,
                 mount_point=mount_point
             )
-            return {'changed': True, 'data': response.json()['data']}
+            from requests.models import Response
+            if isinstance(response, Response):
+                response = response.json()
+            return {'changed': True, 'data': response['data']}
         return hashivault_identity_group_update(group_details['data'], client, group_name=group_name,
                                                  group_id=group_details['data']['id'],
                                                  group_type=group_type,
