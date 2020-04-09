@@ -2343,7 +2343,7 @@ will not likely find this to be helpful.</p>
 these are for backwards compatibility and others are to enable flexibility.</p>
 <div class="section" id="action-plugins">
 <span id="flow-action-plugins"></span><h3><a class="toc-backref" href="#id3">Action plugins</a><a class="headerlink" href="#action-plugins" title="Permalink to this headline">¶</a></h3>
-<p>Action Plugins look like modules to end users who are writing <a class="reference internal" href="../reference_appendices/glossary.html#term-playbooks"><span class="xref std std-term">playbooks</span></a> but
+<p>Action Plugins look like modules to end users who are writing <a class="reference internal" href="../reference_appendices/glossary.html#term-Playbooks"><span class="xref std std-term">playbooks</span></a> but
 they’re distinct entities for the purposes of this document.  Action Plugins
 always execute on the controller and are sometimes able to do all work there
 (for instance, the <code class="docutils literal notranslate"><span class="pre">debug</span></code> Action Plugin which prints some text for the user to
@@ -2373,7 +2373,7 @@ modules.  All official modules (shipped with Ansible) use either this or the
 <a class="reference internal" href="#flow-powershell-modules"><span class="std std-ref">powershell module framework</span></a>.</p>
 <p>These modules use imports from <code class="code docutils literal notranslate"><span class="pre">ansible.module_utils</span></code> in order to pull in
 boilerplate module code, such as argument parsing, formatting of return
-values as <a class="reference internal" href="../reference_appendices/glossary.html#term-json"><span class="xref std std-term">JSON</span></a>, and various file operations.</p>
+values as <a class="reference internal" href="../reference_appendices/glossary.html#term-JSON"><span class="xref std std-term">JSON</span></a>, and various file operations.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In Ansible, up to version 2.0.x, the official Python modules used the
@@ -2402,7 +2402,7 @@ file.  The module typically sets a variable to that value like this:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Ansible outputs a <a class="reference internal" href="../reference_appendices/glossary.html#term-json"><span class="xref std std-term">JSON</span></a> string with bare quotes.  Double quotes are
+<p>Ansible outputs a <a class="reference internal" href="../reference_appendices/glossary.html#term-JSON"><span class="xref std std-term">JSON</span></a> string with bare quotes.  Double quotes are
 used to quote string values, double quotes inside of string values are
 backslash escaped, and single quotes may appear unescaped inside of
 a string value.  To use JSONARGS, your scripting language must have a way
@@ -2421,7 +2421,7 @@ library and then use them as native variables throughout the rest of its code.</
 <span id="flow-want-json-modules"></span><h3><a class="toc-backref" href="#id8">Non-native want JSON modules</a><a class="headerlink" href="#non-native-want-json-modules" title="Permalink to this headline">¶</a></h3>
 <p>If a module has the string <code class="docutils literal notranslate"><span class="pre">WANT_JSON</span></code> in it anywhere, Ansible treats
 it as a non-native module that accepts a filename as its only command line
-parameter.  The filename is for a temporary file containing a <a class="reference internal" href="../reference_appendices/glossary.html#term-json"><span class="xref std std-term">JSON</span></a>
+parameter.  The filename is for a temporary file containing a <a class="reference internal" href="../reference_appendices/glossary.html#term-JSON"><span class="xref std std-term">JSON</span></a>
 string containing the module’s parameters.  The module needs to open the file,
 read and parse the parameters, operate on the data, and print its return data
 as a JSON encoded dictionary to stdout before exiting.</p>
@@ -2454,7 +2454,7 @@ written in go.</p>
 <p>Old-style modules are similar to
 <a class="reference internal" href="#flow-want-json-modules"><span class="std std-ref">want JSON modules</span></a>, except that the file that
 they take contains <code class="docutils literal notranslate"><span class="pre">key=value</span></code> pairs for their parameters instead of
-<a class="reference internal" href="../reference_appendices/glossary.html#term-json"><span class="xref std std-term">JSON</span></a>.</p>
+<a class="reference internal" href="../reference_appendices/glossary.html#term-JSON"><span class="xref std std-term">JSON</span></a>.</p>
 <p>Ansible decides that a module is old-style when it doesn’t have any of the
 markers that would show that it is one of the other types.</p>
 </div>
@@ -2469,7 +2469,7 @@ the remote machine.</p>
 <div class="section" id="executor-task-executor">
 <span id="flow-executor-task-executor"></span><h3><a class="toc-backref" href="#id12">Executor/task_executor</a><a class="headerlink" href="#executor-task-executor" title="Permalink to this headline">¶</a></h3>
 <p>The TaskExecutor receives the module name and parameters that were parsed from
-the <a class="reference internal" href="../reference_appendices/glossary.html#term-playbooks"><span class="xref std std-term">playbook</span></a> (or from the command line in the case of
+the <a class="reference internal" href="../reference_appendices/glossary.html#term-Playbooks"><span class="xref std std-term">playbook</span></a> (or from the command line in the case of
 <strong class="command">/usr/bin/ansible</strong>).  It uses the name to decide whether it’s looking
 at a module or an <a class="reference internal" href="#flow-action-plugins"><span class="std std-ref">Action Plugin</span></a>.  If it’s
 a module, it loads the <a class="reference internal" href="#flow-normal-action-plugin"><span class="std std-ref">Normal Action Plugin</span></a>
@@ -2561,7 +2561,7 @@ replacements, but shouldn’t be used directly by modules.</p>
 <cite>AnsibleModule</cite> and then access the version from
 :attr:<code class="docutils literal notranslate"><span class="pre">AnsibleModule.ansible_version</span></code>.</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">&quot;&lt;&lt;INCLUDE_ANSIBLE_MODULE_COMPLEX_ARGS&gt;&gt;&quot;</span></code> is substituted with
-a string which is the Python <code class="docutils literal notranslate"><span class="pre">repr</span></code> of the <a class="reference internal" href="../reference_appendices/glossary.html#term-json"><span class="xref std std-term">JSON</span></a> encoded module
+a string which is the Python <code class="docutils literal notranslate"><span class="pre">repr</span></code> of the <a class="reference internal" href="../reference_appendices/glossary.html#term-JSON"><span class="xref std std-term">JSON</span></a> encoded module
 parameters.  Using <code class="docutils literal notranslate"><span class="pre">repr</span></code> on the JSON string makes it safe to embed in
 a Python file.  In new-style Python modules under the Ansiballz framework
 this is better accessed by instantiating an <cite>AnsibleModule</cite> and
@@ -2909,7 +2909,7 @@ truncation of the parameters if we hit that limit.</p></li>
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 20, 2020.<br/>
+  <p>Last updated on Apr 09, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

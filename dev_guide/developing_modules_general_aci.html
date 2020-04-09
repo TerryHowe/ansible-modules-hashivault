@@ -2538,30 +2538,30 @@ Example: <code class="docutils literal notranslate"><span class="pre">aci.post_c
 </div>
 <div class="section" id="example-code">
 <h5>Example code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h5>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>if state == &#39;present&#39;:
-    aci.payload(
-        aci_class=&#39;&lt;object APIC class&gt;&#39;,
-        class_config=dict(
-            name=object_id,
-            prop1=object_prop1,
-            prop2=object_prop2,
-            prop3=object_prop3,
-        ),
-        child_configs=[
-            dict(
-                &#39;&lt;child APIC class&gt;&#39;=dict(
-                    attributes=dict(
-                        child_key=child_object_id,
-                        child_prop=child_object_prop
-                    ),
-                ),
-            ),
-        ],
-    )
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="k">state</span> <span class="o">==</span> <span class="s1">&#39;present&#39;</span><span class="p">:</span>
+    <span class="n">aci</span><span class="p">.</span><span class="n">payload</span><span class="p">(</span>
+        <span class="n">aci_class</span><span class="o">=</span><span class="s1">&#39;&lt;object APIC class&gt;&#39;</span><span class="p">,</span>
+        <span class="n">class_config</span><span class="o">=</span><span class="n">dict</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">object_id</span><span class="p">,</span>
+            <span class="n">prop1</span><span class="o">=</span><span class="n">object_prop1</span><span class="p">,</span>
+            <span class="n">prop2</span><span class="o">=</span><span class="n">object_prop2</span><span class="p">,</span>
+            <span class="n">prop3</span><span class="o">=</span><span class="n">object_prop3</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">child_configs</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">dict</span><span class="p">(</span>
+                <span class="s1">&#39;&lt;child APIC class&gt;&#39;</span><span class="o">=</span><span class="n">dict</span><span class="p">(</span>
+                    <span class="n">attributes</span><span class="o">=</span><span class="n">dict</span><span class="p">(</span>
+                        <span class="n">child_key</span><span class="o">=</span><span class="n">child_object_id</span><span class="p">,</span>
+                        <span class="n">child_prop</span><span class="o">=</span><span class="n">child_object_prop</span>
+                    <span class="p">),</span>
+                <span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
 
-    aci.get_diff(aci_class=&#39;&lt;object APIC class&gt;&#39;)
+    <span class="n">aci</span><span class="p">.</span><span class="n">get_diff</span><span class="p">(</span><span class="n">aci_class</span><span class="o">=</span><span class="s1">&#39;&lt;object APIC class&gt;&#39;</span><span class="p">)</span>
 
-    aci.post_config()
+    <span class="n">aci</span><span class="p">.</span><span class="n">post_config</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2577,10 +2577,10 @@ Example: <code class="docutils literal notranslate"><span class="pre">aci.post_c
 <div class="section" id="exiting-the-module">
 <h4><a class="toc-backref" href="#id12">Exiting the module</a><a class="headerlink" href="#exiting-the-module" title="Permalink to this headline">¶</a></h4>
 <p>To have the module exit, call the ACIModule method <code class="docutils literal notranslate"><span class="pre">exit_json()</span></code>. This method automatically takes care of returning the common return values for you.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>    aci.exit_json()
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>    <span class="n">aci</span><span class="p">.</span><span class="n">exit_json</span><span class="p">()</span>
 
-if __name__ == &#39;__main__&#39;:
-    main()
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2589,59 +2589,59 @@ if __name__ == &#39;__main__&#39;:
 <div class="section" id="testing-aci-library-functions">
 <span id="aci-dev-guide-testing"></span><h2><a class="toc-backref" href="#id13">Testing ACI library functions</a><a class="headerlink" href="#testing-aci-library-functions" title="Permalink to this headline">¶</a></h2>
 <p>You can test your <code class="docutils literal notranslate"><span class="pre">construct_url()</span></code> and <code class="docutils literal notranslate"><span class="pre">payload()</span></code> arguments without accessing APIC hardware by using the following python script:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>#!/usr/bin/python
-import json
-from ansible.module_utils.network.aci.aci import ACIModule
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">ansible.module_utils.network.aci.aci</span> <span class="kn">import</span> <span class="n">ACIModule</span>
 
-# Just another class mimicking a bare AnsibleModule class for construct_url() and payload() methods
-class AltModule():
-    params = dict(
-        host=&#39;dummy&#39;,
-        port=123,
-        protocol=&#39;https&#39;,
-        state=&#39;present&#39;,
-        output_level=&#39;debug&#39;,
-    )
+<span class="c1"># Just another class mimicking a bare AnsibleModule class for construct_url() and payload() methods</span>
+<span class="k">class</span> <span class="nc">AltModule</span><span class="p">():</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s1">&#39;dummy&#39;</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>
+        <span class="n">protocol</span><span class="o">=</span><span class="s1">&#39;https&#39;</span><span class="p">,</span>
+        <span class="n">state</span><span class="o">=</span><span class="s1">&#39;present&#39;</span><span class="p">,</span>
+        <span class="n">output_level</span><span class="o">=</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
 
-# A sub-class of ACIModule to overload __init__ (we don&#39;t need to log into APIC)
-class AltACIModule(ACIModule):
-    def __init__(self):
-        self.result = dict(changed=False)
-        self.module = AltModule()
-        self.params = self.module.params
+<span class="c1"># A sub-class of ACIModule to overload __init__ (we don&#39;t need to log into APIC)</span>
+<span class="k">class</span> <span class="nc">AltACIModule</span><span class="p">(</span><span class="n">ACIModule</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">changed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">AltModule</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">params</span>
 
-# Instantiate our version of the ACI module
-aci = AltACIModule()
+<span class="c1"># Instantiate our version of the ACI module</span>
+<span class="n">aci</span> <span class="o">=</span> <span class="n">AltACIModule</span><span class="p">()</span>
 
-# Define the variables you need below
-aep = &#39;AEP&#39;
-aep_domain = &#39;uni/phys-DOMAIN&#39;
+<span class="c1"># Define the variables you need below</span>
+<span class="n">aep</span> <span class="o">=</span> <span class="s1">&#39;AEP&#39;</span>
+<span class="n">aep_domain</span> <span class="o">=</span> <span class="s1">&#39;uni/phys-DOMAIN&#39;</span>
 
-# Below test the construct_url() arguments to see if it produced correct results
-aci.construct_url(
-    root_class=dict(
-        aci_class=&#39;infraAttEntityP&#39;,
-        aci_rn=&#39;infra/attentp-{}&#39;.format(aep),
-        target_filter={&#39;name&#39;: aep},
-        module_object=aep,
-    ),
-    subclass_1=dict(
-        aci_class=&#39;infraRsDomP&#39;,
-        aci_rn=&#39;rsdomP-[{}]&#39;.format(aep_domain),
-        target_filter={&#39;tDn&#39;: aep_domain},
-        module_object=aep_domain,
-    ),
-)
+<span class="c1"># Below test the construct_url() arguments to see if it produced correct results</span>
+<span class="n">aci</span><span class="o">.</span><span class="n">construct_url</span><span class="p">(</span>
+    <span class="n">root_class</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">aci_class</span><span class="o">=</span><span class="s1">&#39;infraAttEntityP&#39;</span><span class="p">,</span>
+        <span class="n">aci_rn</span><span class="o">=</span><span class="s1">&#39;infra/attentp-{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aep</span><span class="p">),</span>
+        <span class="n">target_filter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">aep</span><span class="p">},</span>
+        <span class="n">module_object</span><span class="o">=</span><span class="n">aep</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">subclass_1</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">aci_class</span><span class="o">=</span><span class="s1">&#39;infraRsDomP&#39;</span><span class="p">,</span>
+        <span class="n">aci_rn</span><span class="o">=</span><span class="s1">&#39;rsdomP-[{}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aep_domain</span><span class="p">),</span>
+        <span class="n">target_filter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tDn&#39;</span><span class="p">:</span> <span class="n">aep_domain</span><span class="p">},</span>
+        <span class="n">module_object</span><span class="o">=</span><span class="n">aep_domain</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">)</span>
 
-# Below test the payload arguments to see if it produced correct results
-aci.payload(
-    aci_class=&#39;infraRsDomP&#39;,
-    class_config=dict(tDn=aep_domain),
-)
+<span class="c1"># Below test the payload arguments to see if it produced correct results</span>
+<span class="n">aci</span><span class="o">.</span><span class="n">payload</span><span class="p">(</span>
+    <span class="n">aci_class</span><span class="o">=</span><span class="s1">&#39;infraRsDomP&#39;</span><span class="p">,</span>
+    <span class="n">class_config</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">tDn</span><span class="o">=</span><span class="n">aep_domain</span><span class="p">),</span>
+<span class="p">)</span>
 
-# Print the URL and proposed payload
-print &#39;URL:&#39;, json.dumps(aci.url, indent=4)
-print &#39;PAYLOAD:&#39;, json.dumps(aci.proposed, indent=4)
+<span class="c1"># Print the URL and proposed payload</span>
+<span class="k">print</span> <span class="s1">&#39;URL:&#39;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">aci</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">print</span> <span class="s1">&#39;PAYLOAD:&#39;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">aci</span><span class="o">.</span><span class="n">proposed</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This will result in:</p>
@@ -2736,7 +2736,7 @@ $ ./test/runner/ansible-test coverage report
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 20, 2020.<br/>
+  <p>Last updated on Apr 09, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>

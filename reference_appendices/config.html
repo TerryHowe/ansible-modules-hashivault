@@ -6289,1150 +6289,1150 @@ you can use the command line utility mentioned above (<cite>ansible-config</cite
 </div>
 <div class="section" id="environment-variables">
 <h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_CONFIG">
 <code class="sig-name descname">ANSIBLE_CONFIG</code><a class="headerlink" href="#envvar-ANSIBLE_CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override the default ansible config file</p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COW_SELECTION">
 <code class="sig-name descname">ANSIBLE_COW_SELECTION</code><a class="headerlink" href="#envvar-ANSIBLE_COW_SELECTION" title="Permalink to this definition">¶</a></dt>
 <dd><p>This allows you to chose a specific cowsay stencil for the banners or use ‘random’ to cycle through them.</p>
 <p>See also <a class="reference internal" href="#ansible-cow-selection"><span class="std std-ref">ANSIBLE_COW_SELECTION</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COW_WHITELIST">
 <code class="sig-name descname">ANSIBLE_COW_WHITELIST</code><a class="headerlink" href="#envvar-ANSIBLE_COW_WHITELIST" title="Permalink to this definition">¶</a></dt>
 <dd><p>White list of cowsay templates that are ‘safe’ to use, set to empty list if you want to enable all installed templates.</p>
 <p>See also <a class="reference internal" href="#ansible-cow-whitelist"><span class="std std-ref">ANSIBLE_COW_WHITELIST</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_FORCE_COLOR">
 <code class="sig-name descname">ANSIBLE_FORCE_COLOR</code><a class="headerlink" href="#envvar-ANSIBLE_FORCE_COLOR" title="Permalink to this definition">¶</a></dt>
 <dd><p>This options forces color mode even when running without a TTY or the “nocolor” setting is True.</p>
 <p>See also <a class="reference internal" href="#ansible-force-color"><span class="std std-ref">ANSIBLE_FORCE_COLOR</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_NOCOLOR">
 <code class="sig-name descname">ANSIBLE_NOCOLOR</code><a class="headerlink" href="#envvar-ANSIBLE_NOCOLOR" title="Permalink to this definition">¶</a></dt>
 <dd><p>This setting allows suppressing colorizing output, which is used to give a better indication of failure and status information.</p>
 <p>See also <a class="reference internal" href="#ansible-nocolor"><span class="std std-ref">ANSIBLE_NOCOLOR</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_NOCOWS">
 <code class="sig-name descname">ANSIBLE_NOCOWS</code><a class="headerlink" href="#envvar-ANSIBLE_NOCOWS" title="Permalink to this definition">¶</a></dt>
 <dd><p>If you have cowsay installed but want to avoid the ‘cows’ (why????), use this.</p>
 <p>See also <a class="reference internal" href="#ansible-nocows"><span class="std std-ref">ANSIBLE_NOCOWS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COW_PATH">
 <code class="sig-name descname">ANSIBLE_COW_PATH</code><a class="headerlink" href="#envvar-ANSIBLE_COW_PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a custom cowsay path or swap in your cowsay implementation of choice</p>
 <p>See also <a class="reference internal" href="#ansible-cow-path"><span class="std std-ref">ANSIBLE_COW_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_PIPELINING">
 <code class="sig-name descname">ANSIBLE_PIPELINING</code><a class="headerlink" href="#envvar-ANSIBLE_PIPELINING" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pipelining, if supported by the connection plugin, reduces the number of network operations required to execute a module on the remote server, by executing many Ansible modules without actual file transfer.This can result in a very significant performance improvement when enabled.However this conflicts with privilege escalation (become). For example, when using ‘sudo:’ operations you must first disable ‘requiretty’ in /etc/sudoers on all managed hosts, which is why it is disabled by default.</p>
 <p>See also <a class="reference internal" href="#ansible-pipelining"><span class="std std-ref">ANSIBLE_PIPELINING</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SSH_PIPELINING">
 <code class="sig-name descname">ANSIBLE_SSH_PIPELINING</code><a class="headerlink" href="#envvar-ANSIBLE_SSH_PIPELINING" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pipelining, if supported by the connection plugin, reduces the number of network operations required to execute a module on the remote server, by executing many Ansible modules without actual file transfer.This can result in a very significant performance improvement when enabled.However this conflicts with privilege escalation (become). For example, when using ‘sudo:’ operations you must first disable ‘requiretty’ in /etc/sudoers on all managed hosts, which is why it is disabled by default.</p>
 <p>See also <a class="reference internal" href="#ansible-pipelining"><span class="std std-ref">ANSIBLE_PIPELINING</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SSH_ARGS">
 <code class="sig-name descname">ANSIBLE_SSH_ARGS</code><a class="headerlink" href="#envvar-ANSIBLE_SSH_ARGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>If set, this will override the Ansible default ssh arguments.In particular, users may wish to raise the ControlPersist time to encourage performance.  A value of 30 minutes may be appropriate.Be aware that if <cite>-o ControlPath</cite> is set in ssh_args, the control path setting is not used.</p>
 <p>See also <a class="reference internal" href="#ansible-ssh-args"><span class="std std-ref">ANSIBLE_SSH_ARGS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SSH_CONTROL_PATH">
 <code class="sig-name descname">ANSIBLE_SSH_CONTROL_PATH</code><a class="headerlink" href="#envvar-ANSIBLE_SSH_CONTROL_PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the location to save ssh’s ControlPath sockets, it uses ssh’s variable substitution.Since 2.3, if null, ansible will generate a unique hash. Use <cite>%(directory)s</cite> to indicate where to use the control dir path setting.Before 2.3 it defaulted to <cite>control_path=%(directory)s/ansible-ssh-%%h-%%p-%%r</cite>.Be aware that this setting is ignored if <cite>-o ControlPath</cite> is set in ssh args.</p>
 <p>See also <a class="reference internal" href="#ansible-ssh-control-path"><span class="std std-ref">ANSIBLE_SSH_CONTROL_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SSH_CONTROL_PATH_DIR">
 <code class="sig-name descname">ANSIBLE_SSH_CONTROL_PATH_DIR</code><a class="headerlink" href="#envvar-ANSIBLE_SSH_CONTROL_PATH_DIR" title="Permalink to this definition">¶</a></dt>
 <dd><p>This sets the directory to use for ssh control path if the control path setting is null.Also, provides the <cite>%(directory)s</cite> variable for the control path setting.</p>
 <p>See also <a class="reference internal" href="#ansible-ssh-control-path-dir"><span class="std std-ref">ANSIBLE_SSH_CONTROL_PATH_DIR</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SSH_EXECUTABLE">
 <code class="sig-name descname">ANSIBLE_SSH_EXECUTABLE</code><a class="headerlink" href="#envvar-ANSIBLE_SSH_EXECUTABLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>This defines the location of the ssh binary. It defaults to <cite>ssh</cite> which will use the first ssh binary available in $PATH.This option is usually not required, it might be useful when access to system ssh is restricted, or when using ssh wrappers to connect to remote hosts.</p>
 <p>See also <a class="reference internal" href="#ansible-ssh-executable"><span class="std std-ref">ANSIBLE_SSH_EXECUTABLE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SSH_RETRIES">
 <code class="sig-name descname">ANSIBLE_SSH_RETRIES</code><a class="headerlink" href="#envvar-ANSIBLE_SSH_RETRIES" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of attempts to establish a connection before we give up and report the host as ‘UNREACHABLE’</p>
 <p>See also <a class="reference internal" href="#ansible-ssh-retries"><span class="std std-ref">ANSIBLE_SSH_RETRIES</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_ANY_ERRORS_FATAL">
 <code class="sig-name descname">ANSIBLE_ANY_ERRORS_FATAL</code><a class="headerlink" href="#envvar-ANSIBLE_ANY_ERRORS_FATAL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the default value for the any_errors_fatal keyword, if True, Task failures will be considered fatal errors.</p>
 <p>See also <a class="reference internal" href="#any-errors-fatal"><span class="std std-ref">ANY_ERRORS_FATAL</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_BECOME_ALLOW_SAME_USER">
 <code class="sig-name descname">ANSIBLE_BECOME_ALLOW_SAME_USER</code><a class="headerlink" href="#envvar-ANSIBLE_BECOME_ALLOW_SAME_USER" title="Permalink to this definition">¶</a></dt>
 <dd><p>This setting controls if become is skipped when remote user and become user are the same. I.E root sudo to root.</p>
 <p>See also <a class="reference internal" href="#become-allow-same-user"><span class="std std-ref">BECOME_ALLOW_SAME_USER</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_AGNOSTIC_BECOME_PROMPT">
 <code class="sig-name descname">ANSIBLE_AGNOSTIC_BECOME_PROMPT</code><a class="headerlink" href="#envvar-ANSIBLE_AGNOSTIC_BECOME_PROMPT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display an agnostic become prompt instead of displaying a prompt containing the command line supplied become method</p>
 <p>See also <a class="reference internal" href="#agnostic-become-prompt"><span class="std std-ref">AGNOSTIC_BECOME_PROMPT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_CACHE_PLUGIN">
 <code class="sig-name descname">ANSIBLE_CACHE_PLUGIN</code><a class="headerlink" href="#envvar-ANSIBLE_CACHE_PLUGIN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Chooses which cache plugin to use, the default ‘memory’ is ephimeral.</p>
 <p>See also <a class="reference internal" href="#cache-plugin"><span class="std std-ref">CACHE_PLUGIN</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_CACHE_PLUGIN_CONNECTION">
 <code class="sig-name descname">ANSIBLE_CACHE_PLUGIN_CONNECTION</code><a class="headerlink" href="#envvar-ANSIBLE_CACHE_PLUGIN_CONNECTION" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines connection or path information for the cache plugin</p>
 <p>See also <a class="reference internal" href="#cache-plugin-connection"><span class="std std-ref">CACHE_PLUGIN_CONNECTION</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_CACHE_PLUGIN_PREFIX">
 <code class="sig-name descname">ANSIBLE_CACHE_PLUGIN_PREFIX</code><a class="headerlink" href="#envvar-ANSIBLE_CACHE_PLUGIN_PREFIX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prefix to use for cache plugin files/tables</p>
 <p>See also <a class="reference internal" href="#cache-plugin-prefix"><span class="std std-ref">CACHE_PLUGIN_PREFIX</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_CACHE_PLUGIN_TIMEOUT">
 <code class="sig-name descname">ANSIBLE_CACHE_PLUGIN_TIMEOUT</code><a class="headerlink" href="#envvar-ANSIBLE_CACHE_PLUGIN_TIMEOUT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expiration timeout for the cache plugin data</p>
 <p>See also <a class="reference internal" href="#cache-plugin-timeout"><span class="std std-ref">CACHE_PLUGIN_TIMEOUT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_CHANGED">
 <code class="sig-name descname">ANSIBLE_COLOR_CHANGED</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_CHANGED" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use on ‘Changed’ task status</p>
 <p>See also <a class="reference internal" href="#color-changed"><span class="std std-ref">COLOR_CHANGED</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_CONSOLE_PROMPT">
 <code class="sig-name descname">ANSIBLE_COLOR_CONSOLE_PROMPT</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_CONSOLE_PROMPT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the default color to use for ansible-console</p>
 <p>See also <a class="reference internal" href="#color-console-prompt"><span class="std std-ref">COLOR_CONSOLE_PROMPT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_DEBUG">
 <code class="sig-name descname">ANSIBLE_COLOR_DEBUG</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_DEBUG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use when emitting debug messages</p>
 <p>See also <a class="reference internal" href="#color-debug"><span class="std std-ref">COLOR_DEBUG</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_DEPRECATE">
 <code class="sig-name descname">ANSIBLE_COLOR_DEPRECATE</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_DEPRECATE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use when emitting deprecation messages</p>
 <p>See also <a class="reference internal" href="#color-deprecate"><span class="std std-ref">COLOR_DEPRECATE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_DIFF_ADD">
 <code class="sig-name descname">ANSIBLE_COLOR_DIFF_ADD</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_DIFF_ADD" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use when showing added lines in diffs</p>
 <p>See also <a class="reference internal" href="#color-diff-add"><span class="std std-ref">COLOR_DIFF_ADD</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_DIFF_LINES">
 <code class="sig-name descname">ANSIBLE_COLOR_DIFF_LINES</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_DIFF_LINES" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use when showing diffs</p>
 <p>See also <a class="reference internal" href="#color-diff-lines"><span class="std std-ref">COLOR_DIFF_LINES</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_DIFF_REMOVE">
 <code class="sig-name descname">ANSIBLE_COLOR_DIFF_REMOVE</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_DIFF_REMOVE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use when showing removed lines in diffs</p>
 <p>See also <a class="reference internal" href="#color-diff-remove"><span class="std std-ref">COLOR_DIFF_REMOVE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_ERROR">
 <code class="sig-name descname">ANSIBLE_COLOR_ERROR</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use when emitting error messages</p>
 <p>See also <a class="reference internal" href="#color-error"><span class="std std-ref">COLOR_ERROR</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_HIGHLIGHT">
 <code class="sig-name descname">ANSIBLE_COLOR_HIGHLIGHT</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_HIGHLIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use for highlighting</p>
 <p>See also <a class="reference internal" href="#color-highlight"><span class="std std-ref">COLOR_HIGHLIGHT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_OK">
 <code class="sig-name descname">ANSIBLE_COLOR_OK</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_OK" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use when showing ‘OK’ task status</p>
 <p>See also <a class="reference internal" href="#color-ok"><span class="std std-ref">COLOR_OK</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_SKIP">
 <code class="sig-name descname">ANSIBLE_COLOR_SKIP</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_SKIP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use when showing ‘Skipped’ task status</p>
 <p>See also <a class="reference internal" href="#color-skip"><span class="std std-ref">COLOR_SKIP</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_UNREACHABLE">
 <code class="sig-name descname">ANSIBLE_COLOR_UNREACHABLE</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_UNREACHABLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use on ‘Unreachable’ status</p>
 <p>See also <a class="reference internal" href="#color-unreachable"><span class="std std-ref">COLOR_UNREACHABLE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_VERBOSE">
 <code class="sig-name descname">ANSIBLE_COLOR_VERBOSE</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_VERBOSE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use when emitting verbose messages. i.e those that show with ‘-v’s.</p>
 <p>See also <a class="reference internal" href="#color-verbose"><span class="std std-ref">COLOR_VERBOSE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COLOR_WARN">
 <code class="sig-name descname">ANSIBLE_COLOR_WARN</code><a class="headerlink" href="#envvar-ANSIBLE_COLOR_WARN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the color to use when emitting warning messages</p>
 <p>See also <a class="reference internal" href="#color-warn"><span class="std std-ref">COLOR_WARN</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_ACTION_WARNINGS">
 <code class="sig-name descname">ANSIBLE_ACTION_WARNINGS</code><a class="headerlink" href="#envvar-ANSIBLE_ACTION_WARNINGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>By default Ansible will issue a warning when received from a task action (module or action plugin)These warnings can be silenced by adjusting this setting to False.</p>
 <p>See also <a class="reference internal" href="#action-warnings"><span class="std std-ref">ACTION_WARNINGS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_COMMAND_WARNINGS">
 <code class="sig-name descname">ANSIBLE_COMMAND_WARNINGS</code><a class="headerlink" href="#envvar-ANSIBLE_COMMAND_WARNINGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>By default Ansible will issue a warning when the shell or command module is used and the command appears to be similar to an existing Ansible module.These warnings can be silenced by adjusting this setting to False. You can also control this at the task level with the module option <code class="docutils literal notranslate"><span class="pre">warn</span></code>.</p>
 <p>See also <a class="reference internal" href="#command-warnings"><span class="std std-ref">COMMAND_WARNINGS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_LOCALHOST_WARNING">
 <code class="sig-name descname">ANSIBLE_LOCALHOST_WARNING</code><a class="headerlink" href="#envvar-ANSIBLE_LOCALHOST_WARNING" title="Permalink to this definition">¶</a></dt>
 <dd><p>By default Ansible will issue a warning when there are no hosts in the inventory.These warnings can be silenced by adjusting this setting to False.</p>
 <p>See also <a class="reference internal" href="#localhost-warning"><span class="std std-ref">LOCALHOST_WARNING</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_ACTION_PLUGINS">
 <code class="sig-name descname">ANSIBLE_ACTION_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_ACTION_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Action Plugins.</p>
 <p>See also <a class="reference internal" href="#default-action-plugin-path"><span class="std std-ref">DEFAULT_ACTION_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_ASK_PASS">
 <code class="sig-name descname">ANSIBLE_ASK_PASS</code><a class="headerlink" href="#envvar-ANSIBLE_ASK_PASS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This controls whether an Ansible playbook should prompt for a login password. If using SSH keys for authentication, you probably do not needed to change this setting.</p>
 <p>See also <a class="reference internal" href="#default-ask-pass"><span class="std std-ref">DEFAULT_ASK_PASS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_ASK_SUDO_PASS">
 <code class="sig-name descname">ANSIBLE_ASK_SUDO_PASS</code><a class="headerlink" href="#envvar-ANSIBLE_ASK_SUDO_PASS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This controls whether an Ansible playbook should prompt for a sudo password.</p>
 <p>See also <a class="reference internal" href="#default-ask-sudo-pass"><span class="std std-ref">DEFAULT_ASK_SUDO_PASS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_ASK_SU_PASS">
 <code class="sig-name descname">ANSIBLE_ASK_SU_PASS</code><a class="headerlink" href="#envvar-ANSIBLE_ASK_SU_PASS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This controls whether an Ansible playbook should prompt for a su password.</p>
 <p>See also <a class="reference internal" href="#default-ask-su-pass"><span class="std std-ref">DEFAULT_ASK_SU_PASS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_ASK_VAULT_PASS">
 <code class="sig-name descname">ANSIBLE_ASK_VAULT_PASS</code><a class="headerlink" href="#envvar-ANSIBLE_ASK_VAULT_PASS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This controls whether an Ansible playbook should prompt for a vault password.</p>
 <p>See also <a class="reference internal" href="#default-ask-vault-pass"><span class="std std-ref">DEFAULT_ASK_VAULT_PASS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_BECOME">
 <code class="sig-name descname">ANSIBLE_BECOME</code><a class="headerlink" href="#envvar-ANSIBLE_BECOME" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggles the use of privilege escalation, allowing you to ‘become’ another user after login.</p>
 <p>See also <a class="reference internal" href="#default-become"><span class="std std-ref">DEFAULT_BECOME</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_BECOME_ASK_PASS">
 <code class="sig-name descname">ANSIBLE_BECOME_ASK_PASS</code><a class="headerlink" href="#envvar-ANSIBLE_BECOME_ASK_PASS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle to prompt for privilege escalation password.</p>
 <p>See also <a class="reference internal" href="#default-become-ask-pass"><span class="std std-ref">DEFAULT_BECOME_ASK_PASS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_BECOME_METHOD">
 <code class="sig-name descname">ANSIBLE_BECOME_METHOD</code><a class="headerlink" href="#envvar-ANSIBLE_BECOME_METHOD" title="Permalink to this definition">¶</a></dt>
 <dd><p>Privilege escalation method to use when <cite>become</cite> is enabled.</p>
 <p>See also <a class="reference internal" href="#default-become-method"><span class="std std-ref">DEFAULT_BECOME_METHOD</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_BECOME_EXE">
 <code class="sig-name descname">ANSIBLE_BECOME_EXE</code><a class="headerlink" href="#envvar-ANSIBLE_BECOME_EXE" title="Permalink to this definition">¶</a></dt>
 <dd><p>executable to use for privilege escalation, otherwise Ansible will depend on PATH</p>
 <p>See also <a class="reference internal" href="#default-become-exe"><span class="std std-ref">DEFAULT_BECOME_EXE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_BECOME_FLAGS">
 <code class="sig-name descname">ANSIBLE_BECOME_FLAGS</code><a class="headerlink" href="#envvar-ANSIBLE_BECOME_FLAGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flags to pass to the privilege escalation executable.</p>
 <p>See also <a class="reference internal" href="#default-become-flags"><span class="std std-ref">DEFAULT_BECOME_FLAGS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_BECOME_USER">
 <code class="sig-name descname">ANSIBLE_BECOME_USER</code><a class="headerlink" href="#envvar-ANSIBLE_BECOME_USER" title="Permalink to this definition">¶</a></dt>
 <dd><p>The user your login/remote user ‘becomes’ when using privilege escalation, most systems will use ‘root’ when no user is specified.</p>
 <p>See also <a class="reference internal" href="#default-become-user"><span class="std std-ref">DEFAULT_BECOME_USER</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_CACHE_PLUGINS">
 <code class="sig-name descname">ANSIBLE_CACHE_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_CACHE_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Cache Plugins.</p>
 <p>See also <a class="reference internal" href="#default-cache-plugin-path"><span class="std std-ref">DEFAULT_CACHE_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_CALLABLE_WHITELIST">
 <code class="sig-name descname">ANSIBLE_CALLABLE_WHITELIST</code><a class="headerlink" href="#envvar-ANSIBLE_CALLABLE_WHITELIST" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whitelist of callable methods to be made available to template evaluation</p>
 <p>See also <a class="reference internal" href="#default-callable-whitelist"><span class="std std-ref">DEFAULT_CALLABLE_WHITELIST</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_CALLBACK_PLUGINS">
 <code class="sig-name descname">ANSIBLE_CALLBACK_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_CALLBACK_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Callback Plugins.</p>
 <p>See also <a class="reference internal" href="#default-callback-plugin-path"><span class="std std-ref">DEFAULT_CALLBACK_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_CALLBACK_WHITELIST">
 <code class="sig-name descname">ANSIBLE_CALLBACK_WHITELIST</code><a class="headerlink" href="#envvar-ANSIBLE_CALLBACK_WHITELIST" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of whitelisted callbacks, not all callbacks need whitelisting, but many of those shipped with Ansible do as we don’t want them activated by default.</p>
 <p>See also <a class="reference internal" href="#default-callback-whitelist"><span class="std std-ref">DEFAULT_CALLBACK_WHITELIST</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_CLICONF_PLUGINS">
 <code class="sig-name descname">ANSIBLE_CLICONF_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_CLICONF_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Cliconf Plugins.</p>
 <p>See also <a class="reference internal" href="#default-cliconf-plugin-path"><span class="std std-ref">DEFAULT_CLICONF_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_CONNECTION_PLUGINS">
 <code class="sig-name descname">ANSIBLE_CONNECTION_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_CONNECTION_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Connection Plugins.</p>
 <p>See also <a class="reference internal" href="#default-connection-plugin-path"><span class="std std-ref">DEFAULT_CONNECTION_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_DEBUG">
 <code class="sig-name descname">ANSIBLE_DEBUG</code><a class="headerlink" href="#envvar-ANSIBLE_DEBUG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggles debug output in Ansible. This is <em>very</em> verbose and can hinder multiprocessing.  Debug output can also include secret information despite no_log settings being enabled, which means debug mode should not be used in production.</p>
 <p>See also <a class="reference internal" href="#default-debug"><span class="std std-ref">DEFAULT_DEBUG</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_EXECUTABLE">
 <code class="sig-name descname">ANSIBLE_EXECUTABLE</code><a class="headerlink" href="#envvar-ANSIBLE_EXECUTABLE" title="Permalink to this definition">¶</a></dt>
 <dd><p>This indicates the command to use to spawn a shell under for Ansible’s execution needs on a target. Users may need to change this in rare instances when shell usage is constrained, but in most cases it may be left as is.</p>
 <p>See also <a class="reference internal" href="#default-executable"><span class="std std-ref">DEFAULT_EXECUTABLE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_FACT_PATH">
 <code class="sig-name descname">ANSIBLE_FACT_PATH</code><a class="headerlink" href="#envvar-ANSIBLE_FACT_PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>This option allows you to globally configure a custom path for ‘local_facts’ for the implied M(setup) task when using fact gathering.If not set, it will fallback to the default from the M(setup) module: <code class="docutils literal notranslate"><span class="pre">/etc/ansible/facts.d</span></code>.This does <strong>not</strong> affect  user defined tasks that use the M(setup) module.</p>
 <p>See also <a class="reference internal" href="#default-fact-path"><span class="std std-ref">DEFAULT_FACT_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_FILTER_PLUGINS">
 <code class="sig-name descname">ANSIBLE_FILTER_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_FILTER_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Jinja2 Filter Plugins.</p>
 <p>See also <a class="reference internal" href="#default-filter-plugin-path"><span class="std std-ref">DEFAULT_FILTER_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_FORCE_HANDLERS">
 <code class="sig-name descname">ANSIBLE_FORCE_HANDLERS</code><a class="headerlink" href="#envvar-ANSIBLE_FORCE_HANDLERS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This option controls if notified handlers run on a host even if a failure occurs on that host.When false, the handlers will not run if a failure has occurred on a host.This can also be set per play or on the command line. See Handlers and Failure for more details.</p>
 <p>See also <a class="reference internal" href="#default-force-handlers"><span class="std std-ref">DEFAULT_FORCE_HANDLERS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_FORKS">
 <code class="sig-name descname">ANSIBLE_FORKS</code><a class="headerlink" href="#envvar-ANSIBLE_FORKS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum number of forks Ansible will use to execute tasks on target hosts.</p>
 <p>See also <a class="reference internal" href="#default-forks"><span class="std std-ref">DEFAULT_FORKS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_GATHERING">
 <code class="sig-name descname">ANSIBLE_GATHERING</code><a class="headerlink" href="#envvar-ANSIBLE_GATHERING" title="Permalink to this definition">¶</a></dt>
 <dd><p>This setting controls the default policy of fact gathering (facts discovered about remote systems).When ‘implicit’ (the default), the cache plugin will be ignored and facts will be gathered per play unless ‘gather_facts: False’ is set.When ‘explicit’ the inverse is true, facts will not be gathered unless directly requested in the play.The ‘smart’ value means each new host that has no facts discovered will be scanned, but if the same host is addressed in multiple plays it will not be contacted again in the playbook run.This option can be useful for those wishing to save fact gathering time. Both ‘smart’ and ‘explicit’ will use the cache plugin.</p>
 <p>See also <a class="reference internal" href="#default-gathering"><span class="std std-ref">DEFAULT_GATHERING</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_GATHER_SUBSET">
 <code class="sig-name descname">ANSIBLE_GATHER_SUBSET</code><a class="headerlink" href="#envvar-ANSIBLE_GATHER_SUBSET" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the <cite>gather_subset</cite> option for the M(setup) task in the implicit fact gathering. See the module documentation for specifics.It does <strong>not</strong> apply to user defined M(setup) tasks.</p>
 <p>See also <a class="reference internal" href="#default-gather-subset"><span class="std std-ref">DEFAULT_GATHER_SUBSET</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_GATHER_TIMEOUT">
 <code class="sig-name descname">ANSIBLE_GATHER_TIMEOUT</code><a class="headerlink" href="#envvar-ANSIBLE_GATHER_TIMEOUT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the timeout in seconds for the implicit fact gathering.It does <strong>not</strong> apply to user defined M(setup) tasks.</p>
 <p>See also <a class="reference internal" href="#default-gather-timeout"><span class="std std-ref">DEFAULT_GATHER_TIMEOUT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_HANDLER_INCLUDES_STATIC">
 <code class="sig-name descname">ANSIBLE_HANDLER_INCLUDES_STATIC</code><a class="headerlink" href="#envvar-ANSIBLE_HANDLER_INCLUDES_STATIC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Since 2.0 M(include) can be ‘dynamic’, this setting (if True) forces that if the include appears in a <code class="docutils literal notranslate"><span class="pre">handlers</span></code> section to be ‘static’.</p>
 <p>See also <a class="reference internal" href="#default-handler-includes-static"><span class="std std-ref">DEFAULT_HANDLER_INCLUDES_STATIC</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_HASH_BEHAVIOUR">
 <code class="sig-name descname">ANSIBLE_HASH_BEHAVIOUR</code><a class="headerlink" href="#envvar-ANSIBLE_HASH_BEHAVIOUR" title="Permalink to this definition">¶</a></dt>
 <dd><p>This setting controls how variables merge in Ansible. By default Ansible will override variables in specific precedence orders, as described in Variables. When a variable of higher precedence wins, it will replace the other value.Some users prefer that variables that are hashes (aka ‘dictionaries’ in Python terms) are merged. This setting is called ‘merge’. This is not the default behavior and it does not affect variables whose values are scalars (integers, strings) or arrays.  We generally recommend not using this setting unless you think you have an absolute need for it, and playbooks in the official examples repos do not use this settingIn version 2.0 a <code class="docutils literal notranslate"><span class="pre">combine</span></code> filter was added to allow doing this for a particular variable (described in Filters).</p>
 <p>See also <a class="reference internal" href="#default-hash-behaviour"><span class="std std-ref">DEFAULT_HASH_BEHAVIOUR</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_HOSTS">
 <code class="sig-name descname">ANSIBLE_HOSTS</code><a class="headerlink" href="#envvar-ANSIBLE_HOSTS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Comma separated list of Ansible inventory sources</p>
 <p>See also <a class="reference internal" href="#default-host-list"><span class="std std-ref">DEFAULT_HOST_LIST</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_INVENTORY">
 <code class="sig-name descname">ANSIBLE_INVENTORY</code><a class="headerlink" href="#envvar-ANSIBLE_INVENTORY" title="Permalink to this definition">¶</a></dt>
 <dd><p>Comma separated list of Ansible inventory sources</p>
 <p>See also <a class="reference internal" href="#default-host-list"><span class="std std-ref">DEFAULT_HOST_LIST</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_HTTPAPI_PLUGINS">
 <code class="sig-name descname">ANSIBLE_HTTPAPI_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_HTTPAPI_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for HttpApi Plugins.</p>
 <p>See also <a class="reference internal" href="#default-httpapi-plugin-path"><span class="std std-ref">DEFAULT_HTTPAPI_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_INVENTORY_PLUGINS">
 <code class="sig-name descname">ANSIBLE_INVENTORY_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_INVENTORY_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Inventory Plugins.</p>
 <p>See also <a class="reference internal" href="#default-inventory-plugin-path"><span class="std std-ref">DEFAULT_INVENTORY_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_JINJA2_EXTENSIONS">
 <code class="sig-name descname">ANSIBLE_JINJA2_EXTENSIONS</code><a class="headerlink" href="#envvar-ANSIBLE_JINJA2_EXTENSIONS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a developer-specific feature that allows enabling additional Jinja2 extensions.See the Jinja2 documentation for details. If you do not know what these do, you probably don’t need to change this setting :)</p>
 <p>See also <a class="reference internal" href="#default-jinja2-extensions"><span class="std std-ref">DEFAULT_JINJA2_EXTENSIONS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_JINJA2_NATIVE">
 <code class="sig-name descname">ANSIBLE_JINJA2_NATIVE</code><a class="headerlink" href="#envvar-ANSIBLE_JINJA2_NATIVE" title="Permalink to this definition">¶</a></dt>
 <dd><p>This option preserves variable types during template operations. This requires Jinja2 &gt;= 2.10.</p>
 <p>See also <a class="reference internal" href="#default-jinja2-native"><span class="std std-ref">DEFAULT_JINJA2_NATIVE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_KEEP_REMOTE_FILES">
 <code class="sig-name descname">ANSIBLE_KEEP_REMOTE_FILES</code><a class="headerlink" href="#envvar-ANSIBLE_KEEP_REMOTE_FILES" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enables/disables the cleaning up of the temporary files Ansible used to execute the tasks on the remote.</p>
 <p>See also <a class="reference internal" href="#default-keep-remote-files"><span class="std std-ref">DEFAULT_KEEP_REMOTE_FILES</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-LIBVIRT_LXC_NOSECLABEL">
 <code class="sig-name descname">LIBVIRT_LXC_NOSECLABEL</code><a class="headerlink" href="#envvar-LIBVIRT_LXC_NOSECLABEL" title="Permalink to this definition">¶</a></dt>
 <dd><p>This setting causes libvirt to connect to lxc containers by passing –noseclabel to virsh. This is necessary when running on systems which do not have SELinux.</p>
 <p>See also <a class="reference internal" href="#default-libvirt-lxc-noseclabel"><span class="std std-ref">DEFAULT_LIBVIRT_LXC_NOSECLABEL</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_LOAD_CALLBACK_PLUGINS">
 <code class="sig-name descname">ANSIBLE_LOAD_CALLBACK_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_LOAD_CALLBACK_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controls whether callback plugins are loaded when running /usr/bin/ansible. This may be used to log activity from the command line, send notifications, and so on. Callback plugins are always loaded for <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code>.</p>
 <p>See also <a class="reference internal" href="#default-load-callback-plugins"><span class="std std-ref">DEFAULT_LOAD_CALLBACK_PLUGINS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_LOCAL_TEMP">
 <code class="sig-name descname">ANSIBLE_LOCAL_TEMP</code><a class="headerlink" href="#envvar-ANSIBLE_LOCAL_TEMP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Temporary directory for Ansible to use on the controller.</p>
 <p>See also <a class="reference internal" href="#default-local-tmp"><span class="std std-ref">DEFAULT_LOCAL_TMP</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_LOG_PATH">
 <code class="sig-name descname">ANSIBLE_LOG_PATH</code><a class="headerlink" href="#envvar-ANSIBLE_LOG_PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>File to which Ansible will log on the controller. When empty logging is disabled.</p>
 <p>See also <a class="reference internal" href="#default-log-path"><span class="std std-ref">DEFAULT_LOG_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_LOG_FILTER">
 <code class="sig-name descname">ANSIBLE_LOG_FILTER</code><a class="headerlink" href="#envvar-ANSIBLE_LOG_FILTER" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of logger names to filter out of the log file</p>
 <p>See also <a class="reference internal" href="#default-log-filter"><span class="std std-ref">DEFAULT_LOG_FILTER</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_LOOKUP_PLUGINS">
 <code class="sig-name descname">ANSIBLE_LOOKUP_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_LOOKUP_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Lookup Plugins.</p>
 <p>See also <a class="reference internal" href="#default-lookup-plugin-path"><span class="std std-ref">DEFAULT_LOOKUP_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_MODULE_ARGS">
 <code class="sig-name descname">ANSIBLE_MODULE_ARGS</code><a class="headerlink" href="#envvar-ANSIBLE_MODULE_ARGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This sets the default arguments to pass to the <code class="docutils literal notranslate"><span class="pre">ansible</span></code> adhoc binary if no <code class="docutils literal notranslate"><span class="pre">-a</span></code> is specified.</p>
 <p>See also <a class="reference internal" href="#default-module-args"><span class="std std-ref">DEFAULT_MODULE_ARGS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_MODULE_LANG">
 <code class="sig-name descname">ANSIBLE_MODULE_LANG</code><a class="headerlink" href="#envvar-ANSIBLE_MODULE_LANG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Language locale setting to use for modules when they execute on the target.If empty it tries to set itself to the LANG environment variable on the controller.This is only used if DEFAULT_MODULE_SET_LOCALE is set to true</p>
 <p>See also <a class="reference internal" href="#default-module-lang"><span class="std std-ref">DEFAULT_MODULE_LANG</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_LIBRARY">
 <code class="sig-name descname">ANSIBLE_LIBRARY</code><a class="headerlink" href="#envvar-ANSIBLE_LIBRARY" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Modules.</p>
 <p>See also <a class="reference internal" href="#default-module-path"><span class="std std-ref">DEFAULT_MODULE_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_MODULE_SET_LOCALE">
 <code class="sig-name descname">ANSIBLE_MODULE_SET_LOCALE</code><a class="headerlink" href="#envvar-ANSIBLE_MODULE_SET_LOCALE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controls if we set locale for modules when executing on the target.</p>
 <p>See also <a class="reference internal" href="#default-module-set-locale"><span class="std std-ref">DEFAULT_MODULE_SET_LOCALE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_MODULE_UTILS">
 <code class="sig-name descname">ANSIBLE_MODULE_UTILS</code><a class="headerlink" href="#envvar-ANSIBLE_MODULE_UTILS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Module utils files, which are shared by modules.</p>
 <p>See also <a class="reference internal" href="#default-module-utils-path"><span class="std std-ref">DEFAULT_MODULE_UTILS_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_NETCONF_PLUGINS">
 <code class="sig-name descname">ANSIBLE_NETCONF_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_NETCONF_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Netconf Plugins.</p>
 <p>See also <a class="reference internal" href="#default-netconf-plugin-path"><span class="std std-ref">DEFAULT_NETCONF_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_NO_LOG">
 <code class="sig-name descname">ANSIBLE_NO_LOG</code><a class="headerlink" href="#envvar-ANSIBLE_NO_LOG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle Ansible’s display and logging of task details, mainly used to avoid security disclosures.</p>
 <p>See also <a class="reference internal" href="#default-no-log"><span class="std std-ref">DEFAULT_NO_LOG</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_NO_TARGET_SYSLOG">
 <code class="sig-name descname">ANSIBLE_NO_TARGET_SYSLOG</code><a class="headerlink" href="#envvar-ANSIBLE_NO_TARGET_SYSLOG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle Ansible logging to syslog on the target when it executes tasks.</p>
 <p>See also <a class="reference internal" href="#default-no-target-syslog"><span class="std std-ref">DEFAULT_NO_TARGET_SYSLOG</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_NULL_REPRESENTATION">
 <code class="sig-name descname">ANSIBLE_NULL_REPRESENTATION</code><a class="headerlink" href="#envvar-ANSIBLE_NULL_REPRESENTATION" title="Permalink to this definition">¶</a></dt>
 <dd><p>What templating should return as a ‘null’ value. When not set it will let Jinja2 decide.</p>
 <p>See also <a class="reference internal" href="#default-null-representation"><span class="std std-ref">DEFAULT_NULL_REPRESENTATION</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_POLL_INTERVAL">
 <code class="sig-name descname">ANSIBLE_POLL_INTERVAL</code><a class="headerlink" href="#envvar-ANSIBLE_POLL_INTERVAL" title="Permalink to this definition">¶</a></dt>
 <dd><p>For asynchronous tasks in Ansible (covered in Asynchronous Actions and Polling), this is how often to check back on the status of those tasks when an explicit poll interval is not supplied. The default is a reasonably moderate 15 seconds which is a tradeoff between checking in frequently and providing a quick turnaround when something may have completed.</p>
 <p>See also <a class="reference internal" href="#default-poll-interval"><span class="std std-ref">DEFAULT_POLL_INTERVAL</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_PRIVATE_KEY_FILE">
 <code class="sig-name descname">ANSIBLE_PRIVATE_KEY_FILE</code><a class="headerlink" href="#envvar-ANSIBLE_PRIVATE_KEY_FILE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Option for connections using a certificate or key file to authenticate, rather than an agent or passwords, you can set the default value here to avoid re-specifying –private-key with every invocation.</p>
 <p>See also <a class="reference internal" href="#default-private-key-file"><span class="std std-ref">DEFAULT_PRIVATE_KEY_FILE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_PRIVATE_ROLE_VARS">
 <code class="sig-name descname">ANSIBLE_PRIVATE_ROLE_VARS</code><a class="headerlink" href="#envvar-ANSIBLE_PRIVATE_ROLE_VARS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes role variables inaccessible from other roles.This was introduced as a way to reset role variables to default values if a role is used more than once in a playbook.</p>
 <p>See also <a class="reference internal" href="#default-private-role-vars"><span class="std std-ref">DEFAULT_PRIVATE_ROLE_VARS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_REMOTE_PORT">
 <code class="sig-name descname">ANSIBLE_REMOTE_PORT</code><a class="headerlink" href="#envvar-ANSIBLE_REMOTE_PORT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Port to use in remote connections, when blank it will use the connection plugin default.</p>
 <p>See also <a class="reference internal" href="#default-remote-port"><span class="std std-ref">DEFAULT_REMOTE_PORT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_REMOTE_USER">
 <code class="sig-name descname">ANSIBLE_REMOTE_USER</code><a class="headerlink" href="#envvar-ANSIBLE_REMOTE_USER" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the login user for the target machinesWhen blank it uses the connection plugin’s default, normally the user currently executing Ansible.</p>
 <p>See also <a class="reference internal" href="#default-remote-user"><span class="std std-ref">DEFAULT_REMOTE_USER</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_ROLES_PATH">
 <code class="sig-name descname">ANSIBLE_ROLES_PATH</code><a class="headerlink" href="#envvar-ANSIBLE_ROLES_PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Roles.</p>
 <p>See also <a class="reference internal" href="#default-roles-path"><span class="std std-ref">DEFAULT_ROLES_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SCP_IF_SSH">
 <code class="sig-name descname">ANSIBLE_SCP_IF_SSH</code><a class="headerlink" href="#envvar-ANSIBLE_SCP_IF_SSH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Preferred method to use when transferring files over ssh.When set to smart, Ansible will try them until one succeeds or they all fail.If set to True, it will force ‘scp’, if False it will use ‘sftp’.</p>
 <p>See also <a class="reference internal" href="#default-scp-if-ssh"><span class="std std-ref">DEFAULT_SCP_IF_SSH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SFTP_BATCH_MODE">
 <code class="sig-name descname">ANSIBLE_SFTP_BATCH_MODE</code><a class="headerlink" href="#envvar-ANSIBLE_SFTP_BATCH_MODE" title="Permalink to this definition">¶</a></dt>
 <dd><p>See also <a class="reference internal" href="#default-sftp-batch-mode"><span class="std std-ref">DEFAULT_SFTP_BATCH_MODE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SQUASH_ACTIONS">
 <code class="sig-name descname">ANSIBLE_SQUASH_ACTIONS</code><a class="headerlink" href="#envvar-ANSIBLE_SQUASH_ACTIONS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ansible can optimise actions that call modules that support list parameters when using <code class="docutils literal notranslate"><span class="pre">with_</span></code> looping. Instead of calling the module once for each item, the module is called once with the full list.The default value for this setting is only for certain package managers, but it can be used for any module.Currently, this is only supported for modules that have a name or pkg parameter, and only when the item is the only thing being passed to the parameter.</p>
 <p>See also <a class="reference internal" href="#default-squash-actions"><span class="std std-ref">DEFAULT_SQUASH_ACTIONS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SSH_TRANSFER_METHOD">
 <code class="sig-name descname">ANSIBLE_SSH_TRANSFER_METHOD</code><a class="headerlink" href="#envvar-ANSIBLE_SSH_TRANSFER_METHOD" title="Permalink to this definition">¶</a></dt>
 <dd><p>unused?</p>
 <p>See also <a class="reference internal" href="#default-ssh-transfer-method"><span class="std std-ref">DEFAULT_SSH_TRANSFER_METHOD</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_STDOUT_CALLBACK">
 <code class="sig-name descname">ANSIBLE_STDOUT_CALLBACK</code><a class="headerlink" href="#envvar-ANSIBLE_STDOUT_CALLBACK" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the main callback used to display Ansible output, you can only have one at a time.You can have many other callbacks, but just one can be in charge of stdout.</p>
 <p>See also <a class="reference internal" href="#default-stdout-callback"><span class="std std-ref">DEFAULT_STDOUT_CALLBACK</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_ENABLE_TASK_DEBUGGER">
 <code class="sig-name descname">ANSIBLE_ENABLE_TASK_DEBUGGER</code><a class="headerlink" href="#envvar-ANSIBLE_ENABLE_TASK_DEBUGGER" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether or not to enable the task debugger, this previously was done as a strategy plugin.Now all strategy plugins can inherit this behavior. The debugger defaults to activating whena task is failed on unreachable. Use the debugger keyword for more flexibility.</p>
 <p>See also <a class="reference internal" href="#enable-task-debugger"><span class="std std-ref">ENABLE_TASK_DEBUGGER</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_TASK_DEBUGGER_IGNORE_ERRORS">
 <code class="sig-name descname">ANSIBLE_TASK_DEBUGGER_IGNORE_ERRORS</code><a class="headerlink" href="#envvar-ANSIBLE_TASK_DEBUGGER_IGNORE_ERRORS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This option defines whether the task debugger will be invoked on a failed task when ignore_errors=True is specified.True specifies that the debugger will honor ignore_errors, False will not honor ignore_errors.</p>
 <p>See also <a class="reference internal" href="#task-debugger-ignore-errors"><span class="std std-ref">TASK_DEBUGGER_IGNORE_ERRORS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_STRATEGY">
 <code class="sig-name descname">ANSIBLE_STRATEGY</code><a class="headerlink" href="#envvar-ANSIBLE_STRATEGY" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the default strategy used for plays.</p>
 <p>See also <a class="reference internal" href="#default-strategy"><span class="std std-ref">DEFAULT_STRATEGY</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_STRATEGY_PLUGINS">
 <code class="sig-name descname">ANSIBLE_STRATEGY_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_STRATEGY_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Strategy Plugins.</p>
 <p>See also <a class="reference internal" href="#default-strategy-plugin-path"><span class="std std-ref">DEFAULT_STRATEGY_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SU">
 <code class="sig-name descname">ANSIBLE_SU</code><a class="headerlink" href="#envvar-ANSIBLE_SU" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle the use of “su” for tasks.</p>
 <p>See also <a class="reference internal" href="#default-su"><span class="std std-ref">DEFAULT_SU</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SUDO">
 <code class="sig-name descname">ANSIBLE_SUDO</code><a class="headerlink" href="#envvar-ANSIBLE_SUDO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle the use of “sudo” for tasks.</p>
 <p>See also <a class="reference internal" href="#default-sudo"><span class="std std-ref">DEFAULT_SUDO</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SUDO_EXE">
 <code class="sig-name descname">ANSIBLE_SUDO_EXE</code><a class="headerlink" href="#envvar-ANSIBLE_SUDO_EXE" title="Permalink to this definition">¶</a></dt>
 <dd><p>specify an “sudo” executable, otherwise it relies on PATH.</p>
 <p>See also <a class="reference internal" href="#default-sudo-exe"><span class="std std-ref">DEFAULT_SUDO_EXE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SUDO_FLAGS">
 <code class="sig-name descname">ANSIBLE_SUDO_FLAGS</code><a class="headerlink" href="#envvar-ANSIBLE_SUDO_FLAGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flags to pass to “sudo”</p>
 <p>See also <a class="reference internal" href="#default-sudo-flags"><span class="std std-ref">DEFAULT_SUDO_FLAGS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SUDO_USER">
 <code class="sig-name descname">ANSIBLE_SUDO_USER</code><a class="headerlink" href="#envvar-ANSIBLE_SUDO_USER" title="Permalink to this definition">¶</a></dt>
 <dd><p>User you become when using “sudo”, leaving it blank will use the default configured on the target (normally root)</p>
 <p>See also <a class="reference internal" href="#default-sudo-user"><span class="std std-ref">DEFAULT_SUDO_USER</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SU_EXE">
 <code class="sig-name descname">ANSIBLE_SU_EXE</code><a class="headerlink" href="#envvar-ANSIBLE_SU_EXE" title="Permalink to this definition">¶</a></dt>
 <dd><p>specify an “su” executable, otherwise it relies on PATH.</p>
 <p>See also <a class="reference internal" href="#default-su-exe"><span class="std std-ref">DEFAULT_SU_EXE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SU_FLAGS">
 <code class="sig-name descname">ANSIBLE_SU_FLAGS</code><a class="headerlink" href="#envvar-ANSIBLE_SU_FLAGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flags to pass to su</p>
 <p>See also <a class="reference internal" href="#default-su-flags"><span class="std std-ref">DEFAULT_SU_FLAGS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SU_USER">
 <code class="sig-name descname">ANSIBLE_SU_USER</code><a class="headerlink" href="#envvar-ANSIBLE_SU_USER" title="Permalink to this definition">¶</a></dt>
 <dd><p>User you become when using “su”, leaving it blank will use the default configured on the target (normally root)</p>
 <p>See also <a class="reference internal" href="#default-su-user"><span class="std std-ref">DEFAULT_SU_USER</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SYSLOG_FACILITY">
 <code class="sig-name descname">ANSIBLE_SYSLOG_FACILITY</code><a class="headerlink" href="#envvar-ANSIBLE_SYSLOG_FACILITY" title="Permalink to this definition">¶</a></dt>
 <dd><p>Syslog facility to use when Ansible logs to the remote target</p>
 <p>See also <a class="reference internal" href="#default-syslog-facility"><span class="std std-ref">DEFAULT_SYSLOG_FACILITY</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_TASK_INCLUDES_STATIC">
 <code class="sig-name descname">ANSIBLE_TASK_INCLUDES_STATIC</code><a class="headerlink" href="#envvar-ANSIBLE_TASK_INCLUDES_STATIC" title="Permalink to this definition">¶</a></dt>
 <dd><p>The <cite>include</cite> tasks can be static or dynamic, this toggles the default expected behaviour if autodetection fails and it is not explicitly set in task.</p>
 <p>See also <a class="reference internal" href="#default-task-includes-static"><span class="std std-ref">DEFAULT_TASK_INCLUDES_STATIC</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_TERMINAL_PLUGINS">
 <code class="sig-name descname">ANSIBLE_TERMINAL_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_TERMINAL_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Terminal Plugins.</p>
 <p>See also <a class="reference internal" href="#default-terminal-plugin-path"><span class="std std-ref">DEFAULT_TERMINAL_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_TEST_PLUGINS">
 <code class="sig-name descname">ANSIBLE_TEST_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_TEST_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Jinja2 Test Plugins.</p>
 <p>See also <a class="reference internal" href="#default-test-plugin-path"><span class="std std-ref">DEFAULT_TEST_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_TIMEOUT">
 <code class="sig-name descname">ANSIBLE_TIMEOUT</code><a class="headerlink" href="#envvar-ANSIBLE_TIMEOUT" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the default timeout for connection plugins to use.</p>
 <p>See also <a class="reference internal" href="#default-timeout"><span class="std std-ref">DEFAULT_TIMEOUT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_TRANSPORT">
 <code class="sig-name descname">ANSIBLE_TRANSPORT</code><a class="headerlink" href="#envvar-ANSIBLE_TRANSPORT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default connection plugin to use, the ‘smart’ option will toggle between ‘ssh’ and ‘paramiko’ depending on controller OS and ssh versions</p>
 <p>See also <a class="reference internal" href="#default-transport"><span class="std std-ref">DEFAULT_TRANSPORT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_ERROR_ON_UNDEFINED_VARS">
 <code class="sig-name descname">ANSIBLE_ERROR_ON_UNDEFINED_VARS</code><a class="headerlink" href="#envvar-ANSIBLE_ERROR_ON_UNDEFINED_VARS" title="Permalink to this definition">¶</a></dt>
 <dd><p>When True, this causes ansible templating to fail steps that reference variable names that are likely typoed.Otherwise, any ‘{{ template_expression }}’ that contains undefined variables will be rendered in a template or ansible action line exactly as written.</p>
 <p>See also <a class="reference internal" href="#default-undefined-var-behavior"><span class="std std-ref">DEFAULT_UNDEFINED_VAR_BEHAVIOR</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_VARS_PLUGINS">
 <code class="sig-name descname">ANSIBLE_VARS_PLUGINS</code><a class="headerlink" href="#envvar-ANSIBLE_VARS_PLUGINS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Colon separated paths in which Ansible will search for Vars Plugins.</p>
 <p>See also <a class="reference internal" href="#default-vars-plugin-path"><span class="std std-ref">DEFAULT_VARS_PLUGIN_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_VAULT_ID_MATCH">
 <code class="sig-name descname">ANSIBLE_VAULT_ID_MATCH</code><a class="headerlink" href="#envvar-ANSIBLE_VAULT_ID_MATCH" title="Permalink to this definition">¶</a></dt>
 <dd><p>If true, decrypting vaults with a vault id will only try the password from the matching vault-id</p>
 <p>See also <a class="reference internal" href="#default-vault-id-match"><span class="std std-ref">DEFAULT_VAULT_ID_MATCH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_VAULT_IDENTITY">
 <code class="sig-name descname">ANSIBLE_VAULT_IDENTITY</code><a class="headerlink" href="#envvar-ANSIBLE_VAULT_IDENTITY" title="Permalink to this definition">¶</a></dt>
 <dd><p>The label to use for the default vault id label in cases where a vault id label is not provided</p>
 <p>See also <a class="reference internal" href="#default-vault-identity"><span class="std std-ref">DEFAULT_VAULT_IDENTITY</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_VAULT_ENCRYPT_IDENTITY">
 <code class="sig-name descname">ANSIBLE_VAULT_ENCRYPT_IDENTITY</code><a class="headerlink" href="#envvar-ANSIBLE_VAULT_ENCRYPT_IDENTITY" title="Permalink to this definition">¶</a></dt>
 <dd><p>The vault_id to use for encrypting by default. If multiple vault_ids are provided, this specifies which to use for encryption. The –encrypt-vault-id cli option overrides the configured value.</p>
 <p>See also <a class="reference internal" href="#default-vault-encrypt-identity"><span class="std std-ref">DEFAULT_VAULT_ENCRYPT_IDENTITY</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_VAULT_IDENTITY_LIST">
 <code class="sig-name descname">ANSIBLE_VAULT_IDENTITY_LIST</code><a class="headerlink" href="#envvar-ANSIBLE_VAULT_IDENTITY_LIST" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of vault-ids to use by default. Equivalent to multiple –vault-id args. Vault-ids are tried in order.</p>
 <p>See also <a class="reference internal" href="#default-vault-identity-list"><span class="std std-ref">DEFAULT_VAULT_IDENTITY_LIST</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_VAULT_PASSWORD_FILE">
 <code class="sig-name descname">ANSIBLE_VAULT_PASSWORD_FILE</code><a class="headerlink" href="#envvar-ANSIBLE_VAULT_PASSWORD_FILE" title="Permalink to this definition">¶</a></dt>
 <dd><p>The vault password file to use. Equivalent to –vault-password-file or –vault-id</p>
 <p>See also <a class="reference internal" href="#default-vault-password-file"><span class="std std-ref">DEFAULT_VAULT_PASSWORD_FILE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_VERBOSITY">
 <code class="sig-name descname">ANSIBLE_VERBOSITY</code><a class="headerlink" href="#envvar-ANSIBLE_VERBOSITY" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the default verbosity, equivalent to the number of <code class="docutils literal notranslate"><span class="pre">-v</span></code> passed in the command line.</p>
 <p>See also <a class="reference internal" href="#default-verbosity"><span class="std std-ref">DEFAULT_VERBOSITY</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_DEPRECATION_WARNINGS">
 <code class="sig-name descname">ANSIBLE_DEPRECATION_WARNINGS</code><a class="headerlink" href="#envvar-ANSIBLE_DEPRECATION_WARNINGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle to control the showing of deprecation warnings</p>
 <p>See also <a class="reference internal" href="#deprecation-warnings"><span class="std std-ref">DEPRECATION_WARNINGS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_DIFF_ALWAYS">
 <code class="sig-name descname">ANSIBLE_DIFF_ALWAYS</code><a class="headerlink" href="#envvar-ANSIBLE_DIFF_ALWAYS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration toggle to tell modules to show differences when in ‘changed’ status, equivalent to <code class="docutils literal notranslate"><span class="pre">--diff</span></code>.</p>
 <p>See also <a class="reference internal" href="#diff-always"><span class="std std-ref">DIFF_ALWAYS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_DIFF_CONTEXT">
 <code class="sig-name descname">ANSIBLE_DIFF_CONTEXT</code><a class="headerlink" href="#envvar-ANSIBLE_DIFF_CONTEXT" title="Permalink to this definition">¶</a></dt>
 <dd><p>How many lines of context to show when displaying the differences between files.</p>
 <p>See also <a class="reference internal" href="#diff-context"><span class="std std-ref">DIFF_CONTEXT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_DISPLAY_ARGS_TO_STDOUT">
 <code class="sig-name descname">ANSIBLE_DISPLAY_ARGS_TO_STDOUT</code><a class="headerlink" href="#envvar-ANSIBLE_DISPLAY_ARGS_TO_STDOUT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normally <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code> will print a header for each task that is run. These headers will contain the name: field from the task if you specified one. If you didn’t then <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code> uses the task’s action to help you tell which task is presently running. Sometimes you run many of the same action and so you want more information about the task to differentiate it from others of the same action. If you set this variable to True in the config then <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code> will also include the task’s arguments in the header.This setting defaults to False because there is a chance that you have sensitive values in your parameters and you do not want those to be printed.If you set this to True you should be sure that you have secured your environment’s stdout (no one can shoulder surf your screen and you aren’t saving stdout to an insecure file) or made sure that all of your playbooks explicitly added the <code class="docutils literal notranslate"><span class="pre">no_log:</span> <span class="pre">True</span></code> parameter to tasks which have sensitive values See How do I keep secret data in my playbook? for more information.</p>
 <p>See also <a class="reference internal" href="#display-args-to-stdout"><span class="std std-ref">DISPLAY_ARGS_TO_STDOUT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-DISPLAY_SKIPPED_HOSTS">
 <code class="sig-name descname">DISPLAY_SKIPPED_HOSTS</code><a class="headerlink" href="#envvar-DISPLAY_SKIPPED_HOSTS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle to control displaying skipped task/host entries in a task in the default callback</p>
 <p>See also <a class="reference internal" href="#display-skipped-hosts"><span class="std std-ref">DISPLAY_SKIPPED_HOSTS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_ERROR_ON_MISSING_HANDLER">
 <code class="sig-name descname">ANSIBLE_ERROR_ON_MISSING_HANDLER</code><a class="headerlink" href="#envvar-ANSIBLE_ERROR_ON_MISSING_HANDLER" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle to allow missing handlers to become a warning instead of an error when notifying.</p>
 <p>See also <a class="reference internal" href="#error-on-missing-handler"><span class="std std-ref">ERROR_ON_MISSING_HANDLER</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_GALAXY_IGNORE">
 <code class="sig-name descname">ANSIBLE_GALAXY_IGNORE</code><a class="headerlink" href="#envvar-ANSIBLE_GALAXY_IGNORE" title="Permalink to this definition">¶</a></dt>
 <dd><p>If set to yes, ansible-galaxy will not validate TLS certificates. This can be useful for testing against a server with a self-signed certificate.</p>
 <p>See also <a class="reference internal" href="#galaxy-ignore-certs"><span class="std std-ref">GALAXY_IGNORE_CERTS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_GALAXY_ROLE_SKELETON">
 <code class="sig-name descname">ANSIBLE_GALAXY_ROLE_SKELETON</code><a class="headerlink" href="#envvar-ANSIBLE_GALAXY_ROLE_SKELETON" title="Permalink to this definition">¶</a></dt>
 <dd><p>Role skeleton directory to use as a template for the <code class="docutils literal notranslate"><span class="pre">init</span></code> action in <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span></code>, same as <code class="docutils literal notranslate"><span class="pre">--role-skeleton</span></code>.</p>
 <p>See also <a class="reference internal" href="#galaxy-role-skeleton"><span class="std std-ref">GALAXY_ROLE_SKELETON</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_GALAXY_ROLE_SKELETON_IGNORE">
 <code class="sig-name descname">ANSIBLE_GALAXY_ROLE_SKELETON_IGNORE</code><a class="headerlink" href="#envvar-ANSIBLE_GALAXY_ROLE_SKELETON_IGNORE" title="Permalink to this definition">¶</a></dt>
 <dd><p>patterns of files to ignore inside a galaxy role skeleton directory</p>
 <p>See also <a class="reference internal" href="#galaxy-role-skeleton-ignore"><span class="std std-ref">GALAXY_ROLE_SKELETON_IGNORE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_GALAXY_SERVER">
 <code class="sig-name descname">ANSIBLE_GALAXY_SERVER</code><a class="headerlink" href="#envvar-ANSIBLE_GALAXY_SERVER" title="Permalink to this definition">¶</a></dt>
 <dd><p>URL to prepend when roles don’t specify the full URI, assume they are referencing this server as the source.</p>
 <p>See also <a class="reference internal" href="#galaxy-server"><span class="std std-ref">GALAXY_SERVER</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_GALAXY_TOKEN">
 <code class="sig-name descname">ANSIBLE_GALAXY_TOKEN</code><a class="headerlink" href="#envvar-ANSIBLE_GALAXY_TOKEN" title="Permalink to this definition">¶</a></dt>
 <dd><p>GitHub personal access token</p>
 <p>See also <a class="reference internal" href="#galaxy-token"><span class="std std-ref">GALAXY_TOKEN</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_HOST_KEY_CHECKING">
 <code class="sig-name descname">ANSIBLE_HOST_KEY_CHECKING</code><a class="headerlink" href="#envvar-ANSIBLE_HOST_KEY_CHECKING" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set this to “False” if you want to avoid host key checking by the underlying tools Ansible uses to connect to the host</p>
 <p>See also <a class="reference internal" href="#host-key-checking"><span class="std std-ref">HOST_KEY_CHECKING</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_INVALID_TASK_ATTRIBUTE_FAILED">
 <code class="sig-name descname">ANSIBLE_INVALID_TASK_ATTRIBUTE_FAILED</code><a class="headerlink" href="#envvar-ANSIBLE_INVALID_TASK_ATTRIBUTE_FAILED" title="Permalink to this definition">¶</a></dt>
 <dd><p>If ‘false’, invalid attributes for a task will result in warnings instead of errors</p>
 <p>See also <a class="reference internal" href="#invalid-task-attribute-failed"><span class="std std-ref">INVALID_TASK_ATTRIBUTE_FAILED</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_INVENTORY_ANY_UNPARSED_IS_FAILED">
 <code class="sig-name descname">ANSIBLE_INVENTORY_ANY_UNPARSED_IS_FAILED</code><a class="headerlink" href="#envvar-ANSIBLE_INVENTORY_ANY_UNPARSED_IS_FAILED" title="Permalink to this definition">¶</a></dt>
 <dd><p>If ‘true’, it is a fatal error when any given inventory source cannot be successfully parsed by any available inventory plugin; otherwise, this situation only attracts a warning.</p>
 <p>See also <a class="reference internal" href="#inventory-any-unparsed-is-failed"><span class="std std-ref">INVENTORY_ANY_UNPARSED_IS_FAILED</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_INVENTORY_ENABLED">
 <code class="sig-name descname">ANSIBLE_INVENTORY_ENABLED</code><a class="headerlink" href="#envvar-ANSIBLE_INVENTORY_ENABLED" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of enabled inventory plugins, it also determines the order in which they are used.</p>
 <p>See also <a class="reference internal" href="#inventory-enabled"><span class="std std-ref">INVENTORY_ENABLED</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_INVENTORY_EXPORT">
 <code class="sig-name descname">ANSIBLE_INVENTORY_EXPORT</code><a class="headerlink" href="#envvar-ANSIBLE_INVENTORY_EXPORT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controls if ansible-inventory will accurately reflect Ansible’s view into inventory or its optimized for exporting.</p>
 <p>See also <a class="reference internal" href="#inventory-export"><span class="std std-ref">INVENTORY_EXPORT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_INVENTORY_IGNORE">
 <code class="sig-name descname">ANSIBLE_INVENTORY_IGNORE</code><a class="headerlink" href="#envvar-ANSIBLE_INVENTORY_IGNORE" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of extensions to ignore when using a directory as an inventory source</p>
 <p>See also <a class="reference internal" href="#inventory-ignore-exts"><span class="std std-ref">INVENTORY_IGNORE_EXTS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_INVENTORY_IGNORE_REGEX">
 <code class="sig-name descname">ANSIBLE_INVENTORY_IGNORE_REGEX</code><a class="headerlink" href="#envvar-ANSIBLE_INVENTORY_IGNORE_REGEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of patterns to ignore when using a directory as an inventory source</p>
 <p>See also <a class="reference internal" href="#inventory-ignore-patterns"><span class="std std-ref">INVENTORY_IGNORE_PATTERNS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_INVENTORY_UNPARSED_FAILED">
 <code class="sig-name descname">ANSIBLE_INVENTORY_UNPARSED_FAILED</code><a class="headerlink" href="#envvar-ANSIBLE_INVENTORY_UNPARSED_FAILED" title="Permalink to this definition">¶</a></dt>
 <dd><p>If ‘true’ it is a fatal error if every single potential inventory source fails to parse, otherwise this situation will only attract a warning.</p>
 <p>See also <a class="reference internal" href="#inventory-unparsed-is-failed"><span class="std std-ref">INVENTORY_UNPARSED_IS_FAILED</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_MAX_DIFF_SIZE">
 <code class="sig-name descname">ANSIBLE_MAX_DIFF_SIZE</code><a class="headerlink" href="#envvar-ANSIBLE_MAX_DIFF_SIZE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum size of files to be considered for diff display</p>
 <p>See also <a class="reference internal" href="#max-file-size-for-diff"><span class="std std-ref">MAX_FILE_SIZE_FOR_DIFF</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-NETWORK_GROUP_MODULES">
 <code class="sig-name descname">NETWORK_GROUP_MODULES</code><a class="headerlink" href="#envvar-NETWORK_GROUP_MODULES" title="Permalink to this definition">¶</a></dt>
 <dd><p>See also <a class="reference internal" href="#network-group-modules"><span class="std std-ref">NETWORK_GROUP_MODULES</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_INJECT_FACT_VARS">
 <code class="sig-name descname">ANSIBLE_INJECT_FACT_VARS</code><a class="headerlink" href="#envvar-ANSIBLE_INJECT_FACT_VARS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Facts are available inside the <cite>ansible_facts</cite> variable, this setting also pushes them as their own vars in the main namespace.Unlike inside the <cite>ansible_facts</cite> dictionary, these will have an <cite>ansible_</cite> prefix.</p>
 <p>See also <a class="reference internal" href="#inject-facts-as-vars"><span class="std std-ref">INJECT_FACTS_AS_VARS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_PARAMIKO_HOST_KEY_AUTO_ADD">
 <code class="sig-name descname">ANSIBLE_PARAMIKO_HOST_KEY_AUTO_ADD</code><a class="headerlink" href="#envvar-ANSIBLE_PARAMIKO_HOST_KEY_AUTO_ADD" title="Permalink to this definition">¶</a></dt>
 <dd><p>See also <a class="reference internal" href="#paramiko-host-key-auto-add"><span class="std std-ref">PARAMIKO_HOST_KEY_AUTO_ADD</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_PARAMIKO_LOOK_FOR_KEYS">
 <code class="sig-name descname">ANSIBLE_PARAMIKO_LOOK_FOR_KEYS</code><a class="headerlink" href="#envvar-ANSIBLE_PARAMIKO_LOOK_FOR_KEYS" title="Permalink to this definition">¶</a></dt>
 <dd><p>See also <a class="reference internal" href="#paramiko-look-for-keys"><span class="std std-ref">PARAMIKO_LOOK_FOR_KEYS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_PERSISTENT_CONTROL_PATH_DIR">
 <code class="sig-name descname">ANSIBLE_PERSISTENT_CONTROL_PATH_DIR</code><a class="headerlink" href="#envvar-ANSIBLE_PERSISTENT_CONTROL_PATH_DIR" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to socket to be used by the connection persistence system.</p>
 <p>See also <a class="reference internal" href="#persistent-control-path-dir"><span class="std std-ref">PERSISTENT_CONTROL_PATH_DIR</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_PERSISTENT_CONNECT_TIMEOUT">
 <code class="sig-name descname">ANSIBLE_PERSISTENT_CONNECT_TIMEOUT</code><a class="headerlink" href="#envvar-ANSIBLE_PERSISTENT_CONNECT_TIMEOUT" title="Permalink to this definition">¶</a></dt>
 <dd><p>This controls how long the persistent connection will remain idle before it is destroyed.</p>
 <p>See also <a class="reference internal" href="#persistent-connect-timeout"><span class="std std-ref">PERSISTENT_CONNECT_TIMEOUT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT">
 <code class="sig-name descname">ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT</code><a class="headerlink" href="#envvar-ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT" title="Permalink to this definition">¶</a></dt>
 <dd><p>This controls the retry timeout for presistent connection to connect to the local domain socket.</p>
 <p>See also <a class="reference internal" href="#persistent-connect-retry-timeout"><span class="std std-ref">PERSISTENT_CONNECT_RETRY_TIMEOUT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_PERSISTENT_COMMAND_TIMEOUT">
 <code class="sig-name descname">ANSIBLE_PERSISTENT_COMMAND_TIMEOUT</code><a class="headerlink" href="#envvar-ANSIBLE_PERSISTENT_COMMAND_TIMEOUT" title="Permalink to this definition">¶</a></dt>
 <dd><p>This controls the amount of time to wait for response from remote device before timing out presistent connection.</p>
 <p>See also <a class="reference internal" href="#persistent-command-timeout"><span class="std std-ref">PERSISTENT_COMMAND_TIMEOUT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_PLAYBOOK_VARS_ROOT">
 <code class="sig-name descname">ANSIBLE_PLAYBOOK_VARS_ROOT</code><a class="headerlink" href="#envvar-ANSIBLE_PLAYBOOK_VARS_ROOT" title="Permalink to this definition">¶</a></dt>
 <dd><p>This sets which playbook dirs will be used as a root to process vars plugins, which includes finding host_vars/group_varsThe <code class="docutils literal notranslate"><span class="pre">top</span></code> option follows the traditional behaviour of using the top playbook in the chain to find the root directory.The <code class="docutils literal notranslate"><span class="pre">bottom</span></code> option follows the 2.4.0 behaviour of using the current playbook to find the root directory.The <code class="docutils literal notranslate"><span class="pre">all</span></code> option examines from the first parent to the current playbook.</p>
 <p>See also <a class="reference internal" href="#playbook-vars-root"><span class="std std-ref">PLAYBOOK_VARS_ROOT</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_RETRY_FILES_ENABLED">
 <code class="sig-name descname">ANSIBLE_RETRY_FILES_ENABLED</code><a class="headerlink" href="#envvar-ANSIBLE_RETRY_FILES_ENABLED" title="Permalink to this definition">¶</a></dt>
 <dd><p>This controls whether a failed Ansible playbook should create a .retry file.</p>
 <p>See also <a class="reference internal" href="#retry-files-enabled"><span class="std std-ref">RETRY_FILES_ENABLED</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_RETRY_FILES_SAVE_PATH">
 <code class="sig-name descname">ANSIBLE_RETRY_FILES_SAVE_PATH</code><a class="headerlink" href="#envvar-ANSIBLE_RETRY_FILES_SAVE_PATH" title="Permalink to this definition">¶</a></dt>
 <dd><p>This sets the path in which Ansible will save .retry files when a playbook fails and retry files are enabled.</p>
 <p>See also <a class="reference internal" href="#retry-files-save-path"><span class="std std-ref">RETRY_FILES_SAVE_PATH</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SHOW_CUSTOM_STATS">
 <code class="sig-name descname">ANSIBLE_SHOW_CUSTOM_STATS</code><a class="headerlink" href="#envvar-ANSIBLE_SHOW_CUSTOM_STATS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This adds the custom stats set via the set_stats plugin to the default output</p>
 <p>See also <a class="reference internal" href="#show-custom-stats"><span class="std std-ref">SHOW_CUSTOM_STATS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_STRING_TYPE_FILTERS">
 <code class="sig-name descname">ANSIBLE_STRING_TYPE_FILTERS</code><a class="headerlink" href="#envvar-ANSIBLE_STRING_TYPE_FILTERS" title="Permalink to this definition">¶</a></dt>
 <dd><p>This list of filters avoids ‘type conversion’ when templating variablesUseful when you want to avoid conversion into lists or dictionaries for JSON strings, for example.</p>
 <p>See also <a class="reference internal" href="#string-type-filters"><span class="std std-ref">STRING_TYPE_FILTERS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SYSTEM_WARNINGS">
 <code class="sig-name descname">ANSIBLE_SYSTEM_WARNINGS</code><a class="headerlink" href="#envvar-ANSIBLE_SYSTEM_WARNINGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allows disabling of warnings related to potential issues on the system running ansible itself (not on the managed hosts)These may include warnings about 3rd party packages or other conditions that should be resolved if possible.</p>
 <p>See also <a class="reference internal" href="#system-warnings"><span class="std std-ref">SYSTEM_WARNINGS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_RUN_TAGS">
 <code class="sig-name descname">ANSIBLE_RUN_TAGS</code><a class="headerlink" href="#envvar-ANSIBLE_RUN_TAGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>default list of tags to run in your plays, Skip Tags has precedence.</p>
 <p>See also <a class="reference internal" href="#tags-run"><span class="std std-ref">TAGS_RUN</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_SKIP_TAGS">
 <code class="sig-name descname">ANSIBLE_SKIP_TAGS</code><a class="headerlink" href="#envvar-ANSIBLE_SKIP_TAGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>default list of tags to skip in your plays, has precedence over Run Tags</p>
 <p>See also <a class="reference internal" href="#tags-skip"><span class="std std-ref">TAGS_SKIP</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_USE_PERSISTENT_CONNECTIONS">
 <code class="sig-name descname">ANSIBLE_USE_PERSISTENT_CONNECTIONS</code><a class="headerlink" href="#envvar-ANSIBLE_USE_PERSISTENT_CONNECTIONS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggles the use of persistence for connections.</p>
 <p>See also <a class="reference internal" href="#use-persistent-connections"><span class="std std-ref">USE_PERSISTENT_CONNECTIONS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_PRECEDENCE">
 <code class="sig-name descname">ANSIBLE_PRECEDENCE</code><a class="headerlink" href="#envvar-ANSIBLE_PRECEDENCE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allows to change the group variable precedence merge order.</p>
 <p>See also <a class="reference internal" href="#variable-precedence"><span class="std std-ref">VARIABLE_PRECEDENCE</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_YAML_FILENAME_EXT">
 <code class="sig-name descname">ANSIBLE_YAML_FILENAME_EXT</code><a class="headerlink" href="#envvar-ANSIBLE_YAML_FILENAME_EXT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check all of these extensions when looking for ‘variable’ files which should be YAML or JSON or vaulted versions of these.This affects vars_files, include_vars, inventory and vars plugins among others.</p>
 <p>See also <a class="reference internal" href="#yaml-filename-extensions"><span class="std std-ref">YAML_FILENAME_EXTENSIONS</span></a></p>
 </dd></dl>
 
-<dl class="envvar">
+<dl class="std envvar">
 <dt id="envvar-ANSIBLE_NETCONF_SSH_CONFIG">
 <code class="sig-name descname">ANSIBLE_NETCONF_SSH_CONFIG</code><a class="headerlink" href="#envvar-ANSIBLE_NETCONF_SSH_CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd><p>This variable is used to enable bastion/jump host with netconf connection. If set to True the bastion/jump host ssh settings should be present in ~/.ssh/config file, alternatively it can be set to custom ssh configuration file path to read the bastion/jump host settings.</p>
@@ -7468,7 +7468,7 @@ you can use the command line utility mentioned above (<cite>ansible-config</cite
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Mar 20, 2020.<br/>
+  <p>Last updated on Apr 09, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>
