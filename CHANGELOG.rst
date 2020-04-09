@@ -2,6 +2,26 @@ Changelog
 =========
 
 
+4.3.0 (2020-04-09)
+------------------
+- Fix for hvac 0.10.1. [Terry Howe]
+- Added kubernetes auth module. [Sergey Mikhaltsov]
+- Userpass: pass mount_point on create, too. [André Frimberger]
+- Fix #207. [Philipp Hossner]
+- Add test for changing token_bound_cidrs without pass. [André
+  Frimberger]
+- Add support for token_bound_cidrs in hashivault_userpass. [André
+  Frimberger]
+- Back out approad secret change and add tests. [Terry Howe]
+- When a wrapped token is created, the response key is wrap_info Include
+  cidr_list and wrap_ttl when custom_secret_id is not None. [Shawn
+  Johnson]
+- Fix identity delete group alias. [Terry Howe]
+- Add hashivault_identity_group_alias module. [Michał Suszko]
+- Add the module for managing group aliases + fix typo in entity_alias.
+  [Guillaume Rémy]
+
+
 4.2.4 (2020-03-20)
 ------------------
 - Fix #204. [Philipp Hossner]
