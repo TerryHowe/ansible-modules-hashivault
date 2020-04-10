@@ -3,6 +3,7 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
+from six import viewitems
 
 DEFAULT_TTL = 2764800
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
@@ -92,7 +93,7 @@ def main():
     argspec['description'] = dict(required=False, type='str', default='')
     argspec['config'] = dict(required=False, type='dict', default={'default_lease_ttl': DEFAULT_TTL, 'max_lease_ttl': DEFAULT_TTL, 'force_no_cache': False})
     argspec['state'] = dict(required=False, type='str', choices=['present', 'enabled', 'absent', 'disabled'], default='present')
-    argspec['options'] = dict(required=False, type='dict', default={'version': '1'})
+    argspec['options'] = dict(required=False, type='dict', default={})
     module = hashivault_init(argspec)
     result = hashivault_secret_engine(module)
     if result.get('failed'):
@@ -123,7 +124,7 @@ def hashivault_secret_engine(module):
         current_state = client.sys.read_mount_configuration(path=name)['data']
         exists = True
     except Exception:
-        # doesnt exist
+        # doesn't exist
         pass
 
     # doesnt exist and should or does exist and shouldnt
@@ -141,7 +142,16 @@ def hashivault_secret_engine(module):
             config['max_lease_ttl'] = DEFAULT_TTL
         if 'force_no_cache' not in config:
             config['force_no_cache'] = False
-        options['version'] = str(options['version'])
+        if 'version' in options:
+            options['version'] = str(options['version'])
+
+        # Creates temp dict that combines config and options into one dict
+        config_with_options = config.copy()
+        if options:
+            config_with_options['options'] = options.copy()
+        # Only check values that you want to change, not if Vault API has other parameters that are different
+        if not viewitems(current_state) >= viewitems(config_with_options):
+            changed = True
 
         for k, v in current_state.items(): #while not changed?
             # options is passed in ['data'] but set outside 'config':{}, manually check
