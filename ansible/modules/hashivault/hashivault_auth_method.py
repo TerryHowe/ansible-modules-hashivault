@@ -136,7 +136,6 @@ def hashivault_auth_method(module):
     except:
         pass
 
-    changes = []
     if state == 'enabled' and exists == False:
         changed = True
         create = True
@@ -147,14 +146,11 @@ def hashivault_auth_method(module):
         if 'description' in current_state:
             if description != current_state['description']:
                 changed = True
-                changes.append('description')
         for key in config.keys():
             if key not in current_state:
                 changed = True
-                changes.append('bogus_' + key)
             elif current_state[key] != config[key]:
                 changed = True
-                changes.append(key)
 
     if module.check_mode:
         return {'changed': changed, 'created': create, 'state': state}
@@ -169,7 +165,7 @@ def hashivault_auth_method(module):
     if state == 'disabled':
         client.sys.disable_auth_method(path=mount_point)
 
-    return {'changed': changed, 'created': create, 'state': state, 'changes': changes}
+    return {'changed': changed, 'created': create}
 
 if __name__ == '__main__':
     main()

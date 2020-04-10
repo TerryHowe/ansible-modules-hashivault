@@ -3,7 +3,6 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
-from six import viewitems
 
 DEFAULT_TTL = 2764800
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
@@ -110,7 +109,10 @@ def hashivault_secret_engine(module):
     backend = params.get('backend')
     description = params.get('description')
     config = params.get('config')
-    state = params.get('state')
+    if params.get('state') in ['present', 'enabled']:
+        state = 'enabled'
+    else:
+        state = 'disabled'
     options = params.get('options')
     current_state = dict()
     exists = False
@@ -121,69 +123,57 @@ def hashivault_secret_engine(module):
         backend = name
     try:
         # does the mount exist already?
-        current_state = client.sys.read_mount_configuration(path=name)['data']
+        configuration = client.sys.read_mount_configuration(path=name)
+        current_state = configuration['data']
         exists = True
     except Exception:
         # doesn't exist
         pass
 
     # doesnt exist and should or does exist and shouldnt
-    if (exists and (state == 'absent' or state == 'disabled')):
+    if (exists and state == 'disabled'):
         changed = True
-    if (not exists and (state == 'present' or state == 'enabled')):
+    elif (not exists and state == 'enabled'):
         changed = True
-
-    # want to exist so we'll check current state against desired state
-    if not changed and (state == 'present' or state == 'enabled'):
-        # verify config has ['default_lease_ttl: DEFAULT_TTL', 'max_lease_ttl: DEFAULT_TTL, 'force_no_cache': False']
-        if 'default_lease_ttl' not in config:
-            config['default_lease_ttl'] = DEFAULT_TTL
-        if 'max_lease_ttl' not in config:
-            config['max_lease_ttl'] = DEFAULT_TTL
-        if 'force_no_cache' not in config:
-            config['force_no_cache'] = False
+    elif state == 'enabled':
         if 'version' in options:
             options['version'] = str(options['version'])
 
-        # Creates temp dict that combines config and options into one dict
-        config_with_options = config.copy()
-        if options:
-            config_with_options['options'] = options.copy()
-        # Only check values that you want to change, not if Vault API has other parameters that are different
-        if not viewitems(current_state) >= viewitems(config_with_options):
+        if 'description' in current_state:
+            if description != current_state['description']:
+                changed = True
+        if 'options' in current_state:
+            current_options = current_state['options']
+            for key in options.keys():
+                if key not in current_options:
+                    changed = True
+                elif current_options[key] != options[key]:
+                    changed = True
+        elif options:
             changed = True
-
-        for k, v in current_state.items(): #while not changed?
-            # options is passed in ['data'] but set outside 'config':{}, manually check
-            if k == 'options':
-                if v != options:
-                    changed = True
-            elif k == 'description':
-                if v != description:
-                    changed = True
-            elif k in config and v != config[k]:
+        for key in config.keys():
+            if key not in current_state:
+                changed = True
+            elif current_state[key] != config[key]:
                 changed = True
 
-    # make changes!
-    # only pass 'options' when working on a kv backend
-
-    # doesnt exist and should
-    if changed and not exists and (state == 'present' or state == 'enabled') and not module.check_mode:
+    # create
+    if changed and not exists and state == 'enabled' and not module.check_mode:
         if backend == 'kv':
             client.sys.enable_secrets_engine(backend, description=description, path=name, config=config, options=options)
         else:
             client.sys.enable_secrets_engine(backend, description=description, path=name, config=config)
         created = True
 
-    # needs to be updated
-    elif changed and exists and (state == 'present' or state == 'enabled') and not module.check_mode:
+    # update
+    elif changed and exists and state == 'enabled' and not module.check_mode:
         if backend == 'kv':
             client.sys.tune_mount_configuration(path=name, description=description, options=options, **config)
         else:
             client.sys.tune_mount_configuration(path=name, description=description, **config)
 
-    # exists and shouldn't
-    elif changed and (state == 'absent' or state == 'disabled') and not module.check_mode:
+    # delete
+    elif changed and state == 'disabled' and not module.check_mode:
         client.sys.disable_secrets_engine(path=name)
 
     return {'changed': changed, 'created': created}
