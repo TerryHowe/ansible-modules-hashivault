@@ -12,12 +12,12 @@
         name: functional_testing_policy_two
         rules: 'path "secret/*" {capabilities = ["read", "list"]}'
 
-    - name: add idenity group
+    - name: remove identity group
       hashivault_identity_group:
         name: test
         state: absent
 
-    - name: remove identity group
+    - name: add identity group
       hashivault_identity_group:
         name: test
         state: present
@@ -85,3 +85,26 @@
       register: chg_policies
 
     - assert: { that: "{{ chg_policies.changed }} == True" }
+
+    - name: add external identity group
+      hashivault_identity_group:
+        name: extest
+        group_type: external
+      register: vault_identity_group
+    - assert: { that: "{{vault_identity_group.changed}} == True" }
+    - assert: { that: "{{vault_identity_group.rc}} == 0" }
+
+    - hashivault_identity_group_alias:
+        name: "extest alias"
+        group_name: extest
+      register: vault_identity_alias
+    - assert: { that: "{{vault_identity_alias.changed}} == True" }
+    - assert: { that: "{{vault_identity_alias.rc}} == 0" }
+
+    - hashivault_identity_group_alias:
+        name: "extest alias"
+        group_name: extest
+        state: absent
+      register: vault_identity_alias
+    - assert: { that: "{{vault_identity_alias.changed}} == True" }
+    - assert: { that: "{{vault_identity_alias.rc}} == 0" }

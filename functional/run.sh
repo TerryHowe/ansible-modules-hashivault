@@ -51,6 +51,7 @@ source ./vaultenv.sh
 
 # approle
 ansible-playbook -v test_approle.yml
+ansible-playbook -v test_approle_check_mode.yml
 source ./approlenv.sh
 ansible-playbook -v --extra-vars='namespace=application/' test_write.yml test_read.yml test_lookup.yml
 source ./vaultenv.sh
@@ -60,6 +61,8 @@ ansible-playbook -v test_approle_old.yml
 # userpass
 ansible-playbook -v test_userpass.yml
 ansible-playbook -v test_userpass_idempotent.yml
+ansible-playbook -v test_userpass_no_pass.yml
+ansible-playbook -v test_userpass_no_policy.yml
 source ./userpassenv.sh
 ansible-playbook -v --extra-vars='namespace=userpass/' test_write.yml test_read.yml test_lookup.yml
 source ./vaultenv.sh

@@ -118,8 +118,8 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default='identity')
     argspec['metadata'] = dict(required=False, type='dict', default={})
     argspec['policies'] = dict(required=False, type='list', default=[])
-    argspec['member_group_ids'] = dict(required=False, type='list', default=[])
-    argspec['member_entity_ids'] = dict(required=False, type='list', default=[])
+    argspec['member_group_ids'] = dict(required=False, type='list', default=None)
+    argspec['member_entity_ids'] = dict(required=False, type='list', default=None)
     argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
     module = hashivault_init(argspec)
     result = hashivault_identity_group(module.params)
@@ -139,11 +139,11 @@ def hashivault_identity_group_update(group_details, client, group_id, group_name
     # for each respectively. The below is required to account for this
     
     # existing member_group_ids
-    if group_details['member_group_ids'] is not None:
+    if group_details['member_group_ids'] is not None and group_member_group_ids is not None:
         if set(group_details['member_group_ids']) != set(group_member_group_ids):
             changed = True
     # new member_group_ids and none existing
-    elif len(group_member_group_ids) > 0:
+    elif group_member_group_ids is not None and len(group_member_group_ids) > 0:
         changed = True
 
     # existing policies
@@ -155,11 +155,11 @@ def hashivault_identity_group_update(group_details, client, group_id, group_name
         changed = True
 
     # existing member_entity_ids
-    if group_details['member_entity_ids'] is not None:
+    if group_details['member_entity_ids'] is not None and group_member_entity_ids is not None:
         if set(group_details['member_entity_ids']) != set(group_member_entity_ids):
             changed = True
     # new member_entity_ids and none existing
-    elif len(group_member_entity_ids) > 0:
+    elif group_member_entity_ids is not None and len(group_member_entity_ids) > 0:
         changed = True
     
     # existing metadata
@@ -224,7 +224,10 @@ def hashivault_identity_group_create_or_update(params):
                 member_entity_ids=group_member_entity_ids,
                 mount_point=mount_point
             )
-            return {'changed': True, 'data': response.json()['data']}
+            from requests.models import Response
+            if isinstance(response, Response):
+                response = response.json()
+            return {'changed': True, 'data': response['data']}
         return hashivault_identity_group_update(group_details['data'], client, group_name=group_name,
                                                  group_id=group_details['data']['id'],
                                                  group_type=group_type,
