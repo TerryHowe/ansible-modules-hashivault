@@ -52,6 +52,25 @@
     - assert: { that: vault_list.rc == 0 }
     - assert: { that: "'two' in vault_list.secrets" }
 
+    - name: List secrets in folder full path
+      hashivault_list:
+        secret: /secret/list
+      register: vault_list
+    - assert: { that: vault_list.rc == 0 }
+    - assert: { that: "'two' in vault_list.secrets" }
+
+    - hashivault_write:
+        secret: 'list/second/level'
+        data:
+          wednesday: 'asdf'
+
+    - name: List secrets in folder full path levels
+      hashivault_list:
+        secret: /secret/list/second
+      register: vault_list
+    - assert: { that: vault_list.rc == 0 }
+    - assert: { that: "'level' in vault_list.secrets" }
+
     - name: Make sure we got our two secrets in list
       hashivault_list:
         mount_point: dummyv2

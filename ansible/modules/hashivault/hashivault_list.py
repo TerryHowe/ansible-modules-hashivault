@@ -121,6 +121,10 @@ def hashivault_list(params):
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
+        listo = secret.split('/')
+        if listo:
+            mount_point = next(iter(listo), mount_point)
+            secret = '/'.join(listo[1:])
     # for backwards compatibiltiy with old hashivault_list module
     if secret.startswith('metadata/'):
         version = 2
