@@ -2,6 +2,17 @@ Changelog
 =========
 
 
+4.3.2 (2020-04-11)
+------------------
+- Support old full path format. [Terry Howe]
+- Add scret engine test. [Terry Howe]
+- Clean up secrets engine. [Terry Howe]
+- Update viewitems lib to six. [Samy Coenen]
+- Add support for python 2 with viewitems. [Samy Coenen]
+- Remove default value version, update dictionary comparison. [Samy
+  Coenen]
+
+
 4.3.1 (2020-04-09)
 ------------------
 - Clean up hashivault_auth_method. [Terry Howe]
