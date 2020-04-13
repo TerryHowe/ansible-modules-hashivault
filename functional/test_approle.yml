@@ -13,6 +13,13 @@
   tasks:
     - name: Set approle policy
       hashivault_policy_set:
+        name: "approle_test_policy_original"
+        rules: "{{rules}}"
+      register: 'vault_policy_set'
+    - assert: { that: "{{vault_policy_set.rc}} == 0" }
+
+    - name: Set another approle policy
+      hashivault_policy_set:
         name: "approle_test_policy"
         rules: "{{rules}}"
       register: 'vault_policy_set'
@@ -32,11 +39,31 @@
       hashivault_approle_role:
         name: testrole
         policies:
-          - approle_test_policy
+          - approle_test_policy_original
         state: present
       register: 'vault_role_create'
     - assert: { that: "{{vault_role_create.changed}} == True" }
     - assert: { that: "{{vault_role_create.rc}} == 0" }
+
+    - name: update role
+      hashivault_approle_role:
+        name: testrole
+        policies:
+          - approle_test_policy
+        state: present
+      register: 'vault_role_update'
+    - assert: { that: "{{vault_role_update.changed}} == True" }
+    - assert: { that: "{{vault_role_update.rc}} == 0" }
+
+    - name: update role idempotent
+      hashivault_approle_role:
+        name: testrole
+        policies:
+          - approle_test_policy
+        state: present
+      register: 'vault_role_update'
+    - assert: { that: "{{vault_role_update.changed}} == False" }
+    - assert: { that: "{{vault_role_update.rc}} == 0" }
 
     - name: list roles
       hashivault_approle_role_list:

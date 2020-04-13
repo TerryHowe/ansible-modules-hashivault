@@ -170,9 +170,10 @@ def hashivault_approle_role(module):
             current_state = client.get_role(name, mount_point=mount_point)
             changed = False
             missing = []
+            current_data = current_state.get('data', {})
             for key in desired_state:
-                if key in current_state:
-                    if current_state[key] != desired_state[key]:
+                if key in current_data:
+                    if current_data[key] != desired_state[key]:
                         changed = True
                 else:
                     missing.append(key)
@@ -180,7 +181,7 @@ def hashivault_approle_role(module):
                 if not module.check_mode:
                     client.update_role(name, mount_point=mount_point, **desired_state)
                 return {'changed': True, 'missing': missing}
-            return {'changed': False, 'missing': missing}
+            return {'changed': False, 'missing': missing, 'current_state': current_state}
         except Exception:
             if not module.check_mode:
                 client.create_role(name, mount_point=mount_point, **desired_state)
