@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+4.3.3 (2020-04-13)
+------------------
+- Fix update for approle. [Terry Howe]
+
+
 4.3.2 (2020-04-11)
 ------------------
 - Support old full path format. [Terry Howe]
