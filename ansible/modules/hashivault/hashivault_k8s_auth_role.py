@@ -112,8 +112,6 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default='kubernetes')
     argspec['role_file'] = dict(required=False, type='str')
     argspec['state'] = dict(required=False, type='str', default='present', choices=['present', 'absent'])
-    
-    
 
     supports_check_mode=True
 
@@ -153,7 +151,6 @@ def hashivault_k8s_auth_role(module):
         desired_state['period'] = params.get('period')
         desired_state['policies'] = params.get('policies')
 
-
     # check if engine is enabled
     try:
         if (mount_point + "/") not in client.sys.list_auth_methods():
@@ -187,8 +184,8 @@ def hashivault_k8s_auth_role(module):
             current_state['max_ttl'] = current_state['token_max_ttl']
         if 'period' not in current_state and 'token_period' in current_state:
             current_state['period'] = current_state['token_period']
-        for k, v in desired_state.items():
-            if k in current_state and v != current_state[k]:
+        for key in desired_state.keys():
+            if key in current_state and desired_state[key] != current_state[key]:
                 changed = True
     elif exists and state == 'absent':
         changed = True

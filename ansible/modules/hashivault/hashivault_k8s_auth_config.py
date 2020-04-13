@@ -106,16 +106,11 @@ def main():
 def hashivault_k8s_auth_config(module):
     params = module.params
     client = hashivault_auth_client(params)
-    changed = False
     mount_point = params.get('mount_point')
-    desired_state = dict()
-    enabled_methods = list()
-
-    # do not want a trailing slash in mount_point
     if mount_point[-1]:
         mount_point = mount_point.strip('/')
 
-  
+    desired_state = dict()
     desired_state['kubernetes_host'] = params.get('kubernetes_host')
     desired_state['token_reviewer_jwt'] = params.get('token_reviewer_jwt')
     desired_state['kubernetes_ca_cert'] = params.get('kubernetes_ca_cert')
@@ -123,22 +118,15 @@ def hashivault_k8s_auth_config(module):
 
     # check if engine is enabled
     try:
-        if (mount_point + "/")  not in client.sys.list_auth_methods():
-            return {'failed': True, 'msg': 'auth metod not enabled', 'rc': 1}
-        else:    
-            changed = True
+        if (mount_point + "/") not in client.sys.list_auth_methods():
+            return {'failed': True, 'msg': (mount_point + ' auth metod not enabled'), 'rc': 1}
     except:
-        if module.check_mode:
-            changed = True
-        else:
-            return {'failed': True, 'msg': 'secret engine is not enabled or namespace does not exist', 'rc': 1}
+        return {'failed': True, 'msg': (mount_point + ' error getting auth method'), 'rc': 1}
 
-
-    # if configs dont match and checkmode is off, complete the change
-    if changed == True and not module.check_mode:
+    if not module.check_mode:
         client.auth.kubernetes.configure(**desired_state)
 
-    return {'changed': changed}
+    return {'changed': True}
 
 
 if __name__ == '__main__':

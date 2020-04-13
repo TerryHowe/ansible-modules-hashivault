@@ -1,0 +1,54 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - hashivault_auth_method:
+        method_type: kubernetes
+        state: disabled
+      failed_when: false
+         
+    - name: enable azure secret engine
+      hashivault_auth_method:
+        method_type: kubernetes
+
+    - name: create config
+      register: k8s_module
+      hashivault_k8s_auth_config:
+        kubernetes_host: http://127.0.0.1:8443
+        kubernetes_ca_cert: "{{ lookup('file', './cacert.pem') }}"
+        token_reviewer_jwt: "{{ lookup('file', './jwt.jws') }}"
+    - assert: { that: "{{ k8s_module.changed }} == True" }
+    - assert: { that: "{{ k8s_module.rc }} == 0" }
+
+    - name: create role delete
+      hashivault_k8s_auth_role:
+        name: "testk8srole"
+        state: absent
+
+    - name: create role
+      hashivault_k8s_auth_role:
+        name: "testk8srole"
+        policies: ["test", "test2"]
+        bound_service_account_names: ["vault-auth"]
+        bound_service_account_namespaces: ["default", "some-app"]
+      register: k8s_module
+    - assert: { that: "{{ k8s_module.changed }} == True" }
+    - assert: { that: "{{ k8s_module.rc }} == 0" }
+
+    - name: create role idempotent
+      hashivault_k8s_auth_role:
+        name: "testk8srole"
+        policies: ["test", "test2"]
+        bound_service_account_names: ["vault-auth"]
+        bound_service_account_namespaces: ["default", "some-app"]
+      register: k8s_module
+    - assert: { that: "{{ k8s_module.changed }} == False" }
+    - assert: { that: "{{ k8s_module.rc }} == 0" }
+
+    - name: create role delete
+      hashivault_k8s_auth_role:
+        name: "testk8srole"
+        state: absent
+      register: k8s_module
+    - assert: { that: "{{ k8s_module.changed }} == True" }
+    - assert: { that: "{{ k8s_module.rc }} == 0" }
