@@ -76,22 +76,30 @@ options:
             - The maximum allowed lifetime of tokens issued in seconds using this role.
     role_file:
         description:
-            - file with a json object containing play parameters. pass all params but name, state, mount_point which stay in the ansible play
+            - file with a json object containing play parameters. pass all params but name, state, mount_point which
+              stay in the ansible play
     db_name:
         description:
-            - name of the db configuration youre referencing. in my opinion, this should be called 'db connection' but hashi calls it db_name
+            - name of the db configuration youre referencing. in my opinion, this should be called 'db connection' but
+              hashi calls it db_name
     creation_statements:
         description:
-            - "Specifies the database statements executed to create and configure a user. make sure your account for variables like this {{'{{name}}'}}"
+            - "Specifies the database statements executed to create and configure a user. make sure your account for
+              variables like this {{'{{name}}'}}"
     revocation_statements:
         description:
-            - Specifies the database statements to be executed to revoke a user. See the plugin's API page for more information on support and formatting for this parameter.
+            - Specifies the database statements to be executed to revoke a user. See the plugin's API page for more
+              information on support and formatting for this parameter.
     rollback_statements:
         description:
-            - Specifies the database statements to be executed rollback a create operation in the event of an error. Not every plugin type will support this functionality. See the plugin's API page for more information on support and formatting for this parameter.
+            - Specifies the database statements to be executed rollback a create operation in the event of an error. Not
+              every plugin type will support this functionality. See the plugin's API page for more information on
+              support and formatting for this parameter.
     renew_statements:
         description:
-            - Specifies the database statements to be executed to renew a user. Not every plugin type will support this functionality. See the plugin's API page for more information on support and formatting for this parameter.
+            - Specifies the database statements to be executed to renew a user. Not every plugin type will support this
+              functionality. See the plugin's API page for more information on support and formatting for this
+              parameter.
 '''
 EXAMPLES = '''
 ---
@@ -124,9 +132,7 @@ def main():
     argspec['renew_statements'] = dict(required=False, type='list', default=[])
     argspec['db_name'] = dict(required=False, type='str')
 
-
-
-    supports_check_mode=True
+    supports_check_mode = True
 
     module = hashivault_init(argspec, supports_check_mode)
     result = hashivault_db_secret_engine_role(module)

@@ -3,7 +3,7 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
-import json, sys
+import json
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -104,8 +104,8 @@ def main():
     argspec['environment'] = dict(required=False, type='str', default='AzurePublicCloud')
     argspec['resource'] = dict(required=False, type='str', default='https://management.azure.com')
     argspec['config_file'] = dict(required=False, type='str', default=None)
-    supports_check_mode=True
-    required_together=[['client_id', 'client_secret', 'tenant_id']]
+    supports_check_mode = True
+    required_together = [['client_id', 'client_secret', 'tenant_id']]
 
     module = hashivault_init(argspec, supports_check_mode, required_together)
     result = hashivault_azure_auth_config(module)
@@ -169,8 +169,8 @@ def hashivault_azure_auth_config(module):
             changed = True
 
     # if configs dont match and checkmode is off, complete the change
-    if changed == True and not module.check_mode:
-        result = client.auth.azure.configure(mount_point=mount_point, **desired_state)
+    if changed and not module.check_mode:
+        client.auth.azure.configure(mount_point=mount_point, **desired_state)
 
     return {'changed': changed}
 

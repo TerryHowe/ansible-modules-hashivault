@@ -71,7 +71,8 @@ options:
     config:
         description:
             - configuration set on auth method. expects a dict
-        default: "{'default_lease_ttl': 2764800, 'max_lease_ttl': 2764800, 'force_no_cache':False, 'token_type': 'default-service'}"
+        default: "{'default_lease_ttl': 2764800, 'max_lease_ttl': 2764800, 'force_no_cache':False,
+                  'token_type': 'default-service'}"
 '''
 EXAMPLES = '''
 ---
@@ -83,18 +84,19 @@ EXAMPLES = '''
 
 DEFAULT_TTL = 2764800
 DEFAULT_CONFIG = {
-    'default_lease_ttl':DEFAULT_TTL,
-    'max_lease_ttl':DEFAULT_TTL,
-    'force_no_cache':False,
+    'default_lease_ttl': DEFAULT_TTL,
+    'max_lease_ttl': DEFAULT_TTL,
+    'force_no_cache': False,
     'token_type': 'default-service'
 }
+
 
 def main():
     argspec = hashivault_argspec()
     argspec['method_type'] = dict(required=True, type='str')
     argspec['description'] = dict(required=False, type='str', default='')
     argspec['state'] = dict(required=False, type='str', default='enabled',
-                            choices=['enabled','disabled','enable','disable'])
+                            choices=['enabled', 'disabled', 'enable', 'disable'])
     argspec['mount_point'] = dict(required=False, type='str', default=None)
     argspec['config'] = dict(required=False, type='dict',
                              default=DEFAULT_CONFIG)
@@ -115,7 +117,7 @@ def hashivault_auth_method(module):
     description = params.get('description')
     mount_point = params.get('mount_point')
     config = params.get('config')
-    if params.get('state') in ['enabled','enable']:
+    if params.get('state') in ['enabled', 'enable']:
         state = 'enabled'
     else:
         state = 'disabled'
@@ -123,7 +125,7 @@ def hashivault_auth_method(module):
     changed = False
     create = False
 
-    if mount_point == None:
+    if mount_point is None:
         mount_point = method_type
 
     try:
@@ -136,10 +138,10 @@ def hashivault_auth_method(module):
     except:
         pass
 
-    if state == 'enabled' and exists == False:
+    if state == 'enabled' and not exists:
         changed = True
         create = True
-    elif state == 'disabled' and exists == True:
+    elif state == 'disabled' and exists:
         changed = True
     elif exists and state == 'enabled':
         current_state = client.sys.read_auth_method_tuning(path=mount_point)['data']

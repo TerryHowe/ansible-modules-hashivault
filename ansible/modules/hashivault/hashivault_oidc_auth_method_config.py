@@ -3,7 +3,6 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
-import json, sys
 import requests
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
@@ -13,7 +12,7 @@ module: hashivault_oidc_auth_method_config
 version_added: "4.1.1"
 short_description: Hashicorp Vault OIDC auth method config
 description:
-    - Module to configure an OIDC auth mount 
+    - Module to configure an OIDC auth mount
 options:
     url:
         description:
@@ -70,7 +69,8 @@ options:
             - The default role to use if none is provided during login.
     oidc_discovery_url:
         description:
-            - The OIDC Discovery URL, without any .well-known component (base path). Cannot be used with "jwks_url" or "jwt_validation_pubkeys".
+            - The OIDC Discovery URL, without any .well-known component (base path). Cannot be used with "jwks_url" or
+              "jwt_validation_pubkeys".
     oidc_client_id:
         description:
             - The OAuth Client ID from the provider for OIDC roles.
@@ -82,20 +82,24 @@ options:
             - The value against which to match the iss claim in a JWT.
     jwks_ca_pem:
         description:
-            - The CA certificate or chain of certificates, in PEM format, to use to validate connections to the JWKS URL. If not set, system certificates are used.
+            - The CA certificate or chain of certificates, in PEM format, to use to validate connections to the JWKS
+              URL. If not set, system certificates are used.
     jwks_url:
         description:
-            - JWKS URL to use to authenticate signatures. Cannot be used with "oidc_discovery_url" or "jwt_validation_pubkeys".
+            - JWKS URL to use to authenticate signatures. Cannot be used with "oidc_discovery_url" or
+              "jwt_validation_pubkeys".
     jwt_supported_algs:
         description:
             - A list of supported signing algorithms.
         default: RS256
     jwt_validation_pubkeys:
         description:
-            - A list of PEM-encoded public keys to use to authenticate signatures locally. Cannot be used with "jwks_url" or "oidc_discovery_url".
+            - A list of PEM-encoded public keys to use to authenticate signatures locally. Cannot be used with
+              "jwks_url" or "oidc_discovery_url".
     oidc_discovery_ca_pem:
-        description: 
-            - The CA certificate or chain of certificates, in PEM format, to use to validate connections to the OIDC Discovery URL. If not set, system certificates are used.
+        description:
+            - The CA certificate or chain of certificates, in PEM format, to use to validate connections to the OIDC
+              Discovery URL. If not set, system certificates are used.
 '''
 EXAMPLES = '''
 ---
@@ -123,8 +127,8 @@ def main():
     argspec['oidc_client_id'] = dict(required=False, type='str')
     argspec['oidc_client_secret'] = dict(required=False, type='str')
     argspec['default_role'] = dict(required=False, type='str')
-    supports_check_mode=True
-    required_one_of=[['oidc_discovery_url', 'jwks_url']]
+    supports_check_mode = True
+    required_one_of = [['oidc_discovery_url', 'jwks_url']]
     module = hashivault_init(argspec, supports_check_mode, required_one_of=required_one_of)
     result = hashivault_oidc_auth_method_config(module)
     if result.get('failed'):
@@ -143,7 +147,7 @@ def hashivault_oidc_auth_method_config(module):
     current_state = dict()
     exists = False
 
-    token = params['token'] 
+    token = params['token']
     namespace = params['namespace']
     headers = {'X-Vault-Token': token, 'X-Vault-Namespace': namespace}
     url = params['url']
@@ -158,26 +162,26 @@ def hashivault_oidc_auth_method_config(module):
     else:
         desired_state['oidc_discovery_url'] = params.get('oidc_discovery_url')
     desired_state['oidc_client_id'] = params.get('oidc_client_id')
-    desired_state['default_role'] = params.get('default_role')       
-    desired_state['bound_issuer'] = params.get('bound_issuer')       
-    desired_state['jwks_ca_pem'] = params.get('jwks_ca_pem')       
+    desired_state['default_role'] = params.get('default_role')
+    desired_state['bound_issuer'] = params.get('bound_issuer')
+    desired_state['jwks_ca_pem'] = params.get('jwks_ca_pem')
     if not params.get('jwks_url'):
         desired_state['jwks_url'] = ''
     else:
         desired_state['jwks_url'] = params.get('jwks_url')
-    desired_state['jwt_supported_algs'] = params.get('jwt_supported_algs')       
-    desired_state['jwt_validation_pubkeys'] = params.get('jwt_validation_pubkeys')       
-    desired_state['oidc_discovery_ca_pem'] = params.get('oidc_discovery_ca_pem')       
+    desired_state['jwt_supported_algs'] = params.get('jwt_supported_algs')
+    desired_state['jwt_validation_pubkeys'] = params.get('jwt_validation_pubkeys')
+    desired_state['oidc_discovery_ca_pem'] = params.get('oidc_discovery_ca_pem')
 
     # check if engine is enabled
     try:
-      if (mount_point + "/") not in client.sys.list_auth_methods()['data'].keys():
-        return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
+        if (mount_point + "/") not in client.sys.list_auth_methods()['data'].keys():
+            return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
     except:
-      if module.check_mode:
-        changed = True
-      else:
-        return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
+        if module.check_mode:
+            changed = True
+        else:
+            return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
 
     # check if any config exists
     try:
@@ -186,24 +190,25 @@ def hashivault_oidc_auth_method_config(module):
             changed = True
         elif current_state.status_code == 200:
             exists = True
-    except: 
+    except:
         changed = True
-     
+
     # check if current config matches desired config values, if they dont match, set changed true
     if exists:
-      current_state = current_state.json()['data']
-      for k, v in current_state.items():
-        if k in desired_state and v != desired_state[k]:
-            changed = True
-    
-    desired_state['oidc_client_secret'] = params.get('oidc_client_secret') 
+        current_state = current_state.json()['data']
+        for k, v in current_state.items():
+            if k in desired_state and v != desired_state[k]:
+                changed = True
+
+    desired_state['oidc_client_secret'] = params.get('oidc_client_secret')
 
     # if configs dont match and checkmode is off, complete the change
-    if changed == True and not module.check_mode:
-         config_status = requests.post(url + '/v1/auth/' + mount_point + '/config', verify=verify, headers=headers, json=desired_state) 
-         try:
+    if changed and not module.check_mode:
+        config_status = requests.post(url + '/v1/auth/' + mount_point + '/config', verify=verify, headers=headers,
+                                      json=desired_state)
+        try:
             config_status.raise_for_status()
-         except: 
+        except:
             return {'failed': True, 'msg': config_status.text, 'rc': 1}
     return {'changed': changed}
 

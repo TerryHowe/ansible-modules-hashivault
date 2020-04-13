@@ -77,7 +77,7 @@ EXAMPLES = '''
   tasks:
     - hashivault_ldap_group:
         name: 'my-group'
-        policies: 
+        policies:
             - 'my-policy'
         token: "{{ vault_token }}"
         url: "{{ vault_url }}"
@@ -108,7 +108,7 @@ def hashivault_ldap_group_update(group_details, client, group_name, group_polici
     # new policies and none existing
     elif len(group_policies) > 0:
         changed = True
-    
+
     if changed:
         try:
             response = client.auth.ldap.create_or_update_group(
@@ -139,8 +139,8 @@ def hashivault_ldap_group_create_or_update(params):
         )
         return {'changed': True}
     return hashivault_ldap_group_update(group_details['data'], client, group_name=group_name,
-                                                group_policies=group_policies,
-                                                mount_point=mount_point)
+                                        group_policies=group_policies,
+                                        mount_point=mount_point)
 
 
 def hashivault_ldap_group_delete(params):
@@ -156,7 +156,7 @@ def hashivault_ldap_group_delete(params):
 
 
 @hashiwrapper
-def hashivault_ldap_group(params): 
+def hashivault_ldap_group(params):
     state = params.get('state')
     if state == 'present':
         return hashivault_ldap_group_create_or_update(params)

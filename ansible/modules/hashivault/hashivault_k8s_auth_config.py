@@ -3,7 +3,6 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
-import json, sys
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -66,10 +65,9 @@ options:
     token_reviewer_jwt:
         description:
             -  a service account JWT used to access the TokenReview API to validate other JWTs during login
-    kubernetes_ca_cert:       
+    kubernetes_ca_cert:
         description:
-            - PEM encoded CA cert for use by the TLS client used to talk with the Kubernetes API 
-                    
+            - PEM encoded CA cert for use by the TLS client used to talk with the Kubernetes API
 
 '''
 EXAMPLES = '''
@@ -91,8 +89,8 @@ def main():
     argspec['token_reviewer_jwt'] = dict(required=False, type='str', default=None)
     argspec['kubernetes_ca_cert'] = dict(required=False, type='str', default=None)
 
-    supports_check_mode=True
-    required_together=[['kubernetes_host', 'kubernetes_ca_cert', 'token_reviewer_jwt']]
+    supports_check_mode = True
+    required_together = [['kubernetes_host', 'kubernetes_ca_cert', 'token_reviewer_jwt']]
 
     module = hashivault_init(argspec, supports_check_mode, required_together)
     result = hashivault_k8s_auth_config(module)
@@ -131,4 +129,3 @@ def hashivault_k8s_auth_config(module):
 
 if __name__ == '__main__':
     main()
-

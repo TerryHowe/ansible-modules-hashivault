@@ -76,6 +76,7 @@ EXAMPLES = '''
         namespace: teama
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
@@ -106,18 +107,16 @@ def hashivault_secret_engine(module):
     except Exception:
         # doesnt exist
         pass
-    
+
     # doesnt exist and should or does exist and shouldnt
     if (exists and state == 'absent') or (not exists and state == 'present'):
         changed = True
 
-    # make changes!
-    
-    # doesnt exist and should
+    # create
     if changed and not exists and state == 'present' and not module.check_mode:
         client.sys.create_namespace(path=name)
-    
-    # exists and shouldnt    
+
+    # delete
     elif changed and (state == 'absent' or state == 'disabled') and not module.check_mode:
         client.sys.delete_namespace(path=name)
 

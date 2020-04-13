@@ -3,7 +3,7 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
-import json, sys
+import json
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -105,7 +105,7 @@ def main():
     argspec['client_secret'] = dict(required=False, type='str')
     argspec['environment'] = dict(required=False, type='str', default='AzurePublicCloud')
     argspec['config_file'] = dict(required=False, type='str', default=None)
-    required_together=[['subscription_id', 'client_id', 'client_secret', 'tenant_id']]
+    required_together = [['subscription_id', 'client_id', 'client_secret', 'tenant_id']]
 
     module = hashivault_init(argspec, supports_check_mode=True, required_together=required_together)
     result = hashivault_azure_secret_engine_config(module)
@@ -134,13 +134,13 @@ def hashivault_azure_secret_engine_config(module):
     if config_file:
         desired_state = json.loads(open(params.get('config_file'), 'r').read())
         if 'environment' not in desired_state:
-            desired_state['environment'] = 'AzurePublicCloud' 
+            desired_state['environment'] = 'AzurePublicCloud'
     else:
         desired_state['tenant_id'] = params.get('tenant_id')
         desired_state['subscription_id'] = params.get('subscription_id')
         desired_state['client_id'] = params.get('client_id')
         desired_state['client_secret'] = params.get('client_secret')
-        desired_state['environment'] = params.get('environment')    
+        desired_state['environment'] = params.get('environment')
 
     # check if engine is enabled
     try:
@@ -163,8 +163,8 @@ def hashivault_azure_secret_engine_config(module):
             changed = True
 
     # if configs dont match and checkmode is off, complete the change
-    if changed == True and not module.check_mode:
-        result = client.secrets.azure.configure(mount_point=mount_point, **desired_state)
+    if changed and not module.check_mode:
+        client.secrets.azure.configure(mount_point=mount_point, **desired_state)
 
     return {'changed': changed}
 

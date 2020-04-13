@@ -91,8 +91,8 @@ def main():
     argspec['azure_role'] = dict(required=False, type='str')
     argspec['azure_role_file'] = dict(required=False, type='str')
     argspec['mount_point'] = dict(required=False, type='str', default='azure')
-    supports_check_mode=True
-    mutually_exclusive=[['azure_role','azure_role_file']]
+    supports_check_mode = True
+    mutually_exclusive = [['azure_role', 'azure_role_file']]
 
     module = hashivault_init(argspec, supports_check_mode=supports_check_mode, mutually_exclusive=mutually_exclusive)
     result = hashivault_azure_secret_engine_role(module)
@@ -145,7 +145,7 @@ def hashivault_azure_secret_engine_role(module):
     azure_role = literal_eval(azure_role)
     if not changed:
         # check if role content == desired
-        current = client.secrets.aws.read_role(name=name,mount_point=mount_point)['data']['azure_roles']
+        current = client.secrets.aws.read_role(name=name, mount_point=mount_point)['data']['azure_roles']
         caught = 0
         for i in azure_role:
             for i2 in current:
@@ -157,7 +157,7 @@ def hashivault_azure_secret_engine_role(module):
     # make the changes!
     if changed and not module.check_mode:
         client.secrets.azure.create_or_update_role(name=name, azure_roles=azure_role)
-    
+
     return {'changed': changed}
 
 

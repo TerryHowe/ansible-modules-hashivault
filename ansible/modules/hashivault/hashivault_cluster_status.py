@@ -61,7 +61,8 @@ options:
         default: False
     method:
       description:
-        - Method to use to get cluster status, supported methods are HEAD (produces 000 (empty body)) and GET (produces 000 application/json)
+        - Method to use to get cluster status, supported methods are HEAD (produces 000 (empty body)) and GET (produces
+          000 application/json)
       default: HEAD
 '''
 EXAMPLES = '''

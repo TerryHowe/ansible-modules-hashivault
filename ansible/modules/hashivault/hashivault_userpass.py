@@ -71,7 +71,8 @@ options:
         default: default
     token_bound_cidrs:
         description:
-            - List of CIDR blocks; if set, specifies blocks of IP addresses which can authenticate successfully, and ties the resulting token to these blocks as well.        
+            - List of CIDR blocks; if set, specifies blocks of IP addresses which can authenticate successfully, and
+              ties the resulting token to these blocks as well.
     state:
         description:
             - whether create/update or delete the user

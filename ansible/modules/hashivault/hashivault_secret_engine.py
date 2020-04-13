@@ -85,13 +85,17 @@ EXAMPLES = '''
         backend: generic
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
     argspec['backend'] = dict(required=False, type='str', default='')
     argspec['description'] = dict(required=False, type='str', default='')
-    argspec['config'] = dict(required=False, type='dict', default={'default_lease_ttl': DEFAULT_TTL, 'max_lease_ttl': DEFAULT_TTL, 'force_no_cache': False})
-    argspec['state'] = dict(required=False, type='str', choices=['present', 'enabled', 'absent', 'disabled'], default='present')
+    argspec['config'] = dict(required=False, type='dict', default={'default_lease_ttl': DEFAULT_TTL,
+                                                                   'max_lease_ttl': DEFAULT_TTL,
+                                                                   'force_no_cache': False})
+    argspec['state'] = dict(required=False, type='str', choices=['present', 'enabled', 'absent', 'disabled'],
+                            default='present')
     argspec['options'] = dict(required=False, type='dict', default={})
     module = hashivault_init(argspec)
     result = hashivault_secret_engine(module)
@@ -160,7 +164,8 @@ def hashivault_secret_engine(module):
     # create
     if changed and not exists and state == 'enabled' and not module.check_mode:
         if backend == 'kv':
-            client.sys.enable_secrets_engine(backend, description=description, path=name, config=config, options=options)
+            client.sys.enable_secrets_engine(backend, description=description, path=name, config=config,
+                                             options=options)
         else:
             client.sys.enable_secrets_engine(backend, description=description, path=name, config=config)
         created = True

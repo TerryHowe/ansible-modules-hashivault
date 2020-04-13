@@ -75,7 +75,9 @@ options:
             - The maximum allowed lifetime of tokens issued in seconds using this role.
     token_period:
         description:
-            - If set, indicates that the token generated using this role should never expire. The token should be renewed within the duration specified by this value. At each renewal, the token's TTL will be set to the value of this parameter.
+            - If set, indicates that the token generated using this role should never expire. The token should be
+              renewed within the duration specified by this value. At each renewal, the token's TTL will be set to the
+              value of this parameter.
     bound_service_principal_ids:
         description:
             - The list of Service Principal IDs that login is restricted to.
@@ -96,7 +98,8 @@ options:
             - The list of scale set names that the login is restricted to.
     role_file:
         description:
-            - file with a json object containing play parameters. pass all params but name, state, mount_point which stay in the ansible play
+            - File with a json object containing play parameters. pass all params but name, state, mount_point which
+              stay in the ansible play
 '''
 EXAMPLES = '''
 ---
@@ -132,9 +135,9 @@ def main():
     argspec['bound_scale_sets'] = dict(required=False, type='list', default=[])
     argspec['num_uses'] = dict(required=False, type='int', default=0)
 
-    supports_check_mode=True
+    supports_check_mode = True
 
-    module = hashivault_init(argspec, supports_check_mode) #, required_one_of)
+    module = hashivault_init(argspec, supports_check_mode)
     result = hashivault_azure_auth_role(module)
     if result.get('failed'):
         module.fail_json(**result)
@@ -177,7 +180,6 @@ def hashivault_azure_auth_role(module):
         desired_state['bound_scale_sets'] = params.get('bound_scale_sets')
         desired_state['num_uses'] = params.get('num_uses')
 
-
     # check if engine is enabled
     try:
         if (mount_point + "/") not in client.sys.list_auth_methods()['data'].keys():
@@ -216,13 +218,13 @@ def hashivault_azure_auth_role(module):
                 changed = True
     elif exists and state == 'absent':
         changed = True
-    
+
     # make the changes!
     # NOTE: bound_location is paseed. will need to be changed eventually
     # https://github.com/hvac/hvac/issues/451
     if changed and state == 'present' and not module.check_mode:
         client.auth.azure.create_role(name=name, mount_point=mount_point, **desired_state)
-    
+
     elif changed and state == 'absent' and not module.check_mode:
         client.auth.azure.delete_role(name=name, mount_point=mount_point)
 

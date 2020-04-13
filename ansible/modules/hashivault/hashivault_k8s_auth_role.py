@@ -75,12 +75,13 @@ options:
             - policies to be set on tokens issued using this role.
     period:
         description:
-            - if set, indicates that the token generated using this role should never expire. The token should
-            be renewed within the duration specified by this value. At each renewal, the token's TTL will be set to the
-            value of this parameter
+            - If set, indicates that the token generated using this role should never expire. The token should
+              be renewed within the duration specified by this value. At each renewal, the token's TTL will be set
+              to the value of this parameter
     role_file:
         description:
-            - file with a json object containing play parameters. pass all params but name, state, mount_point which stay in the ansible play
+            - File with a json object containing play parameters. pass all params but name, state, mount_point which
+              stay in the ansible play
 
 
 '''
@@ -113,7 +114,7 @@ def main():
     argspec['role_file'] = dict(required=False, type='str')
     argspec['state'] = dict(required=False, type='str', default='present', choices=['present', 'absent'])
 
-    supports_check_mode=True
+    supports_check_mode = True
 
     module = hashivault_init(argspec, supports_check_mode)
     result = hashivault_k8s_auth_role(module)
@@ -192,7 +193,7 @@ def hashivault_k8s_auth_role(module):
 
     if changed and state == 'present' and not module.check_mode:
         client.auth.kubernetes.create_role(name=name, mount_point=mount_point, **desired_state)
-    
+
     elif changed and state == 'absent' and not module.check_mode:
         client.auth.kubernetes.delete_role(name=name, mount_point=mount_point)
 

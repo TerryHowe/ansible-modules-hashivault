@@ -139,10 +139,10 @@ def hashivault_list(params):
             else:
                 response = client.secrets.kv.v1.list_secrets(path=secret, mount_point=mount_point)
         except Exception as e:
-          if response is None:
-            response = {}
-          else:
-            return {'failed': True, 'msg': str(e)}
+            if response is None:
+                response = {}
+            else:
+                return {'failed': True, 'msg': str(e)}
         result['secrets'] = response.get('data', {}).get('keys', [])
     return result
 

@@ -97,7 +97,7 @@ EXAMPLES = '''
   tasks:
     - hashivault_identity_group:
         name: 'my-group'
-        policies: 
+        policies:
             - 'my-policy'
         member_group_ids:
             - 'group-id-xxxx'
@@ -130,14 +130,13 @@ def main():
 
 
 def hashivault_identity_group_update(group_details, client, group_id, group_name, group_type, group_metadata,
-                                      group_policies, group_member_group_ids, group_member_entity_ids, mount_point):
+                                     group_policies, group_member_group_ids, group_member_entity_ids, mount_point):
     changed = False
 
     # if the groups were created without any entity members, group members, or policies,
     # then vault will return null for each respectively
     # if they were created with these and then all were removed it returns an empty list
     # for each respectively. The below is required to account for this
-    
     # existing member_group_ids
     if group_details['member_group_ids'] is not None and group_member_group_ids is not None:
         if set(group_details['member_group_ids']) != set(group_member_group_ids):
@@ -161,7 +160,7 @@ def hashivault_identity_group_update(group_details, client, group_id, group_name
     # new member_entity_ids and none existing
     elif group_member_entity_ids is not None and len(group_member_entity_ids) > 0:
         changed = True
-    
+
     # existing metadata
     if group_details['metadata'] is not None:
         if group_details['metadata'] != group_metadata:
@@ -169,10 +168,8 @@ def hashivault_identity_group_update(group_details, client, group_id, group_name
     # new metadata and none existing
     elif len(group_metadata) > 0:
         changed = True
-    
-    if group_details['name'] != group_name or \
-        group_details['type'] != group_type or \
-        changed:
+
+    if group_details['name'] != group_name or group_details['type'] != group_type or changed:
         try:
             response = client.secrets.identity.update_group(
                 group_id=group_id,
@@ -202,15 +199,15 @@ def hashivault_identity_group_create_or_update(params):
     group_policies = params.get('policies')
     group_member_group_ids = params.get('member_group_ids')
     group_member_entity_ids = params.get('member_entity_ids')
-    
+
     if group_id is not None:
         try:
             group_details = client.secrets.identity.read_group(group_id=group_id)
         except Exception as e:
             return {'failed': True, 'msg': str(e)}
         return hashivault_identity_group_update(group_details['data'], client, group_id, group_name, group_type,
-                                                 group_metadata, group_policies, group_member_group_ids,
-                                                 group_member_entity_ids, mount_point)
+                                                group_metadata, group_policies, group_member_group_ids,
+                                                group_member_entity_ids, mount_point)
     elif group_name is not None:
         try:
             group_details = client.secrets.identity.read_group_by_name(name=group_name)
@@ -229,13 +226,13 @@ def hashivault_identity_group_create_or_update(params):
                 response = response.json()
             return {'changed': True, 'data': response['data']}
         return hashivault_identity_group_update(group_details['data'], client, group_name=group_name,
-                                                 group_id=group_details['data']['id'],
-                                                 group_type=group_type,
-                                                 group_metadata=group_metadata,
-                                                 group_policies=group_policies,
-                                                 group_member_group_ids=group_member_group_ids,
-                                                 group_member_entity_ids=group_member_entity_ids,
-                                                 mount_point=mount_point)
+                                                group_id=group_details['data']['id'],
+                                                group_type=group_type,
+                                                group_metadata=group_metadata,
+                                                group_policies=group_policies,
+                                                group_member_group_ids=group_member_group_ids,
+                                                group_member_entity_ids=group_member_entity_ids,
+                                                mount_point=mount_point)
     return {'failed': True, 'msg': "Either name or id must be provided"}
 
 
@@ -262,7 +259,7 @@ def hashivault_identity_group_delete(params):
 
 
 @hashiwrapper
-def hashivault_identity_group(params): 
+def hashivault_identity_group(params):
     state = params.get('state')
     if state == 'present':
         return hashivault_identity_group_create_or_update(params)

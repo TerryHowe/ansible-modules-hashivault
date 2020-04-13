@@ -190,7 +190,7 @@ def hashivault_write(module):
             if not read_data:
                 read_data = {}
             read_data = read_data.get('data', {})
-            
+
             if version == 2:
                 read_data = read_data.get('data', {})
 

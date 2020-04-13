@@ -3,7 +3,7 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
-import json, sys
+import json
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -12,7 +12,7 @@ module: hashivault_db_secret_engine_config
 version_added: "3.17.8"
 short_description: Hashicorp Vault database secrets engine config
 description:
-    - Module to configure a database secrets engine 
+    - Module to configure a database secrets engine
 options:
     url:
         description:
@@ -66,16 +66,19 @@ options:
         default: present
     config_file:
         description:
-            - optional: location of file containing relevant db configuration info. use either this or the following ansible params in your play
+            - optional: location of file containing relevant db configuration info. use either this or the following
+              ansible params in your play
     connection_details:
         description:
             - root level database credential for example username, password, connection_url.
     plugin_name:
         description:
-            - name of database plugin used. see out of the box list at https://www.vaultproject.io/docs/secrets/databases/index.html
+            - name of database plugin used. see out of the box list at
+              https://www.vaultproject.io/docs/secrets/databases/index.html
     allowed_roles:
         description:
-            - list of the roles allowed to use this connection. Defaults to empty (no roles), if contains a "*" any role can use this connection.
+            - list of the roles allowed to use this connection. Defaults to empty (no roles), if contains a "*" any role
+              can use this connection.
         default: []
     verify_connection:
         description:
@@ -83,7 +86,8 @@ options:
         default: true
     root_credentials_rotate_statements:
         description:
-            - Specifies the database statements to be executed to rotate the root user's credentials. See the plugin's API page for more information on support and formatting for this parameter.
+            - Specifies the database statements to be executed to rotate the root user's credentials. See the plugin's
+              API page for more information on support and formatting for this parameter.
         default: []
 '''
 EXAMPLES = '''
@@ -118,8 +122,8 @@ def main():
     argspec['verify_connection'] = dict(required=False, type='bool', default=True)
     argspec['connection_details'] = dict(required=True, type='dict')
 
-    supports_check_mode=True
-    required_one_of=[['config_file', 'connection_details']]
+    supports_check_mode = True
+    required_one_of = [['config_file', 'connection_details']]
 
     module = hashivault_init(argspec, supports_check_mode, required_one_of=required_one_of)
     result = hashivault_db_secret_engine_config(module)

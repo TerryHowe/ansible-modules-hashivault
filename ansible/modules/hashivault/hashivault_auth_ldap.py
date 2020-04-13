@@ -67,8 +67,8 @@ options:
     case_sensitive_names:
         description:
             - If set, user and group names assigned to policies within the backend will be case sensitive. Otherwise,
-             names will be normalized to lower case. Case will still be preserved when sending the username to the LDAP
-             server at login time; this is only for matching local user/group definitions. 
+              names will be normalized to lower case. Case will still be preserved when sending the username to the LDAP
+              server at login time; this is only for matching local user/group definitions.
         default: False
     starttls:
         description:
@@ -92,7 +92,8 @@ options:
         default: ''
     bind_dn:
         description:
-         - Distinguished name of object to bind when performing user search. Example: cn=vault,ou=Users,dc=example,dc=com
+         - Distinguished name of object to bind when performing user search.
+           Example: cn=vault,ou=Users,dc=example,dc=com
         default: ''
     bind_pass:
         description:
@@ -103,11 +104,12 @@ options:
             - Base DN under which to perform user search. Example: ou=Users,dc=example,dc=com
         default: ''
     user_attr:
-        description: 
-         - Attribute on user attribute object matching the username passed when authenticating. Examples: sAMAccountName, cn, uid
+        description:
+         - Attribute on user attribute object matching the username passed when authenticating.
+           Examples: sAMAccountName, cn, uid
         default: cn
     discover_dn:
-        description: 
+        description:
          - Use anonymous bind to discover the bind DN of a user
         default: False
     deny_null_bind:
@@ -120,7 +122,8 @@ options:
         default: ''
     group_filter:
         description:
-            - Go template used when constructing the group membership query. The template can access the following context variables: [UserDN, Username]
+            - Go template used when constructing the group membership query. The template can access the following
+              context variables: [UserDN, Username]
         default: (|(memberUid={{.Username}})(member={{.UserDN}})(uniqueMember={{.UserDN}}))
     group_attr:
         description:
@@ -130,7 +133,7 @@ options:
         description:
             - LDAP search base to use for group membership search
         default: ''
-        
+
 '''
 EXAMPLES = '''
 ---
@@ -147,6 +150,7 @@ EXAMPLES = '''
         token: "{{ vault_token }}"
         url: "{{ vault_url }}"
 '''
+
 
 def main():
     argspec = hashivault_argspec()
@@ -175,6 +179,7 @@ def main():
         module.fail_json(**result)
     else:
         module.exit_json(**result)
+
 
 @hashiwrapper
 def hashivault_auth_ldap(module):
@@ -212,9 +217,9 @@ def hashivault_auth_ldap(module):
         exists = True
 
     # if the auth method isn't enabled
-    if exists == False:
+    if not exists:
         return {'msg': 'auth method isn\'t enabled'}
-    
+
     # if bind pass is None, remove it from desired state since we can't compare
     if desired_state['bind_pass'] is None:
         del desired_state['bind_pass']
@@ -238,7 +243,7 @@ def hashivault_auth_ldap(module):
         current_state['deny_null_bind'] = result['deny_null_bind']
         current_state['user_dn'] = result['userdn']
         current_state['bind_dn'] = result['binddn']
-        #current_state['use_token_groups'] = result['use_token_groups']  # returned from Vault - not implemented in HVAC
+        # current_state['use_token_groups'] = result['use_token_groups']  # not implemented in HVAC
         current_state['url'] = result['url']
         current_state['starttls'] = result['starttls']
 
@@ -248,9 +253,9 @@ def hashivault_auth_ldap(module):
             changed = True
 
     # if configs dont match and checkmode is off, complete the change
-    if changed == True and not module.check_mode:
+    if changed and not module.check_mode:
         client.auth.ldap.configure(**desired_state)
-     
+
     return {'changed': changed}
 
 if __name__ == '__main__':
