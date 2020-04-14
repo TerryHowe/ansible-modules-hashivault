@@ -56,4 +56,6 @@ done
 # Initialize the vault
 #
 ansible-playbook -v test_init.yml
+source ./vaultenv.sh
+ansible-playbook -v test_enable_kv.yml
 exit $?

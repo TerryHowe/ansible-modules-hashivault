@@ -9,7 +9,6 @@ export HOME
 ./start.sh
 
 source ./vaultenv.sh
-ansible-playbook -v test_enable_kv.yml
 ansible-playbook -v test_mounts.yml
 ansible-playbook -v test_write.yml
 ansible-playbook -v test_check.yml --check
@@ -23,6 +22,7 @@ ansible-playbook -v test_auth.yml
 ansible-playbook -v test_auth_method.yml
 ansible-playbook -v test_azure_auth_config.yml
 ansible-playbook -v test_azure_auth_role.yml
+ansible-playbook -v test_k8_auth.yml
 # ansible-playbook -v test_oidc_auth_method_config.yml cannot run without true discovery url
 # ansible-playbook -v test_oidc_auth_role.yml cannot run without true discovery url
 ansible-playbook -v test_secret_engine.yml
@@ -46,6 +46,7 @@ ansible-playbook -v test_environment_lookup.yml
 ansible-playbook -v test_unseal.yml
 ansible-playbook -v test_rekey.yml
 ansible-playbook -v test_identity_group.yml
+ansible-playbook -v test_identity_entity.yml
 ansible-playbook -v test_ldap_group.yml
 # test_rekey.yml changes unseal keys, need to update VAULT_KEYS
 # for further test, if any.
