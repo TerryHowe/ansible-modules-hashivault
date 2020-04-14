@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+4.4.1 (2020-04-14)
+------------------
+- Fix no_log issue for hashivault_write and others. [Terry Howe]
+- Add missing tests. [Terry Howe]
+
+
 4.4.0 (2020-04-14)
 ------------------
 - Deprecate audit enable and add new module. [Terry Howe]
