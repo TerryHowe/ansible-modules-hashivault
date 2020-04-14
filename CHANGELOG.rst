@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+4.4.0 (2020-04-14)
+------------------
+- Deprecate audit enable and add new module. [Terry Howe]
+
+
 4.3.4 (2020-04-14)
 ------------------
 - Doc fixes. [Terry Howe]
