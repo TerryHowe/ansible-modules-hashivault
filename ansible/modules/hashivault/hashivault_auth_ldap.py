@@ -93,7 +93,7 @@ options:
     bind_dn:
         description:
          - Distinguished name of object to bind when performing user search.
-           Example: cn=vault,ou=Users,dc=example,dc=com
+           Example cn=vault,ou=Users,dc=example,dc=com
         default: ''
     bind_pass:
         description:
@@ -106,7 +106,7 @@ options:
     user_attr:
         description:
          - Attribute on user attribute object matching the username passed when authenticating.
-           Examples: sAMAccountName, cn, uid
+           Examples sAMAccountName, cn, uid
         default: cn
     discover_dn:
         description:
@@ -123,7 +123,7 @@ options:
     group_filter:
         description:
             - Go template used when constructing the group membership query. The template can access the following
-              context variables: [UserDN, Username]
+              context variables [UserDN, Username]
         default: (|(memberUid={{.Username}})(member={{.UserDN}})(uniqueMember={{.UserDN}}))
     group_attr:
         description:

@@ -66,7 +66,7 @@ options:
         default: present
     config_file:
         description:
-            - optional: location of file containing relevant db configuration info. use either this or the following
+            - Optional location of file containing relevant db configuration info. use either this or the following
               ansible params in your play
     connection_details:
         description:

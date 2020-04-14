@@ -130,7 +130,7 @@ options:
         description:
             - The type of token that should be generated. Can be service, batch, or default to use the mount's tuned
               default (which unless changed will be service tokens). For token store roles, there are two additional
-              possibilities: default-service and default-batch which specify the type to return unless the client
+              possibilities (default-service and default-batch) which specify the type to return unless the client
               requests a different type at generation time.
 '''
 EXAMPLES = '''
