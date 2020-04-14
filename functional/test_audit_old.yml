@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - hashivault_audit_list:
+      register: 'vault_audit_list'
+
+    - hashivault_audit_enable:
+        name: "file"
+        options:
+          file_path: "/tmp/vault.log"
+      register: 'vault_audit_enable'
+    - assert: { that: "{{vault_audit_enable.changed}} == True" }
+    - assert: { that: "{{vault_audit_enable.rc}} == 0" }
+
+    - hashivault_audit_enable:
+        name: "file"
+        options:
+          file_path: "/tmp/vault.log"
+      register: 'vault_audit_enable_twice'
+    - assert: { that: "{{vault_audit_enable_twice.changed}} == False" }
+    - assert: { that: "{{vault_audit_enable_twice.rc}} == 0" }

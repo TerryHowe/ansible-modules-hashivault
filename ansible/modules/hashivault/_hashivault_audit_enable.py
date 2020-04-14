@@ -4,14 +4,14 @@ from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
 
-ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
+ANSIBLE_METADATA = {'status': ['deprecated'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
 module: hashivault_audit_enable
 version_added: "2.2.0"
 short_description: Hashicorp Vault audit enable module
 description:
-    - Module to enable audit backends in Hashicorp Vault.
+    - Module to enable audit backends in Hashicorp Vault. Use hashivault_audit instead.
 options:
     url:
         description:

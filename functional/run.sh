@@ -40,6 +40,7 @@ ansible-playbook -v test_generate_root.yml
 # ansible-playbook -v test_kv2.yml fais because hvac issue #385
 ansible-playbook -v test_tokens.yml
 ansible-playbook -v test_audit.yml
+ansible-playbook -v test_audit_old.yml
 ansible-playbook -v test_read_write_file.yml
 ansible-playbook -v test_environment_lookup.yml
 ansible-playbook -v test_unseal.yml
