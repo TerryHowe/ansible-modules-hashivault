@@ -2,6 +2,14 @@ Changelog
 =========
 
 
+4.3.4 (2020-04-14)
+------------------
+- Doc fixes. [Terry Howe]
+- Pep8 fixes. [Terry Howe]
+- Add k8s tests. [Terry Howe]
+- Kubernetes auth roles added. [Sergey Mikhaltsov]
+
+
 4.3.3 (2020-04-13)
 ------------------
 - Fix update for approle. [Terry Howe]
