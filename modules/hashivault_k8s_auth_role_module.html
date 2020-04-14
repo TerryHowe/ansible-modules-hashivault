@@ -19,14 +19,14 @@
   <!-- End Google Tag Manager Data Layer -->
 
   
-  <title>hashivault_list - Hashicorp Vault list &mdash; Ansible Documentation</title>
+  <title>hashivault_k8s_auth_role - Hashicorp Vault kubernetes secret engine role &mdash; Ansible Documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_list_module.html"/>
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_k8s_auth_role_module.html"/>
   
 
   
@@ -2251,10 +2251,10 @@
 
           <ul class="wy-breadcrumbs">
   <li><a href="../index.html">Docs</a> &raquo;</li>
-  <li><a href="">hashivault_list - Hashicorp Vault list</a></li>
+  <li><a href="">hashivault_k8s_auth_role - Hashicorp Vault kubernetes secret engine role</a></li>
   
     <li class="wy-breadcrumbs-aside">
-      <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_list.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr" class="icon icon-github"> Edit on GitHub</a>
+      <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_k8s_auth_role.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr" class="icon icon-github"> Edit on GitHub</a>
     </li>
   
 </ul>
@@ -2262,21 +2262,20 @@
 
           <div id="page-content">
           
-  <div class="section" id="hashivault-list-hashicorp-vault-list">
-<span id="hashivault-list-module"></span><h1>hashivault_list - Hashicorp Vault list<a class="headerlink" href="#hashivault-list-hashicorp-vault-list" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="hashivault-k8s-auth-role-hashicorp-vault-kubernetes-secret-engine-role">
+<span id="hashivault-k8s-auth-role-module"></span><h1>hashivault_k8s_auth_role - Hashicorp Vault kubernetes secret engine role<a class="headerlink" href="#hashivault-k8s-auth-role-hashicorp-vault-kubernetes-secret-engine-role" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
-<p><span class="versionmodified added">New in version 2.9.</span></p>
+<p><span class="versionmodified added">New in version 4.3.1.</span></p>
 </div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
 <li><p><a class="reference internal" href="#parameters" id="id2">Parameters</a></p></li>
 <li><p><a class="reference internal" href="#examples" id="id3">Examples</a></p></li>
-<li><p><a class="reference internal" href="#return-values" id="id4">Return Values</a></p></li>
-<li><p><a class="reference internal" href="#status" id="id5">Status</a></p></li>
-<li><p><a class="reference internal" href="#maintenance" id="id6">Maintenance</a></p>
+<li><p><a class="reference internal" href="#status" id="id4">Status</a></p></li>
+<li><p><a class="reference internal" href="#maintenance" id="id5">Maintenance</a></p>
 <ul>
-<li><p><a class="reference internal" href="#author" id="id7">Author</a></p></li>
+<li><p><a class="reference internal" href="#author" id="id6">Author</a></p></li>
 </ul>
 </li>
 </ul>
@@ -2284,7 +2283,7 @@
 <div class="section" id="synopsis">
 <h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>The <a class="reference internal" href="#hashivault-list-module"><span class="std std-ref">hashivault_list</span></a> module lists keys in Hashicorp Vault.  By default this will list top-level keys under <code class="docutils literal notranslate"><span class="pre">/secret</span></code>, but you can provide an alternate location as <em>secret</em>.  This includes both immediate subkeys and subkey paths, like the <code class="docutils literal notranslate"><span class="pre">vault</span> <span class="pre">list</span></code> command.</p></li>
+<li><p>Module to define a kubernetes role that vault can generate dynamic credentials for vault</p></li>
 </ul>
 </div>
 <div class="section" id="parameters">
@@ -2352,13 +2351,33 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
+                <b>max_ttl</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>maximum allowed lifetime of tokens issued in seconds using this role.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
                 <b>mount_point</b>
                                                                         </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">secret</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">kubernetes</div>
                                 </td>
                                                             <td>
-                                                                    <div>secret mount point</div>
+                                                                    <div>name of the secret engine mount name.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>name</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>name of the role in vault</div>
                                                                             </td>
         </tr>
                             <tr>
@@ -2374,13 +2393,32 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
-                <b>secret</b>
+                <b>period</b>
                                                                         </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue"></div>
-                                </td>
+                                                                                                                                                        </td>
                                                             <td>
-                                                                    <div>secret path to list.  If this does not begin with a <code>/</code> then it is interpreted as a subpath of <code>/secret</code>.  This is always interpreted as a &quot;directory&quot;: if a key <code>/secret/foo</code> exists, and you pass <code>/secret/foo</code> as <em>secret</em>, then the key itself will not be returned, but subpaths like <code>/secret/foo/bar</code> will.</div>
+                                                                    <div>If set, indicates that the token generated using this role should never expire. The token should be renewed within the duration specified by this value. At each renewal, the token&#x27;s TTL will be set to the value of this parameter</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>policies</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>policies to be set on tokens issued using this role.</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>role_file</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>File with a json object containing play parameters. pass all params but name, state, mount_point which stay in the ansible play</div>
                                                                             </td>
         </tr>
                             <tr>
@@ -2392,6 +2430,16 @@
                                 </td>
                                                             <td>
                                                                     <div>token for vault</div>
+                                                                            </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <b>ttl</b>
+                                                                        </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                                                    <div>TTL period of tokens issued using this role in seconds</div>
                                                                             </td>
         </tr>
                             <tr>
@@ -2427,17 +2475,6 @@
                                                                     <div>if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing</div>
                                                                             </td>
         </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <b>version</b>
-                                                                        </td>
-                            <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">1</div>
-                                </td>
-                                                            <td>
-                                                                    <div>version of the kv engine (int)</div>
-                                                                            </td>
-        </tr>
                     </table>
 <br/></div>
 <div class="section" id="examples">
@@ -2445,54 +2482,34 @@
 <div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
   <span class="nt">tasks</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">hashivault_list</span><span class="p">:</span>
-        <span class="nt">secret</span><span class="p">:</span> <span class="s">&#39;giant&#39;</span>
-        <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-      <span class="nt">register</span><span class="p">:</span> <span class="s">&#39;fie&#39;</span>
-    <span class="p p-Indicator">-</span> <span class="nt">debug</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">msg=&quot;Known secrets are </span><span class="cp">{{</span> <span class="nv">fie.secrets</span><span class="o">|</span><span class="nf">join</span><span class="o">(</span><span class="s1">&#39;, &#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="l l-Scalar l-Scalar-Plain">&quot;</span>
+    <span class="p p-Indicator">-</span> <span class="nt">hashivault_k8s_auth_role</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;test&quot;</span>
+        <span class="nt">policies</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;test&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;test2&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">bound_service_account_names</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;vault-auth&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">bound_service_account_namespaces</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;default&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;some-app&quot;</span><span class="p p-Indicator">]</span>
+
+    <span class="p p-Indicator">-</span> <span class="nt">hashivault_k8s_auth_role</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
+        <span class="nt">role_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some_k8s_role.json</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="return-values">
-<h2><a class="toc-backref" href="#id4">Return Values</a><a class="headerlink" href="#return-values" title="Permalink to this headline">¶</a></h2>
-<p>Common return values are documented <a class="reference internal" href="../reference_appendices/common_return_values.html#common-return-values"><span class="std std-ref">here</span></a>, the following are the fields unique to this module:</p>
-<table border=0 cellpadding=0 class="documentation-table">
-    <tr>
-        <th colspan="1">Key</th>
-        <th>Returned</th>
-        <th width="100%">Description</th>
-    </tr>
-                <tr>
-                            <td colspan="1">
-                <b>secrets</b>
-                <br/><div style="font-size: small; color: red">list</div>
-                                </td>
-            <td>success</td>
-            <td>
-                                        <div>list of secrets found, if any</div>
-                                    <br/>
-                                        <div style="font-size: smaller"><b>Sample:</b></div>
-                                            <div style="font-size: smaller; color: blue; word-wrap: break-word; word-break: break-all;">[&#x27;giant&#x27;, &#x27;stalks/&#x27;]</div>
-                                </td>
-        </tr>
-                    </table>
-<br/><br/></div>
 <div class="section" id="status">
-<h2><a class="toc-backref" href="#id5">Status</a><a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Status</a><a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
 <p>This module is flagged as <strong>stableinterface</strong> which means that the maintainers for this module guarantee that no backward incompatible interface changes will be made.</p>
 </div>
 <div class="section" id="maintenance">
-<h2><a class="toc-backref" href="#id6">Maintenance</a><a class="headerlink" href="#maintenance" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Maintenance</a><a class="headerlink" href="#maintenance" title="Permalink to this headline">¶</a></h2>
 <p>This module is flagged as <strong>community</strong> which means that it is maintained by the Ansible Community. See <a class="reference internal" href="../user_guide/modules_support.html#modules-support"><span class="std std-ref">Module Maintenance &amp; Support</span></a> for more info.</p>
 <p>For a list of other modules that are also maintained by the Ansible Community, see <a class="reference internal" href="community_maintained.html#community-supported"><span class="std std-ref">here</span></a>.</p>
 <div class="section" id="author">
-<h3><a class="toc-backref" href="#id7">Author</a><a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id6">Author</a><a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>UNKNOWN</p></li>
 </ul>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_list.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
+<p>If you notice any issues in this documentation you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_k8s_auth_role.py?description=%3C!---%20Your%20description%20here%20--%3E%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
 </div>
 </div>
 </div>

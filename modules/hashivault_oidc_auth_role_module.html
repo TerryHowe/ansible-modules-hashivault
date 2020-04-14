@@ -2550,7 +2550,7 @@
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                                                    <div>{&quot;The type of token that should be generated. Can be service, batch, or default to use the mount&#x27;s tuned default (which unless changed will be service tokens). For token store roles, there are two additional possibilities&quot;: &#x27;default-service and default-batch which specify the type to return unless the client requests a different type at generation time.&#x27;}</div>
+                                                                    <div>The type of token that should be generated. Can be service, batch, or default to use the mount&#x27;s tuned default (which unless changed will be service tokens). For token store roles, there are two additional possibilities (default-service and default-batch) which specify the type to return unless the client requests a different type at generation time.</div>
                                                                             </td>
         </tr>
                             <tr>
@@ -2615,7 +2615,7 @@
     <span class="p p-Indicator">-</span> <span class="nt">hashivault_oidc_auth_role</span><span class="p">:</span>
         <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;nested_ns_role&quot;</span>
         <span class="nt">bound_audiences</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;123-456.apps.googleusercontent.com&quot;</span><span class="p p-Indicator">]</span>
-        <span class="nt">allowed_redirect_uris</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;https://vault.com:8200/ui/vault/auth/oidc/oidc/callback?namespace=namespaceone%2Fnamespacetwo&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">allowed_redirect_uris</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;https://vault.com:8200/ui/oidc/oidc/callback?namespace=namespaceone%2Fnamespacetwo&quot;</span><span class="p p-Indicator">]</span>
         <span class="nt">token_policies</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;test&quot;</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
@@ -2658,7 +2658,7 @@
   _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
 </script>
 
-  <p>Last updated on Apr 13, 2020.<br/>
+  <p>Last updated on Apr 14, 2020.<br/>
   Copyright © 2018 Red Hat, Inc. <br/>
   </p>
 </footer>
