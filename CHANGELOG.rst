@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+4.4.2 (2020-04-15)
+------------------
+- Force audit path to end in / [Terry Howe]
+
+
 4.4.1 (2020-04-14)
 ------------------
 - Fix no_log issue for hashivault_write and others. [Terry Howe]
