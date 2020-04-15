@@ -1,7 +1,6 @@
 class ModuleDocFragment(object):
     # Standard documentation
     DOCUMENTATION = r'''
-    author: "Terry Howe (@TerryHowe)"
     requirements:
         - hvac>=0.10.1
         - ansible>=2.0.0
