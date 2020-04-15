@@ -115,6 +115,8 @@ def hashivault_audit(params):
     backends = result.get('data', result)
     if not path:
         path = device_type + "/"
+    if path[-1] != "/":
+        path = path + "/"
 
     if state == 'enabled':
         if path in backends:

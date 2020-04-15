@@ -7,6 +7,12 @@
         state: absent
       register: audit_module
 
+    - hashivault_audit:
+        device_type: file
+        path: pathy
+        state: absent
+      register: audit_module
+
     - hashivault_audit_list:
       register: vault_audit_list
 
@@ -28,9 +34,38 @@
     - assert: { that: "{{audit_module.changed}} == False" }
     - assert: { that: "{{audit_module.rc}} == 0" }
 
+    - name: Create audit path
+      hashivault_audit:
+        device_type: file
+        path: pathy
+        options:
+          path: "/tmp/path_vault.log"
+      register: audit_module
+    - assert: { that: "{{audit_module.changed}} == True" }
+    - assert: { that: "{{audit_module.rc}} == 0" }
+
+    - name: Create audit path again
+      hashivault_audit:
+        device_type: file
+        path: pathy
+        options:
+          path: "/tmp/path_vault.log"
+      register: audit_module
+    - assert: { that: "{{audit_module.changed}} == False" }
+    - assert: { that: "{{audit_module.rc}} == 0" }
+
     - name: Delete audit
       hashivault_audit:
         device_type: file
+        state: absent
+      register: audit_module
+    - assert: { that: "{{audit_module.changed}} == True" }
+    - assert: { that: "{{audit_module.rc}} == 0" }
+
+    - name: Delete audit path
+      hashivault_audit:
+        device_type: file
+        path: pathy
         state: absent
       register: audit_module
     - assert: { that: "{{audit_module.changed}} == True" }
