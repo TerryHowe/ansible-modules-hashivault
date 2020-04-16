@@ -47,4 +47,8 @@ class ModuleDocFragment(object):
             description:
                 - password to login to vault.
             default: to environment variable C(VAULT_PASSWORD)
+        namespace:
+            description:
+                - namespace for vault
+            default: to environment variable VAULT_NAMESPACE
 '''
