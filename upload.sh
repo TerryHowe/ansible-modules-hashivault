@@ -8,6 +8,12 @@ then
     echo "Changes have not been committed"
     exit 1
 fi
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [ "${BRANCH}" != "master" ]
+then
+    echo "You must be on master"
+    exit 1
+fi
 git pull
 pip install gitchangelog
 pip install twine
