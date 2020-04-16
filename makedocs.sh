@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 export PLUGINS=''
 rm -rf ansible-repo
-mkdir ansible-repo && cd ansible-repo
+mkdir -p ansible-repo
+cd ansible-repo
 git clone --branch 'v2.9.6' https://github.com/ansible/ansible.git
-pip install sphinx sphinx_rtd_theme
 pip install -r ansible/requirements.txt
+pip install sphinx sphinx_rtd_theme
+pip install straight.plugin
+pip install sphinx-notfound-page
 rm -rf ansible/lib/ansible/modules/ && mkdir -p ansible/lib/ansible/modules/hashivault
 cp -r ../ansible/modules/hashivault/hashivault*.py ansible/lib/ansible/modules/hashivault/
 rm -f ansible/lib/ansible/plugins/doc_fragments/hashivault.py

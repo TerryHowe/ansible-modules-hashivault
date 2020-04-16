@@ -2,7 +2,6 @@
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-author: Developed for AT&T by Nicholas Gibson, August 2017
 module: hashivault_read_to_file
 version_added: "3.8.3"
 short_description: Hashicorp Vault read module
