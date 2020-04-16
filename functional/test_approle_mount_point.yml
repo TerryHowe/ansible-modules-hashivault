@@ -2,7 +2,7 @@
 - hosts: localhost
   gather_facts: no
   vars:
-    namespace: 'application'
+    namespace: 'lightning'
     rules: >
         path "secret/{{namespace}}/*" {
           capabilities = ["create", "read", "update", "delete", "list"]
@@ -11,6 +11,13 @@
           capabilities = ["list"]
         }
   tasks:
+    - name: Set approle policy
+      hashivault_policy_set:
+        name: lightning_policy
+        rules: "{{rules}}"
+      register: 'vault_policy_set'
+    - assert: { that: "{{vault_policy_set.rc}} == 0" }
+
     - name: enable lightning approle authentication
       hashivault_auth_enable:
         name: approle
@@ -28,7 +35,7 @@
         name: bigspark
         mount_point: lightning
         policies:
-          - approle_test_policy
+          - lightning_policy
       register: 'vault_role_create'
     - assert: { that: "{{vault_role_create.changed}} == True" }
     - assert: { that: "{{vault_role_create.rc}} == 0" }
@@ -61,7 +68,9 @@
         that:
           - vault_role_id.id|default('') != ''
     - set_fact:
-        role_id: "{{vault_role_id.id}}"
+        approle_role_id: "{{vault_role_id.id}}" # For template
+    - set_fact:
+        approle_login_mount_point: "lightning" # For template
 
     - name: create role secret id
       hashivault_approle_role_secret:
@@ -79,6 +88,11 @@
         approle_secret_id: "{{vault_role_secret_create.data.secret_id}}"
     - set_fact:
         approle_secret_id_accessor: "{{vault_role_secret_create.data.secret_id_accessor}}"
+
+    - template:
+        src: "{{playbook_dir}}/templates/approlenv.sh.j2"
+        dest: "{{playbook_dir}}/approlenv.sh"
+        mode: 0700
 
     - name: list secrets
       hashivault_approle_role_secret_list:

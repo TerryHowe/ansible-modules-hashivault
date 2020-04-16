@@ -58,6 +58,8 @@ class LookupModule(LookupBase):
         }
         authtype = self._get_environment(environments, 'VAULT_AUTHTYPE', 'token')
         params['authtype'] = authtype
+        login_mount_point = self._get_environment(environments, 'VAULT_LOGIN_MOUNT_POINT', authtype)
+        params['login_mount_point'] = login_mount_point
         cacert = self._get_environment(environments, 'VAULT_CACERT')
         if cacert:
             params['ca_cert'] = cacert

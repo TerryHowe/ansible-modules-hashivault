@@ -91,6 +91,8 @@
           - vault_role_id.id|default('') != ''
     - set_fact:
         approle_role_id: "{{vault_role_id.id}}" # For template
+    - set_fact:
+        approle_login_mount_point: "approle" # For template
 
     - name: create role secret id
       hashivault_approle_role_secret:

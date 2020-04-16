@@ -33,8 +33,12 @@ class ModuleDocFragment(object):
         authtype:
             description:
                 - authentication type
-            default: token
+            default: token or environment variable C(VAULT_AUTHTYPE)
             choices: ["token", "userpass", "github", "ldap", "approle"]
+        login_mount_point:
+            description:
+                - authentication mount point
+            default: value of authtype or environment varialbe C(VAULT_LOGIN_MOUNT_POINT)
         token:
             description:
                 - token for vault

@@ -16,6 +16,7 @@ def hashivault_argspec():
         client_key=dict(required=False, default=os.environ.get('VAULT_CLIENT_KEY', ''), type='str'),
         verify=dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
         authtype=dict(required=False, default=os.environ.get('VAULT_AUTHTYPE', 'token'), type='str'),
+        login_mount_point = dict(required=False, default=os.environ.get('VAULT_LOGIN_MOUNT_POINT', None), type='str'),
         token=dict(required=False, default=hashivault_default_token(), type='str', no_log=True),
         username=dict(required=False, default=os.environ.get('VAULT_USER', ''), type='str'),
         password=dict(required=False, default=os.environ.get('VAULT_PASSWORD', ''), type='str', no_log=True),
@@ -81,19 +82,22 @@ def hashivault_client(params):
 def hashivault_auth(client, params):
     token = params.get('token')
     authtype = params.get('authtype')
+    login_mount_point = params.get('login_mount_point', authtype)
+    if not login_mount_point:
+        login_mount_point = authtype
     username = params.get('username')
     password = params.get('password')
     secret_id = params.get('secret_id')
     role_id = params.get('role_id')
 
     if authtype == 'github':
-        client.auth.github.login(token)
+        client.auth.github.login(token, mount_point=login_mount_point)
     elif authtype == 'userpass':
-        client.auth_userpass(username, password)
+        client.auth_userpass(username, password, mount_point=login_mount_point)
     elif authtype == 'ldap':
-        client.auth.ldap.login(username, password)
+        client.auth.ldap.login(username, password, mount_point=login_mount_point)
     elif authtype == 'approle':
-        client = AppRoleClient(client, role_id, secret_id)
+        client = AppRoleClient(client, role_id, secret_id, mount_point=login_mount_point)
     elif authtype == 'tls':
         client.auth_tls()
     elif authtype == 'aws':
@@ -218,10 +222,11 @@ class AppRoleClient(object):
     generate and set a token on every Vault call.
     """
 
-    def __init__(self, client, role_id, secret_id):
+    def __init__(self, client, role_id, secret_id, mount_point):
         object.__setattr__(self, 'client', client)
         object.__setattr__(self, 'role_id', role_id)
         object.__setattr__(self, 'secret_id', secret_id)
+        object.__setattr__(self, 'login_mount_point', mount_point)
 
     def __setattr__(self, name, val):
         """
@@ -240,6 +245,7 @@ class AppRoleClient(object):
 
         role_id = object.__getattribute__(self, 'role_id')
         secret_id = object.__getattribute__(self, 'secret_id')
-        resp = client.auth_approle(role_id, secret_id)
+        login_mount_point = object.__getattribute__(self, 'login_mount_point')
+        resp = client.auth_approle(role_id, secret_id=secret_id, mount_point=login_mount_point)
         client.token = str(resp['auth']['client_token'])
         return attr
