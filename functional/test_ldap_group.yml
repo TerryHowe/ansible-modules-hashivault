@@ -16,6 +16,13 @@
       hashivault_auth_enable:
         name: ldap
 
+    - name: ldap configuration
+      hashivault_auth_ldap:
+        ldap_url: ldap://127.0.0.1
+      register: ldap_module
+    - assert: { that: "{{ ldap_module.changed }} == True" }
+    - assert: { that: "{{ ldap_module.rc }} == 0" }
+
     - name: remove ldap group
       hashivault_ldap_group:
         name: test
