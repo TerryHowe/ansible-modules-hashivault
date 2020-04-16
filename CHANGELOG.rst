@@ -2,6 +2,22 @@ Changelog
 =========
 
 
+4.4.5 (2020-04-16)
+------------------
+- Login support for mount_point. [Terry Howe]
+- Add missing fragment to module. [Terry Howe]
+- Make sure upload script on master. [Terry Howe]
+- Added editor config. [Dr.MagPie]
+- Removed doc duplication. [Dr.MagPie]
+- Check for uncommitted changes up upload script. [Terry Howe]
+- Add pull to upload script. [Terry Howe]
+
+
+4.4.4 (2020-04-16)
+------------------
+- Version 4.4.4. [Terry Howe]
+
+
 4.4.3 (2020-04-16)
 ------------------
 - Fix for ldap change. [Terry Howe]
