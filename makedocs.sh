@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+CHANGES=$(git diff-index --name-only HEAD --)
 export PLUGINS=''
 rm -rf ansible-repo
 mkdir -p ansible-repo

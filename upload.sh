@@ -2,6 +2,12 @@
 #
 # Make sure you have a ~/.pypirc file first
 #
+CHANGES=$(git diff-index --name-only HEAD --)
+if [ -n "${CHANGES}" ]
+then
+    echo "Changes have not been committed"
+    exit 1
+fi
 git pull
 pip install gitchangelog
 pip install twine
