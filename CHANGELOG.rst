@@ -2,6 +2,17 @@ Changelog
 =========
 
 
+4.4.3 (2020-04-16)
+------------------
+- Fix for ldap change. [Terry Howe]
+- Fix document build. [Terry Howe]
+- Removed default value for author. [Dr.MagPie]
+- Updated makedocs.sh to use doc_fragments. [Dr.MagPie]
+- Added doc_fragments hashivault.py to link.sh. [Dr.MagPie]
+- Replaced duplicates with common doc. [Dr.MagPie]
+- Added common doc. [Dr.MagPie]
+
+
 4.4.2 (2020-04-15)
 ------------------
 - Force audit path to end in / [Terry Howe]
