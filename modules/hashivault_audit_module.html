@@ -374,9 +374,10 @@
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
-<li><p><a class="reference internal" href="#parameters" id="id2">Parameters</a></p></li>
-<li><p><a class="reference internal" href="#examples" id="id3">Examples</a></p></li>
-<li><p><a class="reference internal" href="#status" id="id4">Status</a></p></li>
+<li><p><a class="reference internal" href="#requirements" id="id2">Requirements</a></p></li>
+<li><p><a class="reference internal" href="#parameters" id="id3">Parameters</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id4">Examples</a></p></li>
+<li><p><a class="reference internal" href="#status" id="id5">Status</a></p></li>
 </ul>
 </div>
 <div class="section" id="synopsis">
@@ -385,8 +386,17 @@
 <li><p>Module to enable/disable audit backends in Hashicorp Vault.</p></li>
 </ul>
 </div>
+<div class="section" id="requirements">
+<h2><a class="toc-backref" href="#id2">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>The below requirements are needed on the host that executes this module.</p>
+<ul class="simple">
+<li><p>hvac&gt;=0.10.1</p></li>
+<li><p>ansible&gt;=2.0.0</p></li>
+<li><p>requests</p></li>
+</ul>
+</div>
 <div class="section" id="parameters">
-<h2><a class="toc-backref" href="#id2">Parameters</a><a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Parameters</a><a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
 <table  border=0 cellpadding=0 class="documentation-table">
     <tr>
         <th colspan="1">Parameter</th>
@@ -403,10 +413,17 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"token"</div>
+                                                                                                                        <ul style="margin: 0; padding: 0"><b>Choices:</b>
+                                                                                                                                                            <li>token</li>
+                                                                                                                                                                                            <li>userpass</li>
+                                                                                                                                                                                            <li>github</li>
+                                                                                                                                                                                            <li>ldap</li>
+                                                                                                                                                                                            <li>approle</li>
+                                                                                </ul>
+                                                                                <b>Default:</b><br/><div style="color: blue">"token or environment variable C(VAULT_AUTHTYPE)"</div>
                                 </td>
                                                             <td>
-                                        <div>authentication type to use: token, userpass, github, ldap, approle</div>
+                                        <div>authentication type</div>
                                                     </td>
         </tr>
                             <tr>
@@ -419,7 +436,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable VAULT_CACERT"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CACERT)"</div>
                                 </td>
                                                             <td>
                                         <div>path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate</div>
@@ -435,7 +452,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable VAULT_CAPATH"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CAPATH)"</div>
                                 </td>
                                                             <td>
                                         <div>path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert is specified, its value will take precedence</div>
@@ -451,7 +468,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable VAULT_CLIENT_CERT"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CLIENT_CERT)"</div>
                                 </td>
                                                             <td>
                                         <div>path to a PEM-encoded client certificate for TLS authentication to the Vault server</div>
@@ -467,7 +484,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable VAULT_CLIENT_KEY"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CLIENT_KEY)"</div>
                                 </td>
                                                             <td>
                                         <div>path to an unencrypted PEM-encoded private key matching the client certificate</div>
@@ -505,6 +522,38 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
+                <div class="ansibleOptionAnchor" id="parameter-login_mount_point"></div>
+                <b>login_mount_point</b>
+                <a class="ansibleOptionLink" href="#parameter-login_mount_point" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">-</span>
+                                                                </div>
+                                </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"value of authtype or environment varialbe C(VAULT_LOGIN_MOUNT_POINT)"</div>
+                                </td>
+                                                            <td>
+                                        <div>authentication mount point</div>
+                                                    </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <div class="ansibleOptionAnchor" id="parameter-namespace"></div>
+                <b>namespace</b>
+                <a class="ansibleOptionLink" href="#parameter-namespace" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">-</span>
+                                                                </div>
+                                </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable VAULT_NAMESPACE"</div>
+                                </td>
+                                                            <td>
+                                        <div>namespace for vault</div>
+                                                    </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
                 <div class="ansibleOptionAnchor" id="parameter-options"></div>
                 <b>options</b>
                 <a class="ansibleOptionLink" href="#parameter-options" title="Permalink to this option"></a>
@@ -528,7 +577,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable VAULT_PASSWORD"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_PASSWORD)"</div>
                                 </td>
                                                             <td>
                                         <div>password to login to vault.</div>
@@ -576,7 +625,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable VAULT_TOKEN"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_TOKEN)"</div>
                                 </td>
                                                             <td>
                                         <div>token for vault</div>
@@ -592,7 +641,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable VAULT_ADDR"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_ADDR)"</div>
                                 </td>
                                                             <td>
                                         <div>url for vault</div>
@@ -608,7 +657,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable VAULT_USER"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_USER)"</div>
                                 </td>
                                                             <td>
                                         <div>username to login to vault.</div>
@@ -624,7 +673,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable VAULT_SKIP_VERIFY"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_SKIP_VERIFY)"</div>
                                 </td>
                                                             <td>
                                         <div>if set, do not verify presented TLS certificate before communicating with Vault server : setting this variable is not recommended except during testing</div>
@@ -633,7 +682,7 @@
                     </table>
 <br/></div>
 <div class="section" id="examples">
-<h2><a class="toc-backref" href="#id3">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
   <span class="nt">tasks</span><span class="p">:</span>
@@ -643,7 +692,7 @@
 </div>
 </div>
 <div class="section" id="status">
-<h2><a class="toc-backref" href="#id4">Status</a><a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Status</a><a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>This module is guaranteed to have backward compatible interface changes going forward. <em>[stableinterface]</em></p></li>
 <li><p>This module is <a class="reference internal" href="../user_guide/modules_support.html#modules-support"><span class="std std-ref">maintained by the Ansible Community</span></a>. <em>[community]</em></p></li>

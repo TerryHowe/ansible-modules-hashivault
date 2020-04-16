@@ -417,13 +417,14 @@
                                 </td>
                             <td>
                                                                                                                         <ul style="margin: 0; padding: 0"><b>Choices:</b>
-                                                                                                                                                            <li><div style="color: blue"><b>token</b>&nbsp;&larr;</div></li>
+                                                                                                                                                            <li>token</li>
                                                                                                                                                                                             <li>userpass</li>
                                                                                                                                                                                             <li>github</li>
                                                                                                                                                                                             <li>ldap</li>
                                                                                                                                                                                             <li>approle</li>
                                                                                 </ul>
-                                                                        </td>
+                                                                                <b>Default:</b><br/><div style="color: blue">"token or environment variable C(VAULT_AUTHTYPE)"</div>
+                                </td>
                                                             <td>
                                         <div>authentication type</div>
                                                     </td>
@@ -494,6 +495,22 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
+                <div class="ansibleOptionAnchor" id="parameter-login_mount_point"></div>
+                <b>login_mount_point</b>
+                <a class="ansibleOptionLink" href="#parameter-login_mount_point" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">-</span>
+                                                                </div>
+                                </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"value of authtype or environment varialbe C(VAULT_LOGIN_MOUNT_POINT)"</div>
+                                </td>
+                                                            <td>
+                                        <div>authentication mount point</div>
+                                                    </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
                 <div class="ansibleOptionAnchor" id="parameter-mount_point"></div>
                 <b>mount_point</b>
                 <a class="ansibleOptionLink" href="#parameter-mount_point" title="Permalink to this option"></a>
@@ -521,6 +538,22 @@
                                                                                                                                                         </td>
                                                             <td>
                                         <div>user name to create.</div>
+                                                    </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <div class="ansibleOptionAnchor" id="parameter-namespace"></div>
+                <b>namespace</b>
+                <a class="ansibleOptionLink" href="#parameter-namespace" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">-</span>
+                                                                </div>
+                                </td>
+                            <td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable VAULT_NAMESPACE"</div>
+                                </td>
+                                                            <td>
+                                        <div>namespace for vault</div>
                                                     </td>
         </tr>
                             <tr>
