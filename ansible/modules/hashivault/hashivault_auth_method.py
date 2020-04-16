@@ -13,48 +13,6 @@ short_description: Hashicorp Vault auth module
 description:
     - Module to enable or disable authentication ethods in Hashicorp Vault.
 options:
-    url:
-        description:
-            - url for vault
-        default: to environment variable VAULT_ADDR
-    ca_cert:
-        description:
-            - "path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate"
-        default: to environment variable VAULT_CACERT
-    ca_path:
-        description:
-            - "path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate : if ca_cert
-             is specified, its value will take precedence"
-        default: to environment variable VAULT_CAPATH
-    client_cert:
-        description:
-            - "path to a PEM-encoded client certificate for TLS authentication to the Vault server"
-        default: to environment variable VAULT_CLIENT_CERT
-    client_key:
-        description:
-            - "path to an unencrypted PEM-encoded private key matching the client certificate"
-        default: to environment variable VAULT_CLIENT_KEY
-    verify:
-        description:
-            - "if set, do not verify presented TLS certificate before communicating with Vault server : setting this
-             variable is not recommended except during testing"
-        default: to environment variable VAULT_SKIP_VERIFY
-    authtype:
-        description:
-            - "authentication type to use: token, userpass, github, ldap, approle"
-        default: token
-    token:
-        description:
-            - token for vault
-        default: to environment variable VAULT_TOKEN
-    username:
-        description:
-            - username to login to vault.
-        default: to environment variable VAULT_USER
-    password:
-        description:
-            - password to login to vault.
-        default: to environment variable VAULT_PASSWORD
     method_type:
         description:
             - name of auth method. [required]
@@ -73,6 +31,7 @@ options:
             - configuration set on auth method. expects a dict
         default: "{'default_lease_ttl': 2764800, 'max_lease_ttl': 2764800, 'force_no_cache':False,
                   'token_type': 'default-service'}"
+extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
 ---

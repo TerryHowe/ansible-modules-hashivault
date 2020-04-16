@@ -10,28 +10,6 @@ description:
     - "Reads and deocdes a base64 encoded file from Hashicorp Vault and saves it to disk. Implementation in\
      `/plugins/action/hashivault_read_to_file.py`."
 options:
-    url:
-        description:
-            - url for vault
-        default: to environment variable VAULT_ADDR
-    verify:
-        description:
-            - verify TLS certificate
-        default: to environment variable VAULT_SKIP_VERIFY
-    authtype:
-        description:
-            - "authentication type to use: token, userpass, github, ldap, approle"
-        default: token
-    token:
-        description:
-            - token for vault
-        default: to environment variable VAULT_TOKEN
-    username:
-        description:
-            - username to login to vault.
-    password:
-        description:
-            - password to login to vault.
     secret:
         description:
             - vault secret to read.
@@ -50,6 +28,7 @@ options:
             - file permissions of file to write on remote host.
             - in octal, don't forget leading zero!
         default: 0664
+extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
 ---

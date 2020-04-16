@@ -10,28 +10,6 @@ description:
     - "Writes a file encoded in base64 to Hashicorp Vault. Implementation in
      `/plugins/action/hashivault_write_from_file.py`."
 options:
-    url:
-        description:
-            - url for vault
-        default: to environment variable VAULT_ADDR
-    verify:
-        description:
-            - verify TLS certificate
-        default: to environment variable VAULT_SKIP_VERIFY
-    authtype:
-        description:
-            - "authentication type to use: token, userpass, github, ldap, approle"
-        default: token
-    token:
-        description:
-            - token for vault
-        default: to environment variable VAULT_TOKEN
-    username:
-        description:
-            - username to login to vault.
-    password:
-        description:
-            - password to login to vault.
     secret:
         description:
             - vault secret to write.
@@ -45,6 +23,7 @@ options:
         description:
             - Update secret rather than overwrite.
         default: True
+extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
 ---
