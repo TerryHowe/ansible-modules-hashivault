@@ -3,8 +3,6 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
-from hvac.constants.ldap import DEFAULT_GROUP_FILTER
-import json
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -147,8 +145,6 @@ EXAMPLES = '''
         insecure_tls: "{{ auth_ldap_insecure_tls }}"
         group_filter: "{{ auth_ldap_groupfilter }}"
         upn_domain: "{{ auth_ldap_upndomain }}"
-        token: "{{ vault_token }}"
-        url: "{{ vault_url }}"
 '''
 
 
@@ -170,7 +166,7 @@ def main():
     argspec['discover_dn'] = dict(required=False, type='bool', default=False)
     argspec['deny_null_bind'] = dict(required=False, type='bool', default=True)
     argspec['upn_domain'] = dict(required=False, type='str', default='')
-    argspec['group_filter'] = dict(required=False, type='str', default=DEFAULT_GROUP_FILTER)
+    argspec['group_filter'] = dict(required=False, type='str')
     argspec['group_attr'] = dict(required=False, type='str', default='cn')
     argspec['group_dn'] = dict(required=False, type='str', default='')
     module = hashivault_init(argspec, supports_check_mode=True)
