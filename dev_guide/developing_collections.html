@@ -1,0 +1,836 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developing collections &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/dev_guide/developing_collections.html"/>
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Collection Galaxy metadata structure" href="collections_galaxy_meta.html" />
+    <link rel="prev" title="Using and Developing Module Utilities" href="developing_module_utilities.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../porting_guides/porting_guides.html">Ansible Porting Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="developing_locally.html">Adding modules and plugins locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules.html">Should you develop a module?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_general.html">Ansible module development: getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_checklist.html">Contributing your module to Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_best_practices.html">Conventions, tips, and pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_python_3.html">Ansible and Python 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_documenting.html">Module format and documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_general_windows.html">Windows module development walkthrough</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_general_aci.html">Developing Cisco ACI modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platforms/aws_guidelines.html">Guidelines for Ansible Amazon AWS module development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platforms/openstack_guidelines.html">OpenStack Ansible Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platforms/ovirt_dev_guide.html">oVirt Ansible Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platforms/vmware_guidelines.html">Guidelines for VMware module development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_in_groups.html">Information for submitting a group of modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html">Testing Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_lifecycle.html">The lifecycle of an Ansible module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_plugins.html">Developing plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_inventory.html">Developing dynamic inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_core.html">Developing the Ansible Core Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_program_flow_modules.html">Ansible module architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_api.html">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_rebasing.html">Rebasing a pull request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_module_utilities.html">Using and Developing Module Utilities</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Developing collections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#collection-structure">Collection structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#galaxy-yml">galaxy.yml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docs-directory">docs directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plugins-directory">plugins directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#roles-directory">roles directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#playbooks-directory">playbooks directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests-directory">tests directory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-collections">Creating collections</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-collection-skeleton">Creating a collection skeleton</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-documentation-fragments-in-collections">Using documentation fragments in collections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#building-collections">Building collections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trying-collections-locally">Trying collections locally</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#publishing-collections">Publishing collections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#collection-versions">Collection versions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#migrating-ansible-content-to-a-collection">Migrating Ansible content to a collection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="collections_galaxy_meta.html">Collection Galaxy metadata structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview_architecture.html">Ansible architecture</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/virt_guides.html">Virtualization and Containerization Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">Ansible for Network Automation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/general_precedence.html">Controlling how Ansible behaves: precedence rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer Guide</a> &raquo;</li>
+        
+      <li>Developing collections</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/dev_guide/developing_collections.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="developing-collections">
+<span id="id1"></span><h1>Developing collections<a class="headerlink" href="#developing-collections" title="Permalink to this headline">¶</a></h1>
+<p>Collections are a distribution format for Ansible content. You can use collections to package and distribute playbooks, roles, modules, and plugins.
+You can publish and use collections through <a class="reference external" href="https://galaxy.ansible.com">Ansible Galaxy</a>.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#collection-structure" id="id8">Collection structure</a></p>
+<ul>
+<li><p><a class="reference internal" href="#galaxy-yml" id="id9">galaxy.yml</a></p></li>
+<li><p><a class="reference internal" href="#docs-directory" id="id10">docs directory</a></p></li>
+<li><p><a class="reference internal" href="#plugins-directory" id="id11">plugins directory</a></p></li>
+<li><p><a class="reference internal" href="#roles-directory" id="id12">roles directory</a></p></li>
+<li><p><a class="reference internal" href="#playbooks-directory" id="id13">playbooks directory</a></p></li>
+<li><p><a class="reference internal" href="#tests-directory" id="id14">tests directory</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#creating-collections" id="id15">Creating collections</a></p>
+<ul>
+<li><p><a class="reference internal" href="#creating-a-collection-skeleton" id="id16">Creating a collection skeleton</a></p></li>
+<li><p><a class="reference internal" href="#using-documentation-fragments-in-collections" id="id17">Using documentation fragments in collections</a></p></li>
+<li><p><a class="reference internal" href="#building-collections" id="id18">Building collections</a></p></li>
+<li><p><a class="reference internal" href="#trying-collections-locally" id="id19">Trying collections locally</a></p></li>
+<li><p><a class="reference internal" href="#publishing-collections" id="id20">Publishing collections</a></p></li>
+<li><p><a class="reference internal" href="#collection-versions" id="id21">Collection versions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#migrating-ansible-content-to-a-collection" id="id22">Migrating Ansible content to a collection</a></p></li>
+</ul>
+</div>
+<div class="section" id="collection-structure">
+<span id="id2"></span><h2><a class="toc-backref" href="#id8">Collection structure</a><a class="headerlink" href="#collection-structure" title="Permalink to this headline">¶</a></h2>
+<p>Collections follow a simple data structure. None of the directories are required unless you have specific content that belongs in one of them. A collection does require a <code class="docutils literal notranslate"><span class="pre">galaxy.yml</span></code> file at the root level of the collection. This file contains all of the metadata that Galaxy
+and other tools need in order to package, build and publish the collection:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">collection/</span>
+<span class="l l-Scalar l-Scalar-Plain">├── docs/</span>
+<span class="l l-Scalar l-Scalar-Plain">├── galaxy.yml</span>
+<span class="l l-Scalar l-Scalar-Plain">├── plugins/</span>
+<span class="l l-Scalar l-Scalar-Plain">│   ├── modules/</span>
+<span class="l l-Scalar l-Scalar-Plain">│   │   └── module1.py</span>
+<span class="l l-Scalar l-Scalar-Plain">│   ├── inventory/</span>
+<span class="l l-Scalar l-Scalar-Plain">│   └── .../</span>
+<span class="l l-Scalar l-Scalar-Plain">├── README.md</span>
+<span class="l l-Scalar l-Scalar-Plain">├── roles/</span>
+<span class="l l-Scalar l-Scalar-Plain">│   ├── role1/</span>
+<span class="l l-Scalar l-Scalar-Plain">│   ├── role2/</span>
+<span class="l l-Scalar l-Scalar-Plain">│   └── .../</span>
+<span class="l l-Scalar l-Scalar-Plain">├── playbooks/</span>
+<span class="l l-Scalar l-Scalar-Plain">│   ├── files/</span>
+<span class="l l-Scalar l-Scalar-Plain">│   ├── vars/</span>
+<span class="l l-Scalar l-Scalar-Plain">│   ├── templates/</span>
+<span class="l l-Scalar l-Scalar-Plain">│   └── tasks/</span>
+<span class="l l-Scalar l-Scalar-Plain">└── tests/</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Ansible only accepts <code class="docutils literal notranslate"><span class="pre">.yml</span></code> extensions for <code class="file docutils literal notranslate"><span class="pre">galaxy.yml</span></code>, and <code class="docutils literal notranslate"><span class="pre">.md</span></code> for the <code class="file docutils literal notranslate"><span class="pre">README</span></code> file and any files in the <code class="file docutils literal notranslate"><span class="pre">/docs</span></code> folder.</p></li>
+<li><p>See the <a class="reference external" href="https://github.com/bcoca/collection">draft collection</a> for an example of a full collection structure.</p></li>
+<li><p>Not all directories are currently in use. Those are placeholders for future features.</p></li>
+</ul>
+</div>
+<div class="section" id="galaxy-yml">
+<span id="id3"></span><h3><a class="toc-backref" href="#id9">galaxy.yml</a><a class="headerlink" href="#galaxy-yml" title="Permalink to this headline">¶</a></h3>
+<p>A collection must have a <code class="docutils literal notranslate"><span class="pre">galaxy.yml</span></code> file that contains the necessary information to build a collection artifact.
+See <a class="reference internal" href="collections_galaxy_meta.html#collections-galaxy-meta"><span class="std std-ref">Collection Galaxy metadata structure</span></a> for details.</p>
+</div>
+<div class="section" id="docs-directory">
+<span id="collections-doc-dir"></span><h3><a class="toc-backref" href="#id10">docs directory</a><a class="headerlink" href="#docs-directory" title="Permalink to this headline">¶</a></h3>
+<p>Put general documentation for the collection here. Keep the specific documentation for plugins and modules embedded as Python docstrings. Use the <code class="docutils literal notranslate"><span class="pre">docs</span></code> folder to describe how to use the roles and plugins the collection provides, role requirements, and so on. Use markdown and do not add subfolders.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">ansible-doc</span></code> to view documentation for plugins inside a collection:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-doc -t lookup my_namespace.my_collection.lookup1
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ansible-doc</span></code> command requires the fully qualified collection name (FQCN) to display specific plugin documentation. In this example, <code class="docutils literal notranslate"><span class="pre">my_namespace</span></code> is the namespace and <code class="docutils literal notranslate"><span class="pre">my_collection</span></code> is the collection name within that namespace.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Ansible collection namespace is defined in the <code class="docutils literal notranslate"><span class="pre">galaxy.yml</span></code> file and is not equivalent to the GitHub repository name.</p>
+</div>
+</div>
+<div class="section" id="plugins-directory">
+<span id="collections-plugin-dir"></span><h3><a class="toc-backref" href="#id11">plugins directory</a><a class="headerlink" href="#plugins-directory" title="Permalink to this headline">¶</a></h3>
+<p>Add a ‘per plugin type’ specific subdirectory here, including <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> which is usable not only by modules, but by most plugins by using their FQCN. This is a way to distribute modules, lookups, filters, and so on, without having to import a role in every play.</p>
+<p>Vars plugins are unsupported in collections. Cache plugins may be used in collections for fact caching, but are not supported for inventory plugins.</p>
+<div class="section" id="module-utils">
+<h4>module_utils<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h4>
+<p>When coding with <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> in a collection, the Python <code class="docutils literal notranslate"><span class="pre">import</span></code> statement needs to take into account the FQCN along with the <code class="docutils literal notranslate"><span class="pre">ansible_collections</span></code> convention. The resulting Python import will look like <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">ansible_collections.{namespace}.{collection}.plugins.module_utils.{util}</span> <span class="pre">import</span> <span class="pre">{something}</span></code></p>
+<p>The following example snippets show a Python and PowerShell module using both default Ansible <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> and
+those provided by a collection. In this example the namespace is <code class="docutils literal notranslate"><span class="pre">ansible_example</span></code>, the collection is <code class="docutils literal notranslate"><span class="pre">community</span></code>.
+In the Python example the <code class="docutils literal notranslate"><span class="pre">module_util</span></code> in question is called <code class="docutils literal notranslate"><span class="pre">qradar</span></code> such that the FQCN is
+<code class="docutils literal notranslate"><span class="pre">ansible_example.community.plugins.module_utils.qradar</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.module_utils.basic</span> <span class="kn">import</span> <span class="n">AnsibleModule</span>
+<span class="kn">from</span> <span class="nn">ansible.module_utils._text</span> <span class="kn">import</span> <span class="n">to_text</span>
+
+<span class="kn">from</span> <span class="nn">ansible.module_utils.six.moves.urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span><span class="p">,</span> <span class="n">quote_plus</span>
+<span class="kn">from</span> <span class="nn">ansible.module_utils.six.moves.urllib.error</span> <span class="kn">import</span> <span class="n">HTTPError</span>
+<span class="kn">from</span> <span class="nn">ansible_collections.ansible_example.community.plugins.module_utils.qradar</span> <span class="kn">import</span> <span class="n">QRadarRequest</span>
+
+<span class="n">argspec</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">),</span>
+    <span class="n">state</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;present&#39;</span><span class="p">,</span> <span class="s1">&#39;absent&#39;</span><span class="p">],</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">module</span> <span class="o">=</span> <span class="n">AnsibleModule</span><span class="p">(</span>
+    <span class="n">argument_spec</span><span class="o">=</span><span class="n">argspec</span><span class="p">,</span>
+    <span class="n">supports_check_mode</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">qradar_request</span> <span class="o">=</span> <span class="n">QRadarRequest</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">,</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">},</span>
+    <span class="n">not_rest_data_keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that importing something from an <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file requires using the file name:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible_collections.namespace.collection_name.plugins.callback.__init__</span> <span class="kn">import</span> <span class="n">CustomBaseClass</span>
+</pre></div>
+</div>
+<p>In the PowerShell example the <code class="docutils literal notranslate"><span class="pre">module_util</span></code> in question is called <code class="docutils literal notranslate"><span class="pre">hyperv</span></code> such that the FCQN is
+<code class="docutils literal notranslate"><span class="pre">ansible_example.community.plugins.module_utils.hyperv</span></code>:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#!powershell</span>
+<span class="c">#AnsibleRequires -CSharpUtil Ansible.Basic</span>
+<span class="c">#AnsibleRequires -PowerShell ansible_collections.ansible_example.community.plugins.module_utils.hyperv</span>
+
+<span class="nv">$spec</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="n">name</span> <span class="p">=</span> <span class="p">@{</span> <span class="n">required</span> <span class="p">=</span> <span class="nv">$true</span><span class="p">;</span> <span class="nb">type </span><span class="p">=</span> <span class="s2">&quot;str&quot;</span> <span class="p">}</span>
+    <span class="n">state</span> <span class="p">=</span> <span class="p">@{</span> <span class="n">required</span> <span class="p">=</span> <span class="nv">$true</span><span class="p">;</span> <span class="n">choices</span> <span class="p">=</span> <span class="p">@(</span><span class="s2">&quot;present&quot;</span><span class="p">,</span> <span class="s2">&quot;absent&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="nv">$module</span> <span class="p">=</span> <span class="no">[Ansible.Basic.AnsibleModule]</span><span class="p">::</span><span class="n">Create</span><span class="p">(</span><span class="nv">$args</span><span class="p">,</span> <span class="nv">$spec</span><span class="p">)</span>
+
+<span class="nb">Invoke-HyperVFunction</span> <span class="n">-Name</span> <span class="nv">$module</span><span class="p">.</span><span class="n">Params</span><span class="p">.</span><span class="n">name</span>
+
+<span class="nv">$module</span><span class="p">.</span><span class="n">ExitJson</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="roles-directory">
+<span id="collections-roles-dir"></span><h3><a class="toc-backref" href="#id12">roles directory</a><a class="headerlink" href="#roles-directory" title="Permalink to this headline">¶</a></h3>
+<p>Collection roles are mostly the same as existing roles, but with a couple of limitations:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Role names are now limited to contain only lowercase alphanumeric characters, plus <code class="docutils literal notranslate"><span class="pre">_</span></code> and start with an alpha character.</p></li>
+<li><p>Roles in a collection cannot contain plugins any more. Plugins must live in the collection <code class="docutils literal notranslate"><span class="pre">plugins</span></code> directory tree. Each plugin is accessible to all roles in the collection.</p></li>
+</ul>
+</div></blockquote>
+<p>The directory name of the role is used as the role name. Therefore, the directory name must comply with the
+above role name rules.
+The collection import into Galaxy will fail if a role name does not comply with these rules.</p>
+<p>You can migrate ‘traditional roles’ into a collection but they must follow the rules above. You man need to rename roles if they don’t conform. You will have to move or link any role-based plugins to the collection specific directories.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For roles imported into Galaxy directly from a GitHub repository, setting the <code class="docutils literal notranslate"><span class="pre">role_name</span></code> value in the role’s
+metadata overrides the role name used by Galaxy. For collections, that value is ignored. When importing a
+collection, Galaxy uses the role directory as the name of the role and ignores the <code class="docutils literal notranslate"><span class="pre">role_name</span></code> metadata value.</p>
+</div>
+</div>
+<div class="section" id="playbooks-directory">
+<h3><a class="toc-backref" href="#id13">playbooks directory</a><a class="headerlink" href="#playbooks-directory" title="Permalink to this headline">¶</a></h3>
+<p>TBD.</p>
+</div>
+<div class="section" id="tests-directory">
+<h3><a class="toc-backref" href="#id14">tests directory</a><a class="headerlink" href="#tests-directory" title="Permalink to this headline">¶</a></h3>
+<p>TBD. Expect tests for the collection itself to reside here.</p>
+</div>
+</div>
+<div class="section" id="creating-collections">
+<span id="id4"></span><h2><a class="toc-backref" href="#id15">Creating collections</a><a class="headerlink" href="#creating-collections" title="Permalink to this headline">¶</a></h2>
+<p>To create a collection:</p>
+<ol class="arabic simple">
+<li><p>Initialize a collection with <a class="reference internal" href="#creating-collections-skeleton"><span class="std std-ref">ansible-galaxy collection init</span></a> to create the skeleton directory structure.</p></li>
+<li><p>Add your content to the collection.</p></li>
+<li><p>Build the collection into a collection artifact with <a class="reference internal" href="#building-collections"><span class="std std-ref">ansible-galaxy collection build</span></a>.</p></li>
+<li><p>Publish the collection artifact to Galaxy with <a class="reference internal" href="#publishing-collections"><span class="std std-ref">ansible-galaxy collection publish</span></a>.</p></li>
+</ol>
+<p>A user can then install your collection on their systems.</p>
+<p>Currently the <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span></code> command implements the following sub commands:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">init</span></code>: Create a basic collection skeleton based on the default template included with Ansible or your own template.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build</span></code>: Create a collection artifact that can be uploaded to Galaxy or your own repository.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">publish</span></code>: Publish a built collection artifact to Galaxy.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">install</span></code>: Install one or more collections.</p></li>
+</ul>
+<p>To learn more about the <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span></code> cli tool, see the <a class="reference internal" href="../cli/ansible-galaxy.html#ansible-galaxy"><span class="std std-ref">ansible-galaxy</span></a> man page.</p>
+<div class="section" id="creating-a-collection-skeleton">
+<span id="creating-collections-skeleton"></span><h3><a class="toc-backref" href="#id16">Creating a collection skeleton</a><a class="headerlink" href="#creating-a-collection-skeleton" title="Permalink to this headline">¶</a></h3>
+<p>To start a new collection:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>collection_dir#&gt; ansible-galaxy collection init my_namespace.my_collection
+</pre></div>
+</div>
+<p>Then you can populate the directories with the content you want inside the collection. See
+<a class="reference external" href="https://github.com/bcoca/collection">https://github.com/bcoca/collection</a> to get a better idea of what you can place inside a collection.</p>
+</div>
+<div class="section" id="using-documentation-fragments-in-collections">
+<span id="docfragments-collections"></span><h3><a class="toc-backref" href="#id17">Using documentation fragments in collections</a><a class="headerlink" href="#using-documentation-fragments-in-collections" title="Permalink to this headline">¶</a></h3>
+<p>To include documentation fragments in your collection:</p>
+<ol class="arabic simple">
+<li><p>Create the documentation fragment: <code class="docutils literal notranslate"><span class="pre">plugins/doc_fragments/fragment_name</span></code>.</p></li>
+<li><p>Refer to the documentation fragment with its FQCN.</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">extends_documentation_fragment</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">community.kubernetes.k8s_name_options</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">community.kubernetes.k8s_auth_options</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">community.kubernetes.k8s_resource_options</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">community.kubernetes.k8s_scale_options</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="developing_modules_documenting.html#module-docs-fragments"><span class="std std-ref">Documentation fragments</span></a> covers the basics for documentation fragments. The <a class="reference external" href="https://github.com/ansible-collections/kubernetes">kubernetes</a> collection includes a complete example.</p>
+<p>You can also share documentation fragments across collections with the FQCN.</p>
+</div>
+<div class="section" id="building-collections">
+<span id="id5"></span><h3><a class="toc-backref" href="#id18">Building collections</a><a class="headerlink" href="#building-collections" title="Permalink to this headline">¶</a></h3>
+<p>To build a collection, run <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">build</span></code> from inside the root directory of the collection:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>collection_dir#&gt; ansible-galaxy collection build
+</pre></div>
+</div>
+<p>This creates a tarball of the built collection in the current directory which can be uploaded to Galaxy.:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">my_collection/</span>
+<span class="l l-Scalar l-Scalar-Plain">├── galaxy.yml</span>
+<span class="l l-Scalar l-Scalar-Plain">├── ...</span>
+<span class="l l-Scalar l-Scalar-Plain">├── my_namespace-my_collection-1.0.0.tar.gz</span>
+<span class="l l-Scalar l-Scalar-Plain">└── ...</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Certain files and folders are excluded when building the collection artifact. This is not currently configurable and is a work in progress so the collection artifact may contain files you would not wish to distribute.</p></li>
+<li><p>If you used the now-deprecated <code class="docutils literal notranslate"><span class="pre">Mazer</span></code> tool for any of your collections, delete any and all files it added to your <code class="file docutils literal notranslate"><span class="pre">releases/</span></code> directory before you build your collection with <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span></code>.</p></li>
+<li><p>You must also delete the <code class="file docutils literal notranslate"><span class="pre">tests/output</span></code> directory if you have been testing with <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code>.</p></li>
+<li><p>The current Galaxy maximum tarball size is 2 MB.</p></li>
+</ul>
+</div>
+<p>This tarball is mainly intended to upload to Galaxy
+as a distribution method, but you can use it directly to install the collection on target systems.</p>
+</div>
+<div class="section" id="trying-collections-locally">
+<span id="trying-collection-locally"></span><h3><a class="toc-backref" href="#id19">Trying collections locally</a><a class="headerlink" href="#trying-collections-locally" title="Permalink to this headline">¶</a></h3>
+<p>You can try your collection locally by installing it from the tarball. The following will enable an adjacent playbook to
+access the collection:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-galaxy collection install my_namespace-my_collection-1.0.0.tar.gz -p ./collections
+</pre></div>
+</div>
+<p>You should use one of the values configured in <a class="reference internal" href="../reference_appendices/config.html#collections-paths"><span class="std std-ref">COLLECTIONS_PATHS</span></a> for your path. This is also where Ansible itself will
+expect to find collections when attempting to use them. If you don’t specify a path value, <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">install</span></code>
+installs the collection in the first path defined in <a class="reference internal" href="../reference_appendices/config.html#collections-paths"><span class="std std-ref">COLLECTIONS_PATHS</span></a>, which by default is <code class="docutils literal notranslate"><span class="pre">~/.ansible/collections</span></code>.</p>
+<p>Next, try using the local collection inside a playbook. For examples and more details see <a class="reference internal" href="../user_guide/collections_using.html#id1"><span class="std std-ref">Using collections</span></a></p>
+</div>
+<div class="section" id="publishing-collections">
+<span id="id6"></span><h3><a class="toc-backref" href="#id20">Publishing collections</a><a class="headerlink" href="#publishing-collections" title="Permalink to this headline">¶</a></h3>
+<p>You can publish collections to Galaxy using the <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">publish</span></code> command or the Galaxy UI itself. You need a namespace on Galaxy to upload your collection. See <a class="reference external" href="https://galaxy.ansible.com/docs/contributing/namespaces.html#galaxy-namespaces">Galaxy namespaces</a> on the Galaxy docsite for details.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Once you upload a version of a collection, you cannot delete or modify that version. Ensure that everything looks okay before you upload it.</p>
+</div>
+<div class="section" id="getting-your-token-or-api-key">
+<span id="galaxy-get-token"></span><h4>Getting your token or API key<a class="headerlink" href="#getting-your-token-or-api-key" title="Permalink to this headline">¶</a></h4>
+<p>To upload your collection to Galaxy, you must first obtain an API token (<code class="docutils literal notranslate"><span class="pre">--api-key</span></code> in the <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span></code> CLI command). The API token is a secret token used to protect your content.</p>
+<p>To get your API token:</p>
+<ul class="simple">
+<li><p>For galaxy, go to the <a class="reference external" href="https://galaxy.ansible.com/me/preferences">Galaxy profile preferences</a> page and click <span class="guilabel">API token</span>.</p></li>
+<li><p>For Automation Hub, go to <a class="reference external" href="https://cloud.redhat.com/ansible/automation-hub/token/">https://cloud.redhat.com/ansible/automation-hub/token/</a> and click <span class="guilabel">Get API token</span> from the version dropdown.</p></li>
+</ul>
+</div>
+<div class="section" id="upload-using-ansible-galaxy">
+<span id="upload-collection-ansible-galaxy"></span><h4>Upload using ansible-galaxy<a class="headerlink" href="#upload-using-ansible-galaxy" title="Permalink to this headline">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span></code> uses <a class="reference external" href="https://galaxy.ansible.com">https://galaxy.ansible.com</a> as the Galaxy server (as listed in the <code class="file docutils literal notranslate"><span class="pre">ansible.cfg</span></code> file under <a class="reference internal" href="../reference_appendices/config.html#galaxy-server"><span class="std std-ref">GALAXY_SERVER</span></a>). If you are only publishing your collection to Ansible Galaxy, you do not need any further configuration. If you are using Red Hat Automation Hub or any other Galaxy server, see <a class="reference internal" href="../user_guide/collections_using.html#galaxy-server-config"><span class="std std-ref">Configuring the ansible-galaxy client</span></a>.</p>
+</div>
+<p>To upload the collection artifact with the <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span></code> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-galaxy collection publish path/to/my_namespace-my_collection-1.0.0.tar.gz --api-key<span class="o">=</span>SECRET
+</pre></div>
+</div>
+<p>The above command triggers an import process, just as if you uploaded the collection through the Galaxy website.
+The command waits until the import process completes before reporting the status back. If you wish to continue
+without waiting for the import result, use the <code class="docutils literal notranslate"><span class="pre">--no-wait</span></code> argument and manually look at the import progress in your
+<a class="reference external" href="https://galaxy.ansible.com/my-imports/">My Imports</a> page.</p>
+<p>The API key is a secret token used by the Galaxy server to protect your content. See <a class="reference internal" href="#galaxy-get-token"><span class="std std-ref">Getting your token or API key</span></a> for details.</p>
+</div>
+<div class="section" id="upload-a-collection-from-the-galaxy-website">
+<span id="upload-collection-galaxy"></span><h4>Upload a collection from the Galaxy website<a class="headerlink" href="#upload-a-collection-from-the-galaxy-website" title="Permalink to this headline">¶</a></h4>
+<p>To upload your collection artifact directly on Galaxy:</p>
+<ol class="arabic simple">
+<li><p>Go to the <a class="reference external" href="https://galaxy.ansible.com/my-content/namespaces">My Content</a> page, and click the <strong>Add Content</strong> button on one of your namespaces.</p></li>
+<li><p>From the <strong>Add Content</strong> dialogue, click <strong>Upload New Collection</strong>, and select the collection archive file from your local filesystem.</p></li>
+</ol>
+<p>When uploading collections it doesn’t matter which namespace you select. The collection will be uploaded to the
+namespace specified in the collection metadata in the <code class="docutils literal notranslate"><span class="pre">galaxy.yml</span></code> file. If you’re not an owner of the
+namespace, the upload request will fail.</p>
+<p>Once Galaxy uploads and accepts a collection, you will be redirected to the <strong>My Imports</strong> page, which displays output from the
+import process, including any errors or warnings about the metadata and content contained in the collection.</p>
+</div>
+</div>
+<div class="section" id="collection-versions">
+<span id="id7"></span><h3><a class="toc-backref" href="#id21">Collection versions</a><a class="headerlink" href="#collection-versions" title="Permalink to this headline">¶</a></h3>
+<p>Once you upload a version of a collection, you cannot delete or modify that version. Ensure that everything looks okay before
+uploading. The only way to change a collection is to release a new version. The latest version of a collection (by highest version number)
+will be the version displayed everywhere in Galaxy; however, users will still be able to download older versions.</p>
+<p>Collection versions use <a class="reference external" href="https://semver.org/">Semantic Versioning</a> for version numbers. Please read the official documentation for details and examples. In summary:</p>
+<ul class="simple">
+<li><p>Increment major (for example: x in <cite>x.y.z</cite>) version number for an incompatible API change.</p></li>
+<li><p>Increment minor (for example: y in <cite>x.y.z</cite>) version number for new functionality in a backwards compatible manner.</p></li>
+<li><p>Increment patch (for example: z in <cite>x.y.z</cite>) version number for backwards compatible bug fixes.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="migrating-ansible-content-to-a-collection">
+<span id="migrate-to-collection"></span><h2><a class="toc-backref" href="#id22">Migrating Ansible content to a collection</a><a class="headerlink" href="#migrating-ansible-content-to-a-collection" title="Permalink to this headline">¶</a></h2>
+<p>You can experiment with migrating existing modules into a collection using the <a class="reference external" href="https://github.com/ansible/content_collector">content_collector tool</a>. The <code class="docutils literal notranslate"><span class="pre">content_collector</span></code> is a playbook that helps you migrate content from an Ansible distribution into a collection.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This tool is in active development and is provided only for experimentation and feedback at this point.</p>
+</div>
+<p>See the <a class="reference external" href="https://github.com/ansible/content_collector">content_collector README</a> for full details and usage guidelines.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../user_guide/collections_using.html#collections"><span class="std std-ref">Using collections</span></a></dt><dd><p>Learn how to install and use collections.</p>
+</dd>
+<dt><a class="reference internal" href="collections_galaxy_meta.html#collections-galaxy-meta"><span class="std std-ref">Collection Galaxy metadata structure</span></a></dt><dd><p>Understand the collections metadata structure.</p>
+</dd>
+<dt><a class="reference internal" href="developing_modules_general.html#developing-modules-general"><span class="std std-ref">Ansible module development: getting started</span></a></dt><dd><p>Learn about how to write Ansible modules</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Mailing List</a></dt><dd><p>The development mailing list</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="collections_galaxy_meta.html" class="btn btn-neutral float-right" title="Collection Galaxy metadata structure"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="developing_module_utilities.html" class="btn btn-neutral" title="Using and Developing Module Utilities"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>

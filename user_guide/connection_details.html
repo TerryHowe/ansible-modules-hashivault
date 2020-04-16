@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Connection methods and details &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/user_guide/connection_details.html"/>
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Working with command line tools" href="command_line_tools.html" />
+    <link rel="prev" title="Introduction to ad-hoc commands" href="intro_adhoc.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../porting_guides/porting_guides.html">Ansible Porting Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Ansible Quickstart Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_concepts.html">Ansible concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_inventory.html">How to build your inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_dynamic_inventory.html">Working with dynamic inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_patterns.html">Patterns: targeting hosts and groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_adhoc.html">Introduction to ad-hoc commands</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Connection methods and details</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#controlpersist-and-paramiko">ControlPersist and paramiko</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssh-key-setup">SSH key setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-against-localhost">Running against localhost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#host-key-checking">Host key checking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-connection-methods">Other connection methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_line_tools.html">Working with command line tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks.html">Working With Playbooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="become.html">Understanding privilege escalation: become</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vault.html">Ansible Vault</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Working With Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/plugins.html">Working With Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_bsd.html">Ansible and BSD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collections_using.html">Using collections</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/virt_guides.html">Virtualization and Containerization Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">Ansible for Network Automation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/general_precedence.html">Controlling how Ansible behaves: precedence rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">User Guide</a> &raquo;</li>
+        
+      <li>Connection methods and details</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/user_guide/connection_details.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="connection-methods-and-details">
+<span id="connections"></span><h1>Connection methods and details<a class="headerlink" href="#connection-methods-and-details" title="Permalink to this headline">¶</a></h1>
+<p>This section shows you how to expand and refine the connection methods Ansible uses for your inventory.</p>
+<div class="section" id="controlpersist-and-paramiko">
+<h2>ControlPersist and paramiko<a class="headerlink" href="#controlpersist-and-paramiko" title="Permalink to this headline">¶</a></h2>
+<p>By default, Ansible uses native OpenSSH, because it supports ControlPersist (a performance feature), Kerberos, and options in <code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code> such as Jump Host setup. If your control machine uses an older version of OpenSSH that does not support ControlPersist, Ansible will fallback to a Python implementation of OpenSSH called ‘paramiko’.</p>
+</div>
+<div class="section" id="ssh-key-setup">
+<h2>SSH key setup<a class="headerlink" href="#ssh-key-setup" title="Permalink to this headline">¶</a></h2>
+<p>By default, Ansible assumes you are using SSH keys to connect to remote machines.  SSH keys are encouraged, but you can use password authentication if needed with the <code class="docutils literal notranslate"><span class="pre">--ask-pass</span></code> option. If you need to provide a password for <a class="reference internal" href="become.html#become"><span class="std std-ref">privilege escalation</span></a> (sudo, pbrun, etc.), use <code class="docutils literal notranslate"><span class="pre">--ask-become-pass</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ansible does not expose a channel to allow communication between the user and the ssh process to accept a password manually to decrypt an ssh key when using the ssh connection plugin (which is the default). The use of <code class="docutils literal notranslate"><span class="pre">ssh-agent</span></code> is highly recommended.</p>
+</div>
+<p>To set up SSH agent to avoid retyping passwords, you can do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ssh-agent bash
+$ ssh-add ~/.ssh/id_rsa
+</pre></div>
+</div>
+<p>Depending on your setup, you may wish to use Ansible’s <code class="docutils literal notranslate"><span class="pre">--private-key</span></code> command line option to specify a pem file instead.  You can also add the private key file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ssh-agent bash
+$ ssh-add ~/.ssh/keypair.pem
+</pre></div>
+</div>
+<p>Another way to add private key files without using ssh-agent is using <code class="docutils literal notranslate"><span class="pre">ansible_ssh_private_key_file</span></code> in an inventory file as explained here:  <a class="reference internal" href="intro_inventory.html#intro-inventory"><span class="std std-ref">How to build your inventory</span></a>.</p>
+</div>
+<div class="section" id="running-against-localhost">
+<h2>Running against localhost<a class="headerlink" href="#running-against-localhost" title="Permalink to this headline">¶</a></h2>
+<p>You can run commands against the control node by using “localhost” or “127.0.0.1” for the server name:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ansible localhost -m ping -e <span class="s1">&#39;ansible_python_interpreter=&quot;/usr/bin/env python&quot;&#39;</span>
+</pre></div>
+</div>
+<p>You can specify localhost explicitly by adding this to your inventory file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>localhost <span class="nv">ansible_connection</span><span class="o">=</span><span class="nb">local</span> <span class="nv">ansible_python_interpreter</span><span class="o">=</span><span class="s2">&quot;/usr/bin/env python&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="host-key-checking">
+<span id="host-key-checking-on"></span><h2>Host key checking<a class="headerlink" href="#host-key-checking" title="Permalink to this headline">¶</a></h2>
+<p>Ansible enables host key checking by default. Checking host keys guards against server spoofing and man-in-the-middle attacks, but it does require some maintenance.</p>
+<p>If a host is reinstalled and has a different key in ‘known_hosts’, this will result in an error message until corrected.  If a new host is not in ‘known_hosts’ your control node may prompt for confirmation of the key, which results in an interactive experience if using Ansible, from say, cron. You might not want this.</p>
+<p>If you understand the implications and wish to disable this behavior, you can do so by editing <code class="docutils literal notranslate"><span class="pre">/etc/ansible/ansible.cfg</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.ansible.cfg</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[defaults]
+host_key_checking = False
+</pre></div>
+</div>
+<p>Alternatively this can be set by the <span class="target" id="index-0"></span><a class="reference internal" href="../reference_appendices/config.html#envvar-ANSIBLE_HOST_KEY_CHECKING"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">ANSIBLE_HOST_KEY_CHECKING</span></code></a> environment variable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">ANSIBLE_HOST_KEY_CHECKING</span><span class="o">=</span>False
+</pre></div>
+</div>
+<p>Also note that host key checking in paramiko mode is reasonably slow, therefore switching to ‘ssh’ is also recommended when using this feature.</p>
+</div>
+<div class="section" id="other-connection-methods">
+<h2>Other connection methods<a class="headerlink" href="#other-connection-methods" title="Permalink to this headline">¶</a></h2>
+<p>Ansible can use a variety of connection methods beyond SSH. You can select any connection plugin, including managing things locally and managing chroot, lxc, and jail containers.
+A mode called ‘ansible-pull’ can also invert the system and have systems ‘phone home’ via scheduled git checkouts to pull configuration directives from a central repository.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="command_line_tools.html" class="btn btn-neutral float-right" title="Working with command line tools"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="intro_adhoc.html" class="btn btn-neutral" title="Introduction to ad-hoc commands"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>

@@ -1,0 +1,713 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>oVirt Ansible Modules &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/dev_guide/platforms/ovirt_dev_guide.html"/>
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Guidelines for VMware module development" href="vmware_guidelines.html" />
+    <link rel="prev" title="OpenStack Ansible Modules" href="openstack_guidelines.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../porting_guides/porting_guides.html">Ansible Porting Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../developing_locally.html">Adding modules and plugins locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules.html">Should you develop a module?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_general.html">Ansible module development: getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_checklist.html">Contributing your module to Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_best_practices.html">Conventions, tips, and pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_python_3.html">Ansible and Python 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Debugging modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_documenting.html">Module format and documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_general_windows.html">Windows module development walkthrough</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_general_aci.html">Developing Cisco ACI modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_guidelines.html">Guidelines for Ansible Amazon AWS module development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openstack_guidelines.html">OpenStack Ansible Modules</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">oVirt Ansible Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#naming">Naming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interface">Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interoperability">Interoperability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libraries">Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#new-module-development">New module development</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="vmware_guidelines.html">Guidelines for VMware module development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_in_groups.html">Information for submitting a group of modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing.html">Testing Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module_lifecycle.html">The lifecycle of an Ansible module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_plugins.html">Developing plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_inventory.html">Developing dynamic inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_core.html">Developing the Ansible Core Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_program_flow_modules.html">Ansible module architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_api.html">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_rebasing.html">Rebasing a pull request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_module_utilities.html">Using and Developing Module Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_collections.html">Developing collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collections_galaxy_meta.html">Collection Galaxy metadata structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview_architecture.html">Ansible architecture</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/virt_guides.html">Virtualization and Containerization Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../network/index.html">Ansible for Network Automation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/general_precedence.html">Controlling how Ansible behaves: precedence rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Developer Guide</a> &raquo;</li>
+        
+      <li>oVirt Ansible Modules</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/dev_guide/platforms/ovirt_dev_guide.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ovirt-ansible-modules">
+<span id="ovirt-module-development"></span><h1>oVirt Ansible Modules<a class="headerlink" href="#ovirt-ansible-modules" title="Permalink to this headline">¶</a></h1>
+<p>This is a set of modules for interacting with oVirt/RHV. This document
+serves as developer coding guidelines for creating oVirt/RHV modules.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#naming" id="id1">Naming</a></p></li>
+<li><p><a class="reference internal" href="#interface" id="id2">Interface</a></p></li>
+<li><p><a class="reference internal" href="#interoperability" id="id3">Interoperability</a></p></li>
+<li><p><a class="reference internal" href="#libraries" id="id4">Libraries</a></p></li>
+<li><p><a class="reference internal" href="#new-module-development" id="id5">New module development</a></p></li>
+<li><p><a class="reference internal" href="#testing" id="id6">Testing</a></p></li>
+</ul>
+</div>
+<div class="section" id="naming">
+<h2><a class="toc-backref" href="#id1">Naming</a><a class="headerlink" href="#naming" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>All modules should start with an <code class="docutils literal notranslate"><span class="pre">ovirt_</span></code> prefix.</p></li>
+<li><p>All modules should be named after the resource it manages in singular
+form.</p></li>
+<li><p>All modules that gather information should have a <code class="docutils literal notranslate"><span class="pre">_info</span></code>
+suffix.</p></li>
+</ul>
+</div>
+<div class="section" id="interface">
+<h2><a class="toc-backref" href="#id2">Interface</a><a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Every module should return the ID of the resource it manages.</p></li>
+<li><p>Every module should return the dictionary of the resource it manages.</p></li>
+<li><p>Never change the name of the parameter, as we guarantee backward
+compatibility. Use aliases instead.</p></li>
+<li><p>If a parameter can’t achieve idempotency for any reason, please
+document it.</p></li>
+</ul>
+</div>
+<div class="section" id="interoperability">
+<h2><a class="toc-backref" href="#id3">Interoperability</a><a class="headerlink" href="#interoperability" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>All modules should work against all minor versions of
+version 4 of the API. Version 3 of the API is not supported.</p></li>
+</ul>
+</div>
+<div class="section" id="libraries">
+<h2><a class="toc-backref" href="#id4">Libraries</a><a class="headerlink" href="#libraries" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>All modules should use <code class="docutils literal notranslate"><span class="pre">ovirt_full_argument_spec</span></code> or
+<code class="docutils literal notranslate"><span class="pre">ovirt_info_full_argument_spec</span></code> to pick up the standard input (such
+as auth and <code class="docutils literal notranslate"><span class="pre">fetch_nested</span></code>).</p></li>
+<li><p>All modules should use <code class="docutils literal notranslate"><span class="pre">extends_documentation_fragment</span></code>: ovirt to go
+along with <code class="docutils literal notranslate"><span class="pre">ovirt_full_argument_spec</span></code>.</p></li>
+<li><p>All info modules should use <code class="docutils literal notranslate"><span class="pre">extends_documentation_fragment</span></code>:
+<code class="docutils literal notranslate"><span class="pre">ovirt_info</span></code> to go along with <code class="docutils literal notranslate"><span class="pre">ovirt_info_full_argument_spec</span></code>.</p></li>
+<li><p>Functions that are common to all modules should be implemented in the
+<code class="docutils literal notranslate"><span class="pre">module_utils/ovirt.py</span></code> file, so they can be reused.</p></li>
+<li><p>Python SDK version 4 must be used.</p></li>
+</ul>
+</div>
+<div class="section" id="new-module-development">
+<h2><a class="toc-backref" href="#id5">New module development</a><a class="headerlink" href="#new-module-development" title="Permalink to this headline">¶</a></h2>
+<p>Please read <a class="reference internal" href="../developing_modules.html#developing-modules"><span class="std std-ref">Should you develop a module?</span></a>,
+first to know what common properties, functions and features every module must
+have.</p>
+<p>In order to achieve idempotency of oVirt entity attributes, a helper class
+was created. The first thing you need to do is to extend this class and override a few
+methods:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">ovirtsdk4.types</span> <span class="k">as</span> <span class="nn">otypes</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="kn">from</span> <span class="nn">ansible.module_utils.ovirt</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BaseModule</span><span class="p">,</span>
+    <span class="n">equal</span>
+<span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ClustersModule</span><span class="p">(</span><span class="n">BaseModule</span><span class="p">):</span>
+
+    <span class="c1"># The build method builds the entity we want to create.</span>
+    <span class="c1"># Always be sure to build only the parameters the user specified</span>
+    <span class="c1"># in their yaml file, so we don&#39;t change the values which we shouldn&#39;t</span>
+    <span class="c1"># change. If you set the parameter to None, nothing will be changed.</span>
+    <span class="k">def</span> <span class="nf">build_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">otypes</span><span class="o">.</span><span class="n">Cluster</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
+            <span class="n">comment</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="s1">&#39;comment&#39;</span><span class="p">),</span>
+            <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># The update_check method checks if the update is needed to be done on</span>
+    <span class="c1"># the entity. The equal method doesn&#39;t check the values which are None,</span>
+    <span class="c1"># which means it doesn&#39;t check the values which user didn&#39;t set in yaml.</span>
+    <span class="c1"># All other values are checked and if there is found some mismatch,</span>
+    <span class="c1"># the update method is run on the entity, the entity is build by</span>
+    <span class="c1"># &#39;build_entity&#39; method. You don&#39;t have to care about calling the update,</span>
+    <span class="c1"># it&#39;s called behind the scene by the &#39;BaseModule&#39; class.</span>
+    <span class="k">def</span> <span class="nf">update_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="s1">&#39;comment&#39;</span><span class="p">),</span> <span class="n">entity</span><span class="o">.</span><span class="n">comment</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">),</span> <span class="n">entity</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p>The code above handle the check if the entity should be updated, so we
+don’t update the entity if not needed and also it construct the needed
+entity of the SDK.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.module_utils.basic</span> <span class="kn">import</span> <span class="n">AnsibleModule</span>
+<span class="kn">from</span> <span class="nn">ansible.module_utils.ovirt</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">check_sdk</span><span class="p">,</span>
+    <span class="n">create_connection</span><span class="p">,</span>
+    <span class="n">ovirt_full_argument_spec</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># This module will support two states of the cluster,</span>
+<span class="c1"># either it will be present or absent. The user can</span>
+<span class="c1"># specify three parameters: name, comment and description,</span>
+<span class="c1"># The &#39;ovirt_full_argument_spec&#39; function, will merge the</span>
+<span class="c1"># parameters created here with some common one like &#39;auth&#39;:</span>
+<span class="n">argument_spec</span> <span class="o">=</span> <span class="n">ovirt_full_argument_spec</span><span class="p">(</span>
+    <span class="n">state</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;present&#39;</span><span class="p">,</span> <span class="s1">&#39;absent&#39;</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;present&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">name</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">description</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+    <span class="n">comment</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Create the Ansible module, please always implement the</span>
+<span class="c1"># feautre called &#39;check_mode&#39;, for &#39;create&#39;, &#39;update&#39; and</span>
+<span class="c1"># &#39;delete&#39; operations it&#39;s implemented by default in BaseModule:</span>
+<span class="n">module</span> <span class="o">=</span> <span class="n">AnsibleModule</span><span class="p">(</span>
+    <span class="n">argument_spec</span><span class="o">=</span><span class="n">argument_spec</span><span class="p">,</span>
+    <span class="n">supports_check_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Check if the user has Python SDK installed:</span>
+<span class="n">check_sdk</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">auth</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;auth&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Create the connection to the oVirt engine:</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">create_connection</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span>
+
+    <span class="c1"># Create the service which manages the entity:</span>
+    <span class="n">clusters_service</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">system_service</span><span class="p">()</span><span class="o">.</span><span class="n">clusters_service</span><span class="p">()</span>
+
+    <span class="c1"># Create the module which will handle create, update and delete flow:</span>
+    <span class="n">clusters_module</span> <span class="o">=</span> <span class="n">ClustersModule</span><span class="p">(</span>
+        <span class="n">connection</span><span class="o">=</span><span class="n">connection</span><span class="p">,</span>
+        <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+        <span class="n">service</span><span class="o">=</span><span class="n">clusters_service</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Check the state and call the appropriate method:</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;present&#39;</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">clusters_module</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;absent&#39;</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">clusters_module</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+
+    <span class="c1"># The return value of the &#39;create&#39; and &#39;remove&#39; method is dictionary</span>
+    <span class="c1"># with the &#39;id&#39; of the entity we manage and the type of the entity</span>
+    <span class="c1"># with filled in attributes of the entity. The &#39;change&#39; status is</span>
+    <span class="c1"># also returned by those methods:</span>
+    <span class="n">module</span><span class="o">.</span><span class="n">exit_json</span><span class="p">(</span><span class="o">**</span><span class="n">ret</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="c1"># Modules can&#39;t raises exception, it always must exit with</span>
+    <span class="c1"># &#39;module.fail_json&#39; in case of exception. Always use</span>
+    <span class="c1"># &#39;exception=traceback.format_exc&#39; for debugging purposes:</span>
+    <span class="n">module</span><span class="o">.</span><span class="n">fail_json</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">exception</span><span class="o">=</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="c1"># Logout only in case the user passed the &#39;token&#39; in &#39;auth&#39;</span>
+    <span class="c1"># parameter:</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">logout</span><span class="o">=</span><span class="n">auth</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If your module must support action handling (for example,
+virtual machine start) you must ensure that you handle the states of the
+virtual machine correctly, and document the behavior of the
+module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;running&#39;</span><span class="p">:</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">vms_module</span><span class="o">.</span><span class="n">action</span><span class="p">(</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">,</span>
+        <span class="n">post_action</span><span class="o">=</span><span class="n">vms_module</span><span class="o">.</span><span class="n">_post_start_action</span><span class="p">,</span>
+        <span class="n">action_condition</span><span class="o">=</span><span class="k">lambda</span> <span class="n">vm</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">vm</span><span class="o">.</span><span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+                <span class="n">otypes</span><span class="o">.</span><span class="n">VmStatus</span><span class="o">.</span><span class="n">MIGRATING</span><span class="p">,</span>
+                <span class="n">otypes</span><span class="o">.</span><span class="n">VmStatus</span><span class="o">.</span><span class="n">POWERING_UP</span><span class="p">,</span>
+                <span class="n">otypes</span><span class="o">.</span><span class="n">VmStatus</span><span class="o">.</span><span class="n">REBOOT_IN_PROGRESS</span><span class="p">,</span>
+                <span class="n">otypes</span><span class="o">.</span><span class="n">VmStatus</span><span class="o">.</span><span class="n">WAIT_FOR_LAUNCH</span><span class="p">,</span>
+                <span class="n">otypes</span><span class="o">.</span><span class="n">VmStatus</span><span class="o">.</span><span class="n">UP</span><span class="p">,</span>
+                <span class="n">otypes</span><span class="o">.</span><span class="n">VmStatus</span><span class="o">.</span><span class="n">RESTORING_STATE</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">),</span>
+        <span class="n">wait_condition</span><span class="o">=</span><span class="k">lambda</span> <span class="n">vm</span><span class="p">:</span> <span class="n">vm</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">otypes</span><span class="o">.</span><span class="n">VmStatus</span><span class="o">.</span><span class="n">UP</span><span class="p">,</span>
+        <span class="c1"># Start action kwargs:</span>
+        <span class="n">use_cloud_init</span><span class="o">=</span><span class="n">use_cloud_init</span><span class="p">,</span>
+        <span class="n">use_sysprep</span><span class="o">=</span><span class="n">use_sysprep</span><span class="p">,</span>
+        <span class="c1"># ...</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>As you can see from the preceding example, the <code class="docutils literal notranslate"><span class="pre">action</span></code> method accepts the <code class="docutils literal notranslate"><span class="pre">action_condition</span></code> and
+<code class="docutils literal notranslate"><span class="pre">wait_condition</span></code>, which are methods which accept the virtual machine
+object as a parameter, so you can check whether the virtual
+machine is in a proper state before the action. The rest of the
+parameters are for the <code class="docutils literal notranslate"><span class="pre">start</span></code> action. You may also handle pre-
+or post- action tasks by defining <code class="docutils literal notranslate"><span class="pre">pre_action</span></code> and <code class="docutils literal notranslate"><span class="pre">post_action</span></code>
+parameters.</p>
+</div>
+<div class="section" id="testing">
+<h2><a class="toc-backref" href="#id6">Testing</a><a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Integration testing is currently done in oVirt’s CI system
+<a class="reference external" href="https://jenkins.ovirt.org/view/All/job/ovirt-system-tests_ansible-suite-master/">on Jenkins</a>
+and
+<a class="reference external" href="https://github.com/oVirt/ovirt-system-tests/tree/master/ansible-suite-master/">on GitHub</a>.</p></li>
+<li><p>Please consider using these integration tests if you create a new module or add a new feature to an existing
+module.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="vmware_guidelines.html" class="btn btn-neutral float-right" title="Guidelines for VMware module development"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="openstack_guidelines.html" class="btn btn-neutral" title="OpenStack Ansible Modules"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>

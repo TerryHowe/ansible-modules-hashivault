@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Collection Galaxy metadata structure &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/dev_guide/collections_galaxy_meta.html"/>
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ansible architecture" href="overview_architecture.html" />
+    <link rel="prev" title="Developing collections" href="developing_collections.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../porting_guides/porting_guides.html">Ansible Porting Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="developing_locally.html">Adding modules and plugins locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules.html">Should you develop a module?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_general.html">Ansible module development: getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_checklist.html">Contributing your module to Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_best_practices.html">Conventions, tips, and pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_python_3.html">Ansible and Python 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_documenting.html">Module format and documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_general_windows.html">Windows module development walkthrough</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_general_aci.html">Developing Cisco ACI modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platforms/aws_guidelines.html">Guidelines for Ansible Amazon AWS module development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platforms/openstack_guidelines.html">OpenStack Ansible Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platforms/ovirt_dev_guide.html">oVirt Ansible Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platforms/vmware_guidelines.html">Guidelines for VMware module development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_modules_in_groups.html">Information for submitting a group of modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html">Testing Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_lifecycle.html">The lifecycle of an Ansible module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_plugins.html">Developing plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_inventory.html">Developing dynamic inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_core.html">Developing the Ansible Core Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_program_flow_modules.html">Ansible module architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_api.html">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_rebasing.html">Rebasing a pull request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_module_utilities.html">Using and Developing Module Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_collections.html">Developing collections</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Collection Galaxy metadata structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#structure">Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="overview_architecture.html">Ansible architecture</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/virt_guides.html">Virtualization and Containerization Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">Ansible for Network Automation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/general_precedence.html">Controlling how Ansible behaves: precedence rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer Guide</a> &raquo;</li>
+        
+      <li>Collection Galaxy metadata structure</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/dev_guide/collections_galaxy_meta.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="collection-galaxy-metadata-structure">
+<span id="collections-galaxy-meta"></span><h1>Collection Galaxy metadata structure<a class="headerlink" href="#collection-galaxy-metadata-structure" title="Permalink to this headline">¶</a></h1>
+<p>A key component of an Ansible collection is the <code class="docutils literal notranslate"><span class="pre">galaxy.yml</span></code> file placed in the root directory of a collection. This
+file contains the metadata of the collection that is used to generate a collection artifact.</p>
+<div class="section" id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">galaxy.yml</span></code> file must contain the following keys in valid YAML:</p>
+<table class="colwidths-auto documentation-table docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p class="value-name">namespace <br></p>
+<p class="value-type">string </p>
+<p class="value-separator">/ </p>
+<p class="value-required">required</p>
+</td>
+<td><p>The namespace of the collection.</p>
+<p>This can be a company/brand/organization or product namespace under which all content lives.</p>
+<p>May only contain alphanumeric lowercase characters and underscores. Namespaces cannot start with underscores or numbers and cannot contain consecutive underscores.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="value-name">name <br></p>
+<p class="value-type">string </p>
+<p class="value-separator">/ </p>
+<p class="value-required">required</p>
+</td>
+<td><p>The name of the collection.</p>
+<p>Has the same character restrictions as <code class="docutils literal notranslate"><span class="pre">namespace</span></code>.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="value-name">version <br></p>
+<p class="value-type">string </p>
+<p class="value-separator">/ </p>
+<p class="value-required">required</p>
+</td>
+<td><p>The version of the collection.</p>
+<p>Must be compatible with semantic versioning.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="value-name">readme <br></p>
+<p class="value-type">string </p>
+<p class="value-separator">/ </p>
+<p class="value-required">required</p>
+</td>
+<td><p>The path to the Markdown (.md) readme file.</p>
+<p>This path is relative to the root of the collection.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="value-name">authors <br></p>
+<p class="value-type">list </p>
+<p class="value-separator">/ </p>
+<p class="value-required">required</p>
+</td>
+<td><p>A list of the collection’s content authors.</p>
+<p>Can be just the name or in the format ‘Full Name &lt;email&gt; (url) &#64;nicks:irc/im.site#channel’.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="value-name">description <br></p>
+<p class="value-type">string </p>
+</td>
+<td><p>A short summary description of the collection.</p></td>
+</tr>
+<tr class="row-even"><td><p class="value-name">license <br></p>
+<p class="value-type">list </p>
+</td>
+<td><p>Either a single license or a list of licenses for content inside of a collection.</p>
+<p>Ansible Galaxy currently only accepts <a class="reference external" href="https://spdx.org/licenses/">SPDX</a> licenses</p>
+<p>This key is mutually exclusive with <code class="docutils literal notranslate"><span class="pre">license_file</span></code>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="value-name">license_file <br></p>
+<p class="value-type">string </p>
+</td>
+<td><p>The path to the license file for the collection.</p>
+<p>This path is relative to the root of the collection.</p>
+<p>This key is mutually exclusive with <code class="docutils literal notranslate"><span class="pre">license</span></code>.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="value-name">tags <br></p>
+<p class="value-type">list </p>
+</td>
+<td><p>A list of tags you want to associate with the collection for indexing/searching.</p>
+<p>A tag name has the same character requirements as <code class="docutils literal notranslate"><span class="pre">namespace</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="value-name">dependencies <br></p>
+<p class="value-type">dictionary </p>
+</td>
+<td><p>Collections that this collection requires to be installed for it to be usable.</p>
+<p>The key of the dict is the collection label <code class="docutils literal notranslate"><span class="pre">namespace.name</span></code>.</p>
+<p>The value is a version range <a class="reference external" href="https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification">specifiers</a>.</p>
+<p>Multiple version range specifiers can be set and are separated by <code class="docutils literal notranslate"><span class="pre">,</span></code>.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="value-name">repository <br></p>
+<p class="value-type">string </p>
+</td>
+<td><p>The URL of the originating SCM repository.</p></td>
+</tr>
+<tr class="row-odd"><td><p class="value-name">documentation <br></p>
+<p class="value-type">string </p>
+</td>
+<td><p>The URL to any online docs.</p></td>
+</tr>
+<tr class="row-even"><td><p class="value-name">homepage <br></p>
+<p class="value-type">string </p>
+</td>
+<td><p>The URL to the homepage of the collection/project.</p></td>
+</tr>
+<tr class="row-odd"><td><p class="value-name">issues <br></p>
+<p class="value-type">string </p>
+</td>
+<td><p>The URL to the collection issue tracker.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">namespace</span><span class="p">:</span> <span class="s">&quot;namespace_name&quot;</span>
+<span class="nt">name</span><span class="p">:</span> <span class="s">&quot;collection_name&quot;</span>
+<span class="nt">version</span><span class="p">:</span> <span class="s">&quot;1.0.12&quot;</span>
+<span class="nt">readme</span><span class="p">:</span> <span class="s">&quot;README.md&quot;</span>
+<span class="nt">authors</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="s">&quot;Author1&quot;</span>
+    <span class="p p-Indicator">-</span> <span class="s">&quot;Author2</span><span class="nv"> </span><span class="s">(https://author2.example.com)&quot;</span>
+    <span class="p p-Indicator">-</span> <span class="s">&quot;Author3</span><span class="nv"> </span><span class="s">&lt;author3@example.com&gt;&quot;</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+    <span class="s">&quot;other_namespace.collection1&quot;</span><span class="p p-Indicator">:</span> <span class="s">&quot;&gt;=1.0.0&quot;</span>
+    <span class="s">&quot;other_namespace.collection2&quot;</span><span class="p p-Indicator">:</span> <span class="s">&quot;&gt;=2.0.0,&lt;3.0.0&quot;</span>
+    <span class="s">&quot;anderson55.my_collection&quot;</span><span class="p p-Indicator">:</span> <span class="s">&quot;*&quot;</span>    <span class="c1"># note: &quot;*&quot; selects the highest version available</span>
+<span class="nt">license</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="s">&quot;MIT&quot;</span>
+<span class="nt">tags</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">demo</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">collection</span>
+<span class="nt">repository</span><span class="p">:</span> <span class="s">&quot;https://www.github.com/my_org/my_collection&quot;</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="developing_collections.html#developing-collections"><span class="std std-ref">Developing collections</span></a></dt><dd><p>Develop or modify a collection.</p>
+</dd>
+<dt><a class="reference internal" href="developing_modules_general.html#developing-modules-general"><span class="std std-ref">Ansible module development: getting started</span></a></dt><dd><p>Learn about how to write Ansible modules</p>
+</dd>
+<dt><a class="reference internal" href="../user_guide/collections_using.html#collections"><span class="std std-ref">Using collections</span></a></dt><dd><p>Learn how to install and use collections.</p>
+</dd>
+<dt><a class="reference external" href="https://groups.google.com/group/ansible-devel">Mailing List</a></dt><dd><p>The development mailing list</p>
+</dd>
+<dt><a class="reference external" href="http://irc.freenode.net">irc.freenode.net</a></dt><dd><p>#ansible IRC chat channel</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="overview_architecture.html" class="btn btn-neutral float-right" title="Ansible architecture"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="developing_collections.html" class="btn btn-neutral" title="Developing collections"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>

@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Controlling how Ansible behaves: precedence rules &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/reference_appendices/general_precedence.html"/>
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="YAML Syntax" href="YAMLSyntax.html" />
+    <link rel="prev" title="Ansible Configuration Settings" href="config.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../porting_guides/porting_guides.html">Ansible Porting Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/virt_guides.html">Virtualization and Containerization Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">Ansible for Network Automation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Controlling how Ansible behaves: precedence rules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#precedence-categories">Precedence categories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-settings">Configuration settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-line-options">Command-line options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#playbook-keywords">Playbook keywords</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variables">Variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#variable-scope-how-long-is-a-value-available">Variable scope: how long is a value available?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#using-e-extra-variables-at-the-command-line">Using <code class="docutils literal notranslate"><span class="pre">-e</span></code> extra variables at the command line</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Controlling how Ansible behaves: precedence rules</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/reference_appendices/general_precedence.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="controlling-how-ansible-behaves-precedence-rules">
+<span id="general-precedence-rules"></span><h1>Controlling how Ansible behaves: precedence rules<a class="headerlink" href="#controlling-how-ansible-behaves-precedence-rules" title="Permalink to this headline">¶</a></h1>
+<p>To give you maximum flexibility in managing your environments, Ansible offers many ways to control how Ansible behaves: how it connects to managed nodes, how it works once it has connected.
+If you use Ansible to manage a large number of servers, network devices, and cloud resources, you may define Ansible behavior in several different places and pass that information to Ansible in several different ways.
+This flexibility is convenient, but it can backfire if you do not understand the precedence rules.</p>
+<p>These precedence rules apply to any setting that can be defined in multiple ways (by configuration settings, command-line options, playbook keywords, variables).</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#precedence-categories" id="id1">Precedence categories</a></p>
+<ul>
+<li><p><a class="reference internal" href="#configuration-settings" id="id2">Configuration settings</a></p></li>
+<li><p><a class="reference internal" href="#command-line-options" id="id3">Command-line options</a></p></li>
+<li><p><a class="reference internal" href="#playbook-keywords" id="id4">Playbook keywords</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id5">Variables</a></p>
+<ul>
+<li><p><a class="reference internal" href="#variable-scope-how-long-is-a-value-available" id="id6">Variable scope: how long is a value available?</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#using-e-extra-variables-at-the-command-line" id="id7">Using <code class="docutils literal notranslate"><span class="pre">-e</span></code> extra variables at the command line</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="precedence-categories">
+<h2><a class="toc-backref" href="#id1">Precedence categories</a><a class="headerlink" href="#precedence-categories" title="Permalink to this headline">¶</a></h2>
+<p>Ansible offers four sources for controlling its behavior. In order of precedence from lowest (most easily overridden) to highest (overrides all others), the categories are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Configuration settings</p></li>
+<li><p>Command-line options</p></li>
+<li><p>Playbook keywords</p></li>
+<li><p>Variables</p></li>
+</ul>
+</div></blockquote>
+<p>Each category overrides any information from all lower-precedence categories. For example, a playbook keyword will override any configuration setting.</p>
+<p>Within each precedence category, specific rules apply. However, generally speaking, ‘last defined’ wins and overrides any previous definitions.</p>
+<div class="section" id="configuration-settings">
+<h3><a class="toc-backref" href="#id2">Configuration settings</a><a class="headerlink" href="#configuration-settings" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="config.html#ansible-configuration-settings"><span class="std std-ref">Configuration settings</span></a> include both values from the <code class="docutils literal notranslate"><span class="pre">ansible.cfg</span></code> file and environment variables. Within this category, values set in configuration files have lower precedence. Ansible uses the first <code class="docutils literal notranslate"><span class="pre">ansible.cfg</span></code> file it finds, ignoring all others. Ansible searches for <code class="docutils literal notranslate"><span class="pre">ansible.cfg</span></code> in these locations in order:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ANSIBLE_CONFIG</span></code> (environment variable if set)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ansible.cfg</span></code> (in the current directory)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~/.ansible.cfg</span></code> (in the home directory)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/etc/ansible/ansible.cfg</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>Environment variables have a higher precedence than entries in <code class="docutils literal notranslate"><span class="pre">ansible.cfg</span></code>. If you have environment variables set on your control node, they override the settings in whichever <code class="docutils literal notranslate"><span class="pre">ansible.cfg</span></code> file Ansible loads. The value of any given environment variable follows normal shell precedence: the last value defined overwrites previous values.</p>
+</div>
+<div class="section" id="command-line-options">
+<h3><a class="toc-backref" href="#id3">Command-line options</a><a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h3>
+<p>Any command-line option will override any configuration setting.</p>
+<p>When you type something directly at the command line, you may feel that your hand-crafted values should override all others, but Ansible does not work that way. Command-line options have low precedence - they override configuration only. They do not override playbook keywords, variables from inventory or variables from playbooks.</p>
+<p>You can override all other settings from all other sources in all other precedence categories at the command line by  <a class="reference internal" href="#general-precedence-extra-vars"><span class="std std-ref">Using -e extra variables at the command line</span></a>, but that is not a command-line option, it is a way of passing a <a class="reference internal" href="#general-precedence-variables"><span class="std std-ref">variable</span></a>.</p>
+<p>At the command line, if you pass multiple values for a parameter that accepts only a single value, the last defined value wins. For example, this <a class="reference internal" href="../user_guide/intro_adhoc.html#intro-adhoc"><span class="std std-ref">ad-hoc task</span></a> will connect as <code class="docutils literal notranslate"><span class="pre">carol</span></code>, not as <code class="docutils literal notranslate"><span class="pre">mike</span></code>:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible -u mike -m ping myhost -u carol</span>
+</pre></div>
+</div>
+<p>Some parameters allow multiple values. In this case, Ansible will append all values from the hosts listed in inventory files inventory1 and inventory2:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible -i /path/inventory1 -i /path/inventory2 -m ping all</span>
+</pre></div>
+</div>
+<p>The help for each <a class="reference internal" href="../user_guide/command_line_tools.html#command-line-tools"><span class="std std-ref">command-line tool</span></a> lists available options for that tool.</p>
+</div>
+<div class="section" id="playbook-keywords">
+<h3><a class="toc-backref" href="#id4">Playbook keywords</a><a class="headerlink" href="#playbook-keywords" title="Permalink to this headline">¶</a></h3>
+<p>Any <a class="reference internal" href="playbooks_keywords.html#playbook-keywords"><span class="std std-ref">playbook keyword</span></a> will override any command-line option and any configuration setting.</p>
+<p>Within playbook keywords, precedence flows with the playbook itself; the more specific wins against the more general:</p>
+<ul class="simple">
+<li><p>play (most general)</p></li>
+<li><p>blocks/includes/imports/roles (optional and can contain tasks and each other)</p></li>
+<li><p>tasks (most specific)</p></li>
+</ul>
+<p>A simple example:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">all</span>
+  <span class="nt">connection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ssh</span>
+  <span class="nt">tasks</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">This task uses ssh.</span>
+      <span class="nt">ping</span><span class="p">:</span>
+
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">This task uses paramiko.</span>
+      <span class="nt">connection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">paramiko</span>
+      <span class="nt">ping</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>In this example, the <code class="docutils literal notranslate"><span class="pre">connection</span></code> keyword is set to <code class="docutils literal notranslate"><span class="pre">ssh</span></code> at the play level. The first task inherits that value, and connects using <code class="docutils literal notranslate"><span class="pre">ssh</span></code>. The second task inherits that value, overrides it, and connects using <code class="docutils literal notranslate"><span class="pre">paramiko</span></code>.
+The same logic applies to blocks and roles as well. All tasks, blocks, and roles within a play inherit play-level keywords; any task, block, or role can override any keyword by defining a different value for that keyword within the task, block, or role.</p>
+<p>Remember that these are KEYWORDS, not variables. Both playbooks and variable files are defined in YAML but they have different significance.
+Playbooks are the command or ‘state description’ structure for Ansible, variables are data we use to help make playbooks more dynamic.</p>
+</div>
+<div class="section" id="variables">
+<span id="general-precedence-variables"></span><h3><a class="toc-backref" href="#id5">Variables</a><a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h3>
+<p>Any variable will override any playbook keyword, any command-line option, and any configuration setting.</p>
+<p>Variables that have equivalent playbook keywords, command-line options, and configuration settings are known as <a class="reference internal" href="special_variables.html#connection-variables"><span class="std std-ref">Connection variables</span></a>. Originally designed for connection parameters, this category has expanded to include other core variables like the temporary directory and the python interpreter.</p>
+<p>Connection variables, like all variables, can be set in multiple ways and places. You can define variables for hosts and groups in <a class="reference internal" href="../user_guide/intro_inventory.html#intro-inventory"><span class="std std-ref">inventory</span></a>. You can define variables for tasks and plays in <code class="docutils literal notranslate"><span class="pre">vars:</span></code> blocks in <a class="reference internal" href="../user_guide/playbooks_intro.html#about-playbooks"><span class="std std-ref">playbooks</span></a>. However, they are still variables - they are data, not keywords or configuration settings. Variables that override playbook keywords, command-line options, and configuration settings follow the same rules of <a class="reference internal" href="../user_guide/playbooks_variables.html#ansible-variable-precedence"><span class="std std-ref">variable precedence</span></a> as any other variables.</p>
+<p>When set in a playbook, variables follow the same inheritance rules as playbook keywords. You can set a value for the play, then override it in a task, block, or role:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cloud</span>
+  <span class="nt">gather_facts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="nt">become</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">yes</span>
+  <span class="nt">vars</span><span class="p">:</span>
+    <span class="nt">ansible_become_user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">admin</span>
+  <span class="nt">tasks</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">This task uses admin as the become user.</span>
+      <span class="nt">dnf</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some-service</span>
+        <span class="nt">state</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">latest</span>
+    <span class="p p-Indicator">-</span> <span class="nt">block</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">This task uses service-admin as the become user.</span>
+          <span class="c1"># a task to configure the new service</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">This task also uses service-admin as the become user, defined in the block.</span>
+          <span class="c1"># second task to configure the service</span>
+      <span class="nt">vars</span><span class="p">:</span>
+        <span class="nt">ansible_become_user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">service-admin</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">This task (outside of the block) uses admin as the become user again.</span>
+      <span class="nt">service</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some-service</span>
+        <span class="nt">state</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">restarted</span>
+</pre></div>
+</div>
+<div class="section" id="variable-scope-how-long-is-a-value-available">
+<h4><a class="toc-backref" href="#id6">Variable scope: how long is a value available?</a><a class="headerlink" href="#variable-scope-how-long-is-a-value-available" title="Permalink to this headline">¶</a></h4>
+<p>Variable values set in a playbook exist only within the playbook object that defines them. These ‘playbook object scope’ variables are not available to subsequent objects, including other plays.</p>
+<p>Variable values associated directly with a host or group, including variables defined in inventory, by vars plugins, or using modules like <span class="xref std std-ref">set_fact</span> and <span class="xref std std-ref">include_vars</span>, are available to all plays. These ‘host scope’ variables are also available via the <code class="docutils literal notranslate"><span class="pre">hostvars[]</span></code> dictionary.</p>
+</div>
+</div>
+<div class="section" id="using-e-extra-variables-at-the-command-line">
+<span id="general-precedence-extra-vars"></span><h3><a class="toc-backref" href="#id7">Using <code class="docutils literal notranslate"><span class="pre">-e</span></code> extra variables at the command line</a><a class="headerlink" href="#using-e-extra-variables-at-the-command-line" title="Permalink to this headline">¶</a></h3>
+<p>To override all other settings in all other categories, you can use extra variables: <code class="docutils literal notranslate"><span class="pre">--extra-vars</span></code> or <code class="docutils literal notranslate"><span class="pre">-e</span></code> at the command line. Values passed with <code class="docutils literal notranslate"><span class="pre">-e</span></code> are variables, not command-line options, and they will override configuration settings, command-line options, and playbook keywords as well as variables set elsewhere. For example, this task will connect as <code class="docutils literal notranslate"><span class="pre">brian</span></code> not as <code class="docutils literal notranslate"><span class="pre">carol</span></code>:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible -u carol -e &#39;ansible_user=brian&#39; -a whoami all</span>
+</pre></div>
+</div>
+<p>You must specify both the variable name and the value with <code class="docutils literal notranslate"><span class="pre">--extra-vars</span></code>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="YAMLSyntax.html" class="btn btn-neutral float-right" title="YAML Syntax"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="config.html" class="btn btn-neutral" title="Ansible Configuration Settings"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>

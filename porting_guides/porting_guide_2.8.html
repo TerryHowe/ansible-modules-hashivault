@@ -1,0 +1,1052 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ansible 2.8 Porting Guide &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/porting_guides/porting_guide_2.8.html"/>
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ansible 2.7 Porting Guide" href="porting_guide_2.7.html" />
+    <link rel="prev" title="Ansible 2.9 Porting Guide" href="porting_guide_2.9.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="porting_guides.html">Ansible Porting Guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.9.html">Ansible 2.9 Porting Guide</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Ansible 2.8 Porting Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#playbook">Playbook</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#distribution-facts">Distribution Facts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports-as-handlers">Imports as handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#jinja-undefined-values">Jinja Undefined values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-option-conversion-to-string">Module option conversion to string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#command-line-facts">Command line facts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bare-variables-in-conditionals">Bare variables in conditionals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gathering-facts">Gathering Facts</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#python-interpreter-discovery">Python Interpreter Discovery</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#retry-file-creation-default">Retry File Creation default</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#command-line">Command Line</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#become-prompting">Become Prompting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecated">Deprecated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modules">Modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules-removed">Modules removed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deprecation-notices">Deprecation notices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#noteworthy-module-changes">Noteworthy module changes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#plugins">Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#porting-custom-scripts">Porting custom scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#display-class">Display class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#networking">Networking</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.7.html">Ansible 2.7 Porting Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.6.html">Ansible 2.6 Porting Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.5.html">Ansible 2.5 Porting Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.4.html">Ansible 2.4 Porting Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.3.html">Ansible 2.3 Porting Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.0.html">Ansible 2.0 Porting Guide</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/virt_guides.html">Virtualization and Containerization Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">Ansible for Network Automation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/general_precedence.html">Controlling how Ansible behaves: precedence rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="porting_guides.html">Ansible Porting Guides</a> &raquo;</li>
+        
+      <li>Ansible 2.8 Porting Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/porting_guides/porting_guide_2.8.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ansible-2-8-porting-guide">
+<span id="porting-2-8-guide"></span><h1>Ansible 2.8 Porting Guide<a class="headerlink" href="#ansible-2-8-porting-guide" title="Permalink to this headline">¶</a></h1>
+<p>This section discusses the behavioral changes between Ansible 2.7 and Ansible 2.8.</p>
+<p>It is intended to assist in updating your playbooks, plugins and other parts of your Ansible infrastructure so they will work with this version of Ansible.</p>
+<p>We suggest you read this page along with <a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.8/changelogs/CHANGELOG-v2.8.rst">Ansible Changelog for 2.8</a> to understand what updates you may need to make.</p>
+<p>This document is part of a collection on porting. The complete list of porting guides can be found at <a class="reference internal" href="porting_guides.html#porting-guides"><span class="std std-ref">porting guides</span></a>.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#playbook" id="id2">Playbook</a></p>
+<ul>
+<li><p><a class="reference internal" href="#distribution-facts" id="id3">Distribution Facts</a></p></li>
+<li><p><a class="reference internal" href="#imports-as-handlers" id="id4">Imports as handlers</a></p></li>
+<li><p><a class="reference internal" href="#jinja-undefined-values" id="id5">Jinja Undefined values</a></p></li>
+<li><p><a class="reference internal" href="#module-option-conversion-to-string" id="id6">Module option conversion to string</a></p></li>
+<li><p><a class="reference internal" href="#command-line-facts" id="id7">Command line facts</a></p></li>
+<li><p><a class="reference internal" href="#bare-variables-in-conditionals" id="id8">Bare variables in conditionals</a></p>
+<ul>
+<li><p><a class="reference internal" href="#updating-your-playbooks" id="id9">Updating your playbooks</a></p></li>
+<li><p><a class="reference internal" href="#double-interpolation" id="id10">Double-interpolation</a></p></li>
+<li><p><a class="reference internal" href="#nested-variables" id="id11">Nested variables</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#gathering-facts" id="id12">Gathering Facts</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#python-interpreter-discovery" id="id13">Python Interpreter Discovery</a></p>
+<ul>
+<li><p><a class="reference internal" href="#retry-file-creation-default" id="id14">Retry File Creation default</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#command-line" id="id15">Command Line</a></p>
+<ul>
+<li><p><a class="reference internal" href="#become-prompting" id="id16">Become Prompting</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#deprecated" id="id17">Deprecated</a></p></li>
+<li><p><a class="reference internal" href="#modules" id="id18">Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#modules-removed" id="id19">Modules removed</a></p></li>
+<li><p><a class="reference internal" href="#deprecation-notices" id="id20">Deprecation notices</a></p></li>
+<li><p><a class="reference internal" href="#noteworthy-module-changes" id="id21">Noteworthy module changes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#plugins" id="id22">Plugins</a></p></li>
+<li><p><a class="reference internal" href="#porting-custom-scripts" id="id23">Porting custom scripts</a></p>
+<ul>
+<li><p><a class="reference internal" href="#display-class" id="id24">Display class</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#networking" id="id25">Networking</a></p></li>
+</ul>
+</div>
+<div class="section" id="playbook">
+<h2><a class="toc-backref" href="#id2">Playbook</a><a class="headerlink" href="#playbook" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="distribution-facts">
+<h3><a class="toc-backref" href="#id3">Distribution Facts</a><a class="headerlink" href="#distribution-facts" title="Permalink to this headline">¶</a></h3>
+<p>The information returned for the <code class="docutils literal notranslate"><span class="pre">ansible_distribution_*</span></code> group of facts may have changed
+slightly.  Ansible 2.8 uses a new backend library for information about distributions: <a class="reference external" href="https://github.com/nir0s/distro">nir0s/distro</a>. This library runs on Python-3.8 and fixes many bugs, including correcting release and version names.</p>
+<p>The two facts used in playbooks most often, <code class="docutils literal notranslate"><span class="pre">ansible_distribution</span></code> and <code class="docutils literal notranslate"><span class="pre">ansible_distribution_major_version</span></code>, should not change. If you discover a change in these facts, please file a bug so we can address the
+difference.  However, other facts like <code class="docutils literal notranslate"><span class="pre">ansible_distribution_release</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ansible_distribution_version</span></code> may change as erroneous information gets corrected.</p>
+</div>
+<div class="section" id="imports-as-handlers">
+<h3><a class="toc-backref" href="#id4">Imports as handlers</a><a class="headerlink" href="#imports-as-handlers" title="Permalink to this headline">¶</a></h3>
+<p>Beginning in version 2.8, a task cannot notify <code class="docutils literal notranslate"><span class="pre">import_tasks</span></code> or a static <code class="docutils literal notranslate"><span class="pre">include</span></code> that is specified in <code class="docutils literal notranslate"><span class="pre">handlers</span></code>.</p>
+<p>The goal of a static import is to act as a pre-processor, where the import is replaced by the tasks defined within the imported file. When
+using an import, a task can notify any of the named tasks within the imported file, but not the name of the import itself.</p>
+<p>To achieve the results of notifying a single name but running multiple handlers, utilize <code class="docutils literal notranslate"><span class="pre">include_tasks</span></code>, or <code class="docutils literal notranslate"><span class="pre">listen</span></code> <a class="reference internal" href="../user_guide/playbooks_intro.html#handlers"><span class="std std-ref">Handlers: Running Operations On Change</span></a>.</p>
+</div>
+<div class="section" id="jinja-undefined-values">
+<h3><a class="toc-backref" href="#id5">Jinja Undefined values</a><a class="headerlink" href="#jinja-undefined-values" title="Permalink to this headline">¶</a></h3>
+<p>Beginning in version 2.8, attempting to access an attribute of an Undefined value in Jinja will return another Undefined value, rather than throwing an error immediately. This means that you can now simply use
+a default with a value in a nested data structure when you don’t know if the intermediate values are defined.</p>
+<p>In Ansible 2.8:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{{</span> <span class="nv">foo.bar.baz</span> <span class="o">|</span> <span class="nf">default</span><span class="o">(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="o">)</span> <span class="cp">}}</span>
+</pre></div>
+</div>
+<p>In Ansible 2.7 and older:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{{</span> <span class="o">((</span><span class="nv">foo</span> <span class="o">|</span> <span class="nf">default</span><span class="o">({}))</span><span class="nv">.bar</span> <span class="o">|</span> <span class="nf">default</span><span class="o">({}))</span><span class="nv">.baz</span> <span class="o">|</span> <span class="nf">default</span><span class="o">(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="o">)</span> <span class="cp">}}</span>
+
+<span class="l l-Scalar l-Scalar-Plain">or</span>
+
+<span class="cp">{{</span> <span class="nv">foo.bar.baz</span> <span class="k">if</span> <span class="o">(</span><span class="nv">foo</span> <span class="k">is</span> <span class="nf">defined</span> <span class="k">and</span> <span class="nv">foo.bar</span> <span class="k">is</span> <span class="nf">defined</span> <span class="k">and</span> <span class="nv">foo.bar.baz</span> <span class="k">is</span> <span class="nf">defined</span><span class="o">)</span> <span class="k">else</span> <span class="s1">&#39;DEFAULT&#39;</span> <span class="cp">}}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-option-conversion-to-string">
+<h3><a class="toc-backref" href="#id6">Module option conversion to string</a><a class="headerlink" href="#module-option-conversion-to-string" title="Permalink to this headline">¶</a></h3>
+<p>Beginning in version 2.8, Ansible will warn if a module expects a string, but a non-string value is passed and automatically converted to a string. This highlights potential problems where, for example, a <code class="docutils literal notranslate"><span class="pre">yes</span></code> or <code class="docutils literal notranslate"><span class="pre">true</span></code> (parsed as truish boolean value) would be converted to the string <code class="docutils literal notranslate"><span class="pre">'True'</span></code>, or where a version number <code class="docutils literal notranslate"><span class="pre">1.10</span></code> (parsed as float value) would be converted to <code class="docutils literal notranslate"><span class="pre">'1.1'</span></code>. Such conversions can result in unexpected behavior depending on context.</p>
+<p>This behavior can be changed to be an error or to be ignored by setting the <code class="docutils literal notranslate"><span class="pre">ANSIBLE_STRING_CONVERSION_ACTION</span></code> environment variable, or by setting the <code class="docutils literal notranslate"><span class="pre">string_conversion_action</span></code> configuration in the <code class="docutils literal notranslate"><span class="pre">defaults</span></code> section of <code class="docutils literal notranslate"><span class="pre">ansible.cfg</span></code>.</p>
+</div>
+<div class="section" id="command-line-facts">
+<h3><a class="toc-backref" href="#id7">Command line facts</a><a class="headerlink" href="#command-line-facts" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">cmdline</span></code> facts returned in system will be deprecated in favor of <code class="docutils literal notranslate"><span class="pre">proc_cmdline</span></code>. This change handles special case where Kernel command line parameter contains multiple values with the same key.</p>
+</div>
+<div class="section" id="bare-variables-in-conditionals">
+<h3><a class="toc-backref" href="#id8">Bare variables in conditionals</a><a class="headerlink" href="#bare-variables-in-conditionals" title="Permalink to this headline">¶</a></h3>
+<p>In Ansible 2.7 and earlier, top-level variables sometimes treated boolean strings as if they were boolean values. This led to inconsistent behavior in conditional tests built on top-level variables defined as strings. Ansible 2.8 began changing this behavior. For example, if you set two conditions like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tasks</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">include_tasks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">teardown.yml</span>
+    <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">teardown</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">include_tasks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">provision.yml</span>
+    <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">not teardown</span>
+</pre></div>
+</div>
+<p>based on a variable you define <strong>as a string</strong> (with quotation marks around it):</p>
+<ul class="simple">
+<li><p>In Ansible 2.7 and earlier, the two conditions above evaluated as <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> respectively if <code class="docutils literal notranslate"><span class="pre">teardown:</span> <span class="pre">'true'</span></code></p></li>
+<li><p>In Ansible 2.7 and earlier, both conditions evaluated as <code class="docutils literal notranslate"><span class="pre">False</span></code> if <code class="docutils literal notranslate"><span class="pre">teardown:</span> <span class="pre">'false'</span></code></p></li>
+<li><p>In Ansible 2.8 and later, you have the option of disabling conditional bare variables, so <code class="docutils literal notranslate"><span class="pre">when:</span> <span class="pre">teardown</span></code> always evaluates as <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">when:</span> <span class="pre">not</span> <span class="pre">teardown</span></code> always evaluates as <code class="docutils literal notranslate"><span class="pre">False</span></code> when <code class="docutils literal notranslate"><span class="pre">teardown</span></code> is a non-empty string (including <code class="docutils literal notranslate"><span class="pre">'true'</span></code> or <code class="docutils literal notranslate"><span class="pre">'false'</span></code>)</p></li>
+</ul>
+<p>Ultimately, <code class="docutils literal notranslate"><span class="pre">when:</span> <span class="pre">'string'</span></code> will always evaluate as <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">when:</span> <span class="pre">not</span> <span class="pre">'string'</span></code> will always evaluate as <code class="docutils literal notranslate"><span class="pre">False</span></code>, as long as <code class="docutils literal notranslate"><span class="pre">'string'</span></code> is not empty, even if the value of <code class="docutils literal notranslate"><span class="pre">'string'</span></code> itself looks like a boolean. For users with playbooks that depend on the old behavior, we added a config setting that preserves it. You can use the <code class="docutils literal notranslate"><span class="pre">ANSIBLE_CONDITIONAL_BARE_VARS</span></code> environment variable or <code class="docutils literal notranslate"><span class="pre">conditional_bare_variables</span></code> in the <code class="docutils literal notranslate"><span class="pre">defaults</span></code> section of <code class="docutils literal notranslate"><span class="pre">ansible.cfg</span></code> to select the behavior you want on your control node. The default setting is <code class="docutils literal notranslate"><span class="pre">true</span></code>, which preserves the old behavior. Set the config value or environment variable to <code class="docutils literal notranslate"><span class="pre">false</span></code> to start using the new option.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In 2.10 the default setting for <code class="docutils literal notranslate"><span class="pre">conditional_bare_variables</span></code> will change to <code class="docutils literal notranslate"><span class="pre">false</span></code>. In 2.12 the old behavior will be deprecated.</p>
+</div>
+<div class="section" id="updating-your-playbooks">
+<h4><a class="toc-backref" href="#id9">Updating your playbooks</a><a class="headerlink" href="#updating-your-playbooks" title="Permalink to this headline">¶</a></h4>
+<p>To prepare your playbooks for the new behavior, you must update your conditional statements so they accept only boolean values. For variables, you can use the <code class="docutils literal notranslate"><span class="pre">bool</span></code> filter to evaluate the string <code class="docutils literal notranslate"><span class="pre">'false'</span></code> as <code class="docutils literal notranslate"><span class="pre">False</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">vars</span><span class="p">:</span>
+  <span class="nt">teardown</span><span class="p">:</span> <span class="s">&#39;false&#39;</span>
+
+<span class="nt">tasks</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">include_tasks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">teardown.yml</span>
+    <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">teardown | bool</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">include_tasks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">provision.yml</span>
+    <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">not teardown | bool</span>
+</pre></div>
+</div>
+<p>Alternatively, you can re-define your variables as boolean values (without quotation marks) instead of strings:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">vars</span><span class="p">:</span>
+  <span class="nt">teardown</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">tasks</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">include_tasks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">teardown.yml</span>
+    <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">teardown</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">include_tasks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">provision.yml</span>
+    <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">not teardown</span>
+</pre></div>
+</div>
+<p>For dictionaries and lists, use the <code class="docutils literal notranslate"><span class="pre">length</span></code> filter to evaluate the presence of a dictionary or list as <code class="docutils literal notranslate"><span class="pre">True</span></code>:</p>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">debug</span><span class="p">:</span>
+  <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_list | length &gt; 0</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">debug</span><span class="p">:</span>
+  <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_dictionary | length &gt; 0</span>
+</pre></div>
+</div>
+<p>Do not use the <code class="docutils literal notranslate"><span class="pre">bool</span></code> filter with lists or dictionaries. If you use <code class="docutils literal notranslate"><span class="pre">bool</span></code> with a list or dict, Ansible will always evaluate it as <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</div>
+<div class="section" id="double-interpolation">
+<h4><a class="toc-backref" href="#id10">Double-interpolation</a><a class="headerlink" href="#double-interpolation" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">conditional_bare_variables</span></code> setting also affects variables set based on other variables. The old behavior unexpectedly double-interpolated those variables. For example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">vars</span><span class="p">:</span>
+  <span class="nt">double_interpolated</span><span class="p">:</span> <span class="s">&#39;bare_variable&#39;</span>
+  <span class="nt">bare_variable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">tasks</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">debug</span><span class="p">:</span>
+    <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">double_interpolated</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>In Ansible 2.7 and earlier, <code class="docutils literal notranslate"><span class="pre">when:</span> <span class="pre">double_interpolated</span></code> evaluated to the value of <code class="docutils literal notranslate"><span class="pre">bare_variable</span></code>, in this case, <code class="docutils literal notranslate"><span class="pre">False</span></code>. If the variable <code class="docutils literal notranslate"><span class="pre">bare_variable</span></code> is undefined, the conditional fails.</p></li>
+<li><p>In Ansible 2.8 and later, with bare variables disabled, Ansible evaluates <code class="docutils literal notranslate"><span class="pre">double_interpolated</span></code> as the string <code class="docutils literal notranslate"><span class="pre">'bare_variable'</span></code>, which is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+<p>To double-interpolate variable values, use curly braces:</p>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="nt">vars</span><span class="p">:</span>
+  <span class="nt">double_interpolated</span><span class="p">:</span> <span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">other_variable</span> <span class="cp">}}</span><span class="s">&quot;</span>
+  <span class="nt">other_variable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="nested-variables">
+<h4><a class="toc-backref" href="#id11">Nested variables</a><a class="headerlink" href="#nested-variables" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">conditional_bare_variables</span></code> setting does not affect nested variables. Any string value assigned to a subkey is already respected and not treated as a boolean. If <code class="docutils literal notranslate"><span class="pre">complex_variable['subkey']</span></code> is a non-empty string, then <code class="docutils literal notranslate"><span class="pre">when:</span> <span class="pre">complex_variable['subkey']</span></code> is always <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">when:</span> <span class="pre">not</span> <span class="pre">complex_variable['subkey']</span></code> is always <code class="docutils literal notranslate"><span class="pre">False</span></code>. If you want a string subkey like <code class="docutils literal notranslate"><span class="pre">complex_variable['subkey']</span></code> to be evaluated as a boolean, you must use the <code class="docutils literal notranslate"><span class="pre">bool</span></code> filter.</p>
+</div>
+</div>
+<div class="section" id="gathering-facts">
+<h3><a class="toc-backref" href="#id12">Gathering Facts</a><a class="headerlink" href="#gathering-facts" title="Permalink to this headline">¶</a></h3>
+<p>In Ansible 2.8 the implicit “Gathering Facts” task in a play was changed to
+obey play tags. Previous to 2.8, the “Gathering Facts” task would ignore play
+tags and tags supplied from the command line and always run in a task.</p>
+<p>The behavior change affects the following example play.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Configure Webservers</span>
+  <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">webserver</span>
+  <span class="nt">tags</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">webserver</span>
+  <span class="nt">tasks</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Install nginx</span>
+      <span class="nt">package</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span>
+      <span class="nt">tags</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span>
+</pre></div>
+</div>
+<p>In Ansible 2.8, if you supply <code class="docutils literal notranslate"><span class="pre">--tags</span> <span class="pre">nginx</span></code>, the implicit
+“Gathering Facts” task will be skipped, as the task now inherits
+the tag of <code class="docutils literal notranslate"><span class="pre">webserver</span></code> instead of <code class="docutils literal notranslate"><span class="pre">always</span></code>.</p>
+<p>If no play level tags are set, the “Gathering Facts” task will
+be given a tag of <code class="docutils literal notranslate"><span class="pre">always</span></code> and will effectively match prior
+behavior.</p>
+<p>You can achieve similar results to the pre-2.8 behavior, by
+using an explicit <code class="docutils literal notranslate"><span class="pre">gather_facts</span></code> task in your <code class="docutils literal notranslate"><span class="pre">tasks</span></code> list.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Configure Webservers</span>
+  <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">webserver</span>
+  <span class="nt">gather_facts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="nt">tags</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">webserver</span>
+  <span class="nt">tasks</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Gathering Facts</span>
+      <span class="nt">gather_facts</span><span class="p">:</span>
+      <span class="nt">tags</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">always</span>
+
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Install nginx</span>
+      <span class="nt">package</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span>
+      <span class="nt">tags</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="python-interpreter-discovery">
+<h2><a class="toc-backref" href="#id13">Python Interpreter Discovery</a><a class="headerlink" href="#python-interpreter-discovery" title="Permalink to this headline">¶</a></h2>
+<p>In Ansible 2.7 and earlier, Ansible defaulted to <strong class="command">/usr/bin/python</strong> as the
+setting for <code class="docutils literal notranslate"><span class="pre">ansible_python_interpreter</span></code>. If you ran Ansible against a system
+that installed Python with a different name or a different path, your playbooks
+would fail with <code class="docutils literal notranslate"><span class="pre">/usr/bin/python:</span> <span class="pre">bad</span> <span class="pre">interpreter:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">file</span> <span class="pre">or</span> <span class="pre">directory</span></code>
+unless you either set <code class="docutils literal notranslate"><span class="pre">ansible_python_interpreter</span></code> to the correct value for
+that system or added a Python interpreter and any necessary dependencies at
+<strong class="command">usr/bin/python</strong>.</p>
+<p>Starting in Ansible 2.8, Ansible searches for the correct path and executable
+name for Python on each target system, first in a lookup table of default
+Python interpreters for common distros, then in an ordered fallback list of
+possible Python interpreter names/paths.</p>
+<p>It’s risky to rely on a Python interpreter set from the fallback list, because
+the interpreter may change on future runs. If an interpreter from
+higher in the fallback list gets installed (for example, as a side-effect of
+installing other packages), your original interpreter and its dependencies will
+no longer be used. For this reason, Ansible warns you when it uses a Python
+interpreter discovered from the fallback list. If you see this warning, the
+best solution is to explicitly set <code class="docutils literal notranslate"><span class="pre">ansible_python_interpreter</span></code> to the path
+of the correct interpreter for those target systems.</p>
+<p>You can still set <code class="docutils literal notranslate"><span class="pre">ansible_python_interpreter</span></code> to a specific path at any
+variable level (as a host variable, in vars files, in playbooks, etc.).
+If you prefer to use the Python interpreter discovery behavior, use
+one of the four new values for <code class="docutils literal notranslate"><span class="pre">ansible_python_interpreter</span></code> introduced in
+Ansible 2.8:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>New value</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>auto <br>
+(future default)</p></td>
+<td><p>If a Python interpreter is discovered,
+Ansible uses the discovered Python, even if
+<strong class="command">/usr/bin/python</strong> is also present.
+Warns when using the fallback list.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>auto_legacy</strong> <br>
+(Ansible 2.8 default)</p></td>
+<td><p>If a Python interpreter is discovered, and
+<strong class="command">/usr/bin/python</strong> is absent,
+Ansible uses the discovered Python. Warns
+when using the fallback list.</p>
+<p>If a Python interpreter is discovered, and
+<strong class="command">/usr/bin/python</strong> is present,
+Ansible uses <strong class="command">/usr/bin/python</strong> and
+prints a deprecation warning about future
+default behavior. Warns when using the
+fallback list.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>auto_legacy_silent</p></td>
+<td><p>Behaves like <code class="docutils literal notranslate"><span class="pre">auto_legacy</span></code> but suppresses
+the deprecation and fallback-list warnings.</p></td>
+</tr>
+<tr class="row-odd"><td><p>auto_silent</p></td>
+<td><p>Behaves like <code class="docutils literal notranslate"><span class="pre">auto</span></code> but suppresses the
+fallback-list warning.</p></td>
+</tr>
+</tbody>
+</table>
+<p>In Ansible 2.12, Ansible will switch the default from <code class="docutils literal notranslate"><span class="pre">auto_legacy</span></code> to <code class="docutils literal notranslate"><span class="pre">auto</span></code>.
+The difference in behaviour is that <code class="docutils literal notranslate"><span class="pre">auto_legacy</span></code> uses <strong class="command">/usr/bin/python</strong> if
+present and falls back to the discovered Python when it is not present.  <code class="docutils literal notranslate"><span class="pre">auto</span></code> will always
+use the discovered Python, regardless of whether <strong class="command">/usr/bin/python</strong> exists.  The
+<code class="docutils literal notranslate"><span class="pre">auto_legacy</span></code> setting provides compatibility with previous versions of Ansible that always
+defaulted to <strong class="command">/usr/bin/python</strong>.</p>
+<p>If you installed Python and dependencies (<code class="docutils literal notranslate"><span class="pre">boto</span></code>, etc.) to
+<strong class="command">/usr/bin/python</strong> as a workaround on distros with a different default Python
+interpreter (for example, Ubuntu 16.04+, RHEL8, Fedora 23+), you have two
+options:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Move existing dependencies over to the default Python for each platform/distribution/version.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">auto_legacy</span></code>. This setting lets Ansible find and use the workaround Python on hosts that have it, while also finding the correct default Python on newer hosts. But remember, the default will change in 4 releases.</p></li>
+</ol>
+</div></blockquote>
+<div class="section" id="retry-file-creation-default">
+<h3><a class="toc-backref" href="#id14">Retry File Creation default</a><a class="headerlink" href="#retry-file-creation-default" title="Permalink to this headline">¶</a></h3>
+<p>In Ansible 2.8, <code class="docutils literal notranslate"><span class="pre">retry_files_enabled</span></code> now defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code> instead of <code class="docutils literal notranslate"><span class="pre">True</span></code>.  The behavior can be
+modified to previous version by editing the default <code class="docutils literal notranslate"><span class="pre">ansible.cfg</span></code> file and setting the value to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</div>
+</div>
+<div class="section" id="command-line">
+<h2><a class="toc-backref" href="#id15">Command Line</a><a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="become-prompting">
+<h3><a class="toc-backref" href="#id16">Become Prompting</a><a class="headerlink" href="#become-prompting" title="Permalink to this headline">¶</a></h3>
+<p>Beginning in version 2.8, by default Ansible will use the word <code class="docutils literal notranslate"><span class="pre">BECOME</span></code> to prompt you for a password for elevated privileges (<code class="docutils literal notranslate"><span class="pre">sudo</span></code> privileges on Unix systems or <code class="docutils literal notranslate"><span class="pre">enable</span></code> mode on network devices):</p>
+<p>By default in Ansible 2.8:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible-playbook --become --ask-become-pass site.yml</span>
+<span class="l l-Scalar l-Scalar-Plain">BECOME password</span><span class="p p-Indicator">:</span>
+</pre></div>
+</div>
+<p>If you want the prompt to display the specific <code class="docutils literal notranslate"><span class="pre">become_method</span></code> you’re using, instead of the agnostic value <code class="docutils literal notranslate"><span class="pre">BECOME</span></code>, set <a class="reference internal" href="../reference_appendices/config.html#agnostic-become-prompt"><span class="std std-ref">AGNOSTIC_BECOME_PROMPT</span></a> to <code class="docutils literal notranslate"><span class="pre">False</span></code> in your Ansible configuration.</p>
+<p>By default in Ansible 2.7, or with <code class="docutils literal notranslate"><span class="pre">AGNOSTIC_BECOME_PROMPT=False</span></code> in Ansible 2.8:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible-playbook --become --ask-become-pass site.yml</span>
+<span class="l l-Scalar l-Scalar-Plain">SUDO password</span><span class="p p-Indicator">:</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="deprecated">
+<h2><a class="toc-backref" href="#id17">Deprecated</a><a class="headerlink" href="#deprecated" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>Setting the async directory using <code class="docutils literal notranslate"><span class="pre">ANSIBLE_ASYNC_DIR</span></code> as an task/play environment key is deprecated and will be
+removed in Ansible 2.12. You can achieve the same result by setting <code class="docutils literal notranslate"><span class="pre">ansible_async_dir</span></code> as a variable like:</p>
+<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">run task with custom async directory</span>
+  <span class="nt">command</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sleep 5</span>
+  <span class="nt">async</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+  <span class="nt">vars</span><span class="p">:</span>
+    <span class="nt">ansible_async_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/.ansible_async</span>
+</pre></div>
+</div>
+</li>
+<li><p>Plugin writers who need a <code class="docutils literal notranslate"><span class="pre">FactCache</span></code> object should be aware of two deprecations:</p>
+<ol class="arabic simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">FactCache</span></code> class has moved from <code class="docutils literal notranslate"><span class="pre">ansible.plugins.cache.FactCache</span></code> to
+<code class="docutils literal notranslate"><span class="pre">ansible.vars.fact_cache.FactCache</span></code>.  This is because the <code class="docutils literal notranslate"><span class="pre">FactCache</span></code> is not part of the
+cache plugin API and cache plugin authors should not be subclassing it.  <code class="docutils literal notranslate"><span class="pre">FactCache</span></code> is still
+available from its old location but will issue a deprecation warning when used from there.  The
+old location will be removed in Ansible 2.12.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">FactCache.update()</span></code> method has been converted to follow the dict API.  It now takes a
+dictionary as its sole argument and updates itself with the dictionary’s items.  The previous
+API where <code class="docutils literal notranslate"><span class="pre">update()</span></code> took a key and a value will now issue a deprecation warning and will be
+removed in 2.12.  If you need the old behavior switch to <code class="docutils literal notranslate"><span class="pre">FactCache.first_order_merge()</span></code>
+instead.</p></li>
+</ol>
+</li>
+<li><p>Supporting file-backed caching via self.cache is deprecated and will
+be removed in Ansible 2.12. If you maintain an inventory plugin, update it to use <code class="docutils literal notranslate"><span class="pre">self._cache</span></code> as a dictionary. For implementation details, see
+the <a class="reference internal" href="../dev_guide/developing_inventory.html#inventory-plugin-caching"><span class="std std-ref">developer guide on inventory plugins</span></a>.</p></li>
+<li><p>Importing cache plugins directly is deprecated and will be removed in Ansible 2.12. Use the plugin_loader
+so direct options, environment variables, and other means of configuration can be reconciled using the config
+system rather than constants.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.plugins.loader</span> <span class="kn">import</span> <span class="n">cache_loader</span>
+<span class="n">cache</span> <span class="o">=</span> <span class="n">cache_loader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;redis&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="modules">
+<h2><a class="toc-backref" href="#id18">Modules</a><a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<p>Major changes in popular modules are detailed here</p>
+<p>The exec wrapper that runs PowerShell modules has been changed to set <code class="docutils literal notranslate"><span class="pre">$ErrorActionPreference</span> <span class="pre">=</span> <span class="pre">&quot;Stop&quot;</span></code> globally.
+This may mean that custom modules can fail if they implicitly relied on this behavior. To get the old behavior back,
+add <code class="docutils literal notranslate"><span class="pre">$ErrorActionPreference</span> <span class="pre">=</span> <span class="pre">&quot;Continue&quot;</span></code> to the top of the module. This change was made to restore the old behavior
+of the EAP that was accidentally removed in a previous release and ensure that modules are more resilient to errors
+that may occur in execution.</p>
+<div class="section" id="modules-removed">
+<h3><a class="toc-backref" href="#id19">Modules removed</a><a class="headerlink" href="#modules-removed" title="Permalink to this headline">¶</a></h3>
+<p>The following modules no longer exist:</p>
+<ul class="simple">
+<li><p>ec2_remote_facts</p></li>
+<li><p>azure</p></li>
+<li><p>cs_nic</p></li>
+<li><p>netscaler</p></li>
+<li><p>win_msi</p></li>
+</ul>
+</div>
+<div class="section" id="deprecation-notices">
+<h3><a class="toc-backref" href="#id20">Deprecation notices</a><a class="headerlink" href="#deprecation-notices" title="Permalink to this headline">¶</a></h3>
+<p>The following modules will be removed in Ansible 2.12. Please update your playbooks accordingly.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">foreman</span></code> use <a class="reference external" href="https://github.com/theforeman/foreman-ansible-modules">foreman-ansible-modules</a> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">katello</span></code> use <a class="reference external" href="https://github.com/theforeman/foreman-ansible-modules">foreman-ansible-modules</a> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">github_hooks</span></code> use <span class="xref std std-ref">github_webhook</span> and <span class="xref std std-ref">github_webhook_facts</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">digital_ocean</span></code> use <span class="xref std std-ref">digital_ocean_droplet</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gce</span></code> use <span class="xref std std-ref">gcp_compute_instance</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcspanner</span></code> use <span class="xref std std-ref">gcp_spanner_instance</span> and <span class="xref std std-ref">gcp_spanner_database</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcdns_record</span></code> use <span class="xref std std-ref">gcp_dns_resource_record_set</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcdns_zone</span></code> use <span class="xref std std-ref">gcp_dns_managed_zone</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcp_forwarding_rule</span></code> use <span class="xref std std-ref">gcp_compute_global_forwarding_rule</span> or <span class="xref std std-ref">gcp_compute_forwarding_rule</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcp_healthcheck</span></code> use <span class="xref std std-ref">gcp_compute_health_check</span>, <span class="xref std std-ref">gcp_compute_http_health_check</span>, or <span class="xref std std-ref">gcp_compute_https_health_check</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcp_backend_service</span></code> use <span class="xref std std-ref">gcp_compute_backend_service</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcp_target_proxy</span></code> use <span class="xref std std-ref">gcp_compute_target_http_proxy</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcp_url_map</span></code> use <span class="xref std std-ref">gcp_compute_url_map</span> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">panos</span></code> use the <a class="reference external" href="https://galaxy.ansible.com/PaloAltoNetworks/paloaltonetworks">Palo Alto Networks Ansible Galaxy role</a> instead.</p></li>
+</ul>
+</div>
+<div class="section" id="noteworthy-module-changes">
+<h3><a class="toc-backref" href="#id21">Noteworthy module changes</a><a class="headerlink" href="#noteworthy-module-changes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">foreman</span></code> and <code class="docutils literal notranslate"><span class="pre">katello</span></code> modules have been deprecated in favor of a set of modules that are broken out per entity with better idempotency in mind.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">foreman</span></code> and <code class="docutils literal notranslate"><span class="pre">katello</span></code> modules replacement is officially part of the Foreman Community and supported there.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">tower_credential</span></code> module originally required the <code class="docutils literal notranslate"><span class="pre">ssh_key_data</span></code> to be the path to a ssh_key_file.
+In order to work like Tower/AWX, <code class="docutils literal notranslate"><span class="pre">ssh_key_data</span></code> now contains the content of the file.
+The previous behavior can be achieved with <code class="docutils literal notranslate"><span class="pre">lookup('file',</span> <span class="pre">'/path/to/file')</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_scheduled_task</span></code> module deprecated support for specifying a trigger repetition as a list and this format
+will be removed in Ansible 2.12. Instead specify the repetition as a dictionary value.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_feature</span></code> module has removed the deprecated <code class="docutils literal notranslate"><span class="pre">restart_needed</span></code> return value, use the standardized
+<code class="docutils literal notranslate"><span class="pre">reboot_required</span></code> value instead.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_package</span></code> module has removed the deprecated <code class="docutils literal notranslate"><span class="pre">restart_required</span></code> and <code class="docutils literal notranslate"><span class="pre">exit_code</span></code> return value, use the
+standardized <code class="docutils literal notranslate"><span class="pre">reboot_required</span></code> and <code class="docutils literal notranslate"><span class="pre">rc</span></code> value instead.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_get_url</span></code> module has removed the deprecated <code class="docutils literal notranslate"><span class="pre">win_get_url</span></code> return dictionary, contained values are
+returned directly.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_get_url</span></code> module has removed the deprecated <code class="docutils literal notranslate"><span class="pre">skip_certificate_validation</span></code> option, use the standardized
+<code class="docutils literal notranslate"><span class="pre">validate_certs</span></code> option instead.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">vmware_local_role_facts</span></code> module now returns a list of dicts instead of a dict of dicts for role information.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">docker_network</span></code> or <code class="docutils literal notranslate"><span class="pre">docker_volume</span></code> were called with <code class="docutils literal notranslate"><span class="pre">diff:</span> <span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">check_mode:</span> <span class="pre">yes</span></code> or <code class="docutils literal notranslate"><span class="pre">debug:</span> <span class="pre">yes</span></code>,
+a return value called <code class="docutils literal notranslate"><span class="pre">diff</span></code> was returned of type <code class="docutils literal notranslate"><span class="pre">list</span></code>. To enable proper diff output, this was changed to
+type <code class="docutils literal notranslate"><span class="pre">dict</span></code>; the original <code class="docutils literal notranslate"><span class="pre">list</span></code> is returned as <code class="docutils literal notranslate"><span class="pre">diff.differences</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">na_ontap_cluster_peer</span></code> module has replaced <code class="docutils literal notranslate"><span class="pre">source_intercluster_lif</span></code> and <code class="docutils literal notranslate"><span class="pre">dest_intercluster_lif</span></code> string options with
+<code class="docutils literal notranslate"><span class="pre">source_intercluster_lifs</span></code> and <code class="docutils literal notranslate"><span class="pre">dest_intercluster_lifs</span></code> list options</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">modprobe</span></code> module now detects kernel builtins. Previously, attempting to remove (with <code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">absent</span></code>)
+a builtin kernel module succeeded without any error message because <code class="docutils literal notranslate"><span class="pre">modprobe</span></code> did not detect the module as
+<code class="docutils literal notranslate"><span class="pre">present</span></code>. Now, <code class="docutils literal notranslate"><span class="pre">modprobe</span></code> will fail if a kernel module is builtin and <code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">absent</span></code> (with an error message
+from the modprobe binary like <code class="docutils literal notranslate"><span class="pre">modprobe:</span> <span class="pre">ERROR:</span> <span class="pre">Module</span> <span class="pre">nfs</span> <span class="pre">is</span> <span class="pre">builtin.</span></code>), and it will succeed without reporting
+changed if <code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">present</span></code>. Any playbooks that are using <code class="docutils literal notranslate"><span class="pre">changed_when:</span> <span class="pre">no</span></code> to mask this quirk can safely
+remove that workaround. To get the previous behavior when applying <code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">absent</span></code> to a builtin kernel module,
+use <code class="docutils literal notranslate"><span class="pre">failed_when:</span> <span class="pre">false</span></code> or <code class="docutils literal notranslate"><span class="pre">ignore_errors:</span> <span class="pre">true</span></code> in your playbook.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean</span></code> module has been deprecated in favor of modules that do not require external dependencies.
+This allows for more flexibility and better module support.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">docker_container</span></code> module has deprecated the returned fact <code class="docutils literal notranslate"><span class="pre">docker_container</span></code>. The same value is
+available as the returned variable <code class="docutils literal notranslate"><span class="pre">container</span></code>. The returned fact will be removed in Ansible 2.12.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">docker_network</span></code> module has deprecated the returned fact <code class="docutils literal notranslate"><span class="pre">docker_container</span></code>. The same value is
+available as the returned variable <code class="docutils literal notranslate"><span class="pre">network</span></code>. The returned fact will be removed in Ansible 2.12.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">docker_volume</span></code> module has deprecated the returned fact <code class="docutils literal notranslate"><span class="pre">docker_container</span></code>. The same value is
+available as the returned variable <code class="docutils literal notranslate"><span class="pre">volume</span></code>. The returned fact will be removed in Ansible 2.12.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">docker_service</span></code> module was renamed to <span class="xref std std-ref">docker_compose</span>.</p></li>
+<li><p>The renamed <code class="docutils literal notranslate"><span class="pre">docker_compose</span></code> module used to return one fact per service, named same as the service. A dictionary
+of these facts is returned as the regular return value <code class="docutils literal notranslate"><span class="pre">services</span></code>. The returned facts will be removed in
+Ansible 2.12.</p></li>
+<li><dl class="simple">
+<dt>The <code class="docutils literal notranslate"><span class="pre">docker_swarm_service</span></code> module no longer sets a defaults for the following options:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>. Before, the default was <code class="docutils literal notranslate"><span class="pre">root</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">update_delay</span></code>. Before, the default was <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">update_parallelism</span></code>. Before, the default was <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vmware_vm_facts</span></code> used to return dict of dict with virtual machine’s facts. Ansible 2.8 and onwards will return list of dict with virtual machine’s facts.
+Please see module <code class="docutils literal notranslate"><span class="pre">vmware_vm_facts</span></code> documentation for example.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vmware_guest_snapshot</span></code> module used to return <code class="docutils literal notranslate"><span class="pre">results</span></code>. Since Ansible 2.8 and onwards <code class="docutils literal notranslate"><span class="pre">results</span></code> is a reserved keyword, it is replaced by <code class="docutils literal notranslate"><span class="pre">snapshot_results</span></code>.
+Please see module <code class="docutils literal notranslate"><span class="pre">vmware_guest_snapshots</span></code> documentation for example.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">panos</span></code> modules have been deprecated in favor of using the Palo Alto Networks <a class="reference external" href="https://galaxy.ansible.com/PaloAltoNetworks/paloaltonetworks">Ansible Galaxy role</a>.  Contributions to the role can be made
+<a class="reference external" href="https://github.com/PaloAltoNetworks/ansible-pan">here</a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ipa_user</span></code> module originally always sent <code class="docutils literal notranslate"><span class="pre">password</span></code> to FreeIPA regardless of whether the password changed. Now the module only sends <code class="docutils literal notranslate"><span class="pre">password</span></code> if <code class="docutils literal notranslate"><span class="pre">update_password</span></code> is set to <code class="docutils literal notranslate"><span class="pre">always</span></code>, which is the default.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_psexec</span></code> has deprecated the undocumented <code class="docutils literal notranslate"><span class="pre">extra_opts</span></code> module option. This will be removed in Ansible 2.10.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_nssm</span></code> module has deprecated the following options in favor of using the <code class="docutils literal notranslate"><span class="pre">win_service</span></code> module to configure the service after installing it with <code class="docutils literal notranslate"><span class="pre">win_nssm</span></code>:
+* <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>, use <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> of <code class="docutils literal notranslate"><span class="pre">win_service</span></code> instead
+* <code class="docutils literal notranslate"><span class="pre">start_mode</span></code>, use <code class="docutils literal notranslate"><span class="pre">start_mode</span></code> of <code class="docutils literal notranslate"><span class="pre">win_service</span></code> instead
+* <code class="docutils literal notranslate"><span class="pre">user</span></code>, use <code class="docutils literal notranslate"><span class="pre">username</span></code> of <code class="docutils literal notranslate"><span class="pre">win_service</span></code> instead
+* <code class="docutils literal notranslate"><span class="pre">password</span></code>, use <code class="docutils literal notranslate"><span class="pre">password</span></code> of <code class="docutils literal notranslate"><span class="pre">win_service</span></code> instead
+These options will be removed in Ansible 2.12.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_nssm</span></code> module has also deprecated the <code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">stop</span></code>, and <code class="docutils literal notranslate"><span class="pre">restart</span></code> values of the <code class="docutils literal notranslate"><span class="pre">status</span></code> option.
+You should use the <code class="docutils literal notranslate"><span class="pre">win_service</span></code> module to control the running state of the service. This will be removed in Ansible 2.12.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">status</span></code> module option for <code class="docutils literal notranslate"><span class="pre">win_nssm</span></code> has changed its default value to <code class="docutils literal notranslate"><span class="pre">present</span></code>. Before, the default was <code class="docutils literal notranslate"><span class="pre">start</span></code>.
+Consequently, the service is no longer started by default after creation with <code class="docutils literal notranslate"><span class="pre">win_nssm</span></code>, and you should use
+the <code class="docutils literal notranslate"><span class="pre">win_service</span></code> module to start it if needed.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">app_parameters</span></code> module option for <code class="docutils literal notranslate"><span class="pre">win_nssm</span></code> has been deprecated; use <code class="docutils literal notranslate"><span class="pre">argument</span></code> instead. This will be removed in Ansible 2.12.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">app_parameters_free_form</span></code> module option for <code class="docutils literal notranslate"><span class="pre">win_nssm</span></code> has been aliased to the new <code class="docutils literal notranslate"><span class="pre">arguments</span></code> option.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_dsc</span></code> module will now validate the input options for a DSC resource. In previous versions invalid options
+would be ignored but are now not.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">openssl_pkcs12</span></code> module will now regenerate the pkcs12 file if there are differences between the file on disk and the parameters passed to the module.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="plugins">
+<h2><a class="toc-backref" href="#id22">Plugins</a><a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>Ansible no longer defaults to the <code class="docutils literal notranslate"><span class="pre">paramiko</span></code> connection plugin when using macOS as the control node. Ansible will now use the <code class="docutils literal notranslate"><span class="pre">ssh</span></code> connection plugin by default on a macOS control node.  Since <code class="docutils literal notranslate"><span class="pre">ssh</span></code> supports connection persistence between tasks and playbook runs, it performs better than <code class="docutils literal notranslate"><span class="pre">paramiko</span></code>. If you are using password authentication, you will need to install <code class="docutils literal notranslate"><span class="pre">sshpass</span></code> when using the <code class="docutils literal notranslate"><span class="pre">ssh</span></code> connection plugin. Or you can explicitly set the connection type to <code class="docutils literal notranslate"><span class="pre">paramiko</span></code> to maintain the pre-2.8 behavior on macOS.</p></li>
+<li><p>Connection plugins have been standardized to allow use of <code class="docutils literal notranslate"><span class="pre">ansible_&lt;conn-type&gt;_user</span></code>
+and <code class="docutils literal notranslate"><span class="pre">ansible_&lt;conn-type&gt;_password</span></code> variables.  Variables such as
+<code class="docutils literal notranslate"><span class="pre">ansible_&lt;conn-type&gt;_pass</span></code> and <code class="docutils literal notranslate"><span class="pre">ansible_&lt;conn-type&gt;_username</span></code> are treated
+with lower priority than the standardized names and may be deprecated in the
+future.  In general, the <code class="docutils literal notranslate"><span class="pre">ansible_user</span></code> and <code class="docutils literal notranslate"><span class="pre">ansible_password</span></code> vars should
+be used unless there is a reason to use the connection-specific variables.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">powershell</span></code> shell plugin now uses <code class="docutils literal notranslate"><span class="pre">async_dir</span></code> to define the async path for the results file and the default
+has changed to <code class="docutils literal notranslate"><span class="pre">%USERPROFILE%\.ansible_async</span></code>. To control this path now, either set the <code class="docutils literal notranslate"><span class="pre">ansible_async_dir</span></code>
+variable or the <code class="docutils literal notranslate"><span class="pre">async_dir</span></code> value in the <code class="docutils literal notranslate"><span class="pre">powershell</span></code> section of the config ini.</p></li>
+<li><p>Order of enabled inventory plugins (<a class="reference internal" href="../reference_appendices/config.html#inventory-enabled"><span class="std std-ref">INVENTORY_ENABLED</span></a>) has been updated, <a class="reference internal" href="../plugins/inventory/auto.html#auto-inventory"><span class="std std-ref">auto</span></a> is now before <a class="reference internal" href="../plugins/inventory/yaml.html#yaml-inventory"><span class="std std-ref">yaml</span></a> and <a class="reference internal" href="../plugins/inventory/ini.html#ini-inventory"><span class="std std-ref">ini</span></a>.</p></li>
+<li><p>The private <code class="docutils literal notranslate"><span class="pre">_options</span></code> attribute has been removed from the <code class="docutils literal notranslate"><span class="pre">CallbackBase</span></code> class of callback
+plugins.  If you have a third-party callback plugin which needs to access the command line arguments,
+use code like the following instead of trying to use <code class="docutils literal notranslate"><span class="pre">self._options</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible</span> <span class="kn">import</span> <span class="n">context</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">CLIARGS</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">context.CLIARGS</span></code> is a read-only dictionary so normal dictionary retrieval methods like
+<code class="docutils literal notranslate"><span class="pre">CLIARGS.get('tags')</span></code> and <code class="docutils literal notranslate"><span class="pre">CLIARGS['tags']</span></code> work as expected but you won’t be able to modify
+the cli arguments at all.</p>
+</li>
+<li><p>Play recap now counts <code class="docutils literal notranslate"><span class="pre">ignored</span></code> and <code class="docutils literal notranslate"><span class="pre">rescued</span></code> tasks as well as <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">changed</span></code>, <code class="docutils literal notranslate"><span class="pre">unreachable</span></code>, <code class="docutils literal notranslate"><span class="pre">failed</span></code> and <code class="docutils literal notranslate"><span class="pre">skipped</span></code> tasks, thanks to two additional stat counters in the <code class="docutils literal notranslate"><span class="pre">default</span></code> callback plugin. Tasks that fail and have <code class="docutils literal notranslate"><span class="pre">ignore_errors:</span> <span class="pre">yes</span></code> set are listed as <code class="docutils literal notranslate"><span class="pre">ignored</span></code>. Tasks that fail and then execute a rescue section are listed as <code class="docutils literal notranslate"><span class="pre">rescued</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">rescued</span></code> tasks are no longer counted as <code class="docutils literal notranslate"><span class="pre">failed</span></code> as in Ansible 2.7 (and earlier).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">osx_say</span></code> callback plugin was renamed into <a class="reference internal" href="../plugins/callback/say.html#say-callback"><span class="std std-ref">say</span></a>.</p></li>
+<li><p>Inventory plugins now support caching via cache plugins. To start using a cache plugin with your inventory see the section on caching in the <a class="reference internal" href="../plugins/inventory.html#using-inventory"><span class="std std-ref">inventory guide</span></a>. To port a custom cache plugin to be compatible with inventory see <a class="reference internal" href="../dev_guide/developing_plugins.html#developing-cache-plugins"><span class="std std-ref">developer guide on cache plugins</span></a>.</p></li>
+</ul>
+</div>
+<div class="section" id="porting-custom-scripts">
+<h2><a class="toc-backref" href="#id23">Porting custom scripts</a><a class="headerlink" href="#porting-custom-scripts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="display-class">
+<h3><a class="toc-backref" href="#id24">Display class</a><a class="headerlink" href="#display-class" title="Permalink to this headline">¶</a></h3>
+<p>As of Ansible 2.8, the <code class="docutils literal notranslate"><span class="pre">Display</span></code> class is now a “singleton”. Instead of using <code class="docutils literal notranslate"><span class="pre">__main__.display</span></code> each file should
+import and instantiate <code class="docutils literal notranslate"><span class="pre">ansible.utils.display.Display</span></code> on its own.</p>
+<p><strong>OLD</strong> In Ansible 2.7 (and earlier) the following was used to access the <code class="docutils literal notranslate"><span class="pre">display</span></code> object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">__main__</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">ansible.utils.display</span> <span class="kn">import</span> <span class="n">Display</span>
+    <span class="n">display</span> <span class="o">=</span> <span class="n">Display</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>NEW</strong> In Ansible 2.8 the following should be used:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.utils.display</span> <span class="kn">import</span> <span class="n">Display</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">Display</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="networking">
+<h2><a class="toc-backref" href="#id25">Networking</a><a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">eos_config</span></code>, <code class="docutils literal notranslate"><span class="pre">ios_config</span></code>, and <code class="docutils literal notranslate"><span class="pre">nxos_config</span></code> modules have removed the deprecated
+<code class="docutils literal notranslate"><span class="pre">save</span></code> and <code class="docutils literal notranslate"><span class="pre">force</span></code> parameters, use the <code class="docutils literal notranslate"><span class="pre">save_when</span></code> parameter to replicate their
+functionality.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">nxos_vrf_af</span></code> module has removed the <code class="docutils literal notranslate"><span class="pre">safi</span></code> parameter. This parameter was deprecated
+in Ansible 2.4 and has had no impact on the module since then.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="porting_guide_2.7.html" class="btn btn-neutral float-right" title="Ansible 2.7 Porting Guide"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="porting_guide_2.9.html" class="btn btn-neutral" title="Ansible 2.9 Porting Guide"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>

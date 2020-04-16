@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Guidelines for VMware module development &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/dev_guide/platforms/vmware_guidelines.html"/>
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Information for submitting a group of modules" href="../developing_modules_in_groups.html" />
+    <link rel="prev" title="oVirt Ansible Modules" href="ovirt_dev_guide.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../porting_guides/porting_guides.html">Ansible Porting Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../developing_locally.html">Adding modules and plugins locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules.html">Should you develop a module?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_general.html">Ansible module development: getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_checklist.html">Contributing your module to Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_best_practices.html">Conventions, tips, and pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_python_3.html">Ansible and Python 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Debugging modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_documenting.html">Module format and documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_general_windows.html">Windows module development walkthrough</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_general_aci.html">Developing Cisco ACI modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aws_guidelines.html">Guidelines for Ansible Amazon AWS module development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openstack_guidelines.html">OpenStack Ansible Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ovirt_dev_guide.html">oVirt Ansible Modules</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Guidelines for VMware module development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#testing-with-govcsim">Testing with govcsim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-with-your-own-infrastructure">Testing with your own infrastructure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-your-installation">Configure your installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#if-you-use-an-http-proxy">If you use an HTTP proxy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#run-the-test-suite">Run the test-suite</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#unit-test">Unit-test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#code-style-and-best-practice">Code style and best practice</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#datacenter-argument-with-esxi">datacenter argument with ESXi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#esxi-hostname-should-not-be-mandatory">esxi_hostname should not be mandatory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functional-tests">Functional tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#typographic-convention">Typographic convention</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nomenclature">Nomenclature</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_in_groups.html">Information for submitting a group of modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing.html">Testing Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module_lifecycle.html">The lifecycle of an Ansible module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_plugins.html">Developing plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_inventory.html">Developing dynamic inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_core.html">Developing the Ansible Core Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_program_flow_modules.html">Ansible module architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_api.html">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_rebasing.html">Rebasing a pull request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_module_utilities.html">Using and Developing Module Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_collections.html">Developing collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collections_galaxy_meta.html">Collection Galaxy metadata structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview_architecture.html">Ansible architecture</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/virt_guides.html">Virtualization and Containerization Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../network/index.html">Ansible for Network Automation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/general_precedence.html">Controlling how Ansible behaves: precedence rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Developer Guide</a> &raquo;</li>
+        
+      <li>Guidelines for VMware module development</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/dev_guide/platforms/vmware_guidelines.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="guidelines-for-vmware-module-development">
+<span id="vmware-module-development"></span><h1>Guidelines for VMware module development<a class="headerlink" href="#guidelines-for-vmware-module-development" title="Permalink to this headline">¶</a></h1>
+<p>The VMware modules and these guidelines are maintained by the VMware Working Group. For
+further information see the <a class="reference external" href="https://github.com/ansible/community/wiki/VMware">team community page</a>.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#testing-with-govcsim" id="id1">Testing with govcsim</a></p></li>
+<li><p><a class="reference internal" href="#testing-with-your-own-infrastructure" id="id2">Testing with your own infrastructure</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requirements" id="id3">Requirements</a></p>
+<ul>
+<li><p><a class="reference internal" href="#nfs-server-configuration" id="id4">NFS server configuration</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#configure-your-installation" id="id5">Configure your installation</a></p></li>
+<li><p><a class="reference internal" href="#if-you-use-an-http-proxy" id="id6">If you use an HTTP proxy</a></p></li>
+<li><p><a class="reference internal" href="#run-the-test-suite" id="id7">Run the test-suite</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#unit-test" id="id8">Unit-test</a></p></li>
+<li><p><a class="reference internal" href="#code-style-and-best-practice" id="id9">Code style and best practice</a></p>
+<ul>
+<li><p><a class="reference internal" href="#datacenter-argument-with-esxi" id="id10">datacenter argument with ESXi</a></p></li>
+<li><p><a class="reference internal" href="#esxi-hostname-should-not-be-mandatory" id="id11">esxi_hostname should not be mandatory</a></p></li>
+<li><p><a class="reference internal" href="#functional-tests" id="id12">Functional tests</a></p>
+<ul>
+<li><p><a class="reference internal" href="#writing-new-tests" id="id13">Writing new tests</a></p></li>
+<li><p><a class="reference internal" href="#no-need-to-create-too-much-resources" id="id14">No need to create too much resources</a></p></li>
+<li><p><a class="reference internal" href="#vm-names-should-be-predictable" id="id15">VM names should be predictable</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#typographic-convention" id="id16">Typographic convention</a></p>
+<ul>
+<li><p><a class="reference internal" href="#nomenclature" id="id17">Nomenclature</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="testing-with-govcsim">
+<h2><a class="toc-backref" href="#id1">Testing with govcsim</a><a class="headerlink" href="#testing-with-govcsim" title="Permalink to this headline">¶</a></h2>
+<p>Most of the existing modules are covered by functional tests. The tests are located in the <code class="file docutils literal notranslate"><span class="pre">test/integration/targets/</span></code>.</p>
+<p>By default, the tests run against a vCenter API simulator called <a class="reference external" href="https://github.com/vmware/govmomi/tree/master/vcsim">govcsim</a>. <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code> will automatically pull a <cite>govcsim container &lt;https://quay.io/repository/ansible/vcenter-test-container&gt;</cite> and use it to set-up the test environment.</p>
+<p>You can trigger the test of a module manually with the <code class="docutils literal notranslate"><span class="pre">ansible-test</span></code> command. For example, to trigger <code class="docutils literal notranslate"><span class="pre">vcenter_folder</span></code> tests:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> hacking/env-setup
+ansible-test integration --python <span class="m">3</span>.7 vcenter_folder
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">govcsim</span></code> is handy because it’s much more fast that than a regular test environment. However, it does not
+support all the ESXi or vCenter features.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do not confuse <code class="docutils literal notranslate"><span class="pre">govcsim</span></code> with <code class="docutils literal notranslate"><span class="pre">vcsim</span></code>. It’s old outdated version of vCenter simulator whereas govcsim is new and written in go lang</p>
+</div>
+</div>
+<div class="section" id="testing-with-your-own-infrastructure">
+<h2><a class="toc-backref" href="#id2">Testing with your own infrastructure</a><a class="headerlink" href="#testing-with-your-own-infrastructure" title="Permalink to this headline">¶</a></h2>
+<p>You can also target a regular VMware environment. This paragraph explains step by step how you can run the test-suite yourself.</p>
+<div class="section" id="requirements">
+<h3><a class="toc-backref" href="#id3">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>2 ESXi hosts (6.5 or 6.7)</dt><dd><ul>
+<li><p>with 2 NIC, the second ones should be available for the test</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>a VCSA host</p></li>
+<li><p>a NFS server</p></li>
+<li><dl class="simple">
+<dt>Python dependencies:</dt><dd><ul>
+<li><p><cite>pyvmomi &lt;https://github.com/vmware/pyvmomi/tree/master/pyVmomi&gt;</cite></p></li>
+<li><p><cite>requests &lt;https://2.python-requests.org/en/master/&gt;</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>If you want to deploy your test environment in a hypervisor, both VMware or Libvirt &lt;<a class="reference external" href="https://github.com/goneri/vmware-on-libvirt">https://github.com/goneri/vmware-on-libvirt</a>&gt; work well.</p>
+<div class="section" id="nfs-server-configuration">
+<h4><a class="toc-backref" href="#id4">NFS server configuration</a><a class="headerlink" href="#nfs-server-configuration" title="Permalink to this headline">¶</a></h4>
+<p>Your NFS server must expose the following directory structure:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ tree /srv/share/
+/srv/share/
+├── isos
+│   ├── base.iso
+│   ├── centos.iso
+│   └── fedora.iso
+└── vms
+<span class="m">2</span> directories, <span class="m">3</span> files
+</pre></div>
+</div>
+<p>On a Linux system, you can expose the directory over NFS with the following export file:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ cat /etc/exports
+/srv/share  <span class="m">192</span>.168.122.0/255.255.255.0<span class="o">(</span>rw,anonuid<span class="o">=</span><span class="m">1000</span>,anongid<span class="o">=</span><span class="m">1000</span><span class="o">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>With this configuration all the new files will be owned by the user with the UID and GID 1000/1000.
+Adjust the configuration to match your user’s UID/GID.</p>
+</div>
+<p>The service can be enabled with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl <span class="nb">enable</span> --now nfs-server
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configure-your-installation">
+<h3><a class="toc-backref" href="#id5">Configure your installation</a><a class="headerlink" href="#configure-your-installation" title="Permalink to this headline">¶</a></h3>
+<p>Prepare a configuration file that describes your set-up. The file
+should be called <code class="file docutils literal notranslate"><span class="pre">test/integration/cloud-config-vcenter.ini</span></code> and based on
+<code class="file docutils literal notranslate"><span class="pre">test/lib/ansible_test/config/cloud-config-vcenter.ini.template</span></code>. For instance, if you’ve deployed your lab with
+<cite>vmware-on-libvirt &lt;https://github.com/goneri/vmware-on-libvirt&gt;</cite>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[DEFAULT]</span>
+<span class="na">vcenter_username: administrator@vsphere.local</span>
+<span class="na">vcenter_password: !234AaAa56</span>
+<span class="na">vcenter_hostname: vcenter.test</span>
+<span class="na">vmware_validate_certs: false</span>
+<span class="na">esxi1_username: root</span>
+<span class="na">esxi1_hostname: esxi1.test</span>
+<span class="na">esxi1_password: root</span>
+<span class="na">esxi2_username: root</span>
+<span class="na">esxi2_hostname: test2.test</span>
+<span class="na">esxi2_password: root</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="if-you-use-an-http-proxy">
+<h3><a class="toc-backref" href="#id6">If you use an HTTP proxy</a><a class="headerlink" href="#if-you-use-an-http-proxy" title="Permalink to this headline">¶</a></h3>
+<p>Support for hosting test infrastructure behind an HTTP proxy is currently in development. See the following pull requests for more information:</p>
+<ul class="simple">
+<li><p>ansible-test: vcenter behind an HTTP proxy &lt;<a class="reference external" href="https://github.com/ansible/ansible/pull/58208">https://github.com/ansible/ansible/pull/58208</a>&gt;</p></li>
+<li><p>pyvmomi: proxy support &lt;<a class="reference external" href="https://github.com/vmware/pyvmomi/pull/799">https://github.com/vmware/pyvmomi/pull/799</a>&gt;</p></li>
+<li><p>VMware: add support for HTTP proxy in connection API &lt;<a class="reference external" href="https://github.com/ansible/ansible/pull/52936">https://github.com/ansible/ansible/pull/52936</a>&gt;</p></li>
+</ul>
+<p>Once you have incorporated the code from those PRs, specify the location of the proxy server with the two extra keys:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">vmware_proxy_host: esxi1-gw.ws.testing.ansible.com</span>
+<span class="na">vmware_proxy_port: 11153</span>
+</pre></div>
+</div>
+<p>In addition, you may need to adjust the variables of the following file to match the configuration of your lab:
+<code class="file docutils literal notranslate"><span class="pre">test/integration/targets/prepare_vmware_tests/vars/real_lab.yml</span></code>. If you use <cite>vmware-on-libvirt &lt;https://github.com/goneri/vmware-on-libvirt&gt;</cite> to prepare you lab, you don’t have anything to change.</p>
+</div>
+<div class="section" id="run-the-test-suite">
+<h3><a class="toc-backref" href="#id7">Run the test-suite</a><a class="headerlink" href="#run-the-test-suite" title="Permalink to this headline">¶</a></h3>
+<p>Once your configuration is ready, you can trigger a run with the following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> hacking/env-setup
+<span class="nv">VMWARE_TEST_PLATFORM</span><span class="o">=</span>static ansible-test integration --python <span class="m">3</span>.7 vmware_host_firewall_manager
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">vmware_host_firewall_manager</span></code> is the name of the module to test.</p>
+<p><code class="docutils literal notranslate"><span class="pre">vmware_guest</span></code> is much larger than any other test role and is rather slow. You can enable or disable some of its test playbooks in
+<code class="file docutils literal notranslate"><span class="pre">test/integration/targets/vmware_guest/defaults/main.yml</span></code>.</p>
+</div>
+</div>
+<div class="section" id="unit-test">
+<h2><a class="toc-backref" href="#id8">Unit-test</a><a class="headerlink" href="#unit-test" title="Permalink to this headline">¶</a></h2>
+<p>The VMware modules have limited unit-test coverage. You can run the test suite with the
+following commands:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> hacking/env-setup
+ansible-test units --tox --python <span class="m">3</span>.7 <span class="s1">&#39;.*vmware.*&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="code-style-and-best-practice">
+<h2><a class="toc-backref" href="#id9">Code style and best practice</a><a class="headerlink" href="#code-style-and-best-practice" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="datacenter-argument-with-esxi">
+<h3><a class="toc-backref" href="#id10">datacenter argument with ESXi</a><a class="headerlink" href="#datacenter-argument-with-esxi" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">datacenter</span></code> parameter should not use <code class="docutils literal notranslate"><span class="pre">ha-datacenter</span></code> by default. This is because the user may
+not realize that Ansible silently targets the wrong data center.</p>
+</div>
+<div class="section" id="esxi-hostname-should-not-be-mandatory">
+<h3><a class="toc-backref" href="#id11">esxi_hostname should not be mandatory</a><a class="headerlink" href="#esxi-hostname-should-not-be-mandatory" title="Permalink to this headline">¶</a></h3>
+<p>Depending upon the functionality provided by ESXi or vCenter, some modules can seamlessly work with both. In this case,
+<code class="docutils literal notranslate"><span class="pre">esxi_hostname</span></code> parameter should be optional.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_vcenter</span><span class="p">():</span>
+    <span class="n">esxi_hostname</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;esxi_hostname&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">esxi_hostname</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">fail_json</span><span class="p">(</span><span class="s2">&quot;esxi_hostname parameter is mandatory&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_host_objs</span><span class="p">(</span><span class="n">cluster_name</span><span class="o">=</span><span class="n">cluster_name</span><span class="p">,</span> <span class="n">esxi_host_name</span><span class="o">=</span><span class="n">esxi_hostname</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">find_obj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="p">[</span><span class="n">vim</span><span class="o">.</span><span class="n">HostSystem</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">fail_json</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Failed to find host system.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="functional-tests">
+<h3><a class="toc-backref" href="#id12">Functional tests</a><a class="headerlink" href="#functional-tests" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="writing-new-tests">
+<h4><a class="toc-backref" href="#id13">Writing new tests</a><a class="headerlink" href="#writing-new-tests" title="Permalink to this headline">¶</a></h4>
+<p>If you are writing a new collection of integration tests, there are a few VMware-specific things to note beyond
+the standard Ansible <a class="reference internal" href="../testing_integration.html#testing-integration"><span class="std std-ref">integration testing</span></a> process.</p>
+<p>The test-suite uses a set of common, pre-defined vars located in the <code class="file docutils literal notranslate"><span class="pre">test/integration/targets/prepare_vmware_tests/</span></code> role.
+The resources defined there are automatically created by importing that role at the start of your test:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">import_role</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">prepare_vmware_tests</span>
+  <span class="nt">vars</span><span class="p">:</span>
+    <span class="nt">setup_datacenter</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>This will give you a ready to use cluster, datacenter, datastores, folder, switch, dvswitch, ESXi hosts, and VMs.</p>
+</div>
+<div class="section" id="no-need-to-create-too-much-resources">
+<h4><a class="toc-backref" href="#id14">No need to create too much resources</a><a class="headerlink" href="#no-need-to-create-too-much-resources" title="Permalink to this headline">¶</a></h4>
+<p>Most of the time, it’s not necessary to use <code class="docutils literal notranslate"><span class="pre">with_items</span></code> to create multiple resources. By avoiding it,
+you speed up the test execution and you simplify the clean up afterwards.</p>
+</div>
+<div class="section" id="vm-names-should-be-predictable">
+<h4><a class="toc-backref" href="#id15">VM names should be predictable</a><a class="headerlink" href="#vm-names-should-be-predictable" title="Permalink to this headline">¶</a></h4>
+<p>If you need to create a new VM during your test, you can use <code class="docutils literal notranslate"><span class="pre">test_vm1</span></code>, <code class="docutils literal notranslate"><span class="pre">test_vm2</span></code> or <code class="docutils literal notranslate"><span class="pre">test_vm3</span></code>. This
+way it will be automatically clean up for you.</p>
+</div>
+</div>
+</div>
+<div class="section" id="typographic-convention">
+<h2><a class="toc-backref" href="#id16">Typographic convention</a><a class="headerlink" href="#typographic-convention" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="nomenclature">
+<h3><a class="toc-backref" href="#id17">Nomenclature</a><a class="headerlink" href="#nomenclature" title="Permalink to this headline">¶</a></h3>
+<p>We try to enforce the following rules in our documentation:</p>
+<ul class="simple">
+<li><p>VMware, not VMWare or vmware</p></li>
+<li><p>ESXi, not esxi or ESXI</p></li>
+<li><p>vCenter, not vcenter or VCenter</p></li>
+</ul>
+<p>We also refer to vcsim’s Go implementation with <code class="docutils literal notranslate"><span class="pre">govcsim</span></code>. This to avoid any confusion with the outdated implementation.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="../developing_modules_in_groups.html" class="btn btn-neutral float-right" title="Information for submitting a group of modules"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="ovirt_dev_guide.html" class="btn btn-neutral" title="oVirt Ansible Modules"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>

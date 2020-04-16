@@ -1,0 +1,628 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Network connection plugins &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/network/dev_guide/developing_plugins_network.html"/>
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Documenting new network platforms" href="documenting_modules_network.html" />
+    <link rel="prev" title="Developing network resource modules" href="developing_resource_modules_network.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../porting_guides/porting_guides.html">Ansible Porting Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_guide/index.html">Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/virt_guides.html">Virtualization and Containerization Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Ansible for Network Automation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/index.html">Getting Started with Ansible for Network Automation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/index.html">Advanced Topics with Ansible for Network Automation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Developer Guide for Network Automation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="developing_resource_modules_network.html">Developing network resource modules</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Network connection plugins</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#developing-httpapi-plugins">Developing httpapi plugins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#developing-netconf-plugins">Developing NETCONF plugins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#developing-network-cli-plugins">Developing network_cli plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="documenting_modules_network.html">Documenting new network platforms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/general_precedence.html">Controlling how Ansible behaves: precedence rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_guide/testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Ansible for Network Automation</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer Guide for Network Automation</a> &raquo;</li>
+        
+      <li>Network connection plugins</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/network/dev_guide/developing_plugins_network.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="network-connection-plugins">
+<span id="developing-plugins-network"></span><span id="developing-modules-network"></span><h1>Network connection plugins<a class="headerlink" href="#network-connection-plugins" title="Permalink to this headline">¶</a></h1>
+<p>Each network connection plugin has a set of its own plugins which provide a specification of the
+connection for a particular set of devices. The specific plugin used is selected at runtime based
+on the value of the <code class="docutils literal notranslate"><span class="pre">ansible_network_os</span></code> variable assigned to the host. This variable should be
+set to the same value as the name of the plugin to be loaed. Thus, <code class="docutils literal notranslate"><span class="pre">ansible_network_os=nxos</span></code>
+will try to load a plugin in a file named <code class="docutils literal notranslate"><span class="pre">nxos.py</span></code>, so it is important to name the plugin in a
+way that will be sensible to users.</p>
+<p>Public methods of these plugins may be called from a module or module_utils with the connection
+proxy object just as other connection methods can. The following is a very simple example of using
+such a call in a module_utils file so it may be shared with other modules.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.module_utils.connection</span> <span class="kn">import</span> <span class="n">Connection</span>
+
+<span class="k">def</span> <span class="nf">get_config</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
+    <span class="c1"># module is your AnsibleModule instance.</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">_socket_path</span><span class="p">)</span>
+
+    <span class="c1"># You can now call any method (that doesn&#39;t start with &#39;_&#39;) of the connection</span>
+    <span class="c1"># plugin or its platform-specific plugin</span>
+    <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#developing-httpapi-plugins" id="id1">Developing httpapi plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#making-requests" id="id2">Making requests</a></p></li>
+<li><p><a class="reference internal" href="#authenticating" id="id3">Authenticating</a></p></li>
+<li><p><a class="reference internal" href="#error-handling" id="id4">Error handling</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#developing-netconf-plugins" id="id5">Developing NETCONF plugins</a></p></li>
+<li><p><a class="reference internal" href="#developing-network-cli-plugins" id="id6">Developing network_cli plugins</a></p></li>
+</ul>
+</div>
+<div class="section" id="developing-httpapi-plugins">
+<span id="developing-plugins-httpapi"></span><h2><a class="toc-backref" href="#id1">Developing httpapi plugins</a><a class="headerlink" href="#developing-httpapi-plugins" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../../plugins/httpapi.html#httpapi-plugins"><span class="std std-ref">httpapi plugins</span></a> serve as adapters for various HTTP(S) APIs for use with the <code class="docutils literal notranslate"><span class="pre">httpapi</span></code> connection plugin. They should implement a minimal set of convenience methods tailored to the API you are attempting to use.</p>
+<p>Specifically, there are a few methods that the <code class="docutils literal notranslate"><span class="pre">httpapi</span></code> connection plugin expects to exist.</p>
+<div class="section" id="making-requests">
+<h3><a class="toc-backref" href="#id2">Making requests</a><a class="headerlink" href="#making-requests" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">httpapi</span></code> connection plugin has a <code class="docutils literal notranslate"><span class="pre">send()</span></code> method, but an httpapi plugin needs a <code class="docutils literal notranslate"><span class="pre">send_request(self,</span> <span class="pre">data,</span> <span class="pre">**message_kwargs)</span></code> method as a higher-level wrapper to <code class="docutils literal notranslate"><span class="pre">send()</span></code>. This method should prepare requests by adding fixed values like common headers or URL root paths. This method may do more complex work such as turning data into formatted payloads, or determining which path or method to request. It may then also unpack responses to be more easily consumed by the caller.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.module_utils.six.moves.urllib.error</span> <span class="kn">import</span> <span class="n">HTTPError</span>
+
+<span class="k">def</span> <span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;POST&#39;</span><span class="p">):</span>
+    <span class="c1"># Fixed headers for requests</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span><span class="p">,</span> <span class="n">response_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">exc</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">exc</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="c1"># handle_response (defined separately) will take the format returned by the device</span>
+    <span class="c1"># and transform it into something more suitable for use by modules.</span>
+    <span class="c1"># This may be JSON text to Python dictionaries, for example.</span>
+    <span class="k">return</span> <span class="n">handle_response</span><span class="p">(</span><span class="n">response_content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="authenticating">
+<h3><a class="toc-backref" href="#id3">Authenticating</a><a class="headerlink" href="#authenticating" title="Permalink to this headline">¶</a></h3>
+<p>By default, all requests will authenticate with HTTP Basic authentication. If a request can return some kind of token to stand in place of HTTP Basic, the <code class="docutils literal notranslate"><span class="pre">update_auth(self,</span> <span class="pre">response,</span> <span class="pre">response_text)</span></code> method should be implemented to inspect responses for such tokens. If the token is meant to be included with the headers of each request, it is sufficient to return a dictionary which will be merged with the computed headers for each request. The default implementation of this method does exactly this for cookies. If the token is used in another way, say in a query string, you should instead save that token to an instance variable, where the <code class="docutils literal notranslate"><span class="pre">send_request()</span></code> method (above) can add it to each request</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">response_text</span><span class="p">):</span>
+    <span class="n">cookie</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">info</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Set-Cookie&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cookie</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;Cookie&#39;</span><span class="p">:</span> <span class="n">cookie</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>If instead an explicit login endpoint needs to be requested to receive an authentication token, the <code class="docutils literal notranslate"><span class="pre">login(self,</span> <span class="pre">username,</span> <span class="pre">password)</span></code> method can be implemented to call that endpoint. If implemented, this method will be called once before requesting any other resources of the server. By default, it will also be attempted once when a HTTP 401 is returned from a request.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+    <span class="n">login_path</span> <span class="o">=</span> <span class="s1">&#39;/my/login/path&#39;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="n">password</span><span class="p">}</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_request</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">login_path</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># This is still sent as an HTTP header, so we can set our connection&#39;s _auth</span>
+        <span class="c1"># variable manually. If the token is returned to the device in another way,</span>
+        <span class="c1"># you will have to keep track of it another way and make sure that it is sent</span>
+        <span class="c1"># with the rest of the request from send_request()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_auth</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X-api-token&#39;</span><span class="p">:</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]}</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">AnsibleAuthenticationFailure</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Failed to acquire login token.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Similarly, <code class="docutils literal notranslate"><span class="pre">logout(self)</span></code> can be implemented to call an endpoint to invalidate and/or release the current token, if such an endpoint exists. This will be automatically called when the connection is closed (and, by extension, when reset).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">logout_path</span> <span class="o">=</span> <span class="s1">&#39;/my/logout/path&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">send_request</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">logout_path</span><span class="p">)</span>
+
+    <span class="c1"># Clean up tokens</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_auth</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="error-handling">
+<h3><a class="toc-backref" href="#id4">Error handling</a><a class="headerlink" href="#error-handling" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">handle_httperror(self,</span> <span class="pre">exception)</span></code> method can deal with status codes returned by the server. The return value indicates how the plugin will continue with the request:</p>
+<ul class="simple">
+<li><p>A value of <code class="docutils literal notranslate"><span class="pre">true</span></code> means that the request can be retried. This my be used to indicate a transient error, or one that has been resolved. For example, the default implementation will try to call <code class="docutils literal notranslate"><span class="pre">login()</span></code> when presented with a 401, and return <code class="docutils literal notranslate"><span class="pre">true</span></code> if successful.</p></li>
+<li><p>A value of <code class="docutils literal notranslate"><span class="pre">false</span></code> means that the plugin is unable to recover from this response. The status code will be returned to the calling module as an exception. Any other value will be taken as a nonfatal response from the request. This may be useful if the server returns error messages in the body of the response. Returning the original exception is usually sufficient in this case, as HTTPError objects have the same interface as a successful response.</p></li>
+</ul>
+<p>For example httpapi plugins, see the <a class="reference external" href="https://github.com/ansible/ansible/tree/devel/lib/ansible/plugins/httpapi">source code for the httpapi plugins</a> included with Ansible Core.</p>
+</div>
+</div>
+<div class="section" id="developing-netconf-plugins">
+<h2><a class="toc-backref" href="#id5">Developing NETCONF plugins</a><a class="headerlink" href="#developing-netconf-plugins" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../../plugins/connection/netconf.html#netconf-connection"><span class="std std-ref">netconf</span></a> connection plugin provides a connection to remote devices over the <code class="docutils literal notranslate"><span class="pre">SSH</span> <span class="pre">NETCONF</span></code> subsystem. Network devices typically use this connection plugin to send and receive <code class="docutils literal notranslate"><span class="pre">RPC</span></code> calls over <code class="docutils literal notranslate"><span class="pre">NETCONF</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">netconf</span></code> connection plugin uses the <code class="docutils literal notranslate"><span class="pre">ncclient</span></code> Python library under the hood to initiate a NETCONF session with a NETCONF-enabled remote network device. <code class="docutils literal notranslate"><span class="pre">ncclient</span></code> also executes NETCONF RPC requests and receives responses. You must install the <code class="docutils literal notranslate"><span class="pre">ncclient</span></code> on the local Ansible controller.</p>
+<p>To use the <code class="docutils literal notranslate"><span class="pre">netconf</span></code> connection plugin for network devices that support standard NETCONF (<span class="target" id="index-0"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc6241.html"><strong>RFC 6241</strong></a>) operations such as <code class="docutils literal notranslate"><span class="pre">get</span></code>, <code class="docutils literal notranslate"><span class="pre">get-config</span></code>, <code class="docutils literal notranslate"><span class="pre">edit-config</span></code>, set <code class="docutils literal notranslate"><span class="pre">ansible_network_os=default</span></code>.
+You can use <span class="xref std std-ref">netconf_get</span>, <span class="xref std std-ref">netconf_config</span> and <span class="xref std std-ref">netconf_rpc</span> modules to talk to a NETCONF enabled remote host.</p>
+<p>As a contributor and user, you should be able to use all the methods under the <code class="docutils literal notranslate"><span class="pre">NetconfBase</span></code> class if your device supports standard NETCONF. You can contribute a new plugin if the device you are working with has a vendor specific NETCONF RPC.
+To support a vendor specific NETCONF RPC, add the implementation in the network OS specific NETCONF plugin.</p>
+<p>For Junos for example:</p>
+<ul class="simple">
+<li><p>See the vendor-specific Junos RPC methods implemented in <code class="docutils literal notranslate"><span class="pre">plugins/netconf/junos.py</span></code>.</p></li>
+<li><p>Set the value of <code class="docutils literal notranslate"><span class="pre">ansible_network_os</span></code> to the name of the netconf plugin file, that is <code class="docutils literal notranslate"><span class="pre">junos</span></code> in this case.</p></li>
+</ul>
+</div>
+<div class="section" id="developing-network-cli-plugins">
+<span id="developing-plugins-network-cli"></span><h2><a class="toc-backref" href="#id6">Developing network_cli plugins</a><a class="headerlink" href="#developing-network-cli-plugins" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../../plugins/connection/network_cli.html#network-cli-connection"><span class="std std-ref">network_cli</span></a> connection type uses <code class="docutils literal notranslate"><span class="pre">paramiko_ssh</span></code> under the hood which creates a pseudo terminal to send commands and receive responses.
+<code class="docutils literal notranslate"><span class="pre">network_cli</span></code> loads two platform specific plugins based on the value of <code class="docutils literal notranslate"><span class="pre">ansible_network_os</span></code>:</p>
+<ul class="simple">
+<li><p>Terminal plugin (for example <code class="docutils literal notranslate"><span class="pre">plugins/terminal/ios.py</span></code>) - Controls the parameters related to terminal, such as setting terminal length and width, page disabling and privilege escalation. Also defines regex to identify the command prompt and error prompts.</p></li>
+<li><p><a class="reference internal" href="../../plugins/cliconf.html#cliconf-plugins"><span class="std std-ref">Cliconf Plugins</span></a> (for example, <a class="reference internal" href="../../plugins/cliconf/ios.html#ios-cliconf"><span class="std std-ref">ios cliconf</span></a>) - Provides an abstraction layer for low level send and receive operations. For example, the <code class="docutils literal notranslate"><span class="pre">edit_config()</span></code> method ensures that the prompt is in <code class="docutils literal notranslate"><span class="pre">config</span></code> mode before executing configuration commands.</p></li>
+</ul>
+<p>To contribute a new network operating system to work with the <code class="docutils literal notranslate"><span class="pre">network_cli</span></code> connection, implement the <code class="docutils literal notranslate"><span class="pre">cliconf</span></code> and <code class="docutils literal notranslate"><span class="pre">terminal</span></code> plugins for that network OS.</p>
+<p>The plugins can reside in:</p>
+<ul>
+<li><p>Adjacent to playbook in folders</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cliconf_plugins/
+terminal_plugins/
+</pre></div>
+</div>
+</li>
+<li><p>Roles</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>myrole/cliconf_plugins/
+myrole/terminal_plugins/
+</pre></div>
+</div>
+</li>
+<li><p>Collections</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>myorg/mycollection/plugins/terminal/
+myorg/mycollection/plugins/cliconf/
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The user can also set the <a class="reference internal" href="../../reference_appendices/config.html#default-cliconf-plugin-path"><span class="std std-ref">DEFAULT_CLICONF_PLUGIN_PATH</span></a>  to configure the <code class="docutils literal notranslate"><span class="pre">cliconf</span></code> plugin path.</p>
+<p>After adding the <code class="docutils literal notranslate"><span class="pre">cliconf</span></code> and <code class="docutils literal notranslate"><span class="pre">terminal</span></code> plugins in the expected locations, users can:</p>
+<ul class="simple">
+<li><p>Use the <span class="xref std std-ref">cli_command</span> to run an arbitrary command on the network device.</p></li>
+<li><p>Use the <span class="xref std std-ref">cli_config</span> to  implement configuration changes on the remote hosts without platform-specific modules.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="documenting_modules_network.html" class="btn btn-neutral float-right" title="Documenting new network platforms"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="developing_resource_modules_network.html" class="btn btn-neutral" title="Developing network resource modules"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>

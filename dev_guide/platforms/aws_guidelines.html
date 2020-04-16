@@ -1,0 +1,1222 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Guidelines for Ansible Amazon AWS module development &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/dev_guide/platforms/aws_guidelines.html"/>
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="OpenStack Ansible Modules" href="openstack_guidelines.html" />
+    <link rel="prev" title="Developing Cisco ACI modules" href="../developing_modules_general_aci.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../porting_guides/porting_guides.html">Ansible Porting Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../developing_locally.html">Adding modules and plugins locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules.html">Should you develop a module?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_general.html">Ansible module development: getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_checklist.html">Contributing your module to Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_best_practices.html">Conventions, tips, and pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_python_3.html">Ansible and Python 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Debugging modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_documenting.html">Module format and documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_general_windows.html">Windows module development walkthrough</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_general_aci.html">Developing Cisco ACI modules</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Guidelines for Ansible Amazon AWS module development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#maintaining-existing-modules">Maintaining existing modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fixing-bugs">Fixing bugs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-new-features">Adding new features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#migrating-to-boto3">Migrating to boto3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#porting-code-to-ansibleawsmodule">Porting code to AnsibleAWSModule</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-new-aws-modules">Creating new AWS modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#use-boto3-and-ansibleawsmodule">Use boto3 and AnsibleAWSModule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#naming-your-module">Naming your module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#importing-botocore-and-boto3">Importing botocore and boto3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#connecting-to-aws">Connecting to AWS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#common-documentation-fragments-for-connection-parameters">Common Documentation Fragments for Connection Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#handling-exceptions">Handling exceptions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-is-boto3-error-code">Using is_boto3_error_code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-fail-json-aws">Using fail_json_aws()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-fail-json-and-avoiding-ansible-module-utils-aws-core">using fail_json() and avoiding ansible.module_utils.aws.core</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#api-throttling-rate-limiting-and-pagination">API throttling (rate limiting) and pagination</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#returning-values">Returning Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dealing-with-iam-json-policy">Dealing with IAM JSON policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dealing-with-tags">Dealing with tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#helper-functions">Helper functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#camel-dict-to-snake-dict">camel_dict_to_snake_dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#snake-dict-to-camel-dict">snake_dict_to_camel_dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ansible-dict-to-boto3-filter-list">ansible_dict_to_boto3_filter_list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#boto-exception">boto_exception</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#boto3-tag-list-to-ansible-dict">boto3_tag_list_to_ansible_dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ansible-dict-to-boto3-tag-list">ansible_dict_to_boto3_tag_list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-ec2-security-group-ids-from-names">get_ec2_security_group_ids_from_names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compare-policies">compare_policies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compare-aws-tags">compare_aws_tags</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#integration-tests-for-aws-modules">Integration Tests for AWS Modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#aws-credentials-for-integration-tests">AWS Credentials for Integration Tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aws-permissions-for-integration-tests">AWS Permissions for Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="openstack_guidelines.html">OpenStack Ansible Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ovirt_dev_guide.html">oVirt Ansible Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vmware_guidelines.html">Guidelines for VMware module development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_modules_in_groups.html">Information for submitting a group of modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing.html">Testing Ansible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module_lifecycle.html">The lifecycle of an Ansible module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_plugins.html">Developing plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_inventory.html">Developing dynamic inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_core.html">Developing the Ansible Core Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_program_flow_modules.html">Ansible module architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_api.html">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_rebasing.html">Rebasing a pull request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_module_utilities.html">Using and Developing Module Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_collections.html">Developing collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collections_galaxy_meta.html">Collection Galaxy metadata structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview_architecture.html">Ansible architecture</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scenario_guides/virt_guides.html">Virtualization and Containerization Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../network/index.html">Ansible for Network Automation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/general_precedence.html">Controlling how Ansible behaves: precedence rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Developer Guide</a> &raquo;</li>
+        
+      <li>Guidelines for Ansible Amazon AWS module development</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/dev_guide/platforms/aws_guidelines.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="guidelines-for-ansible-amazon-aws-module-development">
+<span id="aws-module-development"></span><h1>Guidelines for Ansible Amazon AWS module development<a class="headerlink" href="#guidelines-for-ansible-amazon-aws-module-development" title="Permalink to this headline">¶</a></h1>
+<p>The Ansible AWS modules and these guidelines are maintained by the Ansible AWS Working Group.  For
+further information see
+the <a class="reference external" href="https://github.com/ansible/community/wiki/aws">AWS working group community page</a>.
+If you are planning to contribute AWS modules to Ansible then getting in touch with the working
+group will be a good way to start, especially because a similar module may already be under
+development.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#maintaining-existing-modules" id="id2">Maintaining existing modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fixing-bugs" id="id3">Fixing bugs</a></p></li>
+<li><p><a class="reference internal" href="#adding-new-features" id="id4">Adding new features</a></p></li>
+<li><p><a class="reference internal" href="#migrating-to-boto3" id="id5">Migrating to boto3</a></p></li>
+<li><p><a class="reference internal" href="#porting-code-to-ansibleawsmodule" id="id6">Porting code to AnsibleAWSModule</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#creating-new-aws-modules" id="id7">Creating new AWS modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#use-boto3-and-ansibleawsmodule" id="id8">Use boto3 and AnsibleAWSModule</a></p></li>
+<li><p><a class="reference internal" href="#naming-your-module" id="id9">Naming your module</a></p></li>
+<li><p><a class="reference internal" href="#importing-botocore-and-boto3" id="id10">Importing botocore and boto3</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#connecting-to-aws" id="id11">Connecting to AWS</a></p>
+<ul>
+<li><p><a class="reference internal" href="#common-documentation-fragments-for-connection-parameters" id="id12">Common Documentation Fragments for Connection Parameters</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#handling-exceptions" id="id13">Handling exceptions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#using-is-boto3-error-code" id="id14">Using is_boto3_error_code</a></p></li>
+<li><p><a class="reference internal" href="#using-fail-json-aws" id="id15">Using fail_json_aws()</a></p></li>
+<li><p><a class="reference internal" href="#using-fail-json-and-avoiding-ansible-module-utils-aws-core" id="id16">using fail_json() and avoiding ansible.module_utils.aws.core</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#api-throttling-rate-limiting-and-pagination" id="id17">API throttling (rate limiting) and pagination</a></p></li>
+<li><p><a class="reference internal" href="#returning-values" id="id18">Returning Values</a></p></li>
+<li><p><a class="reference internal" href="#dealing-with-iam-json-policy" id="id19">Dealing with IAM JSON policy</a></p></li>
+<li><p><a class="reference internal" href="#dealing-with-tags" id="id20">Dealing with tags</a></p></li>
+<li><p><a class="reference internal" href="#helper-functions" id="id21">Helper functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#camel-dict-to-snake-dict" id="id22">camel_dict_to_snake_dict</a></p></li>
+<li><p><a class="reference internal" href="#snake-dict-to-camel-dict" id="id23">snake_dict_to_camel_dict</a></p></li>
+<li><p><a class="reference internal" href="#ansible-dict-to-boto3-filter-list" id="id24">ansible_dict_to_boto3_filter_list</a></p></li>
+<li><p><a class="reference internal" href="#boto-exception" id="id25">boto_exception</a></p></li>
+<li><p><a class="reference internal" href="#boto3-tag-list-to-ansible-dict" id="id26">boto3_tag_list_to_ansible_dict</a></p></li>
+<li><p><a class="reference internal" href="#ansible-dict-to-boto3-tag-list" id="id27">ansible_dict_to_boto3_tag_list</a></p></li>
+<li><p><a class="reference internal" href="#get-ec2-security-group-ids-from-names" id="id28">get_ec2_security_group_ids_from_names</a></p></li>
+<li><p><a class="reference internal" href="#compare-policies" id="id29">compare_policies</a></p></li>
+<li><p><a class="reference internal" href="#compare-aws-tags" id="id30">compare_aws_tags</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#integration-tests-for-aws-modules" id="id31">Integration Tests for AWS Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#aws-credentials-for-integration-tests" id="id32">AWS Credentials for Integration Tests</a></p></li>
+<li><p><a class="reference internal" href="#aws-permissions-for-integration-tests" id="id33">AWS Permissions for Integration Tests</a></p>
+<ul>
+<li><p><a class="reference internal" href="#troubleshooting-iam-policies" id="id34">Troubleshooting IAM policies</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="maintaining-existing-modules">
+<h2><a class="toc-backref" href="#id2">Maintaining existing modules</a><a class="headerlink" href="#maintaining-existing-modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fixing-bugs">
+<h3><a class="toc-backref" href="#id3">Fixing bugs</a><a class="headerlink" href="#fixing-bugs" title="Permalink to this headline">¶</a></h3>
+<p>Bug fixes to code that relies on boto will still be accepted. When possible,
+the code should be ported to use boto3.</p>
+</div>
+<div class="section" id="adding-new-features">
+<h3><a class="toc-backref" href="#id4">Adding new features</a><a class="headerlink" href="#adding-new-features" title="Permalink to this headline">¶</a></h3>
+<p>Try to keep backward compatibility with relatively recent versions of boto3. That means that if you
+want to implement some functionality that uses a new feature of boto3, it should only fail if that
+feature actually needs to be run, with a message stating the missing feature and minimum required
+version of boto3.</p>
+<p>Use feature testing (e.g. <code class="docutils literal notranslate"><span class="pre">hasattr('boto3.module',</span> <span class="pre">'shiny_new_method')</span></code>) to check whether boto3
+supports a feature rather than version checking. For example, from the <code class="docutils literal notranslate"><span class="pre">ec2</span></code> module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">boto_supports_profile_name_arg</span><span class="p">(</span><span class="n">ec2</span><span class="p">):</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;instance_profile_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance_profile_name</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">instance_profile_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">module</span><span class="o">.</span><span class="n">fail_json</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;instance_profile_name parameter requires boto version 2.5.0 or higher&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="migrating-to-boto3">
+<h3><a class="toc-backref" href="#id5">Migrating to boto3</a><a class="headerlink" href="#migrating-to-boto3" title="Permalink to this headline">¶</a></h3>
+<p>Prior to Ansible 2.0, modules were written in either boto3 or boto. We are
+still porting some modules to boto3. Modules that still require boto should be ported to use boto3 rather than using both libraries (boto and boto3). We would like to remove the boto dependency from all modules.</p>
+</div>
+<div class="section" id="porting-code-to-ansibleawsmodule">
+<h3><a class="toc-backref" href="#id6">Porting code to AnsibleAWSModule</a><a class="headerlink" href="#porting-code-to-ansibleawsmodule" title="Permalink to this headline">¶</a></h3>
+<p>Some old AWS modules use the generic <code class="docutils literal notranslate"><span class="pre">AnsibleModule</span></code> as a base rather than the more efficient <code class="docutils literal notranslate"><span class="pre">AnsibleAWSModule</span></code>. To port an old module to <code class="docutils literal notranslate"><span class="pre">AnsibleAWSModule</span></code>, change:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.module_utils.basic</span> <span class="kn">import</span> <span class="n">AnsibleModule</span>
+<span class="o">...</span>
+<span class="n">module</span> <span class="o">=</span> <span class="n">AnsibleModule</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>to:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.module_utils.aws.core</span> <span class="kn">import</span> <span class="n">AnsibleAWSModule</span>
+<span class="o">...</span>
+<span class="n">module</span> <span class="o">=</span> <span class="n">AnsibleAWSModule</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Few other changes are required. AnsibleAWSModule
+does not inherit methods from AnsibleModule by default, but most useful methods
+are included. If you do find an issue, please raise a bug report.</p>
+<p>When porting, keep in mind that AnsibleAWSModule also will add the default ec2
+argument spec by default. In pre-port modules, you should see common arguments
+specified with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">argument_spec</span> <span class="o">=</span> <span class="n">ec2_argument_spec</span><span class="p">()</span>
+    <span class="n">argument_spec</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">state</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;present&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;present&#39;</span><span class="p">,</span> <span class="s1">&#39;absent&#39;</span><span class="p">,</span> <span class="s1">&#39;enabled&#39;</span><span class="p">,</span> <span class="s1">&#39;disabled&#39;</span><span class="p">]),</span>
+        <span class="n">name</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">),</span>
+        <span class="c1"># ... and so on ...</span>
+    <span class="p">))</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="n">AnsibleModule</span><span class="p">(</span><span class="n">argument_spec</span><span class="o">=</span><span class="n">argument_spec</span><span class="p">,</span> <span class="n">supports_check_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+</pre></div>
+</div>
+<p>These can be replaced with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">argument_spec</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">state</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;present&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;present&#39;</span><span class="p">,</span> <span class="s1">&#39;absent&#39;</span><span class="p">,</span> <span class="s1">&#39;enabled&#39;</span><span class="p">,</span> <span class="s1">&#39;disabled&#39;</span><span class="p">]),</span>
+        <span class="n">name</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">),</span>
+        <span class="c1"># ... and so on ...</span>
+    <span class="p">)</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="n">AnsibleAWSModule</span><span class="p">(</span><span class="n">argument_spec</span><span class="o">=</span><span class="n">argument_spec</span><span class="p">,</span> <span class="n">supports_check_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">,)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="creating-new-aws-modules">
+<h2><a class="toc-backref" href="#id7">Creating new AWS modules</a><a class="headerlink" href="#creating-new-aws-modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="use-boto3-and-ansibleawsmodule">
+<h3><a class="toc-backref" href="#id8">Use boto3 and AnsibleAWSModule</a><a class="headerlink" href="#use-boto3-and-ansibleawsmodule" title="Permalink to this headline">¶</a></h3>
+<p>All new AWS modules must use boto3 and <code class="docutils literal notranslate"><span class="pre">AnsibleAWSModule</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AnsibleAWSModule</span></code> greatly simplifies exception handling and library
+management, reducing the amount of boilerplate code. If you cannot
+use <code class="docutils literal notranslate"><span class="pre">AnsibleAWSModule</span></code> as a base, you must document the reason and request an exception to this rule.</p>
+</div>
+<div class="section" id="naming-your-module">
+<h3><a class="toc-backref" href="#id9">Naming your module</a><a class="headerlink" href="#naming-your-module" title="Permalink to this headline">¶</a></h3>
+<p>Base the name of the module on the part of AWS that you actually use. (A good rule of thumb is to
+take whatever module you use with boto as a starting point).  Don’t further abbreviate names - if
+something is a well known abbreviation of a major component of AWS (for example, VPC or ELB), that’s fine, but
+don’t create new ones independently.</p>
+<p>Unless the name of your service is quite unique, please consider using <code class="docutils literal notranslate"><span class="pre">aws_</span></code> as a prefix. For example <code class="docutils literal notranslate"><span class="pre">aws_lambda</span></code>.</p>
+</div>
+<div class="section" id="importing-botocore-and-boto3">
+<h3><a class="toc-backref" href="#id10">Importing botocore and boto3</a><a class="headerlink" href="#importing-botocore-and-boto3" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.ec2</span></code> module and <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.core.aws</span></code> modules both
+automatically import boto3 and botocore.  If boto3 is missing from the system then the variable
+<code class="docutils literal notranslate"><span class="pre">HAS_BOTO3</span></code> will be set to false.  Normally, this means that modules don’t need to import
+boto3 directly. There is no need to check <code class="docutils literal notranslate"><span class="pre">HAS_BOTO3</span></code> when using AnsibleAWSModule
+as the module does that check:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.module_utils.aws.core</span> <span class="kn">import</span> <span class="n">AnsibleAWSModule</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">botocore</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>  <span class="c1"># handled by AnsibleAWSModule</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.module_utils.basic</span> <span class="kn">import</span> <span class="n">AnsibleModule</span>
+<span class="kn">from</span> <span class="nn">ansible.module_utils.ec2</span> <span class="kn">import</span> <span class="n">HAS_BOTO3</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">botocore</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>  <span class="c1"># handled by imported HAS_BOTO3</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">HAS_BOTO3</span><span class="p">:</span>
+        <span class="n">module</span><span class="o">.</span><span class="n">fail_json</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;boto3 and botocore are required for this module&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="connecting-to-aws">
+<h2><a class="toc-backref" href="#id11">Connecting to AWS</a><a class="headerlink" href="#connecting-to-aws" title="Permalink to this headline">¶</a></h2>
+<p>AnsibleAWSModule provides the <code class="docutils literal notranslate"><span class="pre">resource</span></code> and <code class="docutils literal notranslate"><span class="pre">client</span></code> helper methods for obtaining boto3 connections.
+These handle some of the more esoteric connection options, such as security tokens and boto profiles.</p>
+<p>If using the basic AnsibleModule then you should use <code class="docutils literal notranslate"><span class="pre">get_aws_connection_info</span></code> and then <code class="docutils literal notranslate"><span class="pre">boto3_conn</span></code>
+to connect to AWS as these handle the same range of connection options.</p>
+<p>These helpers also for missing profiles or a region not set when it needs to be, so you don’t have to.</p>
+<p>An example of connecting to ec2 is shown below. Note that unlike boto there is no <code class="docutils literal notranslate"><span class="pre">NoAuthHandlerFound</span></code>
+exception handling like in boto. Instead, an <code class="docutils literal notranslate"><span class="pre">AuthFailure</span></code> exception will be thrown when you use the
+connection. To ensure that authorization, parameter validation and permissions errors are all caught,
+you should catch <code class="docutils literal notranslate"><span class="pre">ClientError</span></code> and <code class="docutils literal notranslate"><span class="pre">BotoCoreError</span></code> exceptions with every boto3 connection call.
+See exception handling:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">module</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;ec2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or for the higher level ec2 resource:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">module</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;ec2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>An example of the older style connection used for modules based on AnsibleModule rather than AnsibleAWSModule:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">region</span><span class="p">,</span> <span class="n">ec2_url</span><span class="p">,</span> <span class="n">aws_connect_params</span> <span class="o">=</span> <span class="n">get_aws_connection_info</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">boto3</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">connection</span> <span class="o">=</span> <span class="n">boto3_conn</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">conn_type</span><span class="o">=</span><span class="s1">&#39;client&#39;</span><span class="p">,</span> <span class="n">resource</span><span class="o">=</span><span class="s1">&#39;ec2&#39;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="n">ec2_url</span><span class="p">,</span> <span class="o">**</span><span class="n">aws_connect_params</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">region</span><span class="p">,</span> <span class="n">ec2_url</span><span class="p">,</span> <span class="n">aws_connect_params</span> <span class="o">=</span> <span class="n">get_aws_connection_info</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">boto3</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">connection</span> <span class="o">=</span> <span class="n">boto3_conn</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">conn_type</span><span class="o">=</span><span class="s1">&#39;client&#39;</span><span class="p">,</span> <span class="n">resource</span><span class="o">=</span><span class="s1">&#39;ec2&#39;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="n">ec2_url</span><span class="p">,</span> <span class="o">**</span><span class="n">aws_connect_params</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="common-documentation-fragments-for-connection-parameters">
+<h3><a class="toc-backref" href="#id12">Common Documentation Fragments for Connection Parameters</a><a class="headerlink" href="#common-documentation-fragments-for-connection-parameters" title="Permalink to this headline">¶</a></h3>
+<p>There are two <a class="reference internal" href="../developing_modules_documenting.html#module-docs-fragments"><span class="std std-ref">common documentation fragments</span></a>
+that should be included into almost all AWS modules:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">aws</span></code> - contains the common boto connection parameters</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ec2</span></code> - contains the common region parameter required for many AWS modules</p></li>
+</ul>
+<p>These fragments should be used rather than re-documenting these properties to ensure consistency
+and that the more esoteric connection options are documented. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DOCUMENTATION</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">module: my_module</span>
+<span class="s1"># some lines omitted here</span>
+<span class="s1">requirements: [ &#39;botocore&#39;, &#39;boto3&#39; ]</span>
+<span class="s1">extends_documentation_fragment:</span>
+<span class="s1">    - aws</span>
+<span class="s1">    - ec2</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="handling-exceptions">
+<h2><a class="toc-backref" href="#id13">Handling exceptions</a><a class="headerlink" href="#handling-exceptions" title="Permalink to this headline">¶</a></h2>
+<p>You should wrap any boto3 or botocore call in a try block. If an exception is thrown, then there
+are a number of possibilities for handling it.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Catch the general <code class="docutils literal notranslate"><span class="pre">ClientError</span></code> or look for a specific error code with</dt><dd><p><code class="docutils literal notranslate"><span class="pre">is_boto3_error_code</span></code>.</p>
+</dd>
+</dl>
+</li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">aws_module.fail_json_aws()</span></code> to report the module failure in a standard way</p></li>
+<li><p>Retry using AWSRetry</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">fail_json()</span></code> to report the failure without using <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.aws.core</span></code></p></li>
+<li><p>Do something custom in the case where you know how to handle the exception</p></li>
+</ul>
+<p>For more information on botocore exception handling see the <a class="reference external" href="https://botocore.readthedocs.io/en/latest/client_upgrades.html#error-handling">botocore error documentation</a>.</p>
+<div class="section" id="using-is-boto3-error-code">
+<h3><a class="toc-backref" href="#id14">Using is_boto3_error_code</a><a class="headerlink" href="#using-is-boto3-error-code" title="Permalink to this headline">¶</a></h3>
+<p>To use <code class="docutils literal notranslate"><span class="pre">ansible.module_utils.aws.core.is_boto3_error_code</span></code> to catch a single
+AWS error code, call it in place of <code class="docutils literal notranslate"><span class="pre">ClientError</span></code> in your except clauses. In
+this case, <em>only</em> the <code class="docutils literal notranslate"><span class="pre">InvalidGroup.NotFound</span></code> error code will be caught here,
+and any other error will be raised for handling elsewhere in the program.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">describe_security_groups</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">is_boto3_error_code</span><span class="p">(</span><span class="s1">&#39;InvalidGroup.NotFound&#39;</span><span class="p">):</span>
+    <span class="k">pass</span>
+<span class="n">do_something</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>  <span class="c1"># do something with the info that was successfully returned</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-fail-json-aws">
+<h3><a class="toc-backref" href="#id15">Using fail_json_aws()</a><a class="headerlink" href="#using-fail-json-aws" title="Permalink to this headline">¶</a></h3>
+<p>In the AnsibleAWSModule there is a special method, <code class="docutils literal notranslate"><span class="pre">module.fail_json_aws()</span></code> for nice reporting of
+exceptions.  Call this on your exception and it will report the error together with a traceback for
+use in Ansible verbose mode.</p>
+<p>You should use the AnsibleAWSModule for all new modules, unless not possible. If adding significant
+amounts of exception handling to existing modules, we recommend migrating the module to use AnsibleAWSModule
+(there are very few changes required to do this)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.module_utils.aws.core</span> <span class="kn">import</span> <span class="n">AnsibleAWSModule</span>
+
+<span class="c1"># Set up module parameters</span>
+<span class="c1"># module params code here</span>
+
+<span class="c1"># Connect to AWS</span>
+<span class="c1"># connection code here</span>
+
+<span class="c1"># Make a call to AWS</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">describe_frooble</span><span class="p">(</span><span class="n">FroobleName</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="k">except</span> <span class="p">(</span><span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BotoCoreError</span><span class="p">,</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">module</span><span class="o">.</span><span class="n">fail_json_aws</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Couldn&#39;t obtain frooble </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that it should normally be acceptable to catch all normal exceptions here, however if you
+expect anything other than botocore exceptions you should test everything works as expected.</p>
+<p>If you need to perform an action based on the error boto3 returned, use the error code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a call to AWS</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">describe_frooble</span><span class="p">(</span><span class="n">FroobleName</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;Code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FroobleNotFound&#39;</span><span class="p">:</span>
+        <span class="n">workaround_failure</span><span class="p">()</span>  <span class="c1"># This is an error that we can work around</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">module</span><span class="o">.</span><span class="n">fail_json_aws</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Couldn&#39;t obtain frooble </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BotoCoreError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">module</span><span class="o">.</span><span class="n">fail_json_aws</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Couldn&#39;t obtain frooble </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-fail-json-and-avoiding-ansible-module-utils-aws-core">
+<h3><a class="toc-backref" href="#id16">using fail_json() and avoiding ansible.module_utils.aws.core</a><a class="headerlink" href="#using-fail-json-and-avoiding-ansible-module-utils-aws-core" title="Permalink to this headline">¶</a></h3>
+<p>Boto3 provides lots of useful information when an exception is thrown so pass this to the user
+along with the message.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.module_utils.ec2</span> <span class="kn">import</span> <span class="n">HAS_BOTO3</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">botocore</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>  <span class="c1"># caught by imported HAS_BOTO3</span>
+
+<span class="c1"># Connect to AWS</span>
+<span class="c1"># connection code here</span>
+
+<span class="c1"># Make a call to AWS</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">describe_frooble</span><span class="p">(</span><span class="n">FroobleName</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">module</span><span class="o">.</span><span class="n">fail_json</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Couldn&#39;t obtain frooble </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)),</span>
+                     <span class="n">exception</span><span class="o">=</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span>
+                     <span class="o">**</span><span class="n">camel_dict_to_snake_dict</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note: we use <cite>str(e)</cite> rather than <cite>e.message</cite> as the latter doesn’t
+work with python3</p>
+<p>If you need to perform an action based on the error boto3 returned, use the error code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a call to AWS</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">describe_frooble</span><span class="p">(</span><span class="n">FroobleName</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;Code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FroobleNotFound&#39;</span><span class="p">:</span>
+        <span class="n">workaround_failure</span><span class="p">()</span>  <span class="c1"># This is an error that we can work around</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">module</span><span class="o">.</span><span class="n">fail_json</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Couldn&#39;t obtain frooble </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)),</span>
+                         <span class="n">exception</span><span class="o">=</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span>
+                         <span class="o">**</span><span class="n">camel_dict_to_snake_dict</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">))</span>
+<span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BotoCoreError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">module</span><span class="o">.</span><span class="n">fail_json_aws</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Couldn&#39;t obtain frooble </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="api-throttling-rate-limiting-and-pagination">
+<h2><a class="toc-backref" href="#id17">API throttling (rate limiting) and pagination</a><a class="headerlink" href="#api-throttling-rate-limiting-and-pagination" title="Permalink to this headline">¶</a></h2>
+<p>For methods that return a lot of results, boto3 often provides
+<a class="reference external" href="https://boto3.readthedocs.io/en/latest/guide/paginators.html">paginators</a>. If the method
+you’re calling has <code class="docutils literal notranslate"><span class="pre">NextToken</span></code> or <code class="docutils literal notranslate"><span class="pre">Marker</span></code> parameters, you should probably
+check whether a paginator exists (the top of each boto3 service reference page has a link
+to Paginators, if the service has any). To use paginators, obtain a paginator object,
+call <code class="docutils literal notranslate"><span class="pre">paginator.paginate</span></code> with the appropriate arguments and then call <code class="docutils literal notranslate"><span class="pre">build_full_result</span></code>.</p>
+<p>Any time that you are calling the AWS API a lot, you may experience API throttling,
+and there is an <code class="docutils literal notranslate"><span class="pre">AWSRetry</span></code> decorator that can be used to ensure backoff. Because
+exception handling could interfere with the retry working properly (as AWSRetry needs to
+catch throttling exceptions to work correctly), you’d need to provide a backoff function
+and then put exception handling around the backoff function.</p>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">exponential_backoff</span></code> or <code class="docutils literal notranslate"><span class="pre">jittered_backoff</span></code> strategies - see
+the cloud <code class="docutils literal notranslate"><span class="pre">module_utils</span></code> ()/lib/ansible/module_utils/cloud.py)
+and <a class="reference external" href="https://www.awsarchitectureblog.com/2015/03/backoff.html">AWS Architecture blog</a> for more details.</p>
+<p>The combination of these two approaches is then:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@AWSRetry</span><span class="o">.</span><span class="n">exponential_backoff</span><span class="p">(</span><span class="n">retries</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">describe_some_resource_with_backoff</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+     <span class="n">paginator</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_paginator</span><span class="p">(</span><span class="s1">&#39;describe_some_resource&#39;</span><span class="p">)</span>
+     <span class="k">return</span> <span class="n">paginator</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">build_full_result</span><span class="p">()[</span><span class="s1">&#39;SomeResource&#39;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">describe_some_resource</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+    <span class="n">filters</span> <span class="o">=</span> <span class="n">ansible_dict_to_boto3_filter_list</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;filters&#39;</span><span class="p">])</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">describe_some_resource_with_backoff</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">Filters</span><span class="o">=</span><span class="n">filters</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">module</span><span class="o">.</span><span class="n">fail_json_aws</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Could not describe some resource&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the underlying <code class="docutils literal notranslate"><span class="pre">describe_some_resources</span></code> API call throws a <code class="docutils literal notranslate"><span class="pre">ResourceNotFound</span></code>
+exception, <code class="docutils literal notranslate"><span class="pre">AWSRetry</span></code> takes this as a cue to retry until it’s not thrown (this
+is so that when creating a resource, we can just retry until it exists).</p>
+<p>To handle authorization failures or parameter validation errors in
+<code class="docutils literal notranslate"><span class="pre">describe_some_resource_with_backoff</span></code>, where we just want to return <code class="docutils literal notranslate"><span class="pre">None</span></code> if
+the resource doesn’t exist and not retry, we need:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@AWSRetry</span><span class="o">.</span><span class="n">exponential_backoff</span><span class="p">(</span><span class="n">retries</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">describe_some_resource_with_backoff</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+     <span class="k">try</span><span class="p">:</span>
+         <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="n">describe_some_resource</span><span class="p">(</span><span class="n">ResourceName</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])[</span><span class="s1">&#39;Resources&#39;</span><span class="p">]</span>
+     <span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+         <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;Code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ResourceNotFound&#39;</span><span class="p">:</span>
+             <span class="k">return</span> <span class="kc">None</span>
+         <span class="k">else</span><span class="p">:</span>
+             <span class="k">raise</span>
+     <span class="k">except</span> <span class="n">BotoCoreError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+         <span class="k">raise</span>
+
+<span class="k">def</span> <span class="nf">describe_some_resource</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">describe_some_resource_with_backoff</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BotoCoreError</span><span class="p">,</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">module</span><span class="o">.</span><span class="n">fail_json_aws</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Could not describe resource </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To make use of AWSRetry easier, it can now be wrapped around a client returned
+by <code class="docutils literal notranslate"><span class="pre">AnsibleAWSModule</span></code>. any call from a client. To add retries to a client,
+create a client:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">module</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;ec2&#39;</span><span class="p">,</span> <span class="n">retry_decorator</span><span class="o">=</span><span class="n">AWSRetry</span><span class="o">.</span><span class="n">jittered_backoff</span><span class="p">(</span><span class="n">retries</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Any calls from that client can be made to use the decorator passed at call-time
+using the <cite>aws_retry</cite> argument. By default, no retries are used.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ec2</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;ec2&#39;</span><span class="p">,</span> <span class="n">retry_decorator</span><span class="o">=</span><span class="n">AWSRetry</span><span class="o">.</span><span class="n">jittered_backoff</span><span class="p">(</span><span class="n">retries</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">ec2</span><span class="o">.</span><span class="n">describe_instances</span><span class="p">(</span><span class="n">InstanceIds</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;i-123456789&#39;</span><span class="p">],</span> <span class="n">aws_retry</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># equivalent with normal AWSRetry</span>
+<span class="nd">@AWSRetry</span><span class="o">.</span><span class="n">jittered_backoff</span><span class="p">(</span><span class="n">retries</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">describe_instances</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ec2</span><span class="o">.</span><span class="n">describe_instances</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="n">describe_instances</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;ec2&#39;</span><span class="p">),</span> <span class="n">InstanceIds</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;i-123456789&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The call will be retried the specified number of times, so the calling functions
+don’t need to be wrapped in the backoff decorator.</p>
+<p>You can also use customization for <code class="docutils literal notranslate"><span class="pre">retries</span></code>, <code class="docutils literal notranslate"><span class="pre">delay</span></code> and <code class="docutils literal notranslate"><span class="pre">max_delay</span></code> parameters used by
+<code class="docutils literal notranslate"><span class="pre">AWSRetry.jittered_backoff</span></code> API using module params. You can take a look at
+the <cite>cloudformation &lt;cloudformation_module&gt;</cite> module for example.</p>
+<dl class="simple">
+<dt>To make all Amazon modules uniform, prefix the module param with <code class="docutils literal notranslate"><span class="pre">backoff_</span></code>, so <code class="docutils literal notranslate"><span class="pre">retries</span></code> becomes <code class="docutils literal notranslate"><span class="pre">backoff_retries</span></code></dt><dd><p>and likewise with <code class="docutils literal notranslate"><span class="pre">backoff_delay</span></code> and <code class="docutils literal notranslate"><span class="pre">backoff_max_delay</span></code>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="returning-values">
+<h2><a class="toc-backref" href="#id18">Returning Values</a><a class="headerlink" href="#returning-values" title="Permalink to this headline">¶</a></h2>
+<p>When you make a call using boto3, you will probably get back some useful information that you
+should return in the module.  As well as information related to the call itself, you will also have
+some response metadata.  It is OK to return this to the user as well as they may find it useful.</p>
+<p>Boto3 returns all values CamelCased.  Ansible follows Python standards for variable names and uses
+snake_case. There is a helper function in module_utils/ec2.py called <cite>camel_dict_to_snake_dict</cite>
+that allows you to easily convert the boto3 response to snake_case.</p>
+<p>You should use this helper function and avoid changing the names of values returned by Boto3.
+E.g. if boto3 returns a value called ‘SecretAccessKey’ do not change it to ‘AccessKey’.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a call to AWS</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">aws_call</span><span class="p">()</span>
+
+<span class="c1"># Return the result to the user</span>
+<span class="n">module</span><span class="o">.</span><span class="n">exit_json</span><span class="p">(</span><span class="n">changed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">camel_dict_to_snake_dict</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dealing-with-iam-json-policy">
+<h2><a class="toc-backref" href="#id19">Dealing with IAM JSON policy</a><a class="headerlink" href="#dealing-with-iam-json-policy" title="Permalink to this headline">¶</a></h2>
+<p>If your module accepts IAM JSON policies then set the type to ‘json’ in the module spec. For
+example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">argument_spec</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">policy</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that AWS is unlikely to return the policy in the same order that is was submitted. Therefore,
+use the <cite>compare_policies</cite> helper function which handles this variance.</p>
+<p><cite>compare_policies</cite> takes two dictionaries, recursively sorts and makes them hashable for comparison
+and returns True if they are different.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansible.module_utils.ec2</span> <span class="kn">import</span> <span class="n">compare_policies</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="c1"># some lines skipped here</span>
+
+<span class="c1"># Get the policy from AWS</span>
+<span class="n">current_policy</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">aws_object</span><span class="o">.</span><span class="n">get_policy</span><span class="p">())</span>
+<span class="n">user_policy</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;policy&#39;</span><span class="p">))</span>
+
+<span class="c1"># Compare the user submitted policy to the current policy ignoring order</span>
+<span class="k">if</span> <span class="n">compare_policies</span><span class="p">(</span><span class="n">user_policy</span><span class="p">,</span> <span class="n">current_policy</span><span class="p">):</span>
+    <span class="c1"># Update the policy</span>
+    <span class="n">aws_object</span><span class="o">.</span><span class="n">set_policy</span><span class="p">(</span><span class="n">user_policy</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Nothing to do</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dealing-with-tags">
+<h2><a class="toc-backref" href="#id20">Dealing with tags</a><a class="headerlink" href="#dealing-with-tags" title="Permalink to this headline">¶</a></h2>
+<p>AWS has a concept of resource tags. Usually the boto3 API has separate calls for tagging and
+untagging a resource.  For example, the ec2 API has a create_tags and delete_tags call.</p>
+<p>It is common practice in Ansible AWS modules to have a <cite>purge_tags</cite> parameter that defaults to
+true.</p>
+<p>The <cite>purge_tags</cite> parameter means that existing tags will be deleted if they are not specified by
+the Ansible task.</p>
+<p>There is a helper function <cite>compare_aws_tags</cite> to ease dealing with tags. It can compare two dicts
+and return the tags to set and the tags to delete.  See the Helper function section below for more
+detail.</p>
+</div>
+<div class="section" id="helper-functions">
+<h2><a class="toc-backref" href="#id21">Helper functions</a><a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h2>
+<p>Along with the connection functions in Ansible ec2.py module_utils, there are some other useful
+functions detailed below.</p>
+<div class="section" id="camel-dict-to-snake-dict">
+<h3><a class="toc-backref" href="#id22">camel_dict_to_snake_dict</a><a class="headerlink" href="#camel-dict-to-snake-dict" title="Permalink to this headline">¶</a></h3>
+<p>boto3 returns results in a dict.  The keys of the dict are in CamelCase format. In keeping with
+Ansible format, this function will convert the keys to snake_case.</p>
+<p><code class="docutils literal notranslate"><span class="pre">camel_dict_to_snake_dict</span></code> takes an optional parameter called <code class="docutils literal notranslate"><span class="pre">ignore_list</span></code> which is a list of
+keys not to convert (this is usually useful for the <code class="docutils literal notranslate"><span class="pre">tags</span></code> dict, whose child keys should remain with
+case preserved)</p>
+<p>Another optional parameter is <code class="docutils literal notranslate"><span class="pre">reversible</span></code>. By default, <code class="docutils literal notranslate"><span class="pre">HTTPEndpoint</span></code> is converted to <code class="docutils literal notranslate"><span class="pre">http_endpoint</span></code>,
+which would then be converted by <code class="docutils literal notranslate"><span class="pre">snake_dict_to_camel_dict</span></code> to <code class="docutils literal notranslate"><span class="pre">HttpEndpoint</span></code>.
+Passing <code class="docutils literal notranslate"><span class="pre">reversible=True</span></code> converts HTTPEndpoint to <code class="docutils literal notranslate"><span class="pre">h_t_t_p_endpoint</span></code> which converts back to <code class="docutils literal notranslate"><span class="pre">HTTPEndpoint</span></code>.</p>
+</div>
+<div class="section" id="snake-dict-to-camel-dict">
+<h3><a class="toc-backref" href="#id23">snake_dict_to_camel_dict</a><a class="headerlink" href="#snake-dict-to-camel-dict" title="Permalink to this headline">¶</a></h3>
+<p><cite>snake_dict_to_camel_dict</cite> converts snake cased keys to camel case. By default, because it was
+first introduced for ECS purposes, this converts to dromedaryCase. An optional
+parameter called <cite>capitalize_first</cite>, which defaults to <cite>False</cite>, can be used to convert to CamelCase.</p>
+</div>
+<div class="section" id="ansible-dict-to-boto3-filter-list">
+<h3><a class="toc-backref" href="#id24">ansible_dict_to_boto3_filter_list</a><a class="headerlink" href="#ansible-dict-to-boto3-filter-list" title="Permalink to this headline">¶</a></h3>
+<p>Converts a an Ansible list of filters to a boto3 friendly list of dicts.  This is useful for any
+boto3 <cite>_facts</cite> modules.</p>
+</div>
+<div class="section" id="boto-exception">
+<h3><a class="toc-backref" href="#id25">boto_exception</a><a class="headerlink" href="#boto-exception" title="Permalink to this headline">¶</a></h3>
+<p>Pass an exception returned from boto or boto3, and this function will consistently get the message from the exception.</p>
+<p>Deprecated: use <cite>AnsibleAWSModule</cite>’s <cite>fail_json_aws</cite> instead.</p>
+</div>
+<div class="section" id="boto3-tag-list-to-ansible-dict">
+<h3><a class="toc-backref" href="#id26">boto3_tag_list_to_ansible_dict</a><a class="headerlink" href="#boto3-tag-list-to-ansible-dict" title="Permalink to this headline">¶</a></h3>
+<p>Converts a boto3 tag list to an Ansible dict. Boto3 returns tags as a list of dicts containing keys
+called ‘Key’ and ‘Value’ by default.  This key names can be overridden when calling the function.
+For example, if you have already camel_cased your list of tags you may want to pass lowercase key
+names instead i.e. ‘key’ and ‘value’.</p>
+<p>This function converts the list in to a single dict where the dict key is the tag key and the dict
+value is the tag value.</p>
+</div>
+<div class="section" id="ansible-dict-to-boto3-tag-list">
+<h3><a class="toc-backref" href="#id27">ansible_dict_to_boto3_tag_list</a><a class="headerlink" href="#ansible-dict-to-boto3-tag-list" title="Permalink to this headline">¶</a></h3>
+<p>Opposite of above. Converts an Ansible dict to a boto3 tag list of dicts. You can again override
+the key names used if ‘Key’ and ‘Value’ is not suitable.</p>
+</div>
+<div class="section" id="get-ec2-security-group-ids-from-names">
+<h3><a class="toc-backref" href="#id28">get_ec2_security_group_ids_from_names</a><a class="headerlink" href="#get-ec2-security-group-ids-from-names" title="Permalink to this headline">¶</a></h3>
+<p>Pass this function a list of security group names or combination of security group names and IDs
+and this function will return a list of IDs.  You should also pass the VPC ID if known because
+security group names are not necessarily unique across VPCs.</p>
+</div>
+<div class="section" id="compare-policies">
+<h3><a class="toc-backref" href="#id29">compare_policies</a><a class="headerlink" href="#compare-policies" title="Permalink to this headline">¶</a></h3>
+<p>Pass two dicts of policies to check if there are any meaningful differences and returns true
+if there are. This recursively sorts the dicts and makes them hashable before comparison.</p>
+<p>This method should be used any time policies are being compared so that a change in order
+doesn’t result in unnecessary changes.</p>
+</div>
+<div class="section" id="compare-aws-tags">
+<h3><a class="toc-backref" href="#id30">compare_aws_tags</a><a class="headerlink" href="#compare-aws-tags" title="Permalink to this headline">¶</a></h3>
+<p>Pass two dicts of tags and an optional purge parameter and this function will return a dict
+containing key pairs you need to modify and a list of tag key names that you need to remove.  Purge
+is True by default.  If purge is False then any existing tags will not be modified.</p>
+<p>This function is useful when using boto3 ‘add_tags’ and ‘remove_tags’ functions. Be sure to use the
+other helper function <cite>boto3_tag_list_to_ansible_dict</cite> to get an appropriate tag dict before
+calling this function. Since the AWS APIs are not uniform (e.g. EC2 versus Lambda) this will work
+without modification for some (Lambda) and others may need modification before using these values
+(such as EC2, with requires the tags to unset to be in the form <cite>[{‘Key’: key1}, {‘Key’: key2}]</cite>).</p>
+</div>
+</div>
+<div class="section" id="integration-tests-for-aws-modules">
+<h2><a class="toc-backref" href="#id31">Integration Tests for AWS Modules</a><a class="headerlink" href="#integration-tests-for-aws-modules" title="Permalink to this headline">¶</a></h2>
+<p>All new AWS modules should include integration tests to ensure that any changes in AWS APIs that
+affect the module are detected. At a minimum this should cover the key API calls and check the
+documented return values are present in the module result.</p>
+<p>For general information on running the integration tests see the <a class="reference internal" href="../testing_integration.html#testing-integration"><span class="std std-ref">Integration Tests page of the
+Module Development Guide</span></a>, especially the section on configuration for cloud tests.</p>
+<p>The integration tests for your module should be added in <cite>test/integration/targets/MODULE_NAME</cite>.</p>
+<p>You must also have a aliases file in <cite>test/integration/targets/MODULE_NAME/aliases</cite>. This file serves
+two purposes. First indicates it’s in an AWS test causing the test framework to make AWS credentials
+available during the test run. Second putting the test in a test group causing it to be run in the
+continuous integration build.</p>
+<p>Tests for new modules should be added to the same group as existing AWS tests. In general just copy
+an existing aliases file such as the <a class="reference external" href="https://github.com/ansible/ansible/blob/devel/test/integration/targets/aws_s3/aliases">aws_s3 tests aliases file</a>.</p>
+<div class="section" id="aws-credentials-for-integration-tests">
+<h3><a class="toc-backref" href="#id32">AWS Credentials for Integration Tests</a><a class="headerlink" href="#aws-credentials-for-integration-tests" title="Permalink to this headline">¶</a></h3>
+<p>The testing framework handles running the test with appropriate AWS credentials, these are made available
+to your test in the following variables:</p>
+<ul class="simple">
+<li><p><cite>aws_region</cite></p></li>
+<li><p><cite>aws_access_key</cite></p></li>
+<li><p><cite>aws_secret_key</cite></p></li>
+<li><p><cite>security_token</cite></p></li>
+</ul>
+<p>So all invocations of AWS modules in the test should set these parameters. To avoid duplicating these
+for every call, it’s preferable to use <a class="reference internal" href="../../user_guide/playbooks_module_defaults.html#module-defaults"><span class="std std-ref">module_defaults</span></a>. For example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">set connection information for aws modules and run tasks</span>
+  <span class="nt">module_defaults</span><span class="p">:</span>
+    <span class="nt">group/aws</span><span class="p">:</span>
+      <span class="nt">aws_access_key</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">aws_access_key</span><span class="nv"> </span><span class="s">}}&quot;</span>
+      <span class="nt">aws_secret_key</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">aws_secret_key</span><span class="nv"> </span><span class="s">}}&quot;</span>
+      <span class="nt">security_token</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">security_token</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">default(omit)</span><span class="nv"> </span><span class="s">}}&quot;</span>
+      <span class="nt">region</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">aws_region</span><span class="nv"> </span><span class="s">}}&quot;</span>
+
+  <span class="nt">block</span><span class="p">:</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Do Something</span>
+    <span class="nt">ec2_instance</span><span class="p">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">... params ...</span>
+
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Do Something Else</span>
+    <span class="nt">ec2_instance</span><span class="p">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">... params ...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="aws-permissions-for-integration-tests">
+<h3><a class="toc-backref" href="#id33">AWS Permissions for Integration Tests</a><a class="headerlink" href="#aws-permissions-for-integration-tests" title="Permalink to this headline">¶</a></h3>
+<p>As explained in the <a class="reference internal" href="../testing_integration.html#testing-integration"><span class="std std-ref">Integration Test guide</span></a>
+there are defined IAM policies in <code class="docutils literal notranslate"><span class="pre">hacking/aws_config/testing_policies/</span></code> that contain the necessary permissions
+to run the AWS integration test. The permissions used by CI are more restrictive than those in <code class="docutils literal notranslate"><span class="pre">hacking/aws_config/testing_policies</span></code>; for CI we want
+the most restrictive policy possible that still allows the given tests to pass.</p>
+<p>If your module interacts with a new service or otherwise requires new permissions, tests will fail when you submit a pull request and the
+<a class="reference external" href="https://github.com/ansible/ansibullbot/blob/master/ISSUE_HELP.md">Ansibullbot</a> will tag your PR as needing revision.
+We do not automatically grant additional permissions to the roles used by the continuous integration builds. You must provide the minimum IAM permissions required to run your integration test.</p>
+<p>If your PR has test failures, check carefully to be certain the failure is only due to the missing permissions. If you’ve ruled out other sources of failure, add a comment with the <cite>ready_for_review</cite>
+tag and explain that it’s due to missing permissions.</p>
+<p>Your pull request cannot be merged until the tests are passing. If your pull request is failing due to missing permissions,
+you must collect the minimum IAM permissions required to
+run the tests.</p>
+<p>There are two ways to figure out which IAM permissions you need for your PR to pass:</p>
+<ul class="simple">
+<li><p>Start with the most permissive IAM policy, run the tests to collect information about which resources your tests actually use, then construct a policy based on that output. This approach only works on modules that use <cite>AnsibleAWSModule</cite>.</p></li>
+<li><p>Start with the least permissive IAM policy, run the tests to discover a failure, add permissions for the resource that addresses that failure, then repeat. If your module uses <cite>AnsibleModule</cite> instead of <cite>AnsibleAWSModule</cite>, you must use this approach.</p></li>
+</ul>
+<p>To start with the most permissive IAM policy:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html#access_policies_create-start">Create an IAM policy</a> that allows all actions (set <code class="docutils literal notranslate"><span class="pre">Action</span></code> and <code class="docutils literal notranslate"><span class="pre">Resource</span></code> to <code class="docutils literal notranslate"><span class="pre">*`</span></code>).</p></li>
+<li><p>Run your tests locally with this policy. On AnsibleAWSModule-based modules, the <code class="docutils literal notranslate"><span class="pre">debug_botocore_endpoint_logs</span></code> option is automatically set to <code class="docutils literal notranslate"><span class="pre">yes</span></code>, so you should see a list of AWS ACTIONS after the PLAY RECAP showing all the permissions used. If your tests use a boto/AnsibleModule module, you must start with the least permissive policy (see below).</p></li>
+<li><p>Modify your policy to allow only the actions your tests use. Restrict account, region, and prefix where possible. Wait a few minutes for your policy to update.</p></li>
+<li><p>Run the tests again with a user or role that allows only the new policy.</p></li>
+<li><p>If the tests fail, troubleshoot (see tips below), modify the policy, run the tests again, and repeat the process until the tests pass with a restrictive policy.</p></li>
+<li><p>Open a pull request proposing the minimum required policy to the <a class="reference external" href="https://github.com/mattclay/aws-terminator/tree/master/aws/policy">testing policies</a>.</p></li>
+</ol>
+<p>To start from the least permissive IAM policy:</p>
+<ol class="arabic simple">
+<li><p>Run the integration tests locally with no IAM permissions.</p></li>
+<li><dl class="simple">
+<dt>Examine the error when the tests reach a failure.</dt><dd><ol class="loweralpha simple">
+<li><p>If the error message indicates the action used in the request, add the action to your policy.</p></li>
+<li><dl class="simple">
+<dt>If the error message does not indicate the action used in the request:</dt><dd><ul class="simple">
+<li><p>Usually the action is a CamelCase version of the method name - for example, for an ec2 client the method <cite>describe_security_groups</cite> correlates to the action <cite>ec2:DescribeSecurityGroups</cite>.</p></li>
+<li><p>Refer to the documentation to identify the action.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>If the error message indicates the resource ARN used in the request, limit the action to that resource.</p></li>
+<li><dl class="simple">
+<dt>If the error message does not indicate the resource ARN used:</dt><dd><ul class="simple">
+<li><p>Determine if the action can be restricted to a resource by examining the documentation.</p></li>
+<li><p>If the action can be restricted, use the documentation to construct the ARN and add it to the policy.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p>Add the action or resource that caused the failure to <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html#access_policies_create-start">an IAM policy</a>. Wait a few minutes for your policy to update.</p></li>
+<li><p>Run the tests again with this policy attached to your user or role.</p></li>
+<li><p>If the tests still fail at the same place with the same error you will need to troubleshoot (see tips below). If the first test passes, repeat steps 2 and 3 for the next error. Repeat the process until the tests pass with a restrictive policy.</p></li>
+<li><p>Open a pull request proposing the minimum required policy to the <a class="reference external" href="https://github.com/mattclay/aws-terminator/tree/master/aws/policy">testing policies</a>.</p></li>
+</ol>
+<div class="section" id="troubleshooting-iam-policies">
+<h4><a class="toc-backref" href="#id34">Troubleshooting IAM policies</a><a class="headerlink" href="#troubleshooting-iam-policies" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>When you make changes to a policy, wait a few minutes for the policy to update before re-running the tests.</p></li>
+<li><p>Use the <a class="reference external" href="https://policysim.aws.amazon.com/">policy simulator</a> to verify that each action (limited by resource when applicable) in your policy is allowed.</p></li>
+<li><p>If you’re restricting actions to certain resources, replace resources temporarily with <cite>*</cite>. If the tests pass with wildcard resources, there is a problem with the resource definition in your policy.</p></li>
+<li><p>If the initial troubleshooting above doesn’t provide any more insight, AWS may be using additional undisclosed resources and actions.</p></li>
+<li><p>Examine the AWS FullAccess policy for the service for clues.</p></li>
+<li><p>Re-read the AWS documentation, especially the list of <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html">Actions, Resources and Condition Keys</a> for the various AWS services.</p></li>
+<li><p>Look at the <a class="reference external" href="https://iam.cloudonaut.io">cloudonaut</a> documentation as a troubleshooting cross-reference.</p></li>
+<li><p>Use a search engine.</p></li>
+<li><p>Ask in the Ansible IRC channel #ansible-aws (on freenode IRC).</p></li>
+</ul>
+<p>Some cases where tests should be marked as unsupported:
+1) The tests take longer than 10 or 15 minutes to complete
+2) The tests create expensive resources
+3) The tests create inline policies</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="openstack_guidelines.html" class="btn btn-neutral float-right" title="OpenStack Ansible Modules"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../developing_modules_general_aci.html" class="btn btn-neutral" title="Developing Cisco ACI modules"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>

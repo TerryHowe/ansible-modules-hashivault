@@ -1,0 +1,1158 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ansible 2.9 Porting Guide &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/porting_guides/porting_guide_2.9.html"/>
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ansible 2.8 Porting Guide" href="porting_guide_2.8.html" />
+    <link rel="prev" title="Ansible Porting Guides" href="porting_guides.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="porting_guides.html">Ansible Porting Guides</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Ansible 2.9 Porting Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#playbook">Playbook</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#inventory">Inventory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#loops">Loops</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#command-line">Command Line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecated">Deprecated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#collection-loader-changes">Collection loader changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modules">Modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#renaming-from-facts-to-info">Renaming from <code class="docutils literal notranslate"><span class="pre">_facts</span></code> to <code class="docutils literal notranslate"><span class="pre">_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#writing-modules">Writing modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules-removed">Modules removed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deprecation-notices">Deprecation notices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#noteworthy-module-changes">Noteworthy module changes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#plugins">Plugins</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#removed-lookup-plugins">Removed Lookup Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#porting-custom-scripts">Porting custom scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#networking">Networking</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#network-resource-modules">Network resource modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#improved-gather-facts-support-for-network-devices">Improved <code class="docutils literal notranslate"><span class="pre">gather_facts</span></code> support for network devices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#top-level-connection-arguments-removed-in-2-9">Top-level connection arguments removed in 2.9</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.8.html">Ansible 2.8 Porting Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.7.html">Ansible 2.7 Porting Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.6.html">Ansible 2.6 Porting Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.5.html">Ansible 2.5 Porting Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.4.html">Ansible 2.4 Porting Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.3.html">Ansible 2.3 Porting Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide_2.0.html">Ansible 2.0 Porting Guide</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/virt_guides.html">Virtualization and Containerization Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">Ansible for Network Automation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/general_precedence.html">Controlling how Ansible behaves: precedence rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="porting_guides.html">Ansible Porting Guides</a> &raquo;</li>
+        
+      <li>Ansible 2.9 Porting Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/porting_guides/porting_guide_2.9.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ansible-2-9-porting-guide">
+<span id="porting-2-9-guide"></span><h1><a class="toc-backref" href="#id1">Ansible 2.9 Porting Guide</a><a class="headerlink" href="#ansible-2-9-porting-guide" title="Permalink to this headline">¶</a></h1>
+<p>This section discusses the behavioral changes between Ansible 2.8 and Ansible 2.9.</p>
+<p>It is intended to assist in updating your playbooks, plugins and other parts of your Ansible infrastructure so they will work with this version of Ansible.</p>
+<p>We suggest you read this page along with <a class="reference external" href="https://github.com/ansible/ansible/blob/stable-2.9/changelogs/CHANGELOG-v2.9.rst">Ansible Changelog for 2.9</a> to understand what updates you may need to make.</p>
+<p>This document is part of a collection on porting. The complete list of porting guides can be found at <a class="reference internal" href="porting_guides.html#porting-guides"><span class="std std-ref">porting guides</span></a>.</p>
+<div class="contents topic" id="topics">
+<p class="topic-title">Topics</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#ansible-2-9-porting-guide" id="id1">Ansible 2.9 Porting Guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#playbook" id="id2">Playbook</a></p>
+<ul>
+<li><p><a class="reference internal" href="#inventory" id="id3">Inventory</a></p></li>
+<li><p><a class="reference internal" href="#loops" id="id4">Loops</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#command-line" id="id5">Command Line</a></p></li>
+<li><p><a class="reference internal" href="#deprecated" id="id6">Deprecated</a></p></li>
+<li><p><a class="reference internal" href="#collection-loader-changes" id="id7">Collection loader changes</a></p></li>
+<li><p><a class="reference internal" href="#modules" id="id8">Modules</a></p>
+<ul>
+<li><p><a class="reference internal" href="#renaming-from-facts-to-info" id="id9">Renaming from <code class="docutils literal notranslate"><span class="pre">_facts</span></code> to <code class="docutils literal notranslate"><span class="pre">_info</span></code></a></p></li>
+<li><p><a class="reference internal" href="#writing-modules" id="id10">Writing modules</a></p></li>
+<li><p><a class="reference internal" href="#modules-removed" id="id11">Modules removed</a></p></li>
+<li><p><a class="reference internal" href="#deprecation-notices" id="id12">Deprecation notices</a></p>
+<ul>
+<li><p><a class="reference internal" href="#renamed-modules" id="id13">Renamed modules</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#noteworthy-module-changes" id="id14">Noteworthy module changes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#plugins" id="id15">Plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#removed-lookup-plugins" id="id16">Removed Lookup Plugins</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#porting-custom-scripts" id="id17">Porting custom scripts</a></p></li>
+<li><p><a class="reference internal" href="#networking" id="id18">Networking</a></p>
+<ul>
+<li><p><a class="reference internal" href="#network-resource-modules" id="id19">Network resource modules</a></p></li>
+<li><p><a class="reference internal" href="#improved-gather-facts-support-for-network-devices" id="id20">Improved <code class="docutils literal notranslate"><span class="pre">gather_facts</span></code> support for network devices</a></p></li>
+<li><p><a class="reference internal" href="#top-level-connection-arguments-removed-in-2-9" id="id21">Top-level connection arguments removed in 2.9</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="playbook">
+<h2><a class="toc-backref" href="#id2">Playbook</a><a class="headerlink" href="#playbook" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="inventory">
+<h3><a class="toc-backref" href="#id3">Inventory</a><a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hash_behaviour</span></code> now affects inventory sources. If you have it set to <code class="docutils literal notranslate"><span class="pre">merge</span></code>, the data you get from inventory might change and you will have to update playbooks accordingly. If you’re using the default setting (<code class="docutils literal notranslate"><span class="pre">overwrite</span></code>), you will see no changes. Inventory was ignoring this setting.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="loops">
+<h3><a class="toc-backref" href="#id4">Loops</a><a class="headerlink" href="#loops" title="Permalink to this headline">¶</a></h3>
+<p>Ansible 2.9 handles “unsafe” data more robustly, ensuring that data marked “unsafe” is not templated. In previous versions, Ansible recursively marked all data returned by the direct use of <code class="docutils literal notranslate"><span class="pre">lookup()</span></code> as “unsafe”, but only marked structured data returned by indirect lookups using <code class="docutils literal notranslate"><span class="pre">with_X</span></code> style loops as “unsafe” if the returned elements were strings. Ansible 2.9 treats these two approaches consistently.</p>
+<p>As a result, if you use <code class="docutils literal notranslate"><span class="pre">with_dict</span></code> to return keys with templatable values, your templates may no longer work as expected in Ansible 2.9.</p>
+<p>To allow the old behavior, switch from using <code class="docutils literal notranslate"><span class="pre">with_X</span></code> to using <code class="docutils literal notranslate"><span class="pre">loop</span></code> with a filter as described at <a class="reference internal" href="../user_guide/playbooks_loops.html#migrating-to-loop"><span class="std std-ref">Migrating from with_X to loop</span></a>.</p>
+</div>
+</div>
+<div class="section" id="command-line">
+<h2><a class="toc-backref" href="#id5">Command Line</a><a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The location of the Galaxy token file has changed from <code class="docutils literal notranslate"><span class="pre">~/.ansible_galaxy</span></code> to <code class="docutils literal notranslate"><span class="pre">~/.ansible/galaxy_token</span></code>. You can configure both path and file name with the <a class="reference internal" href="../reference_appendices/config.html#galaxy-token-path"><span class="std std-ref">GALAXY_TOKEN_PATH</span></a> config.</p></li>
+</ul>
+</div>
+<div class="section" id="deprecated">
+<h2><a class="toc-backref" href="#id6">Deprecated</a><a class="headerlink" href="#deprecated" title="Permalink to this headline">¶</a></h2>
+<p>No notable changes</p>
+</div>
+<div class="section" id="collection-loader-changes">
+<h2><a class="toc-backref" href="#id7">Collection loader changes</a><a class="headerlink" href="#collection-loader-changes" title="Permalink to this headline">¶</a></h2>
+<p>The way to import a PowerShell or C# module util from a collection has changed in the Ansible 2.9 release. In Ansible
+2.8 a util was imported with the following syntax:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#AnsibleRequires -CSharpUtil AnsibleCollections.namespace_name.collection_name.util_filename</span>
+<span class="c">#AnsibleRequires -PowerShell AnsibleCollections.namespace_name.collection_name.util_filename</span>
+</pre></div>
+</div>
+<p>In Ansible 2.9 this was changed to:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#AnsibleRequires -CSharpUtil ansible_collections.namespace_name.collection_name.plugins.module_utils.util_filename</span>
+<span class="c">#AnsibleRequires -PowerShell ansible_collections.namespace_name.collection_name.plugins.module_utils.util_filename</span>
+</pre></div>
+</div>
+<p>The change in the collection import name also requires any C# util namespaces to be updated with the newer name
+format. This is more verbose but is designed to make sure we avoid plugin name conflicts across separate plugin types
+and to standardise how imports work in PowerShell with how Python modules work.</p>
+</div>
+<div class="section" id="modules">
+<h2><a class="toc-backref" href="#id8">Modules</a><a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">win_get_url</span></code> and <code class="docutils literal notranslate"><span class="pre">win_uri</span></code> module now sends requests with a default <code class="docutils literal notranslate"><span class="pre">User-Agent</span></code> of <code class="docutils literal notranslate"><span class="pre">ansible-httpget</span></code>. This can be changed by using the <code class="docutils literal notranslate"><span class="pre">http_agent</span></code> key.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">apt</span></code> module now honors <code class="docutils literal notranslate"><span class="pre">update_cache=false</span></code> while installing its own dependency and skips the cache update. Explicitly setting <code class="docutils literal notranslate"><span class="pre">update_cache=true</span></code> or omitting the param <code class="docutils literal notranslate"><span class="pre">update_cache</span></code> will result in a cache update while installing its own dependency.</p></li>
+</ul>
+<div class="section" id="renaming-from-facts-to-info">
+<h3><a class="toc-backref" href="#id9">Renaming from <code class="docutils literal notranslate"><span class="pre">_facts</span></code> to <code class="docutils literal notranslate"><span class="pre">_info</span></code></a><a class="headerlink" href="#renaming-from-facts-to-info" title="Permalink to this headline">¶</a></h3>
+<p>Ansible 2.9 renamed a lot of modules from <code class="docutils literal notranslate"><span class="pre">&lt;something&gt;_facts</span></code> to <code class="docutils literal notranslate"><span class="pre">&lt;something&gt;_info</span></code>, because the modules do not return <a class="reference internal" href="../user_guide/playbooks_variables.html#vars-and-facts"><span class="std std-ref">Ansible facts</span></a>. Ansible facts relate to a specific host. For example, the configuration of a network interface, the operating system on a unix server, and the list of packages installed on a Windows box are all Ansible facts. The renamed modules return values that are not unique to the host. For example, account information or region data for a cloud provider. Renaming these modules should provide more clarity about the types of return values each set of modules offers.</p>
+</div>
+<div class="section" id="writing-modules">
+<h3><a class="toc-backref" href="#id10">Writing modules</a><a class="headerlink" href="#writing-modules" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>Module and module_utils files can now use relative imports to include other module_utils files.
+This is useful for shortening long import lines, especially in collections.</p>
+<p>Example of using a relative import in collections:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># File: ansible_collections/my_namespace/my_collection/plugins/modules/my_module.py</span>
+<span class="c1"># Old way to use an absolute import to import module_utils from the collection:</span>
+<span class="kn">from</span> <span class="nn">ansible_collections.my_namespace.my_collection.plugins.module_utils</span> <span class="kn">import</span> <span class="n">my_util</span>
+<span class="c1"># New way using a relative import:</span>
+<span class="kn">from</span> <span class="nn">..module_utils</span> <span class="kn">import</span> <span class="n">my_util</span>
+</pre></div>
+</div>
+<p>Modules and module_utils shipped with Ansible can use relative imports as well but the savings
+are smaller:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># File: ansible/modules/system/ping.py</span>
+<span class="c1"># Old way to use an absolute import to import module_utils from core:</span>
+<span class="kn">from</span> <span class="nn">ansible.module_utils.basic</span> <span class="kn">import</span> <span class="n">AnsibleModule</span>
+<span class="c1"># New way using a relative import:</span>
+<span class="kn">from</span> <span class="nn">...module_utils.basic</span> <span class="kn">import</span> <span class="n">AnsibleModule</span>
+</pre></div>
+</div>
+<p>Each single dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>) represents one level of the tree (equivalent to <code class="docutils literal notranslate"><span class="pre">../</span></code> in filesystem relative links).</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0328/#guido-s-decision">The Python Relative Import Docs</a> go into more detail of how to write relative imports.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="modules-removed">
+<h3><a class="toc-backref" href="#id11">Modules removed</a><a class="headerlink" href="#modules-removed" title="Permalink to this headline">¶</a></h3>
+<p>The following modules no longer exist:</p>
+<ul class="simple">
+<li><p>Apstra’s <code class="docutils literal notranslate"><span class="pre">aos_*</span></code> modules.  See the new modules at  <a class="reference external" href="https://github.com/apstra">https://github.com/apstra</a>.</p></li>
+<li><p>ec2_ami_find use <span class="xref std std-ref">ec2_ami_facts</span> instead.</p></li>
+<li><p>kubernetes use <span class="xref std std-ref">k8s_raw</span> instead.</p></li>
+<li><p>nxos_ip_interface use <span class="xref std std-ref">nxos_l3_interface</span> instead.</p></li>
+<li><p>nxos_portchannel use <span class="xref std std-ref">nxos_linkagg</span> instead.</p></li>
+<li><p>nxos_switchport use <span class="xref std std-ref">nxos_l2_interface</span> instead.</p></li>
+<li><p>oc use <span class="xref std std-ref">openshift_raw</span> instead.</p></li>
+<li><p>panos_nat_policy use <span class="xref std std-ref">panos_nat_rule</span> instead.</p></li>
+<li><p>panos_security_policy use <span class="xref std std-ref">panos_security_rule</span> instead.</p></li>
+<li><p>vsphere_guest use <span class="xref std std-ref">vmware_guest</span> instead.</p></li>
+</ul>
+</div>
+<div class="section" id="deprecation-notices">
+<h3><a class="toc-backref" href="#id12">Deprecation notices</a><a class="headerlink" href="#deprecation-notices" title="Permalink to this headline">¶</a></h3>
+<p>The following modules will be removed in Ansible 2.13. Please update update your playbooks accordingly.</p>
+<ul class="simple">
+<li><p>cs_instance_facts use <span class="xref std std-ref">cs_instance_info</span> instead.</p></li>
+<li><p>cs_zone_facts use <span class="xref std std-ref">cs_zone_info</span> instead.</p></li>
+<li><p>digital_ocean_sshkey_facts use <span class="xref std std-ref">digital_ocean_sshkey_info</span> instead.</p></li>
+<li><p>eos_interface use <span class="xref std std-ref">eos_interfaces</span> instead.</p></li>
+<li><p>eos_l2_interface use <span class="xref std std-ref">eos_l2_interfaces</span> instead.</p></li>
+<li><p>eos_l3_interface use <span class="xref std std-ref">eos_l3_interfaces</span> instead.</p></li>
+<li><p>eos_linkagg use <span class="xref std std-ref">eos_lag_interfaces</span> instead.</p></li>
+<li><p>eos_lldp_interface use <span class="xref std std-ref">eos_lldp_interfaces</span> instead.</p></li>
+<li><p>eos_vlan use <span class="xref std std-ref">eos_vlans</span> instead.</p></li>
+<li><p>ios_interface use <span class="xref std std-ref">ios_interfaces</span> instead.</p></li>
+<li><p>ios_l2_interface use <span class="xref std std-ref">ios_l2_interfaces</span> instead.</p></li>
+<li><p>ios_l3_interface use <span class="xref std std-ref">ios_l3_interfaces</span> instead.</p></li>
+<li><p>ios_vlan use <span class="xref std std-ref">ios_vlans</span> instead.</p></li>
+<li><p>iosxr_interface use <span class="xref std std-ref">iosxr_interfaces</span> instead.</p></li>
+<li><p>junos_interface use <span class="xref std std-ref">junos_interfaces</span> instead.</p></li>
+<li><p>junos_l2_interface use <span class="xref std std-ref">junos_l2_interfaces</span> instead.</p></li>
+<li><p>junos_l3_interface use <span class="xref std std-ref">junos_l3_interfaces</span> instead.</p></li>
+<li><p>junos_linkagg use <span class="xref std std-ref">junos_lag_interfaces</span> instead.</p></li>
+<li><p>junos_lldp use <span class="xref std std-ref">junos_lldp_global</span> instead.</p></li>
+<li><p>junos_lldp_interface use <span class="xref std std-ref">junos_lldp_interfaces</span> instead.</p></li>
+<li><p>junos_vlan use <span class="xref std std-ref">junos_vlans</span> instead.</p></li>
+<li><p>lambda_facts use <span class="xref std std-ref">lambda_info</span> instead.</p></li>
+<li><p>na_ontap_gather_facts use <span class="xref std std-ref">na_ontap_info</span> instead.</p></li>
+<li><p>net_banner use the platform-specific [netos]_banner modules instead.</p></li>
+<li><p>net_interface use the new platform-specific [netos]_interfaces modules instead.</p></li>
+<li><p>net_l2_interface use the new platform-specific [netos]_l2_interfaces modules instead.</p></li>
+<li><p>net_l3_interface use the new platform-specific [netos]_l3_interfaces modules instead.</p></li>
+<li><p>net_linkagg use the new platform-specific [netos]_lag modules instead.</p></li>
+<li><p>net_lldp use the new platform-specific [netos]_lldp_global modules instead.</p></li>
+<li><p>net_lldp_interface use the new platform-specific [netos]_lldp_interfaces modules instead.</p></li>
+<li><p>net_logging use the platform-specific [netos]_logging modules instead.</p></li>
+<li><p>net_static_route use the platform-specific [netos]_static_route modules instead.</p></li>
+<li><p>net_system use the platform-specific [netos]_system modules instead.</p></li>
+<li><p>net_user use the platform-specific [netos]_user modules instead.</p></li>
+<li><p>net_vlan use the new platform-specific [netos]_vlans modules instead.</p></li>
+<li><p>net_vrf use the platform-specific [netos]_vrf modules instead.</p></li>
+<li><p>nginx_status_facts use <span class="xref std std-ref">nginx_status_info</span> instead.</p></li>
+<li><p>nxos_interface use <span class="xref std std-ref">nxos_interfaces</span> instead.</p></li>
+<li><p>nxos_l2_interface use <span class="xref std std-ref">nxos_l2_interfaces</span> instead.</p></li>
+<li><p>nxos_l3_interface use <span class="xref std std-ref">nxos_l3_interfaces</span> instead.</p></li>
+<li><p>nxos_linkagg use <span class="xref std std-ref">nxos_lag_interfaces</span> instead.</p></li>
+<li><p>nxos_vlan use <span class="xref std std-ref">nxos_vlans</span> instead.</p></li>
+<li><p>online_server_facts use <span class="xref std std-ref">online_server_info</span> instead.</p></li>
+<li><p>online_user_facts use <span class="xref std std-ref">online_user_info</span> instead.</p></li>
+<li><p>purefa_facts use <span class="xref std std-ref">purefa_info</span> instead.</p></li>
+<li><p>purefb_facts use <span class="xref std std-ref">purefb_info</span> instead.</p></li>
+<li><p>scaleway_image_facts use <span class="xref std std-ref">scaleway_image_info</span> instead.</p></li>
+<li><p>scaleway_ip_facts use <span class="xref std std-ref">scaleway_ip_info</span> instead.</p></li>
+<li><p>scaleway_organization_facts use <span class="xref std std-ref">scaleway_organization_info</span> instead.</p></li>
+<li><p>scaleway_security_group_facts use <span class="xref std std-ref">scaleway_security_group_info</span> instead.</p></li>
+<li><p>scaleway_server_facts use <span class="xref std std-ref">scaleway_server_info</span> instead.</p></li>
+<li><p>scaleway_snapshot_facts use <span class="xref std std-ref">scaleway_snapshot_info</span> instead.</p></li>
+<li><p>scaleway_volume_facts use <span class="xref std std-ref">scaleway_volume_info</span> instead.</p></li>
+<li><p>vcenter_extension_facts use <span class="xref std std-ref">vcenter_extension_info</span> instead.</p></li>
+<li><p>vmware_about_facts use <span class="xref std std-ref">vmware_about_info</span> instead.</p></li>
+<li><p>vmware_category_facts use <span class="xref std std-ref">vmware_category_info</span> instead.</p></li>
+<li><p>vmware_drs_group_facts use <span class="xref std std-ref">vmware_drs_group_info</span> instead.</p></li>
+<li><p>vmware_drs_rule_facts use <span class="xref std std-ref">vmware_drs_rule_info</span> instead.</p></li>
+<li><p>vmware_dvs_portgroup_facts use <span class="xref std std-ref">vmware_dvs_portgroup_info</span> instead.</p></li>
+<li><p>vmware_guest_boot_facts use <span class="xref std std-ref">vmware_guest_boot_info</span> instead.</p></li>
+<li><p>vmware_guest_customization_facts use <span class="xref std std-ref">vmware_guest_customization_info</span> instead.</p></li>
+<li><p>vmware_guest_disk_facts use <span class="xref std std-ref">vmware_guest_disk_info</span> instead.</p></li>
+<li><p>vmware_host_capability_facts use <span class="xref std std-ref">vmware_host_capability_info</span> instead.</p></li>
+<li><p>vmware_host_config_facts use <span class="xref std std-ref">vmware_host_config_info</span> instead.</p></li>
+<li><p>vmware_host_dns_facts use <span class="xref std std-ref">vmware_host_dns_info</span> instead.</p></li>
+<li><p>vmware_host_feature_facts use <span class="xref std std-ref">vmware_host_feature_info</span> instead.</p></li>
+<li><p>vmware_host_firewall_facts use <span class="xref std std-ref">vmware_host_firewall_info</span> instead.</p></li>
+<li><p>vmware_host_ntp_facts use <span class="xref std std-ref">vmware_host_ntp_info</span> instead.</p></li>
+<li><p>vmware_host_package_facts use <span class="xref std std-ref">vmware_host_package_info</span> instead.</p></li>
+<li><p>vmware_host_service_facts use <span class="xref std std-ref">vmware_host_service_info</span> instead.</p></li>
+<li><p>vmware_host_ssl_facts use <span class="xref std std-ref">vmware_host_ssl_info</span> instead.</p></li>
+<li><p>vmware_host_vmhba_facts use <span class="xref std std-ref">vmware_host_vmhba_info</span> instead.</p></li>
+<li><p>vmware_host_vmnic_facts use <span class="xref std std-ref">vmware_host_vmnic_info</span> instead.</p></li>
+<li><p>vmware_local_role_facts use <span class="xref std std-ref">vmware_local_role_info</span> instead.</p></li>
+<li><p>vmware_local_user_facts use <span class="xref std std-ref">vmware_local_user_info</span> instead.</p></li>
+<li><p>vmware_portgroup_facts use <span class="xref std std-ref">vmware_portgroup_info</span> instead.</p></li>
+<li><p>vmware_resource_pool_facts use <span class="xref std std-ref">vmware_resource_pool_info</span> instead.</p></li>
+<li><p>vmware_target_canonical_facts use <span class="xref std std-ref">vmware_target_canonical_info</span> instead.</p></li>
+<li><p>vmware_vmkernel_facts use <span class="xref std std-ref">vmware_vmkernel_info</span> instead.</p></li>
+<li><p>vmware_vswitch_facts use <span class="xref std std-ref">vmware_vswitch_info</span> instead.</p></li>
+<li><p>vultr_account_facts use <span class="xref std std-ref">vultr_account_info</span> instead.</p></li>
+<li><p>vultr_block_storage_facts use <span class="xref std std-ref">vultr_block_storage_info</span> instead.</p></li>
+<li><p>vultr_dns_domain_facts use <span class="xref std std-ref">vultr_dns_domain_info</span> instead.</p></li>
+<li><p>vultr_firewall_group_facts use <span class="xref std std-ref">vultr_firewall_group_info</span> instead.</p></li>
+<li><p>vultr_network_facts use <span class="xref std std-ref">vultr_network_info</span> instead.</p></li>
+<li><p>vultr_os_facts use <span class="xref std std-ref">vultr_os_info</span> instead.</p></li>
+<li><p>vultr_plan_facts use <span class="xref std std-ref">vultr_plan_info</span> instead.</p></li>
+<li><p>vultr_region_facts use <span class="xref std std-ref">vultr_region_info</span> instead.</p></li>
+<li><p>vultr_server_facts use <span class="xref std std-ref">vultr_server_info</span> instead.</p></li>
+<li><p>vultr_ssh_key_facts use <span class="xref std std-ref">vultr_ssh_key_info</span> instead.</p></li>
+<li><p>vultr_startup_script_facts use <span class="xref std std-ref">vultr_startup_script_info</span> instead.</p></li>
+<li><p>vultr_user_facts use <span class="xref std std-ref">vultr_user_info</span> instead.</p></li>
+<li><p>vyos_interface use <span class="xref std std-ref">vyos_interfaces</span> instead.</p></li>
+<li><p>vyos_l3_interface use <span class="xref std std-ref">vyos_l3_interfaces</span> instead.</p></li>
+<li><p>vyos_linkagg use <span class="xref std std-ref">vyos_lag_interfaces</span> instead.</p></li>
+<li><p>vyos_lldp use <span class="xref std std-ref">vyos_lldp_global</span> instead.</p></li>
+<li><p>vyos_lldp_interface use <span class="xref std std-ref">vyos_lldp_interfaces</span> instead.</p></li>
+</ul>
+<p>The following functionality will be removed in Ansible 2.12. Please update update your playbooks accordingly.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vmware_cluster</span></code> DRS, HA and VSAN configuration; use <span class="xref std std-ref">vmware_cluster_drs</span>, <span class="xref std std-ref">vmware_cluster_ha</span> and <span class="xref std std-ref">vmware_cluster_vsan</span> instead.</p></li>
+</ul>
+<p>The following functionality will be removed in Ansible 2.13. Please update update your playbooks accordingly.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">openssl_certificate</span></code> deprecates the <code class="docutils literal notranslate"><span class="pre">assertonly</span></code> provider.
+Please see the <span class="xref std std-ref">openssl_certificate</span> documentation examples on how to
+replace the provider with the <span class="xref std std-ref">openssl_certificate_info</span>,
+<span class="xref std std-ref">openssl_csr_info</span>, <span class="xref std std-ref">openssl_privatekey_info</span>
+and <span class="xref std std-ref">assert</span> modules.</p></li>
+</ul>
+<p>For the following modules, the PyOpenSSL-based backend <code class="docutils literal notranslate"><span class="pre">pyopenssl</span></code> has been deprecated and will be
+removed in Ansible 2.13:</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">get_certificate</span></p></li>
+<li><p><span class="xref std std-ref">openssl_certificate</span></p></li>
+<li><p><span class="xref std std-ref">openssl_certificate_info</span></p></li>
+<li><p><span class="xref std std-ref">openssl_csr</span></p></li>
+<li><p><span class="xref std std-ref">openssl_csr_info</span></p></li>
+<li><p><span class="xref std std-ref">openssl_privatekey</span></p></li>
+<li><p><span class="xref std std-ref">openssl_privatekey_info</span></p></li>
+<li><p><span class="xref std std-ref">openssl_publickey</span></p></li>
+</ul>
+<div class="section" id="renamed-modules">
+<h4><a class="toc-backref" href="#id13">Renamed modules</a><a class="headerlink" href="#renamed-modules" title="Permalink to this headline">¶</a></h4>
+<p>The following modules have been renamed. The old name is deprecated and will
+be removed in Ansible 2.13. Please update update your playbooks accordingly.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ali_instance_facts</span></code> module was renamed to <span class="xref std std-ref">ali_instance_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">aws_acm_facts</span></code> module was renamed to <span class="xref std std-ref">aws_acm_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">aws_az_facts</span></code> module was renamed to <span class="xref std std-ref">aws_az_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">aws_caller_facts</span></code> module was renamed to <span class="xref std std-ref">aws_caller_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">aws_kms_facts</span></code> module was renamed to <span class="xref std std-ref">aws_kms_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">aws_region_facts</span></code> module was renamed to <span class="xref std std-ref">aws_region_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">aws_s3_bucket_facts</span></code> module was renamed to <span class="xref std std-ref">aws_s3_bucket_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">aws_sgw_facts</span></code> module was renamed to <span class="xref std std-ref">aws_sgw_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">aws_waf_facts</span></code> module was renamed to <span class="xref std std-ref">aws_waf_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_aks_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_aks_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_aksversion_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_aksversion_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_applicationsecuritygroup_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_applicationsecuritygroup_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_appserviceplan_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_appserviceplan_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_automationaccount_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_automationaccount_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_autoscale_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_autoscale_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_availabilityset_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_availabilityset</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_cdnendpoint_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_cdnendpoint_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_cdnprofile_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_cdnprofile_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_containerinstance_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_containerinstance_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_containerregistry_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_containerregistry_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_cosmosdbaccount_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_cosmosdbaccount_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_deployment_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_deployment_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">azure_rm_resourcegroup_facts</span></code> module was renamed to <span class="xref std std-ref">azure_rm_resourcegroup_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">bigip_device_facts</span></code> module was renamed to <span class="xref std std-ref">bigip_device_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">bigiq_device_facts</span></code> module was renamed to <span class="xref std std-ref">bigiq_device_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cloudformation_facts</span></code> module was renamed to <span class="xref std std-ref">cloudformation_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cloudfront_facts</span></code> module was renamed to <span class="xref std std-ref">cloudfront_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cloudwatchlogs_log_group_facts</span></code> module was renamed to <span class="xref std std-ref">cloudwatchlogs_log_group_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_account_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_account_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_certificate_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_certificate_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_domain_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_domain_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_firewall_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_firewall_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_floating_ip_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_floating_ip_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_image_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_image_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_load_balancer_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_load_balancer_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_region_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_region_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_size_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_size_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_snapshot_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_snapshot_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_tag_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_tag_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">digital_ocean_volume_facts</span></code> module was renamed to <span class="xref std std-ref">digital_ocean_volume_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_ami_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_ami_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_asg_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_asg_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_customer_gateway_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_customer_gateway_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_eip_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_eip_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_elb_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_elb_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_eni_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_eni_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_group_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_group_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_instance_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_instance_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_lc_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_lc_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_placement_group_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_placement_group_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_snapshot_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_snapshot_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vol_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vol_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vpc_dhcp_option_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vpc_dhcp_option_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vpc_endpoint_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vpc_endpoint_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vpc_igw_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vpc_igw_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vpc_nacl_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vpc_nacl_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vpc_nat_gateway_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vpc_nat_gateway_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vpc_net_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vpc_net_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vpc_peering_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vpc_peering_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vpc_route_table_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vpc_route_table_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vpc_subnet_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vpc_subnet_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vpc_vgw_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vpc_vgw_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ec2_vpc_vpn_facts</span></code> module was renamed to <span class="xref std std-ref">ec2_vpc_vpn_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ecs_service_facts</span></code> module was renamed to <span class="xref std std-ref">ecs_service_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ecs_taskdefinition_facts</span></code> module was renamed to <span class="xref std std-ref">ecs_taskdefinition_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">efs_facts</span></code> module was renamed to <span class="xref std std-ref">efs_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">elasticache_facts</span></code> module was renamed to <span class="xref std std-ref">elasticache_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">elb_application_lb_facts</span></code> module was renamed to <span class="xref std std-ref">elb_application_lb_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">elb_classic_lb_facts</span></code> module was renamed to <span class="xref std std-ref">elb_classic_lb_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">elb_target_facts</span></code> module was renamed to <span class="xref std std-ref">elb_target_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">elb_target_group_facts</span></code> module was renamed to <span class="xref std std-ref">elb_target_group_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_bigquery_dataset_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_bigquery_dataset_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_bigquery_table_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_bigquery_table_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_cloudbuild_trigger_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_cloudbuild_trigger_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_address_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_address_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_backend_bucket_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_backend_bucket_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_backend_service_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_backend_service_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_disk_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_disk_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_firewall_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_firewall_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_forwarding_rule_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_forwarding_rule_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_global_address_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_global_address_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_global_forwarding_rule_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_global_forwarding_rule_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_health_check_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_health_check_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_http_health_check_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_http_health_check_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_https_health_check_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_https_health_check_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_image_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_image_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_instance_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_instance_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_instance_group_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_instance_group_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_instance_group_manager_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_instance_group_manager_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_instance_template_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_instance_template_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_interconnect_attachment_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_interconnect_attachment_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_network_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_network_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_region_disk_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_region_disk_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_route_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_route_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_router_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_router_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_ssl_certificate_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_ssl_certificate_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_ssl_policy_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_ssl_policy_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_subnetwork_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_subnetwork_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_target_http_proxy_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_target_http_proxy_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_target_https_proxy_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_target_https_proxy_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_target_pool_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_target_pool_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_target_ssl_proxy_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_target_ssl_proxy_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_target_tcp_proxy_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_target_tcp_proxy_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_target_vpn_gateway_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_target_vpn_gateway_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_url_map_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_url_map_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_compute_vpn_tunnel_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_compute_vpn_tunnel_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_container_cluster_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_container_cluster_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_container_node_pool_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_container_node_pool_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_dns_managed_zone_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_dns_managed_zone_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_dns_resource_record_set_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_dns_resource_record_set_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_iam_role_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_iam_role_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_iam_service_account_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_iam_service_account_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_pubsub_subscription_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_pubsub_subscription_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_pubsub_topic_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_pubsub_topic_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_redis_instance_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_redis_instance_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_resourcemanager_project_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_resourcemanager_project_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_sourcerepo_repository_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_sourcerepo_repository_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_spanner_database_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_spanner_database_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_spanner_instance_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_spanner_instance_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_sql_database_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_sql_database_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_sql_instance_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_sql_instance_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_sql_user_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_sql_user_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcp_tpu_node_facts</span></code> module was renamed to <span class="xref std std-ref">gcp_tpu_node_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gcpubsub_facts</span></code> module was renamed to <span class="xref std std-ref">gcpubsub_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">github_webhook_facts</span></code> module was renamed to <span class="xref std std-ref">github_webhook_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gluster_heal_facts</span></code> module was renamed to <span class="xref std std-ref">gluster_heal_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hcloud_datacenter_facts</span></code> module was renamed to <span class="xref std std-ref">hcloud_datacenter_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hcloud_floating_ip_facts</span></code> module was renamed to <span class="xref std std-ref">hcloud_floating_ip_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hcloud_image_facts</span></code> module was renamed to <span class="xref std std-ref">hcloud_image_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hcloud_location_facts</span></code> module was renamed to <span class="xref std std-ref">hcloud_location_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hcloud_server_facts</span></code> module was renamed to <span class="xref std std-ref">hcloud_server_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hcloud_server_type_facts</span></code> module was renamed to <span class="xref std std-ref">hcloud_server_type_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hcloud_ssh_key_facts</span></code> module was renamed to <span class="xref std std-ref">hcloud_ssh_key_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hcloud_volume_facts</span></code> module was renamed to <span class="xref std std-ref">hcloud_volume_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hpilo_facts</span></code> module was renamed to <span class="xref std std-ref">hpilo_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">iam_mfa_device_facts</span></code> module was renamed to <span class="xref std std-ref">iam_mfa_device_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">iam_role_facts</span></code> module was renamed to <span class="xref std std-ref">iam_role_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">iam_server_certificate_facts</span></code> module was renamed to <span class="xref std std-ref">iam_server_certificate_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">idrac_redfish_facts</span></code> module was renamed to <span class="xref std std-ref">idrac_redfish_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">intersight_facts</span></code> module was renamed to <span class="xref std std-ref">intersight_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">jenkins_job_facts</span></code> module was renamed to <span class="xref std std-ref">jenkins_job_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">k8s_facts</span></code> module was renamed to <span class="xref std std-ref">k8s_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">memset_memstore_facts</span></code> module was renamed to <span class="xref std std-ref">memset_memstore_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">memset_server_facts</span></code> module was renamed to <span class="xref std std-ref">memset_server_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">one_image_facts</span></code> module was renamed to <span class="xref std std-ref">one_image_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">onepassword_facts</span></code> module was renamed to <span class="xref std std-ref">onepassword_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">oneview_datacenter_facts</span></code> module was renamed to <span class="xref std std-ref">oneview_datacenter_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">oneview_enclosure_facts</span></code> module was renamed to <span class="xref std std-ref">oneview_enclosure_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">oneview_ethernet_network_facts</span></code> module was renamed to <span class="xref std std-ref">oneview_ethernet_network_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">oneview_fc_network_facts</span></code> module was renamed to <span class="xref std std-ref">oneview_fc_network_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">oneview_fcoe_network_facts</span></code> module was renamed to <span class="xref std std-ref">oneview_fcoe_network_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">oneview_logical_interconnect_group_facts</span></code> module was renamed to <span class="xref std std-ref">oneview_logical_interconnect_group_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">oneview_network_set_facts</span></code> module was renamed to <span class="xref std std-ref">oneview_network_set_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">oneview_san_manager_facts</span></code> module was renamed to <span class="xref std std-ref">oneview_san_manager_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">os_flavor_facts</span></code> module was renamed to <span class="xref std std-ref">os_flavor_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">os_image_facts</span></code> module was renamed to <span class="xref std std-ref">os_image_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">os_keystone_domain_facts</span></code> module was renamed to <span class="xref std std-ref">os_keystone_domain_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">os_networks_facts</span></code> module was renamed to <span class="xref std std-ref">os_networks_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">os_port_facts</span></code> module was renamed to <span class="xref std std-ref">os_port_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">os_project_facts</span></code> module was renamed to <span class="xref std std-ref">os_project_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">os_server_facts</span></code> module was renamed to <span class="xref std std-ref">os_server_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">os_subnets_facts</span></code> module was renamed to <span class="xref std std-ref">os_subnets_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">os_user_facts</span></code> module was renamed to <span class="xref std std-ref">os_user_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_affinity_label_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_affinity_label_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_api_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_api_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_cluster_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_cluster_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_datacenter_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_datacenter_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_disk_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_disk_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_event_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_event_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_external_provider_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_external_provider_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_group_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_group_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_host_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_host_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_host_storage_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_host_storage_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_network_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_network_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_nic_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_nic_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_permission_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_permission_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_quota_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_quota_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_scheduling_policy_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_scheduling_policy_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_snapshot_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_snapshot_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_storage_domain_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_storage_domain_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_storage_template_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_storage_template_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_storage_vm_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_storage_vm_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_tag_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_tag_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_template_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_template_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_user_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_user_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_vm_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_vm_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ovirt_vmpool_facts</span></code> module was renamed to <span class="xref std std-ref">ovirt_vmpool_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">python_requirements_facts</span></code> module was renamed to <span class="xref std std-ref">python_requirements_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">rds_instance_facts</span></code> module was renamed to <span class="xref std std-ref">rds_instance_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">rds_snapshot_facts</span></code> module was renamed to <span class="xref std std-ref">rds_snapshot_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">redfish_facts</span></code> module was renamed to <span class="xref std std-ref">redfish_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">redshift_facts</span></code> module was renamed to <span class="xref std std-ref">redshift_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">route53_facts</span></code> module was renamed to <span class="xref std std-ref">route53_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">smartos_image_facts</span></code> module was renamed to <span class="xref std std-ref">smartos_image_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">vertica_facts</span></code> module was renamed to <span class="xref std std-ref">vertica_info</span>.
+When called with the new name, the module no longer returns <code class="docutils literal notranslate"><span class="pre">ansible_facts</span></code>.
+To access return values, <a class="reference internal" href="../user_guide/playbooks_variables.html#registered-variables"><span class="std std-ref">register a variable</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">vmware_cluster_facts</span></code> module was renamed to <span class="xref std std-ref">vmware_cluster_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">vmware_datastore_facts</span></code> module was renamed to <span class="xref std std-ref">vmware_datastore_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">vmware_guest_facts</span></code> module was renamed to <span class="xref std std-ref">vmware_guest_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">vmware_guest_snapshot_facts</span></code> module was renamed to <span class="xref std std-ref">vmware_guest_snapshot_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">vmware_tag_facts</span></code> module was renamed to <span class="xref std std-ref">vmware_tag_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">vmware_vm_facts</span></code> module was renamed to <span class="xref std std-ref">vmware_vm_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">xenserver_guest_facts</span></code> module was renamed to <span class="xref std std-ref">xenserver_guest_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">zabbix_group_facts</span></code> module was renamed to <span class="xref std std-ref">zabbix_group_info</span>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">zabbix_host_facts</span></code> module was renamed to <span class="xref std std-ref">zabbix_host_info</span>.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="noteworthy-module-changes">
+<h3><a class="toc-backref" href="#id14">Noteworthy module changes</a><a class="headerlink" href="#noteworthy-module-changes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><span class="xref std std-ref">vmware_cluster</span> was refactored for easier maintenance/bugfixes. Use the three new, specialized modules to configure clusters. Configure DRS with <span class="xref std std-ref">vmware_cluster_drs</span>, HA with <span class="xref std std-ref">vmware_cluster_ha</span> and vSAN with <span class="xref std std-ref">vmware_cluster_vsan</span>.</p></li>
+<li><p><span class="xref std std-ref">vmware_dvswitch</span> accepts <code class="docutils literal notranslate"><span class="pre">folder</span></code> parameter to place dvswitch in user defined folder. This option makes <code class="docutils literal notranslate"><span class="pre">datacenter</span></code> as an optional parameter.</p></li>
+<li><p><span class="xref std std-ref">vmware_datastore_cluster</span> accepts <code class="docutils literal notranslate"><span class="pre">folder</span></code> parameter to place datastore cluster in user defined folder. This option makes <code class="docutils literal notranslate"><span class="pre">datacenter</span></code> as an optional parameter.</p></li>
+<li><p><span class="xref std std-ref">mysql_db</span> returns new <code class="docutils literal notranslate"><span class="pre">db_list</span></code> parameter in addition to <code class="docutils literal notranslate"><span class="pre">db</span></code> parameter. This <code class="docutils literal notranslate"><span class="pre">db_list</span></code> parameter refers to list of database names. <code class="docutils literal notranslate"><span class="pre">db</span></code> parameter will be deprecated in version 2.13.</p></li>
+<li><p><span class="xref std std-ref">snow_record</span> and <span class="xref std std-ref">snow_record_find</span> now takes environment variables for <code class="docutils literal notranslate"><span class="pre">instance</span></code>, <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">password</span></code> parameters. This change marks these parameters as optional.</p></li>
+<li><p>The deprecated <code class="docutils literal notranslate"><span class="pre">force</span></code> option in <code class="docutils literal notranslate"><span class="pre">win_firewall_rule</span></code> has been removed.</p></li>
+<li><p><span class="xref std std-ref">openssl_certificate</span>’s <code class="docutils literal notranslate"><span class="pre">ownca</span></code> provider creates authority key identifiers if not explicitly disabled with <code class="docutils literal notranslate"><span class="pre">ownca_create_authority_key_identifier:</span> <span class="pre">no</span></code>. This is only the case for the <code class="docutils literal notranslate"><span class="pre">cryptography</span></code> backend, which is selected by default if the <code class="docutils literal notranslate"><span class="pre">cryptography</span></code> library is available.</p></li>
+<li><p><span class="xref std std-ref">openssl_certificate</span>’s <code class="docutils literal notranslate"><span class="pre">ownca</span></code> and <code class="docutils literal notranslate"><span class="pre">selfsigned</span></code> providers create subject key identifiers if not explicitly disabled with <code class="docutils literal notranslate"><span class="pre">ownca_create_subject_key_identifier:</span> <span class="pre">never_create</span></code> resp. <code class="docutils literal notranslate"><span class="pre">selfsigned_create_subject_key_identifier:</span> <span class="pre">never_create</span></code>. If a subject key identifier is provided by the CSR, it is taken; if not, it is created from the public key. This is only the case for the <code class="docutils literal notranslate"><span class="pre">cryptography</span></code> backend, which is selected by default if the <code class="docutils literal notranslate"><span class="pre">cryptography</span></code> library is available.</p></li>
+<li><p><span class="xref std std-ref">openssh_keypair</span> now applies the same file permissions and ownership to both public and private keys (both get the same <code class="docutils literal notranslate"><span class="pre">mode</span></code>, <code class="docutils literal notranslate"><span class="pre">owner</span></code>, <code class="docutils literal notranslate"><span class="pre">group</span></code>, etc.). If you need to change permissions / ownership on one key, use the <span class="xref std std-ref">file</span> to modify it after it is created.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="plugins">
+<h2><a class="toc-backref" href="#id15">Plugins</a><a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="removed-lookup-plugins">
+<h3><a class="toc-backref" href="#id16">Removed Lookup Plugins</a><a class="headerlink" href="#removed-lookup-plugins" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">redis_kv</span></code> use <a class="reference internal" href="../plugins/lookup/redis.html#redis-lookup"><span class="std std-ref">redis</span></a> instead.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="porting-custom-scripts">
+<h2><a class="toc-backref" href="#id17">Porting custom scripts</a><a class="headerlink" href="#porting-custom-scripts" title="Permalink to this headline">¶</a></h2>
+<p>No notable changes</p>
+</div>
+<div class="section" id="networking">
+<h2><a class="toc-backref" href="#id18">Networking</a><a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="network-resource-modules">
+<h3><a class="toc-backref" href="#id19">Network resource modules</a><a class="headerlink" href="#network-resource-modules" title="Permalink to this headline">¶</a></h3>
+<p>Ansible 2.9 introduced the first batch of network resource modules. Sections of a network device’s configuration can be thought of as a resource provided by that device. Network resource modules are intentionally scoped to configure a single resource and you can combine them as building blocks to configure complex network services. The older modules are deprecated in Ansible 2.9 and will be removed in Ansible 2.13. You should scan the list of deprecated modules above and replace them with the new network resource modules in your playbooks. See <a class="reference external" href="https://www.ansible.com/blog/network-features-coming-soon-in-ansible-engine-2.9">Ansible Network Features in 2.9</a> for details.</p>
+</div>
+<div class="section" id="improved-gather-facts-support-for-network-devices">
+<h3><a class="toc-backref" href="#id20">Improved <code class="docutils literal notranslate"><span class="pre">gather_facts</span></code> support for network devices</a><a class="headerlink" href="#improved-gather-facts-support-for-network-devices" title="Permalink to this headline">¶</a></h3>
+<p>In Ansible 2.9, the <code class="docutils literal notranslate"><span class="pre">gather_facts</span></code> keyword now supports gathering network device facts in standardized key/value pairs. You can feed these network facts into further tasks to manage the network device. You can also use the new <code class="docutils literal notranslate"><span class="pre">gather_network_resources</span></code> parameter with the network <code class="docutils literal notranslate"><span class="pre">*_facts</span></code> modules (such as <span class="xref std std-ref">eos_facts</span>) to return just a subset of the device configuration.  See <a class="reference internal" href="../network/getting_started/first_playbook.html#network-gather-facts"><span class="std std-ref">Gathering facts from network devices</span></a> for an example.</p>
+</div>
+<div class="section" id="top-level-connection-arguments-removed-in-2-9">
+<h3><a class="toc-backref" href="#id21">Top-level connection arguments removed in 2.9</a><a class="headerlink" href="#top-level-connection-arguments-removed-in-2-9" title="Permalink to this headline">¶</a></h3>
+<p>Top-level connection arguments like <code class="docutils literal notranslate"><span class="pre">username</span></code>, <code class="docutils literal notranslate"><span class="pre">host</span></code>, and <code class="docutils literal notranslate"><span class="pre">password</span></code> are  removed in version 2.9.</p>
+<p><strong>OLD</strong> In Ansible &lt; 2.4</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">example of using top-level options for connection properties</span>
+  <span class="nt">ios_command</span><span class="p">:</span>
+    <span class="nt">commands</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">show version</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">inventory_hostname</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cisco</span>
+    <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cisco</span>
+    <span class="nt">authorize</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">yes</span>
+    <span class="nt">auth_pass</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cisco</span>
+</pre></div>
+</div>
+<p>Change your playbooks to the connection types <code class="docutils literal notranslate"><span class="pre">network_cli</span></code> and <code class="docutils literal notranslate"><span class="pre">netconf</span></code> using standard Ansible connection properties, and setting those properties in inventory by group. As you update your playbooks and inventory files, you can easily make the change to <code class="docutils literal notranslate"><span class="pre">become</span></code> for privilege escalation (on platforms that support it). For more information, see the <a class="reference internal" href="../user_guide/become.html#become-network"><span class="std std-ref">using become with network modules</span></a> guide and the <a class="reference internal" href="../network/user_guide/platform_index.html#platform-options"><span class="std std-ref">platform documentation</span></a>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="porting_guide_2.8.html" class="btn btn-neutral float-right" title="Ansible 2.8 Porting Guide"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="porting_guides.html" class="btn btn-neutral" title="Ansible Porting Guides"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>

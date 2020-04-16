@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using VMware dynamic inventory plugin &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/scenario_guides/vmware_scenarios/vmware_inventory.html"/>
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Ansible for VMware Scenarios" href="vmware_scenarios.html" />
+    <link rel="prev" title="VMware Prerequisites" href="vmware_requirements.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../porting_guides/porting_guides.html">Ansible Porting Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_guide/index.html">Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../virt_guides.html">Virtualization and Containerization Guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../guide_docker.html">Docker Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guide_kubernetes.html">Kubernetes and OpenShift Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guide_vagrant.html">Vagrant Guide</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../guide_vmware.html">VMware Guide</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="vmware_intro.html">Introduction to Ansible for VMware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vmware_concepts.html">Ansible for VMware Concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vmware_requirements.html">VMware Prerequisites</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Using VMware dynamic inventory plugin</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vmware-dynamic-inventory-plugin">VMware Dynamic Inventory Plugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-vaulted-configuration-files">Using vaulted configuration files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="vmware_scenarios.html">Ansible for VMware Scenarios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vmware_troubleshooting.html">Troubleshooting Ansible for VMware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vmware_external_doc_links.html">Other useful VMware resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="faq.html">Ansible VMware FAQ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../network/index.html">Ansible for Network Automation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/general_precedence.html">Controlling how Ansible behaves: precedence rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_guide/testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference_appendices/logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../virt_guides.html">Virtualization and Containerization Guides</a> &raquo;</li>
+        
+          <li><a href="../guide_vmware.html">VMware Guide</a> &raquo;</li>
+        
+      <li>Using VMware dynamic inventory plugin</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/scenario_guides/vmware_scenarios/vmware_inventory.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-vmware-dynamic-inventory-plugin">
+<span id="vmware-ansible-inventory"></span><h1><a class="toc-backref" href="#id2">Using VMware dynamic inventory plugin</a><a class="headerlink" href="#using-vmware-dynamic-inventory-plugin" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="topics">
+<p class="topic-title">Topics</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#using-vmware-dynamic-inventory-plugin" id="id2">Using VMware dynamic inventory plugin</a></p>
+<ul>
+<li><p><a class="reference internal" href="#vmware-dynamic-inventory-plugin" id="id3">VMware Dynamic Inventory Plugin</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requirements" id="id4">Requirements</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#using-vaulted-configuration-files" id="id5">Using vaulted configuration files</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="vmware-dynamic-inventory-plugin">
+<h2><a class="toc-backref" href="#id3">VMware Dynamic Inventory Plugin</a><a class="headerlink" href="#vmware-dynamic-inventory-plugin" title="Permalink to this headline">¶</a></h2>
+<p>The best way to interact with your hosts is to use the VMware dynamic inventory plugin, which dynamically queries VMware APIs and
+tells Ansible what nodes can be managed.</p>
+<div class="section" id="requirements">
+<h3><a class="toc-backref" href="#id4">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<p>To use the VMware dynamic inventory plugins, you must install <a class="reference external" href="https://github.com/vmware/pyvmomi">pyVmomi</a>
+on your control node (the host running Ansible).</p>
+<p>To include tag-related information for the virtual machines in your dynamic inventory, you also need the <a class="reference external" href="https://code.vmware.com/web/sdk/65/vsphere-automation-python">vSphere Automation SDK</a>, which supports REST API features like tagging and content libraries, on your control node.
+You can install the <code class="docutils literal notranslate"><span class="pre">vSphere</span> <span class="pre">Automation</span> <span class="pre">SDK</span></code> following <a class="reference external" href="https://github.com/vmware/vsphere-automation-sdk-python#installing-required-python-packages">these instructions</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install pyvmomi
+</pre></div>
+</div>
+<p>To use this VMware dynamic inventory plugin, you need to enable it first by specifying the following in the <code class="docutils literal notranslate"><span class="pre">ansible.cfg</span></code> file:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[inventory]</span>
+<span class="na">enable_plugins</span> <span class="o">=</span> <span class="s">vmware_vm_inventory</span>
+</pre></div>
+</div>
+<p>Then, create a file that ends in <code class="docutils literal notranslate"><span class="pre">.vmware.yml</span></code> or <code class="docutils literal notranslate"><span class="pre">.vmware.yaml</span></code> in your working directory.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">vmware_vm_inventory</span></code> script takes in the same authentication information as any VMware module.</p>
+<p>Here’s an example of a valid inventory file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">vmware_vm_inventory</span>
+<span class="nt">strict</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10.65.223.31</span>
+<span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">administrator@vsphere.local</span>
+<span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Esxi@123$%</span>
+<span class="nt">validate_certs</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="nt">with_tags</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<p>Executing <code class="docutils literal notranslate"><span class="pre">ansible-inventory</span> <span class="pre">--list</span> <span class="pre">-i</span> <span class="pre">&lt;filename&gt;.vmware.yml</span></code> will create a list of VMware instances that are ready to be configured using Ansible.</p>
+</div>
+</div>
+<div class="section" id="using-vaulted-configuration-files">
+<h2><a class="toc-backref" href="#id5">Using vaulted configuration files</a><a class="headerlink" href="#using-vaulted-configuration-files" title="Permalink to this headline">¶</a></h2>
+<p>Since the inventory configuration file contains vCenter password in plain text, a security risk, you may want to
+encrypt your entire inventory configuration file.</p>
+<p>You can encrypt a valid inventory configuration file as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ansible-vault encrypt &lt;filename&gt;.vmware.yml
+  New Vault password:
+  Confirm New Vault password:
+  Encryption successful
+</pre></div>
+</div>
+<p>And you can use this vaulted inventory configuration file using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ansible-inventory -i filename.vmware.yml --list --vault-password-file<span class="o">=</span>/path/to/vault_password_file
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/vmware/pyvmomi">pyVmomi</a></dt><dd><p>The GitHub Page of pyVmomi</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/vmware/pyvmomi/issues">pyVmomi Issue Tracker</a></dt><dd><p>The issue tracker for the pyVmomi project</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/vmware/vsphere-automation-sdk-python">vSphere Automation SDK GitHub Page</a></dt><dd><p>The GitHub Page of vSphere Automation SDK for Python</p>
+</dd>
+<dt><a class="reference external" href="https://github.com/vmware/vsphere-automation-sdk-python/issues">vSphere Automation SDK Issue Tracker</a></dt><dd><p>The issue tracker for vSphere Automation SDK for Python</p>
+</dd>
+<dt><a class="reference internal" href="../../user_guide/playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="../../user_guide/playbooks_vault.html#playbooks-vault"><span class="std std-ref">Using Vault in playbooks</span></a></dt><dd><p>Using Vault in playbooks</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="vmware_scenarios.html" class="btn btn-neutral float-right" title="Ansible for VMware Scenarios"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="vmware_requirements.html" class="btn btn-neutral" title="VMware Prerequisites"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>

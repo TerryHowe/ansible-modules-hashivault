@@ -1,0 +1,764 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Playbook Example: Continuous Delivery and Rolling Upgrades &mdash; Ansible Documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/user_guide/guide_rolling_upgrade.html"/>
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ansible Vault" href="vault.html" />
+    <link rel="prev" title="Best Practices" href="playbooks_best_practices.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
+<script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
+<!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
+<meta class="swiftype" name="version" data-type="string" content="2.9">
+
+<!-- Google Tag Manager Data Layer -->
+<script>
+ dataLayer = [];
+</script>
+<!-- End Google Tag Manager Data Layer -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> 
+</head>
+
+<body class="wy-body-for-nav">
+   <!---- extra body elements for Ansible beyond RTD Sphinx Theme --->
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PSB293" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-PSB293');</script>
+<!-- End Google Tag Manager -->
+
+  <div class="DocSite-globalNav ansibleNav">
+      <ul>
+          <li><a href="https://www.ansible.com/ansiblefest" target="_blank">AnsibleFest</a></li>
+          <li><a href="https://www.ansible.com/tower" target="_blank">Products</a></li>
+          <li><a href="https://www.ansible.com/community" target="_blank">Community</a></li>
+          <li><a href="https://www.ansible.com/webinars-training" target="_blank">Webinars & Training</a></li>
+          <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+      </ul>
+  </div>
+
+<a class="DocSite-nav" href="/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="../_static/images/logo_invert.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">
+    Documentation
+  </div>
+</a> 
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Ansible
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9
+              </div>
+            
+          
+
+          <!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    <div class="version-dropdown">
+      <select class="version-list" id="version-list" onchange="javascript:location.href = this.value;">
+        <script> x = document.getElementById("version-list"); </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "latest";
+            if ( "latest" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","latest");
+            } else {
+              option.value = current_url.replace("latest","latest");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.8";
+            if ( "2.8" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.8");
+            } else {
+              option.value = current_url.replace("latest","2.8");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "2.7";
+            if ( "2.7" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","2.7");
+            } else {
+              option.value = current_url.replace("latest","2.7");
+            }
+            x.add(option);
+          </script>
+        
+          <script>
+            current_url = window.location.href;
+            option = document.createElement("option");
+            option.text = "devel";
+            if ( "devel" == "2.9" ) {
+              option.selected = true;
+            }
+            if (current_url.search("2.9") > -1) {
+              option.value = current_url.replace("2.9","devel");
+            } else {
+              option.value = current_url.replace("latest","devel");
+            }
+            x.add(option);
+          </script>
+        
+      </select>
+    </div>
+  
+</div>
+          
+<div role="search">
+<!--  <form id="rtd-search-form" class="wy-form" action="../search.html" -->
+  <form id="rtd-search-form" class="wy-form"  method="get">
+    <input type="text" class="st-default-search-input" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation, Upgrade &amp; Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide/index.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../porting_guides/porting_guides.html">Ansible Porting Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using Ansible</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Ansible Quickstart Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_concepts.html">Ansible concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_inventory.html">How to build your inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_dynamic_inventory.html">Working with dynamic inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_patterns.html">Patterns: targeting hosts and groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_adhoc.html">Introduction to ad-hoc commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection_details.html">Connection methods and details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line_tools.html">Working with command line tools</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="playbooks.html">Working With Playbooks</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="playbooks_intro.html">Intro to Playbooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_reuse.html">Creating Reusable Playbooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_variables.html">Using Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_templating.html">Templating (Jinja2)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_conditionals.html">Conditionals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_loops.html">Loops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_blocks.html">Blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_special_topics.html">Advanced Playbooks Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_strategies.html">Controlling playbook execution: strategies and more</a></li>
+<li class="toctree-l3"><a class="reference internal" href="playbooks_best_practices.html">Best Practices</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Playbook Example: Continuous Delivery and Rolling Upgrades</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-is-continuous-delivery">What is continuous delivery?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site-deployment">Site deployment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reusable-content-roles">Reusable content: roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-group-variables">Configuration: group variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-rolling-upgrade">The rolling upgrade</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#managing-other-load-balancers">Managing other load balancers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#continuous-delivery-end-to-end">Continuous delivery end-to-end</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="become.html">Understanding privilege escalation: become</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vault.html">Ansible Vault</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Working With Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/plugins.html">Working With Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_bsd.html">Ansible and BSD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collections_using.html">Using collections</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../community/index.html">Ansible Community Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Ansible</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/cloud_guides.html">Public Cloud Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scenario_guides/virt_guides.html">Virtualization and Containerization Guides</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">Ansible for Network Automation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Ansible Galaxy</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/user_guide.html">Galaxy User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../galaxy/dev_guide.html">Galaxy Developer Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference &amp; Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules_by_category.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/playbooks_keywords.html">Playbook Keywords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/common_return_values.html">Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/config.html">Ansible Configuration Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/general_precedence.html">Controlling how Ansible behaves: precedence rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/YAMLSyntax.html">YAML Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/python_3_support.html">Python 3 Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/interpreter_discovery.html">Interpreter Discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/release_and_maintenance.html">Release and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/test_strategies.html">Testing Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/testing/sanity/index.html">Sanity Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/module_utils.html">Ansible Reference: Module Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/special_variables.html">Special Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/tower.html">Red Hat Ansible Tower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_appendices/logging.html">Logging Ansible output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Roadmaps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap/index.html">Ansible Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+         <!-- extra nav elements for Ansible beyond RTD Sphinx Theme --->
+<!-- changeable widget links to tower - do not change as image controlled by Ansible-->
+<div id="sideBanner">
+  <br/>
+  <a href="https://www.ansible.com/docs-left?utm_source=docs">
+    <img style="border-width:0px;" src="https://cdn2.hubspot.net/hubfs/330046/docs-graphics/ASB-docs-left-rail.png" />
+  </a>
+  <br/><br/><br/>
+</div>
+      </div>
+    </nav>
+  </div>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Ansible</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">User Guide</a> &raquo;</li>
+        
+          <li><a href="playbooks.html">Working With Playbooks</a> &raquo;</li>
+        
+      <li>Playbook Example: Continuous Delivery and Rolling Upgrades</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- Ansible-specific additions for modules etc -->
+                
+                  <a href="https://github.com/ansible/ansible/edit/devel/docs/docsite/rst/user_guide/guide_rolling_upgrade.rst?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <!--- Based on sphinx versionwarning extension. Extension currently only works on READTHEDOCS -->
+  <script>
+    // Create a banner if we're not on the official docs site
+    if (location.host == "docs.testing.ansible.com") {
+      document.write('<div id="testing_banner_id" class="admonition important">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("This is a testing site. For the official docs go to https://docs.ansible.com/");
+      para.appendChild(banner_text);
+      element = document.getElementById('testing_banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+
+    // Create a banner if we're not the latest version
+    current_url = window.location.href;
+    if ((current_url.search("latest") > -1) || (current_url.search("/2.9/") > -1)) {
+     // no banner for latest release
+    } else if (current_url.search("devel") > -1) {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading the *devel* version of the Ansible documentation - this version is not guaranteed stable. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    } else {
+      document.write('<div id="banner_id" class="admonition caution">');
+      para = document.createElement('p');
+      banner_text=document.createTextNode("You are reading an older version of the Ansible documentation. Use the version selection to the left if you want the latest stable released version.");
+      para.appendChild(banner_text);
+      element = document.getElementById('banner_id');
+      element.appendChild(para);
+      document.write('</div>');
+    }
+  </script>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="playbook-example-continuous-delivery-and-rolling-upgrades">
+<h1>Playbook Example: Continuous Delivery and Rolling Upgrades<a class="headerlink" href="#playbook-example-continuous-delivery-and-rolling-upgrades" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#what-is-continuous-delivery" id="id1">What is continuous delivery?</a></p></li>
+<li><p><a class="reference internal" href="#site-deployment" id="id2">Site deployment</a></p></li>
+<li><p><a class="reference internal" href="#reusable-content-roles" id="id3">Reusable content: roles</a></p></li>
+<li><p><a class="reference internal" href="#configuration-group-variables" id="id4">Configuration: group variables</a></p></li>
+<li><p><a class="reference internal" href="#the-rolling-upgrade" id="id5">The rolling upgrade</a></p></li>
+<li><p><a class="reference internal" href="#managing-other-load-balancers" id="id6">Managing other load balancers</a></p></li>
+<li><p><a class="reference internal" href="#continuous-delivery-end-to-end" id="id7">Continuous delivery end-to-end</a></p></li>
+</ul>
+</div>
+<div class="section" id="what-is-continuous-delivery">
+<span id="lamp-introduction"></span><h2><a class="toc-backref" href="#id1">What is continuous delivery?</a><a class="headerlink" href="#what-is-continuous-delivery" title="Permalink to this headline">¶</a></h2>
+<p>Continuous delivery (CD) means frequently delivering updates to your software application.</p>
+<p>The idea is that by updating more often, you do not have to wait for a specific timed period, and your organization
+gets better at the process of responding to change.</p>
+<p>Some Ansible users are deploying updates to their end users on an hourly or even more frequent basis – sometimes every time
+there is an approved code change.  To achieve this, you need tools to be able to quickly apply those updates in a zero-downtime way.</p>
+<p>This document describes in detail how to achieve this goal, using one of Ansible’s most complete example
+playbooks as a template: lamp_haproxy. This example uses a lot of Ansible features: roles, templates,
+and group variables, and it also comes with an orchestration playbook that can do zero-downtime
+rolling upgrades of the web application stack.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="https://github.com/ansible/ansible-examples/tree/master/lamp_haproxy">Click here for the latest playbooks for this example</a>.</p>
+</div>
+<p>The playbooks deploy Apache, PHP, MySQL, Nagios, and HAProxy to a CentOS-based set of servers.</p>
+<p>We’re not going to cover how to run these playbooks here. Read the included README in the github project along with the
+example for that information. Instead, we’re going to take a close look at every part of the playbook and describe what it does.</p>
+</div>
+<div class="section" id="site-deployment">
+<span id="lamp-deployment"></span><h2><a class="toc-backref" href="#id2">Site deployment</a><a class="headerlink" href="#site-deployment" title="Permalink to this headline">¶</a></h2>
+<p>Let’s start with <code class="docutils literal notranslate"><span class="pre">site.yml</span></code>. This is our site-wide deployment playbook. It can be used to initially deploy the site, as well
+as push updates to all of the servers:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="c1"># This playbook deploys the whole application stack in this site.</span>
+
+<span class="c1"># Apply common configuration to all hosts</span>
+<span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">all</span>
+
+  <span class="nt">roles</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">common</span>
+
+<span class="c1"># Configure and deploy database servers.</span>
+<span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dbservers</span>
+
+  <span class="nt">roles</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">db</span>
+
+<span class="c1"># Configure and deploy the web servers. Note that we include two roles</span>
+<span class="c1"># here, the &#39;base-apache&#39; role which simply sets up Apache, and &#39;web&#39;</span>
+<span class="c1"># which includes our example web application.</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">webservers</span>
+
+  <span class="nt">roles</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">base-apache</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">web</span>
+
+<span class="c1"># Configure and deploy the load balancer(s).</span>
+<span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lbservers</span>
+
+  <span class="nt">roles</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">haproxy</span>
+
+<span class="c1"># Configure and deploy the Nagios monitoring node(s).</span>
+<span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">monitoring</span>
+
+  <span class="nt">roles</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">base-apache</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nagios</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’re not familiar with terms like playbooks and plays, you should review <a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a>.</p>
+</div>
+<p>In this playbook we have 5 plays. The first one targets <code class="docutils literal notranslate"><span class="pre">all</span></code> hosts and applies the <code class="docutils literal notranslate"><span class="pre">common</span></code> role to all of the hosts.
+This is for site-wide things like yum repository configuration, firewall configuration, and anything else that needs to apply to all of the servers.</p>
+<p>The next four plays run against specific host groups and apply specific roles to those servers.
+Along with the roles for Nagios monitoring, the database, and the web application, we’ve implemented a
+<code class="docutils literal notranslate"><span class="pre">base-apache</span></code> role that installs and configures a basic Apache setup. This is used by both the
+sample web application and the Nagios hosts.</p>
+</div>
+<div class="section" id="reusable-content-roles">
+<span id="lamp-roles"></span><h2><a class="toc-backref" href="#id3">Reusable content: roles</a><a class="headerlink" href="#reusable-content-roles" title="Permalink to this headline">¶</a></h2>
+<p>By now you should have a bit of understanding about roles and how they work in Ansible. Roles are a way to organize
+content: tasks, handlers, templates, and files, into reusable components.</p>
+<p>This example has six roles: <code class="docutils literal notranslate"><span class="pre">common</span></code>, <code class="docutils literal notranslate"><span class="pre">base-apache</span></code>, <code class="docutils literal notranslate"><span class="pre">db</span></code>, <code class="docutils literal notranslate"><span class="pre">haproxy</span></code>, <code class="docutils literal notranslate"><span class="pre">nagios</span></code>, and <code class="docutils literal notranslate"><span class="pre">web</span></code>. How you organize
+your roles is up to you and your application, but most sites will have one or more common roles that are applied to
+all systems, and then a series of application-specific roles that install and configure particular parts of the site.</p>
+<p>Roles can have variables and dependencies, and you can pass in parameters to roles to modify their behavior.
+You can read more about roles in the <a class="reference internal" href="playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">Roles</span></a> section.</p>
+</div>
+<div class="section" id="configuration-group-variables">
+<span id="lamp-group-variables"></span><h2><a class="toc-backref" href="#id4">Configuration: group variables</a><a class="headerlink" href="#configuration-group-variables" title="Permalink to this headline">¶</a></h2>
+<p>Group variables are variables that are applied to groups of servers. They can be used in templates and in
+playbooks to customize behavior and to provide easily-changed settings and parameters. They are stored in
+a directory called <code class="docutils literal notranslate"><span class="pre">group_vars</span></code> in the same location as your inventory.
+Here is lamp_haproxy’s <code class="docutils literal notranslate"><span class="pre">group_vars/all</span></code> file. As you might expect, these variables are applied to all of the machines in your inventory:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">httpd_port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="nt">ntpserver</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">192.0.2.23</span>
+</pre></div>
+</div>
+<p>This is a YAML file, and you can create lists and dictionaries for more complex variable structures.
+In this case, we are just setting two variables, one for the port for the web server, and one for the
+NTP server that our machines should use for time synchronization.</p>
+<p>Here’s another group variables file. This is <code class="docutils literal notranslate"><span class="pre">group_vars/dbservers</span></code> which applies to the hosts in the <code class="docutils literal notranslate"><span class="pre">dbservers</span></code> group:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">mysqlservice</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mysqld</span>
+<span class="nt">mysql_port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3306</span>
+<span class="nt">dbuser</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">root</span>
+<span class="nt">dbname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">foodb</span>
+<span class="nt">upassword</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">usersecret</span>
+</pre></div>
+</div>
+<p>If you look in the example, there are group variables for the <code class="docutils literal notranslate"><span class="pre">webservers</span></code> group and the <code class="docutils literal notranslate"><span class="pre">lbservers</span></code> group, similarly.</p>
+<p>These variables are used in a variety of places. You can use them in playbooks, like this, in <code class="docutils literal notranslate"><span class="pre">roles/db/tasks/main.yml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Create Application Database</span>
+  <span class="nt">mysql_db</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">dbname</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">state</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">present</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Create Application DB User</span>
+  <span class="nt">mysql_user</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">dbuser</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">password</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">upassword</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">priv</span><span class="p">:</span> <span class="s">&quot;*.*:ALL&quot;</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&#39;%&#39;</span>
+    <span class="nt">state</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">present</span>
+</pre></div>
+</div>
+<p>You can also use these variables in templates, like this, in <code class="docutils literal notranslate"><span class="pre">roles/common/templates/ntp.conf.j2</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>driftfile /var/lib/ntp/drift
+
+restrict 127.0.0.1
+restrict -6 ::1
+
+server {{ ntpserver }}
+
+includefile /etc/ntp/crypto/pw
+
+keys /etc/ntp/keys
+</pre></div>
+</div>
+<p>You can see that the variable substitution syntax of {{ and }} is the same for both templates and variables. The syntax
+inside the curly braces is Jinja2, and you can do all sorts of operations and apply different filters to the
+data inside. In templates, you can also use for loops and if statements to handle more complex situations,
+like this, in <code class="docutils literal notranslate"><span class="pre">roles/common/templates/iptables.j2</span></code>:</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">inventory_hostname</span> <span class="k">in</span> <span class="nv">groups</span><span class="o">[</span><span class="s1">&#39;dbservers&#39;</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">-A INPUT -p tcp  --dport 3306 -j  ACCEPT</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>This is testing to see if the inventory name of the machine we’re currently operating on (<code class="docutils literal notranslate"><span class="pre">inventory_hostname</span></code>)
+exists in the inventory group <code class="docutils literal notranslate"><span class="pre">dbservers</span></code>. If so, that machine will get an iptables ACCEPT line for port 3306.</p>
+<p>Here’s another example, from the same template:</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">host</span> <span class="k">in</span> <span class="nv">groups</span><span class="o">[</span><span class="s1">&#39;monitoring&#39;</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">-A INPUT -p tcp -s </span><span class="cp">{{</span> <span class="nv">hostvars</span><span class="o">[</span><span class="nv">host</span><span class="o">]</span><span class="nv">.ansible_default_ipv4.address</span> <span class="cp">}}</span><span class="x"> --dport 5666 -j ACCEPT</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>This loops over all of the hosts in the group called <code class="docutils literal notranslate"><span class="pre">monitoring</span></code>, and adds an ACCEPT line for
+each monitoring hosts’ default IPv4 address to the current machine’s iptables configuration, so that Nagios can monitor those hosts.</p>
+<p>You can learn a lot more about Jinja2 and its capabilities <a class="reference external" href="http://jinja.pocoo.org/docs/">here</a>, and you
+can read more about Ansible variables in general in the <a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a> section.</p>
+</div>
+<div class="section" id="the-rolling-upgrade">
+<span id="lamp-rolling-upgrade"></span><h2><a class="toc-backref" href="#id5">The rolling upgrade</a><a class="headerlink" href="#the-rolling-upgrade" title="Permalink to this headline">¶</a></h2>
+<p>Now you have a fully-deployed site with web servers, a load balancer, and monitoring. How do you update it? This is where Ansible’s
+orchestration features come into play. While some applications use the term ‘orchestration’ to mean basic ordering or command-blasting, Ansible
+refers to orchestration as ‘conducting machines like an orchestra’, and has a pretty sophisticated engine for it.</p>
+<p>Ansible has the capability to do operations on multi-tier applications in a coordinated way, making it easy to orchestrate a sophisticated zero-downtime rolling upgrade of our web application. This is implemented in a separate playbook, called <code class="docutils literal notranslate"><span class="pre">rolling_update.yml</span></code>.</p>
+<p>Looking at the playbook, you can see it is made up of two plays. The first play is very simple and looks like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">monitoring</span>
+  <span class="nt">tasks</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+</pre></div>
+</div>
+<p>What’s going on here, and why are there no tasks? You might know that Ansible gathers “facts” from the servers before operating upon them. These facts are useful for all sorts of things: networking information, OS/distribution versions, etc. In our case, we need to know something about all of the monitoring servers in our environment before we perform the update, so this simple play forces a fact-gathering step on our monitoring servers. You will see this pattern sometimes, and it’s a useful trick to know.</p>
+<p>The next part is the update play. The first part looks like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">webservers</span>
+  <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">root</span>
+  <span class="nt">serial</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>This is just a normal play definition, operating on the <code class="docutils literal notranslate"><span class="pre">webservers</span></code> group. The <code class="docutils literal notranslate"><span class="pre">serial</span></code> keyword tells Ansible how many servers to operate on at once. If it’s not specified, Ansible will parallelize these operations up to the default “forks” limit specified in the configuration file. But for a zero-downtime rolling upgrade, you may not want to operate on that many hosts at once. If you had just a handful of webservers, you may want to set <code class="docutils literal notranslate"><span class="pre">serial</span></code> to 1, for one host at a time. If you have 100, maybe you could set <code class="docutils literal notranslate"><span class="pre">serial</span></code> to 10, for ten at a time.</p>
+<p>Here is the next part of the update play:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pre_tasks</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">disable nagios alerts for this host webserver service</span>
+  <span class="nt">nagios</span><span class="p">:</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">disable_alerts</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">inventory_hostname</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">services</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">webserver</span>
+  <span class="nt">delegate_to</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span>
+  <span class="nt">loop</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">groups.monitoring</span><span class="nv"> </span><span class="s">}}&quot;</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">disable the server in haproxy</span>
+  <span class="nt">shell</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">echo &quot;disable server myapplb/{{ inventory_hostname }}&quot; | socat stdio /var/lib/haproxy/stats</span>
+  <span class="nt">delegate_to</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span>
+  <span class="nt">loop</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">groups.lbservers</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">serial</span></code> keyword forces the play to be executed in ‘batches’. Each batch counts as a full play with a subselection of hosts.
+This has some consequences on play behavior. For example, if all hosts in a batch fails, the play fails, which in turn fails the entire run. You should consider this when combining with <code class="docutils literal notranslate"><span class="pre">max_fail_percentage</span></code>.</p></li>
+</ul>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">pre_tasks</span></code> keyword just lets you list tasks to run before the roles are called. This will make more sense in a minute. If you look at the names of these tasks, you can see that we are disabling Nagios alerts and then removing the webserver that we are currently updating from the HAProxy load balancing pool.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">delegate_to</span></code> and <code class="docutils literal notranslate"><span class="pre">loop</span></code> arguments, used together, cause Ansible to loop over each monitoring server and load balancer, and perform that operation (delegate that operation) on the monitoring or load balancing server, “on behalf” of the webserver. In programming terms, the outer loop is the list of web servers, and the inner loop is the list of monitoring servers.</p>
+<p>Note that the HAProxy step looks a little complicated.  We’re using HAProxy in this example because it’s freely available, though if you have (for instance) an F5 or Netscaler in your infrastructure (or maybe you have an AWS Elastic IP setup?), you can use modules included in core Ansible to communicate with them instead.  You might also wish to use other monitoring modules instead of nagios, but this just shows the main goal of the ‘pre tasks’ section – take the server out of monitoring, and take it out of rotation.</p>
+<p>The next step simply re-applies the proper roles to the web servers. This will cause any configuration management declarations in <code class="docutils literal notranslate"><span class="pre">web</span></code> and <code class="docutils literal notranslate"><span class="pre">base-apache</span></code> roles to be applied to the web servers, including an update of the web application code itself. We don’t have to do it this way–we could instead just purely update the web application, but this is a good example of how roles can be used to reuse tasks:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">roles</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">common</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">base-apache</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">web</span>
+</pre></div>
+</div>
+<p>Finally, in the <code class="docutils literal notranslate"><span class="pre">post_tasks</span></code> section, we reverse the changes to the Nagios configuration and put the web server back in the load balancing pool:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">post_tasks</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Enable the server in haproxy</span>
+  <span class="nt">shell</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">echo &quot;enable server myapplb/{{ inventory_hostname }}&quot; | socat stdio /var/lib/haproxy/stats</span>
+  <span class="nt">delegate_to</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span>
+  <span class="nt">loop</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">groups.lbservers</span><span class="nv"> </span><span class="s">}}&quot;</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">re-enable nagios alerts</span>
+  <span class="nt">nagios</span><span class="p">:</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">enable_alerts</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">inventory_hostname</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">services</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">webserver</span>
+  <span class="nt">delegate_to</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span>
+  <span class="nt">loop</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">groups.monitoring</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</pre></div>
+</div>
+<p>Again, if you were using a Netscaler or F5 or Elastic Load Balancer, you would just substitute in the appropriate modules instead.</p>
+</div>
+<div class="section" id="managing-other-load-balancers">
+<span id="lamp-end-notes"></span><h2><a class="toc-backref" href="#id6">Managing other load balancers</a><a class="headerlink" href="#managing-other-load-balancers" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we use the simple HAProxy load balancer to front-end the web servers. It’s easy to configure and easy to manage. As we have mentioned, Ansible has built-in support for a variety of other load balancers like Citrix NetScaler, F5 BigIP, Amazon Elastic Load Balancers, and more. See the <a class="reference internal" href="modules.html#working-with-modules"><span class="std std-ref">Working With Modules</span></a> documentation for more information.</p>
+<p>For other load balancers, you may need to send shell commands to them (like we do for HAProxy above), or call an API, if your load balancer exposes one. For the load balancers for which Ansible has modules, you may want to run them as a <code class="docutils literal notranslate"><span class="pre">local_action</span></code> if they contact an API. You can read more about local actions in the <a class="reference internal" href="playbooks_delegation.html#playbooks-delegation"><span class="std std-ref">Delegation, Rolling Updates, and Local Actions</span></a> section.  Should you develop anything interesting for some hardware where there is not a core module, it might make for a good module for core inclusion!</p>
+</div>
+<div class="section" id="continuous-delivery-end-to-end">
+<span id="lamp-end-to-end"></span><h2><a class="toc-backref" href="#id7">Continuous delivery end-to-end</a><a class="headerlink" href="#continuous-delivery-end-to-end" title="Permalink to this headline">¶</a></h2>
+<p>Now that you have an automated way to deploy updates to your application, how do you tie it all together? A lot of organizations use a continuous integration tool like <a class="reference external" href="https://jenkins.io/">Jenkins</a> or <a class="reference external" href="https://www.atlassian.com/software/bamboo">Atlassian Bamboo</a> to tie the development, test, release, and deploy steps together. You may also want to use a tool like <a class="reference external" href="https://www.gerritcodereview.com/">Gerrit</a> to add a code review step to commits to either the application code itself, or to your Ansible playbooks, or both.</p>
+<p>Depending on your environment, you might be deploying continuously to a test environment, running an integration test battery against that environment, and then deploying automatically into production.  Or you could keep it simple and just use the rolling-update for on-demand deployment into test or production specifically.  This is all up to you.</p>
+<p>For integration with Continuous Integration systems, you can easily trigger playbook runs using the <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code> command line tool, or, if you’re using <a class="reference internal" href="../reference_appendices/tower.html#ansible-tower"><span class="std std-ref">Red Hat Ansible Tower</span></a>, the <code class="docutils literal notranslate"><span class="pre">tower-cli</span></code> or the built-in REST API.  (The tower-cli command ‘joblaunch’ will spawn a remote job over the REST API and is pretty slick).</p>
+<p>This should give you a good idea of how to structure a multi-tier application with Ansible, and orchestrate operations upon that app, with the eventual goal of continuous delivery to your customers. You could extend the idea of the rolling upgrade to lots of different parts of the app; maybe add front-end web servers along with application servers, for instance, or replace the SQL database with something like MongoDB or Riak. Ansible gives you the capability to easily manage complicated environments and automate common operations.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="https://github.com/ansible/ansible-examples/tree/master/lamp_haproxy">lamp_haproxy example</a></dt><dd><p>The lamp_haproxy example discussed here.</p>
+</dd>
+<dt><a class="reference internal" href="playbooks.html#working-with-playbooks"><span class="std std-ref">Working With Playbooks</span></a></dt><dd><p>An introduction to playbooks</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_reuse_roles.html#playbooks-reuse-roles"><span class="std std-ref">Roles</span></a></dt><dd><p>An introduction to playbook roles</p>
+</dd>
+<dt><a class="reference internal" href="playbooks_variables.html#playbooks-variables"><span class="std std-ref">Using Variables</span></a></dt><dd><p>An introduction to Ansible variables</p>
+</dd>
+<dt><a class="reference external" href="https://www.ansible.com/use-cases/continuous-delivery">Ansible.com: Continuous Delivery</a></dt><dd><p>An introduction to Continuous Delivery with Ansible</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="vault.html" class="btn btn-neutral float-right" title="Ansible Vault"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="playbooks_best_practices.html" class="btn btn-neutral" title="Best Practices"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','yABGvz2N8PwcwBxyfzUc','2.0.0');
+</script>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Red Hat, Inc.
+      <span class="lastupdated">
+        Last updated on Apr 16, 2020.
+      </span>
+
+    </p>
+  </div> 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script>
+
+  
+  
+    
+   <!-- extra footer elements for Ansible beyond RTD Sphinx Theme --->
+<!-- begin analytics -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "standard-page"]);
+      (function(d,s,i,r) {
+      if (d.getElementById(i)){return;}
+      var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+      n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/330046.js';
+      e.parentNode.insertBefore(n, e);
+      })(document, "script", "hs-analytics",300000);
+</script>
+<!-- end analytics -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+  _satellite.pageBottom();
+}
+</script> 
+
+</body>
+</html>
