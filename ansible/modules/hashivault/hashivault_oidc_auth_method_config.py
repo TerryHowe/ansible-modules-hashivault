@@ -54,6 +54,7 @@ options:
         description:
             - The CA certificate or chain of certificates, in PEM format, to use to validate connections to the OIDC
               Discovery URL. If not set, system certificates are used.
+extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
 ---
