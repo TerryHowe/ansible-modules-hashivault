@@ -37,7 +37,7 @@ ansible-playbook -v test_status.yml
 ansible-playbook -v test_not_there.yml
 ansible-playbook -v test_ephemeral.yml
 ansible-playbook -v test_generate_root.yml
-# ansible-playbook -v test_kv2.yml fais because hvac issue #385
+ansible-playbook -v test_kv2.yml
 ansible-playbook -v test_tokens.yml
 ansible-playbook -v test_audit.yml
 ansible-playbook -v test_audit_old.yml
@@ -59,6 +59,9 @@ source ./approlenv.sh
 ansible-playbook -v --extra-vars='namespace=application/' test_write.yml test_read.yml test_lookup.yml
 source ./vaultenv.sh
 ansible-playbook -v test_approle_mount_point.yml
+source ./approlenv.sh
+ansible-playbook -v --extra-vars='namespace=lightning/' test_write.yml test_read.yml test_lookup.yml
+source ./vaultenv.sh
 ansible-playbook -v test_approle_old.yml
 
 # userpass
