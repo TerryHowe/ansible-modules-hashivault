@@ -119,43 +119,49 @@ def hashivault_approle_role(module):
         ]
         desired_state = {}
         if role_file:
-            desired_state = json.loads(open(params.get('role_file'), 'r').read())
+            try:
+                desired_state = json.loads(open(params.get('role_file'), 'r').read())
+            except Exception as e:
+                return {'changed': False, 'failed': True,
+                        'msg': 'Error opening role file <%s>: %s' % (params.get('role_file'), str(e))}
         else:
             for arg in args:
                 value = params.get(arg)
                 if value is not None:
                     desired_state[arg] = value
+
         try:
-            current_state = client.get_role(name, mount_point=mount_point)
-            changed = False
-            missing = []
-            current_data = current_state.get('data', {})
-            for key in desired_state:
-                if key in current_data:
-                    if current_data[key] != desired_state[key]:
-                        changed = True
-                else:
-                    missing.append(key)
-            if changed:
-                if not module.check_mode:
-                    client.update_role(name, mount_point=mount_point, **desired_state)
-                return {'changed': True, 'missing': missing}
-            return {'changed': False, 'missing': missing, 'current_state': current_state}
+            previous_state = client.get_role(name, mount_point=mount_point)
         except Exception:
             if not module.check_mode:
                 client.create_role(name, mount_point=mount_point, **desired_state)
-        return {'changed': True}
-    elif state == 'absent':
-        if module.check_mode:
-            try:
-                client.get_role(name, mount_point=mount_point)
-            except Exception:
-                return {'changed': False}
             return {'changed': True}
-        else:
-            client.delete_role(name, mount_point=mount_point)
+
+        changed = False
+        missing = []
+        current_data = previous_state.get('data', {})
+        for key in desired_state:
+            if key in current_data:
+                if current_data[key] != desired_state[key]:
+                    changed = True
+            else:
+                missing.append(key)
+                changed = True
+        if not changed:
+            return {'changed': False, 'missing': missing, 'previous_state': previous_state}
+
+        if not module.check_mode:
+            client.create_role(name, mount_point=mount_point, **desired_state)
+        return {'changed': True, 'missing': missing}
+    if module.check_mode:
+        try:
+            client.get_role(name, mount_point=mount_point)
+        except Exception:
+            return {'changed': False}
         return {'changed': True}
-    return {'failed': True, 'msg': 'Unkown state value: {}'.format(state)}
+    else:
+        client.delete_role(name, mount_point=mount_point)
+    return {'changed': True}
 
 
 if __name__ == '__main__':
