@@ -117,12 +117,7 @@ def hashivault_auth_client(params):
 def hashiwrapper(function):
     def wrapper(*args, **kwargs):
         result = {"changed": False, "rc": 0}
-        try:
-            result.update(function(*args, **kwargs))
-        except Exception as e:
-            result['rc'] = 1
-            result['failed'] = True
-            result['msg'] = u"Exception: " + str(e)
+        result.update(function(*args, **kwargs))
         return result
     return wrapper
 
