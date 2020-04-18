@@ -16,7 +16,7 @@ def hashivault_argspec():
         client_key=dict(required=False, default=os.environ.get('VAULT_CLIENT_KEY', ''), type='str'),
         verify=dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
         authtype=dict(required=False, default=os.environ.get('VAULT_AUTHTYPE', 'token'), type='str'),
-        login_mount_point = dict(required=False, default=os.environ.get('VAULT_LOGIN_MOUNT_POINT', None), type='str'),
+        login_mount_point=dict(required=False, default=os.environ.get('VAULT_LOGIN_MOUNT_POINT', None), type='str'),
         token=dict(required=False, default=hashivault_default_token(), type='str', no_log=True),
         username=dict(required=False, default=os.environ.get('VAULT_USER', ''), type='str'),
         password=dict(required=False, default=os.environ.get('VAULT_PASSWORD', ''), type='str', no_log=True),
@@ -41,13 +41,14 @@ def hashivault_init(argument_spec, supports_check_mode=False, required_if=None, 
     module.no_log_values.discard(False)
     return module
 
+
 def get_ec2_iam_role():
     request = requests.get(url='http://169.254.169.254/latest/meta-data/iam/security-credentials/')
     request.raise_for_status()
     return request.content
 
 
-def get_ec2_iam_credentials():
+def get_ec2_iam_credentials(header_value, role_id):
     role_name = get_ec2_iam_role()
     metadata_url = 'http://169.254.169.254/latest/meta-data/iam/security-credentials/{role}'.format(
         role=role_name
@@ -55,11 +56,13 @@ def get_ec2_iam_credentials():
     response = requests.get(url=metadata_url)
     response.raise_for_status()
     credentials = response.json()
-    return {
-        'access_key': credentials['AccessKeyId'],
-        'secret_key': credentials['SecretAccessKey'],
-        'session_token': credentials['Token']
-    }
+    return dict(
+        access_key=credentials['AccessKeyId'],
+        secret_key=credentials['SecretAccessKey'],
+        session_token=credentials['Token'],
+        header_value=header_value,
+        role=role_id
+)
 
 
 def hashivault_client(params):
@@ -106,8 +109,8 @@ def hashivault_auth(client, params):
     elif authtype == 'tls':
         client.auth_tls()
     elif authtype == 'aws':
-        credentials = get_ec2_iam_credentials()
-        client.auth_aws_iam(**credentials, header_value=params.get['aws_header'], role=role_id)
+        credentials = get_ec2_iam_credentials(params.get['aws_header'], role_id)
+        client.auth_aws_iam(**credentials)
     else:
         client.token = token
     return client
