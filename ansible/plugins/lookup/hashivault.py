@@ -74,6 +74,8 @@ class LookupModule(LookupBase):
         elif authtype == 'userpass' or authtype == 'ldap':
             params['username'] = self._get_environment(environments, 'VAULT_USER')
             params['password'] = self._get_environment(environments, 'VAULT_PASSWORD')
+        elif authtype == 'aws':
+            params['aws_header'] = self._get_environment(environments, 'VAULT_AWS_HEADER')
         else:
             params['token'] = self._get_environment(environments, 'VAULT_TOKEN', hashivault_default_token())
         return params

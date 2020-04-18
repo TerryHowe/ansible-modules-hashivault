@@ -22,6 +22,7 @@ def hashivault_argspec():
         password=dict(required=False, default=os.environ.get('VAULT_PASSWORD', ''), type='str', no_log=True),
         role_id=dict(required=False, default=os.environ.get('VAULT_ROLE_ID', ''), type='str', no_log=True),
         secret_id=dict(required=False, default=os.environ.get('VAULT_SECRET_ID', ''), type='str', no_log=True),
+        aws_header=dict(required=False, default=os.environ.get('VAULT_AWS_HEADER', ''), type='str', no_log=True),
         namespace=dict(required=False, default=os.environ.get('VAULT_NAMESPACE', None), type='str')
     )
     return argument_spec
@@ -53,8 +54,12 @@ def get_ec2_iam_credentials():
     )
     response = requests.get(url=metadata_url)
     response.raise_for_status()
-    security_credentials = response.json()
-    return security_credentials
+    credentials = response.json()
+    return {
+        'access_key': credentials['AccessKeyId'],
+        'secret_key': credentials['SecretAccessKey'],
+        'session_token': credentials['Token']
+    }
 
 
 def hashivault_client(params):
@@ -102,8 +107,7 @@ def hashivault_auth(client, params):
         client.auth_tls()
     elif authtype == 'aws':
         credentials = get_ec2_iam_credentials()
-        client.auth_aws_iam(credentials['AccessKeyId'], credentials['SecretAccessKey'], credentials['Token'],
-                            role=role_id)
+        client.auth_aws_iam(**credentials, header_value=params.get['aws_header'], role=role_id)
     else:
         client.token = token
     return client
