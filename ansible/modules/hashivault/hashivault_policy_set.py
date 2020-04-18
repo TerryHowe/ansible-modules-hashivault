@@ -50,7 +50,10 @@ def hashivault_policy_set(params):
     rules = params.get('rules')
     rules_file = params.get('rules_file')
     if rules_file:
-        rules = open(rules, 'r').read()
+        try:
+            rules = open(rules, 'r').read()
+        except Exception as e:
+            return {'changed': False, 'failed': True, 'msg': 'Error opening rules file <%s>: %s' % (rules, str(e))}
     current = client.get_policy(name)
     if current == rules:
         return {'changed': False}
