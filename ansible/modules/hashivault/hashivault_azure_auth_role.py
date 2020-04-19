@@ -179,8 +179,6 @@ def hashivault_azure_auth_role(module):
         changed = True
 
     # make the changes!
-    # NOTE: bound_location is paseed. will need to be changed eventually
-    # https://github.com/hvac/hvac/issues/451
     if changed and state == 'present' and not module.check_mode:
         client.auth.azure.create_role(name=name, mount_point=mount_point, **desired_state)
 
