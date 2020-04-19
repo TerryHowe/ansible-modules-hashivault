@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from ansible.module_utils.hashivault import check_auth_methods
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -139,15 +140,10 @@ def hashivault_azure_auth_role(module):
         desired_state['bound_scale_sets'] = params.get('bound_scale_sets')
         desired_state['num_uses'] = params.get('num_uses')
 
-    # check if engine is enabled
-    try:
-        if (mount_point + "/") not in client.sys.list_auth_methods()['data'].keys():
-            return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
-    except:
-        if module.check_mode:
-            changed = True
-        else:
-            return {'failed': True, 'msg': 'auth mount is not enabled or namespace does not exist', 'rc': 1}
+    # check if engine is enable
+    changed, err = check_auth_methods(module, client)
+    if err:
+        return err
 
     # check if role exists
     try:
