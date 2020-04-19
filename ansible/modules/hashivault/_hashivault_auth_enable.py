@@ -54,7 +54,8 @@ def hashivault_auth_enable(params):
     name = params.get('name')
     description = params.get('description')
     mount_point = params.get('mount_point')
-    backends = client.sys.list_auth_methods()
+    result = client.sys.list_auth_methods()
+    backends = result.get('data', result)
     path = (mount_point or name) + u"/"
     if path in backends:
         return {'changed': False}

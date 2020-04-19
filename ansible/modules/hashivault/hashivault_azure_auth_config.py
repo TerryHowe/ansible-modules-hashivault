@@ -108,7 +108,8 @@ def hashivault_azure_auth_config(module):
     # if errors but check mode is enabled then pass as "changed"
     # while this is technically incorrect, its more likely helpful than hurtful
     try:
-        enabled_methods = client.sys.list_auth_methods()['data'].keys()
+        result = client.sys.list_auth_methods()
+        enabled_methods = result.get('data', result)
         if (mount_point + "/") not in enabled_methods:
             return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
     except:
