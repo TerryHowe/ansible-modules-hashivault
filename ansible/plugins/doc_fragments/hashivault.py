@@ -51,6 +51,10 @@ class ModuleDocFragment(object):
             description:
                 - password to login to vault.
             default: to environment variable C(VAULT_PASSWORD)
+        aws_header:
+            description:
+                - X-Vault-AWS-IAM-Server-ID Header value to prevent replay attacks.
+            default: to environment variable C(VAULT_AWS_HEADER)
         namespace:
             description:
                 - namespace for vault

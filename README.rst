@@ -53,6 +53,7 @@ in order to authenticate to your HashiCorp Vault instance:
   * `VAULT_CLIENT_CERT`: path to a PEM-encoded client certificate for TLS authentication to the Vault server
   * `VAULT_CACERT`: path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate
   * `VAULT_CAPATH`: path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate
+  * `VAULT_AWS_HEADER`: X-Vault-AWS-IAM-Server-ID Header value to prevent replay attacks
   * `VAULT_NAMESPACE`: specify the Vault Namespace, if you have one
 
 Generated Documentation
