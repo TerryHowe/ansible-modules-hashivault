@@ -353,4 +353,4 @@ def compare_state(desired_state, current_state):
         return True
 
     # simple value - compare both value and type for equality
-    return ((desired_state == current_state) and (type(desired_state) is type(current_state)))
+    return ((desired_state == current_state)) # and (type(desired_state) is type(current_state)))
