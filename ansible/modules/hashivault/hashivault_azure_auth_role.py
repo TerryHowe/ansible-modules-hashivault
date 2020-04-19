@@ -108,19 +108,13 @@ def main():
 def hashivault_azure_auth_role(module):
     params = module.params
     client = hashivault_auth_client(params)
-    mount_point = params.get('mount_point')
+    mount_point = params.get('mount_point').strip('/')
     role_file = params.get('role_file')
-    name = params.get('name')
+    name = params.get('name').strip('/')
     state = params.get('state')
     desired_state = dict()
     exists = False
     changed = False
-
-    # do not want a trailing slash in name
-    if name[-1] == '/':
-        name = name.strip('/')
-    if mount_point[-1]:
-        mount_point = mount_point.strip('/')
 
     # if azure_role_file is set, set azure_role to contents
     # else assume azure_role is set and use that value

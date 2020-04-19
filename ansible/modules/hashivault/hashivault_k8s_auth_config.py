@@ -62,9 +62,7 @@ def main():
 def hashivault_k8s_auth_config(module):
     params = module.params
     client = hashivault_auth_client(params)
-    mount_point = params.get('mount_point')
-    if mount_point[-1]:
-        mount_point = mount_point.strip('/')
+    mount_point = params.get('mount_point').strip('/')
 
     desired_state = dict()
     desired_state['kubernetes_host'] = params.get('kubernetes_host')

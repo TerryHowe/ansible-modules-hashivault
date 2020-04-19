@@ -80,13 +80,9 @@ def hashivault_azure_secret_engine_config(module):
     client = hashivault_auth_client(params)
     changed = False
     config_file = params.get('config_file')
-    mount_point = params.get('mount_point')
+    mount_point = params.get('mount_point').strip('/')
     desired_state = dict()
     current_state = dict()
-
-    # do not want a trailing slash in mount_point
-    if mount_point[-1]:
-        mount_point = mount_point.strip('/')
 
     # if config_file is set, set sub_id, ten_id, client_id, client_secret from file
     # else set from passed args
