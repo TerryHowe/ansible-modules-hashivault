@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -132,14 +133,9 @@ def hashivault_db_secret_engine_role(module):
         desired_state['db_name'] = params.get('db_name')
 
     # check if engine is enabled
-    try:
-        if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
-            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
-    except:
-        if module.check_mode:
-            changed = True
-        else:
-            return {'failed': True, 'msg': 'secret engine is not enabled or namespace does not exist', 'rc': 1}
+    changed, err = check_secrets_engines(module, client)
+    if err:
+        return err
 
     # check if role exists
     try:
