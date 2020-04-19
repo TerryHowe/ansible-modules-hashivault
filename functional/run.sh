@@ -27,7 +27,7 @@ ansible-playbook -v test_k8_auth.yml
 # ansible-playbook -v test_oidc_auth_role.yml cannot run without true discovery url
 ansible-playbook -v test_secret_engine.yml
 ansible-playbook -v test_secret_list.yml
-# ansible-playbook -v test_namespace.yml cannot run without enterprise 
+# ansible-playbook -v test_namespace.yml cannot run without enterprise
 # ansible-playbook -v test_db_config.yml cannot run without true db connectivity
 # ansible-playbook -v test_db_role.yml cannot run without true db connectivity
 ansible-playbook -v test_azure_config.yml
@@ -48,6 +48,7 @@ ansible-playbook -v test_rekey.yml
 ansible-playbook -v test_identity_group.yml
 ansible-playbook -v test_identity_entity.yml
 ansible-playbook -v test_ldap_group.yml
+ansible-playbook -v test_pki.yml
 # test_rekey.yml changes unseal keys, need to update VAULT_KEYS
 # for further test, if any.
 source ./vaultenv.sh
