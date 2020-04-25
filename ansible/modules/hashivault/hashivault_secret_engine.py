@@ -70,7 +70,7 @@ def hashivault_secret_engine(module):
     client = hashivault_auth_client(params)
     name = params.get('name')
     backend = params.get('backend')
-    description = params.get('description')
+    description = params.get('description', "")
     config = params.get('config')
     if params.get('state') in ['present', 'enabled']:
         state = 'enabled'
