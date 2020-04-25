@@ -44,7 +44,7 @@ EXAMPLES = '''
 def main():
     argspec = hashivault_argspec()
     argspec['device_type'] = dict(required=True, type='str')
-    argspec['description'] = dict(required=False, type='str')
+    argspec['description'] = dict(required=False, type='str', default='')
     argspec['options'] = dict(required=False, type='dict')
     argspec['path'] = dict(required=False, type='str')
     argspec['state'] = dict(required=False, type='str', default='enabled',
