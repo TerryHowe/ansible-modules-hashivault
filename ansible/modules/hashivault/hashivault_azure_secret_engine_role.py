@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -66,16 +67,10 @@ def hashivault_azure_secret_engine_role(module):
     params = module.params
     client = hashivault_auth_client(params)
     azure_role_file = params.get('azure_role_file')
-    mount_point = params.get('mount_point')
+    mount_point = params.get('mount_point').strip('/')
     azure_role = params.get('azure_role')
-    name = params.get('name')
+    name = params.get('name').strip('/')
     changed = False
-
-    # do not want a trailing slash in name
-    if name[-1] == '/':
-        name = name.strip('/')
-    if mount_point[-1]:
-        mount_point = mount_point.strip('/')
 
     # if azure_role_file is set, set azure_role to contents
     # else assume azure_role is set and use that value
@@ -83,14 +78,9 @@ def hashivault_azure_secret_engine_role(module):
         azure_role = json.loads(open(params.get('azure_role_file'), 'r').read())['azure_role']
 
     # check if engine is enabled
-    try:
-        if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
-            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
-    except:
-        if module.check_mode:
-            changed = True
-        else:
-            return {'failed': True, 'msg': 'secret engine is not enabled or namespace does not exist', 'rc': 1}
+    changed, err = check_secrets_engines(module, client)
+    if err:
+        return err
 
     # check if role exists or any at all
     try:

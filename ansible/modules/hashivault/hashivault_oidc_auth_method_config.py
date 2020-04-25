@@ -97,7 +97,7 @@ def hashivault_oidc_auth_method_config(module):
     params = module.params
     client = hashivault_auth_client(params)
     changed = False
-    mount_point = params.get('mount_point')
+    mount_point = params.get('mount_point').strip('/')
     desired_state = dict()
     current_state = dict()
     exists = False
@@ -107,10 +107,6 @@ def hashivault_oidc_auth_method_config(module):
     headers = {'X-Vault-Token': token, 'X-Vault-Namespace': namespace}
     url = params['url']
     verify = params['verify']
-
-    # do not want a trailing slash in mount_point
-    if mount_point[-1]:
-        mount_point = mount_point.strip('/')
 
     if not params.get('oidc_discovery_url'):
         desired_state['oidc_discovery_url'] = ''

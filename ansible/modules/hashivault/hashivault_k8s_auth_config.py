@@ -62,9 +62,7 @@ def main():
 def hashivault_k8s_auth_config(module):
     params = module.params
     client = hashivault_auth_client(params)
-    mount_point = params.get('mount_point')
-    if mount_point[-1]:
-        mount_point = mount_point.strip('/')
+    mount_point = params.get('mount_point').strip('/')
 
     desired_state = dict()
     desired_state['kubernetes_host'] = params.get('kubernetes_host')
@@ -72,14 +70,10 @@ def hashivault_k8s_auth_config(module):
     desired_state['kubernetes_ca_cert'] = params.get('kubernetes_ca_cert')
     desired_state['mount_point'] = mount_point
 
-    # check if engine is enabled
-    try:
-        result = client.sys.list_auth_methods()
-        backends = result.get('data', result)
-        if (mount_point + "/") not in backends:
-            return {'failed': True, 'msg': (mount_point + ' auth metod not enabled'), 'rc': 1}
-    except:
-        return {'failed': True, 'msg': (mount_point + ' error getting auth method'), 'rc': 1}
+    result = client.sys.list_auth_methods()
+    backends = result.get('data', result)
+    if (mount_point + "/") not in backends:
+        return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
 
     if not module.check_mode:
         client.auth.kubernetes.configure(**desired_state)

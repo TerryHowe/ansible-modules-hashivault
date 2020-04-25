@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -80,13 +81,9 @@ def hashivault_azure_secret_engine_config(module):
     client = hashivault_auth_client(params)
     changed = False
     config_file = params.get('config_file')
-    mount_point = params.get('mount_point')
+    mount_point = params.get('mount_point').strip('/')
     desired_state = dict()
     current_state = dict()
-
-    # do not want a trailing slash in mount_point
-    if mount_point[-1]:
-        mount_point = mount_point.strip('/')
 
     # if config_file is set, set sub_id, ten_id, client_id, client_secret from file
     # else set from passed args
@@ -102,14 +99,9 @@ def hashivault_azure_secret_engine_config(module):
         desired_state['environment'] = params.get('environment')
 
     # check if engine is enabled
-    try:
-        if (mount_point + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
-            return {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
-    except:
-        if module.check_mode:
-            changed = True
-        else:
-            return {'failed': True, 'msg': 'secret engine is not enabled or namespace does not exist', 'rc': 1}
+    changed, err = check_secrets_engines(module, client)
+    if err:
+        return err
 
     # check if current config matches desired config values, if they match, set changed to false to prevent action
     try:

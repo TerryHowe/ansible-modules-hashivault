@@ -108,19 +108,13 @@ def main():
 def hashivault_azure_auth_role(module):
     params = module.params
     client = hashivault_auth_client(params)
-    mount_point = params.get('mount_point')
+    mount_point = params.get('mount_point').strip('/')
     role_file = params.get('role_file')
-    name = params.get('name')
+    name = params.get('name').strip('/')
     state = params.get('state')
     desired_state = dict()
     exists = False
     changed = False
-
-    # do not want a trailing slash in name
-    if name[-1] == '/':
-        name = name.strip('/')
-    if mount_point[-1]:
-        mount_point = mount_point.strip('/')
 
     # if azure_role_file is set, set azure_role to contents
     # else assume azure_role is set and use that value
@@ -139,17 +133,10 @@ def hashivault_azure_auth_role(module):
         desired_state['bound_scale_sets'] = params.get('bound_scale_sets')
         desired_state['num_uses'] = params.get('num_uses')
 
-    # check if engine is enabled
-    try:
-        result = client.sys.list_auth_methods()
-        backends = result.get('data', result)
-        if (mount_point + "/") not in backends:
-            return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
-    except:
-        if module.check_mode:
-            changed = True
-        else:
-            return {'failed': True, 'msg': 'auth mount is not enabled or namespace does not exist', 'rc': 1}
+    result = client.sys.list_auth_methods()
+    backends = result.get('data', result)
+    if (mount_point + "/") not in backends:
+        return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
 
     # check if role exists
     try:
@@ -181,8 +168,6 @@ def hashivault_azure_auth_role(module):
         changed = True
 
     # make the changes!
-    # NOTE: bound_location is paseed. will need to be changed eventually
-    # https://github.com/hvac/hvac/issues/451
     if changed and state == 'present' and not module.check_mode:
         client.auth.azure.create_role(name=name, mount_point=mount_point, **desired_state)
 

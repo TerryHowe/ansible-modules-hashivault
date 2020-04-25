@@ -153,12 +153,11 @@ def main():
 def hashivault_oidc_auth_role(module):
     params = module.params
     client = hashivault_auth_client(params)
-    mount_point = params.get('mount_point')
-    name = params.get('name')
+    mount_point = params.get('mount_point').strip('/')
+    name = params.get('name').strip('/')
     state = params.get('state')
     desired_state = dict()
     current_state = dict()
-    exists = False
     changed = False
 
     token = params['token']
@@ -168,12 +167,6 @@ def hashivault_oidc_auth_role(module):
     verify = params['verify']
     ca_cert = params['ca_cert']
     ca_path = params['ca_path']
-
-    # do not want a trailing slash in name and mount_point
-    if name[-1] == '/':
-        name = name.strip('/')
-    if mount_point[-1]:
-        mount_point = mount_point.strip('/')
 
     desired_state['allowed_redirect_uris'] = params.get('allowed_redirect_uris')
     desired_state['bound_audiences'] = params.get('bound_audiences')
