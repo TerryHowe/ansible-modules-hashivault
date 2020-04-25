@@ -10,7 +10,8 @@
         method_type: azure
         state: disabled
 
-    - hashivault_auth_method:
+    - name: disable auth idempotent
+      hashivault_auth_method:
         method_type: azure
         state: disabled
       register: disable_idem
@@ -22,7 +23,8 @@
       register: enable_chg
     - assert: { that: "{{ enable_chg.changed }} == True" }
 
-    - hashivault_auth_method:
+    - name: disable azure
+      hashivault_auth_method:
         method_type: azure
         state: disabled
       register: disable_chg

@@ -103,7 +103,7 @@ def main():
     argspec['resolve_aws_unique_ids'] = dict(required=False, type='bool')
     argspec['token_max_ttl'] = dict(required=False, type='int')
     argspec['token_ttl'] = dict(required=False, type='int')
-    argspec['mount_point'] = dict(required=False, default='aws/', type='str')
+    argspec['mount_point'] = dict(required=False, default='aws', type='str')
     module = hashivault_init(argspec)
     result = hashivault_aws_ec2_role_create(module.params)
 
@@ -132,7 +132,7 @@ def hashivault_aws_ec2_role_create(params):
     ]
     name = params.get('name')
     policies = params.get('policies')
-    mount_point = params.get('mount_point')
+    mount_point = params.get('mount_point').strip('/')
     client = hashivault_auth_client(params)
     kwargs = {
         'policies': policies,
@@ -142,7 +142,9 @@ def hashivault_aws_ec2_role_create(params):
         if value is not None:
             kwargs[arg] = value
 
-    if mount_point not in client.sys.list_auth_methods().keys():
+    result = client.sys.list_auth_methods()
+    backends = result.get('data', result)
+    if (mount_point + "/") not in backends:
         return {'failed': True, 'msg': 'aws auth backend is not enabled', 'rc': 1}
 
     try:

@@ -163,11 +163,12 @@ def hashivault_auth_ldap(module):
     desired_state['group_attr'] = params.get('group_attr')
     desired_state['group_dn'] = params.get('group_dn')
 
-    auth_methods = client.sys.list_auth_methods()
+    result = client.sys.list_auth_methods()
+    auth_methods = result.get('data', result)
     path = (desired_state['mount_point']) + u"/"
 
     # is auth method enabled already?
-    if path in auth_methods['data'].keys():
+    if path in auth_methods:
         exists = True
 
     # if the auth method isn't enabled

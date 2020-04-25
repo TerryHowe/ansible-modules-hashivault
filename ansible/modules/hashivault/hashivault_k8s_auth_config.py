@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import check_auth_methods
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -71,10 +70,10 @@ def hashivault_k8s_auth_config(module):
     desired_state['kubernetes_ca_cert'] = params.get('kubernetes_ca_cert')
     desired_state['mount_point'] = mount_point
 
-    # check if engine is enabled
-    _, err = check_auth_methods(module, client)
-    if err:
-        return err
+    result = client.sys.list_auth_methods()
+    backends = result.get('data', result)
+    if (mount_point + "/") not in backends:
+        return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
 
     if not module.check_mode:
         client.auth.kubernetes.configure(**desired_state)

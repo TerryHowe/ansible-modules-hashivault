@@ -105,7 +105,9 @@ def hashivault_k8s_auth_role(module):
 
     # check if engine is enabled
     try:
-        if (mount_point + "/") not in client.sys.list_auth_methods():
+        result = client.sys.list_auth_methods()
+        backends = result.get('data', result)
+        if (mount_point + "/") not in backends:
             return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
     except:
         if module.check_mode:
