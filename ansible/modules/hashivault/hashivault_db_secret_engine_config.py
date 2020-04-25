@@ -98,16 +98,12 @@ def hashivault_db_secret_engine_config(module):
     params = module.params
     client = hashivault_auth_client(params)
     config_file = params.get('config_file')
-    mount_point = params.get('mount_point')
+    mount_point = params.get('mount_point').strip('/')
     state = params.get('state')
     name = params.get('name')
     desired_state = dict()
     changed = False
     exists = False
-
-    # do not want a trailing slash in mount_point
-    if mount_point[-1]:
-        mount_point = mount_point.strip('/')
 
     # if config_file is set value from file
     # else set from passed args

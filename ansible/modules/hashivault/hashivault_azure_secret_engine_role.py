@@ -67,16 +67,10 @@ def hashivault_azure_secret_engine_role(module):
     params = module.params
     client = hashivault_auth_client(params)
     azure_role_file = params.get('azure_role_file')
-    mount_point = params.get('mount_point')
+    mount_point = params.get('mount_point').strip('/')
     azure_role = params.get('azure_role')
-    name = params.get('name')
+    name = params.get('name').strip('/')
     changed = False
-
-    # do not want a trailing slash in name
-    if name[-1] == '/':
-        name = name.strip('/')
-    if mount_point[-1]:
-        mount_point = mount_point.strip('/')
 
     # if azure_role_file is set, set azure_role to contents
     # else assume azure_role is set and use that value
