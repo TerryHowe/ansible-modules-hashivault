@@ -26,6 +26,10 @@ options:
     kubernetes_ca_cert:
         description:
             - PEM encoded CA cert for use by the TLS client used to talk with the Kubernetes API
+    pem_keys:
+        description:
+            - Optional list of PEM-formatted public keys or certificates used to verify the signatures of Kubernetes
+              service account JWTs. If a certificate is given, its public key will be extracted.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -33,10 +37,8 @@ EXAMPLES = '''
 - hosts: localhost
   tasks:
     - hashivault_k8s_auth_config:
-        kubernetes_host: ""
-        kubernetes_ca_cert: ""
-        token_reviewer_jwt: ""
-
+        kubernetes_host: https://192.168.99.100:8443
+        kubernetes_ca_cert: "-----BEGIN CERTIFICATE-----\n.....\n-----END CERTIFICATE-----"
 '''
 
 
@@ -46,11 +48,12 @@ def main():
     argspec['kubernetes_host'] = dict(required=False, type='str', default=None)
     argspec['token_reviewer_jwt'] = dict(required=False, type='str', default=None)
     argspec['kubernetes_ca_cert'] = dict(required=False, type='str', default=None)
+    argspec['pem_keys'] = dict(required=False, type='list', default=None)
 
     supports_check_mode = True
-    required_together = [['kubernetes_host', 'kubernetes_ca_cert', 'token_reviewer_jwt']]
+    required_together = [['kubernetes_host', 'kubernetes_ca_cert']]
 
-    module = hashivault_init(argspec, supports_check_mode, required_together)
+    module = hashivault_init(argspec, supports_check_mode=supports_check_mode, required_together=required_together)
     result = hashivault_k8s_auth_config(module)
     if result.get('failed'):
         module.fail_json(**result)
@@ -68,12 +71,13 @@ def hashivault_k8s_auth_config(module):
     desired_state['kubernetes_host'] = params.get('kubernetes_host')
     desired_state['token_reviewer_jwt'] = params.get('token_reviewer_jwt')
     desired_state['kubernetes_ca_cert'] = params.get('kubernetes_ca_cert')
+    desired_state['pem_keys'] = params.get('pem_keys')
     desired_state['mount_point'] = mount_point
 
     result = client.sys.list_auth_methods()
     backends = result.get('data', result)
     if (mount_point + "/") not in backends:
-        return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
+        return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1, 'changed': False}
 
     if not module.check_mode:
         client.auth.kubernetes.configure(**desired_state)
