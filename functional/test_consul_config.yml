@@ -1,0 +1,38 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+    address: consul.local:8500
+    scheme: https
+    consul_token: myAwesomeConsulManagementToken
+  tasks:
+    - name: start with engine disabled
+      hashivault_secret_engine:
+        name: consul
+        backend: consul
+        state: absent
+         
+    - name: make sure test fails when no mount exists
+      hashivault_consul_secret_engine_config:
+        address: "{{ address }}"
+        scheme: "{{ scheme }}"
+        consul_token: "{{ consul_token }}"
+      register: fail_config
+      failed_when: false
+
+    - assert: { that: "{{ fail_config.changed }} == False" }
+    
+    - name: enable database secret engine
+      hashivault_secret_enable:
+        name: consul
+        backend: consul
+         
+    - name: successfully configure
+      hashivault_consul_secret_engine_config:
+        address: "{{ address }}"
+        scheme: "{{ scheme }}"
+        consul_token: "{{ consul_token }}"
+      register: success_config
+
+    - assert: { that: "{{ success_config.changed }} == True" }
