@@ -218,8 +218,38 @@
 <li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Developer Guide</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="cloud_guides.html">Public Cloud Guides</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cloud_guides.html">Public Cloud Guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guide_alicloud.html">Alibaba Cloud Compute Services Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_aws.html">Amazon Web Services Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_cloudstack.html">CloudStack Cloud Guide</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Google Cloud Platform Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requisites">Requisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#credentials">Credentials</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#providing-credentials-as-module-parameters">Providing Credentials as Module Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#providing-credentials-as-environment-variables">Providing Credentials as Environment Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gce-dynamic-inventory">GCE Dynamic Inventory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-an-instance">Create an instance</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#migration-guides">Migration Guides</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gce-py-gcp-compute-instance-py">gce.py -&gt; gcp_compute_instance.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide_azure.html">Microsoft Azure Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_online.html">Online.net Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_oracle.html">Oracle Cloud Infrastructure Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_packet.html">Packet.net Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_rax.html">Rackspace Cloud Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_scaleway.html">Scaleway Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_vultr.html">Vultr Guide</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="network_guides.html">Network Technology Guides</a></li>
 <li class="toctree-l1"><a class="reference internal" href="virt_guides.html">Virtualization and Containerization Guides</a></li>
 </ul>
@@ -759,7 +789,7 @@ module (and more!). Below is a mapping of <code class="docutils literal notransl
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on Apr 16, 2020.
+        Last updated on Apr 27, 2020.
       </span>
 
     </p>

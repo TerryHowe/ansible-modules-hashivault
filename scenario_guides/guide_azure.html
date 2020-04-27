@@ -218,8 +218,42 @@
 <li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Developer Guide</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="cloud_guides.html">Public Cloud Guides</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cloud_guides.html">Public Cloud Guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guide_alicloud.html">Alibaba Cloud Compute Services Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_aws.html">Amazon Web Services Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_cloudstack.html">CloudStack Cloud Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_gce.html">Google Cloud Platform Guide</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Microsoft Azure Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#authenticating-with-azure">Authenticating with Azure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-service-principal">Using Service Principal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-active-directory-username-password">Using Active Directory Username/Password</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#providing-credentials-to-azure-modules">Providing Credentials to Azure Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#other-cloud-environments">Other Cloud Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-virtual-machines">Creating Virtual Machines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-individual-components">Creating Individual Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-virtual-machine-with-default-options">Creating a Virtual Machine with Default Options</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-inventory-script">Dynamic Inventory Script</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#host-groups">Host Groups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disabling-certificate-validation-on-azure-endpoints">Disabling certificate validation on Azure endpoints</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide_online.html">Online.net Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_oracle.html">Oracle Cloud Infrastructure Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_packet.html">Packet.net Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_rax.html">Rackspace Cloud Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_scaleway.html">Scaleway Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_vultr.html">Vultr Guide</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="network_guides.html">Network Technology Guides</a></li>
 <li class="toctree-l1"><a class="reference internal" href="virt_guides.html">Virtualization and Containerization Guides</a></li>
 </ul>
@@ -812,7 +846,7 @@ which takes precedence over the environment value.</p>
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on Apr 16, 2020.
+        Last updated on Apr 27, 2020.
       </span>
 
     </p>
