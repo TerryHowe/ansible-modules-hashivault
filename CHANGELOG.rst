@@ -2,6 +2,25 @@ Changelog
 =========
 
 
+4.4.6 (2020-04-27)
+------------------
+- Add pem_keys support to k8s. [Terry Howe]
+- Get more consistent on mount_point handling. [Terry Howe]
+- Centralized auth mount check. [Dr.MagPie]
+- Centralized secret mount check. [Dr.MagPie]
+- Centralising Common logic. [Dr.MagPie]
+- Clean up default description. [Terry Howe]
+- Set default value for description in secret_engine to handle
+  idempotence. [André Frimberger]
+- Remove no longer meaningful comment. [Terry Howe]
+- Be consistent on list auth methods. [Terry Howe]
+- Docs pep8 compliance. [Terry Howe]
+- Fix for py27. [Terry Howe]
+- Add aws header for auth. [Terry Howe]
+- Make modules more robust. [Terry Howe]
+- Remove old exception handling for now. [Terry Howe]
+
+
 4.4.5 (2020-04-16)
 ------------------
 - Login support for mount_point. [Terry Howe]
