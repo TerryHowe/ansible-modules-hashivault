@@ -3,6 +3,11 @@ stages:
 language: python
 jobs:
   include:
+  - stage: linting
+    install: pip install pycodestyle==2.5.0
+    name: "Linting with pycodestyle"
+    python: "3.6"
+    script: pycodestyle --max-line-length=120 ansible
   - stage: test
     name: Tests Python 2.7
     sudo: required
