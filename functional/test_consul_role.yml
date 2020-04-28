@@ -1,11 +1,7 @@
 ---
-
 - hosts: localhost
   gather_facts: no
   vars:
-    address: consul.local:8500
-    scheme: https
-    consul_token: myAwesomeConsulManagementToken
     role_name: test
     policy: a2V5ICIvZm9vL2JhciIgeyBwb2xpY3kgPSAicmVhZCIgfQ==
   tasks:
@@ -13,19 +9,24 @@
       hashivault_secret_engine:
         name: consul
         backend: consul
-         
-    - name: successfully configure
-      hashivault_consul_secret_engine_config:
-        address: "{{ address }}"
-        scheme: "{{ scheme }}"
-        consul_token: "{{ consul_token }}"
 
-    - name: fail write a role
+    - name: configure secret engine
+      hashivault_consul_secret_engine_config:
+        consul_address: consul.local:8500
+        scheme: https
+        consul_token: myAwesomeConsulManagementToken
+
+    - name: make sure role is gone
+      hashivault_consul_secret_engine_role:
+        name: "{{ role_name }}"
+        state: absent
+
+    - name: fail role create when no policy
       hashivault_consul_secret_engine_role:
         name: "{{ role_name }}"
       register: fail_write
       failed_when: false
-
+    - assert: { that: "{{ fail_write.rc }} == 1" }
     - assert: { that: "{{ fail_write.changed }} == False" }
 
     - name: successfully write a role
@@ -33,29 +34,38 @@
         name: "{{ role_name }}"
         policy: "{{ policy }}"
       register: success_write
-    
+    - assert: { that: "{{ success_write.rc }} == 0" }
     - assert: { that: "{{ success_write.changed }} == True" }
 
-    - name: skip write a role
+    - name: idempotent write a role
       hashivault_consul_secret_engine_role:
         name: "{{ role_name }}"
         policy: "{{ policy }}"
       register: idem_write
-    
+    - assert: { that: "{{ idem_write.rc }} == 0" }
     - assert: { that: "{{ idem_write.changed }} == False" }
+
+    - name: successfully update a role
+      hashivault_consul_secret_engine_role:
+        name: "{{ role_name }}"
+        policy: "{{ policy }}"
+        max_ttl: 12345
+      register: success_write
+    - assert: { that: "{{ success_write.rc }} == 0" }
+    - assert: { that: "{{ success_write.changed }} == True" }
 
     - name: delete role
       hashivault_consul_secret_engine_role:
         name: "{{ role_name }}"
         state: absent
       register: success_del
-    
+    - assert: { that: "{{ success_del.rc }} == 0" }
     - assert: { that: "{{ success_del.changed }} == True" }
 
-    - name: skip delete role
+    - name: idempotent delete role
       hashivault_consul_secret_engine_role:
         name: "{{ role_name }}"
         state: absent
       register: success_del
-    
+    - assert: { that: "{{ success_del.rc }} == 0" }
     - assert: { that: "{{ success_del.changed }} == False" }

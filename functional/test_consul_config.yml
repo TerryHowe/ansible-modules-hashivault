@@ -1,9 +1,8 @@
 ---
-
 - hosts: localhost
   gather_facts: no
   vars:
-    address: consul.local:8500
+    consul_address: consul.local:8500
     scheme: https
     consul_token: myAwesomeConsulManagementToken
   tasks:
@@ -12,27 +11,27 @@
         name: consul
         backend: consul
         state: absent
-         
+
     - name: make sure test fails when no mount exists
       hashivault_consul_secret_engine_config:
-        address: "{{ address }}"
+        consul_address: "{{ consul_address }}"
         scheme: "{{ scheme }}"
         consul_token: "{{ consul_token }}"
       register: fail_config
       failed_when: false
-
     - assert: { that: "{{ fail_config.changed }} == False" }
-    
+    - assert: { that: "{{ fail_config.rc }} == 1" }
+
     - name: enable database secret engine
       hashivault_secret_enable:
         name: consul
         backend: consul
-         
+
     - name: successfully configure
       hashivault_consul_secret_engine_config:
-        address: "{{ address }}"
+        consul_address: "{{ consul_address }}"
         scheme: "{{ scheme }}"
         consul_token: "{{ consul_token }}"
       register: success_config
-
     - assert: { that: "{{ success_config.changed }} == True" }
+    - assert: { that: "{{ success_config.rc }} == 0" }
