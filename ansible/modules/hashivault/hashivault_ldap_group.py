@@ -91,7 +91,7 @@ def hashivault_ldap_group_create_or_update(params):
     try:
         group_details = client.auth.ldap.read_group(name=group_name, mount_point=mount_point)
     except Exception:
-        response = client.auth.ldap.create_or_update_group(
+        client.auth.ldap.create_or_update_group(
             name=group_name,
             policies=group_policies,
             mount_point=mount_point

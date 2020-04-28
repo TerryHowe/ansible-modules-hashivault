@@ -53,7 +53,7 @@ def hashivault_approle_role_secret_list(params):
     client = hashivault_auth_client(params)
     try:
         secrets = client.list_role_secrets(name, mount_point=mount_point)
-    except InvalidPath as ex:
+    except InvalidPath:
         return {'secrets': []}
     secrets = secrets.get('data', {}).get('keys', [])
     return {'secrets': str(secrets)}

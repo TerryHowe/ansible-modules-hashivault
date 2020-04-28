@@ -125,5 +125,6 @@ def hashivault_auth_method(module):
 
     return {'changed': changed, 'created': create}
 
+
 if __name__ == '__main__':
     main()

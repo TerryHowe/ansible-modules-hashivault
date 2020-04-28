@@ -76,7 +76,7 @@ def hashivault_delete(params):
             else:
                 returned_data = client.delete(secret_path)
         except InvalidPath:
-            read_data = None
+            pass
         except Exception as e:
             result['rc'] = 1
             result['failed'] = True

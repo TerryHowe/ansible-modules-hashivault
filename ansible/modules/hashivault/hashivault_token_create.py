@@ -137,7 +137,7 @@ def hashivault_token_create(params):
         renewable=renewable,
         explicit_max_ttl=explicit_max_ttl,
         period=period
-        )
+    )
 
     return {'changed': True, 'token': token}
 

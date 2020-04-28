@@ -69,5 +69,6 @@ def hashivault_mount_tune(module):
 
     return {'changed': changed}
 
+
 if __name__ == '__main__':
     main()

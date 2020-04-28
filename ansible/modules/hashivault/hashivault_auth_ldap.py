@@ -213,5 +213,6 @@ def hashivault_auth_ldap(module):
 
     return {'changed': changed}
 
+
 if __name__ == '__main__':
     main()

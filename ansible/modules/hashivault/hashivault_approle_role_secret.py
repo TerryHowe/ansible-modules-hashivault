@@ -134,5 +134,6 @@ def hashivault_approle_role_secret_create(module):
     else:
         return {'failed': True, 'msg': 'Unkown state value: {}'.format(state)}
 
+
 if __name__ == '__main__':
     main()

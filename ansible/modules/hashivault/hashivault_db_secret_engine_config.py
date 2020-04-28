@@ -100,7 +100,6 @@ def hashivault_db_secret_engine_config(module):
     state = params.get('state')
     name = params.get('name')
     desired_state = dict()
-    changed = False
     exists = False
 
     # if config_file is set value from file
@@ -151,7 +150,7 @@ def hashivault_db_secret_engine_config(module):
 
     # if configs dont match and checkmode is off, complete the change
     if changed and state == 'present' and not module.check_mode:
-        result = client.secrets.database.configure(name=name, mount_point=mount_point, **desired_state)
+        client.secrets.database.configure(name=name, mount_point=mount_point, **desired_state)
     elif changed and state == 'absent' and not module.check_mode:
         client.secrets.database.delete_connection(name=name, mount_point=mount_point)
 

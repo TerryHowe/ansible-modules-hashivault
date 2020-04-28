@@ -4,7 +4,6 @@ from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
 import json
-from ast import literal_eval
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -93,8 +92,6 @@ def main():
     argspec['bound_resource_groups'] = dict(required=False, type='list', default=[])
     argspec['bound_scale_sets'] = dict(required=False, type='list', default=[])
     argspec['num_uses'] = dict(required=False, type='int', default=0)
-
-    supports_check_mode = True
 
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_azure_auth_role(module)
