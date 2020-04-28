@@ -56,7 +56,7 @@ def hashivault_policy_set_from_file(module):
     try:
         current = client.get_policy(name)
         exists = True
-    except:
+    except Exception:
         if module.check_mode:
             changed = True
         else:

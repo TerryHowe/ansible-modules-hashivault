@@ -106,7 +106,7 @@ def hashivault_azure_secret_engine_config(module):
     # check if current config matches desired config values, if they match, set changed to false to prevent action
     try:
         current_state = client.secrets.azure.read_config()
-    except:
+    except Exception:
         changed = True
 
     for k, v in current_state.items():

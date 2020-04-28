@@ -106,7 +106,7 @@ def hashivault_azure_auth_config(module):
         enabled_methods = result.get('data', result)
         if (mount_point + "/") not in enabled_methods:
             return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
-    except:
+    except Exception:
         if module.check_mode:
             changed = True
         else:
@@ -114,7 +114,7 @@ def hashivault_azure_auth_config(module):
 
     try:
         current_state = client.auth.azure.read_config()
-    except:
+    except Exception:
         changed = True
 
     # check if current config matches desired config values, if they dont match, set changed true

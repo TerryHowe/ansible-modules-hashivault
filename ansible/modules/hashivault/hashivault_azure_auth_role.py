@@ -141,7 +141,7 @@ def hashivault_azure_auth_role(module):
         if name in existing_roles['keys']:
             # this role exists
             exists = True
-    except:
+    except Exception:
         # no roles exist yet
         pass
 

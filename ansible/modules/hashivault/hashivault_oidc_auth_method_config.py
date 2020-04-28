@@ -129,7 +129,7 @@ def hashivault_oidc_auth_method_config(module):
         backends = result.get('data', result)
         if (mount_point + "/") not in backends:
             return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
-    except:
+    except Exception:
         if module.check_mode:
             changed = True
         else:
@@ -142,7 +142,7 @@ def hashivault_oidc_auth_method_config(module):
             changed = True
         elif current_state.status_code == 200:
             exists = True
-    except:
+    except Exception:
         changed = True
 
     # check if current config matches desired config values, if they dont match, set changed true
@@ -160,7 +160,7 @@ def hashivault_oidc_auth_method_config(module):
                                       json=desired_state)
         try:
             config_status.raise_for_status()
-        except:
+        except Exception:
             return {'failed': True, 'msg': config_status.text, 'rc': 1}
     return {'changed': changed}
 

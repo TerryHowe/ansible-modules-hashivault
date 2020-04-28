@@ -91,7 +91,7 @@ def hashivault_auth_method(module):
         auth_methods = result.get('data', result)
         if (mount_point + u"/") in auth_methods:
             exists = True
-    except:
+    except Exception:
         pass
 
     if state == 'enabled' and not exists:

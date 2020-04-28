@@ -266,7 +266,7 @@ def check_secrets_engines(module, client):
     try:
         if (module.params.get('mount_point') + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
             err = {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
-    except:
+    except Exception:
         if module.check_mode:
             changed = True
         else:
@@ -287,7 +287,7 @@ def check_auth_methods(module, client):
     try:
         if (module.params.get('mount_point') + "/") not in client.sys.list_auth_methods()['data'].keys():
             err = {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
-    except:
+    except Exception:
         if module.check_mode:
             changed = True
         else:

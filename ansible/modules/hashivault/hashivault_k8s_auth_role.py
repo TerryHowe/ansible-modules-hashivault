@@ -106,7 +106,7 @@ def hashivault_k8s_auth_role(module):
         backends = result.get('data', result)
         if (mount_point + "/") not in backends:
             return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
-    except:
+    except Exception:
         if module.check_mode:
             changed = True
         else:
@@ -118,7 +118,7 @@ def hashivault_k8s_auth_role(module):
         if name in existing_roles['keys']:
             # this role exists
             exists = True
-    except:
+    except Exception:
         # no roles exist yet
         pass
 

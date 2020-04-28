@@ -86,7 +86,7 @@ def hashivault_azure_secret_engine_role(module):
         existing_roles = client.secrets.azure.list_roles(mount_point=mount_point)
         if name not in existing_roles['keys']:
             changed = True
-    except:
+    except Exception:
         changed = True
 
     # azure_role comes from json which is assigned as a str object type, convert to py objs

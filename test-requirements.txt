@@ -1,5 +1,4 @@
-pep8==1.7.1
-pytest-pep8==1.0.6
+pycodestyle==2.5.0
 tox==3.7.0
 sphinx
 sphinx_rtd_theme
