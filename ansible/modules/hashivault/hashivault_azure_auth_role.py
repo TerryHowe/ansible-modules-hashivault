@@ -96,7 +96,7 @@ def main():
 
     supports_check_mode = True
 
-    module = hashivault_init(argspec, supports_check_mode)
+    module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_azure_auth_role(module)
     if result.get('failed'):
         module.fail_json(**result)

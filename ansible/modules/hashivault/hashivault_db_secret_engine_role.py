@@ -92,9 +92,7 @@ def main():
     argspec['renew_statements'] = dict(required=False, type='list', default=[])
     argspec['db_name'] = dict(required=False, type='str')
 
-    supports_check_mode = True
-
-    module = hashivault_init(argspec, supports_check_mode)
+    module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_db_secret_engine_role(module)
     if result.get('failed'):
         module.fail_json(**result)

@@ -82,9 +82,8 @@ def main():
     argspec['oidc_client_id'] = dict(required=False, type='str')
     argspec['oidc_client_secret'] = dict(required=False, type='str')
     argspec['default_role'] = dict(required=False, type='str')
-    supports_check_mode = True
     required_one_of = [['oidc_discovery_url', 'jwks_url']]
-    module = hashivault_init(argspec, supports_check_mode, required_one_of=required_one_of)
+    module = hashivault_init(argspec, supports_check_mode=True, required_one_of=required_one_of)
     result = hashivault_oidc_auth_method_config(module)
     if result.get('failed'):
         module.fail_json(**result)

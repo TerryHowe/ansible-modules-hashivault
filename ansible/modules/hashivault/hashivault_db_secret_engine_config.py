@@ -81,11 +81,9 @@ def main():
     argspec['root_credentials_rotate_statements'] = dict(required=False, type='list', default=[])
     argspec['verify_connection'] = dict(required=False, type='bool', default=True)
     argspec['connection_details'] = dict(required=True, type='dict')
-
-    supports_check_mode = True
     required_one_of = [['config_file', 'connection_details']]
 
-    module = hashivault_init(argspec, supports_check_mode, required_one_of=required_one_of)
+    module = hashivault_init(argspec, supports_check_mode=True, required_one_of=required_one_of)
     result = hashivault_db_secret_engine_config(module)
     if result.get('failed'):
         module.fail_json(**result)

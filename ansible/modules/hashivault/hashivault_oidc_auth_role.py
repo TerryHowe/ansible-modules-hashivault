@@ -139,9 +139,7 @@ def main():
     argspec['expiration_leeway'] = dict(required=False, type='int', default=0)
     argspec['not_before_leeway'] = dict(required=False, type='int', default=0)
 
-    supports_check_mode = False
-
-    module = hashivault_init(argspec, supports_check_mode)
+    module = hashivault_init(argspec)
     result = hashivault_oidc_auth_role(module)
     if result.get('failed'):
         module.fail_json(**result)

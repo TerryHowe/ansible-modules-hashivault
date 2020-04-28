@@ -63,10 +63,9 @@ def main():
     argspec['environment'] = dict(required=False, type='str', default='AzurePublicCloud')
     argspec['resource'] = dict(required=False, type='str', default='https://management.azure.com')
     argspec['config_file'] = dict(required=False, type='str', default=None)
-    supports_check_mode = True
     required_together = [['client_id', 'client_secret', 'tenant_id']]
 
-    module = hashivault_init(argspec, supports_check_mode, required_together)
+    module = hashivault_init(argspec, supports_check_mode=True, required_together=required_together)
     result = hashivault_azure_auth_config(module)
     if result.get('failed'):
         module.fail_json(**result)

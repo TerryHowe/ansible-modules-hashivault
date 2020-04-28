@@ -34,8 +34,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
     argspec['rules_file'] = dict(required=True, type='str')
-    supports_check_mode = True
-    module = hashivault_init(argspec, supports_check_mode)
+    module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_policy_set_from_file(module)
     if result.get('failed'):
         module.fail_json(**result)

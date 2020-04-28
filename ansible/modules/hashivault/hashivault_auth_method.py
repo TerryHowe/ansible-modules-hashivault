@@ -59,8 +59,7 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default=None)
     argspec['config'] = dict(required=False, type='dict',
                              default=DEFAULT_CONFIG)
-    supports_check_mode = True
-    module = hashivault_init(argspec, supports_check_mode=supports_check_mode)
+    module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_auth_method(module)
     if result.get('failed'):
         module.fail_json(**result)

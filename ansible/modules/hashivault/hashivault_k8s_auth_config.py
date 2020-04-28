@@ -49,11 +49,9 @@ def main():
     argspec['token_reviewer_jwt'] = dict(required=False, type='str', default=None)
     argspec['kubernetes_ca_cert'] = dict(required=False, type='str', default=None)
     argspec['pem_keys'] = dict(required=False, type='list', default=None)
-
-    supports_check_mode = True
     required_together = [['kubernetes_host', 'kubernetes_ca_cert']]
 
-    module = hashivault_init(argspec, supports_check_mode=supports_check_mode, required_together=required_together)
+    module = hashivault_init(argspec, supports_check_mode=True, required_together=required_together)
     result = hashivault_k8s_auth_config(module)
     if result.get('failed'):
         module.fail_json(**result)

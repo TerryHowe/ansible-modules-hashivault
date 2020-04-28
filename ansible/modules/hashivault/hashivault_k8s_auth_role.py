@@ -71,9 +71,7 @@ def main():
     argspec['role_file'] = dict(required=False, type='str')
     argspec['state'] = dict(required=False, type='str', default='present', choices=['present', 'absent'])
 
-    supports_check_mode = True
-
-    module = hashivault_init(argspec, supports_check_mode)
+    module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_k8s_auth_role(module)
     if result.get('failed'):
         module.fail_json(**result)
