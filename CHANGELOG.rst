@@ -2,6 +2,18 @@ Changelog
 =========
 
 
+4.4.7 (2020-04-28)
+------------------
+- Bring consul modules up to date. [Terry Howe]
+- Add more verbosity to troubleshoot. [Damien Goldenberg]
+- Remove deprecated module for secret engine. [Damien Goldenberg]
+- Fix consul modules. [Damien Goldenberg]
+- Add some tests for consul secret engine. [Damien Goldenberg]
+- Upgrade hvac to have latest fix on the consul secret engine. [Damien
+  Goldenberg]
+- Add consul secret engine modules. [Damien Goldenberg]
+
+
 4.4.6 (2020-04-27)
 ------------------
 - Add pem_keys support to k8s. [Terry Howe]
