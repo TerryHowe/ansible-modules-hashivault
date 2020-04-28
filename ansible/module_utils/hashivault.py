@@ -62,7 +62,7 @@ def get_ec2_iam_credentials(header_value, role_id):
         session_token=credentials['Token'],
         header_value=header_value,
         role=role_id
-)
+    )
 
 
 def hashivault_client(params):
@@ -272,6 +272,7 @@ def check_secrets_engines(module, client):
         else:
             err = {'failed': True, 'msg': 'secret engine is not enabled or namespace does not exist', 'rc': 1}
     return changed, err
+
 
 def check_auth_methods(module, client):
     """Checks if auth engine is mounted

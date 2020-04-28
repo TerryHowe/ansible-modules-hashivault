@@ -111,9 +111,6 @@ def hashivault_consul_secret_engine_role(module):
 
     exists = False
     changed = False
-    current_state = {}
-    not_in_current = []
-    change_detected = []
     try:
         current_state = client.secrets.consul.read_role(name, mount_point=mount_point)['data']
         exists = True
@@ -124,7 +121,6 @@ def hashivault_consul_secret_engine_role(module):
                 continue
             elif desired_state[key] != current_state[key]:
                 changed = True
-                change_detected.append(key)
     except Exception:
         pass
 
@@ -139,7 +135,7 @@ def hashivault_consul_secret_engine_role(module):
     elif state == 'absent':
         client.secrets.consul.delete_role(name, mount_point=mount_point)
 
-    return {'changed': changed, 'exists': exists, 'not_in_current': not_in_current, 'change_detected': change_detected, 'current_state': current_state, 'desired_state': desired_state}
+    return {'changed': changed}
 
 
 if __name__ == '__main__':
