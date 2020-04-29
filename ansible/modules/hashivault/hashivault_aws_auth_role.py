@@ -16,23 +16,6 @@ short_description: Hashicorp Vault aws auth create role module
 description:
     - Module to create a aws auth backend vault role
 options:
-
-
-        :param role:
-        :param auth_type:
-        :param bound_ami_id:
-        :param bound_account_id:
-        :param bound_region:
-        :param bound_vpc_id:
-        :param bound_subnet_id:
-        :param bound_iam_role_arn:
-        
-        :param bound_iam_instance_profile_arn:
-        :param bound_ec2_instance_id:
-
-
-
-
     name:
         description:
             - role name.
