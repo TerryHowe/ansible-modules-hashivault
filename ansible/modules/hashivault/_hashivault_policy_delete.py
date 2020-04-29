@@ -4,14 +4,16 @@ from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
 
-ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
+ANSIBLE_METADATA = {'status': ['deprecated'], 'alternative': 'Use M(hashivault_policy) instead.',
+                    'why': 'This module does not fit the standard pattern',
+                    'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
 module: hashivault_policy_delete
 version_added: "2.1.0"
 short_description: Hashicorp Vault policy delete module
 description:
-    - Module to delete a policy from Hashicorp Vault.
+    - Module to delete a policy from Hashicorp Vault. Use hashivault_policy instead.
 options:
     name:
         description:
@@ -23,7 +25,7 @@ EXAMPLES = '''
 - hosts: localhost
   tasks:
     - hashivault_policy_delete:
-      name: 'annie'
+        name: 'annie'
       register: 'vault_policy_delete'
     - debug: msg="User policy is {{vault_policy_delete.policy}}"
 '''

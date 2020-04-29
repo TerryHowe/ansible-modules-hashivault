@@ -6,10 +6,10 @@
     rules: >
         path "secret/{{namespace}}/*" {
           capabilities = ["create", "read", "update", "delete", "list"]
-        } 
+        }
         path "secret/{{namespace}}" {
           capabilities = ["list"]
-        } 
+        }
     expected: "{{rules | regex_replace('\n', '')}}"
     bobs_rules: >
         path "secret/bob/*" {
@@ -20,33 +20,41 @@
         }
     bobs_expected: "{{bobs_rules | regex_replace('\n', '') | regex_replace(' ', '')}}"
   tasks:
+    - hashivault_policy:
+        name: '{{namespace}}'
+        state: absent
+    - hashivault_policy:
+        name: bob
+        state: absent
+
     - hashivault_policy_list:
       register: 'vault_policy_list'
     - assert: { that: "{{vault_policy_list.changed}} == False" }
     - assert: { that: "{{vault_policy_list.rc}} == 0" }
 
     - name: Delete a policy that doesn't exist and check that doesn't change or fail
-      hashivault_policy_delete:
+      hashivault_policy:
         name: '{{namespace}}'
+        state: absent
       register: 'vault_policy_delete'
     - assert: { that: "{{vault_policy_delete.changed}} == False" }
     - assert: { that: "{{vault_policy_delete.rc}} == 0" }
 
     - name: Set new policy
-      hashivault_policy_set:
+      hashivault_policy:
         name: "{{namespace}}"
         rules: "{{rules}}"
-      register: 'vault_policy_set'
-    - assert: { that: "{{vault_policy_set.changed}} == True" }
-    - assert: { that: "{{vault_policy_set.rc}} == 0" }
+      register: 'vault_policy'
+    - assert: { that: "{{vault_policy.changed}} == True" }
+    - assert: { that: "{{vault_policy.rc}} == 0" }
 
     - name: Set policy again and check that it doesn't change
-      hashivault_policy_set:
+      hashivault_policy:
         name: "{{namespace}}"
         rules: "{{rules}}"
-      register: 'vault_policy_set_twice'
-    - assert: { that: "{{vault_policy_set_twice.changed}} == False" }
-    - assert: { that: "{{vault_policy_set_twice.rc}} == 0" }
+      register: 'vault_policy_twice'
+    - assert: { that: "{{vault_policy_twice.changed}} == False" }
+    - assert: { that: "{{vault_policy_twice.rc}} == 0" }
 
     - name: Get policy and make sure it set properly
       hashivault_policy_get:
@@ -67,13 +75,12 @@
     - assert: { that: "{{vault_policy_list.rc}} == 0" }
 
     - name: Set new policy from file
-      hashivault_policy_set:
+      hashivault_policy:
         name: "{{namespace}}"
-        rules: "templates/policy_rules.hcl"
-        rules_file: True
-      register: 'vault_policy_set'
-    - assert: { that: "{{vault_policy_set.changed}} == True" }
-    - assert: { that: "{{vault_policy_set.rc}} == 0" }
+        rules_file: "templates/policy_rules.hcl"
+      register: 'vault_policy'
+    - assert: { that: "{{vault_policy.changed}} == True" }
+    - assert: { that: "{{vault_policy.rc}} == 0" }
 
     - name: Validate file policy
       hashivault_policy_get:
@@ -84,8 +91,9 @@
     - assert: { that: "'{{bobs_expected}}' == '{{actual}}'" }
 
     - name: Get rid of our new policy
-      hashivault_policy_delete:
+      hashivault_policy:
         name: '{{namespace}}'
+        state: absent
       register: 'vault_policy_delete'
     - assert: { that: "{{vault_policy_delete.changed}} == True" }
     - assert: { that: "{{vault_policy_delete.rc}} == 0" }
@@ -109,16 +117,16 @@
     - assert: { that: "'{{vault_policy_get.msg}}' == 'Policy \"terrybogus\" does not exist.'" }
 
     - name: Set new policy from file
-      hashivault_policy_set_from_file:
-        name: "bob"
+      hashivault_policy:
+        name: bob
         rules_file: "templates/policy_rules.hcl"
-      register: 'vault_policy_set'
-    - assert: { that: "{{vault_policy_set.changed}} == True" }
-    - assert: { that: "{{vault_policy_set.rc}} == 0" }
+      register: 'vault_policy'
+    - assert: { that: "{{vault_policy.changed}} == True" }
+    - assert: { that: "{{vault_policy.rc}} == 0" }
 
     - name: Get new from file policy and make sure it set properly
       hashivault_policy_get:
-        name: 'bob'
+        name: bob
       register: 'vault_policy_get'
     - assert: { that: "{{vault_policy_get.changed}} == False" }
     - set_fact:
@@ -127,8 +135,9 @@
     - assert: { that: "{{vault_policy_get.rc}} == 0" }
 
     - name: Delete our new policy from file
-      hashivault_policy_delete:
-        name: 'bob'
+      hashivault_policy:
+        name: bob
+        state: absent
       register: 'vault_policy_delete'
     - assert: { that: "{{vault_policy_delete.changed}} == True" }
     - assert: { that: "{{vault_policy_delete.rc}} == 0" }

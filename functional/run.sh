@@ -36,6 +36,7 @@ ansible-playbook -vvv test_consul_role.yml
 ansible-playbook -v test_azure_config.yml
 # ansible-playbook -v test_azure_role.yml cannot run without true azure connectivity
 ansible-playbook -v test_policy.yml
+ansible-playbook -v test_policy_old.yml
 ansible-playbook -v test_status.yml
 ansible-playbook -v test_not_there.yml
 ansible-playbook -v test_ephemeral.yml
