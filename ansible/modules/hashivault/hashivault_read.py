@@ -27,9 +27,6 @@ options:
     key:
         description:
             - secret key to read.
-    register:
-        description:
-            - variable to register result.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -50,7 +47,6 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default='secret')
     argspec['secret'] = dict(required=True, type='str')
     argspec['key'] = dict(required=False, type='str')
-    argspec['register'] = dict(required=False, type='str')
     argspec['default'] = dict(required=False, default=None, type='str')
     module = hashivault_init(argspec)
     result = hashivault_read(module.params)
