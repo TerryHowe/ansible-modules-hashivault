@@ -7,14 +7,16 @@ from ansible.module_utils.hashivault import hashiwrapper
 from hvac.exceptions import InvalidPath
 
 
-ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
+ANSIBLE_METADATA = {'status': ['deprecated'], 'alternative': 'Use M(hashivault_aws_auth_role) instead.',
+                    'why': 'This module does not fit the standard pattern',
+                    'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
 module: hashivault_aws_ec2_role_create
 version_added: "3.9.8"
 short_description: Hashicorp Vault aws ec2 create role module
 description:
-    - Module to create a aws ec2 backed vault role
+    - Module to create a aws ec2 backed vault role Use hashivault_aws_auth_role instead.
 options:
     name:
         description:
