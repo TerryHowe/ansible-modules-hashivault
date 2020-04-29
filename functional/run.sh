@@ -14,6 +14,7 @@ ansible-playbook -v test_write.yml
 ansible-playbook -v test_check.yml --check
 ansible-playbook -v test_read.yml
 ansible-playbook -v test_full_path.yml
+ansible-playbook -v test_aws_auth_config.yml
 ansible-playbook -v test_aws_auth_role.yml
 ansible-playbook -v test_list.yml
 ansible-playbook -v test_lookup.yml

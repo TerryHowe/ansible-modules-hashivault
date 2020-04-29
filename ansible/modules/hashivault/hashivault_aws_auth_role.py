@@ -10,11 +10,11 @@ from hvac.exceptions import InvalidPath
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivault_aws_auth_role_create
+module: hashivault_aws_auth_role
 version_added: "4.4.8"
 short_description: Hashicorp Vault aws auth create role module
 description:
-    - Module to create a aws auth backend vault role
+    - Module to create an aws auth role
 options:
     name:
         description:

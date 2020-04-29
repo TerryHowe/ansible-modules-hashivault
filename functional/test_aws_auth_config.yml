@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - hashivault_auth_list:
+      register: auth_list
+
+    - hashivault_auth_enable:
+        name: aws
+      when: "'strokes/' not in auth_list.backends"
+
+    - hashivault_aws_auth_config:
+        mount_point: aws
+        access_key: bob
+        secret_key: topsecret
+      register: aws_result
+    - assert: { that: "{{aws_result.changed}} == True" }
+    - assert: { that: "{{aws_result.rc}} == 0" }
+
+    - hashivault_aws_auth_config:
+        mount_point: aws
+        state: absent
+      register: aws_result
+    - assert: { that: "{{aws_result.changed}} == True" }
+    - assert: { that: "{{aws_result.rc}} == 0" }
