@@ -14,7 +14,7 @@ ansible-playbook -v test_write.yml
 ansible-playbook -v test_check.yml --check
 ansible-playbook -v test_read.yml
 ansible-playbook -v test_full_path.yml
-ansible-playbook -v test_create_ec2_role.yml
+ansible-playbook -v test_aws_auth_role.yml
 ansible-playbook -v test_list.yml
 ansible-playbook -v test_lookup.yml
 ansible-playbook -v test_delete.yml
@@ -27,7 +27,7 @@ ansible-playbook -v test_k8_auth.yml
 # ansible-playbook -v test_oidc_auth_role.yml cannot run without true discovery url
 ansible-playbook -v test_secret_engine.yml
 ansible-playbook -v test_secret_list.yml
-# ansible-playbook -v test_namespace.yml cannot run without enterprise 
+# ansible-playbook -v test_namespace.yml cannot run without enterprise
 # ansible-playbook -v test_db_config.yml cannot run without true db connectivity
 # ansible-playbook -v test_db_role.yml cannot run without true db connectivity
 ansible-playbook -v test_consul_config.yml
