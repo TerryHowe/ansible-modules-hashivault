@@ -13,7 +13,8 @@ module: hashivault_pki_url_set
 version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Set URLs
 description:
-    - This module allows setting the issuing certificate endpoints, CRL distribution points, and OCSP server endpoints that will be encoded into issued certificates.
+    - This module allows setting the issuing certificate endpoints, CRL distribution points, and OCSP server endpoints
+      that will be encoded into issued certificates.
     - You can update any of the values at any time without affecting the other existing values.
     - To remove the values, simply use a blank string as the parameter.
 options:
@@ -49,6 +50,7 @@ EXAMPLES = r'''
 
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['issuing_certificates'] = dict(required=False, type='list', default=[])
@@ -74,8 +76,7 @@ def hashivault_pki_url_set(module):
 
     mount_point = params.get('mount_point').strip('/')
 
-    changed = False
-    desired_state =  {
+    desired_state = {
         'issuing_certificates': params.get('issuing_certificates'),
         'crl_distribution_points': params.get('crl_distribution_points'),
         'ocsp_servers': params.get('ocsp_servers')
@@ -87,9 +88,10 @@ def hashivault_pki_url_set(module):
         return err
 
     # check if config exists
+    current_state = {}
     try:
         current_state = client.secrets.pki.read_urls(mount_point=mount_point).get('data')
-    except:
+    except Exception:
         # not configured yet.
         changed = True
 
@@ -101,6 +103,7 @@ def hashivault_pki_url_set(module):
     if changed and not module.check_mode:
         client.secrets.pki.set_urls(mount_point=mount_point, params=desired_state)
     return {'changed': changed}
+
 
 if __name__ == '__main__':
     main()

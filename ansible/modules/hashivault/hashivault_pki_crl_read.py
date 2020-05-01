@@ -30,6 +30,7 @@ EXAMPLES = r'''
     - debug: msg="{{ clr_config }}"
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['mount_point'] = dict(required=False, type='str', default='pki')
@@ -69,8 +70,6 @@ def hashivault_pki_crl_read(module):
         result['msg'] = u"Exception: " + str(e)
     return result
 
+
 if __name__ == '__main__':
     main()
-
-
-

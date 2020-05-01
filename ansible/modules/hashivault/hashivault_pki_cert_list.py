@@ -34,6 +34,7 @@ RETURN = r'''
 data: list of roles, if pki engine has no roles will return empty list
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['mount_point'] = dict(required=False, type='str', default='pki')
@@ -61,10 +62,9 @@ def hashivault_pki_cert_list(module):
 
     try:
         return {'data': client.secrets.pki.list_certificates(mount_point=mount_point).get('data').get('keys')}
-    except:
+    except Exception:
         return {'data': []}
+
 
 if __name__ == '__main__':
     main()
-
-

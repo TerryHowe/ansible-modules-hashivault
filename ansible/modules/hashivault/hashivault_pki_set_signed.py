@@ -12,7 +12,8 @@ module: hashivault_pki_set_signed
 version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Set Signed Intermediate
 description:
-    - This module allows submitting the signed CA certificate corresponding to a private key generated via C(intermediate) type in C(hashivault_pki_ca) module.
+    - This module allows submitting the signed CA certificate corresponding to a private key generated via
+      C(intermediate) type in C(hashivault_pki_ca) module.
     - The certificate should be submitted in PEM format.
 options:
     certificate:
@@ -56,6 +57,7 @@ EXAMPLES = r'''
 
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['certificate'] = dict(required=True, type='str')
@@ -85,12 +87,14 @@ def hashivault_pki_set_signed(module):
 
     result = {"changed": False, "rc": 0}
     try:
-        result['changed'] = client.secrets.pki.set_signed_intermediate(certificate=certificate, mount_point=mount_point).ok
+        result['changed'] = client.secrets.pki.set_signed_intermediate(certificate=certificate,
+                                                                       mount_point=mount_point).ok
     except Exception as e:
         result['rc'] = 1
         result['failed'] = True
         result['msg'] = u"Exception: " + str(e)
     return result
+
 
 if __name__ == '__main__':
     main()

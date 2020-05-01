@@ -13,9 +13,11 @@ module: hashivault_pki_ca
 version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Generate Root/Intermediate
 description:
-    - 'WARNING: if king is `intermediate` and signed CSR have not been inported back to vault, module will regenerate private key and create new CSR.'
+    - 'WARNING: if king is `intermediate` and signed CSR have not been inported back to vault, module will regenerate
+      private key and create new CSR.'
     - This module generates a new private key and a CSR for signing or a new self-signed CA certificate and private key.
-    - If using Vault as a root, and for many other CAs, the various parameters on the final certificate are set at signing time and may or may not honor the parameters set here.
+    - If using Vault as a root, and for many other CAs, the various parameters on the final certificate are set at
+      signing time and may or may not honor the parameters set here.
     - This will overwrite any previously existing CA private key.
     - This is mostly meant as a helper function, and not all possible parameters that can be set in a CSR are supported.
 options:
@@ -28,7 +30,8 @@ options:
         choices: ["exported", "internal"]
         default: internal
         description:
-            - Specifies the type of the root to create, If C(exported), the private key will be returned in the response;
+            - Specifies the type of the root to create, If C(exported), the private key will be returned in the
+              response;
             - If it is C(internal) the private key will not be returned and cannot be retrieved later.
     kind:
         type: str
@@ -44,7 +47,8 @@ options:
             - Do you want for this config to be present or absent
     config:
         description:
-            - "Collection of properties for pki generate root. Ref. U(https://www.vaultproject.io/api-docs/secret/pki#generate-root)"
+            - "Collection of properties for pki generate root. Ref.
+              U(https://www.vaultproject.io/api-docs/secret/pki#generate-root)"
         type: dict
         suboptions:
             alt_names:
@@ -64,8 +68,10 @@ options:
                 type: str
                 description:
                     - Specifies custom OID/UTF8-string SANs.
-                    - These must match values specified on the role in C(allowed_other_sans) (see role creation for allowed_other_sans globbing rules).
-                    - The format is the same as OpenSSL: C(<oid>;<type>:<value>) where the only current valid type is C(UTF8)
+                    - These must match values specified on the role in C(allowed_other_sans) (see role creation for
+                      allowed_other_sans globbing rules).
+                    - The format is the same as OpenSSL: C(<oid>;<type>:<value>) where the only current valid type is
+                      C(UTF8)
                     - This can be a comma-delimited list or a JSON string slice.
             ttl:
                 type: str
@@ -79,14 +85,16 @@ options:
                 description:
                     - Specifies the format for returned data.
                     - If C(der), the output is base64 encoded.
-                    - If C(pem_bundle), the C(certificate) field will contain the private key (if exported) and certificate, concatenated;
+                    - If C(pem_bundle), the C(certificate) field will contain the private key (if exported) and
+                      certificate, concatenated;
                     - if the issuing CA is not a Vault-derived self-signed root, this will be included as well.
             private_key_format:
                 type: str
                 default: der
                 description:
                     - Specifies the format for marshaling the private key.
-                    - Defaults to C(der) which will return either base64-encoded DER or PEM-encoded DER, depending on the value of C(format).
+                    - Defaults to C(der) which will return either base64-encoded DER or PEM-encoded DER, depending on
+                      the value of C(format).
                     - The other option is C(pkcs8) which will return the key marshalled as PEM-encoded PKCS8
             key_type:
                 type: str
@@ -105,18 +113,22 @@ options:
                 description:
                     – Specifies the maximum path length to encode in the generated certificate.
                     - C(-1) means no limit.
-                    - Unless the signing certificate has a maximum path length set, in which case the path length is set to one less than that of the signing certificate.
+                    - Unless the signing certificate has a maximum path length set, in which case the path length is set
+                      to one less than that of the signing certificate.
                     - A limit of C(0) means a literal path length of zero.
             exclude_cn_from_sans:
                 type: bool
                 default: false
                 description:
-                    - If set, the given C(common_name) will not be included in DNS or Email Subject Alternate Names (as appropriate).
-                    - Useful if the CN is not a hostname or email address, but is instead some human-readable identifier.
+                    - If set, the given C(common_name) will not be included in DNS or Email Subject Alternate Names (as
+                      appropriate).
+                    - Useful if the CN is not a hostname or email address, but is instead some human-readable
+                      identifier.
             permitted_dns_domains:
                 type: list
                 description:
-                    - A list containing DNS domains for which certificates are allowed to be issued or signed by this CA certificate.
+                    - A list containing DNS domains for which certificates are allowed to be issued or signed by this CA
+                      certificate.
                     - Note that subdomains are allowed, as per U(https://tools.ietf.org/html/rfc5280#section-4.2.1.10).
             ou:
                 type: list
@@ -164,11 +176,12 @@ EXAMPLES = r'''
         common_name: my common name
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['common_name'] = dict(required=True, type='str')
     argspec['mount_point'] = dict(required=False, type='str', default='pki')
-    argspec['state'] = dict(required=False,type='str', default='present', choices=['present', 'absent'])
+    argspec['state'] = dict(required=False, type='str', default='present', choices=['present', 'absent'])
     argspec['kind'] = dict(required=False, type='str', default='root', choices=['root', 'intermediate'])
     argspec['type'] = dict(required=False, type='str', default='internal', choices=['internal', 'exported'])
     argspec['config'] = dict(required=False, type='dict', default={})
@@ -183,6 +196,7 @@ def main():
     else:
         module.exit_json(**result)
 
+
 @hashiwrapper
 def hashivault_pki_ca(module):
     params = module.params
@@ -196,7 +210,6 @@ def hashivault_pki_ca(module):
     config = params.get('config')
 
     exists = False
-    changed = False
 
     # check if engine is enabled
     changed, err = check_secrets_engines(module, client)
@@ -205,8 +218,9 @@ def hashivault_pki_ca(module):
 
     # check if CA certificate exists
     if client.secrets.pki.read_ca_certificate(mount_point=mount_point):
-        # WARNING: if king is `intermediate` and signed CSR have not been inported back to vault, module will regenerate private key and create new CSR.
-        # This check will not see that CA exist although private key is generate, and CSR might be in proccess to be signed.
+        # WARNING: if king is `intermediate` and signed CSR have not been inported back to vault, module will regenerate
+        # private key and create new CSR. This check will not see that CA exist although private key is generate, and
+        # CSR might be in proccess to be signed.
         exists = True
 
     if (exists and state == 'absent') or (not exists and state == 'present'):
@@ -217,12 +231,14 @@ def hashivault_pki_ca(module):
     # make the changes!
     if changed and state == 'present' and not module.check_mode:
         if kind == 'root':
-            resp = client.secrets.pki.generate_root(type=type, common_name=common_name, extra_params=config, mount_point=mount_point)
+            resp = client.secrets.pki.generate_root(type=type, common_name=common_name, extra_params=config,
+                                                    mount_point=mount_point)
             result['data'] = resp.get('data')
             if resp.get('warnings'):
                 result['warnings'] = resp.get('warnings')
         elif kind == 'intermediate':
-            resp = client.secrets.pki.generate_intermediate(type=type, common_name=common_name, extra_params=config, mount_point=mount_point)
+            resp = client.secrets.pki.generate_intermediate(type=type, common_name=common_name, extra_params=config,
+                                                            mount_point=mount_point)
             result['data'] = resp.get('data')
             if resp.get('warnings'):
                 result['warnings'] = resp.get('warnings')
@@ -232,7 +248,6 @@ def hashivault_pki_ca(module):
 
     return result
 
+
 if __name__ == '__main__':
     main()
-
-

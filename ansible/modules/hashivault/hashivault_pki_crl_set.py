@@ -44,6 +44,7 @@ EXAMPLES = r'''
 
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['expiry'] = dict(required=True, type='str')
@@ -68,8 +69,7 @@ def hashivault_pki_crl_set(module):
 
     mount_point = params.get('mount_point').strip('/')
 
-    changed = False
-    desired_state =  {
+    desired_state = {
         'disable': params.get('disable'),
         'expiry': params.get('expiry')
     }
@@ -93,6 +93,6 @@ def hashivault_pki_crl_set(module):
         client.secrets.pki.set_crl_configuration(mount_point=mount_point, extra_params=desired_state)
     return {'changed': changed}
 
+
 if __name__ == '__main__':
     main()
-

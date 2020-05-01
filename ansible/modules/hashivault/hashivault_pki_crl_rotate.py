@@ -14,7 +14,8 @@ version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Rotate CRLs
 description:
     - This module forces a rotation of the CRL.
-    - This can be used by administrators to cut the size of the CRL if it contains a number of certificates that have now expired, but has not been rotated due to no further certificates being revoked.
+    - This can be used by administrators to cut the size of the CRL if it contains a number of certificates that have
+      now expired, but has not been rotated due to no further certificates being revoked.
 options:
     mount_point:
         default: pki
@@ -29,6 +30,7 @@ EXAMPLES = r'''
   tasks:
     - hashivault_pki_crl_rotate:
 '''
+
 
 def main():
     argspec = hashivault_argspec()
@@ -62,8 +64,9 @@ def hashivault_pki_crl_rotate(module):
     # make the changes!
     if not module.check_mode:
         failed = not client.secrets.pki.rotate_crl(mount_point=mount_point).get('data').get('success')
-    return {'failed':failed, 'changed': not failed, 'msg': 'oops, something went wrong.' if failed else '', 'rc': 1 if failed else 0}
+    return {'failed': failed, 'changed': not failed,
+            'msg': 'oops, something went wrong.' if failed else '', 'rc': 1 if failed else 0}
+
 
 if __name__ == '__main__':
     main()
-

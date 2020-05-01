@@ -21,7 +21,8 @@ options:
     config:
         type: dict
         description:
-            - "Collection of properties for pki tidy endpoint. Ref. U(https://www.vaultproject.io/api-docs/secret/pki#tidy)"
+            - "Collection of properties for pki tidy endpoint. Ref.
+              U(https://www.vaultproject.io/api-docs/secret/pki#tidy)"
         suboptions:
             tidy_cert_store:
                 type: bool
@@ -32,15 +33,18 @@ options:
                 type: bool
                 default: false
                 description:
-                    - Set to true to expire all revoked and expired certificates, removing them both from the CRL and from storage.
+                    - Set to true to expire all revoked and expired certificates, removing them both from the CRL and
+                      from storage.
                     - The CRL will be rotated if this causes any values to be removed.
             safety_buffer:
                 type: str
                 default: 72h
                 description:
                     - Specifies A duration used as a safety buffer to ensure certificates are not expunged prematurely;
-                    - as an example, this can keep certificates from being removed from the CRL that, due to clock skew, might still be considered valid on other hosts.
-                    - For a certificate to be expunged, the time must be after the expiration time of the certificate (according to the local clock) plus the duration of safety_buffer.
+                    - as an example, this can keep certificates from being removed from the CRL that, due to clock skew,
+                      might still be considered valid on other hosts.
+                    - For a certificate to be expunged, the time must be after the expiration time of the certificate
+                      (according to the local clock) plus the duration of safety_buffer.
 extends_documentation_fragment:
     - hashivault
 '''
@@ -53,6 +57,7 @@ EXAMPLES = r'''
         safety_buffer: 96h
         tidy_revoked_certs: true
 '''
+
 
 def main():
     argspec = hashivault_argspec()
@@ -89,6 +94,7 @@ def hashivault_pki_tidy(module):
         result['failed'] = True
         result['msg'] = u"Exception: " + str(e)
     return result
+
 
 if __name__ == '__main__':
     main()

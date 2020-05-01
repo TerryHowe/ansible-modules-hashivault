@@ -40,6 +40,7 @@ EXAMPLES = r'''
 
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['serial'] = dict(required=True, type='str')
@@ -69,15 +70,14 @@ def hashivault_pki_cert_revoke(module):
 
     result = {"changed": False, "rc": 0}
     try:
-        result['data'] = client.secrets.pki.revoke_certificate(serial_number=serial, mount_point=mount_point).get('data')
+        result['data'] = client.secrets.pki.revoke_certificate(serial_number=serial,
+                                                               mount_point=mount_point).get('data')
     except Exception as e:
         result['rc'] = 1
         result['failed'] = True
         result['msg'] = u"Exception: " + str(e)
     return result
 
+
 if __name__ == '__main__':
     main()
-
-
-

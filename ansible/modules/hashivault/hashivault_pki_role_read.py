@@ -35,6 +35,7 @@ EXAMPLES = r'''
     - debug: msg="{{ role }}"
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
@@ -76,7 +77,6 @@ def hashivault_pki_role_read(module):
         result['msg'] = u"Exception: " + str(e)
     return result
 
+
 if __name__ == '__main__':
     main()
-
-

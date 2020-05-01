@@ -30,6 +30,7 @@ EXAMPLES = r'''
     - debug: msg="{{ url_config }}"
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['mount_point'] = dict(required=False, type='str', default='pki')
@@ -69,6 +70,6 @@ def hashivault_pki_url_read(module):
         result['msg'] = u"Exception: " + str(e)
     return result
 
+
 if __name__ == '__main__':
     main()
-

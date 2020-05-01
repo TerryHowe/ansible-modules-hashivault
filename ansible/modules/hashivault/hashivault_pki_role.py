@@ -15,7 +15,9 @@ version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Create/Update/Delete Role
 description:
     - This module creates or updates the role definition.
-    - Note that the C(allowed_domains), C(allow_subdomains), C(allow_glob_domains), and C(allow_any_name) attributes are additive; between them nearly and across multiple roles nearly any issuing policy can be accommodated. C(server_flag), C(client_flag), and C(code_signing_flag) are additive as well.
+    - Note that the C(allowed_domains), C(allow_subdomains), C(allow_glob_domains), and C(allow_any_name) attributes are
+      additive; between them nearly and across multiple roles nearly any issuing policy can be accommodated.
+      C(server_flag), C(client_flag), and C(code_signing_flag) are additive as well.
     - If a client requests a certificate that is not allowed by the CN policy in the role, the request is denied.
 options:
     mount_point:
@@ -28,7 +30,8 @@ options:
             - Specifies the name of the role to create.
     role_file:
         description:
-            - file with a json object containing play parameters. pass all params but name, state, mount_point which stay in the ansible play
+            - file with a json object containing play parameters. pass all params but name, state, mount_point which
+              stay in the ansible play
     state:
         description:
             - Do you want for this config to be present or absent
@@ -37,7 +40,8 @@ options:
     config:
         type: dict
         description:
-            - "Collection of properties from pki role U(https://www.vaultproject.io/api-docs/secret/pki#create-update-role)"
+            - "Collection of properties from pki role
+              U(https://www.vaultproject.io/api-docs/secret/pki#create-update-role)"
         suboptions:
             ttl:
                 type: str
@@ -55,7 +59,8 @@ options:
                 type: bool
                 default: true
                 description:
-                    - Specifies if clients can request certificates for C(localhost) as one of the requested common names.
+                    - Specifies if clients can request certificates for C(localhost) as one of the requested common
+                      names.
                     - This is useful for testing and to allow clients on a single host to talk securely.
             allowed_domains:
                 type: list
@@ -67,13 +72,17 @@ options:
                 default: false
                 description:
                     - Specifies if clients can request certificates matching the value of the actual domains themselves.
-                    - e.g. if a configured domain set with C(allowed_domains) is C(example.com), this allows clients to actually request a certificate containing the name C(example.com) as one of the DNS values on the final certificate. In some scenarios, this can be considered a security risk.
+                    - e.g. if a configured domain set with C(allowed_domains) is C(example.com), this allows clients to
+                      actually request a certificate containing the name C(example.com) as one of the DNS values on the
+                      final certificate. In some scenarios, this can be considered a security risk.
             allow_subdomains:
                 type: bool
                 default: false
                 description:
-                    - Specifies if clients can request certificates with CNs that are subdomains of the CNs allowed by the other role options. This includes wildcard subdomains.
-                    - For example, an C(allowed_domains) value of C(example.com) with this option set to true will allow C(foo.example.com) and C(bar.example.com) as well as C(*.example.com).
+                    - Specifies if clients can request certificates with CNs that are subdomains of the CNs allowed by
+                      the other role options. This includes wildcard subdomains.
+                    - For example, an C(allowed_domains) value of C(example.com) with this option set to true will allow
+                      C(foo.example.com) and C(bar.example.com) as well as C(*.example.com).
                     - This is redundant when using the C(allow_any_name) option.
             allow_glob_domains:
                 type: bool
@@ -86,18 +95,21 @@ options:
                 default: false
                 description:
                     - Specifies if clients can request any CN
-                    - Useful in some circumstances, but make sure you understand whether it is appropriate for your installation before enabling it.
+                    - Useful in some circumstances, but make sure you understand whether it is appropriate for your
+                      installation before enabling it.
             enforce_hostnames:
                 type: bool
                 default: true
                 description:
-                    - Specifies if only valid host names are allowed for CNs, DNS SANs, and the host part of email addresses.
+                    - Specifies if only valid host names are allowed for CNs, DNS SANs, and the host part of email
+                      addresses.
             allow_ip_sans:
                 type: bool
                 default: true
                 description:
                     - Specifies if clients can request IP Subject Alternative Names
-                    - No authorization checking is performed except to verify that the given values are valid IP addresses.
+                    - No authorization checking is performed except to verify that the given values are valid IP
+                      addresses.
             allowed_uri_sans:
                 type: str
                 description:
@@ -109,9 +121,11 @@ options:
                 type: str
                 description:
                     - Defines allowed custom OID/UTF8-string SANs
-                    - This can be a comma-delimited list or a JSON string slice, where each element has the same format as OpenSSL: C(<oid>;<type>:<value>), but the only valid type is C(UTF8) or C(UTF-8)
+                    - This can be a comma-delimited list or a JSON string slice, where each element has the same format
+                      as OpenSSL: C(<oid>;<type>:<value>), but the only valid type is C(UTF8) or C(UTF-8)
                     - The C(value) part of an element may be a C(*) to allow any value with that OID
-                    - Alternatively, specifying a single C(*) will allow any C(other_sans) input.- C(server_flag) C((bool: true)) – Specifies if certificates are flagged for server use.
+                    - Alternatively, specifying a single C(*) will allow any C(other_sans) input.- C(server_flag)
+                      C((bool: true)) – Specifies if certificates are flagged for server use.
             client_flag:
                 type: bool
                 default: true
@@ -131,8 +145,10 @@ options:
                 type: str
                 default: "rsa"
                 description:
-                    - Specifies the type of key to generate for generated private keys and the type of key expected for submitted CSRs
-                    - Currently, C(rsa) and C(ec) are supported, or when signing CSRs C(any) can be specified to allow keys of either type and with any bit size (subject to > 1024 bits for RSA keys).
+                    - Specifies the type of key to generate for generated private keys and the type of key expected for
+                      submitted CSRs
+                    - Currently, C(rsa) and C(ec) are supported, or when signing CSRs C(any) can be specified to allow
+                      keys of either type and with any bit size (subject to > 1024 bits for RSA keys).
             key_bits:
                 type: int
                 default: 2048
@@ -144,14 +160,16 @@ options:
                 default: ["DigitalSignature", "KeyAgreement", "KeyEncipherment"]
                 description:
                     - Specifies the allowed key usage constraint on issued certificates
-                    - Valid values can be found at U(https://golang.org/pkg/crypto/x509/#KeyUsage) - simply drop the C(KeyUsage) part of the value
+                    - Valid values can be found at U(https://golang.org/pkg/crypto/x509/#KeyUsage) - simply drop the
+                      C(KeyUsage) part of the value
                     - Values are not case-sensitive
                     - To specify no key usage constraints, set this to an empty list.
             ext_key_usage:
                 type: list
                 description:
                     - Specifies the allowed extended key usage constraint on issued certificates
-                    - Valid values can be found at U(https://golang.org/pkg/crypto/x509/#ExtKeyUsage) - simply drop the C(ExtKeyUsage) part of the value
+                    - Valid values can be found at U(https://golang.org/pkg/crypto/x509/#ExtKeyUsage) - simply drop the
+                      C(ExtKeyUsage) part of the value
                     - Values are not case-sensitive
                     - To specify no key usage constraints, set this to an empty list.
             ext_key_usage_oids:
@@ -162,13 +180,15 @@ options:
                 type: bool
                 default: true
                 description:
-                    - When used with the CSR signing endpoint, the common name in the CSR will be used instead of taken from the JSON data
+                    - When used with the CSR signing endpoint, the common name in the CSR will be used instead of taken
+                      from the JSON data
                     - This does C(not) include any requested SANs in the CSR; use C(use_csr_sans) for that.
             use_csr_sans:
                 type: bool
                 default: true
                 description:
-                    - When used with the CSR signing endpoint, the subject alternate names in the CSR will be used instead of taken from the JSON data
+                    - When used with the CSR signing endpoint, the subject alternate names in the CSR will be used
+                      instead of taken from the JSON data
                     - This does C(not) include the common name in the CSR; use C(use_csr_common_name) for that.
             ou:
                 type: list
@@ -209,16 +229,19 @@ options:
                 default: false
                 description:
                     - Specifies if certificates issued/signed against this role will have Vault leases attached to them
-                    - Certificates can be added to the CRL by C(vault revoke <lease_id>) when certificates are associated with leases
+                    - Certificates can be added to the CRL by C(vault revoke <lease_id>) when certificates are
+                      associated with leases
                     - It can also be done using the C(pki/revoke) endpoint
-                    - However, when lease generation is disabled, invoking C(pki/revoke) would be the only way to add the certificates to the CRL.
+                    - However, when lease generation is disabled, invoking C(pki/revoke) would be the only way to add
+                      the certificates to the CRL.
             no_store:
                 type: bool
                 default: false
                 description:
                     - If set, certificates issued/signed against this role will not be stored in the storage backend
                     - This can improve performance when issuing large numbers of certificates
-                    - However, certificates issued in this way cannot be enumerated or revoked, so this option is recommended only for certificates that are non-sensitive, or extremely short-lived
+                    - However, certificates issued in this way cannot be enumerated or revoked, so this option is
+                      recommended only for certificates that are non-sensitive, or extremely short-lived
                     - This option implies a value of C(false) for C(generate_lease).
             require_cn:
                 type: bool
@@ -256,7 +279,8 @@ EXAMPLES = r'''
         role_file: "/opt/vault/etc/roles/pki-tester.json"
         state: "present"
 '''
-normalize={'list': list, 'str': str, 'dict': dict, 'bool': bool}
+normalize = {'list': list, 'str': str, 'dict': dict, 'bool': bool}
+
 
 def main():
     argspec = hashivault_argspec()
@@ -290,7 +314,6 @@ def hashivault_pki_role(module):
 
     desired_state = {}
     exists = False
-    changed = False
 
     if role_file:
         import json
@@ -305,7 +328,8 @@ def hashivault_pki_role(module):
                 try:
                     desired_state[key] = normalize[value.get('type')](arg)
                 except Exception:
-                    return {'changed': False, 'failed': True, 'msg': 'config item \'{}\' has wrong data fromat'.format(key)}
+                    return {'changed': False, 'failed': True,
+                            'msg': 'config item \'{}\' has wrong data fromat'.format(key)}
 
     # check if engine is enabled
     changed, err = check_secrets_engines(module, client)
@@ -332,7 +356,6 @@ def hashivault_pki_role(module):
 
     return {'changed': changed}
 
+
 if __name__ == '__main__':
     main()
-
-

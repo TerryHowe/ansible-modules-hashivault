@@ -295,6 +295,7 @@ def check_auth_methods(module, client):
 
     return changed, err
 
+
 def check_pki_role(name, mount_point, client):
     """Checks if role is prtesent in secrets engine
 
@@ -305,8 +306,9 @@ def check_pki_role(name, mount_point, client):
     """
     try:
         return client.secrets.pki.read_role(name=name, mount_point=mount_point).get('data')
-    except:
+    except Exception:
         return None
+
 
 def compare_state(desired_state, current_state):
     """Compares desiretd state to current state. Returns true if objects are equal
@@ -354,4 +356,4 @@ def compare_state(desired_state, current_state):
         return True
 
     # simple value - compare both value and type for equality
-    return ((desired_state == current_state)) # and (type(desired_state) is type(current_state)))
+    return ((desired_state == current_state))

@@ -41,6 +41,7 @@ EXAMPLES = r'''
     - debug: msg="{{ cert }}"
 '''
 
+
 def main():
     argspec = hashivault_argspec()
     argspec['serial'] = dict(required=False, type='str', default='ca')
@@ -70,11 +71,9 @@ def hashivault_pki_cert_read(module):
 
     try:
         return {'data': client.secrets.pki.read_certificate(serial=serial, mount_point=mount_point).get('data')}
-    except:
+    except Exception:
         return {'data': {}}
+
 
 if __name__ == '__main__':
     main()
-
-
-
