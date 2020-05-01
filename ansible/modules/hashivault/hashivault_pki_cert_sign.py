@@ -49,8 +49,8 @@ options:
     extra_params:
         description:
             - "C(certificate) collection of properties U(https://www.vaultproject.io/api-docs/secret/pki#parameters-14)"
-            - "C(intermediate) collection of properties
-              U(https://www.vaultproject.io/api-docs/secret/pki#parameters-12)"
+            - C(intermediate) collection of properties
+              U(https://www.vaultproject.io/api-docs/secret/pki#parameters-12)
             - "C(verbatim) collection of properties U(https://www.vaultproject.io/api-docs/secret/pki#parameters-15)"
         type: dict
 extends_documentation_fragment:

@@ -21,8 +21,8 @@ options:
     config:
         type: dict
         description:
-            - "Collection of properties for pki tidy endpoint. Ref.
-              U(https://www.vaultproject.io/api-docs/secret/pki#tidy)"
+            - Collection of properties for pki tidy endpoint. Ref.
+              U(https://www.vaultproject.io/api-docs/secret/pki#tidy)
         suboptions:
             tidy_cert_store:
                 type: bool

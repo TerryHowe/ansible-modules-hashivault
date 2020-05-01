@@ -3,7 +3,6 @@ from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
-from ansible.module_utils.hashivault import compare_state
 from ansible.module_utils.hashivault import hashiwrapper
 
 ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version': '1.1'}
@@ -47,8 +46,8 @@ options:
             - Do you want for this config to be present or absent
     config:
         description:
-            - "Collection of properties for pki generate root. Ref.
-              U(https://www.vaultproject.io/api-docs/secret/pki#generate-root)"
+            - Collection of properties for pki generate root. Ref.
+              U(https://www.vaultproject.io/api-docs/secret/pki#generate-root)
         type: dict
         suboptions:
             alt_names:

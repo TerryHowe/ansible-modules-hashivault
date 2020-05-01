@@ -40,8 +40,8 @@ options:
     config:
         type: dict
         description:
-            - "Collection of properties from pki role
-              U(https://www.vaultproject.io/api-docs/secret/pki#create-update-role)"
+            - Collection of properties from pki role
+              U(https://www.vaultproject.io/api-docs/secret/pki#create-update-role)
         suboptions:
             ttl:
                 type: str
@@ -122,10 +122,10 @@ options:
                 description:
                     - Defines allowed custom OID/UTF8-string SANs
                     - This can be a comma-delimited list or a JSON string slice, where each element has the same format
-                      as OpenSSL: C(<oid>;<type>:<value>), but the only valid type is C(UTF8) or C(UTF-8)
+                      as OpenSSL C(<oid>;<type>:<value>), but the only valid type is C(UTF8) or C(UTF-8)
                     - The C(value) part of an element may be a C(*) to allow any value with that OID
-                    - Alternatively, specifying a single C(*) will allow any C(other_sans) input.- C(server_flag)
-                      C((bool: true)) – Specifies if certificates are flagged for server use.
+                    - Alternatively, specifying a single C(*) will allow any C(other_sans) input. C(server_flag)
+                      C((bool)) Specifies if certificates are flagged for server use.
             client_flag:
                 type: bool
                 default: true
