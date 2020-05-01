@@ -10,7 +10,7 @@ ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version
 DOCUMENTATION = r'''
 ---
 module: hashivault_pki_url_set
-version_added: "4.4.4"
+version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Set URLs
 description:
     - This module allows setting the issuing certificate endpoints, CRL distribution points, and OCSP server endpoints that will be encoded into issued certificates.

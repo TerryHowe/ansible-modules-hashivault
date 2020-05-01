@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version
 DOCUMENTATION = r'''
 ---
 module: hashivault_pki_cert_list
-version_added: "4.4.4"
+version_added: "4.5.0"
 short_description: Hashicorp Vault PKI List Certificates
 description:
     - This module returns a list of the current certificates by serial number only.

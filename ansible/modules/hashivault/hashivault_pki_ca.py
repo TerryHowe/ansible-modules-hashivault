@@ -10,7 +10,7 @@ ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version
 DOCUMENTATION = r'''
 ---
 module: hashivault_pki_ca
-version_added: "4.4.4"
+version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Generate Root/Intermediate
 description:
     - 'WARNING: if king is `intermediate` and signed CSR have not been inported back to vault, module will regenerate private key and create new CSR.'

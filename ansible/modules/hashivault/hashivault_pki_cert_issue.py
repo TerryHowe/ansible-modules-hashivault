@@ -10,7 +10,7 @@ ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version
 DOCUMENTATION = r'''
 ---
 module: hashivault_pki_cert_issue
-version_added: "4.4.4"
+version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Generate Certificate
 description:
     - This module generates a new set of credentials (private key and certificate) based on the role named in the module.

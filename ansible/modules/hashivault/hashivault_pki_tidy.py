@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version
 DOCUMENTATION = r'''
 ---
 module: hashivault_pki_tidy
-version_added: "4.4.4"
+version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Tidy
 description:
     - This endpoint retrieves one of a selection of certificates.

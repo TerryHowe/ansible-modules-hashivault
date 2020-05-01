@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version
 DOCUMENTATION = r'''
 ---
 module: hashivault_pki_ca_set
-version_added: "4.4.4"
+version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Submit CA Information
 description:
     - This module allows submitting the CA information for the backend via a PEM file containing the CA certificate and its private key, concatenated.

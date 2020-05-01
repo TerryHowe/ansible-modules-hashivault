@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version
 DOCUMENTATION = r'''
 ---
 module: hashivault_pki_crl_read
-version_added: "4.4.4"
+version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Read CRL Configuration
 description:
     - This module allows getting the duration for which the generated CRL should be marked valid.

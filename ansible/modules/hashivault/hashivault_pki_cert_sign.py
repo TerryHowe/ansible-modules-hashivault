@@ -10,7 +10,7 @@ ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version
 DOCUMENTATION = r'''
 ---
 module: hashivault_pki_cert_sign
-version_added: "4.4.4"
+version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Sign CSR ( Certificate / Intermediate / Verbatim )
 description:
     - This module signs a new certificate based upon the provided CSR and the supplied parameters.

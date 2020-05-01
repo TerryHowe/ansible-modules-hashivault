@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version
 DOCUMENTATION = r'''
 ---
 module: hashivault_pki_set_signed
-version_added: "4.4.4"
+version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Set Signed Intermediate
 description:
     - This module allows submitting the signed CA certificate corresponding to a private key generated via C(intermediate) type in C(hashivault_pki_ca) module.

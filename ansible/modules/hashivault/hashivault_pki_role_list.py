@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version
 DOCUMENTATION = r'''
 ---
 module: hashivault_pki_role_list
-version_added: "4.4.4"
+version_added: "4.5.0"
 short_description: Hashicorp Vault PKI List Roles
 description:
     - This module returns a list of available roles.
