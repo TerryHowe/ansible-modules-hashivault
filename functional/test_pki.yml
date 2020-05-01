@@ -1,0 +1,378 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    mount_root: "root"
+    mount_inter: "inter"
+    role: "larole"
+    expiry: 24h
+  tasks:
+    - name: Disable PKI secrets engine
+      hashivault_secret_engine:
+        name: "{{mount_inter}}"
+        backend: "pki"
+        description: "Root pki engine"
+        state: absent
+      register: response
+    - assert:
+        that: response.rc == 0
+    - name: Disable PKI secrets engine
+      hashivault_secret_engine:
+        name: "{{mount_root}}"
+        backend: "pki"
+        description: "Root pki engine"
+        state: absent
+      register: response
+    - assert:
+        that: response.rc == 0
+
+    - debug:
+        msg: "mount_root:\t{{ mount_root }}\nmount_inter:\t{{ mount_inter }}\nrole_name:\t{{ role }}"
+    - name: Enabele PKI secrets engine
+      hashivault_secret_engine:
+        name: "{{mount_root}}"
+        backend: "pki"
+        description: "Root pki engine"
+      register: response
+    - assert:
+        that: response.rc == 0
+    - name: Generate Root
+      hashivault_pki_ca:
+        mount_point: "{{mount_root}}"
+        common_name: my common name
+      register: response
+    # - debug: msg="{{ response }}"
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+    - name: Generate Root
+      hashivault_pki_ca:
+        mount_point: "{{mount_root}}"
+        common_name: my common name
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+
+    - name: Enabele PKI secrets engine
+      hashivault_secret_engine:
+        name: "{{mount_inter}}"
+        backend: "pki"
+        description: "Root pki engine"
+      register: response
+    - assert: { that: "{{response.rc}} == 0" }
+    - name: Generate Intermediate
+      hashivault_pki_ca:
+        mount_point: "{{mount_inter}}"
+        common_name: my common name
+        kind: intermediate
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+          - response.data is defined
+          - response.data != None
+          - response.data.csr is defined
+    - name: List Certificates
+      hashivault_pki_cert_list:
+        mount_point: "{{mount_inter}}"
+      register: list
+    - assert:
+        that:
+          - list.rc == 0
+          - list.changed == False
+          - list.data is defined
+          - list.data == []
+    - name: Sign Intermediate
+      hashivault_pki_cert_sign:
+        mount_point: "{{mount_root}}"
+        csr: "{{response.data.csr}}"
+        common_name: my common name
+        type: intermediate
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+          - response.data is defined
+          - response.data != None
+          - response.data.certificate is defined
+          - response.data.issuing_ca is defined
+    - name: Set Signed Intermediate
+      hashivault_pki_set_signed:
+        mount_point: "{{mount_inter}}"
+        certificate: "{{ response.data.certificate }}\n{{ response.data.issuing_ca }}"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+    - name: Read CA Certificate
+      hashivault_pki_cert_read:
+        mount_point: "{{mount_inter}}"
+        serial: ca
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.data is defined
+          - response.data != None
+          - response.data.certificate is defined
+    - name: Read CA Certificate Chain
+      hashivault_pki_cert_read:
+        mount_point: "{{mount_inter}}"
+        serial: ca_chain
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.data is defined
+          - response.data != None
+          - response.data.certificate is defined
+    - name: List Certificates
+      hashivault_pki_cert_list:
+        mount_point: "{{mount_root}}"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.data is defined
+          - response.data != []
+    - debug: msg="{{ response }}"
+    - name: Read Certificate
+      hashivault_pki_cert_read:
+        mount_point: "{{mount_root}}"
+        serial: "{{item}}"
+      with_items: "{{response.data}}"
+      register: response
+    - assert:
+        that:
+          - item.rc == 0
+          - item.changed == False
+          - item.data is defined
+          - item.data != []
+          - item.data.certificate is defined
+      with_items: "{{response.results}}"
+    - name: Read CRL Configuration
+      hashivault_pki_crl_read:
+        mount_point: "{{mount_inter}}"
+      register: response
+      failed_when: response.rc == 0
+    - name: Set CRL Configuration
+      hashivault_pki_crl_set:
+        mount_point: "{{mount_inter}}"
+        expiry: 24h
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+    - name: Set CRL Configuration
+      hashivault_pki_crl_set:
+        mount_point: "{{mount_inter}}"
+        expiry: "{{expiry}}"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+    - name: Read CRL Configuration
+      hashivault_pki_crl_read:
+        mount_point: "{{mount_inter}}"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.data is defined
+          - response.data != None
+          - response.data.expiry is defined
+          - response.data.expiry == expiry
+    - name: Rotate CRLs
+      hashivault_pki_crl_rotate:
+        mount_point: "{{mount_inter}}"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+    - name: Read URLs
+      hashivault_pki_url_read:
+        mount_point: "{{mount_inter}}"
+      register: response
+      failed_when: response.rc == 0
+    - name: Set URLs
+      hashivault_pki_url_set:
+        mount_point: "{{mount_inter}}"
+        crl_distribution_points:
+          - "http://127.0.0.1:8200/v1/pki/crl"
+        issuing_certificates:
+          - "http://127.0.0.1:8200/v1/pki/ca"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+    - name: Set URLs
+      hashivault_pki_url_set:
+        mount_point: "{{mount_inter}}"
+        crl_distribution_points:
+          - "http://127.0.0.1:8200/v1/pki/crl"
+        issuing_certificates:
+          - "http://127.0.0.1:8200/v1/pki/ca"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+    - name: Read URLs
+      hashivault_pki_url_read:
+        mount_point: "{{mount_inter}}"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.data is defined
+          - response.data != None
+          - response.data.issuing_certificates is defined
+          - response.data.issuing_certificates == ["http://127.0.0.1:8200/v1/pki/ca"]
+          - response.data.crl_distribution_points is defined
+          - response.data.crl_distribution_points == ["http://127.0.0.1:8200/v1/pki/crl"]
+
+    - name: Create/Update Role
+      hashivault_pki_role:
+        mount_point: "{{mount_inter}}"
+        name: "{{role}}"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+    - name: Create/Update Role
+      hashivault_pki_role:
+        mount_point: "{{mount_inter}}"
+        name: "{{role}}"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+    - name: Create/Update Role
+      hashivault_pki_role:
+        mount_point: "{{mount_inter}}"
+        name: "{{role}}"
+        config:
+          allow_bare_domains: True
+          allow_subdomains: True
+          allow_any_name: True
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+
+    - name: List Roles
+      hashivault_pki_role_list:
+        mount_point: "{{mount_inter}}"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.data is defined
+          - response.data != None
+          - role in response.data
+    - name: Read Role
+      hashivault_pki_role_read:
+        mount_point: "{{mount_inter}}"
+        name: "{{response.data.0}}"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.data is defined
+          - response.data != None
+          - response.data.allow_any_name is defined
+          - response.data.allow_any_name == True
+          - response.data.allow_subdomains is defined
+          - response.data.allow_subdomains == True
+          - response.data.allow_bare_domains is defined
+          - response.data.allow_bare_domains == True
+    - name: Generate Certificate
+      hashivault_pki_cert_issue:
+        mount_point: "{{mount_inter}}"
+        role: "{{role}}"
+        common_name: 'test.example.com'
+        extra_params:
+          ttl: 1h
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.data is defined
+          - response.data != None
+          - response.data.ca_chain is defined
+          - response.data.serial_number is defined
+    - name: Tidy
+      hashivault_pki_tidy:
+        mount_point: "{{mount_inter}}"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+    - name: Delete Role
+      hashivault_pki_role:
+        mount_point: "{{mount_inter}}"
+        name: "{{role}}"
+        state: absent
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+    - name: Delete Root
+      hashivault_pki_ca:
+        mount_point: "{{mount_root}}"
+        state: absent
+        common_name: my common name
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+    - name: Delete Root
+      hashivault_pki_ca:
+        mount_point: "{{mount_inter}}"
+        state: absent
+        common_name: my common name
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+    - name: Disable PKI secrets engine
+      hashivault_secret_engine:
+        name: "{{mount_inter}}"
+        backend: "pki"
+        description: "Root pki engine"
+        state: absent
+      register: response
+    - assert: { that: "{{response.rc}} == 0" }
+    - name: Disable PKI secrets engine
+      hashivault_secret_engine:
+        name: "{{mount_root}}"
+        backend: "pki"
+        description: "Root pki engine"
+        state: absent
+      register: response
+    - assert: { that: "{{response.rc}} == 0" }

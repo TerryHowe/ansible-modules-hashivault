@@ -294,3 +294,64 @@ def check_auth_methods(module, client):
             err = {'failed': True, 'msg': 'auth mount is not enabled or namespace does not exist', 'rc': 1}
 
     return changed, err
+
+def check_pki_role(name, mount_point, client):
+    """Checks if role is prtesent in secrets engine
+
+    :param module: Ansible module. Must contain mount_point in parameters.
+    :param mounted: HVAC client
+    :return: change status, error
+    :rtype: (bool, dict)
+    """
+    try:
+        return client.secrets.pki.read_role(name=name, mount_point=mount_point).get('data')
+    except:
+        return None
+
+def compare_state(desired_state, current_state):
+    """Compares desiretd state to current state. Returns true if objects are equal
+
+    Recursevlly walks dict object to compare all keys
+
+    :param desired_state: The the state user desires to have
+    :type desired_state: dict
+    :param current_state: The the state that currentlly is applied.
+    :type current_state: dict
+
+    :return: The JSON response of the request.
+    :rtype: requests.Response
+    """
+
+    # list
+    if (type(desired_state) is list):
+        # is [current_state] a list and of same length as [desired_state]?
+        if ((type(current_state) != list) or (len(desired_state) != len(current_state))):
+            return False
+        # Lists should not contain duplicates
+        return set(desired_state) == set(current_state)
+        # desired_state = sorted(desired_state)
+        # current_state = sorted(current_state)
+        # # iterate over list items
+        # for list_index,list_item in enumerate(desired_state):
+        #     # compare [desired_state] list item against [current_state] at index
+        #     if (not compare_state(list_item,current_state[list_index])):
+        #         return False
+        # # list identical
+        # return True
+
+    # dictionary
+    if (type(desired_state) is dict):
+        # is [current_state] a dictionary?
+        if (type(current_state) != dict):
+            return False
+
+        # iterate over dictionary keys
+        for k, v in desired_state.items():
+            # key exists in [current_state] dictionary, and same value?
+            if ((k not in current_state) or (not compare_state(v, current_state.get(k)))):
+                return False
+        # dictionary identical
+        return True
+
+    # simple value - compare both value and type for equality
+    return ((desired_state == current_state)) # and (type(desired_state) is type(current_state)))
