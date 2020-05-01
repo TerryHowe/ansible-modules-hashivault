@@ -54,7 +54,7 @@ options:
             description:
                 – Specifies custom OID/UTF8-string SANs. These must match values specified on the role in
                   allowed_other_sans (see role creation for allowed_other_sans globbing rules). The format is the same
-                  as OpenSSL: <oid>;<type>:<value> where the only current valid type is UTF8. This can be a
+                  as OpenSSL <oid>;<type>:<value> where the only current valid type is UTF8. This can be a
                   comma-delimited list or a JSON string slice.
         ttl:
             type: string

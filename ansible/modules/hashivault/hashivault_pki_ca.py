@@ -69,7 +69,7 @@ options:
                     - Specifies custom OID/UTF8-string SANs.
                     - These must match values specified on the role in C(allowed_other_sans) (see role creation for
                       allowed_other_sans globbing rules).
-                    - The format is the same as OpenSSL: C(<oid>;<type>:<value>) where the only current valid type is
+                    - The format is the same as OpenSSL C(<oid>;<type>:<value>) where the only current valid type is
                       C(UTF8)
                     - This can be a comma-delimited list or a JSON string slice.
             ttl:
