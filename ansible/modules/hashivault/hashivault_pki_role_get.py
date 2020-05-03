@@ -8,7 +8,7 @@ from ansible.module_utils.hashivault import hashiwrapper
 ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = r'''
 ---
-module: hashivault_pki_role_read
+module: hashivault_pki_role_get
 version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Read Role
 description:
@@ -29,7 +29,7 @@ EXAMPLES = r'''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_pki_role_read:
+    - hashivault_pki_role_get:
         name: tester
       register: role
     - debug: msg="{{ role }}"
@@ -42,7 +42,7 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default='pki')
 
     module = hashivault_init(argspec)
-    result = hashivault_pki_role_read(module)
+    result = hashivault_pki_role_get(module)
 
     if result.get('failed'):
         module.fail_json(**result)
@@ -51,7 +51,7 @@ def main():
 
 
 @hashiwrapper
-def hashivault_pki_role_read(module):
+def hashivault_pki_role_get(module):
     params = module.params
     client = hashivault_auth_client(params)
 

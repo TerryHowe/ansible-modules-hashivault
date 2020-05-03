@@ -111,7 +111,7 @@
           - response.rc == 0
           - response.changed == True
     - name: Read CA Certificate
-      hashivault_pki_cert_read:
+      hashivault_pki_cert_get:
         mount_point: "{{mount_inter}}"
         serial: ca
       register: response
@@ -123,7 +123,7 @@
           - response.data != None
           - response.data.certificate is defined
     - name: Read CA Certificate Chain
-      hashivault_pki_cert_read:
+      hashivault_pki_cert_get:
         mount_point: "{{mount_inter}}"
         serial: ca_chain
       register: response
@@ -146,7 +146,7 @@
           - response.data != []
     - debug: msg="{{ response }}"
     - name: Read Certificate
-      hashivault_pki_cert_read:
+      hashivault_pki_cert_get:
         mount_point: "{{mount_root}}"
         serial: "{{item}}"
       with_items: "{{response.data}}"
@@ -160,7 +160,7 @@
           - item.data.certificate is defined
       with_items: "{{response.results}}"
     - name: Read CRL Configuration
-      hashivault_pki_crl_read:
+      hashivault_pki_crl_get:
         mount_point: "{{mount_inter}}"
       register: response
       failed_when: response.rc == 0
@@ -183,7 +183,7 @@
           - response.rc == 0
           - response.changed == False
     - name: Read CRL Configuration
-      hashivault_pki_crl_read:
+      hashivault_pki_crl_get:
         mount_point: "{{mount_inter}}"
       register: response
     - assert:
@@ -203,7 +203,7 @@
           - response.rc == 0
           - response.changed == True
     - name: Read URLs
-      hashivault_pki_url_read:
+      hashivault_pki_url_get:
         mount_point: "{{mount_inter}}"
       register: response
       failed_when: response.rc == 0
@@ -232,7 +232,7 @@
           - response.rc == 0
           - response.changed == False
     - name: Read URLs
-      hashivault_pki_url_read:
+      hashivault_pki_url_get:
         mount_point: "{{mount_inter}}"
       register: response
     - assert:
@@ -290,7 +290,7 @@
           - response.data != None
           - role in response.data
     - name: Read Role
-      hashivault_pki_role_read:
+      hashivault_pki_role_get:
         mount_point: "{{mount_inter}}"
         name: "{{response.data.0}}"
       register: response
