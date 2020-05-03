@@ -2,6 +2,33 @@ Changelog
 =========
 
 
+4.5.0 (2020-05-03)
+------------------
+- Rename read pki modules get. [Terry Howe]
+- Rename pki set modules. [Terry Howe]
+- Do not use deprecated module in test. [Terry Howe]
+- Fix docs errors. [Terry Howe]
+- Fix further pep8 issues. [Terry Howe]
+- Pep8 for pki modules. [Terry Howe]
+- Update the pki release version added. [Terry Howe]
+- Fixed compare state function to work with Python 2. [Dr.MagPie]
+- Adding pki tests. [Dr.MagPie]
+- Adding pki modules. [Dr.MagPie]
+- Adding centralized logic for pki modules. [Dr.MagPie]
+- Deprecate some poorly named policy modules. [Terry Howe]
+- Proper deprecating of modules. [Terry Howe]
+- Remove register from hashivault_read. [Terry Howe]
+- Add aws config module. [Terry Howe]
+- Fix aws documentation. [Terry Howe]
+- Fix up aws auth role. [Terry Howe]
+- Add pycodestyle to travis. [Terry Howe]
+- Use pycodestyle. [Terry Howe]
+- Only pep8 the ansible directory. [Terry Howe]
+- Fix pep8 problems. [Terry Howe]
+- Fix some flake8 stuff. [Terry Howe]
+- Clean up hashivault_init call. [Terry Howe]
+
+
 4.4.7 (2020-04-28)
 ------------------
 - Bring consul modules up to date. [Terry Howe]
