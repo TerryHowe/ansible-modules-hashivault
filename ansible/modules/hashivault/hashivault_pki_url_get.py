@@ -8,7 +8,7 @@ from ansible.module_utils.hashivault import hashiwrapper
 ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = r'''
 ---
-module: hashivault_pki_url_read
+module: hashivault_pki_url_get
 version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Read URLs
 description:
@@ -25,7 +25,7 @@ EXAMPLES = r'''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_pki_url_read:
+    - hashivault_pki_url_get:
       register: url_config
     - debug: msg="{{ url_config }}"
 '''
@@ -36,7 +36,7 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default='pki')
 
     module = hashivault_init(argspec)
-    result = hashivault_pki_url_read(module)
+    result = hashivault_pki_url_get(module)
 
     if result.get('failed'):
         module.fail_json(**result)
@@ -45,7 +45,7 @@ def main():
 
 
 @hashiwrapper
-def hashivault_pki_url_read(module):
+def hashivault_pki_url_get(module):
     params = module.params
     client = hashivault_auth_client(params)
 
