@@ -9,7 +9,7 @@ from ansible.module_utils.hashivault import hashiwrapper
 ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = r'''
 ---
-module: hashivault_pki_url_set
+module: hashivault_pki_url
 version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Set URLs
 description:
@@ -42,7 +42,7 @@ EXAMPLES = r'''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_pki_url_set:
+    - hashivault_pki_url:
         issuing_certificates:
             - 'http://127.0.0.1:8200/v1/pki/ca'
         crl_distribution_points:
@@ -61,7 +61,7 @@ def main():
     supports_check_mode = True
 
     module = hashivault_init(argspec, supports_check_mode)
-    result = hashivault_pki_url_set(module)
+    result = hashivault_pki_url(module)
 
     if result.get('failed'):
         module.fail_json(**result)
@@ -70,7 +70,7 @@ def main():
 
 
 @hashiwrapper
-def hashivault_pki_url_set(module):
+def hashivault_pki_url(module):
     params = module.params
     client = hashivault_auth_client(params)
 

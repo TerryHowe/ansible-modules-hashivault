@@ -165,7 +165,7 @@
       register: response
       failed_when: response.rc == 0
     - name: Set CRL Configuration
-      hashivault_pki_crl_set:
+      hashivault_pki_crl:
         mount_point: "{{mount_inter}}"
         expiry: 24h
       register: response
@@ -174,7 +174,7 @@
           - response.rc == 0
           - response.changed == True
     - name: Set CRL Configuration
-      hashivault_pki_crl_set:
+      hashivault_pki_crl:
         mount_point: "{{mount_inter}}"
         expiry: "{{expiry}}"
       register: response
@@ -208,7 +208,7 @@
       register: response
       failed_when: response.rc == 0
     - name: Set URLs
-      hashivault_pki_url_set:
+      hashivault_pki_url:
         mount_point: "{{mount_inter}}"
         crl_distribution_points:
           - "http://127.0.0.1:8200/v1/pki/crl"
@@ -220,7 +220,7 @@
           - response.rc == 0
           - response.changed == True
     - name: Set URLs
-      hashivault_pki_url_set:
+      hashivault_pki_url:
         mount_point: "{{mount_inter}}"
         crl_distribution_points:
           - "http://127.0.0.1:8200/v1/pki/crl"
