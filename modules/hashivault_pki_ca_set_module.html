@@ -8,14 +8,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>hashivault_policy_delete – Hashicorp Vault policy delete module &mdash; Ansible Documentation</title>
+  <title>hashivault_pki_ca_set – Hashicorp Vault PKI Submit CA Information &mdash; Ansible Documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_policy_delete_module.html"/>
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_pki_ca_set_module.html"/>
   
 
   
@@ -310,7 +310,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>hashivault_policy_delete – Hashicorp Vault policy delete module</li>
+      <li>hashivault_pki_ca_set – Hashicorp Vault PKI Submit CA Information</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -319,7 +319,7 @@
             
               <!-- Ansible-specific additions for modules etc -->
                 
-                  <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_policy_delete.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                  <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_pki_ca_set.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
                 
             
           
@@ -369,8 +369,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="hashivault-policy-delete-hashicorp-vault-policy-delete-module">
-<span id="hashivault-policy-delete-module"></span><h1>hashivault_policy_delete – Hashicorp Vault policy delete module<a class="headerlink" href="#hashivault-policy-delete-hashicorp-vault-policy-delete-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="hashivault-pki-ca-set-hashicorp-vault-pki-submit-ca-information">
+<span id="hashivault-pki-ca-set-module"></span><h1>hashivault_pki_ca_set – Hashicorp Vault PKI Submit CA Information<a class="headerlink" href="#hashivault-pki-ca-set-hashicorp-vault-pki-submit-ca-information" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 4.5.0.</span></p>
+</div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
@@ -383,7 +386,9 @@
 <div class="section" id="synopsis">
 <h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Module to delete a policy from Hashicorp Vault.</p></li>
+<li><p>This module allows submitting the CA information for the backend via a PEM file containing the CA certificate and its private key, concatenated.</p></li>
+<li><p>May optionally append additional CA certificates. Useful when creating an intermediate CA to ensure a full chain is returned when signing or generating certificates.</p></li>
+<li><p>Not needed if you are generating a self-signed root certificate, and not used if you have a signed intermediate CA certificate with a generated key (use the <code class="docutils literal notranslate"><span class="pre">/pki/intermediate/set-signed</span></code> endpoint for that). If you have already set a certificate and key, they will be overridden.</p></li>
 </ul>
 </div>
 <div class="section" id="requirements">
@@ -524,17 +529,18 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-name"></div>
-                <b>name</b>
-                <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
+                <div class="ansibleOptionAnchor" id="parameter-mount_point"></div>
+                <b>mount_point</b>
+                <a class="ansibleOptionLink" href="#parameter-mount_point" title="Permalink to this option"></a>
                 <div style="font-size: small">
                     <span style="color: purple">-</span>
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                        </td>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"pki"</div>
+                                </td>
                                                             <td>
-                                        <div>policy name.</div>
+                                        <div>location where secrets engine is mounted. also known as path</div>
                                                     </td>
         </tr>
                             <tr>
@@ -567,6 +573,21 @@
                                 </td>
                                                             <td>
                                         <div>password to login to vault.</div>
+                                                    </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <div class="ansibleOptionAnchor" id="parameter-pem_bundle"></div>
+                <b>pem_bundle</b>
+                <a class="ansibleOptionLink" href="#parameter-pem_bundle" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">string</span>
+                                             / <span style="color: red">required</span>                    </div>
+                                </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                        <div>Specifies the key and certificate concatenated in PEM format.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -640,17 +661,15 @@
 <div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
   <span class="nt">tasks</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">hashivault_policy_delete</span><span class="p">:</span>
-      <span class="nt">name</span><span class="p">:</span> <span class="s">&#39;annie&#39;</span>
-      <span class="nt">register</span><span class="p">:</span> <span class="s">&#39;vault_policy_delete&#39;</span>
-    <span class="p p-Indicator">-</span> <span class="nt">debug</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">msg=&quot;User policy is </span><span class="cp">{{</span><span class="nv">vault_policy_delete.policy</span><span class="cp">}}</span><span class="l l-Scalar l-Scalar-Plain">&quot;</span>
+    <span class="p p-Indicator">-</span> <span class="nt">hashivault_pki_ca_set</span><span class="p">:</span>
+        <span class="nt">pem_bundle</span><span class="p">:</span> <span class="s">&#39;-----BEGIN</span><span class="nv"> </span><span class="s">RSA</span><span class="nv"> </span><span class="s">PRIVATE</span><span class="nv"> </span><span class="s">KEY-----\n...\n-----END</span><span class="nv"> </span><span class="s">CERTIFICATE-----&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="status">
 <h2><a class="toc-backref" href="#id5">Status</a><a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>This module is guaranteed to have backward compatible interface changes going forward. <em>[stableinterface]</em></p></li>
+<li><p>This module is not guaranteed to have a backwards compatible interface. <em>[preview]</em></p></li>
 <li><p>This module is <a class="reference internal" href="../user_guide/modules_support.html#modules-support"><span class="std std-ref">maintained by the Ansible Community</span></a>. <em>[community]</em></p></li>
 </ul>
 <div class="section" id="authors">
@@ -660,7 +679,7 @@
 </ul>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>If you notice any issues in this documentation, you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_policy_delete.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
+<p>If you notice any issues in this documentation, you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_pki_ca_set.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
 </div>
 </div>
 </div>
@@ -689,7 +708,7 @@
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on Apr 28, 2020.
+        Last updated on May 03, 2020.
       </span>
 
     </p>

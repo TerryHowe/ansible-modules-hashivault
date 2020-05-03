@@ -8,14 +8,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>hashivault_policy_set – Hashicorp Vault policy set module &mdash; Ansible Documentation</title>
+  <title>hashivault_aws_auth_role_create – Hashicorp Vault aws auth configure module &mdash; Ansible Documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_policy_set_module.html"/>
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_aws_auth_config_module.html"/>
   
 
   
@@ -310,7 +310,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>hashivault_policy_set – Hashicorp Vault policy set module</li>
+      <li>hashivault_aws_auth_role_create – Hashicorp Vault aws auth configure module</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -319,7 +319,7 @@
             
               <!-- Ansible-specific additions for modules etc -->
                 
-                  <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_policy_set.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                  <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_aws_auth_config.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
                 
             
           
@@ -369,8 +369,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="hashivault-policy-set-hashicorp-vault-policy-set-module">
-<span id="hashivault-policy-set-module"></span><h1>hashivault_policy_set – Hashicorp Vault policy set module<a class="headerlink" href="#hashivault-policy-set-hashicorp-vault-policy-set-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="hashivault-aws-auth-role-create-hashicorp-vault-aws-auth-configure-module">
+<span id="hashivault-aws-auth-role-create-module"></span><h1>hashivault_aws_auth_role_create – Hashicorp Vault aws auth configure module<a class="headerlink" href="#hashivault-aws-auth-role-create-hashicorp-vault-aws-auth-configure-module" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 4.4.8.</span></p>
+</div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
@@ -383,7 +386,7 @@
 <div class="section" id="synopsis">
 <h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Module to set a policy in Hashicorp Vault.</p></li>
+<li><p>Module to configure an aws auth backend</p></li>
 </ul>
 </div>
 <div class="section" id="requirements">
@@ -404,6 +407,21 @@
                     <th width="100%">Comments</th>
     </tr>
                 <tr>
+                                                            <td colspan="1">
+                <div class="ansibleOptionAnchor" id="parameter-access_key"></div>
+                <b>access_key</b>
+                <a class="ansibleOptionLink" href="#parameter-access_key" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">-</span>
+                                                                </div>
+                                </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                        <div>AWS Access key with permissions to query AWS APIs.</div>
+                                                    </td>
+        </tr>
+                            <tr>
                                                             <td colspan="1">
                 <div class="ansibleOptionAnchor" id="parameter-authtype"></div>
                 <b>authtype</b>
@@ -508,6 +526,51 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
+                <div class="ansibleOptionAnchor" id="parameter-endpoint"></div>
+                <b>endpoint</b>
+                <a class="ansibleOptionLink" href="#parameter-endpoint" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">-</span>
+                                                                </div>
+                                </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                        <div>URL to override the default generated endpoint for making AWS EC2 API calls</div>
+                                                    </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <div class="ansibleOptionAnchor" id="parameter-iam_endpoint"></div>
+                <b>iam_endpoint</b>
+                <a class="ansibleOptionLink" href="#parameter-iam_endpoint" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">-</span>
+                                                                </div>
+                                </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                        <div>URL to override the default generated endpoint for making AWS IAM API calls</div>
+                                                    </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <div class="ansibleOptionAnchor" id="parameter-iam_server_id_header_value"></div>
+                <b>iam_server_id_header_value</b>
+                <a class="ansibleOptionLink" href="#parameter-iam_server_id_header_value" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">-</span>
+                                                                </div>
+                                </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                        <div>The value to require in the X-Vault-AWS-IAM-Server-ID header</div>
+                                                    </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
                 <div class="ansibleOptionAnchor" id="parameter-login_mount_point"></div>
                 <b>login_mount_point</b>
                 <a class="ansibleOptionLink" href="#parameter-login_mount_point" title="Permalink to this option"></a>
@@ -524,9 +587,9 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-name"></div>
-                <b>name</b>
-                <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
+                <div class="ansibleOptionAnchor" id="parameter-max_retries"></div>
+                <b>max_retries</b>
+                <a class="ansibleOptionLink" href="#parameter-max_retries" title="Permalink to this option"></a>
                 <div style="font-size: small">
                     <span style="color: purple">-</span>
                                                                 </div>
@@ -534,7 +597,22 @@
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                        <div>policy name.</div>
+                                        <div>Number of max retries the client should use for recoverable errors.</div>
+                                                    </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <div class="ansibleOptionAnchor" id="parameter-mount_point"></div>
+                <b>mount_point</b>
+                <a class="ansibleOptionLink" href="#parameter-mount_point" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">-</span>
+                                                                </div>
+                                </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                        <div>location or &quot;path&quot; where this auth method is mounted</div>
                                                     </td>
         </tr>
                             <tr>
@@ -571,9 +649,9 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-rules"></div>
-                <b>rules</b>
-                <a class="ansibleOptionLink" href="#parameter-rules" title="Permalink to this option"></a>
+                <div class="ansibleOptionAnchor" id="parameter-secret_key"></div>
+                <b>secret_key</b>
+                <a class="ansibleOptionLink" href="#parameter-secret_key" title="Permalink to this option"></a>
                 <div style="font-size: small">
                     <span style="color: purple">-</span>
                                                                 </div>
@@ -581,7 +659,22 @@
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                        <div>policy rules.</div>
+                                        <div>AWS Secret key with permissions to query AWS APIs</div>
+                                                    </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="1">
+                <div class="ansibleOptionAnchor" id="parameter-sts_endpoint"></div>
+                <b>sts_endpoint</b>
+                <a class="ansibleOptionLink" href="#parameter-sts_endpoint" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">-</span>
+                                                                </div>
+                                </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                        <div>URL to override the default generated endpoint for making AWS STS API calls</div>
                                                     </td>
         </tr>
                             <tr>
@@ -655,8 +748,10 @@
 <div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
   <span class="nt">tasks</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">hashivault_policy_set</span><span class="p">:</span>
-      <span class="nt">rules</span><span class="p">:</span> <span class="s">&#39;</span><span class="cp">{{</span><span class="nv">rules</span><span class="cp">}}</span><span class="s">&#39;</span>
+    <span class="p p-Indicator">-</span> <span class="nt">hashivault_aws_auth_config</span><span class="p">:</span>
+        <span class="nt">mount_point</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myaws</span>
+        <span class="nt">access_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AwesomeAccessK3y</span>
+        <span class="nt">secret_key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">N0b0dyKnows</span>
 </pre></div>
 </div>
 </div>
@@ -673,7 +768,7 @@
 </ul>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>If you notice any issues in this documentation, you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_policy_set.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
+<p>If you notice any issues in this documentation, you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_aws_auth_config.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
 </div>
 </div>
 </div>
@@ -702,7 +797,7 @@
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on Apr 28, 2020.
+        Last updated on May 03, 2020.
       </span>
 
     </p>

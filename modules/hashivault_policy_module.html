@@ -8,14 +8,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>hashivault_aws_ec2_role_create – Hashicorp Vault aws ec2 create role module &mdash; Ansible Documentation</title>
+  <title>hashivault_policy – Hashicorp Vault policy set module &mdash; Ansible Documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_aws_ec2_role_create_module.html"/>
+    <link rel="canonical" href="https://docs.ansible.com/ansible/latest/modules/hashivault_policy_module.html"/>
   
 
   
@@ -310,7 +310,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>hashivault_aws_ec2_role_create – Hashicorp Vault aws ec2 create role module</li>
+      <li>hashivault_policy – Hashicorp Vault policy set module</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -319,7 +319,7 @@
             
               <!-- Ansible-specific additions for modules etc -->
                 
-                  <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_aws_ec2_role_create.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
+                  <a href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_policy.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr" class="fa fa-github"> Edit on GitHub</a>
                 
             
           
@@ -369,11 +369,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="hashivault-aws-ec2-role-create-hashicorp-vault-aws-ec2-create-role-module">
-<span id="hashivault-aws-ec2-role-create-module"></span><h1>hashivault_aws_ec2_role_create – Hashicorp Vault aws ec2 create role module<a class="headerlink" href="#hashivault-aws-ec2-role-create-hashicorp-vault-aws-ec2-create-role-module" title="Permalink to this headline">¶</a></h1>
-<div class="versionadded">
-<p><span class="versionmodified added">New in version 3.9.8.</span></p>
-</div>
+  <div class="section" id="hashivault-policy-hashicorp-vault-policy-set-module">
+<span id="hashivault-policy-module"></span><h1>hashivault_policy – Hashicorp Vault policy set module<a class="headerlink" href="#hashivault-policy-hashicorp-vault-policy-set-module" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
@@ -386,7 +383,7 @@
 <div class="section" id="synopsis">
 <h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Module to create a aws ec2 backed vault role</p></li>
+<li><p>Module to set a policy in Hashicorp Vault. Use hashivault_policy instead.</p></li>
 </ul>
 </div>
 <div class="section" id="requirements">
@@ -407,36 +404,6 @@
                     <th width="100%">Comments</th>
     </tr>
                 <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-allow_instance_migration"></div>
-                <b>allow_instance_migration</b>
-                <a class="ansibleOptionLink" href="#parameter-allow_instance_migration" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>if set to true, allows migration of the underlying instance where the client resides.</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-auth_type"></div>
-                <b>auth_type</b>
-                <a class="ansibleOptionLink" href="#parameter-auth_type" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>auth type permitted for this role. Valid choices are ec2 and iam</div>
-                                                    </td>
-        </tr>
-                            <tr>
                                                             <td colspan="1">
                 <div class="ansibleOptionAnchor" id="parameter-authtype"></div>
                 <b>authtype</b>
@@ -473,96 +440,6 @@
                                 </td>
                                                             <td>
                                         <div>X-Vault-AWS-IAM-Server-ID Header value to prevent replay attacks.</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-bound_account_id"></div>
-                <b>bound_account_id</b>
-                <a class="ansibleOptionLink" href="#parameter-bound_account_id" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>defines a constraint on the EC2 instances that can perform the login operation that they should be using             the account ID</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-bound_ami_id"></div>
-                <b>bound_ami_id</b>
-                <a class="ansibleOptionLink" href="#parameter-bound_ami_id" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>defines a constraint on the EC2 instances that can perform the login operation that they should be using             the AMI ID specified</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-bound_iam_instance_profile_arn"></div>
-                <b>bound_iam_instance_profile_arn</b>
-                <a class="ansibleOptionLink" href="#parameter-bound_iam_instance_profile_arn" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>defines a constraint on the EC2 instances that can perform the login operation that they must be             associated with an IAM instance profile</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-bound_iam_role_arn"></div>
-                <b>bound_iam_role_arn</b>
-                <a class="ansibleOptionLink" href="#parameter-bound_iam_role_arn" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>defines a constraint on the EC2 instances that can perform the login operation that they must match the             IAM role ARN</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-bound_subnet_id"></div>
-                <b>bound_subnet_id</b>
-                <a class="ansibleOptionLink" href="#parameter-bound_subnet_id" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>defines a constraint on the EC2 instances that can perform the login operation that they be associated             with the subnet ID</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-bound_vpc_id"></div>
-                <b>bound_vpc_id</b>
-                <a class="ansibleOptionLink" href="#parameter-bound_vpc_id" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>defines a constraint on the EC2 instances that can perform the login operation that they be associated             with the VPC ID that matches the value</div>
                                                     </td>
         </tr>
                             <tr>
@@ -631,36 +508,6 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-disallow_reauthentication"></div>
-                <b>disallow_reauthentication</b>
-                <a class="ansibleOptionLink" href="#parameter-disallow_reauthentication" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>If set to true, only allows a single token to be granted per instance ID.</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-inferred_entity_type"></div>
-                <b>inferred_entity_type</b>
-                <a class="ansibleOptionLink" href="#parameter-inferred_entity_type" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>Instructs Vault to turn on inferencing. The only valid value is ec2_instance</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
                 <div class="ansibleOptionAnchor" id="parameter-login_mount_point"></div>
                 <b>login_mount_point</b>
                 <a class="ansibleOptionLink" href="#parameter-login_mount_point" title="Permalink to this option"></a>
@@ -677,21 +524,6 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-mount_point"></div>
-                <b>mount_point</b>
-                <a class="ansibleOptionLink" href="#parameter-mount_point" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>location where this auth_method will be mounted. also known as &quot;path&quot;</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
                 <div class="ansibleOptionAnchor" id="parameter-name"></div>
                 <b>name</b>
                 <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
@@ -702,7 +534,7 @@
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                        <div>role name.</div>
+                                        <div>policy name.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -739,9 +571,9 @@
         </tr>
                             <tr>
                                                             <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-policies"></div>
-                <b>policies</b>
-                <a class="ansibleOptionLink" href="#parameter-policies" title="Permalink to this option"></a>
+                <div class="ansibleOptionAnchor" id="parameter-rules"></div>
+                <b>rules</b>
+                <a class="ansibleOptionLink" href="#parameter-rules" title="Permalink to this option"></a>
                 <div style="font-size: small">
                     <span style="color: purple">-</span>
                                                                 </div>
@@ -749,22 +581,7 @@
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                        <div>policies for the role.</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-resolve_aws_unique_ids"></div>
-                <b>resolve_aws_unique_ids</b>
-                <a class="ansibleOptionLink" href="#parameter-resolve_aws_unique_ids" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>If set to true, the bound_iam_principal_arn is resolved to an AWS Unique ID for the bound principal ARN.</div>
+                                        <div>policy rules.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -781,36 +598,6 @@
                                 </td>
                                                             <td>
                                         <div>token for vault</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-token_max_ttl"></div>
-                <b>token_max_ttl</b>
-                <a class="ansibleOptionLink" href="#parameter-token_max_ttl" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>The maximum allowed lifetime of tokens issued using this role, provided as a number of seconds</div>
-                                                    </td>
-        </tr>
-                            <tr>
-                                                            <td colspan="1">
-                <div class="ansibleOptionAnchor" id="parameter-token_ttl"></div>
-                <b>token_ttl</b>
-                <a class="ansibleOptionLink" href="#parameter-token_ttl" title="Permalink to this option"></a>
-                <div style="font-size: small">
-                    <span style="color: purple">-</span>
-                                                                </div>
-                                </td>
-                            <td>
-                                                                                                                                                        </td>
-                                                            <td>
-                                        <div>The TTL period of tokens issued using this role, provided as a number of seconds</div>
                                                     </td>
         </tr>
                             <tr>
@@ -868,19 +655,16 @@
 <div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="p p-Indicator">-</span> <span class="nt">hosts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
   <span class="nt">tasks</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">hashivault_aws_ec2_role_create</span><span class="p">:</span>
-        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myrole</span>
-        <span class="nt">auth_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">iam</span>
-        <span class="nt">inferred_entity_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ec2_instance</span>
-        <span class="nt">inferred_aws_region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
-        <span class="nt">bound_iam_role_arn</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">arn:aws:iam::12345678:root/ec2-role</span>
+    <span class="p p-Indicator">-</span> <span class="nt">hashivault_policy</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_policy</span>
+        <span class="nt">rules</span><span class="p">:</span> <span class="s">&#39;</span><span class="cp">{{</span><span class="nv">rules</span><span class="cp">}}</span><span class="s">&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="status">
 <h2><a class="toc-backref" href="#id5">Status</a><a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>This module is guaranteed to have backward compatible interface changes going forward. <em>[stableinterface]</em></p></li>
+<li><p>This module is . <em>[deprecated]</em></p></li>
 <li><p>This module is <a class="reference internal" href="../user_guide/modules_support.html#modules-support"><span class="std std-ref">maintained by the Ansible Community</span></a>. <em>[community]</em></p></li>
 </ul>
 <div class="section" id="authors">
@@ -890,7 +674,7 @@
 </ul>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>If you notice any issues in this documentation, you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_aws_ec2_role_create.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
+<p>If you notice any issues in this documentation, you can <a class="reference external" href="https://github.com/ansible/ansible/edit/devel/lib/ansible/modules/hashivault/hashivault_policy.py?description=%23%23%23%23%23%20SUMMARY%0A%3C!---%20Your%20description%20here%20--%3E%0A%0A%0A%23%23%23%23%23%20ISSUE%20TYPE%0A-%20Docs%20Pull%20Request%0A%0A%2Blabel:%20docsite_pr">edit this document</a> to improve it.</p>
 </div>
 </div>
 </div>
@@ -919,7 +703,7 @@
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on Apr 28, 2020.
+        Last updated on May 03, 2020.
       </span>
 
     </p>
