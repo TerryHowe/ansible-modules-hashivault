@@ -7,7 +7,7 @@
       register: vault_secret_list
     - block:
         - name: Enable secret backend
-          hashivault_secret_enable:
+          hashivault_secret_engine:
             name: "secret"
             backend: "kv"
       when: "'secret/' not in vault_secret_list.backends"
