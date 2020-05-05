@@ -29,9 +29,9 @@ options:
         choices: ["exported", "internal"]
         default: internal
         description:
-            - Specifies the type of the root to create, If C(exported), the private key will be returned in the
+            - Specifies the type of the root to create, If `exported`, the private key will be returned in the
               response;
-            - If it is C(internal) the private key will not be returned and cannot be retrieved later.
+            - If it is `internal` the private key will not be returned and cannot be retrieved later.
     kind:
         type: str
         choices: ["root", "intermediate"]
@@ -67,10 +67,10 @@ options:
                 type: str
                 description:
                     - Specifies custom OID/UTF8-string SANs.
-                    - These must match values specified on the role in C(allowed_other_sans) (see role creation for
+                    - These must match values specified on the role in `allowed_other_sans` (see role creation for
                       allowed_other_sans globbing rules).
-                    - The format is the same as OpenSSL C(<oid>;<type>:<value>) where the only current valid type is
-                      C(UTF8)
+                    - The format is the same as OpenSSL `<oid>;<type>:<value>` where the only current valid type is
+                      `UTF8`
                     - This can be a comma-delimited list or a JSON string slice.
             ttl:
                 type: str
@@ -83,8 +83,8 @@ options:
                 choice: ["pem", "der", "pem_bundle"]
                 description:
                     - Specifies the format for returned data.
-                    - If C(der), the output is base64 encoded.
-                    - If C(pem_bundle), the C(certificate) field will contain the private key (if exported) and
+                    - If `der`, the output is base64 encoded.
+                    - If `pem_bundle`, the `certificate` field will contain the private key (if exported) and
                       certificate, concatenated;
                     - if the issuing CA is not a Vault-derived self-signed root, this will be included as well.
             private_key_format:
@@ -92,9 +92,9 @@ options:
                 default: der
                 description:
                     - Specifies the format for marshaling the private key.
-                    - Defaults to C(der) which will return either base64-encoded DER or PEM-encoded DER, depending on
-                      the value of C(format).
-                    - The other option is C(pkcs8) which will return the key marshalled as PEM-encoded PKCS8
+                    - Defaults to `der` which will return either base64-encoded DER or PEM-encoded DER, depending on
+                      the value of `format`.
+                    - The other option is `pkcs8` which will return the key marshalled as PEM-encoded PKCS8
             key_type:
                 type: str
                 default: "rsa"
@@ -111,15 +111,15 @@ options:
                 default: -1
                 description:
                     – Specifies the maximum path length to encode in the generated certificate.
-                    - C(-1) means no limit.
+                    - `-1` means no limit.
                     - Unless the signing certificate has a maximum path length set, in which case the path length is set
                       to one less than that of the signing certificate.
-                    - A limit of C(0) means a literal path length of zero.
+                    - A limit of `0` means a literal path length of zero.
             exclude_cn_from_sans:
                 type: bool
                 default: false
                 description:
-                    - If set, the given C(common_name) will not be included in DNS or Email Subject Alternate Names (as
+                    - If set, the given `common_name` will not be included in DNS or Email Subject Alternate Names (as
                       appropriate).
                     - Useful if the CN is not a hostname or email address, but is instead some human-readable
                       identifier.
@@ -132,23 +132,23 @@ options:
             ou:
                 type: list
                 description:
-                    - Specifies the C(OU) (OrganizationalUnit) values in the subject field of the resulting certificate.
+                    - Specifies the `OU` (OrganizationalUnit) values in the subject field of the resulting certificate.
             organization:
                 type: list
                 description:
-                    - Specifies the C(O) (Organization) values in the subject field of the resulting certificate.
+                    - Specifies the `O` (Organization) values in the subject field of the resulting certificate.
             country:
                 type: list
                 description:
-                    - Specifies the C(C) (Country) values in the subject field of the resulting certificate.
+                    - Specifies the `C` (Country) values in the subject field of the resulting certificate.
             locality:
                 type: list
                 description:
-                    - Specifies the C(L) (Locality) values in the subject field of the resulting certificate.
+                    - Specifies the `L` (Locality) values in the subject field of the resulting certificate.
             province:
                 type: list
                 description:
-                    - Specifies the C(ST) (Province) values in the subject field of the resulting certificate.
+                    - Specifies the `ST` (Province) values in the subject field of the resulting certificate.
             street_address:
                 type: list
                 description:
