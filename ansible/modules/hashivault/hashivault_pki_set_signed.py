@@ -13,7 +13,7 @@ version_added: "4.5.0"
 short_description: Hashicorp Vault PKI Set Signed Intermediate
 description:
     - This module allows submitting the signed CA certificate corresponding to a private key generated via
-      C(intermediate) type in C(hashivault_pki_ca) module.
+      `intermediate` type in `hashivault_pki_ca` module.
     - The certificate should be submitted in PEM format.
 options:
     certificate:

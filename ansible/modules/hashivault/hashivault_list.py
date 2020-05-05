@@ -14,18 +14,18 @@ version_added: "2.9"
 short_description: Hashicorp Vault list
 description:
     - The M(hashivault_list) module lists keys in Hashicorp Vault.  By
-      default this will list top-level keys under C(/secret), but you
+      default this will list top-level keys under `/secret`, but you
       can provide an alternate location as I(secret).  This includes both
-      immediate subkeys and subkey paths, like the C(vault list) command.
+      immediate subkeys and subkey paths, like the `vault list` command.
 options:
     secret:
         description:
-            - 'secret path to list.  If this does not begin with a C(/)
-              then it is interpreted as a subpath of C(/secret).  This
-              is always interpreted as a "directory": if a key C(/secret/foo)
-              exists, and you pass C(/secret/foo) as I(secret), then the key
+            - 'secret path to list.  If this does not begin with a `/`
+              then it is interpreted as a subpath of `/secret`.  This
+              is always interpreted as a "directory": if a key `/secret/foo`
+              exists, and you pass `/secret/foo` as I(secret), then the key
               itself will not be returned, but subpaths like
-              C(/secret/foo/bar) will.'
+              `/secret/foo/bar` will.'
         default: ''
     version:
         description:
