@@ -15,7 +15,7 @@ short_description: Hashicorp Vault list
 description:
     - The M(hashivault_list) module lists keys in Hashicorp Vault.  By
       default this will list top-level keys under `/secret`, but you
-      can provide an alternate location as I(secret).  This includes both
+      can provide an alternate location as *secret*.  This includes both
       immediate subkeys and subkey paths, like the `vault list` command.
 options:
     secret:
@@ -23,7 +23,7 @@ options:
             - 'secret path to list.  If this does not begin with a `/`
               then it is interpreted as a subpath of `/secret`.  This
               is always interpreted as a "directory": if a key `/secret/foo`
-              exists, and you pass `/secret/foo` as I(secret), then the key
+              exists, and you pass `/secret/foo` as *secret*, then the key
               itself will not be returned, but subpaths like
               `/secret/foo/bar` will.'
         default: ''
