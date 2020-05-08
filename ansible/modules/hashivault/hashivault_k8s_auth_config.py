@@ -3,6 +3,8 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
+from ansible.module_utils.hashivault import get_keys_updated
+from hvac.exceptions import InvalidPath
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -72,15 +74,18 @@ def hashivault_k8s_auth_config(module):
     desired_state['pem_keys'] = params.get('pem_keys')
     desired_state['mount_point'] = mount_point
 
-    result = client.sys.list_auth_methods()
-    backends = result.get('data', result)
-    if (mount_point + "/") not in backends:
-        return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1, 'changed': False}
+    keys_updated = []
+    try:
+        current_state = client.auth.kubernetes.read_config(mount_point=mount_point)
+        keys_updated = get_keys_updated(current_state, desired_state)
+        if not keys_updated:
+            return {'changed': False}
+    except InvalidPath:
+        pass
 
     if not module.check_mode:
         client.auth.kubernetes.configure(**desired_state)
-
-    return {'changed': True}
+    return {'changed': True, 'keys_updated': keys_updated}
 
 
 if __name__ == '__main__':
