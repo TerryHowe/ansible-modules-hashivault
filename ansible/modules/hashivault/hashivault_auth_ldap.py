@@ -3,6 +3,7 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
+from hvac.exceptions import InvalidPath
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -139,11 +140,8 @@ def main():
 def hashivault_auth_ldap(module):
     params = module.params
     client = hashivault_auth_client(params)
-    exists = False
     changed = False
     desired_state = dict()
-    current_state = dict()
-
     desired_state['mount_point'] = params.get('mount_point')
     desired_state['url'] = params.get('ldap_url')
     desired_state['case_sensitive_names'] = params.get('case_sensitive_names')
@@ -163,24 +161,13 @@ def hashivault_auth_ldap(module):
     desired_state['group_attr'] = params.get('group_attr')
     desired_state['group_dn'] = params.get('group_dn')
 
-    result = client.sys.list_auth_methods()
-    auth_methods = result.get('data', result)
-    path = (desired_state['mount_point']) + u"/"
-
-    # is auth method enabled already?
-    if path in auth_methods:
-        exists = True
-
-    # if the auth method isn't enabled
-    if not exists:
-        return {'msg': 'auth method isn\'t enabled'}
-
     # if bind pass is None, remove it from desired state since we can't compare
     if desired_state['bind_pass'] is None:
         del desired_state['bind_pass']
 
     # check current config
-    if exists:
+    current_state = dict()
+    try:
         result = client.auth.ldap.read_configuration(
             mount_point=desired_state['mount_point'])['data']
         # some keys need to be remapped to match desired state (and HVAC implementation)
@@ -201,6 +188,8 @@ def hashivault_auth_ldap(module):
         # current_state['use_token_groups'] = result['use_token_groups']  # not implemented in HVAC
         current_state['url'] = result['url']
         current_state['starttls'] = result['starttls']
+    except InvalidPath:
+        pass
 
     # check if current config matches desired config values, if they match, set changed to false to prevent action
     for k, v in current_state.items():

@@ -130,11 +130,6 @@ def hashivault_azure_auth_role(module):
         desired_state['bound_scale_sets'] = params.get('bound_scale_sets')
         desired_state['num_uses'] = params.get('num_uses')
 
-    result = client.sys.list_auth_methods()
-    backends = result.get('data', result)
-    if (mount_point + "/") not in backends:
-        return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
-
     # check if role exists
     try:
         existing_roles = client.auth.azure.list_roles(mount_point=mount_point)

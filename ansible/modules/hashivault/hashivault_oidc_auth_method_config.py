@@ -123,18 +123,6 @@ def hashivault_oidc_auth_method_config(module):
     desired_state['jwt_validation_pubkeys'] = params.get('jwt_validation_pubkeys')
     desired_state['oidc_discovery_ca_pem'] = params.get('oidc_discovery_ca_pem')
 
-    # check if engine is enabled
-    try:
-        result = client.sys.list_auth_methods()
-        backends = result.get('data', result)
-        if (mount_point + "/") not in backends:
-            return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
-    except Exception:
-        if module.check_mode:
-            changed = True
-        else:
-            return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
-
     # check if any config exists
     try:
         current_state = requests.get(url + '/v1/auth/' + mount_point + '/config', verify=verify, headers=headers)

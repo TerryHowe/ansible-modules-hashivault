@@ -88,11 +88,6 @@ def hashivault_aws_auth_role_create(params):
     }
     client = hashivault_auth_client(params)
 
-    result = client.sys.list_auth_methods()
-    backends = result.get('data', result)
-    if (mount_point + "/") not in backends:
-        return {'failed': True, 'msg': 'aws auth backend is not enabled', 'rc': 1}
-
     if state == 'present':
         client.auth.aws.configure(mount_point=mount_point, **desired_state)
         return {'changed': True}
