@@ -162,11 +162,6 @@ def hashivault_aws_auth_role_create(params):
         'disallow_reauthentication': params.get('disallow_reauthentication'),
     }
     client = hashivault_auth_client(params)
-
-    result = client.sys.list_auth_methods()
-    backends = result.get('data', result)
-    if (mount_point + "/") not in backends:
-        return {'failed': True, 'msg': 'aws auth backend is not enabled', 'rc': 1}
     if not name:
         name = mount_point
 

@@ -187,18 +187,6 @@ def hashivault_oidc_auth_role(module):
     desired_state['expiration_leeway'] = params.get('expiration_leeway')
     desired_state['not_before_leeway'] = params.get('not_before_leeway')
 
-    # check if engine is enabled
-    try:
-        result = client.sys.list_auth_methods()
-        backends = result.get('data', result)
-        if (mount_point + "/") not in backends:
-            return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
-    except Exception:
-        if module.check_mode:
-            changed = True
-        else:
-            return {'failed': True, 'msg': 'auth mount is not enabled or namespace is not created', 'rc': 1}
-
     # check if role exists
     s = requests.Session()
     exists = False

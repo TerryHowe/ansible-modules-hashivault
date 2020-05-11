@@ -219,7 +219,7 @@
         that:
           - response.rc == 0
           - response.changed == True
-    - name: Set URLs
+    - name: Set URLs idempotent
       hashivault_pki_url:
         mount_point: "{{mount_inter}}"
         crl_distribution_points:

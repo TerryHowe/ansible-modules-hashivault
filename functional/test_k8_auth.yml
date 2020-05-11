@@ -6,7 +6,7 @@
         method_type: kubernetes
         state: disabled
       failed_when: false
-         
+
     - name: enable azure secret engine
       hashivault_auth_method:
         method_type: kubernetes
@@ -15,6 +15,24 @@
       register: k8s_module
       hashivault_k8s_auth_config:
         kubernetes_host: http://127.0.0.1:8443
+        kubernetes_ca_cert: "{{ lookup('file', './cacert.pem') }}"
+        token_reviewer_jwt: "{{ lookup('file', './jwt.jws') }}"
+    - assert: { that: "{{ k8s_module.changed }} == True" }
+    - assert: { that: "{{ k8s_module.rc }} == 0" }
+
+    - name: idempotent create config
+      register: k8s_module
+      hashivault_k8s_auth_config:
+        kubernetes_host: http://127.0.0.1:8443
+        kubernetes_ca_cert: "{{ lookup('file', './cacert.pem') }}"
+        token_reviewer_jwt: "{{ lookup('file', './jwt.jws') }}"
+    - assert: { that: "{{ k8s_module.changed }} == True" }
+    - assert: { that: "{{ k8s_module.rc }} == 0" }
+
+    - name: update config
+      register: k8s_module
+      hashivault_k8s_auth_config:
+        kubernetes_host: http://127.0.0.2:8443
         kubernetes_ca_cert: "{{ lookup('file', './cacert.pem') }}"
         token_reviewer_jwt: "{{ lookup('file', './jwt.jws') }}"
     - assert: { that: "{{ k8s_module.changed }} == True" }

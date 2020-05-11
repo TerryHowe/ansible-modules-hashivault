@@ -98,20 +98,6 @@ def hashivault_azure_auth_config(module):
         desired_state['resource'] = params.get('resource')
         desired_state['environment'] = params.get('environment')
 
-    # check if mount exists
-    # if errors but check mode is enabled then pass as "changed"
-    # while this is technically incorrect, its more likely helpful than hurtful
-    try:
-        result = client.sys.list_auth_methods()
-        enabled_methods = result.get('data', result)
-        if (mount_point + "/") not in enabled_methods:
-            return {'failed': True, 'msg': 'auth mount is not enabled', 'rc': 1}
-    except Exception:
-        if module.check_mode:
-            changed = True
-        else:
-            return {'failed': True, 'msg': 'auth mount is not enabled or namespace does not exist', 'rc': 1}
-
     try:
         current_state = client.auth.azure.read_config()
     except Exception:

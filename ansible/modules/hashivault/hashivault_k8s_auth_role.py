@@ -100,18 +100,6 @@ def hashivault_k8s_auth_role(module):
         desired_state['period'] = params.get('period')
         desired_state['policies'] = params.get('policies')
 
-    # check if engine is enabled
-    try:
-        result = client.sys.list_auth_methods()
-        backends = result.get('data', result)
-        if (mount_point + "/") not in backends:
-            return {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
-    except Exception:
-        if module.check_mode:
-            changed = True
-        else:
-            return {'failed': True, 'msg': 'auth mount is not enabled or namespace does not exist', 'rc': 1}
-
     # check if role exists
     try:
         existing_roles = client.auth.kubernetes.list_roles(mount_point=mount_point)
