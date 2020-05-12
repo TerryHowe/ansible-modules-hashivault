@@ -32,6 +32,10 @@ options:
         description:
             - Optional list of PEM-formatted public keys or certificates used to verify the signatures of Kubernetes
               service account JWTs. If a certificate is given, its public key will be extracted.
+    issuer:
+        description:
+            - Optional JWT issuer. If no issuer is specified, then this plugin will use kubernetes.io/serviceaccount as
+              the default issuer (Available in hvac 0.10.2).
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -51,6 +55,7 @@ def main():
     argspec['token_reviewer_jwt'] = dict(required=False, type='str', default=None)
     argspec['kubernetes_ca_cert'] = dict(required=False, type='str', default=None)
     argspec['pem_keys'] = dict(required=False, type='list', default=None)
+    argspec['issuer'] = dict(required=False, type='str', default=None)
     required_together = [['kubernetes_host', 'kubernetes_ca_cert']]
 
     module = hashivault_init(argspec, supports_check_mode=True, required_together=required_together)
@@ -72,6 +77,8 @@ def hashivault_k8s_auth_config(module):
     desired_state['token_reviewer_jwt'] = params.get('token_reviewer_jwt')
     desired_state['kubernetes_ca_cert'] = params.get('kubernetes_ca_cert')
     desired_state['pem_keys'] = params.get('pem_keys')
+    if params.get('issuer'):
+        desired_state['issuer'] = params.get('issuer')
     desired_state['mount_point'] = mount_point
 
     keys_updated = desired_state.keys()

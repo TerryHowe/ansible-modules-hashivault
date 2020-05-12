@@ -35,6 +35,7 @@
         kubernetes_host: http://127.0.0.2:8443
         kubernetes_ca_cert: "{{ lookup('file', './cacert.pem') }}"
         token_reviewer_jwt: "{{ lookup('file', './jwt.jws') }}"
+        # issuer: bob hvac 0.10.2
     - assert: { that: "{{ k8s_module.changed }} == True" }
     - assert: { that: "{{ k8s_module.rc }} == 0" }
 
