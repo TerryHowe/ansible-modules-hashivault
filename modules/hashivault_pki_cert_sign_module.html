@@ -423,7 +423,7 @@
                                                                                                                                                                                             <li>ldap</li>
                                                                                                                                                                                             <li>approle</li>
                                                                                 </ul>
-                                                                                <b>Default:</b><br/><div style="color: blue">"token or environment variable C(VAULT_AUTHTYPE)"</div>
+                                                                                <b>Default:</b><br/><div style="color: blue">"token or environment variable `VAULT_AUTHTYPE`"</div>
                                 </td>
                                                             <td>
                                         <div>authentication type</div>
@@ -439,7 +439,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_AWS_HEADER)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_AWS_HEADER`"</div>
                                 </td>
                                                             <td>
                                         <div>X-Vault-AWS-IAM-Server-ID Header value to prevent replay attacks.</div>
@@ -455,7 +455,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CACERT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CACERT`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate</div>
@@ -471,7 +471,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CAPATH)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CAPATH`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate. If ca_cert is specified, its value will take precedence</div>
@@ -487,7 +487,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CLIENT_CERT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CLIENT_CERT`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a PEM-encoded client certificate for TLS authentication to the Vault server</div>
@@ -503,7 +503,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CLIENT_KEY)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CLIENT_KEY`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to an unencrypted PEM-encoded private key matching the client certificate</div>
@@ -551,9 +551,7 @@
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                        <div><code>certificate</code> collection of properties <a href='https://www.vaultproject.io/api-docs/secret/pki#parameters-14'>https://www.vaultproject.io/api-docs/secret/pki#parameters-14</a></div>
-                                        <div><code>intermediate</code> collection of properties <a href='https://www.vaultproject.io/api-docs/secret/pki#parameters-12'>https://www.vaultproject.io/api-docs/secret/pki#parameters-12</a></div>
-                                        <div><code>verbatim</code> collection of properties <a href='https://www.vaultproject.io/api-docs/secret/pki#parameters-15'>https://www.vaultproject.io/api-docs/secret/pki#parameters-15</a></div>
+                                        <div>Extra parameters depending on the type.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -566,7 +564,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"value of authtype or environment varialbe C(VAULT_LOGIN_MOUNT_POINT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"value of authtype or environment varialbe `VAULT_LOGIN_MOUNT_POINT`"</div>
                                 </td>
                                                             <td>
                                         <div>authentication mount point</div>
@@ -614,7 +612,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_PASSWORD)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_PASSWORD`"</div>
                                 </td>
                                                             <td>
                                         <div>password to login to vault.</div>
@@ -633,7 +631,7 @@
                                                                                                                                                         </td>
                                                             <td>
                                         <div>Specifies the name of the role to create.</div>
-                                        <div>For *verbatim* type if set, the following parameters from the role will have effect: <code>ttl</code>, <code>max_ttl</code>, <code>generate_lease</code>, and <code>no_store</code>.</div>
+                                        <div>For *verbatim* type if set, the following parameters from the role will have effect: `ttl`, `max_ttl`, `generate_lease`, and `no_store`.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -646,7 +644,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_TOKEN)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_TOKEN`"</div>
                                 </td>
                                                             <td>
                                         <div>token for vault</div>
@@ -669,9 +667,9 @@
                                                                                 </ul>
                                                                         </td>
                                                             <td>
-                                        <div><code>certificate</code> signs a new certificate based upon the provided CSR and the supplied parameters, subject to the restrictions contained in the role named in the endpoint. The issuing CA certificate is returned as well, so that only the root CA need be in a client&#x27;s trust store.</div>
-                                        <div><code>intermediate</code> uses the configured CA certificate to issue a certificate with appropriate values for acting as an intermediate CA. Distribution points use the values set via config/urls. Values set in the CSR are ignored unless use_csr_values is set to true, in which case the values from the CSR are used verbatim.</div>
-                                        <div><code>verbatim</code> signs a new certificate based upon the provided CSR. Values are taken verbatim from the CSR; the only restriction is that this endpoint will refuse to issue an intermediate CA certificate (use <code>intermediate</code> type for that functionality.)</div>
+                                        <div>Sign a new certificate with `certificate` based upon the provided CSR and the supplied parameters, subject to the restrictions contained in the role named in the endpoint. The issuing CA certificate is returned as well, so that only the root CA need be in a client&#x27;s trust store.</div>
+                                        <div>Use `intermediate` to configure CA certificate to issue a certificate with appropriate values for acting as an intermediate CA. Distribution points use the values set via config/urls. Values set in the CSR are ignored unless use_csr_values is set to true, in which case the values from the CSR are used verbatim.</div>
+                                        <div>Use `verbatim` to sign a new certificate based upon the provided CSR. Values are taken verbatim from the CSR; the only restriction is that this endpoint will refuse to issue an intermediate CA certificate (use `intermediate` type for that functionality.)</div>
                                                     </td>
         </tr>
                             <tr>
@@ -684,7 +682,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_ADDR)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_ADDR`"</div>
                                 </td>
                                                             <td>
                                         <div>url for vault</div>
@@ -700,7 +698,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_USER)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_USER`"</div>
                                 </td>
                                                             <td>
                                         <div>username to login to vault.</div>
@@ -716,7 +714,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_SKIP_VERIFY)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_SKIP_VERIFY`"</div>
                                 </td>
                                                             <td>
                                         <div>If set, do not verify presented TLS certificate before communicating with Vault server. Setting this variable is not recommended except during testing</div>
@@ -779,7 +777,7 @@
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on May 03, 2020.
+        Last updated on May 12, 2020.
       </span>
 
     </p>

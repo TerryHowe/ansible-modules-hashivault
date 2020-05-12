@@ -387,7 +387,7 @@
 <div class="section" id="synopsis">
 <h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>The <a class="reference internal" href="#hashivault-list-module"><span class="std std-ref">hashivault_list</span></a> module lists keys in Hashicorp Vault.  By default this will list top-level keys under <code class="docutils literal notranslate"><span class="pre">/secret</span></code>, but you can provide an alternate location as <em>secret</em>.  This includes both immediate subkeys and subkey paths, like the <code class="docutils literal notranslate"><span class="pre">vault</span> <span class="pre">list</span></code> command.</p></li>
+<li><p>The <a class="reference internal" href="#hashivault-list-module"><span class="std std-ref">hashivault_list</span></a> module lists keys in Hashicorp Vault.  By default this will list top-level keys under <cite>/secret</cite>, but you can provide an alternate location as <em>secret</em>.  This includes both immediate subkeys and subkey paths, like the <cite>vault list</cite> command.</p></li>
 </ul>
 </div>
 <div class="section" id="requirements">
@@ -424,7 +424,7 @@
                                                                                                                                                                                             <li>ldap</li>
                                                                                                                                                                                             <li>approle</li>
                                                                                 </ul>
-                                                                                <b>Default:</b><br/><div style="color: blue">"token or environment variable C(VAULT_AUTHTYPE)"</div>
+                                                                                <b>Default:</b><br/><div style="color: blue">"token or environment variable `VAULT_AUTHTYPE`"</div>
                                 </td>
                                                             <td>
                                         <div>authentication type</div>
@@ -440,7 +440,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_AWS_HEADER)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_AWS_HEADER`"</div>
                                 </td>
                                                             <td>
                                         <div>X-Vault-AWS-IAM-Server-ID Header value to prevent replay attacks.</div>
@@ -456,7 +456,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CACERT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CACERT`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate</div>
@@ -472,7 +472,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CAPATH)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CAPATH`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate. If ca_cert is specified, its value will take precedence</div>
@@ -488,7 +488,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CLIENT_CERT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CLIENT_CERT`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a PEM-encoded client certificate for TLS authentication to the Vault server</div>
@@ -504,7 +504,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CLIENT_KEY)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CLIENT_KEY`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to an unencrypted PEM-encoded private key matching the client certificate</div>
@@ -520,7 +520,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"value of authtype or environment varialbe C(VAULT_LOGIN_MOUNT_POINT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"value of authtype or environment varialbe `VAULT_LOGIN_MOUNT_POINT`"</div>
                                 </td>
                                                             <td>
                                         <div>authentication mount point</div>
@@ -568,7 +568,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_PASSWORD)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_PASSWORD`"</div>
                                 </td>
                                                             <td>
                                         <div>password to login to vault.</div>
@@ -587,7 +587,7 @@
                                                                                                                                                                 <b>Default:</b><br/><div style="color: blue">""</div>
                                 </td>
                                                             <td>
-                                        <div>secret path to list.  If this does not begin with a <code>/</code> then it is interpreted as a subpath of <code>/secret</code>.  This is always interpreted as a &quot;directory&quot;: if a key <code>/secret/foo</code> exists, and you pass <code>/secret/foo</code> as <em>secret</em>, then the key itself will not be returned, but subpaths like <code>/secret/foo/bar</code> will.</div>
+                                        <div>secret path to list.  If this does not begin with a `/` then it is interpreted as a subpath of `/secret`.  This is always interpreted as a &quot;directory&quot;: if a key `/secret/foo` exists, and you pass `/secret/foo` as *secret*, then the key itself will not be returned, but subpaths like `/secret/foo/bar` will.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -600,7 +600,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_TOKEN)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_TOKEN`"</div>
                                 </td>
                                                             <td>
                                         <div>token for vault</div>
@@ -616,7 +616,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_ADDR)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_ADDR`"</div>
                                 </td>
                                                             <td>
                                         <div>url for vault</div>
@@ -632,7 +632,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_USER)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_USER`"</div>
                                 </td>
                                                             <td>
                                         <div>username to login to vault.</div>
@@ -648,7 +648,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_SKIP_VERIFY)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_SKIP_VERIFY`"</div>
                                 </td>
                                                             <td>
                                         <div>If set, do not verify presented TLS certificate before communicating with Vault server. Setting this variable is not recommended except during testing</div>
@@ -755,7 +755,7 @@
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on May 03, 2020.
+        Last updated on May 12, 2020.
       </span>
 
     </p>

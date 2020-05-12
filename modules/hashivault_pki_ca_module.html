@@ -427,7 +427,7 @@
                                                                                                                                                                                             <li>ldap</li>
                                                                                                                                                                                             <li>approle</li>
                                                                                 </ul>
-                                                                                <b>Default:</b><br/><div style="color: blue">"token or environment variable C(VAULT_AUTHTYPE)"</div>
+                                                                                <b>Default:</b><br/><div style="color: blue">"token or environment variable `VAULT_AUTHTYPE`"</div>
                                 </td>
                                                             <td>
                                         <div>authentication type</div>
@@ -443,7 +443,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_AWS_HEADER)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_AWS_HEADER`"</div>
                                 </td>
                                                             <td>
                                         <div>X-Vault-AWS-IAM-Server-ID Header value to prevent replay attacks.</div>
@@ -459,7 +459,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CACERT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CACERT`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate</div>
@@ -475,7 +475,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CAPATH)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CAPATH`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate. If ca_cert is specified, its value will take precedence</div>
@@ -491,7 +491,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CLIENT_CERT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CLIENT_CERT`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a PEM-encoded client certificate for TLS authentication to the Vault server</div>
@@ -507,7 +507,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CLIENT_KEY)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CLIENT_KEY`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to an unencrypted PEM-encoded private key matching the client certificate</div>
@@ -558,7 +558,7 @@
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                        <div>Specifies the <code>C</code> (Country) values in the subject field of the resulting certificate.</div>
+                                        <div>Specifies the `C` (Country) values in the subject field of the resulting certificate.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -578,7 +578,7 @@
                                                                                 </ul>
                                                                         </td>
                                                             <td>
-                                        <div>If set, the given <code>common_name</code> will not be included in DNS or Email Subject Alternate Names (as appropriate).</div>
+                                        <div>If set, the given `common_name` will not be included in DNS or Email Subject Alternate Names (as appropriate).</div>
                                         <div>Useful if the CN is not a hostname or email address, but is instead some human-readable identifier.</div>
                                                     </td>
         </tr>
@@ -597,8 +597,8 @@
                                 </td>
                                                             <td>
                                         <div>Specifies the format for returned data.</div>
-                                        <div>If <code>der</code>, the output is base64 encoded.</div>
-                                        <div>If <code>pem_bundle</code>, the <code>certificate</code> field will contain the private key (if exported) and certificate, concatenated;</div>
+                                        <div>If `der`, the output is base64 encoded.</div>
+                                        <div>If `pem_bundle`, the `certificate` field will contain the private key (if exported) and certificate, concatenated;</div>
                                         <div>if the issuing CA is not a Vault-derived self-signed root, this will be included as well.</div>
                                                     </td>
         </tr>
@@ -665,7 +665,7 @@
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                        <div>Specifies the <code>L</code> (Locality) values in the subject field of the resulting certificate.</div>
+                                        <div>Specifies the `L` (Locality) values in the subject field of the resulting certificate.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -682,7 +682,7 @@
                                                                                                                                                                 <b>Default:</b><br/><div style="color: blue">-1</div>
                                 </td>
                                                             <td>
-                                        <div>– Specifies the maximum path length to encode in the generated certificate. - <code>-1</code> means no limit. - Unless the signing certificate has a maximum path length set, in which case the path length is set to one less than that of the signing certificate. - A limit of <code>0</code> means a literal path length of zero.</div>
+                                        <div>– Specifies the maximum path length to encode in the generated certificate. - `-1` means no limit. - Unless the signing certificate has a maximum path length set, in which case the path length is set to one less than that of the signing certificate. - A limit of `0` means a literal path length of zero.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -698,7 +698,7 @@
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                        <div>Specifies the <code>O</code> (Organization) values in the subject field of the resulting certificate.</div>
+                                        <div>Specifies the `O` (Organization) values in the subject field of the resulting certificate.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -715,8 +715,8 @@
                                                                                                                                                         </td>
                                                             <td>
                                         <div>Specifies custom OID/UTF8-string SANs.</div>
-                                        <div>These must match values specified on the role in <code>allowed_other_sans</code> (see role creation for allowed_other_sans globbing rules).</div>
-                                        <div>The format is the same as OpenSSL <code>&lt;oid&gt;;&lt;type&gt;:&lt;value&gt;</code> where the only current valid type is <code>UTF8</code></div>
+                                        <div>These must match values specified on the role in `allowed_other_sans` (see role creation for allowed_other_sans globbing rules).</div>
+                                        <div>The format is the same as OpenSSL `&lt;oid&gt;;&lt;type&gt;:&lt;value&gt;` where the only current valid type is `UTF8`</div>
                                         <div>This can be a comma-delimited list or a JSON string slice.</div>
                                                     </td>
         </tr>
@@ -733,7 +733,7 @@
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                        <div>Specifies the <code>OU</code> (OrganizationalUnit) values in the subject field of the resulting certificate.</div>
+                                        <div>Specifies the `OU` (OrganizationalUnit) values in the subject field of the resulting certificate.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -784,8 +784,8 @@
                                 </td>
                                                             <td>
                                         <div>Specifies the format for marshaling the private key.</div>
-                                        <div>Defaults to <code>der</code> which will return either base64-encoded DER or PEM-encoded DER, depending on the value of <code>format</code>.</div>
-                                        <div>The other option is <code>pkcs8</code> which will return the key marshalled as PEM-encoded PKCS8</div>
+                                        <div>Defaults to `der` which will return either base64-encoded DER or PEM-encoded DER, depending on the value of `format`.</div>
+                                        <div>The other option is `pkcs8` which will return the key marshalled as PEM-encoded PKCS8</div>
                                                     </td>
         </tr>
                             <tr>
@@ -801,7 +801,7 @@
                             <td>
                                                                                                                                                         </td>
                                                             <td>
-                                        <div>Specifies the <code>ST</code> (Province) values in the subject field of the resulting certificate.</div>
+                                        <div>Specifies the `ST` (Province) values in the subject field of the resulting certificate.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -901,7 +901,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"value of authtype or environment varialbe C(VAULT_LOGIN_MOUNT_POINT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"value of authtype or environment varialbe `VAULT_LOGIN_MOUNT_POINT`"</div>
                                 </td>
                                                             <td>
                                         <div>authentication mount point</div>
@@ -949,7 +949,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_PASSWORD)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_PASSWORD`"</div>
                                 </td>
                                                             <td>
                                         <div>password to login to vault.</div>
@@ -984,7 +984,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_TOKEN)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_TOKEN`"</div>
                                 </td>
                                                             <td>
                                         <div>token for vault</div>
@@ -1006,8 +1006,8 @@
                                                                                 </ul>
                                                                         </td>
                                                             <td>
-                                        <div>Specifies the type of the root to create, If <code>exported</code>, the private key will be returned in the response;</div>
-                                        <div>If it is <code>internal</code> the private key will not be returned and cannot be retrieved later.</div>
+                                        <div>Specifies the type of the root to create, If `exported`, the private key will be returned in the response;</div>
+                                        <div>If it is `internal` the private key will not be returned and cannot be retrieved later.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -1020,7 +1020,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_ADDR)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_ADDR`"</div>
                                 </td>
                                                             <td>
                                         <div>url for vault</div>
@@ -1036,7 +1036,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_USER)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_USER`"</div>
                                 </td>
                                                             <td>
                                         <div>username to login to vault.</div>
@@ -1052,7 +1052,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_SKIP_VERIFY)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_SKIP_VERIFY`"</div>
                                 </td>
                                                             <td>
                                         <div>If set, do not verify presented TLS certificate before communicating with Vault server. Setting this variable is not recommended except during testing</div>
@@ -1113,7 +1113,7 @@
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on May 03, 2020.
+        Last updated on May 12, 2020.
       </span>
 
     </p>

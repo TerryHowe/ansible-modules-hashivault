@@ -387,7 +387,7 @@
 <h2><a class="toc-backref" href="#id1">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>This module creates or updates the role definition.</p></li>
-<li><p>Note that the <code class="docutils literal notranslate"><span class="pre">allowed_domains</span></code>, <code class="docutils literal notranslate"><span class="pre">allow_subdomains</span></code>, <code class="docutils literal notranslate"><span class="pre">allow_glob_domains</span></code>, and <code class="docutils literal notranslate"><span class="pre">allow_any_name</span></code> attributes are additive; between them nearly and across multiple roles nearly any issuing policy can be accommodated. <code class="docutils literal notranslate"><span class="pre">server_flag</span></code>, <code class="docutils literal notranslate"><span class="pre">client_flag</span></code>, and <code class="docutils literal notranslate"><span class="pre">code_signing_flag</span></code> are additive as well.</p></li>
+<li><p>Note that the <cite>allowed_domains</cite>, <cite>allow_subdomains</cite>, <cite>allow_glob_domains</cite>, and <cite>allow_any_name</cite> attributes are additive; between them nearly and across multiple roles nearly any issuing policy can be accommodated. <cite>server_flag</cite>, <cite>client_flag</cite>, and <cite>code_signing_flag</cite> are additive as well.</p></li>
 <li><p>If a client requests a certificate that is not allowed by the CN policy in the role, the request is denied.</p></li>
 </ul>
 </div>
@@ -425,7 +425,7 @@
                                                                                                                                                                                             <li>ldap</li>
                                                                                                                                                                                             <li>approle</li>
                                                                                 </ul>
-                                                                                <b>Default:</b><br/><div style="color: blue">"token or environment variable C(VAULT_AUTHTYPE)"</div>
+                                                                                <b>Default:</b><br/><div style="color: blue">"token or environment variable `VAULT_AUTHTYPE`"</div>
                                 </td>
                                                             <td>
                                         <div>authentication type</div>
@@ -441,7 +441,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_AWS_HEADER)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_AWS_HEADER`"</div>
                                 </td>
                                                             <td>
                                         <div>X-Vault-AWS-IAM-Server-ID Header value to prevent replay attacks.</div>
@@ -457,7 +457,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CACERT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CACERT`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a PEM-encoded CA cert file to use to verify the Vault server TLS certificate</div>
@@ -473,7 +473,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CAPATH)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CAPATH`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a directory of PEM-encoded CA cert files to verify the Vault server TLS certificate. If ca_cert is specified, its value will take precedence</div>
@@ -489,7 +489,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CLIENT_CERT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CLIENT_CERT`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to a PEM-encoded client certificate for TLS authentication to the Vault server</div>
@@ -505,7 +505,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_CLIENT_KEY)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_CLIENT_KEY`"</div>
                                 </td>
                                                             <td>
                                         <div>Path to an unencrypted PEM-encoded private key matching the client certificate</div>
@@ -565,7 +565,7 @@
                                                                         </td>
                                                             <td>
                                         <div>Specifies if clients can request certificates matching the value of the actual domains themselves.</div>
-                                        <div>e.g. if a configured domain set with <code>allowed_domains</code> is <code>example.com</code>, this allows clients to actually request a certificate containing the name <code>example.com</code> as one of the DNS values on the final certificate. In some scenarios, this can be considered a security risk.</div>
+                                        <div>e.g. if a configured domain set with `allowed_domains` is `example.com`, this allows clients to actually request a certificate containing the name `example.com` as one of the DNS values on the final certificate. In some scenarios, this can be considered a security risk.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -585,7 +585,7 @@
                                                                                 </ul>
                                                                         </td>
                                                             <td>
-                                        <div>Allows names specified in <code>allowed_domains</code> to contain glob patterns (e.g. <code>ftp*.example.com</code>)</div>
+                                        <div>Allows names specified in `allowed_domains` to contain glob patterns (e.g. `ftp*.example.com`)</div>
                                         <div>Clients will be allowed to request certificates with names matching the glob patterns.</div>
                                                     </td>
         </tr>
@@ -627,7 +627,7 @@
                                                                                 </ul>
                                                                         </td>
                                                             <td>
-                                        <div>Specifies if clients can request certificates for <code>localhost</code> as one of the requested common names.</div>
+                                        <div>Specifies if clients can request certificates for `localhost` as one of the requested common names.</div>
                                         <div>This is useful for testing and to allow clients on a single host to talk securely.</div>
                                                     </td>
         </tr>
@@ -649,8 +649,8 @@
                                                                         </td>
                                                             <td>
                                         <div>Specifies if clients can request certificates with CNs that are subdomains of the CNs allowed by the other role options. This includes wildcard subdomains.</div>
-                                        <div>For example, an <code>allowed_domains</code> value of <code>example.com</code> with this option set to true will allow <code>foo.example.com</code> and <code>bar.example.com</code> as well as <code>*.example.com</code>.</div>
-                                        <div>This is redundant when using the <code>allow_any_name</code> option.</div>
+                                        <div>For example, an `allowed_domains` value of `example.com` with this option set to true will allow `foo.example.com` and `bar.example.com` as well as `*.example.com`.</div>
+                                        <div>This is redundant when using the `allow_any_name` option.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -667,7 +667,7 @@
                                                                                                                                                         </td>
                                                             <td>
                                         <div>Specifies the domains of the role.</div>
-                                        <div>This is used with the <code>allow_bare_domains</code> and <code>allow_subdomains</code> options.</div>
+                                        <div>This is used with the `allow_bare_domains` and `allow_subdomains` options.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -684,9 +684,9 @@
                                                                                                                                                         </td>
                                                             <td>
                                         <div>Defines allowed custom OID/UTF8-string SANs</div>
-                                        <div>This can be a comma-delimited list or a JSON string slice, where each element has the same format as OpenSSL <code>&lt;oid&gt;;&lt;type&gt;:&lt;value&gt;</code>, but the only valid type is <code>UTF8</code> or <code>UTF-8</code></div>
-                                        <div>The <code>value</code> part of an element may be a <code>*</code> to allow any value with that OID</div>
-                                        <div>Alternatively, specifying a single <code>*</code> will allow any <code>other_sans</code> input. <code>server_flag</code> <code>(bool</code>) Specifies if certificates are flagged for server use.</div>
+                                        <div>This can be a comma-delimited list or a JSON string slice, where each element has the same format as OpenSSL `&lt;oid&gt;;&lt;type&gt;:&lt;value&gt;`, but the only valid type is `UTF8` or `UTF-8`</div>
+                                        <div>The `value` part of an element may be a `*` to allow any value with that OID</div>
+                                        <div>Alternatively, specifying a single `*` will allow any `other_sans` input. `server_flag` `(bool)` Specifies if certificates are flagged for server use.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -705,7 +705,7 @@
                                         <div>Defines allowed URI Subject Alternative Names</div>
                                         <div>No authorization checking is performed except to verify that the given values are valid URIs</div>
                                         <div>This can be a comma-delimited list or a JSON string slice</div>
-                                        <div>Values can contain glob patterns (e.g. <code>spiffe://hostname/*</code>).</div>
+                                        <div>Values can contain glob patterns (e.g. `spiffe://hostname/*`).</div>
                                                     </td>
         </tr>
                             <tr>
@@ -838,7 +838,7 @@
                                                                                                                                                         </td>
                                                             <td>
                                         <div>Specifies the allowed extended key usage constraint on issued certificates</div>
-                                        <div>Valid values can be found at <a href='https://golang.org/pkg/crypto/x509/#ExtKeyUsage'>https://golang.org/pkg/crypto/x509/#ExtKeyUsage</a> - simply drop the <code>ExtKeyUsage</code> part of the value</div>
+                                        <div>Valid values can be found at <a href='https://golang.org/pkg/crypto/x509/#ExtKeyUsage'>https://golang.org/pkg/crypto/x509/#ExtKeyUsage</a> - simply drop the `ExtKeyUsage` part of the value</div>
                                         <div>Values are not case-sensitive</div>
                                         <div>To specify no key usage constraints, set this to an empty list.</div>
                                                     </td>
@@ -877,9 +877,9 @@
                                                                         </td>
                                                             <td>
                                         <div>Specifies if certificates issued/signed against this role will have Vault leases attached to them</div>
-                                        <div>Certificates can be added to the CRL by <code>vault revoke &lt;lease_id&gt;</code> when certificates are associated with leases</div>
-                                        <div>It can also be done using the <code>pki/revoke</code> endpoint</div>
-                                        <div>However, when lease generation is disabled, invoking <code>pki/revoke</code> would be the only way to add the certificates to the CRL.</div>
+                                        <div>Certificates can be added to the CRL by `vault revoke &lt;lease_id&gt;` when certificates are associated with leases</div>
+                                        <div>It can also be done using the `pki/revoke` endpoint</div>
+                                        <div>However, when lease generation is disabled, invoking `pki/revoke` would be the only way to add the certificates to the CRL.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -897,7 +897,7 @@
                                 </td>
                                                             <td>
                                         <div>Specifies the number of bits to use for the generated keys</div>
-                                        <div>This will need to be changed for <code>ec</code> keys, e.g., 224 or 521.</div>
+                                        <div>This will need to be changed for `ec` keys, e.g., 224 or 521.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -915,7 +915,7 @@
                                 </td>
                                                             <td>
                                         <div>Specifies the type of key to generate for generated private keys and the type of key expected for submitted CSRs</div>
-                                        <div>Currently, <code>rsa</code> and <code>ec</code> are supported, or when signing CSRs <code>any</code> can be specified to allow keys of either type and with any bit size (subject to &gt; 1024 bits for RSA keys).</div>
+                                        <div>Currently, `rsa` and `ec` are supported, or when signing CSRs `any` can be specified to allow keys of either type and with any bit size (subject to &gt; 1024 bits for RSA keys).</div>
                                                     </td>
         </tr>
                             <tr>
@@ -933,7 +933,7 @@
                                 </td>
                                                             <td>
                                         <div>Specifies the allowed key usage constraint on issued certificates</div>
-                                        <div>Valid values can be found at <a href='https://golang.org/pkg/crypto/x509/#KeyUsage'>https://golang.org/pkg/crypto/x509/#KeyUsage</a> - simply drop the <code>KeyUsage</code> part of the value</div>
+                                        <div>Valid values can be found at <a href='https://golang.org/pkg/crypto/x509/#KeyUsage'>https://golang.org/pkg/crypto/x509/#KeyUsage</a> - simply drop the `KeyUsage` part of the value</div>
                                         <div>Values are not case-sensitive</div>
                                         <div>To specify no key usage constraints, set this to an empty list.</div>
                                                     </td>
@@ -992,7 +992,7 @@
                                         <div>If set, certificates issued/signed against this role will not be stored in the storage backend</div>
                                         <div>This can improve performance when issuing large numbers of certificates</div>
                                         <div>However, certificates issued in this way cannot be enumerated or revoked, so this option is recommended only for certificates that are non-sensitive, or extremely short-lived</div>
-                                        <div>This option implies a value of <code>false</code> for <code>generate_lease</code>.</div>
+                                        <div>This option implies a value of `false` for `generate_lease`.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -1109,7 +1109,7 @@
                                                                                 </ul>
                                                                         </td>
                                                             <td>
-                                        <div>If set to false, makes the <code>common_name</code> field optional while generating a certificate.</div>
+                                        <div>If set to false, makes the `common_name` field optional while generating a certificate.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -1161,7 +1161,7 @@
                                                             <td>
                                         <div>Specifies the Time To Live value provided as a string duration with time suffix.</div>
                                         <div>Hour is the largest suffix.</div>
-                                        <div>If not set, uses the system default value or the value of <code>max_ttl</code>, whichever is shorter.</div>
+                                        <div>If not set, uses the system default value or the value of `max_ttl`, whichever is shorter.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -1182,7 +1182,7 @@
                                                                         </td>
                                                             <td>
                                         <div>When used with the CSR signing endpoint, the common name in the CSR will be used instead of taken from the JSON data</div>
-                                        <div>This does <code>not</code> include any requested SANs in the CSR; use <code>use_csr_sans</code> for that.</div>
+                                        <div>This does `not` include any requested SANs in the CSR; use `use_csr_sans` for that.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -1203,7 +1203,7 @@
                                                                         </td>
                                                             <td>
                                         <div>When used with the CSR signing endpoint, the subject alternate names in the CSR will be used instead of taken from the JSON data</div>
-                                        <div>This does <code>not</code> include the common name in the CSR; use <code>use_csr_common_name</code> for that.</div>
+                                        <div>This does `not` include the common name in the CSR; use `use_csr_common_name` for that.</div>
                                                     </td>
         </tr>
 
@@ -1217,7 +1217,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"value of authtype or environment varialbe C(VAULT_LOGIN_MOUNT_POINT)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"value of authtype or environment varialbe `VAULT_LOGIN_MOUNT_POINT`"</div>
                                 </td>
                                                             <td>
                                         <div>authentication mount point</div>
@@ -1280,7 +1280,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_PASSWORD)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_PASSWORD`"</div>
                                 </td>
                                                             <td>
                                         <div>password to login to vault.</div>
@@ -1330,7 +1330,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_TOKEN)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_TOKEN`"</div>
                                 </td>
                                                             <td>
                                         <div>token for vault</div>
@@ -1346,7 +1346,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_ADDR)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_ADDR`"</div>
                                 </td>
                                                             <td>
                                         <div>url for vault</div>
@@ -1362,7 +1362,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_USER)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_USER`"</div>
                                 </td>
                                                             <td>
                                         <div>username to login to vault.</div>
@@ -1378,7 +1378,7 @@
                                                                 </div>
                                 </td>
                             <td>
-                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable C(VAULT_SKIP_VERIFY)"</div>
+                                                                                                                                                                <b>Default:</b><br/><div style="color: blue">"to environment variable `VAULT_SKIP_VERIFY`"</div>
                                 </td>
                                                             <td>
                                         <div>If set, do not verify presented TLS certificate before communicating with Vault server. Setting this variable is not recommended except during testing</div>
@@ -1445,7 +1445,7 @@
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on May 03, 2020.
+        Last updated on May 12, 2020.
       </span>
 
     </p>
