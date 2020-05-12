@@ -2,6 +2,16 @@ Changelog
 =========
 
 
+4.5.1 (2020-05-12)
+------------------
+- Add issuer to k8s config. [Terry Howe]
+- Initialize keys_updated. [Terry Howe]
+- Do not use sys.auth to validate exists. [Terry Howe]
+- Do not use sys/auth for change detection. [Terry Howe]
+- Remove ansible docs that break sphinx. [Terry Howe]
+- Fix docs for sphinx. [Terry Howe]
+
+
 4.5.0 (2020-05-03)
 ------------------
 - Rename read pki modules get. [Terry Howe]
