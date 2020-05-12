@@ -74,7 +74,7 @@ def hashivault_k8s_auth_config(module):
     desired_state['pem_keys'] = params.get('pem_keys')
     desired_state['mount_point'] = mount_point
 
-    keys_updated = []
+    keys_updated = desired_state.keys()
     try:
         current_state = client.auth.kubernetes.read_config(mount_point=mount_point)
         keys_updated = get_keys_updated(current_state, desired_state)
