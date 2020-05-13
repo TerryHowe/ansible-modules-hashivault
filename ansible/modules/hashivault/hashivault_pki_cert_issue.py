@@ -37,48 +37,48 @@ options:
         alt_names:
             type: string
             description:
-                – Specifies requested Subject Alternative Names, in a comma-delimited list. These can be host names or
+                - Specifies requested Subject Alternative Names, in a comma-delimited list. These can be host names or
                   email addresses; they will be parsed into their respective fields. If any requested names do not match
                   role policy, the entire request will be denied.
         ip_sans:
             type: string
             description:
-                – Specifies requested IP Subject Alternative Names, in a comma-delimited list. Only valid if the role
+                - Specifies requested IP Subject Alternative Names, in a comma-delimited list. Only valid if the role
                   allows IP SANs (which is the default).
         uri_sans:
             type: string
             description:
-                – Specifies the requested URI Subject Alternative Names, in a comma-delimited list.
+                - Specifies the requested URI Subject Alternative Names, in a comma-delimited list.
         other_sans:
             type: string
             description:
-                – Specifies custom OID/UTF8-string SANs. These must match values specified on the role in
+                - Specifies custom OID/UTF8-string SANs. These must match values specified on the role in
                   allowed_other_sans (see role creation for allowed_other_sans globbing rules). The format is the same
                   as OpenSSL <oid>;<type>:<value> where the only current valid type is UTF8. This can be a
                   comma-delimited list or a JSON string slice.
         ttl:
             type: string
             description:
-                – Specifies requested Time To Live. Cannot be greater than the role's max_ttl value. If not provided,
+                - Specifies requested Time To Live. Cannot be greater than the role's max_ttl value. If not provided,
                   the role's ttl value will be used. Note that the role values default to system values if not
                   explicitly set.
         format:
             type: string
             description:
-                – Specifies the format for returned data. Can be pem, der, or pem_bundle; defaults to pem. If der, the
+                - Specifies the format for returned data. Can be pem, der, or pem_bundle; defaults to pem. If der, the
                   output is base64 encoded. If pem_bundle, the certificate field will contain the private key and
                   certificate, concatenated; if the issuing CA is not a Vault-derived self-signed root, this will be
                   included as well.
         private_key_format:
             type: string
             description:
-                – Specifies the format for marshaling the private key. Defaults to der which will return either
+                - Specifies the format for marshaling the private key. Defaults to der which will return either
                   base64-encoded DER or PEM-encoded DER, depending on the value of format. The other option is pkcs8
                   which will return the key marshalled as PEM-encoded PKCS8.
         exclude_cn_from_sans:
             type: bool
             description:
-                – If true, the given common_name will not be included in DNS or Email Subject Alternate Names
+                - If true, the given common_name will not be included in DNS or Email Subject Alternate Names
                   (as appropriate). Useful if the CN is not a hostname or email address, but is instead some
                   human-readable identifier.
 extends_documentation_fragment:
