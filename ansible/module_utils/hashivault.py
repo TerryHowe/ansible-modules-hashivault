@@ -343,6 +343,11 @@ def compare_state(desired_state, current_state, ignore=None):
             if ((key not in current_state) or (not compare_state(v, current_state.get(key)))):
                 return False
         return True
+
+    # lots of things get handled as strings in ansible that aren't necessarily strings, can extend this list later.
+    if isinstance(desired_state, str) and isinstance(current_state, int):
+        current_state = str(current_state)
+
     return ((desired_state == current_state))
 
 
