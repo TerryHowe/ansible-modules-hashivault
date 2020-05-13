@@ -110,7 +110,7 @@ options:
                 type: int
                 default: -1
                 description:
-                    – Specifies the maximum path length to encode in the generated certificate.
+                    - Specifies the maximum path length to encode in the generated certificate.
                     - `-1` means no limit.
                     - Unless the signing certificate has a maximum path length set, in which case the path length is set
                       to one less than that of the signing certificate.
