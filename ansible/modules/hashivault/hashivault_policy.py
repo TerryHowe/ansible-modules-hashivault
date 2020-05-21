@@ -18,6 +18,12 @@ options:
     name:
         description:
             - policy name.
+    state:
+        type: str
+        choices: ["present", "absent"]
+        default: present
+        description:
+            - present or absent
     rules:
         description:
             - policy rules.
