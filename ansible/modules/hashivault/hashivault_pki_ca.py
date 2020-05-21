@@ -32,6 +32,10 @@ options:
             - Specifies the type of the root to create, If `exported`, the private key will be returned in the
               response;
             - If it is `internal` the private key will not be returned and cannot be retrieved later.
+    common_name:
+        type: str
+        description:
+            - Specifies the requested CN for the certificate. [required]
     kind:
         type: str
         choices: ["root", "intermediate"]
