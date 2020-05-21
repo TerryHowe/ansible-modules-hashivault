@@ -126,6 +126,11 @@ options:
                     - The `value` part of an element may be a `*` to allow any value with that OID
                     - Alternatively, specifying a single `*` will allow any `other_sans` input. `server_flag`
                       `(bool)` Specifies if certificates are flagged for server use.
+            server_flag:
+                type: bool
+                default: true
+                description:
+                    - Specifies if certificates are flagged for server use.
             client_flag:
                 type: bool
                 default: true
