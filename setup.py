@@ -6,6 +6,7 @@ py_files = [
     "ansible/plugins/lookup/hashivault",
     "ansible/plugins/action/hashivault_read_to_file",
     "ansible/plugins/action/hashivault_write_from_file",
+    "ansible/plugins/doc_fragments/hashivault",
 ]
 files = [
     "ansible/modules/hashivault",
