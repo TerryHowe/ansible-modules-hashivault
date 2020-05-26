@@ -69,7 +69,7 @@ def hashivault_pki_ca_set(module):
     if err:
         return err
 
-    result = {'changed': changed }
+    result = {'changed': changed}
     if module.check_mode:
         return result
 
@@ -80,7 +80,7 @@ def hashivault_pki_ca_set(module):
             result['data'] = data.text
         else:
             result['data'] = data
-    
+
     return result
 
 
