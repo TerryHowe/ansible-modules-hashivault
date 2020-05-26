@@ -69,11 +69,19 @@ def hashivault_pki_ca_set(module):
     if err:
         return err
 
+    result = {'changed': changed}
     if module.check_mode:
-        return {'changed': changed}
+        return result
 
     data = client.secrets.pki.submit_ca_information(pem_bundle=pem_bundle, mount_point=mount_point)
-    return {'changed': changed, 'data': data}
+    if data:
+        from requests.models import Response
+        if isinstance(data, Response):
+            result['data'] = data.text
+        else:
+            result['data'] = data
+
+    return result
 
 
 if __name__ == '__main__':
