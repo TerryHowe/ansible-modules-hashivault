@@ -27,6 +27,9 @@ options:
     rules:
         description:
             - policy rules.
+    rules_file:
+        description:
+            - name of local file to read for policy rules.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
