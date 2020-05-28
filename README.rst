@@ -56,8 +56,10 @@ in order to authenticate to your HashiCorp Vault instance:
   * `VAULT_AWS_HEADER`: X-Vault-AWS-IAM-Server-ID Header value to prevent replay attacks
   * `VAULT_NAMESPACE`: specify the Vault Namespace, if you have one
 
-Generated Documentation
------------------------
+Documentation
+-------------
+
+There are a few simple examples in this document, but the full documentation can be found at:
 
 https://terryhowe.github.io/ansible-modules-hashivault/modules/list_of_hashivault_modules.html
 
@@ -74,61 +76,47 @@ reads the fie value::
         foo_value: 'fum'
         fie_value: 'fum'
       tasks:
-        - hashivault_status:
-          register: 'vault_status'
         - hashivault_write:
-            secret: 'giant'
+            secret: giant
             data:
                 foo: '{{foo_value}}'
                 fie: '{{fie_value}}'
-          register: 'vault_write'
         - hashivault_read:
-            secret: 'giant'
-            key: 'fie'
-          register: 'vault_read'
+            secret: giant
+            key: fie
+          register: vault_read
 
 The lookup plugin::
 
-    looky: "{{lookup('hashivault', 'giant', 'foo')}}"
+        - set_fact:
+            looky: "{{lookup('hashivault', 'giant', 'foo')}}"
 
-By default, the hashivault_write, hashivault_read and the lookup plugin assume the /secret mount point.  If you are accessing another mount point, start the secret with a '/'::
+By default, the hashivault_write, hashivault_read and the lookup plugin assume the
+/secret mount point.  If you are accessing another mount point, use `mount_point`::
 
     ---
     - hosts: localhost
       tasks:
+        - hashivault_secret_engine:
+            name: stories
+            backend: generic
         - hashivault_write:
-            secret: '/stories/stuart'
+            mount_point: /stories
+            secret: stuart
             data:
                 last: 'little'
         - hashivault_read:
-            secret: '/stories/charlotte'
-            key: 'web'
+            mount_point: /stories
+            secret: stuart
+            key: last
         - set_fact:
-            book: "{{lookup('hashivault', '/stories/charlotte', 'web')}}"
-
-Get a list of secrets::
-
-    ---
-    - hosts: localhost
-      tasks:
-        - hashivault_list:
-            secret: '/stories'
-          register: vault
-
-Ansible does not handle binary data well, so these modules are provided for convenience to read/write files::
-
-    ---
-    - hashivault_read_to_file:
-        secret: 'ssl_certs'
-        key: 'der_format'
-        dest: 'ssl_cert.cer'
-    - hashivault_write_from_file:
-        secret: 'ssl_certs'
-        key: 'der_format'
-        path: 'ssl_cert.cer'
+            book: "{{lookup('hashivault', 'stuart', 'last', mount_point='/stories')}}"
 
 Initialization, Seal, and Unseal
 --------------------------------
+
+The real strength of this module is all the administrative functions you can do. See the documentation
+mentioned above for more, but here is a small sample.
 
 You may init the vault::
 
@@ -136,7 +124,7 @@ You may init the vault::
     - hosts: localhost
       tasks:
         - hashivault_init:
-          register: 'vault_init'
+          register: vault_init
 
 You may also seal and unseal the vault::
 
@@ -146,184 +134,13 @@ You may also seal and unseal the vault::
         vault_keys:  "{{ lookup('env','VAULT_KEYS') }}"
       tasks:
         - hashivault_status:
-          register: 'vault_status'
+          register: vault_status
         - block:
             - hashivault_seal:
-              register: 'vault_seal'
+              register: vault_seal
           when: "{{vault_status.status.sealed}} == False"
         - hashivault_unseal:
             keys: '{{vault_keys}}'
-
-Policy
-------
-
-Policy support::
-
-    ---
-    - hosts: localhost
-      vars:
-        name: 'terry'
-        rules: >
-            path "secret/{{name}}/*" {
-              capabilities = ["create", "read", "update", "delete", "list"]
-            }
-            path "secret/{{name}}" {
-              capabilities = ["list"]
-            }
-      tasks:
-        - hashivault_policy_set:
-            name: "{{name}}"
-            rules: "{{rules}}"
-          register: 'vault_policy_set'
-        - hashivault_policy_get:
-            name: '{{name}}'
-          register: 'vault_policy_get'
-        - hashivault_policy_list:
-          register: 'vault_policy_list'
-
-Policy From A file
-------------------
-
-Policy from a file support::
-
-    ---
-    - hosts: localhost
-      vars:
-        name: 'drew'
-
-      tasks:
-        - hashivault_policy_set_from_file:
-            name: "{{name}}"
-            rules_file: /home/drew/my_policy.hcl
-          register: 'vault_policy_set'
-        - hashivault_policy_get:
-            name: '{{name}}'
-          register: 'vault_policy_get'
-        - hashivault_policy_list:
-          register: 'vault_policy_list'
-
-User Management
----------------
-
-Add and delete users for userpass::
-
-    ---
-    - hosts: localhost
-      vars:
-        username: 'portugal'
-        userpass: 'Th3m@n!!'
-      tasks:
-        - hashivault_userpass_create:
-            name: "{{username}}"
-            pass: "{{userpass}}"
-            policies: "{{username}}"
-          register: 'vault_userpass_create'
-
-        - hashivault_userpass_delete:
-            name: "{{username}}"
-          register: 'vault_userpass_delete'
-
-Authentication Backends
------------------------
-
-Handle auth backends::
-
-    ---
-    - hosts: localhost
-      tasks:
-        - hashivault_auth_method:
-            method_type: "userpass"
-            state: "enabled"
-
-
-Audit Backends
---------------
-
-Handle audit backends::
-
-    ---
-    - hosts: localhost
-      tasks:
-        - hashivault_audit_list:
-          register: 'vault_audit_list'
-        - block:
-          - hashivault_audit_enable:
-              name: "syslog"
-            register: 'vault_audit_enable'
-          when: "'syslog/' not in vault_audit_list.backends"
-
-Rekey Vault
------------
-
-Various rekey vault operations::
-
-    ---
-    - hashivault_rekey_init:
-        secret_shares: 7
-        secret_threshold: 4
-    - hashivault_rekey:
-      key: '{{vault_key}}'
-      nonce: '{{nonce}}'
-    - hashivault_rekey_status:
-      register: "vault_rekey_status"
-    - hashivault_rekey_cancel:
-      register: "vault_rekey_cancel"
-
-Secret Backends
----------------
-
-Enable and disable various secret backends::
-
-    ---
-    - hashivault_secret_engine:
-        name: secret
-        backend: kv
-        options:
-          version: 2
-        config:
-          default_lease_ttl: 1500
-    - hashivault_secret_engine:
-        name: secret
-        state: absent
-
-Token Manipulation
-------------------
-
-Various token manipulation modules::
-
-    ---
-    - hashivault_token_create:
-        display_name: "syadm"
-        policies: ["sysadm"]
-        renewable: True
-        token: "{{vault_root_token}}"
-      register: "vault_token_admin"
-    - hashivault_token_lookup:
-        lookup_token: "{{client_token}}"
-      register: "vault_token_lookup"
-    - hashivault_token_revoke:
-        revoke_token: "{{client_token}}"
-      register: "vault_token_revoke"
-    - hashivault_token_renew:
-        renew_token: "{{client_token}}"
-      register: "vault_token_renew"
-
-Approle
--------
-
-Approle modules::
-
-    ---
-    - hashivault_approle_role_create:
-        name: testrole
-        policies:
-          - approle_test_policy
-    - hashivault_approle_role_id:
-        name: testrole
-      register: 'vault_role_id'
-    - hashivault_approle_role_secret_create:
-        name: testrole
-      register: 'vault_role_secret_create'
 
 Action Plugin
 -------------
