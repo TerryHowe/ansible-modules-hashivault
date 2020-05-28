@@ -515,6 +515,21 @@
         </tr>
                             <tr>
                                                             <td colspan="2">
+                <div class="ansibleOptionAnchor" id="parameter-common_name"></div>
+                <b>common_name</b>
+                <a class="ansibleOptionLink" href="#parameter-common_name" title="Permalink to this option"></a>
+                <div style="font-size: small">
+                    <span style="color: purple">string</span>
+                                                                </div>
+                                </td>
+                            <td>
+                                                                                                                                                        </td>
+                                                            <td>
+                                        <div>Specifies the requested CN for the certificate. [required]</div>
+                                                    </td>
+        </tr>
+                            <tr>
+                                                            <td colspan="2">
                 <div class="ansibleOptionAnchor" id="parameter-config"></div>
                 <b>config</b>
                 <a class="ansibleOptionLink" href="#parameter-config" title="Permalink to this option"></a>
@@ -682,7 +697,10 @@
                                                                                                                                                                 <b>Default:</b><br/><div style="color: blue">-1</div>
                                 </td>
                                                             <td>
-                                        <div>– Specifies the maximum path length to encode in the generated certificate. - `-1` means no limit. - Unless the signing certificate has a maximum path length set, in which case the path length is set to one less than that of the signing certificate. - A limit of `0` means a literal path length of zero.</div>
+                                        <div>Specifies the maximum path length to encode in the generated certificate.</div>
+                                        <div>A limit of `-1` means no limit.</div>
+                                        <div>Unless the signing certificate has a maximum path length set, in which case the path length is set to one less than that of the signing certificate.</div>
+                                        <div>A limit of `0` means a literal path length of zero.</div>
                                                     </td>
         </tr>
                             <tr>
@@ -1113,7 +1131,7 @@
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on May 12, 2020.
+        Last updated on May 28, 2020.
       </span>
 
     </p>
