@@ -2,6 +2,22 @@ Changelog
 =========
 
 
+4.5.2 (2020-05-28)
+------------------
+- Remove redundant documentation from README. [Terry Howe]
+- Add rules file to docs. [Terry Howe]
+- Fix response 204 on pki_ca_set. Closes TerryHowe/ansible-modules-
+  hashivault#256. [Tiago Posse]
+- FIX: error with ansible-doc unknown doc-fragment hashivault. [ChiCuong
+  HA]
+- Add common_name doc string to CA. [Jamie Lennox]
+- Add server_flag to pki_role. [Jamie Lennox]
+- Add state documentation to policy. [Jamie Lennox]
+- When doing state comparisons allow int/string mismatch. [Jamie Lennox]
+- Fix hashivault_pki_ca docs. [Jamie Lennox]
+- Use ASCII hypens in documentation. [Jamie Lennox]
+
+
 4.5.1 (2020-05-12)
 ------------------
 - Add issuer to k8s config. [Terry Howe]
