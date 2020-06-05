@@ -53,11 +53,18 @@ def main():
 
 @hashiwrapper
 def hashivault_approle_role_secret_get(params):
-    name = params.get('name')
-    mount_point = params.get('mount_point')
-    secret = params.get('secret')
-    client = hashivault_auth_client(params)
-    return {'secret': client.get_role_secret_id(name, secret, mount_point=mount_point)['data']}
+    try:
+        name = params.get('name')
+        mount_point = params.get('mount_point')
+        secret = params.get('secret')
+        client = hashivault_auth_client(params)
+        response = client.get_role_secret_id(name, secret, mount_point=mount_point)
+        if type(response) is not dict and response.status_code == 204:  # No content
+            return {'secret': {}, 'status': 'absent'}
+        else:
+            return {'secret': response['data'], 'response': response, 'status': 'present'}
+    except Exception as e:
+        return {'failed': True, 'msg': str(e)}
 
 
 if __name__ == '__main__':

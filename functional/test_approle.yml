@@ -133,6 +133,14 @@
     - assert: { that: "{{vault_role_secret_get.rc}} == 0" }
     - assert: { that: "'{{vault_role_secret_get.secret.secret_id_accessor}}' == '{{approle_secret_id_accessor}}'" }
 
+    - name: get non existing secret
+      hashivault_approle_role_secret_get:
+        name: testrole
+        secret: "1-2-3-4"
+      register: 'vault_role_secret_get_not_existing'
+    - assert: { that: "'{{vault_role_secret_get_not_existing.status}}' == 'absent'" }
+    - assert: { that: "{{vault_role_secret_get_not_existing.rc}} == 0" }
+
     - name: get secret accessor
       hashivault_approle_role_secret_accessor_get:
         name: testrole
