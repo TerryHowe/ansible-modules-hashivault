@@ -31,7 +31,11 @@ EXAMPLES = r'''
     - debug: msg="{{ roles_list.data }}"
 '''
 RETURN = r'''
-data: list of roles, if pki engine has no roles will return empty list
+---
+data:
+    description: list of roles, if pki engine has no roles will return empty list
+    returned: success
+    type: list
 '''
 
 
