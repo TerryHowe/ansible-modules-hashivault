@@ -16,5 +16,6 @@ cp {..,ansible/lib}/ansible/plugins/doc_fragments/hashivault.py
 ls ansible/lib/ansible/modules/hashivault
 export MODULES=$(ls -m ansible/lib/ansible/modules/hashivault/ | grep -v '^_' | tr -d '[:space:]' | sed 's/.py//g')
 cd ansible/docs/docsite/
+rm -f $(find . -name developing_modules_general_windows.rst)
 make webdocs || true
 touch _build/html/.nojekyll
