@@ -17,8 +17,8 @@ description:
     - May optionally append additional CA certificates. Useful when creating an intermediate CA to ensure a full chain
       is returned when signing or generating certificates.
     - Not needed if you are generating a self-signed root certificate, and not used if you have a signed intermediate
-      CA certificate with a generated key (use the `hashivault_pki_set_signed` for that). If you have
-      already set a certificate and key, they will be overridden.
+      CA certificate with a generated key, use the hashivault_pki_set_signed for that. If you have already set a
+      certificate and key, they will be overridden.
 options:
     mount_point:
         default: pki

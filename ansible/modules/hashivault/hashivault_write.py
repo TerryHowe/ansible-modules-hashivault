@@ -36,7 +36,8 @@ options:
             - Keys and values to write. Use this if you need the returned data.
     update:
         description:
-            - Update rather than overwrite.
+            - This option is deprecated. Update the secret rather than overwrite. The module will read the secret and
+              overlay with the data provided and write.
         default: False
 extends_documentation_fragment: hashivault
 '''
