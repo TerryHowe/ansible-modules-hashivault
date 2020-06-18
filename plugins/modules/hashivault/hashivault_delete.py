@@ -3,10 +3,10 @@ import warnings
 
 from hvac.exceptions import InvalidPath
 
-from ansible.module_utils.hashivault import hashivault_argspec
-from ansible.module_utils.hashivault import hashivault_auth_client
-from ansible.module_utils.hashivault import hashivault_init
-from ansible.module_utils.hashivault import hashiwrapper
+from ansible_collections.terryhowe.hashivault.plugins.module_utils.hashivault import hashivault_argspec
+from ansible_collections.terryhowe.hashivault.plugins.module_utils.hashivault import hashivault_auth_client
+from ansible_collections.terryhowe.hashivault.plugins.module_utils.hashivault import hashivault_init
+from ansible_collections.terryhowe.hashivault.plugins.module_utils.hashivault import hashiwrapper
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
