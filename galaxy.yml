@@ -1,0 +1,21 @@
+---
+namespace: terryhowe
+name: hashivault
+version: 4.5.2
+readme: README.rst
+authors:
+- Terry Howe
+description: Ansible module for Hashicorp Vault
+license:
+- MIT
+tags:
+- hashicorp
+- vault
+- secrets
+- security
+- collection
+- module
+repository: https://github.com/TerryHowe/ansible-modules-hashivault.git
+documentation: https://terryhowe.github.io/ansible-modules-hashivault/modules/list_of_hashivault_modules.html
+homepage: https://github.com/TerryHowe/ansible-modules-hashivault
+issues: https://github.com/TerryHowe/ansible-modules-hashivault/issues
