@@ -19,8 +19,10 @@ from ansible.errors import AnsibleError
 from ansible.module_utils.basic import AnsibleFallbackNotFound
 from ansible.plugins.lookup import LookupBase
 
-from ansible.module_utils.hashivault import hashivault_argspec
-from ansible.module_utils.hashivault import hashivault_read
+from ansible_collections.terryhowe.hashivault.plugins.module_utils.hashivault import (
+    hashivault_default_token,
+    hashivault_read,
+)
 
 
 class LookupModule(LookupBase):
