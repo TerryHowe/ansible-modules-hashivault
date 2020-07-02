@@ -2,6 +2,16 @@ Changelog
 =========
 
 
+4.5.3 (2020-07-02)
+------------------
+- Remove deprecated from hashivault_policy module. [Terry Howe]
+- Update hashivault_write docs. [Terry Howe]
+- Fix doc build. [Terry Howe]
+- Fix pki docs. [Terry Howe]
+- Fix pki docs. [Terry Howe]
+- Handle not existing approle role secret. [André Frimberger]
+
+
 4.5.2 (2020-05-28)
 ------------------
 - Remove redundant documentation from README. [Terry Howe]
