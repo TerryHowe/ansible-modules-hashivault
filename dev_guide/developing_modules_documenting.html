@@ -43,7 +43,7 @@
   <link rel="stylesheet" href="../_static/ansible.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Windows module development walkthrough" href="developing_modules_general_windows.html" />
+    <link rel="next" title="Developing Cisco ACI modules" href="developing_modules_general_aci.html" />
     <link rel="prev" title="Debugging modules" href="debugging.html" /> <!---- extra head elements for Ansible beyond RTD Sphinx Theme --->
 <script type="text/javascript" src="//www.redhat.com/dtm.js"></script>
 <!-- <meta class="swiftype" name="published_at" data-type="date" content="2017-12-13" /> -->
@@ -242,7 +242,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#testing-module-documentation">Testing module documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="developing_modules_general_windows.html">Windows module development walkthrough</a></li>
 <li class="toctree-l2"><a class="reference internal" href="developing_modules_general_aci.html">Developing Cisco ACI modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="platforms/aws_guidelines.html">Guidelines for Ansible Amazon AWS module development</a></li>
 <li class="toctree-l2"><a class="reference internal" href="platforms/openstack_guidelines.html">OpenStack Ansible Modules</a></li>
@@ -422,7 +421,7 @@
             
   <div class="section" id="module-format-and-documentation">
 <span id="module-documenting"></span><span id="developing-modules-documenting"></span><h1>Module format and documentation<a class="headerlink" href="#module-format-and-documentation" title="Permalink to this headline">¶</a></h1>
-<p>If you want to contribute your module to Ansible, you must write your module in Python and follow the standard format described below. (Unless you’re writing a Windows module, in which case the <a class="reference internal" href="developing_modules_general_windows.html#developing-modules-general-windows"><span class="std std-ref">Windows guidelines</span></a> apply.) In addition to following this format, you should review our <a class="reference internal" href="developing_modules_checklist.html#developing-modules-checklist"><span class="std std-ref">submission checklist</span></a>, <a class="reference internal" href="developing_modules_best_practices.html#developing-modules-best-practices"><span class="std std-ref">programming tips</span></a>, and <a class="reference internal" href="developing_python_3.html#developing-python-3"><span class="std std-ref">strategy for maintaining Python 2 and Python 3 compatibility</span></a>, as well as information about <a class="reference internal" href="testing.html#developing-testing"><span class="std std-ref">testing</span></a> before you open a pull request.</p>
+<p>If you want to contribute your module to Ansible, you must write your module in Python and follow the standard format described below. (Unless you’re writing a Windows module, in which case the <span class="xref std std-ref">Windows guidelines</span> apply.) In addition to following this format, you should review our <a class="reference internal" href="developing_modules_checklist.html#developing-modules-checklist"><span class="std std-ref">submission checklist</span></a>, <a class="reference internal" href="developing_modules_best_practices.html#developing-modules-best-practices"><span class="std std-ref">programming tips</span></a>, and <a class="reference internal" href="developing_python_3.html#developing-python-3"><span class="std std-ref">strategy for maintaining Python 2 and Python 3 compatibility</span></a>, as well as information about <a class="reference internal" href="testing.html#developing-testing"><span class="std std-ref">testing</span></a> before you open a pull request.</p>
 <p>Every Ansible module written in Python must begin with seven standard sections in a particular order, followed by the code. The sections in order are:</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -899,7 +898,7 @@ This is a string, and not a float, i.e. <code class="docutils literal notranslat
   
     <div class="rst-footer-buttons">
       
-        <a href="developing_modules_general_windows.html" class="btn btn-neutral float-right" title="Windows module development walkthrough"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="developing_modules_general_aci.html" class="btn btn-neutral float-right" title="Developing Cisco ACI modules"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="debugging.html" class="btn btn-neutral" title="Debugging modules"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -923,7 +922,7 @@ This is a string, and not a float, i.e. <code class="docutils literal notranslat
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on May 28, 2020.
+        Last updated on Jul 02, 2020.
       </span>
 
     </p>

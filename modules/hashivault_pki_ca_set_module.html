@@ -388,7 +388,7 @@
 <ul class="simple">
 <li><p>This module allows submitting the CA information for the backend via a PEM file containing the CA certificate and its private key, concatenated.</p></li>
 <li><p>May optionally append additional CA certificates. Useful when creating an intermediate CA to ensure a full chain is returned when signing or generating certificates.</p></li>
-<li><p>Not needed if you are generating a self-signed root certificate, and not used if you have a signed intermediate CA certificate with a generated key (use the <cite>/pki/intermediate/set-signed</cite> endpoint for that). If you have already set a certificate and key, they will be overridden.</p></li>
+<li><p>Not needed if you are generating a self-signed root certificate, and not used if you have a signed intermediate CA certificate with a generated key, use the hashivault_pki_set_signed for that. If you have already set a certificate and key, they will be overridden.</p></li>
 </ul>
 </div>
 <div class="section" id="requirements">
@@ -708,7 +708,7 @@
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on May 28, 2020.
+        Last updated on Jul 02, 2020.
       </span>
 
     </p>
