@@ -108,6 +108,8 @@ EXAMPLES = '''
 
 
 def main():
+    # separate long default value to pass linting
+    default_group_filter = '(|(memberUid={{.Username}})(member={{.UserDN}})(uniqueMember={{.UserDN}}))'
     argspec = hashivault_argspec()
     argspec['description'] = dict(required=False, type='str')
     argspec['mount_point'] = dict(required=False, type='str', default='ldap')
@@ -125,8 +127,7 @@ def main():
     argspec['discover_dn'] = dict(required=False, type='bool', default=False)
     argspec['deny_null_bind'] = dict(required=False, type='bool', default=True)
     argspec['upn_domain'] = dict(required=False, type='str', default='')
-    argspec['group_filter'] = dict(required=False, type='str',
-            default='(|(memberUid={{.Username}})(member={{.UserDN}})(uniqueMember={{.UserDN}}))')
+    argspec['group_filter'] = dict(required=False, type='str', default=default_group_filter)
     argspec['group_attr'] = dict(required=False, type='str', default='cn')
     argspec['group_dn'] = dict(required=False, type='str', default='')
     module = hashivault_init(argspec, supports_check_mode=True)
