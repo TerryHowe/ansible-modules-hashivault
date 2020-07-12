@@ -79,9 +79,15 @@ def hashivault_delete(params):
         try:
             if version == 2:
                 if permanent:
-                    returned_data = client.secrets.kv.v2.delete_metadata_and_all_versions(secret, mount_point=mount_point)
+                    returned_data = client.secrets.kv.v2.delete_metadata_and_all_versions(
+                        secret,
+                        mount_point=mount_point
+                    )
                 else:
-                    returned_data = client.secrets.kv.v2.delete_latest_version_of_secret(secret, mount_point=mount_point)
+                    returned_data = client.secrets.kv.v2.delete_latest_version_of_secret(
+                        secret,
+                        mount_point=mount_point
+                    )
             else:
                 returned_data = client.delete(secret_path)
         except InvalidPath:
