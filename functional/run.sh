@@ -19,6 +19,7 @@ ansible-playbook -v test_aws_auth_role.yml
 ansible-playbook -v test_list.yml
 ansible-playbook -v test_lookup.yml
 ansible-playbook -v test_delete.yml
+ansible-playbook -v test_delete_permanent.yml
 ansible-playbook -v test_auth.yml
 ansible-playbook -v test_auth_method.yml
 ansible-playbook -v test_azure_auth_config.yml
