@@ -128,6 +128,8 @@ def main():
     argspec['group_filter'] = dict(required=False, type='str')
     argspec['group_attr'] = dict(required=False, type='str', default='cn')
     argspec['group_dn'] = dict(required=False, type='str', default='')
+    argspec['use_token_groups'] = dict(required=False, type='bool', default=False)
+
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_auth_ldap(module)
     if result.get('failed'):
@@ -160,6 +162,7 @@ def hashivault_auth_ldap(module):
     desired_state['group_filter'] = params.get('group_filter')
     desired_state['group_attr'] = params.get('group_attr')
     desired_state['group_dn'] = params.get('group_dn')
+    desired_state['use_token_groups'] = params.get('use_token_groups')
 
     # if bind pass is None, remove it from desired state since we can't compare
     if desired_state['bind_pass'] is None:
@@ -185,7 +188,7 @@ def hashivault_auth_ldap(module):
         current_state['deny_null_bind'] = result['deny_null_bind']
         current_state['user_dn'] = result['userdn']
         current_state['bind_dn'] = result['binddn']
-        # current_state['use_token_groups'] = result['use_token_groups']  # not implemented in HVAC
+        current_state['use_token_groups'] = result['use_token_groups']
         current_state['url'] = result['url']
         current_state['starttls'] = result['starttls']
     except InvalidPath:
