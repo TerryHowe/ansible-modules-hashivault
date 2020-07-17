@@ -2,6 +2,14 @@ Changelog
 =========
 
 
+4.5.4 (2020-07-17)
+------------------
+- Add default value of group_filter for idempotency on replay
+  hashivault_auth_ldap [charlrvd]
+- Add support for use_token_groups in auth_ldap, as its now supported by
+  hvac. [Tiago Posse]
+
+
 4.5.3 (2020-07-02)
 ------------------
 - Remove deprecated from hashivault_policy module. [Terry Howe]
