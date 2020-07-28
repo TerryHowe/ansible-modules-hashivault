@@ -3,7 +3,7 @@ import warnings
 
 import hvac
 import requests
-from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils.basic import AnsibleModule, env_fallback
 from hvac.exceptions import InvalidPath
 
 
@@ -17,12 +17,12 @@ def hashivault_argspec():
         verify=dict(required=False, default=(not os.environ.get('VAULT_SKIP_VERIFY', '')), type='bool'),
         authtype=dict(required=False, default=os.environ.get('VAULT_AUTHTYPE', 'token'), type='str'),
         login_mount_point=dict(required=False, default=os.environ.get('VAULT_LOGIN_MOUNT_POINT', None), type='str'),
-        token=dict(required=False, default=hashivault_default_token(), type='str', no_log=True),
+        token=dict(required=False, fallback=(hashivault_default_token, ''), type='str', no_log=True),
         username=dict(required=False, default=os.environ.get('VAULT_USER', ''), type='str'),
-        password=dict(required=False, default=os.environ.get('VAULT_PASSWORD', ''), type='str', no_log=True),
-        role_id=dict(required=False, default=os.environ.get('VAULT_ROLE_ID', ''), type='str', no_log=True),
-        secret_id=dict(required=False, default=os.environ.get('VAULT_SECRET_ID', ''), type='str', no_log=True),
-        aws_header=dict(required=False, default=os.environ.get('VAULT_AWS_HEADER', ''), type='str', no_log=True),
+        password=dict(required=False, fallback=(env_fallback, ['VAULT_PASSWORD']), type='str', no_log=True),
+        role_id=dict(required=False, fallback=(env_fallback, ['VAULT_ROLE_ID']), type='str', no_log=True),
+        secret_id=dict(required=False, fallback=(env_fallback, ['VAULT_SECRET_ID']), type='str', no_log=True),
+        aws_header=dict(required=False, fallback=(env_fallback, ['VAULT_AWS_HEADER']), type='str', no_log=True),
         namespace=dict(required=False, default=os.environ.get('VAULT_NAMESPACE', None), type='str')
     )
     return argument_spec
