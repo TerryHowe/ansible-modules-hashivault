@@ -33,10 +33,10 @@ options:
             - Deprecated. Use token_bound_cidrs instead. Comma-separated string or list of CIDR blocks.
     token_bound_cidrs:
         description:
-        - Comma-separated string or list of CIDR blocks.
+            - Comma-separated string or list of CIDR blocks.
     secret_id_bound_cidrs:
         description:
-        - Comma-separated string or list of CIDR blocks.
+            - Comma-separated string or list of CIDR blocks.
     policies:
         description:
             - policies for the role.
