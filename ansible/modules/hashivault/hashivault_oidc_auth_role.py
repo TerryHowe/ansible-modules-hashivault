@@ -157,8 +157,9 @@ def hashivault_oidc_auth_role(module):
     current_state = dict()
     changed = False
 
+    token = params.get('token', client.token)
     namespace = params['namespace']
-    headers = {'X-Vault-Token': client.token, 'X-Vault-Namespace': namespace}
+    headers = {'X-Vault-Token': token, 'X-Vault-Namespace': namespace}
     url = params['url']
     verify = params['verify']
     ca_cert = params['ca_cert']
