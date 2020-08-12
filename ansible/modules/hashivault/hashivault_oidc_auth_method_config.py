@@ -101,9 +101,8 @@ def hashivault_oidc_auth_method_config(module):
     current_state = dict()
     exists = False
 
-    token = params['token']
     namespace = params['namespace']
-    headers = {'X-Vault-Token': token, 'X-Vault-Namespace': namespace}
+    headers = {'X-Vault-Token': client.token, 'X-Vault-Namespace': namespace}
     url = params['url']
     verify = params['verify']
 
