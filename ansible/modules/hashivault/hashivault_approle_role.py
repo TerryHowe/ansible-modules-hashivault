@@ -30,6 +30,12 @@ options:
             - Require secret_id to be presented when logging in using this AppRole.
     bound_cidr_list:
         description:
+            - Deprecated. Use token_bound_cidrs instead. Comma-separated string or list of CIDR blocks.
+    token_bound_cidrs:
+        description:
+            - Comma-separated string or list of CIDR blocks.
+    secret_id_bound_cidrs:
+        description:
             - Comma-separated string or list of CIDR blocks.
     policies:
         description:
@@ -80,6 +86,8 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default='approle')
     argspec['bind_secret_id'] = dict(required=False, type='bool', no_log=True)
     argspec['bound_cidr_list'] = dict(required=False, type='list')
+    argspec['token_bound_cidrs'] = dict(required=False, type='list')
+    argspec['secret_id_bound_cidrs'] = dict(required=False, type='list')
     argspec['policies'] = dict(required=False, type='list', default=[])
     argspec['secret_id_num_uses'] = dict(required=False, type='str')
     argspec['secret_id_ttl'] = dict(required=False, type='str')
@@ -103,12 +111,18 @@ def hashivault_approle_role(module):
     role_file = params.get('role_file')
     mount_point = params.get('mount_point')
     name = params.get('name')
+    bound_cidr_depr = params.get('bound_cidr_list')
+    if bound_cidr_depr is not None and len(bound_cidr_depr) > 0:
+        module.warn("parameter bound_cidr_list is deprecated, use token_bound_cidrs instead")
+        params['token_bound_cidrs'] = bound_cidr_depr
+
     client = hashivault_auth_client(params)
     if state == 'present':
         args = [
             'policies',
             'bind_secret_id',
-            'bound_cidr_list',
+            'token_bound_cidrs',
+            'secret_id_bound_cidrs',
             'secret_id_num_uses',
             'secret_id_ttl',
             'token_num_uses',

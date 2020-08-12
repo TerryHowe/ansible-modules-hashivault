@@ -35,6 +35,27 @@
         state: absent
       failed_when: false
 
+    - name: create role with token_bound_cidrs and secret_id_bound_cidrs
+      hashivault_approle_role:
+        name: testrole_bound_cidrs
+        token_bound_cidrs: ["127.0.0.1"]
+        secret_id_bound_cidrs: ["127.0.0.1/32"]
+        policies:
+          - approle_test_policy_original
+        state: present
+      register: 'vault_role_create_bound_cidrs'
+    - assert: { that: "{{vault_role_create_bound_cidrs.changed}} == True" }
+    - assert: { that: "{{vault_role_create_bound_cidrs.rc}} == 0" }
+
+    - name: get role with token_bound_cidrs and secret_id_bound_cidrs
+      hashivault_approle_role_get:
+        name: testrole_bound_cidrs
+      register: 'vault_role_get_bound_cidrs'
+    - assert: { that: "{{vault_role_get_bound_cidrs.changed}} == False" }
+    - assert: { that: "{{vault_role_get_bound_cidrs.rc}} == 0" }
+    - assert: { that: "'{{vault_role_get_bound_cidrs.role.data.token_bound_cidrs[0]}}' == '127.0.0.1'" }
+    - assert: { that: "'{{vault_role_get_bound_cidrs.role.data.secret_id_bound_cidrs[0]}}' == '127.0.0.1/32'" }
+
     - name: create role
       hashivault_approle_role:
         name: testrole
