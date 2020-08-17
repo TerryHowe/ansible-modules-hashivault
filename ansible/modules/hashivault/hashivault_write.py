@@ -34,6 +34,9 @@ options:
     alternate_data:
         description:
             - Keys and values to write. Use this if you need the returned data.
+    cas:
+        descriptions:
+            - Check and set curent version v2 only
     update:
         description:
             - This option is deprecated. Update the secret rather than overwrite. The module will read the secret and
@@ -61,6 +64,7 @@ def main():
     argspec['update'] = dict(required=False, default=False, type='bool')
     argspec['data'] = dict(required=False, default={}, type='dict', no_log=True)
     argspec['alternate_data'] = dict(required=False, default={}, type='dict')
+    argspec['cas'] = dict(required=False, type='int')
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_write(module)
     if result.get('failed'):
@@ -117,6 +121,7 @@ def hashivault_write(module):
     secret = params.get('secret')
     data = params.get('data')
     data = data or params.get('alternate_data')
+    cas = params.get('cas')
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
@@ -165,7 +170,7 @@ def hashivault_write(module):
             if not module.check_mode:
                 try:
                     if version == 2:
-                        returned_data = client.secrets.kv.v2.create_or_update_secret(mount_point=mount_point,
+                        returned_data = client.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, cas=cas,
                                                                                      path=secret, secret=write_data)
                     else:
                         returned_data = client.write(secret_path, **write_data)

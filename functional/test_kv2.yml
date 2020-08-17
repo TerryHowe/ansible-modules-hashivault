@@ -120,5 +120,5 @@
         name: "kv2"
         state: absent
       register: 'vault_secret_disable'
-    - assert: { that: "{{vault_secret_enable.changed}} == True" }
-    - assert: { that: "{{vault_secret_enable.rc}} == 0" }
+    - assert: { that: "{{vault_secret_disable.changed}} == True" }
+    - assert: { that: "{{vault_secret_disable.rc}} == 0" }

@@ -1,0 +1,105 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Make sure kv2 secret store is disabled
+      hashivault_secret_engine:
+        name: "kv2"
+        state: absent
+      failed_when: False
+
+    - name: Enable kv2 secret store
+      hashivault_secret_engine:
+        name: "kv2"
+        backend: "kv"
+        options:
+          version: 2
+        cas_required: True
+      register: 'vault_secret_enable'
+    - assert: { that: "{{vault_secret_enable.changed}} == True" }
+    - assert: { that: "{{vault_secret_enable.rc}} == 0" }
+
+    - name: Update kv2 secret store engine
+      hashivault_secret_engine:
+        name: "kv2"
+        backend: "kv"
+        options:
+          version: 2
+        max_versions: 8
+      register: 'vault_secret_enable'
+    - assert: { that: "{{vault_secret_enable.changed}} == True" }
+    - assert: { that: "{{vault_secret_enable.rc}} == 0" }
+
+    - name: Update kv2 secret store engine idempotent
+      hashivault_secret_engine:
+        name: "kv2"
+        backend: "kv"
+        options:
+          version: 2
+        cas_required: True
+        max_versions: 8
+      register: 'vault_secret_enable'
+    - assert: { that: "{{vault_secret_enable.changed}} == False" }
+    - assert: { that: "{{vault_secret_enable.rc}} == 0" }
+
+    - name: cas kv2 write
+      hashivault_write:
+        mount_point: kv2
+        secret: casy
+        version: 2
+        cas: 0
+        data:
+            value: firstvalue
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == True" }
+    - assert: { that: "'{{vault_write.msg}}' == 'Secret kv2/casy written'" }
+    - assert: { that: "{{vault_write.rc}} == 0" }
+
+    - name: cas kv2 write two
+      hashivault_write:
+        mount_point: kv2
+        secret: casy
+        version: 2
+        cas: 1
+        data:
+            value: secondvalue
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == True" }
+    - assert: { that: "'{{vault_write.msg}}' == 'Secret kv2/casy written'" }
+    - assert: { that: "{{vault_write.rc}} == 0" }
+
+    - name: cas kv2 write fail
+      hashivault_write:
+        mount_point: kv2
+        secret: casy
+        version: 2
+        cas: 1
+        data:
+            value: firstvalue
+      failed_when: False
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == False" }
+    - assert: { that: "'did not match the current version' in '{{vault_write.msg}}'" }
+    - assert: { that: "{{vault_write.rc}} == 1" }
+
+
+    - name: no cas kv2 write fail
+      hashivault_write:
+        mount_point: kv2
+        secret: casy
+        version: 2
+        data:
+            value: firstvalue
+      failed_when: False
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == False" }
+    - assert: { that: "'check-and-set parameter required' in '{{vault_write.msg}}'" }
+    - assert: { that: "{{vault_write.rc}} == 1" }
+
+    - name: Disable kv2 secret store
+      hashivault_secret_engine:
+        name: "kv2"
+        state: absent
+      register: 'vault_secret_disable'
+    - assert: { that: "{{vault_secret_disable.changed}} == True" }
+    - assert: { that: "{{vault_secret_disable.rc}} == 0" }
