@@ -35,7 +35,7 @@ options:
         description:
             - Keys and values to write. Use this if you need the returned data.
     cas:
-        descriptions:
+        description:
             - Check and set curent version v2 only
     update:
         description:
