@@ -34,7 +34,7 @@
       hashivault_approle_role:
         name: bigspark
         mount_point: lightning
-        policies:
+        token_policies:
           - lightning_policy
       register: 'vault_role_create'
     - assert: { that: "{{vault_role_create.changed}} == True" }

@@ -48,10 +48,10 @@ options:
             - Duration after which the issued token can no longer be renewed.
     policies:
         description:
-            - policies for the role.
+            - Policies for the role.
     token_policies:
         description:
-            - policies for the role.
+            - Policies for the role.
     bound_cidr_list:
         description:
             - Deprecated. Use token_bound_cidrs instead. Comma-separated string or list of CIDR blocks.
@@ -106,7 +106,7 @@ def main():
     argspec['enable_local_secret_ids'] = dict(required=False, type='bool')
     argspec['token_ttl'] = dict(required=False, type='str')
     argspec['token_max_ttl'] = dict(required=False, type='str')
-    argspec['policies'] = dict(required=False, type='list', default=[])
+    argspec['policies'] = dict(required=False, type='list')
     argspec['token_policies'] = dict(required=False, type='list', default=[])
     argspec['token_bound_cidrs'] = dict(required=False, type='list')
     argspec['bound_cidr_list'] = dict(required=False, type='list')
