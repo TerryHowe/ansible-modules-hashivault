@@ -28,39 +28,54 @@ options:
     bind_secret_id:
         description:
             - Require secret_id to be presented when logging in using this AppRole.
-    bound_cidr_list:
-        description:
-            - Deprecated. Use token_bound_cidrs instead. Comma-separated string or list of CIDR blocks.
-    token_bound_cidrs:
-        description:
-            - Comma-separated string or list of CIDR blocks.
     secret_id_bound_cidrs:
         description:
             - Comma-separated string or list of CIDR blocks.
-    policies:
-        description:
-            - policies for the role.
     secret_id_num_uses:
         description:
             - Number of times any particular SecretID can be used.
     secret_id_ttl:
         description:
             - Duration after which any SecretID expires.
-    token_num_uses:
+    enable_local_secret_ids:
         description:
-            - Number of times issued tokens can be used. A value of 0 means unlimited uses.
+            - If set, the secret IDs generated using this role will be cluster local.
     token_ttl:
         description:
             - Duration to set as the TTL for issued tokens and at renewal time.
     token_max_ttl:
         description:
             - Duration after which the issued token can no longer be renewed.
+    policies:
+        description:
+            - policies for the role.
+    token_policies:
+        description:
+            - policies for the role.
+    bound_cidr_list:
+        description:
+            - Deprecated. Use token_bound_cidrs instead. Comma-separated string or list of CIDR blocks.
+    token_bound_cidrs:
+        description:
+            - Comma-separated string or list of CIDR blocks.
+    token_explicit_max_ttl:
+        description:
+            - Encode this value onto the token.
+    token_no_default_policy:
+        description:
+            - Default policy will not be set on generated tokens.
+    token_num_uses:
+        description:
+            - Number of times issued tokens can be used. A value of 0 means unlimited uses.
     period:
         description:
             - Duration of the token generated.
-    enable_local_secret_ids:
+    token_period:
         description:
-            - If set, the secret IDs generated using this role will be cluster local.
+            - Duration of the token generated.
+    token_type:
+        description:
+            - Type of token that should be generated, normally `service`, `batch` or `default`.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -85,17 +100,22 @@ def main():
     argspec['role_file'] = dict(required=False, type='str')
     argspec['mount_point'] = dict(required=False, type='str', default='approle')
     argspec['bind_secret_id'] = dict(required=False, type='bool', no_log=True)
-    argspec['bound_cidr_list'] = dict(required=False, type='list')
-    argspec['token_bound_cidrs'] = dict(required=False, type='list')
     argspec['secret_id_bound_cidrs'] = dict(required=False, type='list')
-    argspec['policies'] = dict(required=False, type='list', default=[])
     argspec['secret_id_num_uses'] = dict(required=False, type='str')
     argspec['secret_id_ttl'] = dict(required=False, type='str')
-    argspec['token_num_uses'] = dict(required=False, type='int')
+    argspec['enable_local_secret_ids'] = dict(required=False, type='bool')
     argspec['token_ttl'] = dict(required=False, type='str')
     argspec['token_max_ttl'] = dict(required=False, type='str')
+    argspec['policies'] = dict(required=False, type='list', default=[])
+    argspec['token_policies'] = dict(required=False, type='list', default=[])
+    argspec['token_bound_cidrs'] = dict(required=False, type='list')
+    argspec['bound_cidr_list'] = dict(required=False, type='list')
+    argspec['token_explicit_max_ttl'] = dict(required=False, type='str')
+    argspec['token_no_default_policy'] = dict(required=False, type='bool')
+    argspec['token_num_uses'] = dict(required=False, type='int')
     argspec['period'] = dict(required=False, type='str')
-    argspec['enable_local_secret_ids'] = dict(required=False, type='bool')
+    argspec['token_period'] = dict(required=False, type='str')
+    argspec['token_type'] = dict(required=False, type='str')
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_approle_role(module)
     if result.get('failed'):
@@ -119,17 +139,22 @@ def hashivault_approle_role(module):
     client = hashivault_auth_client(params)
     if state == 'present':
         args = [
-            'policies',
             'bind_secret_id',
-            'token_bound_cidrs',
             'secret_id_bound_cidrs',
             'secret_id_num_uses',
             'secret_id_ttl',
-            'token_num_uses',
+            'enable_local_secret_ids',
             'token_ttl',
             'token_max_ttl',
+            'policies',
+            'token_policies',
+            'token_bound_cidrs',
+            'token_explicit_max_ttl',
+            'token_no_default_policy',
+            'token_num_uses',
             'period',
-            'enable_local_secret_ids',
+            'token_period',
+            'token_type',
         ]
         desired_state = {}
         if role_file:
