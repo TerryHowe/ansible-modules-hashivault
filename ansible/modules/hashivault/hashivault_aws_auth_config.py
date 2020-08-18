@@ -10,7 +10,7 @@ from hvac.exceptions import InvalidPath
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
-module: hashivault_aws_auth_role_create
+module: hashivault_aws_auth_config
 version_added: "4.4.8"
 short_description: Hashicorp Vault aws auth configure module
 description:
@@ -65,7 +65,7 @@ def main():
     argspec['mount_point'] = dict(required=False, default='aws', type='str')
     argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
     module = hashivault_init(argspec)
-    result = hashivault_aws_auth_role_create(module.params)
+    result = hashivault_aws_auth_config(module.params)
 
     if result.get('failed'):
         module.fail_json(**result)
@@ -74,7 +74,7 @@ def main():
 
 
 @hashiwrapper
-def hashivault_aws_auth_role_create(params):
+def hashivault_aws_auth_config(params):
     state = params.get('state')
     mount_point = params.get('mount_point').strip('/')
     desired_state = {

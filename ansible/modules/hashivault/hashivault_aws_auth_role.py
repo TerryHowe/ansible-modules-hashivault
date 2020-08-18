@@ -91,7 +91,7 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_aws_auth_role_create:
+    - hashivault_aws_auth_role:
         name: myrole
         auth_type: iam
         inferred_entity_type: ec2_instance
@@ -126,7 +126,7 @@ def main():
     argspec['mount_point'] = dict(required=False, default='aws', type='str')
     argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
     module = hashivault_init(argspec)
-    result = hashivault_aws_auth_role_create(module.params)
+    result = hashivault_aws_auth_role(module.params)
 
     if result.get('failed'):
         module.fail_json(**result)
@@ -135,7 +135,7 @@ def main():
 
 
 @hashiwrapper
-def hashivault_aws_auth_role_create(params):
+def hashivault_aws_auth_role(params):
     state = params.get('state')
     name = params.get('name').strip('/')
     mount_point = params.get('mount_point').strip('/')
