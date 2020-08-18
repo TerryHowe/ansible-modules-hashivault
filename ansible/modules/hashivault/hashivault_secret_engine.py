@@ -135,7 +135,7 @@ def hashivault_secret_engine(module):
                 changed = True
             elif current_state[key] != config[key]:
                 changed = True
-        if new_engine_configuration and changed == False:
+        if new_engine_configuration and not changed:
             engine_configuration = client.secrets.kv.read_configuration(name)['data']
             if cas_required is not None and engine_configuration.get('cas_required', None) != cas_required:
                 changed = True
