@@ -104,7 +104,7 @@ EXAMPLES = '''
 - hosts: localhost
   tasks:
     - hashivault_oidc_auth_role:
-        name: "nested_ns_role"
+        name: nested_ns_role
         bound_audiences: ["123-456.apps.googleusercontent.com"]
         allowed_redirect_uris: ["https://vault.com:8200/ui/oidc/oidc/callback?namespace=namespaceone%2Fnamespacetwo"]
         token_policies: ["test"]
@@ -149,95 +149,59 @@ def main():
 @hashiwrapper
 def hashivault_oidc_auth_role(module):
     params = module.params
-    client = hashivault_auth_client(params)
     mount_point = params.get('mount_point').strip('/')
     name = params.get('name').strip('/')
     state = params.get('state')
+    client = hashivault_auth_client(params)
+    parameters = [
+        'allowed_redirect_uris',
+        'bound_audiences',
+        'bound_claims',
+        'bound_subject',
+        'claim_mappings',
+        'groups_claim',
+        'oidc_scopes',
+        'token_bound_cidrs',
+        'token_explicit_max_ttl',
+        'token_ttl',
+        'token_max_ttl',
+        'token_no_default_policy',
+        'token_policies',
+        'policies',
+        'token_type',
+        'user_claim',
+        'token_period',
+        'token_num_uses',
+        'clock_skew_leeway',
+        'expiration_leeway',
+        'not_before_leeway',
+    ]
     desired_state = dict()
-    current_state = dict()
-    changed = False
-
-    token = params.get('token', client.token)
-    namespace = params['namespace']
-    headers = {'X-Vault-Token': token, 'X-Vault-Namespace': namespace}
-    url = params['url']
-    verify = params['verify']
-    ca_cert = params['ca_cert']
-    ca_path = params['ca_path']
-
-    desired_state['allowed_redirect_uris'] = params.get('allowed_redirect_uris')
-    desired_state['bound_audiences'] = params.get('bound_audiences')
-    desired_state['bound_claims'] = params.get('bound_claims')
-    desired_state['bound_subject'] = params.get('bound_subject')
-    desired_state['claim_mappings'] = params.get('claim_mappings')
-    desired_state['groups_claim'] = params.get('groups_claim')
-    desired_state['oidc_scopes'] = params.get('oidc_scopes')
-    desired_state['token_bound_cidrs'] = params.get('token_bound_cidrs')
-    desired_state['token_explicit_max_ttl'] = params.get('token_explicit_max_ttl')
-    desired_state['token_ttl'] = params.get('token_ttl')
-    desired_state['token_max_ttl'] = params.get('token_max_ttl')
-    desired_state['token_no_default_policy'] = params.get('token_no_default_policy')
-    desired_state['token_policies'] = params.get('token_policies')
-    desired_state['policies'] = params.get('policies')
-    desired_state['token_type'] = params.get('token_type')
-    desired_state['user_claim'] = params.get('user_claim')
-    desired_state['token_period'] = params.get('token_period')
-    desired_state['token_num_uses'] = params.get('token_num_uses')
-    desired_state['clock_skew_leeway'] = params.get('clock_skew_leeway')
-    desired_state['expiration_leeway'] = params.get('expiration_leeway')
-    desired_state['not_before_leeway'] = params.get('not_before_leeway')
-
-    # check if role exists
-    s = requests.Session()
-    exists = False
-    try:
-        if verify:
-            if ca_cert is not None:
-                verify = ca_cert
-            elif ca_path is not None:
-                verify = ca_path
-        current_state = s.get(url + '/v1/auth/' + mount_point + '/role/' + name, verify=verify, headers=headers)
-        if current_state.status_code == 200:
-            exists = True
-    except Exception:
-        changed = True
-
-    if not exists and state == 'present':
-        changed = True
-    elif exists and state == 'absent':
-        changed = True
-
+    for parameter in parameters:
+        if params.get(parameter) is not None:
+            desired_state[parameter] = params.get(parameter)
     desired_state['role_type'] = "oidc"
     desired_state['verbose_oidc_logging'] = False
-    if len(desired_state['token_policies']) == 0 and len(desired_state['policies']) > 0:
+    if not desired_state['token_policies'] and desired_state['policies']:
         desired_state['token_policies'] = desired_state['policies']
-    if len(desired_state['policies']) == 0 and len(desired_state['token_policies']) > 0:
-        desired_state['policies'] = desired_state['token_policies']
+    desired_state.pop('policies', None)
 
-    # check if current role matches desired role values, if they dont match, set changed true
-    if exists and state == 'present':
-        current_state = current_state.json()['data']
-        for k, v in desired_state.items():
-            if v != current_state[k]:
-                changed = True
-                break
+    changed = False
+    current_state = {}
+    try:
+        current_state = getattr(client.auth, mount_point).read_role(name=name)['data']
+    except Exception:
+        changed = True
+    for key in desired_state.keys():
+        if current_state.get(key, None) != desired_state[key]:
+            changed = True
 
-    method = None
-    if changed and state == 'present' and not module.check_mode:
-        method = 'POST'
-    elif changed and state == 'absent' and not module.check_mode:
-        method = 'DELETE'
-
-    # make the changes!
-    if method is not None:
-        req = requests.Request(method, url + '/v1/auth/' + mount_point + '/role/' + name, headers=headers,
-                               json=desired_state)
-        prepped = s.prepare_request(req)
-        resp = s.send(prepped)
-        if resp.status_code not in [200, 201, 202, 204]:
-            return {'failed': True, 'msg': str(resp.text), 'rc': 1}
-        return {'changed': changed}
-    return {'changed': changed}
+    if changed and not module.check_mode:
+        if not current_state and state == 'present':
+            getattr(client.auth, 'oidc').create_role(name=name, **desired_state)
+        elif current_state and state == 'absent':
+            getattr(client.auth, 'oidc').delete_role(name=name)
+    return {'changed': changed, 'old_state': current_state, 'new_state': desired_state}
 
 
 if __name__ == '__main__':

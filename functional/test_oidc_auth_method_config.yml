@@ -3,7 +3,7 @@
 - hosts: localhost
   gather_facts: no
   vars:
-    oidc_discovery_url: https://example.com/.well-known/openid-configuration
+    oidc_discovery_url: https://samples.auth0.com/
     oidc_client_id: dont
     oidc_client_secret: matter
   tasks:
@@ -39,16 +39,15 @@
       hashivault_oidc_auth_method_config:
         oidc_discovery_url: "{{ oidc_discovery_url }}"
         oidc_client_id: "{{ oidc_client_id }}"
-        oidc_client_secret: "{{ oidc_client_secret }}"
       register: idem_config
 
     - assert: { that: "{{ idem_config.changed }} == False" }
 
     - name: attempt 3rd config with different values
       hashivault_oidc_auth_method_config:
-        oidc_discovery_url: banana
+        oidc_discovery_url: "{{ oidc_discovery_url }}"
         oidc_client_id: mango
-        oidc_client_secret: pancake
+        oidc_client_secret: pineapple
       register: overwrite_config
 
     - assert: { that: "{{ overwrite_config.changed }} == True" }
