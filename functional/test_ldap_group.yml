@@ -13,8 +13,8 @@
         rules: 'path "secret/*" {capabilities = ["read", "list"]}'
 
     - name: enable ldap authentication
-      hashivault_auth_enable:
-        name: ldap
+      hashivault_auth_method:
+        method_type: ldap
 
     - name: ldap configuration
       hashivault_auth_ldap:

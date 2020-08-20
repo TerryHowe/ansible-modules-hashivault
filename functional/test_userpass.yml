@@ -12,7 +12,7 @@
           capabilities = ["list"]
         } 
   tasks:
-    - hashivault_auth_enable:
+    - hashivault_auth_method:
         name: "userpass"
       failed_when: False
     - hashivault_userpass_delete:

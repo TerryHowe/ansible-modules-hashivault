@@ -5,8 +5,8 @@
     - hashivault_auth_list:
       register: auth_list
 
-    - hashivault_auth_enable:
-        name: aws
+    - hashivault_auth_method:
+        method_type: aws
       when: "'aws/' not in auth_list.backends"
 
     - hashivault_aws_auth_role:
