@@ -206,8 +206,40 @@
 <li class="toctree-l1"><a class="reference internal" href="../porting_guides/porting_guides.html">Ansible Porting Guides</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Using Ansible</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">User Guide</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Ansible Quickstart Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_concepts.html">Ansible concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_inventory.html">How to build your inventory</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Working with dynamic inventory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inventory-script-example-cobbler">Inventory script example: Cobbler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inventory-script-example-aws-ec2">Inventory script example: AWS EC2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inventory-script-example-openstack">Inventory script example: OpenStack</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#explicit-use-of-openstack-inventory-script">Explicit use of OpenStack inventory script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#implicit-use-of-openstack-inventory-script">Implicit use of OpenStack inventory script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#refreshing-the-cache">Refreshing the cache</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#other-inventory-scripts">Other inventory scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-inventory-directories-and-multiple-inventory-sources">Using inventory directories and multiple inventory sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#static-groups-of-dynamic-groups">Static groups of dynamic groups</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="intro_patterns.html">Patterns: targeting hosts and groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_adhoc.html">Introduction to ad-hoc commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connection_details.html">Connection methods and details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line_tools.html">Working with command line tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="playbooks.html">Working With Playbooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="become.html">Understanding privilege escalation: become</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vault.html">Ansible Vault</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Working With Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/plugins.html">Working With Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro_bsd.html">Ansible and BSD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collections_using.html">Using collections</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing to Ansible</span></p>
 <ul>
@@ -733,7 +765,7 @@ tag_Name_staging_bar
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on Jul 17, 2020.
+        Last updated on Aug 20, 2020.
       </span>
 
     </p>

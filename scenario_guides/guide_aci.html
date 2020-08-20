@@ -218,9 +218,51 @@
 <li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Developer Guide</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Common Ansible Scenarios</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="cloud_guides.html">Public Cloud Guides</a></li>
-<li class="toctree-l1"><a class="reference internal" href="network_guides.html">Network Technology Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="network_guides.html">Network Technology Guides</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cisco ACI Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-cisco-aci">What is Cisco ACI ?</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#application-centric-infrastructure-aci">Application Centric Infrastructure (ACI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#application-policy-infrastructure-controller-apic">Application Policy Infrastructure Controller (APIC)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aci-fabric">ACI Fabric</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#more-information">More information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-aci-modules">Using the ACI modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#querying-aci-configuration">Querying ACI configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-on-the-controller-locally">Running on the controller locally</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#common-parameters">Common parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#proxy-support">Proxy support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#return-values">Return values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">More information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#aci-authentication">ACI authentication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#password-based-authentication">Password-based authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#signature-based-authentication-using-certificates">Signature-based authentication using certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#using-aci-rest-with-ansible">Using ACI REST with Ansible</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#built-in-idempotency">Built-in idempotency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-the-aci-rest-module">Using the aci_rest module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">More information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#operational-examples">Operational examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#waiting-for-all-controllers-to-be-ready">Waiting for all controllers to be ready</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#waiting-for-cluster-to-be-fully-fit">Waiting for cluster to be fully-fit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#apic-error-messages">APIC error messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#known-issues">Known issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aci-ansible-community">ACI Ansible community</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide_meraki.html">Cisco Meraki Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_infoblox.html">Infoblox Guide</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="virt_guides.html">Virtualization and Containerization Guides</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Ansible for Network Automation</span></p>
@@ -965,7 +1007,7 @@ This defaults to either the <code class="docutils literal notranslate"><span cla
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on Jul 17, 2020.
+        Last updated on Aug 20, 2020.
       </span>
 
     </p>

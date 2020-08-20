@@ -542,43 +542,43 @@ this command allows you to define and run a single task ‘playbook’ against a
 
 <dl class="std option">
 <dt id="cmdoption-ansible-B">
-<span id="cmdoption-ansible-background"></span><code class="sig-name descname">-B</code><code class="sig-prename descclassname"> &lt;SECONDS&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--background</code><code class="sig-prename descclassname"> &lt;SECONDS&gt;</code><a class="headerlink" href="#cmdoption-ansible-B" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-ansible-b"></span><span id="cmdoption-ansible-background"></span><code class="sig-name descname">-B</code><code class="sig-prename descclassname"> &lt;SECONDS&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--background</code><code class="sig-prename descclassname"> &lt;SECONDS&gt;</code><a class="headerlink" href="#cmdoption-ansible-B" title="Permalink to this definition">¶</a></dt>
 <dd><p>run asynchronously, failing after X seconds (default=N/A)</p>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-ansible-C">
-<span id="cmdoption-ansible-check"></span><code class="sig-name descname">-C</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--check</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-C" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-ansible-c"></span><span id="cmdoption-ansible-check"></span><code class="sig-name descname">-C</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--check</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-C" title="Permalink to this definition">¶</a></dt>
 <dd><p>don’t make any changes; instead, try to predict some of the changes that may occur</p>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-ansible-D">
-<span id="cmdoption-ansible-diff"></span><code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--diff</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-D" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-ansible-d"></span><span id="cmdoption-ansible-diff"></span><code class="sig-name descname">-D</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--diff</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-D" title="Permalink to this definition">¶</a></dt>
 <dd><p>when changing (small) files and templates, show the differences in those files; works great with –check</p>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-ansible-K">
-<span id="cmdoption-ansible-ask-become-pass"></span><code class="sig-name descname">-K</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--ask-become-pass</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-K" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-ansible-k"></span><span id="cmdoption-ansible-ask-become-pass"></span><code class="sig-name descname">-K</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--ask-become-pass</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-K" title="Permalink to this definition">¶</a></dt>
 <dd><p>ask for privilege escalation password</p>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-ansible-M">
-<span id="cmdoption-ansible-module-path"></span><code class="sig-name descname">-M</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--module-path</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-M" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-ansible-m"></span><span id="cmdoption-ansible-module-path"></span><code class="sig-name descname">-M</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--module-path</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-M" title="Permalink to this definition">¶</a></dt>
 <dd><p>prepend colon-separated path(s) to module library (default=~/.ansible/plugins/modules:/usr/share/ansible/plugins/modules)</p>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-ansible-P">
-<span id="cmdoption-ansible-poll"></span><code class="sig-name descname">-P</code><code class="sig-prename descclassname"> &lt;POLL_INTERVAL&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--poll</code><code class="sig-prename descclassname"> &lt;POLL_INTERVAL&gt;</code><a class="headerlink" href="#cmdoption-ansible-P" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-ansible-p"></span><span id="cmdoption-ansible-poll"></span><code class="sig-name descname">-P</code><code class="sig-prename descclassname"> &lt;POLL_INTERVAL&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--poll</code><code class="sig-prename descclassname"> &lt;POLL_INTERVAL&gt;</code><a class="headerlink" href="#cmdoption-ansible-P" title="Permalink to this definition">¶</a></dt>
 <dd><p>set the poll interval if using -B (default=15)</p>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-ansible-T">
-<span id="cmdoption-ansible-timeout"></span><code class="sig-name descname">-T</code><code class="sig-prename descclassname"> &lt;TIMEOUT&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--timeout</code><code class="sig-prename descclassname"> &lt;TIMEOUT&gt;</code><a class="headerlink" href="#cmdoption-ansible-T" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-ansible-t"></span><span id="cmdoption-ansible-timeout"></span><code class="sig-name descname">-T</code><code class="sig-prename descclassname"> &lt;TIMEOUT&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--timeout</code><code class="sig-prename descclassname"> &lt;TIMEOUT&gt;</code><a class="headerlink" href="#cmdoption-ansible-T" title="Permalink to this definition">¶</a></dt>
 <dd><p>override the connection timeout in seconds (default=10)</p>
 </dd></dl>
 
@@ -589,14 +589,14 @@ this command allows you to define and run a single task ‘playbook’ against a
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-ansible-b">
-<span id="cmdoption-ansible-become"></span><code class="sig-name descname">-b</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--become</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-b" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-ansible-0">
+<span id="cmdoption-ansible-become"></span><code class="sig-name descname">-b</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--become</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-0" title="Permalink to this definition">¶</a></dt>
 <dd><p>run operations with become (does not imply password prompting)</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-ansible-c">
-<span id="cmdoption-ansible-connection"></span><code class="sig-name descname">-c</code><code class="sig-prename descclassname"> &lt;CONNECTION&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--connection</code><code class="sig-prename descclassname"> &lt;CONNECTION&gt;</code><a class="headerlink" href="#cmdoption-ansible-c" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-ansible-1">
+<span id="cmdoption-ansible-connection"></span><code class="sig-name descname">-c</code><code class="sig-prename descclassname"> &lt;CONNECTION&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--connection</code><code class="sig-prename descclassname"> &lt;CONNECTION&gt;</code><a class="headerlink" href="#cmdoption-ansible-1" title="Permalink to this definition">¶</a></dt>
 <dd><p>connection type to use (default=smart)</p>
 </dd></dl>
 
@@ -625,8 +625,8 @@ this command allows you to define and run a single task ‘playbook’ against a
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-ansible-k">
-<span id="cmdoption-ansible-ask-pass"></span><code class="sig-name descname">-k</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--ask-pass</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-k" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-ansible-2">
+<span id="cmdoption-ansible-ask-pass"></span><code class="sig-name descname">-k</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--ask-pass</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-ansible-2" title="Permalink to this definition">¶</a></dt>
 <dd><p>ask for connection password</p>
 </dd></dl>
 
@@ -637,8 +637,8 @@ this command allows you to define and run a single task ‘playbook’ against a
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-ansible-m">
-<span id="cmdoption-ansible-module-name"></span><code class="sig-name descname">-m</code><code class="sig-prename descclassname"> &lt;MODULE_NAME&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--module-name</code><code class="sig-prename descclassname"> &lt;MODULE_NAME&gt;</code><a class="headerlink" href="#cmdoption-ansible-m" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-ansible-3">
+<span id="cmdoption-ansible-module-name"></span><code class="sig-name descname">-m</code><code class="sig-prename descclassname"> &lt;MODULE_NAME&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--module-name</code><code class="sig-prename descclassname"> &lt;MODULE_NAME&gt;</code><a class="headerlink" href="#cmdoption-ansible-3" title="Permalink to this definition">¶</a></dt>
 <dd><p>module name to execute (default=command)</p>
 </dd></dl>
 
@@ -649,8 +649,8 @@ this command allows you to define and run a single task ‘playbook’ against a
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-ansible-t">
-<span id="cmdoption-ansible-tree"></span><code class="sig-name descname">-t</code><code class="sig-prename descclassname"> &lt;TREE&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--tree</code><code class="sig-prename descclassname"> &lt;TREE&gt;</code><a class="headerlink" href="#cmdoption-ansible-t" title="Permalink to this definition">¶</a></dt>
+<dt id="cmdoption-ansible-4">
+<span id="cmdoption-ansible-tree"></span><code class="sig-name descname">-t</code><code class="sig-prename descclassname"> &lt;TREE&gt;</code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--tree</code><code class="sig-prename descclassname"> &lt;TREE&gt;</code><a class="headerlink" href="#cmdoption-ansible-4" title="Permalink to this definition">¶</a></dt>
 <dd><p>log output to this directory</p>
 </dd></dl>
 
@@ -725,7 +725,7 @@ this command allows you to define and run a single task ‘playbook’ against a
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on Jul 17, 2020.
+        Last updated on Aug 20, 2020.
       </span>
 
     </p>
