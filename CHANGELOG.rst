@@ -2,6 +2,22 @@ Changelog
 =========
 
 
+4.5.5 (2020-08-20)
+------------------
+- Add latest parameters to approle. [Terry Howe]
+- Add cas support for write and configuration. [Terry Howe]
+- Fix incorrect aws module names. [Terry Howe]
+- Provide alternate oidc auth token. [Terry Howe]
+- Use the authenticated Vault client's token instead of extracting it
+  from params. [Lander Visterin]
+- Revert makedocs change. [Terry Howe]
+- Update argspec to use fallback instead of default. [ayav09]
+- Downgrade sphinx-notfound-page due to weird sphinx error message.
+  [André Frimberger]
+- Introduce approle parameter "secret_id_bound_cidrs" and fix
+  token_bound_cidrs. [André Frimberger]
+
+
 4.5.4 (2020-07-17)
 ------------------
 - Add default value of group_filter for idempotency on replay
