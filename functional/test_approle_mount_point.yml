@@ -12,11 +12,11 @@
         }
   tasks:
     - name: Set approle policy
-      hashivault_policy_set:
+      hashivault_policy:
         name: lightning_policy
         rules: "{{rules}}"
-      register: 'vault_policy_set'
-    - assert: { that: "{{vault_policy_set.rc}} == 0" }
+      register: vault_policy
+    - assert: { that: "{{vault_policy.rc}} == 0" }
 
     - name: enable lightning approle authentication
       hashivault_auth_enable:
