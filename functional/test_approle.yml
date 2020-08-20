@@ -12,22 +12,22 @@
         }
   tasks:
     - name: Set approle policy
-      hashivault_policy_set:
+      hashivault_policy:
         name: "approle_test_policy_original"
         rules: "{{rules}}"
       register: 'vault_policy_set'
     - assert: { that: "{{vault_policy_set.rc}} == 0" }
 
     - name: Set another approle policy
-      hashivault_policy_set:
+      hashivault_policy:
         name: "approle_test_policy"
         rules: "{{rules}}"
       register: 'vault_policy_set'
     - assert: { that: "{{vault_policy_set.rc}} == 0" }
 
     - name: enable approle authentication
-      hashivault_auth_enable:
-        name: approle
+      hashivault_auth_method:
+        method_type: approle
 
     - name: delete role
       hashivault_approle_role:
@@ -40,7 +40,7 @@
         name: testrole_bound_cidrs
         token_bound_cidrs: ["127.0.0.1"]
         secret_id_bound_cidrs: ["127.0.0.1/32"]
-        policies:
+        token_policies:
           - approle_test_policy_original
         state: present
       register: 'vault_role_create_bound_cidrs'
@@ -59,7 +59,7 @@
     - name: create role
       hashivault_approle_role:
         name: testrole
-        policies:
+        token_policies:
           - approle_test_policy_original
         state: present
       register: 'vault_role_create'
@@ -69,7 +69,7 @@
     - name: update role
       hashivault_approle_role:
         name: testrole
-        policies:
+        token_policies:
           - approle_test_policy
         state: present
       register: 'vault_role_update'
@@ -79,7 +79,7 @@
     - name: update role idempotent
       hashivault_approle_role:
         name: testrole
-        policies:
+        token_policies:
           - approle_test_policy
         state: present
       register: 'vault_role_update'

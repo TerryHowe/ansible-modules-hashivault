@@ -5,7 +5,7 @@
     - name: create role check_mode exists
       hashivault_approle_role:
         name: testrole
-        policies:
+        token_policies:
           - approle_test_policy
         state: present
       check_mode: true
@@ -16,7 +16,7 @@
     - name: create role check_mode does not exist
       hashivault_approle_role:
         name: testrole_two
-        policies:
+        token_policies:
           - approle_test_policy
         state: present
       check_mode: true
