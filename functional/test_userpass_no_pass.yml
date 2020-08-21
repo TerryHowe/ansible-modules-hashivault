@@ -32,7 +32,7 @@
       no_log: True
 
     - name: "Create bob's policy"
-      hashivault_policy_set:
+      hashivault_policy:
         name: "policy-{{username}}"
         rules: "{{bobs_rules}}"
 

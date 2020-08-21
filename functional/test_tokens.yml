@@ -30,15 +30,15 @@
     vault_root_token: "{{lookup('env','VAULT_TOKEN')}}"
   tasks:
     - name: "Create a policy (with sudo, so we don't have to use the root token)"
-      hashivault_policy_set:
+      hashivault_policy:
         name: "{{admin_name}}"
         rules: "{{admin_rules}}"
         token: "{{vault_root_token}}"
-      register: 'vault_policy_set'
+      register: vault_policy
     - assert:
         that:
-          - "{{vault_policy_set.changed}} == True"
-          - "{{vault_policy_set.rc}} == 0"
+          - "{{vault_policy.changed}} == True"
+          - "{{vault_policy.rc}} == 0"
 
     - name: "Create a {{admin_name}} token, so we can stop using root token"
       hashivault_token_create:
@@ -73,15 +73,15 @@
           - "{{vault_token_lookup.rc}} == 0"
 
     - name: "Create a read-only policy"
-      hashivault_policy_set:
+      hashivault_policy:
         name: "{{readonly_name}}"
         rules: "{{readonly_rules}}"
         token: "{{new_root_token}}"
-      register: 'vault_policy_set'
+      register: vault_policy
     - assert:
         that:
-          - "{{vault_policy_set.changed}} == True"
-          - "{{vault_policy_set.rc}} == 0"
+          - "{{vault_policy.changed}} == True"
+          - "{{vault_policy.rc}} == 0"
 
     - name: "Create a {{readonly_name}} token"
       hashivault_token_create:
