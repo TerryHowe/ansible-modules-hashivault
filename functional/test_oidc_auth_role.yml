@@ -3,7 +3,7 @@
 - hosts: localhost
   gather_facts: no
   vars:
-    oidc_discovery_url: https://server.com/.well-known/openid-configuration
+    oidc_discovery_url: https://samples.auth0.com/
     oidc_client_id: dont
     oidc_client_secret: matter
   tasks:
