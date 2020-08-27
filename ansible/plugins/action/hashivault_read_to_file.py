@@ -71,7 +71,14 @@ class ActionModule(ActionBase):
 
         # write to temp file on ansible host to copy to remote host
         local_tmp = tempfile.NamedTemporaryFile(delete=False)
-        local_tmp.write(base64.b64decode(content))
+        try:
+            contents = base64.b64decode(content)
+        except Exception as ex:
+            results['failed'] = True
+            secret_key = str(args.pop('secret', 'secret')), str(args.pop('key', ''))
+            results['msg'] = u'Error base64 decoding secret %s: %s' % (secret_key, str(ex))
+            return results
+        local_tmp.write(contents)
         local_tmp.close()
 
         new_module_args = {
