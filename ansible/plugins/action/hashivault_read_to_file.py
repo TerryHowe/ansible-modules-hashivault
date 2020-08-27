@@ -66,6 +66,7 @@ class ActionModule(ActionBase):
 
         if content is None:
             results['failed'] = True
+            results['rc'] = 1
             results['msg'] = u'Could not find file `%s` in secret `%s`' % (args['key'], args['secret'])
             return results
 
@@ -75,7 +76,8 @@ class ActionModule(ActionBase):
             contents = base64.b64decode(content)
         except Exception as ex:
             results['failed'] = True
-            secret_key = str(args.pop('secret', 'secret')), str(args.pop('key', ''))
+            results['rc'] = 1
+            secret_key = str(args.pop('secret', 'secret')) + "/" + str(args.pop('key', ''))
             results['msg'] = u'Error base64 decoding secret %s: %s' % (secret_key, str(ex))
             return results
         local_tmp.write(contents)
@@ -108,6 +110,7 @@ class ActionModule(ActionBase):
 
         if force is False and results['changed'] is False:
             results['failed'] = True
+            results['rc'] = 1
             results['msg'] = u'File %s already exists. Use `force: true` to overwrite' % dest
 
         return results

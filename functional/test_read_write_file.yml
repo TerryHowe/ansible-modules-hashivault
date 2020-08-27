@@ -75,9 +75,9 @@
         secret: new_secret
         key: new_key
         dest: "./{{ read_to_file }}"
-        force: false
+        force: False
       register: results
-      ignore_errors: true
+      ignore_errors: True
 
     - assert:
         that:
@@ -88,7 +88,7 @@
         secret: new_secret
         key: new_key
         dest: "./{{ read_to_file }}"
-        force: true
+        force: True
       register: results
 
     - assert:
@@ -176,12 +176,12 @@
         that:
           - "{{vault_write_from_file.changed}} == True"
 
-    - name: write key with update == false (should remove old_key)
+    - name: write key with update == False (should remove old_key)
       hashivault_write_from_file:
         secret: new_secret
         key: new_key
         path: "{{ gen_file }}"
-        update: false
+        update: False
       register: vault_write_from_file
 
     - assert:
@@ -193,12 +193,24 @@
         secret: new_secret
         key: old_key
       register: results # base64 encoded
-      ignore_errors: true
+      ignore_errors: True
 
     - assert:
         that:
           - "{{ results.failed }} == True"
     ########################################################
+
+    - name: hashivault_read_to_file with non base64 secret
+      hashivault_read_to_file:
+        secret: old_secret
+        key: old_key
+        dest: "./{{ read_to_file }}"
+        force: True
+      register: results
+      failed_when: False
+    - assert: { that: "{{results.changed}} == False" }
+    - assert: { that: "{{results.rc}} == 1" }
+    - assert: { that: "'{{results.msg}}' == 'Error base64 decoding secret old_secret/old_key: Incorrect padding'" }
 
 
     ########################################################
