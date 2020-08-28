@@ -112,7 +112,11 @@ class ActionModule(ActionBase):
                 return results
         else:
             try:
-                content = bytes(content, 'utf-8')
+                import sys
+                if sys.version_info[0] > 2:
+                    content = bytes(content, 'utf-8')
+                else:
+                    content = bytes(content)
             except Exception as ex:
                 results['failed'] = True
                 results['rc'] = 1
