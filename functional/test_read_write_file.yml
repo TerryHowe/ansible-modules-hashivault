@@ -213,6 +213,18 @@
     - assert: { that: "'{{results.msg}}' == 'Error base64 decoding secret old_secret/old_key: Incorrect padding'" }
 
 
+    - name: success hashivault_read_to_file with non base64 secret
+      hashivault_read_to_file:
+        secret: old_secret
+        key: old_key
+        dest: "./{{ read_to_file }}"
+        force: True
+        base64: False
+      register: results
+    - assert: { that: "{{results.changed}} == True" }
+    - assert: { that: "{{results.rc}} == 0" }
+    - assert: { that: "{{results.failed}} == False" }
+
     ########################################################
     # Clean up test files.
     ########################################################

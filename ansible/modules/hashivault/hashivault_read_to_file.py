@@ -27,6 +27,10 @@ options:
             - file permissions of file to write on remote host.
             - in octal, don't forget leading zero!
         default: 0664
+    base64:
+        description:
+            - Secret is base64 encoded
+        default: True
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
