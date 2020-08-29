@@ -9,7 +9,7 @@
 #
 ########################################################################
 
-import base64
+import base64 as base64encode
 import os
 import tempfile
 
@@ -42,8 +42,37 @@ class ActionModule(ActionBase):
         args = self._task.args.copy()
 
         dest = args.pop('dest', None)
-        mode = args.pop('mode', None)
         force = args.pop('force', True)
+        base64 = args.pop('base64', True)
+
+        new_module_args = {
+            'dest': dest,
+            'force': force,
+        }
+        copy_attributes = [
+            'attributes',
+            'backup',
+            'checksum',
+            'delimiter',
+            'directory_mode',
+            'follow',
+            'group',
+            'local_follow',
+            'mode',
+            'owner',
+            'regexp',
+            'selevel',
+            'serole',
+            'setype',
+            'seuser',
+            'unsafe_writes',
+            'validate',
+        ]
+        for attribute in copy_attributes:
+            value = args.pop(attribute, None)
+            if value is not None:
+                new_module_args[attribute] = value
+
         become = self._play_context.become
         become_method = self._play_context.become_method
 
@@ -66,20 +95,37 @@ class ActionModule(ActionBase):
 
         if content is None:
             results['failed'] = True
+            results['rc'] = 1
             results['msg'] = u'Could not find file `%s` in secret `%s`' % (args['key'], args['secret'])
             return results
 
         # write to temp file on ansible host to copy to remote host
         local_tmp = tempfile.NamedTemporaryFile(delete=False)
-        local_tmp.write(base64.b64decode(content))
+        if base64:
+            try:
+                content = base64encode.b64decode(content)
+            except Exception as ex:
+                results['failed'] = True
+                results['rc'] = 1
+                secret_key = str(args.pop('secret', 'secret')) + "/" + str(args.pop('key', ''))
+                results['msg'] = u'Error base64 decoding secret %s: %s' % (secret_key, str(ex))
+                return results
+        else:
+            try:
+                import sys
+                if sys.version_info[0] > 2:
+                    content = bytes(content, 'utf-8')
+                else:
+                    content = bytes(content)
+            except Exception as ex:
+                results['failed'] = True
+                results['rc'] = 1
+                secret_key = str(args.pop('secret', 'secret')) + "/" + str(args.pop('key', ''))
+                results['msg'] = u'Error preparing utf-8 secret %s: %s' % (secret_key, str(ex))
+                return results
+        local_tmp.write(content)
         local_tmp.close()
-
-        new_module_args = {
-            'dest': dest,
-            'src': local_tmp.name,
-            'force': force,
-            'mode': mode,
-        }
+        new_module_args['src'] = local_tmp.name
 
         self._update_module_args('copy', new_module_args, task_vars)
 
@@ -101,6 +147,7 @@ class ActionModule(ActionBase):
 
         if force is False and results['changed'] is False:
             results['failed'] = True
+            results['rc'] = 1
             results['msg'] = u'File %s already exists. Use `force: true` to overwrite' % dest
 
         return results
