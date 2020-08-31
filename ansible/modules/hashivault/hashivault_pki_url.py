@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
@@ -82,12 +81,8 @@ def hashivault_pki_url(module):
         'ocsp_servers': params.get('ocsp_servers')
     }
 
-    # check if engine is enabled
-    changed, err = check_secrets_engines(module, client)
-    if err:
-        return err
-
     # check if config exists
+    changed = False
     current_state = {}
     try:
         current_state = client.secrets.pki.read_urls(mount_point=mount_point).get('data')

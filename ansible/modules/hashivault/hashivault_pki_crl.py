@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 from ansible.module_utils.hashivault import hashivault_auth_client
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import compare_state
@@ -74,19 +73,13 @@ def hashivault_pki_crl(module):
         'expiry': params.get('expiry')
     }
 
-    # check if engine is enabled
-    changed, err = check_secrets_engines(module, client)
-    if err:
-        return err
-
     # compare current_state to desired_state
-    if not changed:
-        from hvac.exceptions import InvalidPath
-        try:
-            current_state = client.secrets.pki.read_crl_configuration(mount_point=mount_point).get('data')
-            changed = not compare_state(desired_state, current_state)
-        except InvalidPath:
-            changed = True
+    from hvac.exceptions import InvalidPath
+    try:
+        current_state = client.secrets.pki.read_crl_configuration(mount_point=mount_point).get('data')
+        changed = not compare_state(desired_state, current_state)
+    except InvalidPath:
+        changed = True
 
     # make the changes!
     if changed and not module.check_mode:

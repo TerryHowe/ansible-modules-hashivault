@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -108,8 +107,6 @@ def hashivault_db_secret_engine_role(module):
     name = params.get('name').strip('/')
     state = params.get('state')
     desired_state = dict()
-    exists = False
-    changed = False
 
     # if role_file is set, set desired_state to contents
     # else take values from ansible play
@@ -123,18 +120,14 @@ def hashivault_db_secret_engine_role(module):
         desired_state['rollback_statements'] = params.get('rollback_statements')
         desired_state['db_name'] = params.get('db_name')
 
-    # check if engine is enabled
-    changed, err = check_secrets_engines(module, client)
-    if err:
-        return err
-
     # check if role exists
+    exists = False
+    changed = False
     try:
         client.secrets.database.read_role(name=name, mount_point=mount_point)
-        # this role exists
         exists = True
     except Exception:
-        # no roles exist yet
+        changed = True
         pass
 
     if (exists and state == 'absent') or (not exists and state == 'present'):

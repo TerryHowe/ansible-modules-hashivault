@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -100,7 +99,6 @@ def hashivault_db_secret_engine_config(module):
     state = params.get('state')
     name = params.get('name')
     desired_state = dict()
-    exists = False
 
     # if config_file is set value from file
     # else set from passed args
@@ -119,12 +117,8 @@ def hashivault_db_secret_engine_config(module):
     if 'root_credentials_rotate_statements' not in desired_state:
         desired_state['root_credentials_rotate_statements'] = []
 
-    # check if engine is enabled
-    changed, err = check_secrets_engines(module, client)
-    if err:
-        return err
-
-    # check if any config exists
+    exists = False
+    current_state = {}
     try:
         current_state = client.secrets.database.read_connection(name=name)
         exists = True
@@ -132,21 +126,23 @@ def hashivault_db_secret_engine_config(module):
         # does not exist
         pass
 
-    if (exists and state == 'absent') or (not exists and state == 'present'):
+    changed = False
+    if exists:
+        if state == 'absent':
+            changed = True
+        else:
+            for k, v in current_state.get('data', {}).items():
+                # connection_url is passed as a nested item
+                if k == 'connection_details':
+                    if v['username'] != desired_state['username']:
+                        changed = True
+                    if v['connection_url'] != desired_state['connection_url']:
+                        changed = True
+                else:
+                    if v != desired_state[k]:
+                        changed = True
+    elif state == 'present':
         changed = True
-
-    # check if current config matches desired config values
-    if not changed and state == 'present':
-        for k, v in current_state['data'].items():
-            # connection_url is passed as a nested item
-            if k == 'connection_details':
-                if v['username'] != desired_state['username']:
-                    changed = True
-                if v['connection_url'] != desired_state['connection_url']:
-                    changed = True
-            else:
-                if v != desired_state[k]:
-                    changed = True
 
     # if configs dont match and checkmode is off, complete the change
     if changed and state == 'present' and not module.check_mode:

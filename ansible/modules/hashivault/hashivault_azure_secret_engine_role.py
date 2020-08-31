@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -76,12 +75,8 @@ def hashivault_azure_secret_engine_role(module):
     if azure_role_file:
         azure_role = json.loads(open(params.get('azure_role_file'), 'r').read())['azure_role']
 
-    # check if engine is enabled
-    changed, err = check_secrets_engines(module, client)
-    if err:
-        return err
-
     # check if role exists or any at all
+    changed = False
     try:
         existing_roles = client.secrets.azure.list_roles(mount_point=mount_point)
         if name not in existing_roles['keys']:

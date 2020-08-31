@@ -253,57 +253,7 @@ class AppRoleClient(object):
         return attr
 
 
-def check_secrets_engines(module, client):
-    """Checks if secrets engine is mounted
-
-    :param module: Ansible module. Must contain mount_point in parameters.
-    :param mounted: HVAC client
-    :return: change status, error
-    :rtype: (bool, dict)
-    """
-    changed = False
-    err = None
-    try:
-        if (module.params.get('mount_point') + "/") not in client.sys.list_mounted_secrets_engines()['data'].keys():
-            err = {'failed': True, 'msg': 'secret engine is not enabled', 'rc': 1}
-    except Exception:
-        if module.check_mode:
-            changed = True
-        else:
-            err = {'failed': True, 'msg': 'secret engine is not enabled or namespace does not exist', 'rc': 1}
-    return changed, err
-
-
-def check_auth_methods(module, client):
-    """Checks if auth engine is mounted
-
-    :param module: Ansible module. Must contain mount_point in parameters.
-    :param mounted: HVAC client
-    :return: change status, error
-    :rtype: (bool, dict)
-    """
-    changed = False
-    err = None
-    try:
-        if (module.params.get('mount_point') + "/") not in client.sys.list_auth_methods()['data'].keys():
-            err = {'failed': True, 'msg': 'auth method is not enabled', 'rc': 1}
-    except Exception:
-        if module.check_mode:
-            changed = True
-        else:
-            err = {'failed': True, 'msg': 'auth mount is not enabled or namespace does not exist', 'rc': 1}
-
-    return changed, err
-
-
 def check_pki_role(name, mount_point, client):
-    """Checks if role is prtesent in secrets engine
-
-    :param module: Ansible module. Must contain mount_point in parameters.
-    :param mounted: HVAC client
-    :return: change status, error
-    :rtype: (bool, dict)
-    """
     try:
         return client.secrets.pki.read_role(name=name, mount_point=mount_point).get('data')
     except Exception:

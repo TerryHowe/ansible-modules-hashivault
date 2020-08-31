@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
@@ -79,11 +78,6 @@ def hashivault_pki_set_signed(module):
 
     certificate = params.get('certificate')
     mount_point = params.get('mount_point').strip('/')
-
-    # check if engine is enabled
-    _, err = check_secrets_engines(module, client)
-    if err:
-        return err
 
     result = {"changed": False, "rc": 0}
     try:
