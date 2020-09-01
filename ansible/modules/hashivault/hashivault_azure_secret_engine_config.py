@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -98,12 +97,8 @@ def hashivault_azure_secret_engine_config(module):
         desired_state['client_secret'] = params.get('client_secret')
         desired_state['environment'] = params.get('environment')
 
-    # check if engine is enabled
-    changed, err = check_secrets_engines(module, client)
-    if err:
-        return err
-
     # check if current config matches desired config values, if they match, set changed to false to prevent action
+    changed = False
     try:
         current_state = client.secrets.azure.read_config()
     except Exception:

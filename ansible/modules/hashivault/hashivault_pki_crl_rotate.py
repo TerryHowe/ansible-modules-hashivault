@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 from ansible.module_utils.hashivault import hashivault_auth_client
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
-from ansible.module_utils.hashivault import compare_state
 from ansible.module_utils.hashivault import hashiwrapper
 
 ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version': '1.1'}
@@ -55,11 +53,6 @@ def hashivault_pki_crl_rotate(module):
     mount_point = params.get('mount_point').strip('/')
 
     failed = False
-
-    # check if engine is enabled
-    _, err = check_secrets_engines(module, client)
-    if err:
-        return err
 
     # make the changes!
     if not module.check_mode:

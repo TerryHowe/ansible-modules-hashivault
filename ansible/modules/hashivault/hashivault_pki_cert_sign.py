@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
@@ -165,10 +164,6 @@ def hashivault_pki_cert_sign(module):
     client = hashivault_auth_client(params)
     mount_point = params.get('mount_point').strip('/')
 
-    # check if engine is enabled
-    _, err = check_secrets_engines(module, client)
-    if err:
-        return err
     return supported_types[params.get('type')](params=params, mount_point=mount_point, client=client)
 
 

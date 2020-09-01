@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
@@ -213,11 +212,7 @@ def hashivault_pki_ca(module):
     config = params.get('config')
 
     exists = False
-
-    # check if engine is enabled
-    changed, err = check_secrets_engines(module, client)
-    if err:
-        return err
+    changed = False
 
     # check if CA certificate exists
     if client.secrets.pki.read_ca_certificate(mount_point=mount_point):

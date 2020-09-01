@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
@@ -336,11 +335,7 @@ def hashivault_pki_role(module):
                     return {'changed': False, 'failed': True,
                             'msg': 'config item \'{}\' has wrong data fromat'.format(key)}
 
-    # check if engine is enabled
-    changed, err = check_secrets_engines(module, client)
-    if err:
-        return err
-
+    changed = False
     current_state = check_pki_role(name=name, mount_point=mount_point, client=client)
     if current_state:
         exists = True

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
@@ -64,15 +63,10 @@ def hashivault_pki_ca_set(module):
     mount_point = params.get('mount_point').strip('/')
     pem_bundle = params.get('pem_bundle')
 
-    # check if engine is enabled
-    changed, err = check_secrets_engines(module, client)
-    if err:
-        return err
-
-    result = {'changed': changed}
     if module.check_mode:
-        return result
+        return {'changed': True}
 
+    result = {'changed': True}
     data = client.secrets.pki.submit_ca_information(pem_bundle=pem_bundle, mount_point=mount_point)
     if data:
         from requests.models import Response

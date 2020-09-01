@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 from ansible.module_utils.hashivault import hashivault_auth_client
-from ansible.module_utils.hashivault import check_secrets_engines
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import check_pki_role
@@ -123,11 +122,6 @@ def hashivault_pki_cert_issue(module):
     common_name = params.get('common_name')
     extra_params = params.get('extra_params')
     mount_point = params.get('mount_point').strip('/')
-
-    # check if engine is enabled
-    _, err = check_secrets_engines(module, client)
-    if err:
-        return err
 
     if not check_pki_role(name=role, mount_point=mount_point, client=client):
         return {'failed': True, 'rc': 1, 'msg': 'role not found or permission denied'}
