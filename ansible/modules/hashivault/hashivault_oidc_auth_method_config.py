@@ -119,8 +119,10 @@ def hashivault_oidc_auth_method_config(module):
     except Exception:
         changed = True
     for key in desired_state.keys():
-        if current_state.get(key, None) != desired_state[key]:
+        current_value = current_state.get(key, None)
+        if current_value is not None and current_value != desired_state[key]:
             changed = True
+            break
 
     if changed and not module.check_mode:
         getattr(client.auth, 'oidc').configure(**desired_state)

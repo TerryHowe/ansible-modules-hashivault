@@ -194,8 +194,10 @@ def hashivault_oidc_auth_role(module):
     except Exception:
         changed = True
     for key in desired_state.keys():
-        if current_state.get(key, None) != desired_state[key]:
+        current_value = current_state.get(key, None)
+        if current_value is not None and current_value != desired_state[key]:
             changed = True
+            break
 
     if changed and not module.check_mode:
         if not current_state and state == 'present':
