@@ -189,7 +189,7 @@ def hashivault_oidc_auth_role(module):
     changed = False
     current_state = {}
     try:
-        current_state = getattr(client.auth, mount_point).read_role(name=name)['data']
+        current_state = getattr(client.auth, 'oidc').read_role(name=name, path=mount_point)['data']
     except Exception:
         changed = True
     for key in desired_state.keys():

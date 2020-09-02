@@ -114,7 +114,7 @@ def hashivault_oidc_auth_method_config(module):
     changed = False
     current_state = {}
     try:
-        current_state = getattr(client.auth, mount_point).read_config()['data']
+        current_state = getattr(client.auth, 'oidc').read_config(path=mount_point)['data']
     except Exception:
         changed = True
     for key in desired_state.keys():
