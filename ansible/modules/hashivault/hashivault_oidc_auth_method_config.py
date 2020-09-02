@@ -110,6 +110,7 @@ def hashivault_oidc_auth_method_config(module):
     for parameter in parameters:
         if params.get(parameter) is not None:
             desired_state[parameter] = params.get(parameter)
+    desired_state['path'] = mount_point
 
     changed = False
     current_state = {}

@@ -185,6 +185,7 @@ def hashivault_oidc_auth_role(module):
     if not desired_state['token_policies'] and desired_state['policies']:
         desired_state['token_policies'] = desired_state['policies']
     desired_state.pop('policies', None)
+    desired_state['path'] = mount_point
 
     changed = False
     current_state = {}
