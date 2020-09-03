@@ -68,7 +68,7 @@ def hashivault_identity_group_alias_update(client, alias_id, alias_name, canonic
         return {'changed': False}
     try:
         client.secrets.identity.update_group_alias(
-            alias_id=alias_id,
+            entity_id=alias_id,
             name=alias_name,
             canonical_id=canonical_id,
             mount_accessor=mount_accessor
