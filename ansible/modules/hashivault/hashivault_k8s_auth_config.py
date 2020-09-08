@@ -84,7 +84,7 @@ def hashivault_k8s_auth_config(module):
     keys_updated = desired_state.keys()
     try:
         current_state = client.auth.kubernetes.read_config(mount_point=mount_point)
-        keys_updated = get_keys_updated(current_state, desired_state)
+        keys_updated = get_keys_updated(desired_state, current_state)
         if not keys_updated:
             return {'changed': False}
     except InvalidPath:
