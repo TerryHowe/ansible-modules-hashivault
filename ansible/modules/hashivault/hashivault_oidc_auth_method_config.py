@@ -110,19 +110,22 @@ def hashivault_oidc_auth_method_config(module):
     for parameter in parameters:
         if params.get(parameter) is not None:
             desired_state[parameter] = params.get(parameter)
+    desired_state['path'] = mount_point
 
     changed = False
     current_state = {}
     try:
-        current_state = getattr(client.auth, mount_point).read_config()['data']
+        current_state = client.auth.oidc.read_config(path=mount_point)['data']
     except Exception:
         changed = True
     for key in desired_state.keys():
-        if current_state.get(key, None) != desired_state[key]:
+        current_value = current_state.get(key, None)
+        if current_value is not None and current_value != desired_state[key]:
             changed = True
+            break
 
     if changed and not module.check_mode:
-        getattr(client.auth, 'oidc').configure(**desired_state)
+        client.auth.oidc.configure(**desired_state)
     return {'changed': changed, 'old_state': current_state, 'new_state': desired_state}
 
 

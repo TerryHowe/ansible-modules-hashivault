@@ -185,22 +185,25 @@ def hashivault_oidc_auth_role(module):
     if not desired_state['token_policies'] and desired_state['policies']:
         desired_state['token_policies'] = desired_state['policies']
     desired_state.pop('policies', None)
+    desired_state['path'] = mount_point
 
     changed = False
     current_state = {}
     try:
-        current_state = getattr(client.auth, mount_point).read_role(name=name)['data']
+        current_state = client.auth.oidc.read_role(name=name, path=mount_point)['data']
     except Exception:
         changed = True
     for key in desired_state.keys():
-        if current_state.get(key, None) != desired_state[key]:
+        current_value = current_state.get(key, None)
+        if current_value is not None and current_value != desired_state[key]:
             changed = True
+            break
 
     if changed and not module.check_mode:
         if not current_state and state == 'present':
-            getattr(client.auth, 'oidc').create_role(name=name, **desired_state)
+            client.auth.oidc.create_role(name=name, **desired_state)
         elif current_state and state == 'absent':
-            getattr(client.auth, 'oidc').delete_role(name=name)
+            client.auth.oidc.delete_role(name=name)
     return {'changed': changed, 'old_state': current_state, 'new_state': desired_state}
 
 
