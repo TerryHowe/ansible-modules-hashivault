@@ -2,6 +2,20 @@ Changelog
 =========
 
 
+4.5.6 (2020-09-11)
+------------------
+- Fix function to update identity group alias. [tottoto]
+- Remove sys calls to modules that might not have access. [Terry Howe]
+- Fix read file for py2. [Terry Howe]
+- Read to file more copy arguments. [Terry Howe]
+- Add base64 tests. [Terry Howe]
+- Get better error message for read to file base64 encoding. [Terry
+  Howe]
+- Remove tests for deprecated auth_enable. [Terry Howe]
+- Remove tests of deprecated policy_set. [Terry Howe]
+- Do not use requests in oidc. [Terry Howe]
+
+
 4.5.5 (2020-08-20)
 ------------------
 - Add latest parameters to approle. [Terry Howe]
