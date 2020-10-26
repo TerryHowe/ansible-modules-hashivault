@@ -283,7 +283,7 @@ EXAMPLES = r'''
         role_file: "/opt/vault/etc/roles/pki-tester.json"
         state: "present"
 '''
-normalize = {'list': list, 'str': str, 'dict': dict, 'bool': bool}
+normalize = {'list': list, 'str': str, 'dict': dict, 'bool': bool, 'int': int}
 
 
 def main():
@@ -333,7 +333,7 @@ def hashivault_pki_role(module):
                     desired_state[key] = normalize[value.get('type')](arg)
                 except Exception:
                     return {'changed': False, 'failed': True,
-                            'msg': 'config item \'{}\' has wrong data fromat'.format(key)}
+                            'msg': 'config item \'{}\' has wrong data format'.format(key)}
 
     changed = False
     current_state = check_pki_role(name=name, mount_point=mount_point, client=client)
