@@ -88,7 +88,7 @@ def hashivault_approle_role_secret(module):
     if state == 'present':
         custom_secret_id = params.get('secret')
         if custom_secret_id is None:
-            custom_secret_id = params.get('secret_id') # deprecated
+            custom_secret_id = params.get('secret_id')  # deprecated
         cidr_list = params.get('cidr_list')
         metadata = params.get('metadata')
         wrap_ttl = params.get('wrap_ttl')
