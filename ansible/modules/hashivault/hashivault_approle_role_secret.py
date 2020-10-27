@@ -25,9 +25,9 @@ options:
         description:
             - mount point for role
         default: approle
-    secret_id:
+    secret:
         description:
-            - Custom SecretID to be attached to the role.
+            - Secret id to be added or deleted. (was secret_id)
     cidr_list:
         description:
             - Comma-separated string or list of CIDR blocks.
@@ -37,9 +37,6 @@ options:
     wrap_ttl:
         description:
             - Wrap TTL.
-    secret:
-        description:
-            - secret id for delete.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -57,7 +54,7 @@ EXAMPLES = '''
     - hashivault_approle_role_secret:
         name: robert
         state: present
-        secret_id: '{{ lookup("password", "/dev/null length=32 chars=ascii_letters,digits") }}'
+        secret: '{{ lookup("password", "/dev/null length=32 chars=ascii_letters,digits") }}'
       register: vault_approle_role_custom_secret_create
     - debug: msg="Role custom secret id is {{vault_approle_role_custom_secret_create.id}}"
 '''
@@ -68,13 +65,12 @@ def main():
     argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
     argspec['name'] = dict(required=True, type='str')
     argspec['mount_point'] = dict(required=False, type='str', default='approle')
-    argspec['secret_id'] = dict(required=False, type='str')
     argspec['cidr_list'] = dict(required=False, type='str')
     argspec['metadata'] = dict(required=False, type='dict')
     argspec['wrap_ttl'] = dict(required=False, type='str')
-    argspec['secret'] = dict(required=False, type='str', default='notspecified')
+    argspec['secret'] = dict(required=False, type='str')
     module = hashivault_init(argspec, supports_check_mode=True)
-    result = hashivault_approle_role_secret_create(module)
+    result = hashivault_approle_role_secret(module)
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -82,7 +78,7 @@ def main():
 
 
 @hashiwrapper
-def hashivault_approle_role_secret_create(module):
+def hashivault_approle_role_secret(module):
     params = module.params
     state = params.get('state')
     name = params.get('name')
@@ -90,7 +86,9 @@ def hashivault_approle_role_secret_create(module):
 
     client = hashivault_auth_client(params)
     if state == 'present':
-        custom_secret_id = params.get('secret_id')
+        custom_secret_id = params.get('secret')
+        if custom_secret_id is None:
+            custom_secret_id = params.get('secret_id')  # deprecated
         cidr_list = params.get('cidr_list')
         metadata = params.get('metadata')
         wrap_ttl = params.get('wrap_ttl')
