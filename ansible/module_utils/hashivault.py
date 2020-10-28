@@ -253,7 +253,7 @@ class AppRoleClient(object):
         return attr
 
 
-def compare_state(desired_state, current_state, ignore=None):
+def _compare_state(desired_state, current_state, ignore=None):
     """Compares desired state to current state. Returns true if objects are equal
 
     Recursively walks dict object to compare all keys
@@ -283,7 +283,7 @@ def compare_state(desired_state, current_state, ignore=None):
             if key in ignore:
                 continue
             v = desired_state[key]
-            if ((key not in current_state) or (not compare_state(v, current_state.get(key)))):
+            if ((key not in current_state) or (not _compare_state(v, current_state.get(key)))):
                 return False
         return True
 
@@ -318,6 +318,24 @@ def get_keys_updated(desired_state, current_state, ignore=None):
         if key in ignore:
             continue
         v = desired_state[key]
-        if ((key not in current_state) or (not compare_state(v, current_state.get(key)))):
+        if ((key not in current_state) or (not _compare_state(v, current_state.get(key)))):
             differences.append(key)
     return differences
+
+
+def is_state_changed(desired_state, current_state, ignore=None):
+    """Return list of keys that have different values
+
+    Recursively walks dict object to compare all keys
+
+    :param desired_state: The state user desires.
+    :type desired_state: dict
+    :param current_state: The state that currently exists.
+    :type current_state: dict
+    :param ignore: Ignore these keys.
+    :type ignore: list
+
+    :return: Different
+    :rtype: bool
+    """
+    return(len(get_keys_updated(desired_state, current_state)) > 0)

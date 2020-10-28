@@ -92,7 +92,7 @@ def hashivault_k8s_auth_config(module):
     ]
     keys_updated = get_keys_updated(desired_state, current_state, ignore_list)
     if 'pem_keys' in keys_updated:
-        if current_state['pem_keys'] == []:
+        if current_state.get('pem_keys', []) == []:
             keys_updated.remove('pem_keys')
     if not keys_updated:
         return {'changed': False}
