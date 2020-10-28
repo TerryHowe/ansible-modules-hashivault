@@ -253,13 +253,6 @@ class AppRoleClient(object):
         return attr
 
 
-def check_pki_role(name, mount_point, client):
-    try:
-        return client.secrets.pki.read_role(name=name, mount_point=mount_point).get('data')
-    except Exception:
-        return None
-
-
 def compare_state(desired_state, current_state, ignore=None):
     """Compares desired state to current state. Returns true if objects are equal
 

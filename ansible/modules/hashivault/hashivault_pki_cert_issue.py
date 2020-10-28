@@ -123,7 +123,11 @@ def hashivault_pki_cert_issue(module):
     extra_params = params.get('extra_params')
     mount_point = params.get('mount_point').strip('/')
 
-    if not check_pki_role(name=role, mount_point=mount_point, client=client):
+    try:
+        current_state = client.secrets.pki.read_role(name=role, mount_point=mount_point).get('data')
+    except Exception:
+        current_state = {}
+    if not current_state:
         return {'failed': True, 'rc': 1, 'msg': 'role not found or permission denied'}
 
     result = {"changed": False, "rc": 0}

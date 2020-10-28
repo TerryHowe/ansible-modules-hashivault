@@ -336,7 +336,10 @@ def hashivault_pki_role(module):
                             'msg': 'config item \'{}\' has wrong data format'.format(key)}
 
     changed = False
-    current_state = check_pki_role(name=name, mount_point=mount_point, client=client)
+    try:
+        current_state = client.secrets.pki.read_role(name=name, mount_point=mount_point).get('data')
+    except Exception:
+        current_state = {}
     if current_state:
         exists = True
 
