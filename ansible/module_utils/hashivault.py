@@ -33,12 +33,13 @@ def hashivault_init(argument_spec, supports_check_mode=False, required_if=None, 
     module = AnsibleModule(argument_spec=argument_spec, supports_check_mode=supports_check_mode,
                            required_if=required_if, required_together=required_together,
                            required_one_of=required_one_of, mutually_exclusive=mutually_exclusive)
-    module.no_log_values.discard("0")
+    module.no_log_values.discard('0')
     module.no_log_values.discard(0)
-    module.no_log_values.discard("1")
+    module.no_log_values.discard('1')
     module.no_log_values.discard(1)
     module.no_log_values.discard(True)
     module.no_log_values.discard(False)
+    module.no_log_values.discard('ttl')
     return module
 
 
@@ -294,6 +295,27 @@ def _compare_state(desired_state, current_state, ignore=None):
     return ((desired_state == current_state))
 
 
+def _convert_to_seconds(original_value):
+    try:
+        value = str(original_value)
+        seconds = 0
+        if 'h' in value:
+            ray = value.split('h')
+            seconds = int(ray.pop(0)) * 3600
+            value = ''.join(ray)
+        if 'm' in value:
+            ray = value.split('m')
+            seconds += int(ray.pop(0)) * 60
+            value = ''.join(ray)
+        if value:
+            ray = value.split('s')
+            seconds += int(ray.pop(0))
+        return seconds
+    except Exception:
+        pass
+    return original_value
+
+
 def get_keys_updated(desired_state, current_state, ignore=None):
     """Return list of keys that have different values
 
@@ -317,8 +339,15 @@ def get_keys_updated(desired_state, current_state, ignore=None):
     for key in desired_state.keys():
         if key in ignore:
             continue
-        v = desired_state[key]
-        if ((key not in current_state) or (not _compare_state(v, current_state.get(key)))):
+        if (key not in current_state):
+            differences.append(key)
+            continue
+        new_value = desired_state[key]
+        old_value = current_state[key]
+        if 'ttl' in key:
+            if _convert_to_seconds(old_value) != _convert_to_seconds(new_value):
+                differences.append(key)
+        elif not _compare_state(new_value, old_value):
             differences.append(key)
     return differences
 
