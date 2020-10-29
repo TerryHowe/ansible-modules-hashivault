@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-import warnings
-
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -90,19 +88,17 @@ def hashivault_list(params):
         secret = secret.lstrip('metadata/')
 
     response = None
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        try:
-            if version == 2:
-                response = client.secrets.kv.v2.list_secrets(path=secret, mount_point=mount_point)
-            else:
-                response = client.secrets.kv.v1.list_secrets(path=secret, mount_point=mount_point)
-        except Exception as e:
-            if response is None:
-                response = {}
-            else:
-                return {'failed': True, 'msg': str(e)}
-        result['secrets'] = response.get('data', {}).get('keys', [])
+    try:
+        if version == 2:
+            response = client.secrets.kv.v2.list_secrets(path=secret, mount_point=mount_point)
+        else:
+            response = client.secrets.kv.v1.list_secrets(path=secret, mount_point=mount_point)
+    except Exception as e:
+        if response is None:
+            response = {}
+        else:
+            return {'failed': True, 'msg': str(e)}
+    result['secrets'] = response.get('data', {}).get('keys', [])
     return result
 
 

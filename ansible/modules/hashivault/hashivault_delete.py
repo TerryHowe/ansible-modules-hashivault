@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-import warnings
-
 from hvac.exceptions import InvalidPath
 
 from ansible.module_utils.hashivault import hashivault_argspec
@@ -67,25 +65,24 @@ def hashivault_delete(params):
     else:
         secret_path = secret
 
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        returned_data = None
-        try:
-            if version == 2:
-                returned_data = client.secrets.kv.v2.delete_latest_version_of_secret(secret, mount_point=mount_point)
-            else:
-                returned_data = client.delete(secret_path)
-        except InvalidPath:
-            pass
-        except Exception as e:
-            result['rc'] = 1
-            result['failed'] = True
-            error_string = "%s(%s)" % (e.__class__.__name__, e)
-            result['msg'] = u"Error %s deleting %s" % (error_string, secret_path)
-            return result
-        if returned_data:
-            result['data'] = returned_data.text
-        result['msg'] = u"Secret %s deleted" % secret_path
+    try:
+        if version == 2:
+            returned_data = client.secrets.kv.v2.delete_latest_version_of_secret(secret, mount_point=mount_point)
+        else:
+            returned_data = client.secrets.kv.v1.delete_secret(secret, mount_point=mount_point)
+    except InvalidPath:
+        result['msg'] = u"Secret %s nonexistent" % secret_path
+        result['changed'] = False
+        return result
+    except Exception as e:
+        result['rc'] = 1
+        result['failed'] = True
+        error_string = "%s(%s)" % (e.__class__.__name__, e)
+        result['msg'] = u"Error %s deleting %s" % (error_string, secret_path)
+        return result
+    if returned_data:
+        result['data'] = returned_data.text
+    result['msg'] = u"Secret %s deleted" % secret_path
     result['changed'] = True
     return result
 
