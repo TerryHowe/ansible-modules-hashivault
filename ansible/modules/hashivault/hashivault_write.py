@@ -125,8 +125,8 @@ def hashivault_write(module):
             write_data = dict(read_data)
             write_data.update(data)
 
-            result['write_data'] = write_data
-            result['read_data'] = read_data
+            # result['write_data'] = write_data
+            # result['read_data'] = read_data
             changed = is_state_changed(write_data, read_data)
 
         if changed:
