@@ -2,7 +2,7 @@
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
-from ansible.module_utils.hashivault import compare_state
+from ansible.module_utils.hashivault import is_state_changed
 from ansible.module_utils.hashivault import hashiwrapper
 
 ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version': '1.1'}
@@ -77,7 +77,7 @@ def hashivault_pki_crl(module):
     from hvac.exceptions import InvalidPath
     try:
         current_state = client.secrets.pki.read_crl_configuration(mount_point=mount_point).get('data')
-        changed = not compare_state(desired_state, current_state)
+        changed = is_state_changed(desired_state, current_state)
     except InvalidPath:
         changed = True
 

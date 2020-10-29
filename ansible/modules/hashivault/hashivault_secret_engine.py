@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from ansible.module_utils.hashivault import is_state_changed
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -123,11 +124,8 @@ def hashivault_secret_engine(module):
                 changed = True
         if 'options' in current_state:
             current_options = current_state['options']
-            for key in options.keys():
-                if key not in current_options:
-                    changed = True
-                elif current_options[key] != options[key]:
-                    changed = True
+            if not changed:
+                changed = is_state_changed(options, current_options)
         elif options:
             changed = True
         for key in config.keys():

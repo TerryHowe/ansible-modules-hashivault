@@ -26,7 +26,7 @@
         kubernetes_host: http://127.0.0.1:8443
         kubernetes_ca_cert: "{{ lookup('file', './cacert.pem') }}"
         token_reviewer_jwt: "{{ lookup('file', './jwt.jws') }}"
-    - assert: { that: "{{ k8s_module.changed }} == True" }
+    - assert: { that: "{{ k8s_module.changed }} == False" }
     - assert: { that: "{{ k8s_module.rc }} == 0" }
 
     - name: update config

@@ -2,7 +2,6 @@
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_init
-from ansible.module_utils.hashivault import check_pki_role
 from ansible.module_utils.hashivault import hashiwrapper
 
 ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version': '1.1'}
@@ -92,7 +91,11 @@ def certificate(params, mount_point, client):
     role = params.get('role').strip('/')
 
     # check if role exists
-    if not check_pki_role(name=role, mount_point=mount_point, client=client):
+    try:
+        current_state = client.secrets.pki.read_role(name=role, mount_point=mount_point).get('data')
+    except Exception:
+        current_state = {}
+    if not current_state:
         return {'failed': True, 'rc': 1, 'msg': 'role not found or permission denied'}
 
     if not common_name:
@@ -138,7 +141,11 @@ def verbatim(params, mount_point, client):
     role = params.get('role').strip('/')
 
     # check if role exists
-    if not check_pki_role(name=role, mount_point=mount_point, client=client):
+    try:
+        current_state = client.secrets.pki.read_role(name=role, mount_point=mount_point).get('data')
+    except Exception:
+        current_state = {}
+    if not current_state:
         return {'failed': True, 'rc': 1, 'msg': 'role not found or permission denied'}
 
     result = {"changed": False, "rc": 0}

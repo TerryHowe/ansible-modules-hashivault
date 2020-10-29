@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from ansible.module_utils.hashivault import is_state_changed
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -104,11 +105,8 @@ def hashivault_auth_method(module):
         if 'description' in current_state:
             if description != current_state['description']:
                 changed = True
-        for key in config.keys():
-            if key not in current_state:
-                changed = True
-            elif current_state[key] != config[key]:
-                changed = True
+        if not changed:
+            changed = is_state_changed(config, current_state)
 
     if module.check_mode:
         return {'changed': changed, 'created': create, 'state': state}

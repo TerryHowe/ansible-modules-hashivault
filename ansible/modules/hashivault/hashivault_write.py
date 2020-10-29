@@ -3,6 +3,7 @@ import warnings
 
 from hvac.exceptions import InvalidPath
 
+from ansible.module_utils.hashivault import is_state_changed
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -73,44 +74,6 @@ def main():
         module.exit_json(**result)
 
 
-def _convert_to_seconds(original_value):
-    try:
-        value = str(original_value)
-        seconds = 0
-        if 'h' in value:
-            ray = value.split('h')
-            seconds = int(ray.pop(0)) * 3600
-            value = ''.join(ray)
-        if 'm' in value:
-            ray = value.split('m')
-            seconds += int(ray.pop(0)) * 60
-            value = ''.join(ray)
-        if value:
-            ray = value.split('s')
-            seconds += int(ray.pop(0))
-        return seconds
-    except Exception:
-        pass
-    return original_value
-
-
-def hashivault_changed(old_data, new_data):
-    if sorted(old_data.keys()) != sorted(new_data.keys()):
-        return True
-    for key in old_data:
-        old_value = old_data[key]
-        new_value = new_data[key]
-        if old_value == new_value:
-            continue
-        if key != 'ttl' and key != 'max_ttl':
-            return True
-        old_value = _convert_to_seconds(old_value)
-        new_value = _convert_to_seconds(new_value)
-        if old_value != new_value:
-            return True
-    return False
-
-
 @hashiwrapper
 def hashivault_write(module):
     result = {"changed": False, "rc": 0}
@@ -164,7 +127,7 @@ def hashivault_write(module):
 
             # result['write_data'] = write_data
             # result['read_data'] = read_data
-            changed = hashivault_changed(read_data, write_data)
+            changed = is_state_changed(write_data, read_data)
 
         if changed:
             if not module.check_mode:

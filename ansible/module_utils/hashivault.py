@@ -33,12 +33,13 @@ def hashivault_init(argument_spec, supports_check_mode=False, required_if=None, 
     module = AnsibleModule(argument_spec=argument_spec, supports_check_mode=supports_check_mode,
                            required_if=required_if, required_together=required_together,
                            required_one_of=required_one_of, mutually_exclusive=mutually_exclusive)
-    module.no_log_values.discard("0")
+    module.no_log_values.discard('0')
     module.no_log_values.discard(0)
-    module.no_log_values.discard("1")
+    module.no_log_values.discard('1')
     module.no_log_values.discard(1)
     module.no_log_values.discard(True)
     module.no_log_values.discard(False)
+    module.no_log_values.discard('ttl')
     return module
 
 
@@ -253,14 +254,7 @@ class AppRoleClient(object):
         return attr
 
 
-def check_pki_role(name, mount_point, client):
-    try:
-        return client.secrets.pki.read_role(name=name, mount_point=mount_point).get('data')
-    except Exception:
-        return None
-
-
-def compare_state(desired_state, current_state, ignore=None):
+def _compare_state(desired_state, current_state, ignore=None):
     """Compares desired state to current state. Returns true if objects are equal
 
     Recursively walks dict object to compare all keys
@@ -290,7 +284,7 @@ def compare_state(desired_state, current_state, ignore=None):
             if key in ignore:
                 continue
             v = desired_state[key]
-            if ((key not in current_state) or (not compare_state(v, current_state.get(key)))):
+            if ((key not in current_state) or (not _compare_state(v, current_state.get(key)))):
                 return False
         return True
 
@@ -299,6 +293,27 @@ def compare_state(desired_state, current_state, ignore=None):
         current_state = str(current_state)
 
     return ((desired_state == current_state))
+
+
+def _convert_to_seconds(original_value):
+    try:
+        value = str(original_value)
+        seconds = 0
+        if 'h' in value:
+            ray = value.split('h')
+            seconds = int(ray.pop(0)) * 3600
+            value = ''.join(ray)
+        if 'm' in value:
+            ray = value.split('m')
+            seconds += int(ray.pop(0)) * 60
+            value = ''.join(ray)
+        if value:
+            ray = value.split('s')
+            seconds += int(ray.pop(0))
+        return seconds
+    except Exception:
+        pass
+    return original_value
 
 
 def get_keys_updated(desired_state, current_state, ignore=None):
@@ -324,7 +339,32 @@ def get_keys_updated(desired_state, current_state, ignore=None):
     for key in desired_state.keys():
         if key in ignore:
             continue
-        v = desired_state[key]
-        if ((key not in current_state) or (not compare_state(v, current_state.get(key)))):
+        if (key not in current_state):
+            differences.append(key)
+            continue
+        new_value = desired_state[key]
+        old_value = current_state[key]
+        if 'ttl' in key:
+            if _convert_to_seconds(old_value) != _convert_to_seconds(new_value):
+                differences.append(key)
+        elif not _compare_state(new_value, old_value):
             differences.append(key)
     return differences
+
+
+def is_state_changed(desired_state, current_state, ignore=None):
+    """Return list of keys that have different values
+
+    Recursively walks dict object to compare all keys
+
+    :param desired_state: The state user desires.
+    :type desired_state: dict
+    :param current_state: The state that currently exists.
+    :type current_state: dict
+    :param ignore: Ignore these keys.
+    :type ignore: list
+
+    :return: Different
+    :rtype: bool
+    """
+    return(len(get_keys_updated(desired_state, current_state)) > 0)
