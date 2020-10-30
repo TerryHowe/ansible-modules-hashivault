@@ -112,7 +112,7 @@ By default, the hashivault_write, hashivault_read and the lookup plugin assume t
         - set_fact:
             book: "{{lookup('hashivault', 'stuart', 'last', mount_point='/stories')}}"
 
-Version 2 of KV secret engine is also supported, just add `version: 2` to the task configuration or lookup options, e.g.
+Version 2 of KV secret engine is also supported, just add `version: 2`::
 
     ---
         - hashivault_read:
