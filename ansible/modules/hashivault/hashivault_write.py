@@ -14,7 +14,7 @@ module: hashivault_write
 version_added: "0.1"
 short_description: Hashicorp Vault write module
 description:
-    - Module to write to Hashicorp Vault.
+    - Module to write to Hashicorp Vault. Consider using `hashivault_secret` instead.
 options:
     version:
         description:

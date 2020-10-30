@@ -11,6 +11,7 @@ export HOME
 source ./vaultenv.sh
 ansible-playbook -v test_mounts.yml
 ansible-playbook -v test_write.yml
+ansible-playbook -v test_secret.yml
 ansible-playbook -v test_check.yml --check
 ansible-playbook -v test_read.yml
 ansible-playbook -v test_full_path.yml
