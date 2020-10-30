@@ -692,8 +692,8 @@ Example: <code class="docutils literal notranslate"><span class="pre">aci.post_c
 </div>
 <div class="section" id="example-code">
 <h5>Example code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h5>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="k">state</span> <span class="o">==</span> <span class="s1">&#39;present&#39;</span><span class="p">:</span>
-    <span class="n">aci</span><span class="p">.</span><span class="n">payload</span><span class="p">(</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s1">&#39;present&#39;</span><span class="p">:</span>
+    <span class="n">aci</span><span class="o">.</span><span class="n">payload</span><span class="p">(</span>
         <span class="n">aci_class</span><span class="o">=</span><span class="s1">&#39;&lt;object APIC class&gt;&#39;</span><span class="p">,</span>
         <span class="n">class_config</span><span class="o">=</span><span class="n">dict</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">object_id</span><span class="p">,</span>
@@ -713,9 +713,9 @@ Example: <code class="docutils literal notranslate"><span class="pre">aci.post_c
         <span class="p">],</span>
     <span class="p">)</span>
 
-    <span class="n">aci</span><span class="p">.</span><span class="n">get_diff</span><span class="p">(</span><span class="n">aci_class</span><span class="o">=</span><span class="s1">&#39;&lt;object APIC class&gt;&#39;</span><span class="p">)</span>
+    <span class="n">aci</span><span class="o">.</span><span class="n">get_diff</span><span class="p">(</span><span class="n">aci_class</span><span class="o">=</span><span class="s1">&#39;&lt;object APIC class&gt;&#39;</span><span class="p">)</span>
 
-    <span class="n">aci</span><span class="p">.</span><span class="n">post_config</span><span class="p">()</span>
+    <span class="n">aci</span><span class="o">.</span><span class="n">post_config</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -896,7 +896,7 @@ $ ansible-test coverage report
     <p>
         &copy; Copyright 2019 Red Hat, Inc.
       <span class="lastupdated">
-        Last updated on Sep 11, 2020.
+        Last updated on Oct 30, 2020.
       </span>
 
     </p>
