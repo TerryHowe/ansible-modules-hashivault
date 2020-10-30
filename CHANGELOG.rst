@@ -2,6 +2,22 @@ Changelog
 =========
 
 
+4.6.0 (2020-10-30)
+------------------
+- Hashivault_delete: Permanently delete secret for v2. [wolfmah]
+- Remove warning oppression. [Terry Howe]
+- Create common compare with ttl support. [Terry Howe]
+- Get rid of check_pki_role. [Terry Howe]
+- Add logic to detect pem_keys change in k8s auth config. [tottoto]
+- Add ignore list to detect changes of k8s auth config. [tottoto]
+- Added kv2 secret engine options. [Tomasz Napierala]
+- Fix pki role for int. [Terry Howe]
+- Fix incompatible approle parameter. [Terry Howe]
+- Refactor the way to get oidc auth field. [tottoto]
+- Fix logic to detect changes in oidc modules. [tottoto]
+- Fix command to get current oidc config status. [tottoto]
+
+
 4.5.6 (2020-09-11)
 ------------------
 - Fix function to update identity group alias. [tottoto]
