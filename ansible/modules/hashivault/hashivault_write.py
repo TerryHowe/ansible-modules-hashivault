@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-import warnings
-
 from hvac.exceptions import InvalidPath
 
 from ansible.module_utils.hashivault import is_state_changed
@@ -94,64 +92,62 @@ def hashivault_write(module):
     else:
         secret_path = secret
 
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        changed = True
-        write_data = data
+    changed = True
+    write_data = data
 
-        if params.get('update') or module.check_mode:
-            # Do not move these reads outside of the update
+    if params.get('update') or module.check_mode:
+        # Do not move these reads outside of the update
+        read_data = None
+        try:
+            if version == 2:
+                read_data = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
+            else:
+                read_data = client.read(secret_path) or {}
+        except InvalidPath:
             read_data = None
+        except Exception as e:
+            result['rc'] = 1
+            result['failed'] = True
+            error_string = "%s(%s)" % (e.__class__.__name__, e)
+            result['msg'] = u"Error %s reading %s" % (error_string, secret_path)
+            return result
+        if not read_data:
+            read_data = {}
+        read_data = read_data.get('data', {})
+
+        if version == 2:
+            read_data = read_data.get('data', {})
+
+        write_data = dict(read_data)
+        write_data.update(data)
+
+        # result['write_data'] = write_data
+        # result['read_data'] = read_data
+        changed = is_state_changed(write_data, read_data)
+
+    if changed:
+        if not module.check_mode:
             try:
                 if version == 2:
-                    read_data = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
+                    returned_data = client.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, cas=cas,
+                                                                                 path=secret, secret=write_data)
                 else:
-                    read_data = client.read(secret_path) or {}
-            except InvalidPath:
-                read_data = None
+                    returned_data = client.write(secret_path, **write_data)
+                if returned_data:
+                    from requests.models import Response
+                    if isinstance(returned_data, Response):
+                        result['data'] = returned_data.text
+                    else:
+                        result['data'] = returned_data
             except Exception as e:
                 result['rc'] = 1
                 result['failed'] = True
                 error_string = "%s(%s)" % (e.__class__.__name__, e)
-                result['msg'] = u"Error %s reading %s" % (error_string, secret_path)
+                result['msg'] = u"Error %s writing %s" % (error_string, secret_path)
                 return result
-            if not read_data:
-                read_data = {}
-            read_data = read_data.get('data', {})
 
-            if version == 2:
-                read_data = read_data.get('data', {})
-
-            write_data = dict(read_data)
-            write_data.update(data)
-
-            # result['write_data'] = write_data
-            # result['read_data'] = read_data
-            changed = is_state_changed(write_data, read_data)
-
-        if changed:
-            if not module.check_mode:
-                try:
-                    if version == 2:
-                        returned_data = client.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, cas=cas,
-                                                                                     path=secret, secret=write_data)
-                    else:
-                        returned_data = client.write(secret_path, **write_data)
-                    if returned_data:
-                        from requests.models import Response
-                        if isinstance(returned_data, Response):
-                            result['data'] = returned_data.text
-                        else:
-                            result['data'] = returned_data
-                except Exception as e:
-                    result['rc'] = 1
-                    result['failed'] = True
-                    error_string = "%s(%s)" % (e.__class__.__name__, e)
-                    result['msg'] = u"Error %s writing %s" % (error_string, secret_path)
-                    return result
-
-            result['msg'] = u"Secret %s written" % secret_path
-        result['changed'] = changed
+        result['msg'] = u"Secret %s written" % secret_path
+    result['changed'] = changed
     return result
 
 
