@@ -1,5 +1,4 @@
 import os
-import warnings
 
 import hvac
 import requests
@@ -159,49 +158,47 @@ def hashivault_read(params):
     else:
         secret_path = secret
 
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        try:
-            if version == 2:
-                response = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
-            else:
-                response = client.read(secret_path)
-        except InvalidPath:
-            response = None
-        except Exception as e:
-            result['rc'] = 1
-            result['failed'] = True
-            error_string = "%s(%s)" % (e.__class__.__name__, e)
-            result['msg'] = u"Error %s reading %s" % (error_string, secret_path)
-            return result
-        if not response:
-            if default is not None:
-                result['value'] = default
-                return result
-            result['rc'] = 1
-            result['failed'] = True
-            result['msg'] = u"Secret %s is not in vault" % secret_path
-            return result
+    try:
         if version == 2:
-            try:
-                data = response.get('data', {})
-                data = data.get('data', {})
-            except Exception:
-                data = str(response)
+            response = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
         else:
-            data = response['data']
-        lease_duration = response.get('lease_duration', None)
-        if lease_duration is not None:
-            result['lease_duration'] = lease_duration
-        lease_id = response.get('lease_id', None)
-        if lease_id is not None:
-            result['lease_id'] = lease_id
-        renewable = response.get('renewable', None)
-        if renewable is not None:
-            result['renewable'] = renewable
-        wrap_info = response.get('wrap_info', None)
-        if wrap_info is not None:
-            result['wrap_info'] = wrap_info
+            response = client.read(secret_path)
+    except InvalidPath:
+        response = None
+    except Exception as e:
+        result['rc'] = 1
+        result['failed'] = True
+        error_string = "%s(%s)" % (e.__class__.__name__, e)
+        result['msg'] = u"Error %s reading %s" % (error_string, secret_path)
+        return result
+    if not response:
+        if default is not None:
+            result['value'] = default
+            return result
+        result['rc'] = 1
+        result['failed'] = True
+        result['msg'] = u"Secret %s is not in vault" % secret_path
+        return result
+    if version == 2:
+        try:
+            data = response.get('data', {})
+            data = data.get('data', {})
+        except Exception:
+            data = str(response)
+    else:
+        data = response['data']
+    lease_duration = response.get('lease_duration', None)
+    if lease_duration is not None:
+        result['lease_duration'] = lease_duration
+    lease_id = response.get('lease_id', None)
+    if lease_id is not None:
+        result['lease_id'] = lease_id
+    renewable = response.get('renewable', None)
+    if renewable is not None:
+        result['renewable'] = renewable
+    wrap_info = response.get('wrap_info', None)
+    if wrap_info is not None:
+        result['wrap_info'] = wrap_info
     if key and key not in data:
         if default is not None:
             result['value'] = default
