@@ -1,4 +1,4 @@
-#   
+#
 # This test depends on successful test_write run
 #
 ---
@@ -44,3 +44,11 @@
     - set_fact:
         a_set_array_all: "{{lookup('hashivault', '{{name_array}}')['value']}}"
     - assert: { that: "a_set_array_all == array_value" }
+
+    - set_fact:
+        looky_secret: "{{lookup('hashivault', '{{namespace}}fourofour/notfound', 'value', default='noob')}}"
+    - assert: { that: "'{{looky_secret}}' == 'noob'" }
+
+    - set_fact:
+        looky_secret: "{{lookup('hashivault', '{{name_root}}', 'fie', url='http://bogus', errors='ignore')}}"
+    - assert: { that: "'{{looky_secret}}' == ''" }
