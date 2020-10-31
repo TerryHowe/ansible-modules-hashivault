@@ -13,7 +13,7 @@ module: hashivault_delete
 version_added: "3.4.0"
 short_description: Hashicorp Vault delete module
 description:
-    - Module to delete from Hashicorp Vault.
+    - Module to delete from Hashicorp Vault. Consider using `hashivault_secret` instead.
 options:
     version:
         description:
