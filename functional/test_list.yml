@@ -32,7 +32,7 @@
         mount_point: dummyv2
 
     - name: Make sure we got our two secrets in list
-      hashivault_list: {}
+      hashivault_list:
       register: vault_list
     - assert: { that: "vault_list.rc == 0" }
     - assert: { that: "'listone' in vault_list.secrets" }
