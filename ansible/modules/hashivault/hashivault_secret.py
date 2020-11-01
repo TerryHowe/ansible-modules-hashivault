@@ -56,7 +56,7 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['state'] = dict(required=False, type='str', choices=['present', 'absent'],
+    argspec['state'] = dict(required=False, type='str', choices=['present', 'update', 'absent'],
                             default='present')
     argspec['version'] = dict(required=False, type='int', default=2)
     argspec['mount_point'] = dict(required=False, type='str', default='secret')
@@ -109,9 +109,12 @@ def hashivault_secret(module):
         result['msg'] = u"Error %s reading %s" % (error_string, secret_path)
         return result
 
-    if state == 'present':
-        write_data = dict(read_data)
-        write_data.update(data)
+    if state == 'present' or state == 'update':
+        if state == 'update':
+            write_data = dict(read_data)
+            write_data.update(data)
+        else:
+            write_data = data
         changed = is_state_changed(write_data, read_data)
         # result['write_data'] = write_data
         # result['read_data'] = read_data
