@@ -163,7 +163,7 @@ def hashivault_read(params):
         if version == 2:
             response = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point, version=secret_version)
         else:
-            response = client.secrets.kv.v1.read_secret(secret_path)
+            response = client.read(secret_path)
     except InvalidPath:
         response = None
     except Exception as e:
