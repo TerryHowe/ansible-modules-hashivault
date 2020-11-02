@@ -27,6 +27,9 @@ options:
     key:
         description:
             - secret key to read.
+    secret_version:
+        description:
+            - secret version to read kv2 only.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -48,6 +51,7 @@ def main():
     argspec['secret'] = dict(required=True, type='str')
     argspec['key'] = dict(required=False, type='str')
     argspec['default'] = dict(required=False, default=None, type='str')
+    argspec['secret_version'] = dict(required=False, type='int')
     module = hashivault_init(argspec)
     result = hashivault_read(module.params)
     if result.get('failed'):
