@@ -102,7 +102,7 @@ def hashivault_write(module):
             if version == 2:
                 read_data = client.secrets.kv.v2.read_secret_version(secret, mount_point=mount_point)
             else:
-                read_data = client.read(secret_path) or {}
+                read_data = client.secrets.kv.v1.read_secret(secret, mount_point=mount_point)
         except InvalidPath:
             read_data = None
         except Exception as e:
