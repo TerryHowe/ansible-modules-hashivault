@@ -4,7 +4,7 @@
 #
 # A simple example of using the vault plugin in a role:
 #    ---
-#    - debug: msg="{{lookup('vault', 'ldapadmin', 'password')}}"
+#    - debug: msg="{{lookup('vault', 'ldapadmin', 'password', mount_point='kv2')}}"
 #
 # The plugin must be run with VAULT_ADDR and VAULT_TOKEN set and
 # exported.

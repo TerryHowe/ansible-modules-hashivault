@@ -68,28 +68,26 @@ Reading and Writing
 -------------------
 
 The following example writes the giant secret with two values and then
-reads the fie value::
+reads the fie value. The `hashivault_secret` module is kv2 by default::
 
     ---
     - hosts: localhost
-      vars:
-        foo_value: 'fum'
-        fie_value: 'fum'
       tasks:
-        - hashivault_write:
+        - hashivault_secret:
             secret: giant
             data:
-                foo: '{{foo_value}}'
-                fie: '{{fie_value}}'
+                foo: foe
+                fie: fum
         - hashivault_read:
             secret: giant
             key: fie
+            version: 2
           register: vault_read
 
 The lookup plugin::
 
         - set_fact:
-            looky: "{{lookup('hashivault', 'giant', 'foo')}}"
+            looky: "{{lookup('hashivault', 'giant', 'foo', version=2)}}"
 
 By default, the hashivault_write, hashivault_read and the lookup plugin assume the
 /secret mount point.  If you are accessing another mount point, use `mount_point`::
