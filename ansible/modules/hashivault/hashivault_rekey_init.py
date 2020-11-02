@@ -43,6 +43,7 @@ def main():
     argspec['secret_threshold'] = dict(required=False, type='int', default=3)
     argspec['pgp_keys'] = dict(required=False, type='list', default=[], no_log=True)
     argspec['backup'] = dict(required=False, type='bool', default=False)
+    argspec['verification_required'] = dict(required=False, type='bool', default=False)
     module = hashivault_init(argspec)
     result = hashivault_rekey_init(module.params)
     if result.get('failed'):
@@ -62,7 +63,9 @@ def hashivault_rekey_init(params):
     secret_threshold = params.get('secret_threshold')
     pgp_keys = params.get('pgp_keys')
     backup = params.get('backup')
-    return {'status': client.sys.start_rekey(secret_shares, secret_threshold, pgp_keys, backup), 'changed': True}
+    verification_required = params.get('verification_required')
+    return {'status': client.sys.start_rekey(secret_shares, secret_threshold, pgp_keys, backup, verification_required),
+            'changed': True}
 
 
 if __name__ == '__main__':
