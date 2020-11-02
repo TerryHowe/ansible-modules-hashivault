@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from hvac.exceptions import InvalidPath
+
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -87,18 +89,24 @@ def hashivault_list(params):
         version = 2
         secret = secret.lstrip('metadata/')
 
-    response = None
     try:
         if version == 2:
-            response = client.secrets.kv.v2.list_secrets(path=secret, mount_point=mount_point)
+            if secret:
+                response = client.secrets.kv.v2.read_secret_metadata(path=secret, mount_point=mount_point)
+                result['metadata'] = response.get('data', {})
+            else:
+                response = client.secrets.kv.v2.list_secrets('', mount_point=mount_point)
+                result['secrets'] = response.get('data', {}).get('keys', [])
         else:
             response = client.secrets.kv.v1.list_secrets(path=secret, mount_point=mount_point)
+            result['secrets'] = response.get('data', {}).get('keys', [])
+    except InvalidPath:
+        secret_path = mount_point
+        if secret:
+            secret_path += '/' + secret
+        return {'failed': True, 'rc': 1, 'msg': 'Secret does not exist: ' + secret_path}
     except Exception as e:
-        if response is None:
-            response = {}
-        else:
-            return {'failed': True, 'msg': str(e)}
-    result['secrets'] = response.get('data', {}).get('keys', [])
+        return {'failed': True, 'rc': 1, 'msg': str(e)}
     return result
 
 
