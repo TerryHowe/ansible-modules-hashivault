@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from hvac.exceptions import InvalidPath
+
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
@@ -98,8 +100,13 @@ def hashivault_list(params):
         else:
             response = client.secrets.kv.v1.list_secrets(path=secret, mount_point=mount_point)
             result['secrets'] = response.get('data', {}).get('keys', [])
+    except InvalidPath:
+        secret_path = mount_point
+        if secret:
+            secret_path += '/' + secret
+        return {'failed': True, 'rc': 1, 'msg': 'Secret does not exist: ' + secret_path}
     except Exception as e:
-        return {'failed': True, 'msg': str(e)}
+        return {'failed': True, 'rc': 1, 'msg': str(e)}
     return result
 
 
