@@ -19,7 +19,7 @@ options:
     state:
         description:
             - Update reads and overlays with values provided. Present reads and checks for changes and then overwrites
-              with values provided. state of secret choices: present, update, absent
+              with values provided. state of secret choices of present, update, or absent
     version:
         description:
             - version of the kv engine (int)
