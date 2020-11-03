@@ -2,6 +2,18 @@ Changelog
 =========
 
 
+4.6.1 (2020-11-03)
+------------------
+- Update docs for hashivault_secret and lookup. [Terry Howe]
+- Use v1 call for hashivault_write. [Terry Howe]
+- Add metadata read to kv2 list. [Terry Howe]
+- Add update support to hashivault_secret. [Terry Howe]
+- Get rid of warning suppression. [Terry Howe]
+- Add parameters to lookup plugin. [Terry Howe]
+- Add hashivault_secret. [Terry Howe]
+- Fix README format. [Terry Howe]
+
+
 4.6.0 (2020-10-30)
 ------------------
 - Hashivault_delete: Permanently delete secret for v2. [wolfmah]
