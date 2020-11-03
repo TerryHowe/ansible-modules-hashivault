@@ -51,12 +51,17 @@ ansible-playbook -v test_audit_old.yml
 ansible-playbook -v test_read_write_file.yml
 ansible-playbook -v test_environment_lookup.yml
 ansible-playbook -v test_unseal.yml
-ansible-playbook -v test_rekey.yml
 ansible-playbook -v test_identity_group.yml
 ansible-playbook -v test_identity_entity.yml
 ansible-playbook -v test_ldap_group.yml
 ansible-playbook -v test_pki.yml
+ansible-playbook -v test_rekey.yml
 # test_rekey.yml changes unseal keys, need to update VAULT_KEYS
+# for further test, if any.
+source ./vaultenv.sh
+
+ansible-playbook -v test_rekey_verify.yml
+# test_rekey_verify.yml changes unseal keys, need to update VAULT_KEYS
 # for further test, if any.
 source ./vaultenv.sh
 
