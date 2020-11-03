@@ -64,8 +64,10 @@ def hashivault_rekey_init(params):
     pgp_keys = params.get('pgp_keys')
     backup = params.get('backup')
     verification_required = params.get('verification_required')
-    return {'status': client.sys.start_rekey(secret_shares, secret_threshold, pgp_keys, backup, verification_required),
-            'changed': True}
+    status = client.sys.start_rekey(secret_shares=secret_shares, secret_threshold=secret_threshold,
+                                    pgp_keys=pgp_keys, backup=backup,
+                                    require_verification=verification_required)
+    return {'status': status, 'changed': True}
 
 
 if __name__ == '__main__':
