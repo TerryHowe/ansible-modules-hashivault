@@ -8,7 +8,7 @@ ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 
 DOCUMENTATION = '''
 ---
 module: hashivault_rekey_verify
-version_added: "4.6.1"
+version_added: "4.6.2"
 short_description: Hashicorp Vault rekey verify module
 description:
     - Module to verify a rekey of Hashicorp Vault. Requires that a rekey
