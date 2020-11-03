@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+4.6.2 (2020-11-03)
+------------------
+- Support verified rekeys. [Torinthiel]
+
+
 4.6.1 (2020-11-03)
 ------------------
 - Update docs for hashivault_secret and lookup. [Terry Howe]
