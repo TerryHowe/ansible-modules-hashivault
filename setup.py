@@ -2,14 +2,14 @@
 from setuptools import setup
 
 py_files = [
-    "ansible/module_utils/hashivault",
-    "ansible/plugins/lookup/hashivault",
-    "ansible/plugins/action/hashivault_read_to_file",
-    "ansible/plugins/action/hashivault_write_from_file",
-    "ansible/plugins/doc_fragments/hashivault",
+    "plugins/module_utils/hashivault",
+    "plugins/lookup/hashivault",
+    "plugins/action/hashivault_read_to_file",
+    "plugins/action/hashivault_write_from_file",
+    "plugins/doc_fragments/hashivault",
 ]
 files = [
-    "ansible/modules/hashivault",
+    "plugins/modules",
 ]
 
 long_description = open('README.rst', 'r').read()
@@ -26,7 +26,7 @@ setup(
     py_modules=py_files,
     packages=files,
     install_requires=[
-        'ansible>=2.0.0',
+        'ansible>=2.9.0',
         'hvac>=0.9.5',
         'requests',
     ],

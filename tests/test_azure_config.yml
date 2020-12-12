@@ -8,8 +8,9 @@
     client_secret: dont
     tenant_id: matter
   tasks:
-    - hashivault_secret_disable:
+    - hashivault_secret_engine:
         name: azure
+        state: disabled
       failed_when: false
          
     - name: make sure test fails when no mount exists
@@ -23,9 +24,10 @@
 
     - assert: { that: "{{ fail_config.changed }} == False" }
     
-    - hashivault_secret_enable:
+    - hashivault_secret_engine:
         name: azure
         backend: azure
+        state: enabled
          
     - name: successfully enable mount
       hashivault_azure_secret_engine_config:

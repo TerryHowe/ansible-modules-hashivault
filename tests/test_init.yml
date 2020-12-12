@@ -17,7 +17,7 @@
       - set_fact:
           vault_keys: "{{vault_init['keys'] | join(' ')}}"
       - name: Unseal the vault
-        hashivault_unseal:
+        terryhowe.hashivault.hashivault_unseal:
           keys: '{{vault_keys}}'
         register: 'vault_unseal'
       - assert: { that: "{{vault_unseal.changed}} == True" }

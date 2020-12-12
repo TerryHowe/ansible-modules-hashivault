@@ -11,5 +11,5 @@
   gather_facts: no
   tasks:
     - copy:
-        content: "{{lookup('hashivault', 'giant', 'foo')}}\n"
+        content: "{{lookup('terryhowe.hashivault.hashivault', 'giant', 'foo')}}\n"
         dest: /giant.txt

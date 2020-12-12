@@ -13,7 +13,7 @@
     name_folder: '{{namespace}}stalks/bean'
     name_dict: '{{namespace}}_dict'
     name_array: '{{namespace}}_array'
-    vars_foo: "{{lookup('hashivault', '{{name_root}}', 'foo')}}"
+    vars_foo: "{{lookup('terryhowe.hashivault.hashivault', '{{name_root}}', 'foo')}}"
     dict_value:
       foo: 'bar'
       baz: 'stuff'
@@ -23,5 +23,5 @@
       - 'three'
   tasks:
     - set_fact:
-        a_set_fie: "{{lookup('hashivault', '{{name_root}}', 'fie')}}"
+        a_set_fie: "{{lookup('terryhowe.hashivault.hashivault', '{{name_root}}', 'fie')}}"
     - assert: { that: "'{{a_set_fie}}' == 'fum'" }

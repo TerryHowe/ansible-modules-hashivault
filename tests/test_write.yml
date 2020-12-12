@@ -1,6 +1,8 @@
 ---
 - hosts: localhost
   gather_facts: no
+  collections:
+    - terryhowe.hashivault
   vars:
     namespace: ''
     name_root: '{{namespace}}basic'

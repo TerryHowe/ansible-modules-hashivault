@@ -57,5 +57,5 @@
     - assert: { that: "'{{vault_read.value[2]}}' == '{{array_value[2]}}'" }
 
     - set_fact:
-        looky_secret: "{{lookup('hashivault', '{{name_array}}', 'value') | first}}"
+        looky_secret: "{{lookup('terryhowe.hashivault.hashivault', '{{name_array}}', 'value') | first}}"
     - assert: { that: "'{{looky_secret}}' == 'one'" }

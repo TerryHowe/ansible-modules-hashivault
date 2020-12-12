@@ -23,9 +23,9 @@ MANIFEST
 .idea
 .vscode
 
-functional/approlenv.sh
-functional/userpassenv.sh
-functional/vaultenv.sh
+tests/approlenv.sh
+tests/userpassenv.sh
+tests/vaultenv.sh
 example/.ssh
 
 # Git
