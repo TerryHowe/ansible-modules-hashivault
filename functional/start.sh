@@ -43,7 +43,7 @@ docker run --name $DOCKER_NAME -h $DOCKER_NAME -d \
 #
 CNT=0
 while ! curl -sI "$VAULT_ADDR/v1/sys/health" > /dev/null; do
-	sleep 0.1
+	sleep 1
 	CNT=$(expr $CNT + 1)
 	if [ $CNT -gt 20 ]
 	then
