@@ -7,10 +7,11 @@ DOCKER_NAME=testvault
 PORT=8201
 export VAULT_ADDR="http://127.0.0.1:${PORT}"
 
-TMP_CONFIG=$(mktemp -q /tmp/$0.XXXXXX)
-trap "rm $TMP_CONFIG" EXIT
+TMP_CONFIG_DIR=$(mktemp -q -d /tmp/$0.XXXXXX)
+TMP_CONFIG_VAULT="${TMP_CONFIG_DIR}/vault.json"
+trap "rm -rf $TMP_CONFIG_DIR" EXIT
 
-cat <<EOF > $TMP_CONFIG
+cat <<EOF > $TMP_CONFIG_VAULT
 {
 	"backend": {
 		"file": {
@@ -28,14 +29,14 @@ cat <<EOF > $TMP_CONFIG
 	"disable_mlock": true
 }
 EOF
-chmod a+r $TMP_CONFIG
+chmod a+r $TMP_CONFIG_VAULT
 
 docker stop $DOCKER_NAME 2>/dev/null || true
 docker rm $DOCKER_NAME 2>/dev/null || true
 docker run --name $DOCKER_NAME -h $DOCKER_NAME -d \
     --cap-add IPC_LOCK \
 	-p 127.0.0.1:${PORT}:${PORT} \
-	-v $TMP_CONFIG:/etc/vault/config.json:ro \
+	-v $TMP_CONFIG_VAULT:/etc/vault/config.json:ro \
 	vault server -config /etc/vault/config.json
 
 #
