@@ -25,7 +25,7 @@
     - assert: { that: "'{{vault_read.value}}' == 'ball'" }
 
     - set_fact:
-        basket: "{{lookup('hashivault', '/secret/full/path', 'basket')}}"
+        basket: "{{lookup('terryhowe.hashivault.hashivault', '/secret/full/path', 'basket')}}"
     - assert: { that: "'{{basket}}' == 'ball'" }
 
     - name: Delete full path

@@ -36,7 +36,7 @@
     - assert: { that: "'{{vault_read.value}}' == 'carseat'" }
 
     - set_fact:
-        looky_secret: "{{lookup('hashivault', '{{secret_name}}', 'value', default='headrest')}}"
+        looky_secret: "{{lookup('terryhowe.hashivault.hashivault', '{{secret_name}}', 'value', default='headrest')}}"
     - assert: { that: "'{{looky_secret}}' == 'headrest'" }
 
     - name: Write new different value to secret store
@@ -54,9 +54,9 @@
     - assert: { that: "'{{vault_read.value}}' == 'better'" }
 
     - set_fact:
-        looky_secret: "{{lookup('hashivault', '{{secret_name}}', 'othervalue', default='noob')}}"
+        looky_secret: "{{lookup('terryhowe.hashivault.hashivault', '{{secret_name}}', 'othervalue', default='noob')}}"
     - assert: { that: "'{{looky_secret}}' == 'one'" }
 
     - set_fact:
-        looky_secret: "{{lookup('hashivault', '{{secret_name}}', 'value', default='noob')}}"
+        looky_secret: "{{lookup('terryhowe.hashivault.hashivault', '{{secret_name}}', 'value', default='noob')}}"
     - assert: { that: "'{{looky_secret}}' == 'noob'" }
