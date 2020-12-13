@@ -35,8 +35,8 @@ docker stop $DOCKER_NAME 2>/dev/null || true
 docker rm $DOCKER_NAME 2>/dev/null || true
 docker run --name $DOCKER_NAME -h $DOCKER_NAME -d \
     --cap-add IPC_LOCK \
-	-p 127.0.0.1:${PORT}:${PORT} \
 	-v $TMP_CONFIG_VAULT:/etc/vault/config.json:ro \
+	--network host \
 	vault server -config /etc/vault/config.json
 
 #
