@@ -40,6 +40,7 @@ ansible-playbook -v test_azure_config.yml
 ansible-playbook -v test_policy.yml
 ansible-playbook -v test_policy_old.yml
 ansible-playbook -v test_status.yml
+ansible-playbook -v test_agent_socket.yml
 ansible-playbook -v test_not_there.yml
 ansible-playbook -v test_ephemeral.yml
 ansible-playbook -v test_generate_root.yml
