@@ -5,6 +5,14 @@ import requests
 from ansible.module_utils.basic import AnsibleModule, env_fallback
 from hvac.exceptions import InvalidPath
 
+try:
+    # Python 3
+    from urllib.parse import urlparse, quote
+except ImportError:
+    # Python 2
+    from urlparse import urlparse
+    from urllib import quote
+
 
 def hashivault_argspec():
     argument_spec = dict(
@@ -83,7 +91,19 @@ def hashivault_client(params):
             verify = check_verify
     else:
         verify = check_verify
-    client = hvac.Client(url=url, cert=cert, verify=verify, namespace=namespace)
+
+    session = None
+    safe_url = url
+    parsed_url = urlparse(url)
+
+    if 'unix' in parsed_url.scheme:
+        # Assemble a Requests session on the socker, per
+        # https://hvac.readthedocs.io/en/latest/advanced_usage.html#vault-agent-unix-socket-listener
+        import requests_unixsocket
+        session = requests_unixsocket.Session()
+        # Re-encode the URL so that the socket path can be made safe.
+        safe_url = parsed_url.scheme + '://' + quote(parsed_url.path, safe='')
+    client = hvac.Client(url=safe_url, cert=cert, verify=verify, namespace=namespace, session=session)
     return client
 
 

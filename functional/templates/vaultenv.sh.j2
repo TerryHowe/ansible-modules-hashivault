@@ -1,6 +1,7 @@
 export VAULT_ADDR='{{lookup('env','VAULT_ADDR')}}'
 export VAULT_TOKEN='{{vault_init['root_token']}}'
 export VAULT_KEYS='{{vault_init['keys'] | join(' ')}}'
+export VAULT_AGENT_ADDR_SOCK='{{lookup('env','VAULT_AGENT_ADDR_SOCK')}}'
 unset VAULT_AUTHTYPE
 unset VAULT_LOGIN_MOUNT_POINT
 unset VAULT_USER

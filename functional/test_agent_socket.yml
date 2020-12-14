@@ -1,0 +1,12 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    sock: "{{ lookup('env', 'VAULT_AGENT_ADDR_SOCK') }}"
+  tasks:
+    - assert: { that: "{{sock|count}} > 0" }
+    - name: Get vault status via Vault Agent socket
+      environment:
+        VAULT_ADDR: "http+unix://{{ sock }}"
+      hashivault_status:
+      register: 'vault_status'
+    - assert: { that: "{{vault_status.rc}} == 0" }
