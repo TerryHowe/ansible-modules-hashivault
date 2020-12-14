@@ -44,10 +44,10 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_userpass_create:
-      name: 'bob'
-      pass: 'S3cre7s'
-      policies: 'bob'
+    - hashivault_userpass:
+        name: 'bob'
+        pass: 'S3cre7s'
+        policies: 'bob'
 '''
 
 
