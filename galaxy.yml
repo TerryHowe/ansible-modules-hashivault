@@ -1,7 +1,7 @@
 ---
 namespace: terryhowe
 name: hashivault
-version: 4.5.2
+version: 4.6.2
 readme: README.rst
 authors:
 - Terry Howe
