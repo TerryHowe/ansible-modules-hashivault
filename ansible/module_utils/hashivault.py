@@ -247,7 +247,7 @@ class AppRoleClient(object):
         role_id = object.__getattribute__(self, 'role_id')
         secret_id = object.__getattribute__(self, 'secret_id')
         login_mount_point = object.__getattribute__(self, 'login_mount_point')
-        resp = client.auth_approle(role_id, secret_id=secret_id, mount_point=login_mount_point)
+        resp = client.auth.approle.login(role_id, secret_id=secret_id, mount_point=login_mount_point)
         client.token = str(resp['auth']['client_token'])
         return attr
 
