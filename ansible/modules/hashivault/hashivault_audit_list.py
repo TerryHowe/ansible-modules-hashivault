@@ -37,7 +37,7 @@ def hashivault_audit_list(params):
     client = hashivault_auth_client(params)
     backends = client.sys.list_enabled_audit_devices()
     backends = backends.get('data', backends)
-    return {'changed': True, 'backends': backends}
+    return {'changed': False, 'backends': backends}
 
 
 if __name__ == '__main__':
