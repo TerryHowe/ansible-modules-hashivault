@@ -89,7 +89,7 @@ The lookup plugin::
         - set_fact:
             looky: "{{lookup('hashivault', 'giant', 'foo', version=2)}}"
 
-By default, the hashivault_write, hashivault_read and the lookup plugin assume the
+The hashivault_write, hashivault_read and the lookup plugin assume the
 /secret mount point.  If you are accessing another mount point, use `mount_point`::
 
     ---
