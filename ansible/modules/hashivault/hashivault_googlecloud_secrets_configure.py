@@ -29,7 +29,7 @@ def hashivault_googlecloud_secrets_configure(module):
     state = params.get('state')
     desired_state = dict()
 
-    desired_state['credentials'] = json.dumps(json.load(open(params.get(credentials_file))))
+    desired_state['credentials'] = json.dumps(json.load(open(params.get('credentials_file'), 'r')))
     desired_state['ttl'] = params.get('ttl')
     desired_state['max_ttl'] = params.get('max_ttl')
 
@@ -45,6 +45,8 @@ def hashivault_googlecloud_secrets_configure(module):
         client.secrets.gcp.configure(mount_point=params.get('mount_point'), **desired_state)
     else:
         client.secrets.gcp.read_config(mount_point=params.get('mount_point'))
+
+    return { **desired_state }
 
 
 if __name__ == '__main__':
