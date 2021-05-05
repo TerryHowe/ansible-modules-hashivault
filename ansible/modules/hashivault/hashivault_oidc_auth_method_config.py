@@ -53,6 +53,9 @@ options:
         description:
             - The CA certificate or chain of certificates, in PEM format, to use to validate connections to the OIDC
               Discovery URL. If not set, system certificates are used.
+    provider_config:
+        description:
+            - Configuration options for provider-specific handling. Providers with specific handling include: Azure, Google.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -80,6 +83,7 @@ def main():
     argspec['oidc_client_id'] = dict(required=False, type='str')
     argspec['oidc_client_secret'] = dict(required=False, type='str')
     argspec['default_role'] = dict(required=False, type='str')
+    argspec['provider_config'] = dict(required=False, type='dict')
     required_one_of = [['oidc_discovery_url', 'jwks_url']]
     module = hashivault_init(argspec, supports_check_mode=True, required_one_of=required_one_of)
     result = hashivault_oidc_auth_method_config(module)
@@ -105,6 +109,7 @@ def hashivault_oidc_auth_method_config(module):
         'oidc_client_id',
         'oidc_client_secret',
         'default_role',
+        'provider_config',
     ]
     desired_state = dict()
     for parameter in parameters:
