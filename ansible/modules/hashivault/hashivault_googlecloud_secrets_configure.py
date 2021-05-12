@@ -8,13 +8,15 @@ import json
 
 def main():
     argspec = hashivault_argspec()
-    argspec['credentials_file'] = dict(required=False, type='str')
-    argspec['ttl'] = dict(required=False, type='int', default=0)
-    argspec['max_ttl'] = dict(required=False, type='int', default=0)
+    argspec['state'] = dict(required=False, type='str', default='present', choices=['present', 'absent'])
+    argspec['ttl'] = dict(required=False, type='int', default='3600')
+    argspec['max_ttl'] = dict(required=False, type='int')
     argspec['mount_point'] = dict(required=False, type='str', default='gcp')
-    argspec['state'] = dict(required=False, type='str', choices=['present', 'absent'], default='present')
+    argspec['credentials'] = dict(required=False, type='str')
+    argspec['credentials_file'] = dict(required=False, type='str')
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_googlecloud_secrets_configure(module)
+
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -25,28 +27,37 @@ def main():
 def hashivault_googlecloud_secrets_configure(module):
     params = module.params
     client = hashivault_auth_client(params)
-    credentials_file = params.get('credentials_file')
     state = params.get('state')
+    mount_point = params.get('mount_point').strip('/')
+    credentials = params.get('credentials')
+    credentials_file = params.get('credentials_file')
+    ttl = params.get('ttl')
+    max_ttl = params.get('max_ttl')
     desired_state = dict()
+    current_state = dict()
+    changed = False
 
-    desired_state['credentials'] = json.dumps(json.load(open(params.get('credentials_file'), 'r')))
-    desired_state['ttl'] = params.get('ttl')
-    desired_state['max_ttl'] = params.get('max_ttl')
-
-    exists = False
-    current_state = {}
+    if credentials_file:
+        with open(credentials_file) as creds:
+            data = json.load(creds)
+            credential = json.dumps(data)
+        desired_state['credentials'] = credential
+        desired_state['ttl'] = ttl
+        desired_state['max_ttl'] = max_ttl
+    elif credentials:
+        desired_state['credentials'] = credentials
+        desired_state['ttl'] = ttl
+        desired_state['max_ttl'] = max_ttl
 
     try:
-        current_state = client.secrets.gcp.read_config(mount_point=params.get('mount_point'))
+        current_state = client.secrets.gcp.read_config()
     except Exception:
-        pass
+        changed = True
 
-    if state == 'present' and not module.check_mode:
-        client.secrets.gcp.configure(mount_point=params.get('mount_point'), **desired_state)
-    else:
-        client.secrets.gcp.read_config(mount_point=params.get('mount_point'))
+    if changed and not module.check_mode and state == 'present':
+        client.secrets.gcp.configure(mount_point=mount_point, **desired_state)
 
-    return { **desired_state }
+    return {'changed': True}
 
 
 if __name__ == '__main__':
