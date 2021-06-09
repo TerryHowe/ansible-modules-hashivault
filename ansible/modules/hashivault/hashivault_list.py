@@ -88,14 +88,18 @@ def hashivault_list(params):
     if secret.startswith('metadata/'):
         version = 2
         secret = secret.lstrip('metadata/')
+        metadata = True
+    else:
+        metadata = False
+
 
     try:
         if version == 2:
-            if secret:
+            if secret and metadata:
                 response = client.secrets.kv.v2.read_secret_metadata(path=secret, mount_point=mount_point)
                 result['metadata'] = response.get('data', {})
             else:
-                response = client.secrets.kv.v2.list_secrets('', mount_point=mount_point)
+                response = client.secrets.kv.v2.list_secrets(path=secret, mount_point=mount_point)
                 result['secrets'] = response.get('data', {}).get('keys', [])
         else:
             response = client.secrets.kv.v1.list_secrets(path=secret, mount_point=mount_point)

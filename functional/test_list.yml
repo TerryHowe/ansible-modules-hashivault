@@ -95,7 +95,7 @@
 
     - name: List secrets in folder
       hashivault_list:
-        secret: list/two
+        secret: list
         mount_point: dummyv2
         version: 2
       register: vault_list
