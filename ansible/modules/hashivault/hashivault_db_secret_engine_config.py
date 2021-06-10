@@ -47,6 +47,11 @@ options:
             - Specifies the database statements to be executed to rotate the root user's credentials. See the plugin's
               API page for more information on support and formatting for this parameter.
         default: []
+    password_policy:
+        description:
+            - The name of the password policy to use when generating passwords for this database. If not specified,
+              this will use a default policy defined as:
+              20 characters with at least 1 uppercase, 1 lowercase, 1 number, and 1 dash character.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -108,6 +113,7 @@ def hashivault_db_secret_engine_config(module):
         desired_state['plugin_name'] = params.get('plugin_name')
         desired_state['allowed_roles'] = params.get('allowed_roles')
         desired_state['verify_connection'] = params.get('verify_connection')
+        desired_state['password_policy'] = params.get('password_policy')
         desired_state['root_credentials_rotate_statements'] = params.get('root_credentials_rotate_statements')
         connection_details = params.get('connection_details')
         desired_state.update(connection_details)
