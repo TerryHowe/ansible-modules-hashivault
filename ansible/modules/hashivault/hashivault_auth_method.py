@@ -12,7 +12,7 @@ module: hashivault_auth_method
 version_added: "3.17.7"
 short_description: Hashicorp Vault auth module
 description:
-    - Module to enable or disable authentication ethods in Hashicorp Vault.
+    - Module to enable or disable authentication methods in Hashicorp Vault.
 options:
     method_type:
         description:
