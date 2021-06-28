@@ -90,6 +90,14 @@ options:
         description:
             - LDAP search base to use for group membership search
         default: ''
+    token_ttl:
+        description:
+            - The incremental lifetime for generated tokens
+        default: ''
+    token_max_ttl:
+        description:
+            - The maximum lifetime for generated tokens
+        default: ''
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -131,6 +139,8 @@ def main():
     argspec['group_attr'] = dict(required=False, type='str', default='cn')
     argspec['group_dn'] = dict(required=False, type='str', default='')
     argspec['use_token_groups'] = dict(required=False, type='bool', default=False)
+    argspec['token_ttl'] = dict(required=False, type='str', default='')
+    argspec['token_max_ttl'] = dict(required=False, type='str', default='')
 
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_auth_ldap(module)
@@ -165,6 +175,8 @@ def hashivault_auth_ldap(module):
     desired_state['group_attr'] = params.get('group_attr')
     desired_state['group_dn'] = params.get('group_dn')
     desired_state['use_token_groups'] = params.get('use_token_groups')
+    desired_state['token_ttl'] = params.get('token_ttl')
+    desired_state['token_max_ttl'] = params.get('token_max_ttl')
 
     # if bind pass is None, remove it from desired state since we can't compare
     if desired_state['bind_pass'] is None:
@@ -193,6 +205,8 @@ def hashivault_auth_ldap(module):
         current_state['use_token_groups'] = result['use_token_groups']
         current_state['url'] = result['url']
         current_state['starttls'] = result['starttls']
+        current_state['token_ttl'] = result['token_ttl']
+        current_state['token_max_ttl'] = result['token_max_ttl']
     except InvalidPath:
         pass
 
