@@ -9,9 +9,9 @@ then
     exit 1
 fi
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-if [ "${BRANCH}" != "master" ]
+if [ "${BRANCH}" != "main" ]
 then
-    echo "You must be on master"
+    echo "You must be on main"
     exit 1
 fi
 git pull
@@ -31,7 +31,7 @@ vi CHANGELOG.rst
 echo "Ready to push $VERSION (cntrl-c to quit)?"
 read ANS
 git commit -m "Version $VERSION" CHANGELOG.rst setup.py
-git push origin master
+git push origin main
 git tag --force  -a $VERSION -m v$VERSION
 git push origin --tags
 #python setup.py register -r pypi
