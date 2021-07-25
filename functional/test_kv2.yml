@@ -53,6 +53,18 @@
     - assert: { that: "'{{vault_update.msg}}' == 'Secret kv2/name written'" }
     - assert: { that: "{{vault_update.rc}} == 0" }
 
+    - name: Update a value to the kv2 store again
+      hashivault_write:
+        mount_point: kv2
+        secret: name
+        version: 2
+        update: True
+        data:
+            ingrediant: corn
+      register: vault_update
+    - assert: { that: "{{vault_update.changed}} == False" }
+    - assert: { that: "{{vault_update.rc}} == 0" }
+
     - name: Read the new kv2 value
       hashivault_read:
         mount_point: kv2

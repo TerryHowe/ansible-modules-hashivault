@@ -88,6 +88,10 @@ def hashivault_list(params):
     if secret.startswith('metadata/'):
         version = 2
         secret = secret.lstrip('metadata/')
+        metadata = True
+    else:
+        metadata = False
+
 
     try:
         if version == 2:
