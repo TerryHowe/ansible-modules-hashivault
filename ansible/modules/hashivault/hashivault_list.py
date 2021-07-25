@@ -95,7 +95,7 @@ def hashivault_list(params):
 
     try:
         if version == 2:
-            if 'metadata' in secret:
+            if secret and metadata:
                 response = client.secrets.kv.v2.read_secret_metadata(path=secret, mount_point=mount_point)
                 result['metadata'] = response.get('data', {})
             else:

@@ -12,7 +12,7 @@
         secret: 'listone'
         data:
             monday: 'one'
-            tuesday: 'two'
+            tuesday: 'onetwo'
     - hashivault_write:
         secret: 'list/two'
         data:
@@ -21,7 +21,7 @@
         secret: 'listone'
         data:
             monday: 'one'
-            tuesday: 'two'
+            tuesday: 'onetwo'
         version: 2
         mount_point: dummyv2
     - hashivault_write:
@@ -100,4 +100,4 @@
         version: 2
       register: vault_list
     - assert: { that: vault_list.rc == 0 }
-    - assert: { that: "'current_version' in vault_list.metadata" }
+    - assert: { that: "'two' in vault_list.secrets" }
