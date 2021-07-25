@@ -2,6 +2,25 @@ Changelog
 =========
 
 
+4.6.3 (2021-07-25)
+------------------
+- Fix list tests. [Terry Howe]
+- Allow to list secrets in subpath (issue #324) [Didier Fournout]
+- Fix unit testing. [Lord-Y]
+- Fix ldap tests. [Terry Howe]
+- Add kv2 idempotent test. [Terry Howe]
+- Use list_secrets function by default for modern Vault versions. [Pavlo
+  Zinchuk]
+- Update hashivault_auth_ldap.py. [tp6783]
+- Fix typo in hashivault_auth_method. [Adrian Moisey]
+- Add optional provider_config dict. [Marko Doda]
+- Update readme. [Terry Howe]
+- Fix hashivault_audit_list `changed` state. [Piotr Śliwka]
+- Updated approle authentication. [Ivan Kurnosov]
+- Update hashivault_userpass example to use newer module.[Lander Visterin]
+- Documentation fix. [Torinthiel]
+
+
 4.6.2 (2020-11-03)
 ------------------
 - Support verified rekeys. [Torinthiel]
