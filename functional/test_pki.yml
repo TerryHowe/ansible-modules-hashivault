@@ -272,6 +272,7 @@
           allow_bare_domains: True
           allow_subdomains: True
           allow_any_name: True
+          not_before_duration: "15s"
       register: response
     - assert:
         that:

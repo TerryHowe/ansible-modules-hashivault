@@ -282,7 +282,7 @@ EXAMPLES = r'''
         role_file: "/opt/vault/etc/roles/pki-tester.json"
         state: "present"
 '''
-normalize = {'list': list, 'str': str, 'dict': dict, 'bool': bool, 'int': int}
+normalize = {'list': list, 'str': str, 'dict': dict, 'bool': bool, 'int': int, 'duration': str}
 
 
 def main():
