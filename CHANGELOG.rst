@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+4.6.4 (2021-08-26)
+------------------
+- Require Ansible 4. [Terry Howe]
+- Add pepy. [Terry Howe]
+- Fix pki role not_before_duration. [ayav09]
+
+
 4.6.3 (2021-07-25)
 ------------------
 - Fix list tests. [Terry Howe]
