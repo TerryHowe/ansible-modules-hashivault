@@ -26,7 +26,7 @@ setup(
     py_modules=py_files,
     packages=files,
     install_requires=[
-        'ansible>=2.0.0',
+        'ansible>=4.0.0',
         'hvac>=0.11.0',
         'requests',
     ],
