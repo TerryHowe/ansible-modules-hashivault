@@ -101,7 +101,7 @@ def hashivault_auth(client, params):
     if authtype == 'github':
         client.auth.github.login(token, mount_point=login_mount_point)
     elif authtype == 'userpass':
-        client.auth_userpass(username, password, mount_point=login_mount_point)
+        client.auth.userpass.login(username, password, mount_point=login_mount_point)
     elif authtype == 'ldap':
         client.auth.ldap.login(username, password, mount_point=login_mount_point)
     elif authtype == 'approle':
