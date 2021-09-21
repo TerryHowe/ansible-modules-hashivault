@@ -83,11 +83,11 @@ def hashivault_userpass_update(client, user_details, user_name, user_pass, user_
     attribute_changed = policies_changed or token_bound_cidrs_changed
 
     if password_change_allowed and not attribute_changed:
-        client.update_userpass_password(user_name, user_pass, mount_point=mount_point)
+        client.auth.userpass.update_password_on_user(user_name, user_pass, mount_point=mount_point)
         return {'changed': True}
 
     if password_change_allowed and attribute_changed:
-        client.create_userpass(user_name, user_pass, user_policies, mount_point=mount_point,
+        client.auth.userpass.create_or_update_user(user_name, user_pass, user_policies, mount_point=mount_point,
                                token_bound_cidrs=token_bound_cidrs)
         return {'changed': True}
 
@@ -101,7 +101,7 @@ def hashivault_userpass_update(client, user_details, user_name, user_pass, user_
             }
 
         if policies_changed:
-            client.update_userpass_policies(user_name, user_policies, mount_point=mount_point)
+            client.auth.userpass.create_or_update_user(user_name, policies=user_policies, mount_point=mount_point)
             return {'changed': True}
 
     return {'changed': False}
@@ -119,10 +119,10 @@ def hashivault_userpass(params):
     mount_point = params.get('mount_point')
     if state == 'present':
         try:
-            user_details = client.read_userpass(name, mount_point=mount_point)
+            user_details = client.auth.userpass.read_user(name, mount_point=mount_point)
         except Exception:
             if password is not None:
-                client.create_userpass(name, password, policies, token_bound_cidrs=token_bound_cidrs,
+                client.auth.userpass.create_or_update_user(name, password, policies, token_bound_cidrs=token_bound_cidrs,
                                        mount_point=mount_point)
                 return {'changed': True}
             else:
@@ -133,11 +133,11 @@ def hashivault_userpass(params):
                                               mount_point=mount_point, token_bound_cidrs=token_bound_cidrs)
     elif state == 'absent':
         try:
-            client.read_userpass(name, mount_point=mount_point)
+            client.auth.userpass.read_user(name, mount_point=mount_point)
         except Exception:
             return {'changed': False}
         else:
-            client.delete_userpass(name, mount_point=mount_point)
+            client.auth.userpass.delete_user(name, mount_point=mount_point)
             return {'changed': True}
     else:
         return {'failed': True, 'msg': 'Unkown state type'}

@@ -13,7 +13,7 @@
         } 
   tasks:
     - hashivault_auth_method:
-        name: "userpass"
+        method_type: "userpass"
       failed_when: False
     - hashivault_userpass_delete:
         name: "{{username}}"
