@@ -39,6 +39,12 @@ options:
         description:
             - File with a json object containing play parameters. pass all params but name, state, mount_point which
               stay in the ansible play
+    token_type:
+        description:
+            - The type of token that should be generated. Can be service, batch, or default to use the mount's tuned
+              default (which unless changed will be service tokens). For token store roles, there are two additional
+              possibilities (default-service and default-batch) which specify the type to return unless the client
+              requests a different type at generation time.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -68,6 +74,7 @@ def main():
     argspec['period'] = dict(required=False, type='int', default=0)
     argspec['mount_point'] = dict(required=False, type='str', default='kubernetes')
     argspec['role_file'] = dict(required=False, type='str')
+    argspec['token_type'] = dict(required=False, type='str', default='default')
     argspec['state'] = dict(required=False, type='str', default='present', choices=['present', 'absent'])
 
     module = hashivault_init(argspec, supports_check_mode=True)
@@ -84,6 +91,7 @@ def hashivault_k8s_auth_role(module):
     client = hashivault_auth_client(params)
     mount_point = params.get('mount_point').strip('/')
     role_file = params.get('role_file')
+    token_type = params.get('token_type')
     name = params.get('name').strip('/')
     state = params.get('state')
     desired_state = dict()
@@ -99,6 +107,7 @@ def hashivault_k8s_auth_role(module):
         desired_state['max_ttl'] = params.get('max_ttl')
         desired_state['period'] = params.get('period')
         desired_state['policies'] = params.get('policies')
+        desired_state['token_type'] = params.get('token_type')
 
     # check if role exists
     try:
