@@ -92,7 +92,6 @@ def hashivault_list(params):
     else:
         metadata = False
 
-
     try:
         if version == 2:
             if secret and metadata:

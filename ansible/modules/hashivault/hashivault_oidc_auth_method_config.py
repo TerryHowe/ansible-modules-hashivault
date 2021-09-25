@@ -55,7 +55,8 @@ options:
               Discovery URL. If not set, system certificates are used.
     provider_config:
         description:
-            - Configuration options for provider-specific handling. Providers with specific handling include: Azure, Google.
+            - "Configuration options for provider-specific handling.
+              Providers with specific handling include: Azure, Google."
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
