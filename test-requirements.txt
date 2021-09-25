@@ -1,4 +1,4 @@
 pycodestyle==2.5.0
-tox==3.7.0
+tox==3.24.2
 sphinx
 sphinx_rtd_theme
