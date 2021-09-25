@@ -88,7 +88,7 @@ def hashivault_userpass_update(client, user_details, user_name, user_pass, user_
 
     if password_change_allowed and attribute_changed:
         client.auth.userpass.create_or_update_user(user_name, user_pass, user_policies, mount_point=mount_point,
-                               token_bound_cidrs=token_bound_cidrs)
+                                                   token_bound_cidrs=token_bound_cidrs)
         return {'changed': True}
 
     if not password_change_allowed and attribute_changed:
@@ -122,8 +122,9 @@ def hashivault_userpass(params):
             user_details = client.auth.userpass.read_user(name, mount_point=mount_point)
         except Exception:
             if password is not None:
-                client.auth.userpass.create_or_update_user(name, password, policies, token_bound_cidrs=token_bound_cidrs,
-                                       mount_point=mount_point)
+                client.auth.userpass.create_or_update_user(name, password, policies,
+                                                           token_bound_cidrs=token_bound_cidrs,
+                                                           mount_point=mount_point)
                 return {'changed': True}
             else:
                 return {'failed': True, 'msg': 'pass must be provided for new users'}
