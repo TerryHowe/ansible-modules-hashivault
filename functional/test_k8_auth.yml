@@ -50,8 +50,22 @@
         policies: ["test", "test2"]
         bound_service_account_names: ["vault-auth"]
         bound_service_account_namespaces: ["default", "some-app"]
+        token_type: service
       register: k8s_module
     - assert: { that: "{{ k8s_module.changed }} == True" }
+    - assert: { that: "{{ k8s_module.rc }} == 0" }
+
+    - name: read role
+      hashivault_read:
+        secret: "kubernetes/role/testk8srole"
+        mount_point: "auth"
+      register: k8s_module
+    - assert:
+        that:
+          - k8s_module.value.policies|sort == ["test","test2"]|sort
+          - k8s_module.value.bound_service_account_names|sort == ["vault-auth"]|sort
+          - k8s_module.value.bound_service_account_namespaces|sort == ["some-app","default"]|sort
+          - k8s_module.value.token_type == 'service'
     - assert: { that: "{{ k8s_module.rc }} == 0" }
 
     - name: create role idempotent
@@ -60,6 +74,7 @@
         policies: ["test", "test2"]
         bound_service_account_names: ["vault-auth"]
         bound_service_account_namespaces: ["default", "some-app"]
+        token_type: service
       register: k8s_module
     - assert: { that: "{{ k8s_module.changed }} == False" }
     - assert: { that: "{{ k8s_module.rc }} == 0" }
