@@ -65,6 +65,11 @@ options:
                 description:
                     - Specifies the domains of the role.
                     - This is used with the `allow_bare_domains` and `allow_subdomains` options.
+            allowed_domains_template:
+                type: bool
+                default: false
+                description:
+                    - When set, `allowed_domains` may contain templates, as with [ACL Path Templating](https://www.vaultproject.io/docs/concepts/policies).
             allow_bare_domains:
                 type: bool
                 default: false
