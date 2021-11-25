@@ -69,7 +69,8 @@ options:
                 type: bool
                 default: false
                 description:
-                    - When set, `allowed_domains` may contain templates, as with [ACL Path Templating](https://www.vaultproject.io/docs/concepts/policies).
+                    - When set, `allowed_domains` may contain templates, as with
+                      [ACL Path Templating](https://www.vaultproject.io/docs/concepts/policies).
             allow_bare_domains:
                 type: bool
                 default: false
