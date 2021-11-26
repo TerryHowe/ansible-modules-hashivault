@@ -25,6 +25,19 @@ options:
         description:
             - specifies an array of PGP public keys used to encrypt the output unseal keys.
         default: []
+    backup:
+        description:
+            - specifies if using PGP-encrypted keys, whether Vault should also store a plaintext backup of the
+              PGP-encrypted keys at core/unseal-keys-backup in the physical storage backend. These can then be
+              retrieved and removed via the sys/rekey/backup endpoint.
+        default: False
+    verification_required:
+        description:
+            - when verification is turned on, after successful authorization with the current unseal keys, the new
+              unseal keys are returned but the master key is not actually rotated. The new keys must be provided to
+              authorize the actual rotation of the master key. This ensures that the new keys have been successfully
+              saved and protects against a risk of the keys being lost after rotation but before they can be persisted.
+        default: False
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
