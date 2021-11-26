@@ -78,7 +78,6 @@ source ./vaultenv.sh
 ansible-playbook -v test_approle_old.yml
 
 # userpass
-ansible-playbook -v test_userpass.yml
 ansible-playbook -v test_userpass_idempotent.yml
 ansible-playbook -v test_userpass_no_pass.yml
 ansible-playbook -v test_userpass_no_policy.yml
