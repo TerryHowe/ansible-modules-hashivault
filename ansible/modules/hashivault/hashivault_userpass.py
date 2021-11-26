@@ -77,7 +77,7 @@ def hashivault_userpass_update(client, user_details, user_name, user_pass, user_
     if set(user_details['data'].get('policies', [])) != set(user_policies):
         policies_changed = True
 
-    if set(user_details['data']['token_bound_cidrs']) != set(token_bound_cidrs):
+    if set(user_details['data'].get('token_bound_cidrs', [])) != set(token_bound_cidrs):
         token_bound_cidrs_changed = True
 
     attribute_changed = policies_changed or token_bound_cidrs_changed
