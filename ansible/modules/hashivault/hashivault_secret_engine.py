@@ -89,7 +89,7 @@ def hashivault_secret_engine(module):
     cas_required = params.get('cas_required')
     max_versions = params.get('max_versions')
     new_engine_configuration = {}
-    if str(options.get('version', '1')) == '2':
+    if str(options.get('version', None)) == '2' or backend == 'kv-v2':
         if cas_required:
             new_engine_configuration['cas_required'] = cas_required
         if max_versions:
@@ -144,7 +144,7 @@ def hashivault_secret_engine(module):
 
     # create
     if changed and not exists and state == 'enabled' and not module.check_mode:
-        if backend == 'kv':
+        if backend == 'kv' or backend == 'kv-v2':
             client.sys.enable_secrets_engine(backend, description=description, path=name, config=config,
                                              options=options)
             if new_engine_configuration:
@@ -155,7 +155,7 @@ def hashivault_secret_engine(module):
 
     # update
     elif changed and exists and state == 'enabled' and not module.check_mode:
-        if backend == 'kv':
+        if backend == 'kv' or backend == 'kv-v2':
             client.sys.tune_mount_configuration(path=name, description=description, options=options, **config)
             if new_engine_configuration:
                 client.secrets.kv.v2.configure(mount_point=name, cas_required=cas_required, max_versions=max_versions)
