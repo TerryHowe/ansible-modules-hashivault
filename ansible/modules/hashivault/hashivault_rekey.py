@@ -26,9 +26,17 @@ EXAMPLES = '''
 ---
 - hosts: localhost
   tasks:
-    - hashivault_rekey:
-      key: '{{vault_key}}'
-      nonce: '{{nonce}}'
+    - name: Start a rekey
+      hashivault_rekey_init:
+        secret_shares: 1
+        secret_threshold: 1
+        verification_required: True
+      register: 'vault_rekey_init'
+
+    - name: Update the rekey
+      hashivault_rekey:
+        key: "{{ unseal_key }}"
+        nonce: "{{ vault_rekey_init.status.nonce }}"
 '''
 
 
