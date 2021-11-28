@@ -50,8 +50,8 @@ options:
     password_policy:
         description:
             - The name of the password policy to use when generating passwords for this database. If not specified,
-              this will use a default policy defined as:
-              20 characters with at least 1 uppercase, 1 lowercase, 1 number, and 1 dash character.
+              this will use a default policy defined as 20 characters with at least 1 uppercase, 1 lowercase, 1 number,
+              and 1 dash character.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
