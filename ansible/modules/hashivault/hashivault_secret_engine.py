@@ -1,9 +1,12 @@
 #!/usr/bin/env python
+import hvac
+import time
 from ansible.module_utils.hashivault import is_state_changed
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
+from datetime import datetime
 
 DEFAULT_TTL = 2764800
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
@@ -148,7 +151,9 @@ def hashivault_secret_engine(module):
             client.sys.enable_secrets_engine(backend, description=description, path=name, config=config,
                                              options=options)
             if new_engine_configuration:
-                client.secrets.kv.v2.configure(mount_point=name, cas_required=cas_required, max_versions=max_versions)
+                retry_until_upgraded(lambda: client.secrets.kv.v2.configure(mount_point=name,
+                                                                            cas_required=cas_required,
+                                                                            max_versions=max_versions))
         else:
             client.sys.enable_secrets_engine(backend, description=description, path=name, config=config)
         created = True
@@ -158,7 +163,9 @@ def hashivault_secret_engine(module):
         if backend == 'kv' or backend == 'kv-v2':
             client.sys.tune_mount_configuration(path=name, description=description, options=options, **config)
             if new_engine_configuration:
-                client.secrets.kv.v2.configure(mount_point=name, cas_required=cas_required, max_versions=max_versions)
+                retry_until_upgraded(lambda: client.secrets.kv.v2.configure(mount_point=name,
+                                                                            cas_required=cas_required,
+                                                                            max_versions=max_versions))
         else:
             client.sys.tune_mount_configuration(path=name, description=description, **config)
 
@@ -167,6 +174,27 @@ def hashivault_secret_engine(module):
         client.sys.disable_secrets_engine(path=name)
 
     return {'changed': changed, 'created': created}
+
+
+# When upgrading kv v1 to v2 or when enabling kv v2 directly, Vault API might return this error right after calling
+# enable_secrets_engine() or tune_mount_configuration(). To avoid this error make users' playbook fail unexpectedly,
+# this function is used to retry the API call made right after enabling/upgrading kv engine.
+def retry_until_upgraded(cb, timeout=10, wait=0.2):
+    start_time = datetime.now()
+
+    while True:
+        delta = datetime.now() - start_time
+        if delta.seconds >= timeout:
+            raise RuntimeError("Couldn't no successfully execute callback without triggering following API error: " +
+                               "\"Upgrading from non-versioned to versioned data\".")
+        try:
+            return cb()
+        except hvac.exceptions.InvalidRequest as e:
+            if 'Upgrading from non-versioned to versioned data' in str(e):
+                time.sleep(wait)
+                continue
+            else:
+                raise e
 
 
 if __name__ == '__main__':
