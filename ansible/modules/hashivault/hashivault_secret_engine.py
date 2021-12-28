@@ -25,9 +25,48 @@ options:
         description:
             - description of secret backend
     config:
+        type: dict
         description:
             - config of secret backend
-        default: {'default_lease_ttl': 2764800, 'max_lease_ttl': 2764800, 'force_no_cache': False}
+        suboptions:
+            default_lease_ttl:
+                type: str or int
+                default: 2764800 (= 768 hours)
+                description:
+                    - Specifies the default lease duration. It can be either an int (representing the number of
+                      seconds) or duration string with s, m, h or d suffix.
+            max_lease_ttl:
+                type: str or int
+                default: 2764800 (= 768 hours)
+                description:
+                    - Specifies the maximum lease duration. It can be either an int (representing the number of
+                      seconds) or duration string with s, m, h or d suffix.
+            force_no_cache:
+                type: bool
+                default: false
+                description:
+                    - Disable caching
+            audit_non_hmac_request_keys:
+                type: list
+                description:
+                    - List of keys that will not be HMAC'd by audit devices in the request data object.
+            audit_non_hmac_response_keys:
+                type: list
+                description:
+                    - List of keys that will not be HMAC'd by audit devices in the response data object.
+            listing_visibility:
+                type: str
+                description:
+                    - Specifies whether to show this mount in the UI-specific listing endpoint. Valid values are
+                      "unauth" or "hidden". If not set, behaves like "hidden".
+            passthrough_request_headers:
+                type: list
+                description:
+                    - List of headers to whitelist and pass from the request to the plugin.
+            allowed_response_headers:
+                type: list
+                description:
+                    - List of headers to whitelist, allowing a plugin to include them in the response.
     state:
         description:
             - state of secret backend. choices: enabled, present, disabled, absent
@@ -73,6 +112,26 @@ def main():
         module.exit_json(**result)
 
 
+def parse_duration(duration):
+    if isinstance(duration, int):
+        return duration
+    elif not isinstance(duration, str):
+        return DEFAULT_TTL
+
+    if duration.endswith('d'):
+        return int(duration[:-1]) * 60 * 60 * 24
+    if duration.endswith('h'):
+        return int(duration[:-1]) * 60 * 60
+    if duration.endswith('m'):
+        return int(duration[:-1]) * 60
+    if duration.endswith('s'):
+        return int(duration[:-1])
+    if duration != "":
+        return int(duration)
+
+    return DEFAULT_TTL
+
+
 @hashiwrapper
 def hashivault_secret_engine(module):
     params = module.params
@@ -81,6 +140,10 @@ def hashivault_secret_engine(module):
     backend = params.get('backend')
     description = params.get('description')
     config = params.get('config')
+    if 'default_lease_ttl' in config:
+        config['default_lease_ttl'] = parse_duration(config['default_lease_ttl'])
+    if 'max_lease_ttl' in config:
+        config['max_lease_ttl'] = parse_duration(config['max_lease_ttl'])
     if params.get('state') in ['present', 'enabled']:
         state = 'enabled'
     else:
