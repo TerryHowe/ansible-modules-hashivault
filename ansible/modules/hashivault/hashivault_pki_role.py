@@ -115,21 +115,24 @@ options:
                     - No authorization checking is performed except to verify that the given values are valid IP
                       addresses.
             allowed_uri_sans:
-                type: str
+                type: list
                 description:
                     - Defines allowed URI Subject Alternative Names
                     - No authorization checking is performed except to verify that the given values are valid URIs
-                    - This can be a comma-delimited list or a JSON string slice
                     - Values can contain glob patterns (e.g. `spiffe://hostname/*`).
+                    - Although this parameter could take a string with comma-delimited items, it's highly advised to
+                      not do so as it would break idempotency.
             allowed_other_sans:
-                type: str
+                type: type
                 description:
                     - Defines allowed custom OID/UTF8-string SANs
-                    - This can be a comma-delimited list or a JSON string slice, where each element has the same format
-                      as OpenSSL `<oid>;<type>:<value>`, but the only valid type is `UTF8` or `UTF-8`
+                    - Each item of the list has the same format as OpenSSL `<oid>;<type>:<value>`, but the only valid
+                      type is `UTF8` or `UTF-8`.
                     - The `value` part of an element may be a `*` to allow any value with that OID
                     - Alternatively, specifying a single `*` will allow any `other_sans` input. `server_flag`
                       `(bool)` Specifies if certificates are flagged for server use.
+                    - Although this parameter could take a string with comma-delimited items, it's highly advised to
+                      not do so as it would break idempotency.
             server_flag:
                 type: bool
                 default: true
@@ -182,9 +185,11 @@ options:
                     - Values are not case-sensitive
                     - To specify no key usage constraints, set this to an empty list.
             ext_key_usage_oids:
-                type: str
+                type: list
                 description:
-                    - A comma-separated string or list of extended key usage oids.
+                    - List of extended key usage oids.
+                    - Although this parameter could take a string with comma-delimited items, it's highly advised to
+                      not do so as it would break idempotency.
             use_csr_common_name:
                 type: bool
                 default: true
@@ -202,31 +207,45 @@ options:
             ou:
                 type: list
                 description:
-                    - Specifies the OU (OrganizationalUnit) values in the subject field of issued certificates
+                    - Specifies the OU (OrganizationalUnit) values in the subject field of issued certificates.
+                    - Although this parameter could take a string with comma-delimited items, it's highly advised to
+                      not do so as it would break idempotency.
             organization:
                 type: list
                 description:
                     - Specifies the O (Organization) values in the subject field of issued certificates
+                    - Although this parameter could take a string with comma-delimited items, it's highly advised to
+                      not do so as it would break idempotency.
             country:
                 type: list
                 description:
                     - Specifies the C (Country) values in the subject field of issued certificates
+                    - Although this parameter could take a string with comma-delimited items, it's highly advised to
+                      not do so as it would break idempotency.
             locality:
                 type: list
                 description:
                     - Specifies the L (Locality) values in the subject field of issued certificates
+                    - Although this parameter could take a string with comma-delimited items, it's highly advised to
+                      not do so as it would break idempotency.
             province:
                 type: list
                 description:
                     - Specifies the ST (Province) values in the subject field of issued certificates
+                    - Although this parameter could take a string with comma-delimited items, it's highly advised to
+                      not do so as it would break idempotency.
             street_address:
                 type: list
                 description:
                     - Specifies the Street Address values in the subject field of issued certificates
+                    - Although this parameter could take a string with comma-delimited items, it's highly advised to
+                      not do so as it would break idempotency.
             postal_code:
                 type: list
                 description:
                     - Specifies the Postal Code values in the subject field of issued certificates
+                    - Although this parameter could take a string with comma-delimited items, it's highly advised to
+                      not do so as it would break idempotency.
             serial_number:
                 type: str
                 description:
@@ -261,6 +280,8 @@ options:
                 type: list
                 description:
                     - A comma-separated string or list of policy OIDs.
+                    - Although this parameter could take a string with comma-delimited items, it's highly advised to
+                      not do so as it would break idempotency.
             basic_constraints_valid_for_non_ca:
                 type: bool
                 default: false
