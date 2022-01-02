@@ -136,6 +136,7 @@ def main():
     argspec['clock_skew_leeway'] = dict(required=False, type='int', default=0)
     argspec['expiration_leeway'] = dict(required=False, type='int', default=0)
     argspec['not_before_leeway'] = dict(required=False, type='int', default=0)
+    argspec['role_type'] = dict(required=False, type='str', default='oidc', choices=['oidc', 'jwt'])
 
     module = hashivault_init(argspec)
     result = hashivault_oidc_auth_role(module)
@@ -174,12 +175,12 @@ def hashivault_oidc_auth_role(module):
         'clock_skew_leeway',
         'expiration_leeway',
         'not_before_leeway',
+        'role_type',
     ]
     desired_state = dict()
     for parameter in parameters:
         if params.get(parameter) is not None:
             desired_state[parameter] = params.get(parameter)
-    desired_state['role_type'] = "oidc"
     desired_state['verbose_oidc_logging'] = False
     if not desired_state['token_policies'] and desired_state['policies']:
         desired_state['token_policies'] = desired_state['policies']
