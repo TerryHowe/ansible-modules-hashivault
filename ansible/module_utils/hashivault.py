@@ -183,11 +183,13 @@ def hashivault_read(params):
     if version == 2:
         try:
             data = response.get('data', {})
+            metadata = data.get('metadata', {})
             data = data.get('data', {})
         except Exception:
             data = str(response)
     else:
         data = response['data']
+        metadata = {}
     lease_duration = response.get('lease_duration', None)
     if lease_duration is not None:
         result['lease_duration'] = lease_duration
@@ -213,6 +215,7 @@ def hashivault_read(params):
     else:
         value = data
     result['value'] = value
+    result['metadata'] = metadata
     return result
 
 
