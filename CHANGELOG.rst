@@ -2,6 +2,28 @@ Changelog
 =========
 
 
+4.6.5 (2022-01-11)
+------------------
+- Return secret version when reading kv v2 secret. [Albin Kerouanton]
+- Transform lease TTLs into ints. [Albin Kerouanton]
+- Removed static role_type oidc. [Alex Vermulst]
+- Advise against strings in hashivault_pki_role params. [Albin
+  Kerouanton]
+- Fix docs build. [Terry Howe]
+- Argspec['password_policy'] [Piotr Grabowski]
+- Password_policy. [Piotr Grabowski]
+- Pass cas value to hvac when kv-v2 backend is used. [Albin Kerouanton]
+- Rekey docs clarification. [Terry Howe]
+- Work if no token_bound_cidr. [Terry Howe]
+- Remove tests for deprecated modules. [Terry Howe]
+- Reduce tests to 3.9. [Terry Howe]
+- Introduce support for PKI allowed_domains_template. [Eric Trexel]
+- Add token_type option to k8s_auth_role. [ayav09]
+- Initial github actions workflow. [ayav09]
+- Pep8 fixes. [ayav09]
+- Replace deprecated hvac userpass methods. [ayav09]
+
+
 4.6.4 (2021-08-26)
 ------------------
 - Require Ansible 4. [Terry Howe]
