@@ -76,7 +76,7 @@ def hashivault_list(params):
     client = hashivault_auth_client(params)
     version = params.get('version')
     mount_point = params.get('mount_point')
-    secret = params.get('secret')
+    secret = params.get('secret').lstrip()
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
@@ -86,8 +86,8 @@ def hashivault_list(params):
             secret = '/'.join(listo[1:])
     # for backwards compatibiltiy with old hashivault_list module
     if secret.startswith('metadata/'):
+        secret = secret.replace('metadata/', '', 1)
         version = 2
-        secret = secret.lstrip('metadata/')
         metadata = True
     else:
         metadata = False
