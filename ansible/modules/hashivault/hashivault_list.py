@@ -76,7 +76,7 @@ def hashivault_list(params):
     client = hashivault_auth_client(params)
     version = params.get('version')
     mount_point = params.get('mount_point')
-    secret = params.get('secret').lstrip()
+    secret = params.get('secret')
 
     if secret.startswith('/'):
         secret = secret.lstrip('/')
