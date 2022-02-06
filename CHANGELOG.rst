@@ -2,6 +2,17 @@ Changelog
 =========
 
 
+4.6.6 (2022-02-06)
+------------------
+- Set no_log for a few things. [Terry Howe]
+- Pep8 fixes. [ayav09]
+- Fix root rotation statements in connection details. [ayav09]
+- Remove unneeded lstrip. [Terry Howe]
+- Fix hashivault_list URL with lstrip. [Gregory Fredj]
+
+  Right now it is using `lstrip('metadata/')` and if the path contains any letter in "metadata" it will be removed. lstrip() isn't the function to use but rather replace and only once.
+
+
 4.6.5 (2022-01-11)
 ------------------
 - Return secret version when reading kv v2 secret. [Albin Kerouanton]
