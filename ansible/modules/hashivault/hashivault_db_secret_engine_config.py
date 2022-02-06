@@ -83,7 +83,8 @@ def main():
     argspec['config_file'] = dict(required=False, type='str', default=None)
     argspec['plugin_name'] = dict(required=False, type='str')
     argspec['allowed_roles'] = dict(required=False, type='list', default=[])
-    argspec['root_credentials_rotate_statements'] = dict(required=False, type='list', aliases=['root_rotation_statements'], default=[])
+    argspec['root_credentials_rotate_statements'] = dict(required=False, type='list',
+                                                         aliases=['root_rotation_statements'], default=[])
     argspec['verify_connection'] = dict(required=False, type='bool', default=True)
     argspec['connection_details'] = dict(required=True, type='dict')
     argspec['password_policy'] = dict(required=False, type='str')
