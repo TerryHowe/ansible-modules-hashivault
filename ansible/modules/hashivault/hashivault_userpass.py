@@ -55,7 +55,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['name'] = dict(required=True, type='str')
     argspec['pass'] = dict(required=False, type='str', default=None, no_log=True)
-    argspec['pass_update'] = dict(required=False, type='bool', default=False)
+    argspec['pass_update'] = dict(required=False, type='bool', default=False, no_log=True)
     argspec['policies'] = dict(required=False, type='list', default=[])
     argspec['token_bound_cidrs'] = dict(required=False, type='list', default=[])
     argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
