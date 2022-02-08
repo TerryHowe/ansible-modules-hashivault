@@ -131,7 +131,6 @@ def hashivault_db_secret_engine_role(module):
         client.secrets.database.read_role(name=name, mount_point=mount_point)
         exists = True
     except Exception:
-        changed = True
         pass
 
     if (exists and state == 'absent') or (not exists and state == 'present'):
