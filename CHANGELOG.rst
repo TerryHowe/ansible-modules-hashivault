@@ -2,6 +2,15 @@ Changelog
 =========
 
 
+4.6.7 (2022-02-08)
+------------------
+- Fix db_secret_engine_config idempotency for password policy and non-
+  default mount point. [ayav09]
+- Fix hashivault_db_secret_engine_role delete idempotency. [ayav09]
+- Readme updates. [ayav09]
+- Specify type for states. [Terry Howe]
+
+
 4.6.6 (2022-02-06)
 ------------------
 - Set no_log for a few things. [Terry Howe]
