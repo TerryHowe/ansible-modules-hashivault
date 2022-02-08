@@ -9,9 +9,9 @@ Ansible modules for Hashicorp Vault.
 .. image:: https://pepy.tech/badge/ansible-modules-hashivault/month
    :alt: Downloads
    :target: https://pepy.tech/project/ansible-modules-hashivault
-.. image:: https://travis-ci.org/TerryHowe/ansible-modules-hashivault.svg?branch=master
-   :alt: Travis CI
-   :target: https://travis-ci.org/TerryHowe/ansible-modules-hashivault
+.. image:: https://github.com/TerryHowe/ansible-modules-hashivault/actions/workflows/test.yml/badge.svg?branch=main
+   :alt: CI
+   :target: https://github.com/TerryHowe/ansible-modules-hashivault/actions/workflows/test.yml
 .. image:: https://img.shields.io/badge/License-MIT-yellow.svg
    :alt: License: MIT
    :target: https://opensource.org/licenses/MIT
@@ -24,7 +24,7 @@ Install this Ansible module:
 
   pip install ansible-modules-hashivault
 
-* via ``ansible-galaxy`` (requires ``hvac>=0.7.0``):
+* via ``ansible-galaxy`` (requires ``hvac>=0.7.2``):
 
 ::
 
