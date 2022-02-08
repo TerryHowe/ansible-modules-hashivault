@@ -87,7 +87,7 @@ def main():
                                                          aliases=['root_rotation_statements'], default=[])
     argspec['verify_connection'] = dict(required=False, type='bool', default=True)
     argspec['connection_details'] = dict(required=True, type='dict', no_log=True)
-    argspec['password_policy'] = dict(required=False, type='str', no_log=True)
+    argspec['password_policy'] = dict(required=False, type='str', no_log=True, default='')
     required_one_of = [['config_file', 'connection_details']]
 
     module = hashivault_init(argspec, supports_check_mode=True, required_one_of=required_one_of)
@@ -129,7 +129,7 @@ def hashivault_db_secret_engine_config(module):
     exists = False
     current_state = {}
     try:
-        current_state = client.secrets.database.read_connection(name=name)
+        current_state = client.secrets.database.read_connection(name=name, mount_point=mount_point)
         exists = True
     except Exception:
         # does not exist
