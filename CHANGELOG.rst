@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+4.6.8 (2022-02-19)
+------------------
+- Allow create nonexistent secret when state is update. [Pavel Ezhov]
+
+
 4.6.7 (2022-02-08)
 ------------------
 - Fix db_secret_engine_config idempotency for password policy and non-
