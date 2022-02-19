@@ -99,7 +99,7 @@ def hashivault_secret(module):
             read_data = client.secrets.kv.v1.read_secret(secret, mount_point=mount_point)
         read_data = read_data.get('data', {})
     except InvalidPath:
-        if state != 'present':
+        if state not in ['present', 'update']:
             result['msg'] = u"Secret %s nonexistent" % secret_path
             return result
         read_data = {}
