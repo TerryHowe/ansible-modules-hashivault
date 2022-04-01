@@ -10,7 +10,7 @@
     name_ttls: '{{namespace}}_ttls'
     dict_value:
       foo: 'bar'
-      baz: 'stuff'
+      baz: 'grunt'
     array_value:
       - 'one'
       - 'two'
@@ -80,9 +80,30 @@
 
     - name: Write secret dictionary
       hashivault_write:
+        update: True
         secret: '{{name_dict}}'
         data: "{{ dict_value }}"
     - assert: { that: "{{vault_write.changed}} == True" }
+    - assert: { that: "{{vault_write.rc}} == 0" }
+
+    - name: Update again secret dictionary and verify no change
+      hashivault_write:
+        update: True
+        secret: '{{name_dict}}'
+        data: "{{ dict_value }}"
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == False" }
+    - assert: { that: "{{vault_write.rc}} == 0" }
+
+    - name: Update new value in dictionary and detect change
+      hashivault_write:
+        secret: '{{name_dict}}'
+        data: 
+          foo: 'bar'
+          baz: 'stuff'
+      register: vault_write
+    - assert: { that: "{{vault_write.changed}} == True" }
+    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/{{name_dict}} written'" }
     - assert: { that: "{{vault_write.rc}} == 0" }
 
     - name: Write array type secret
