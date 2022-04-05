@@ -274,7 +274,10 @@ def _compare_state(desired_state, current_state, ignore=None):
     if (type(desired_state) is list):
         if ((type(current_state) != list) or (len(desired_state) != len(current_state))):
             return False
-        return set(desired_state) == set(current_state)
+        for i in range(len(desired_state)):
+            if (not _compare_state(desired_state[i], current_state[i])):
+                return False
+        return True
 
     if (type(desired_state) is dict):
         if (type(current_state) != dict):
