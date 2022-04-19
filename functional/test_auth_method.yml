@@ -34,6 +34,9 @@
       hashivault_auth_method:
         method_type: oidc
         state: enabled
+        config:
+          default_lease_ttl: 0
+          max_lease_ttl: 0
       register: oidc_idempotent
     - assert: { that: "{{ oidc_idempotent.rc }} == 0" }
     - assert: { that: "{{ oidc_idempotent.changed }} == True" }
@@ -42,6 +45,9 @@
       hashivault_auth_method:
         method_type: oidc
         state: enabled
+        config:
+          default_lease_ttl: 0
+          max_lease_ttl: 0
       register: oidc_idempotent
     - assert: { that: "{{ oidc_idempotent.rc }} == 0" }
     - assert: { that: "{{ oidc_idempotent.changed }} == False" }
@@ -50,6 +56,9 @@
       hashivault_auth_method:
         method_type: oidc
         state: enabled
+        config:
+          default_lease_ttl: 0
+          max_lease_ttl: 0
         description: 'my oidc'
       register: oidc_idempotent
     - assert: { that: "{{ oidc_idempotent.rc }} == 0" }
@@ -59,6 +68,9 @@
       hashivault_auth_method:
         method_type: oidc
         state: enabled
+        config:
+          default_lease_ttl: 0
+          max_lease_ttl: 0
         description: 'my oidc'
       register: oidc_idempotent
     - assert: { that: "{{ oidc_idempotent.rc }} == 0" }
