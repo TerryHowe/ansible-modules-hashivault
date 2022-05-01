@@ -2,44 +2,42 @@
 - hosts: localhost
   gather_facts: no
   tasks:
-    - name: List the authentications backends
-      hashivault_auth_list:
-      register: 'vault_auth_list'
-    - block:
-      - name: Enable userpass when it is already enabled
-        hashivault_auth_method:
-          method_type: "userpass"
-        failed_when: False
-        register: 'vault_auth'
-      - assert: { that: "{{vault_auth.changed}} == False" }
-      - assert: { that: "{{vault_auth.failed}} == False" }
-      - assert: { that: "'{{vault_auth.msg}}' == 'Exception: path is already in use'" }
-      - assert: { that: "{{vault_auth.rc}} == 1" }
-      when: "'userpass/' in vault_auth_list.backends"
-    - block:
-      - name: Enable userpass auth for the first time
-        hashivault_auth_method:
-          method_type: "userpass"
-        register: 'vault_auth'
-      - assert: { that: "{{vault_auth.changed}} == True" }
-      - assert: { that: "{{vault_auth.rc}} == 0" }
-      when: "'userpass/' not in vault_auth_list.backends"
-    - block:
-      - name: Enable userpass auth for the second time
-        hashivault_auth_method:
-          method_type: "userpass"
-        failed_when: False
-        register: 'vault_auth'
-      - assert: { that: "{{vault_auth.changed}} == False" }
-        # Results from hvac/vault vary here
-        # - assert: { that: "{{vault_auth.rc}} == 0" }
-        # - assert: { that: "'{{vault_auth.msg}}' == 'Exception: path is already in use'" }
-    - block:
-      - name: Enable userpass at a different mount point
-        hashivault_auth_method:
-          method_type: "userpass"
-          mount_point: "another-userpass"
-        register: 'vault_auth_mount_point'
-      - assert: { that: "{{vault_auth_mount_point.changed}} == True" }
-      - assert: { that: "{{vault_auth_mount_point.rc}} == 0" }
+    - name: Delete any lingering userpass
+      hashivault_auth_method:
+        method_type: "userpass"
+        state: disable
+      failed_when: False
+    - name: Enable userpass first time for this test
+      hashivault_auth_method:
+        method_type: "userpass"
+        description: "my userpass"
+      register: 'vault_auth'
+    - assert: { that: "{{vault_auth.changed}} == True" }
+    - assert: { that: "{{vault_auth.created}} == True" }
+    - assert: { that: "{{vault_auth.failed}} == False" }
+    - assert: { that: "{{vault_auth.rc}} == 0" }
+    - name: Enable userpass when it is already enabled
+      hashivault_auth_method:
+        method_type: "userpass"
+        description: "my userpass"
+      register: 'vault_auth'
+    - assert: { that: "{{vault_auth.changed}} == False" }
+    - assert: { that: "{{vault_auth.created}} == False" }
+    - assert: { that: "{{vault_auth.failed}} == False" }
+    - assert: { that: "{{vault_auth.rc}} == 0" }
+    - name: Enable userpass auth for the third time with change
+      hashivault_auth_method:
+        method_type: "userpass"
+        description: "our userpass"
+      register: 'vault_auth'
+    - assert: { that: "{{vault_auth.changed}} == True" }
+    - assert: { that: "{{vault_auth.created}} == False" }
+    - assert: { that: "{{vault_auth.rc}} == 0" }
+    - name: Enable userpass at a different mount point
+      hashivault_auth_method:
+        method_type: "userpass"
+        mount_point: "another-userpass"
+      register: 'vault_auth_mount_point'
+    - assert: { that: "{{vault_auth_mount_point.changed}} == True" }
+    - assert: { that: "{{vault_auth_mount_point.rc}} == 0" }
         
