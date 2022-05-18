@@ -31,6 +31,13 @@
         state: absent
       failed_when: false
 
+    - name: list token roles empty
+      hashivault_token_role_list:
+      register: 'vault_role_list'
+    - assert: { that: "{{vault_role_list.changed}} == False" }
+    - assert: { that: "{{vault_role_list.rc}} == 0" }
+    - assert: { that: "{{vault_role_list.data|length}} == 0"}
+
     - name: create role
       hashivault_token_role:
         name: testrole
@@ -64,3 +71,10 @@
     - assert: { that: "{{vault_role_update.changed}} == False" }
     - assert: { that: "{{vault_role_update.rc}} == 0" }
 
+    - name: list token roles
+      hashivault_token_role_list:
+      register: 'vault_role_list'
+    - assert: { that: "{{vault_role_list.changed}} == False" }
+    - assert: { that: "{{vault_role_list.rc}} == 0" }
+    - fail: msg="role testrole not in list {{vault_role_list.data}}"
+      when: '"testrole" not in vault_role_list.data'
