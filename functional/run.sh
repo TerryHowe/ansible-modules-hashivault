@@ -81,6 +81,10 @@ ansible-playbook -v test_approle_old.yml
 ansible-playbook -v test_token_role.yml
 ansible-playbook -v test_token_role_check_mode.yml
 
+# sshrole
+ansible-playbook -v test_ssh_role.yml
+ansible-playbook -v test_ssh_role_check_mode.yml
+
 # userpass
 ansible-playbook -v test_userpass.yml
 ansible-playbook -v test_userpass_idempotent.yml

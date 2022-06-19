@@ -1,0 +1,85 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    namespace: 'application'
+    rules: >
+        path "ssh/{{namespace}}/*" {
+          capabilities = ["create", "read", "update", "delete", "list"]
+        }
+        path "ssh/{{namespace}}" {
+          capabilities = ["list"]
+        }
+  tasks:
+    - name: Enable ssh secret engine
+      hashivault_secret_engine:
+        name: ssh
+        state: enabled
+
+    - name: Set ssh role policy
+      hashivault_policy:
+        name: "sshrole_test_user_original"
+        rules: "{{rules}}"
+      register: vault_policy
+    - assert: { that: "{{vault_policy.rc}} == 0" }
+
+    - name: Set another ssh role policy
+      hashivault_policy:
+        name: "sshrole_test_user"
+        rules: "{{rules}}"
+      register: vault_policy
+    - assert: { that: "{{vault_policy.rc}} == 0" }
+
+    - name: delete role
+      hashivault_ssh_role:
+        name: testrole
+        state: absent
+      failed_when: false
+    
+    - name: list ssh roles empty
+      hashivault_ssh_role_list:
+      register: 'vault_role_list'
+    - assert: { that: "{{vault_role_list.changed}} == False" }
+    - assert: { that: "{{vault_role_list.rc}} == 0" }
+    - assert: { that: "{{vault_role_list.data|length}} == 0"}
+
+    - name: create role
+      hashivault_ssh_role:
+        name: testrole
+        config:
+          key_type: ca
+          allowed_users: sshrole_test_user_original
+          allow_host_certificates: true
+        state: present
+      register: 'vault_role_create'
+    - assert: { that: "{{vault_role_create.changed}} == True" }
+    - assert: { that: "{{vault_role_create.rc}} == 0" }
+
+    - name: update role
+      hashivault_ssh_role:
+        name: testrole
+        config:
+          allowed_users: sshrole_test_user
+        state: present
+      register: 'vault_role_update'
+    - assert: { that: "{{vault_role_update.changed}} == True" }
+    - assert: { that: "{{vault_role_update.rc}} == 0" }
+
+    - name: update role idempotent
+      hashivault_ssh_role:
+        name: testrole
+        config:
+          allowed_users: sshrole_test_user
+          allow_host_certificates: true
+        state: present
+      register: 'vault_role_update'
+    - assert: { that: "{{vault_role_update.changed}} == False" }
+    - assert: { that: "{{vault_role_update.rc}} == 0" }
+
+    - name: list ssh roles
+      hashivault_ssh_role_list:
+      register: 'vault_role_list'
+    - assert: { that: "{{vault_role_list.changed}} == False" }
+    - assert: { that: "{{vault_role_list.rc}} == 0" }
+    - fail: msg="role testrole not in list {{vault_role_list.data}}"
+      when: '"testrole" not in vault_role_list.data'

@@ -1,0 +1,54 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: create ssh role check_mode exists
+      hashivault_ssh_role:
+        name: testrole
+        config:
+          key_type: ca
+          allowed_users: sshrole_test_user
+        state: present
+      check_mode: true
+      register: 'vault_role_create'
+    - assert: { that: "{{vault_role_create.changed}} == False" }
+    - assert: { that: "{{vault_role_create.rc}} == 0" }
+
+    - name: create ssh role check_mode does not exist
+      hashivault_ssh_role:
+        name: testrole_two
+        config:
+          key_type: ca
+          allowed_users: sshrole_test_user
+        state: present
+      check_mode: true
+      register: 'vault_role_create'
+    - assert: { that: "{{vault_role_create.changed}} == True" }
+    - assert: { that: "{{vault_role_create.rc}} == 0" }
+
+    - name: delete ssh role check_mode exists
+      hashivault_ssh_role:
+        name: testrole
+        state: absent
+      check_mode: true
+      register: 'vault_role_create'
+    - assert: { that: "{{vault_role_create.changed}} == True" }
+    - assert: { that: "{{vault_role_create.rc}} == 0" }
+
+    - name: delete ssh role check_mode does not exist
+      hashivault_ssh_role:
+        name: testrole_two
+        state: absent
+      check_mode: true
+      register: 'vault_role_create'
+    - assert: { that: "{{vault_role_create.changed}} == False" }
+    - assert: { that: "{{vault_role_create.rc}} == 0" }
+
+    - name: list ssh roles check_mode
+      hashivault_ssh_role_list:
+      register: 'vault_role_list'
+      check_mode: true
+    - assert: { that: "{{vault_role_list.changed}} == False" }
+    - assert: { that: "{{vault_role_list.rc}} == 0" }
+    - fail: msg="role testrole not in list {{vault_role_list.data}}"
+      when: '"testrole" not in vault_role_list.data'
