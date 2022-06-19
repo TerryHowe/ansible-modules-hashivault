@@ -8,7 +8,7 @@ ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 
 DOCUMENTATION = '''
 ---
 module: hashivault_identity_group_alias_list
-version_added: "4.6.9"
+version_added: "4.7.1"
 short_description: Hashicorp Vault group alias list
 description:
     - Module to list group aliases from Hashicorp Vault.
