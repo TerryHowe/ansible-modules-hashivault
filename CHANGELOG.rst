@@ -2,6 +2,19 @@ Changelog
 =========
 
 
+4.7.0 (2022-06-19)
+------------------
+- Add a hashivault_ssh_role_list module. [Szymon Soloch]
+- Add a hashivault_ssh_role module. [Szymon Soloch]
+- Add a hashivault_token_role_list module. [Szymon Soloch]
+- Add a hashivault_token_role module. [Szymon Soloch]
+- Get better auth method tests. [Terry Howe]
+- Fix auth_method idempotency. [ayav09]
+- Fix tests. [Terry Howe]
+- Fix docs build. [Terry Howe]
+- Fix state comparison of lists. [Jarno Antikainen]
+
+
 4.6.8 (2022-02-19)
 ------------------
 - Allow create nonexistent secret when state is update. [Pavel Ezhov]
