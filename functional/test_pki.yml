@@ -163,7 +163,6 @@
       hashivault_pki_crl_get:
         mount_point: "{{mount_inter}}"
       register: response
-      failed_when: response.rc == 0
     - name: Set CRL Configuration
       hashivault_pki_crl:
         mount_point: "{{mount_inter}}"
@@ -206,7 +205,6 @@
       hashivault_pki_url_get:
         mount_point: "{{mount_inter}}"
       register: response
-      failed_when: response.rc == 0
     - name: Set URLs
       hashivault_pki_url:
         mount_point: "{{mount_inter}}"
