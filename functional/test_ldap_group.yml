@@ -18,7 +18,7 @@
 
     - name: ldap configuration
       hashivault_auth_ldap:
-        ldap_url: ldap://127.0.0.1
+        ldap_url: ldap://localhost
       register: ldap_module
     - assert: { that: "{{ ldap_module.changed }} == True" }
     - assert: { that: "{{ ldap_module.rc }} == 0" }
