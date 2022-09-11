@@ -139,8 +139,8 @@ def main():
     argspec['group_attr'] = dict(required=False, type='str', default='cn')
     argspec['group_dn'] = dict(required=False, type='str', default='')
     argspec['use_token_groups'] = dict(required=False, type='bool', default=False)
-    argspec['token_ttl'] = dict(required=False, type='str', default='')
-    argspec['token_max_ttl'] = dict(required=False, type='str', default='')
+    argspec['token_ttl'] = dict(required=False, type='int', default=0)
+    argspec['token_max_ttl'] = dict(required=False, type='int', default=0)
 
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_auth_ldap(module)
