@@ -104,6 +104,8 @@ def main():
     argspec['options'] = dict(required=False, type='dict', default={})
     argspec['cas_required'] = dict(required=False, type='bool')
     argspec['max_versions'] = dict(required=False, type='int')
+    argspec['local'] = dict(required=False, type='bool')
+    argspec['seal_wrap'] = dict(required=False, type='bool')
     module = hashivault_init(argspec)
     result = hashivault_secret_engine(module)
     if result.get('failed'):
@@ -139,6 +141,8 @@ def hashivault_secret_engine(module):
     name = params.get('name')
     backend = params.get('backend')
     description = params.get('description')
+    local = params.get('local')
+    seal_wrap = params.get('seal_wrap')
     config = params.get('config')
     if 'default_lease_ttl' in config:
         config['default_lease_ttl'] = parse_duration(config['default_lease_ttl'])
@@ -202,18 +206,23 @@ def hashivault_secret_engine(module):
                 changed = True
             elif max_versions is not None and engine_configuration.get('max_versions', None) != max_versions:
                 changed = True
+            elif local is not None and engine_configuration.get('local', None) != local:
+                changed = True
+            elif seal_wrap is not None and engine_configuration.get('seal_wrap', None) != max_versions:
+                changed = True
             else:
                 new_engine_configuration = {}
 
     # create
     if changed and not exists and state == 'enabled' and not module.check_mode:
         if backend == 'kv' or backend == 'kv-v2':
-            client.sys.enable_secrets_engine(backend, description=description, path=name, config=config,
-                                             options=options)
+            client.sys.enable_secrets_engine(backend, description=description, local=local, seal_wrap=seal_wrap,
+                                             path=name, config=config, options=options)
             if new_engine_configuration:
                 client.secrets.kv.v2.configure(mount_point=name, cas_required=cas_required, max_versions=max_versions)
         else:
-            client.sys.enable_secrets_engine(backend, description=description, path=name, config=config)
+            client.sys.enable_secrets_engine(backend, description=description, local=local, seal_wrap=seal_wrap,
+                                             path=name, config=config, options=options)
         created = True
 
     # update

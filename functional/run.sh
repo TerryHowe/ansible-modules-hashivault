@@ -29,6 +29,7 @@ ansible-playbook -v test_k8_auth.yml
 ansible-playbook -v test_oidc_auth_method_config.yml
 ansible-playbook -v test_oidc_auth_role.yml
 ansible-playbook -v test_secret_engine.yml
+#ansible-playbook -v test_secret_engine_enterprise.yml
 ansible-playbook -v test_secret_list.yml
 # ansible-playbook -v test_namespace.yml cannot run without enterprise
 # ansible-playbook -v test_db_config.yml cannot run without true db connectivity

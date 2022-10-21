@@ -30,6 +30,13 @@ options:
     options:
         description:
             - options of secret backend
+    seal_wrap:
+        description:
+            - HSM wrapping of secrets
+    local:
+        description:
+            - disable performance replication
+
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -48,7 +55,8 @@ def main():
     argspec['backend'] = dict(required=True, type='str')
     argspec['description'] = dict(required=False, type='str')
     argspec['config'] = dict(required=False, type='dict')
-    argspec['options'] = dict(required=False, type='dict')
+    argspec['seal_wrap'] = dict(required=False, type='bool')
+    argspec['local'] = dict(required=False, type='bool')
     module = hashivault_init(argspec)
     result = hashivault_secret_enable(module.params)
     if result.get('failed'):
@@ -65,12 +73,15 @@ def hashivault_secret_enable(params):
     description = params.get('description')
     config = params.get('config')
     options = params.get('options')
+    seal_wrap = params.get('seal_wrap')
+    local = params.get('local')
     secrets = client.sys.list_mounted_secrets_engines()
     secrets = secrets.get('data', secrets)
     path = name + "/"
     if path in secrets:
         return {'changed': False}
-    client.sys.enable_secrets_engine(backend, description=description, path=name, config=config, options=options)
+    client.sys.enable_secrets_engine(backend, description=description, local=local, seal_wrap=seal_wrap,
+                                     path=name, config=config, options=options)
     return {'changed': True}
 
 
