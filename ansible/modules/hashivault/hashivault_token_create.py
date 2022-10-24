@@ -121,7 +121,7 @@ def hashivault_token_create(params):
     period = params.get('period')
     explicit_max_ttl = params.get('explicit_max_ttl')
 
-    token = client.create_token(
+    token = client.auth.token.create(
         role=role,
         token_id=token_id,
         policies=policies,
