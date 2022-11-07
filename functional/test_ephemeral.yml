@@ -3,11 +3,12 @@
   gather_facts: no
   tasks:
     - name: Make sure ephemeral secret store is disabled
-      hashivault_secret_disable:
+      hashivault_secret_engine:
         name: "ephemeral"
+        state: absent
       failed_when: False
     - name: Enable ephemeral secret store
-      hashivault_secret_enable:
+      hashivault_secret_engine:
         name: "ephemeral"
         backend: "generic"
       register: 'vault_secret_enable'
@@ -15,7 +16,7 @@
     - assert: { that: "{{vault_secret_enable.rc}} == 0" }
 
     - name: Enable same secret store again and check it doesn't fail
-      hashivault_secret_enable:
+      hashivault_secret_engine:
         name: "ephemeral"
         backend: "generic"
       register: 'vault_secret_enable_twice'
@@ -56,26 +57,27 @@
     - assert: { that: "'{{vault_read.msg}}' == 'Secret ephemeral/name is not in vault'" }
 
     - name: Tune ephemeral secret store
-      hashivault_mount_tune:
-        mount_point: ephemeral
-        default_lease_ttl: 3600
-        max_lease_ttl: 8600
-      register: vault_tune
-    - assert: { that: "{{ vault_tune.changed }} == True" }
-    - assert: { that: "{{ vault_tune.rc }} == 0" }
+      hashivault_secret_engine:
+        name: "ephemeral"
+        backend: "generic"
+        description: "new description"
+      register: vault_update
+    - assert: { that: "{{ vault_update.changed }} == True" }
+    - assert: { that: "{{ vault_update.rc }} == 0" }
 
     - name: Idempotent tuning ephemeral secret store
-      hashivault_mount_tune:
-        mount_point: ephemeral
-        default_lease_ttl: 3600
-        max_lease_ttl: 8600
-      register: vault_tune
-    - assert: { that: "{{ vault_tune.changed }} == False" }
-    - assert: { that: "{{ vault_tune.rc }} == 0" }
+      hashivault_secret_engine:
+        name: "ephemeral"
+        backend: "generic"
+        description: "new description"
+      register: vault_update
+    - assert: { that: "{{ vault_update.changed }} == False" }
+    - assert: { that: "{{ vault_update.rc }} == 0" }
 
     - name: Disable ephemeral secret store
-      hashivault_secret_disable:
+      hashivault_secret_engine:
         name: "ephemeral"
+        state: disabled
       register: 'vault_secret_disable'
     - assert: { that: "{{vault_secret_enable.changed}} == True" }
     - assert: { that: "{{vault_secret_enable.rc}} == 0" }

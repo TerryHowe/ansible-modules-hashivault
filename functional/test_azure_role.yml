@@ -10,8 +10,9 @@
     azure_role1: [{ "role_name": "Contributor","scope": "/subscriptions/xyz"}]
     azure_role2: [{ "role_name": "Contributor","scope": "/subscriptions/xyz"}, { "role_name": "Reader","scope": "/subscriptions/xyz"}]
   tasks:
-    - hashivault_secret_disable:
+    - hashivault_secret_engine:
         name: azure
+        state: disable
       failed_when: false
 
     - name: fail before mount is configured
@@ -24,7 +25,7 @@
     - assert: { that: "{{ fail_config.changed }} == False" } # fail
     
     - name: enable azure secret engine
-      hashivault_secret_enable:
+      hashivault_secret_engine:
         name: azure
         backend: azure
          

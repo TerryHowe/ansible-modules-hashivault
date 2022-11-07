@@ -38,7 +38,6 @@ ansible-playbook -vvv test_consul_role.yml
 # ansible-playbook -v test_azure_config.yml
 # ansible-playbook -v test_azure_role.yml cannot run without true azure connectivity
 ansible-playbook -v test_policy.yml
-ansible-playbook -v test_policy_old.yml
 ansible-playbook -v test_status.yml
 ansible-playbook -v test_not_there.yml
 ansible-playbook -v test_ephemeral.yml
@@ -47,7 +46,6 @@ ansible-playbook -v test_kv2.yml
 ansible-playbook -v test_cas.yml
 ansible-playbook -v test_tokens.yml
 ansible-playbook -v test_audit.yml
-ansible-playbook -v test_audit_old.yml
 ansible-playbook -v test_read_write_file.yml
 ansible-playbook -v test_environment_lookup.yml
 ansible-playbook -v test_unseal.yml
@@ -75,7 +73,6 @@ ansible-playbook -v test_approle_mount_point.yml
 source ./approlenv.sh
 ansible-playbook -v --extra-vars='namespace=lightning/' test_write.yml test_read.yml test_lookup.yml
 source ./vaultenv.sh
-ansible-playbook -v test_approle_old.yml
 
 # tokenrole
 ansible-playbook -v test_token_role.yml
