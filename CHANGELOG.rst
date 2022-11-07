@@ -2,6 +2,17 @@ Changelog
 =========
 
 
+4.7.1 (2022-11-07)
+------------------
+- Disable hvac 1.x support for now. [Terry Howe]
+- Update configuration. [Terry Howe]
+- Add idempotency test to test_ldap_group. [Matt Harlum]
+- Fix "enable ldap authentication" in test_ldap_group. [Matt Harlum]
+- Fixup idempotency of hashivault_auth_ldap. [Matt Harlum]
+- Add self_renew for hashivault_token_renew. [Terry Howe]
+- Fix PKI tests from new hvac. [Terry Howe]
+
+
 4.7.0 (2022-06-19)
 ------------------
 - Add a hashivault_ssh_role_list module. [Szymon Soloch]
