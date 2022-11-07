@@ -27,9 +27,6 @@ options:
     metadata:
         description:
             - Metadata to be tied to the secret.
-    wrap_ttl:
-        description:
-            - Wrap TTL.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -57,7 +54,6 @@ def main():
     argspec['secret_id'] = dict(required=False, type='str')
     argspec['cidr_list'] = dict(required=False, type='str')
     argspec['metadata'] = dict(required=False, type='dict')
-    argspec['wrap_ttl'] = dict(required=False, type='str')
     module = hashivault_init(argspec)
     result = hashivault_approle_role_secret_create(module.params)
     if result.get('failed'):
@@ -72,18 +68,15 @@ def hashivault_approle_role_secret_create(params):
     custom_secret_id = params.get('secret_id')
     cidr_list = params.get('cidr_list')
     metadata = params.get('metadata')
-    wrap_ttl = params.get('wrap_ttl')
 
     client = hashivault_auth_client(params)
 
     if custom_secret_id is not None:
-        result = client.create_role_custom_secret_id(role_name=name,
-                                                     secret_id=custom_secret_id,
-                                                     meta=metadata)
+        result = client.auth.approle.create_custom_secret_id(role_name=name,
+                                                             secret_id=custom_secret_id,
+                                                             metadata=metadata)
     else:
-        result = client.create_role_secret_id(role_name=name, meta=metadata,
-                                              cidr_list=cidr_list,
-                                              wrap_ttl=wrap_ttl)
+        result = client.auth.approle.generate_secret_id(role_name=name, metadata=metadata, cidr_list=cidr_list)
     return result['data']
 
 

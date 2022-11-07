@@ -36,10 +36,10 @@ def main():
 def hashivault_generate_root_cancel(params):
     client = hashivault_client(params)
     # Check if generate_root is on-going & return when generate_root not in progress
-    status = client.generate_root_status
+    status = client.sys.read_root_generation_progress()
     if not status['started']:
         return {'changed': False}
-    return {'status': client.cancel_generate_root(), 'changed': True}
+    return {'status': client.sys.cancel_root_generation().ok, 'getter': str(status), 'changed': True}
 
 
 if __name__ == '__main__':

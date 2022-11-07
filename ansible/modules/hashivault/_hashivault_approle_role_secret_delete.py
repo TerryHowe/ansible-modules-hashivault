@@ -49,7 +49,7 @@ def hashivault_approle_role_secret_delete(params):
     name = params.get('name')
     secret = params.get('secret')
     client = hashivault_auth_client(params)
-    client.delete_role_secret_id(name, secret)
+    client.auth.approle.destroy_secret_id(name, secret)
     return {'changed': True}
 
 

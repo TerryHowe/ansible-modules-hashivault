@@ -198,14 +198,3 @@
     - assert: { that: "{{vault_role_secret_list.rc}} == 0" }
     - fail: msg="secret {{approle_secret_id_accessor}} shoud not be in list"
       when: approle_secret_id_accessor in vault_role_secret_list.secrets
-
-    - name: create secret wrap_ttl
-      hashivault_approle_role_secret:
-        name: testrole
-        state: present
-        wrap_ttl: 30s
-      register: 'vault_role_secret_create'
-    - set_fact:
-        approle_secret_id: "{{vault_role_secret_create.wrap_info.token}}"
-    - set_fact:
-        approle_secret_id_accessor: "{{vault_role_secret_create.wrap_info.accessor}}"

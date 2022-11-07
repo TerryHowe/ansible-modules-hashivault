@@ -170,10 +170,10 @@ def hashivault_approle_role(module):
                     desired_state[arg] = value
 
         try:
-            previous_state = client.get_role(name, mount_point=mount_point)
+            previous_state = client.auth.approle.read_role(name, mount_point=mount_point)
         except Exception:
             if not module.check_mode:
-                client.create_role(name, mount_point=mount_point, **desired_state)
+                client.auth.approle.create_or_update_approle(name, mount_point=mount_point, **desired_state)
             return {'changed': True}
 
         changed = False
@@ -190,16 +190,16 @@ def hashivault_approle_role(module):
             return {'changed': False, 'missing': missing, 'previous_state': previous_state}
 
         if not module.check_mode:
-            client.create_role(name, mount_point=mount_point, **desired_state)
+            client.auth.approle.create_or_update_approle(name, mount_point=mount_point, **desired_state)
         return {'changed': True, 'missing': missing}
     if module.check_mode:
         try:
-            client.get_role(name, mount_point=mount_point)
+            client.auth.approle.read_role(name, mount_point=mount_point)
         except Exception:
             return {'changed': False}
         return {'changed': True}
     else:
-        client.delete_role(name, mount_point=mount_point)
+        client.auth.approle.delete_role(name, mount_point=mount_point)
     return {'changed': True}
 
 

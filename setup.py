@@ -16,7 +16,7 @@ long_description = open('README.rst', 'r').read()
 
 setup(
     name='ansible-modules-hashivault',
-    version='4.7.1',
+    version='5.0.0',
     description='Ansible Modules for Hashicorp Vault',
     long_description=long_description,
     long_description_content_type='text/x-rst',
@@ -26,8 +26,8 @@ setup(
     py_modules=py_files,
     packages=files,
     install_requires=[
-        'ansible>=4.0.0',
-        'hvac>=0.11.2,<1',
+        'ansible>=5.0.0',
+        'hvac>=1.0.0',
         'requests',
     ],
 )

@@ -34,9 +34,6 @@ options:
     metadata:
         description:
             - Metadata to be tied to the secret.
-    wrap_ttl:
-        description:
-            - Wrap TTL.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -67,7 +64,6 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default='approle')
     argspec['cidr_list'] = dict(required=False, type='str')
     argspec['metadata'] = dict(required=False, type='dict')
-    argspec['wrap_ttl'] = dict(required=False, type='str')
     argspec['secret'] = dict(required=False, type='str')
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_approle_role_secret(module)
@@ -91,43 +87,38 @@ def hashivault_approle_role_secret(module):
             custom_secret_id = params.get('secret_id')  # deprecated
         cidr_list = params.get('cidr_list')
         metadata = params.get('metadata')
-        wrap_ttl = params.get('wrap_ttl')
         if custom_secret_id is not None:
             if module.check_mode:
                 try:
-                    client.get_role_secret_id(name, custom_secret_id, mount_point=mount_point)
+                    client.auth.approle.read_secret_id(name, custom_secret_id, mount_point=mount_point)
                 except Exception:
                     return {'changed': True}
                 return {'changed': False}
-            result = client.create_role_custom_secret_id(role_name=name,
-                                                         mount_point=mount_point,
-                                                         secret_id=custom_secret_id,
-                                                         meta=metadata)
+            result = client.auth.approle.create_custom_secret_id(role_name=name,
+                                                                 mount_point=mount_point,
+                                                                 secret_id=custom_secret_id,
+                                                                 metadata=metadata)
         else:
             if module.check_mode:
                 return {'changed': True}
-            result = client.create_role_secret_id(role_name=name,
-                                                  mount_point=mount_point,
-                                                  meta=metadata,
-                                                  cidr_list=cidr_list,
-                                                  wrap_ttl=wrap_ttl)
+            result = client.auth.approle.generate_secret_id(role_name=name,
+                                                            mount_point=mount_point,
+                                                            metadata=metadata,
+                                                            cidr_list=cidr_list)
 
-        if wrap_ttl is None:
-            response_key = 'data'
-        else:
-            response_key = 'wrap_info'
+        response_key = 'data'
 
         return {'changed': True, response_key: result.get(response_key, {})}
     elif state == 'absent':
         secret = params.get('secret')
         if module.check_mode:
             try:
-                client.get_role_secret_id(name, secret, mount_point=mount_point)
+                client.auth.approle.read_secret_id(name, secret, mount_point=mount_point)
             except Exception:
                 return {'changed': False}
             return {'changed': True}
         else:
-            client.delete_role_secret_id(name, secret, mount_point=mount_point)
+            client.auth.approle.destroy_secret_id(name, secret, mount_point=mount_point)
         return {'changed': True}
     else:
         return {'failed': True, 'msg': 'Unkown state value: {}'.format(state)}
