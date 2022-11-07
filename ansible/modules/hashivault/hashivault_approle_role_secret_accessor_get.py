@@ -56,7 +56,7 @@ def hashivault_approle_role_secret_accessor_get(params):
     mount_point = params.get('mount_point')
     accessor = params.get('accessor')
     client = hashivault_auth_client(params)
-    return {'secret': client.get_role_secret_id_accessor(name, accessor, mount_point=mount_point)['data']}
+    return {'secret': client.auth.approle.read_secret_id_accessor(name, accessor, mount_point=mount_point)['data']}
 
 
 if __name__ == '__main__':

@@ -6,27 +6,27 @@
     admin_rules: >
         path "secret/*" {
           capabilities = ["create", "read", "update", "delete", "list"]
-        } 
+        }
         path "auth/token/create*" {
           capabilities = ["create", "read", "update", "delete", "list", "sudo"]
-        } 
+        }
         path "auth/token/lookup*" {
           capabilities = ["read", "list"]
-        } 
+        }
         path "auth/token/lookup/*" {
           capabilities = ["read", "list"]
-        } 
+        }
         path "sys/policy" {
           capabilities = ["read"]
-        } 
+        }
         path "sys/policy/*" {
           capabilities = ["create", "read", "update", "delete", "list"]
-        } 
+        }
     readonly_name: 'readonly'
     readonly_rules: >
         path "secret/test-readonly*" {
           policy = "read"
-        } 
+        }
     vault_root_token: "{{lookup('env','VAULT_TOKEN')}}"
   tasks:
     - name: "Create a policy (with sudo, so we don't have to use the root token)"
@@ -88,7 +88,7 @@
         display_name: "{{readonly_name}}"
         policies: ["{{readonly_name}}"]
         no_default_policy: True
-        orphan: True
+        no_parent: True
         token: "{{new_root_token}}"
       register: "vault_token_readonly"
     - assert:

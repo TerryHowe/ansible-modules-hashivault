@@ -101,13 +101,13 @@ def hashivault_approle_role_create(params):
     policies = params.get('policies')
     client = hashivault_auth_client(params)
     kwargs = {
-        'policies': policies,
+        'token_policies': policies,
     }
     for arg in args:
         value = params.get(arg)
         if value is not None:
             kwargs[arg] = value
-    client.create_role(name, **kwargs)
+    client.auth.approle.create_or_update_approle(name, **kwargs)
     return {'changed': True}
 
 
