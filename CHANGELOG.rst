@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+Breaking Changes:
+- hashivault_approle_role_secret removed wrap_ttl for now
+- hashivault_generate_root_init otp added
+- hashivault_token_create removed lease and orphan (use no_parent)
+- ansible 5 only now
+
 4.7.1 (2022-11-07)
 ------------------
 - Disable hvac 1.x support for now. [Terry Howe]
