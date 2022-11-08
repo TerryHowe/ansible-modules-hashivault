@@ -2,11 +2,31 @@ Changelog
 =========
 
 
-Breaking Changes:
-- hashivault_approle_role_secret removed wrap_ttl for now
-- hashivault_generate_root_init otp added
-- hashivault_token_create removed lease and orphan (use no_parent)
-- ansible 5 only now
+5.0.0 (2022-11-08)
+------------------
+- Remove deprecated modules. [Terry Howe]
+  * hashivault_approle_role_create
+  * hashivault_approle_role_secret_create
+  * hashivault_approle_role_secret_delete
+  * hashivault_audit_enable
+  * hashivault_auth_enable
+  * hashivault_aws_ec2_role_create
+  * hashivault_mount_tune
+  * hashivault_policy_delete
+  * hashivault_policy_set
+  * hashivault_policy_set_from_file
+  * hashivault_secret_disable
+  * hashivault_secret_enable
+  * hashivault_userpass_create
+  * hashivault_userpass_delete
+- Changes for hvac 1.x. [Terry Howe]
+- Breaking Changes:
+  * hashivault_approle_role_secret removed wrap_ttl for now
+  * hashivault_generate_root_init otp added
+  * hashivault_token_create removed lease and orphan (use no_parent)
+  * ansible 5 only now
+
+
 
 4.7.1 (2022-11-07)
 ------------------
