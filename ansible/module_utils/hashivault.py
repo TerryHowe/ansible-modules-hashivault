@@ -5,6 +5,7 @@ import requests
 from ansible.module_utils.basic import AnsibleModule, env_fallback
 from hvac.exceptions import InvalidPath
 
+normalize = {'list': list, 'str': str, 'dict': dict, 'bool': bool, 'int': int, 'duration': str}
 
 def hashivault_argspec():
     argument_spec = dict(
@@ -41,6 +42,21 @@ def hashivault_init(argument_spec, supports_check_mode=False, required_if=None, 
     module.no_log_values.discard('ttl')
     return module
 
+
+def hashivault_normalize_from_doc(options, documentation):
+    desired_state = {}
+    for key, value in options.items():
+        config_type = documentation.get(key, {}).get('type')
+        if config_type is not None:
+            try:
+                value = normalize[config_type](value)
+            except Exception:
+                return {'changed': False, 'failed': True,
+                        'msg': 'config item \'{}\' has wrong data format'.format(key)}
+
+        desired_state[key] = value
+
+    return desired_state
 
 def get_ec2_iam_role():
     request = requests.get(url='http://169.254.169.254/latest/meta-data/iam/security-credentials/')
