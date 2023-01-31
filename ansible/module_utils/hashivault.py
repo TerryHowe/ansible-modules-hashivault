@@ -7,6 +7,7 @@ from hvac.exceptions import InvalidPath
 
 normalize = {'list': list, 'str': str, 'dict': dict, 'bool': bool, 'int': int, 'duration': str}
 
+
 def hashivault_argspec():
     argument_spec = dict(
         url=dict(required=False, default=os.environ.get('VAULT_ADDR', ''), type='str'),
@@ -43,11 +44,14 @@ def hashivault_init(argument_spec, supports_check_mode=False, required_if=None, 
     return module
 
 
-def hashivault_normalize_from_doc(options, documentation):
+def hashivault_normalize_from_doc(module, options, documentation):
     desired_state = {}
     for key, value in options.items():
         config_type = documentation.get(key, {}).get('type')
-        if config_type is not None:
+        if config_type is None:
+            module.warn('Unknown option "{}". Make sure this is not a typo, if it is not, please open an '
+                        'issue at https://github.com/TerryHowe/ansible-modules-hashivault/issues.'.format(key))
+        else:
             try:
                 value = normalize[config_type](value)
             except Exception:
@@ -57,6 +61,7 @@ def hashivault_normalize_from_doc(options, documentation):
         desired_state[key] = value
 
     return desired_state
+
 
 def get_ec2_iam_role():
     request = requests.get(url='http://169.254.169.254/latest/meta-data/iam/security-credentials/')
