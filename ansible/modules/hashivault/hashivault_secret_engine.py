@@ -104,7 +104,7 @@ def main():
     argspec['options'] = dict(required=False, type='dict', default={})
     argspec['cas_required'] = dict(required=False, type='bool')
     argspec['max_versions'] = dict(required=False, type='int')
-    module = hashivault_init(argspec)
+    module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_secret_engine(module)
     if result.get('failed'):
         module.fail_json(**result)
@@ -171,6 +171,12 @@ def hashivault_secret_engine(module):
         # doesn't exist
         pass
 
+    desired_state = {
+        **config,
+        'options': options if 'version' in options else {},
+        'description': description
+    }
+
     # doesnt exist and should or does exist and shouldnt
     if (exists and state == 'disabled'):
         changed = True
@@ -227,7 +233,14 @@ def hashivault_secret_engine(module):
     elif changed and state == 'disabled' and not module.check_mode:
         client.sys.disable_secrets_engine(path=name)
 
-    return {'changed': changed, 'created': created}
+    return {
+        "changed": changed,
+        "created": created,
+        "diff": {
+            "before": current_state,
+            "after": desired_state,
+        },
+    }
 
 
 if __name__ == '__main__':
