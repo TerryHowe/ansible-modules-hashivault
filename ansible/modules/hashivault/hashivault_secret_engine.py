@@ -137,7 +137,7 @@ def hashivault_secret_engine(module):
     params = module.params
     client = hashivault_auth_client(params)
     name = params.get('name')
-    backend = params.get('backend', name)
+    backend = params.get('backend')
     description = params.get('description')
     config = params.get('config')
     if 'default_lease_ttl' in config:
@@ -162,6 +162,8 @@ def hashivault_secret_engine(module):
     created = False
     changed = False
 
+    if not backend:
+        backend = name
     try:
         # does the mount exist already?
         configuration = client.sys.read_mount_configuration(path=name)
