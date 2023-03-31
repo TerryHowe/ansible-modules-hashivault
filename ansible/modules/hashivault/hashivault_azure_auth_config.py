@@ -105,8 +105,9 @@ def hashivault_azure_auth_config(module):
 
     # check if current config matches desired config values, if they dont match, set changed true
     for k, v in current_state.items():
-        if v != desired_state[k]:
-            changed = True
+        if k in desired_state:
+            if v != desired_state[k]:
+                changed = True
 
     # if configs dont match and checkmode is off, complete the change
     if changed and not module.check_mode:
