@@ -99,6 +99,7 @@ def hashivault_auth_method(module):
     if mount_point is None:
         mount_point = method_type
 
+    # Get current auth methods
     try:
         result = client.sys.list_auth_methods()
         auth_methods = result.get('data', result)
@@ -107,6 +108,7 @@ def hashivault_auth_method(module):
     except Exception:
         pass
 
+    # Check required actions
     if state == 'enabled' and not exists:
         changed = True
         create = True
@@ -120,14 +122,18 @@ def hashivault_auth_method(module):
         }
         changed = description != current_auth_method['description'] or is_state_changed(config, current_auth_method['config'])
 
-    if state == 'enabled' and not module.check_mode:
+    # create
+    if state == 'enabled' and changed and not module.check_mode:
         if create:
             client.sys.enable_auth_method(method_type, description=description, path=mount_point, config=config)
+        # update
         else:
             client.sys.tune_auth_method(description=description, path=mount_point, **config)
-    elif state == 'disabled' and not module.check_mode:
+    # delete
+    elif state == 'disabled' and changed and not module.check_mode:
         client.sys.disable_auth_method(path=mount_point)
 
+    # Get resulting auth method
     try:
         final_result = client.sys.list_auth_methods()
         retval = final_result['data'][mount_point + u"/"]
