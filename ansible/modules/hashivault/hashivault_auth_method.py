@@ -83,6 +83,11 @@ def hashivault_auth_method(module):
     exists = False
     changed = False
     create = False
+    current_state = {}
+    desired_state = {
+        'config': config,
+        'description': description
+    }
 
     if mount_point is None:
         mount_point = method_type
@@ -101,23 +106,29 @@ def hashivault_auth_method(module):
     elif state == 'disabled' and exists:
         changed = True
     elif exists and state == 'enabled':
-        current_state = auth_methods[mount_point + u"/"]
-        changed = description != current_state['description'] or is_state_changed(config, current_state['config'])
+        current_auth_method = auth_methods[mount_point + u"/"]
+        current_state = {
+            'config': current_auth_method['config'],
+            'description': current_auth_method['description']
+        }
+        changed = description != current_auth_method['description'] or is_state_changed(config, current_auth_method['config'])
 
-    if module.check_mode:
-        return {'changed': changed, 'created': create, 'state': state}
-    if not changed:
-        return {'changed': changed, 'created': False, 'state': state}
-
-    if state == 'enabled':
+    if state == 'enabled' and not module.check_mode:
         if create:
             client.sys.enable_auth_method(method_type, description=description, path=mount_point, config=config)
         else:
             client.sys.tune_auth_method(description=description, path=mount_point, **config)
-    if state == 'disabled':
+    elif state == 'disabled' and not module.check_mode:
         client.sys.disable_auth_method(path=mount_point)
 
-    return {'changed': changed, 'created': create}
+    return {
+        "changed": changed,
+        "created": create,
+        "diff": {
+            "before": current_state,
+            "after": desired_state,
+        },
+    }
 
 
 if __name__ == '__main__':
