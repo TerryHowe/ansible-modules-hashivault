@@ -115,12 +115,12 @@ def hashivault_auth_method(module):
     elif state == 'disabled' and exists:
         changed = True
     elif exists and state == 'enabled':
-        current_auth_method = auth_methods[mount_point + u"/"]
+        auth_method = auth_methods[mount_point + u"/"]
         current_state = {
-            'config': current_auth_method['config'],
-            'description': current_auth_method['description']
+            'config': auth_method['config'],
+            'description': auth_method['description']
         }
-        changed = description != current_auth_method['description'] or is_state_changed(config, current_auth_method['config'])
+        changed = description != auth_method['description'] or is_state_changed(config, auth_method['config'])
 
     # create
     if state == 'enabled' and changed and not module.check_mode:
