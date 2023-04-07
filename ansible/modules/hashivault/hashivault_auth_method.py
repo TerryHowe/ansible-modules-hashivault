@@ -42,6 +42,13 @@ EXAMPLES = '''
         method_type: userpass
 '''
 
+RETURN = r'''
+result:
+    description: The current configuration of the auth method if it exists.
+    type: dict
+    returned: always
+'''
+
 DEFAULT_TTL = 2764800
 DEFAULT_CONFIG = {
     'default_lease_ttl': DEFAULT_TTL,
@@ -121,9 +128,17 @@ def hashivault_auth_method(module):
     elif state == 'disabled' and not module.check_mode:
         client.sys.disable_auth_method(path=mount_point)
 
+    try:
+        final_result = client.sys.list_auth_methods()
+        retval = final_result['data'][mount_point + u"/"]
+    except Exception:
+        retval = {}
+        pass
+
     return {
         "changed": changed,
         "created": create,
+        "result": retval,
         "diff": {
             "before": current_state,
             "after": desired_state,
