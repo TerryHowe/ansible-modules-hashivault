@@ -43,6 +43,10 @@ EXAMPLES = '''
 '''
 
 RETURN = r'''
+path:
+    description: The path of the auth method.
+    type: str
+    returned: always
 result:
     description: The current configuration of the auth method if it exists.
     type: dict
@@ -144,6 +148,7 @@ def hashivault_auth_method(module):
     return {
         "changed": changed,
         "created": create,
+        "path": mount_point,
         "result": retval,
         "diff": {
             "before": current_state,
