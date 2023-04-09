@@ -132,7 +132,13 @@ def hashivault_oidc_auth_method_config(module):
 
     if changed and not module.check_mode:
         client.auth.oidc.configure(**desired_state)
-    return {'changed': changed, 'old_state': current_state, 'new_state': desired_state}
+    return {
+        'changed': changed,
+        "diff": {
+            "before": current_state,
+            "after": desired_state,
+        }
+    }
 
 
 if __name__ == '__main__':
