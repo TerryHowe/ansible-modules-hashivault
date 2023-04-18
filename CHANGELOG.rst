@@ -2,6 +2,27 @@ Changelog
 =========
 
 
+5.1.0 (2023-04-18)
+------------------
+- Refactor policy module. [Cees Moerkerken]
+- Add diff, fixes #439. [Cees Moerkerken]
+- Add path to return values. [Cees Moerkerken]
+- Fix line length linting. [Cees Moerkerken]
+- Only call enable or tune when changed. add comments. [Cees Moerkerken]
+- Add result to return values, fixes #435. [Cees Moerkerken]
+- Add diff, fixes #436. [Cees Moerkerken]
+- Replace whitelist_externals with allowlist_externals. [Cees
+  Moerkerken]
+- Prevent keyerror on inconsistencies between the current and desired
+  state. [Cees Moerkerken]
+- Add diff and enable check mode support. [Cees Moerkerken]
+- Warn user when an unknown value is processed by the option
+  normalization. [Benjamin Demarteau]
+- Extract option normalisation to module_utils and reverse logic to
+  allow for unknown options. [Benjamin Demarteau]
+- Create SECURITY.md. [Terry Howe]
+
+
 5.0.0 (2022-11-08)
 ------------------
 - Remove deprecated modules. [Terry Howe]
