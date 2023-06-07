@@ -33,6 +33,10 @@ options:
         description:
             - name of database plugin used. see out of the box list at
               https://www.vaultproject.io/docs/secrets/databases/index.html
+    plugin_version:
+        description:
+            - Specifies the semantic version of the plugin to use for this connection
+              https://developer.hashicorp.com/vault/api-docs/secret/databases      
     allowed_roles:
         description:
             - list of the roles allowed to use this connection. Defaults to empty (no roles), if contains a "*" any role
@@ -82,6 +86,7 @@ def main():
     argspec['mount_point'] = dict(required=False, type='str', default='database')
     argspec['config_file'] = dict(required=False, type='str', default=None)
     argspec['plugin_name'] = dict(required=False, type='str')
+    argspec['plugin_version'] = dict(required=False, type='str')
     argspec['allowed_roles'] = dict(required=False, type='list', default=[])
     argspec['root_credentials_rotate_statements'] = dict(required=False, type='list',
                                                          aliases=['root_rotation_statements'], default=[])
@@ -114,6 +119,7 @@ def hashivault_db_secret_engine_config(module):
         desired_state = json.loads(open(params.get('config_file'), 'r').read())
     else:
         desired_state['plugin_name'] = params.get('plugin_name')
+        desired_state['plugin_version'] = params.get('plugin_version')
         desired_state['allowed_roles'] = params.get('allowed_roles')
         desired_state['verify_connection'] = params.get('verify_connection')
         desired_state['password_policy'] = params.get('password_policy')
