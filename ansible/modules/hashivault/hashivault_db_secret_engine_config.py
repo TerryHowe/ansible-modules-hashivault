@@ -36,7 +36,7 @@ options:
     plugin_version:
         description:
             - Specifies the semantic version of the plugin to use for this connection
-              https://developer.hashicorp.com/vault/api-docs/secret/databases      
+              https://developer.hashicorp.com/vault/api-docs/secret/databases
     allowed_roles:
         description:
             - list of the roles allowed to use this connection. Defaults to empty (no roles), if contains a "*" any role
