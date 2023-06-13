@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+5.1.1 (2023-06-13)
+------------------
+- Add plugin_version params for the vault api. [Ankit]
+  Ref https://github.com/TerryHowe/ansible-modules-hashivault/issues/442
+
+
 5.1.0 (2023-04-18)
 ------------------
 - Refactor policy module. [Cees Moerkerken]
