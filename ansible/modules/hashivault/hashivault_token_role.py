@@ -267,7 +267,7 @@ def hashivault_token_role(module):
             doc = yaml.safe_load(DOCUMENTATION)
             args = doc.get("options").get("config").get("suboptions")
             try:
-                extra_params = hashivault_normalize_from_doc(module, config, args)
+                extra_params = hashivault_normalize_from_doc(module, desired_state, args)
             except Exception as e:
                 return e.args[0]
             # create or update
