@@ -54,9 +54,13 @@ def hashivault_normalize_from_doc(module, options, documentation):
         else:
             try:
                 value = normalize[config_type](value)
-            except Exception:
-                return {'changed': False, 'failed': True,
-                        'msg': 'config item \'{}\' has wrong data format'.format(key)}
+            except Exception as e:
+                raise Exception({
+                    'changed': False,
+                    'failed': True,
+                    'msg':
+                        'config item \'{}\' with value \'{}\' could not be converted to \'{}\': {}'
+                        .format(key, value, config_type, "\n".join(e.args))})
 
         desired_state[key] = value
 

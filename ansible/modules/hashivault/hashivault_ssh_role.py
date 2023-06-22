@@ -389,8 +389,10 @@ def hashivault_ssh_role(module):
             # it returns in the GET endpoint.
             doc = yaml.safe_load(DOCUMENTATION)
             args = doc.get("options").get("config").get("suboptions")
-            data = hashivault_normalize_from_doc(module, desired_state, args)
-
+            try:
+                data = hashivault_normalize_from_doc(module, desired_state, args)
+            except Exception as e:
+                return e.args[0]
             # create or update
             client.secrets.kv.v1.create_or_update_secret(
                 mount_point=mount_point,
