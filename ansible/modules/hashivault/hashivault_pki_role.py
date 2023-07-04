@@ -352,7 +352,10 @@ def hashivault_pki_role(module):
         import yaml
         doc = yaml.safe_load(DOCUMENTATION)
         args = doc.get('options').get('config').get('suboptions')
-        desired_state = hashivault_normalize_from_doc(module, config, args)
+        try:
+            desired_state = hashivault_normalize_from_doc(module, config, args)
+        except Exception as e:
+            return e.args[0]
 
     changed = False
     try:

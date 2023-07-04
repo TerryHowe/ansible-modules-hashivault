@@ -51,12 +51,16 @@ def hashivault_normalize_from_doc(module, options, documentation):
         if config_type is None:
             module.warn('Unknown option "{}". Make sure this is not a typo, if it is not, please open an '
                         'issue at https://github.com/TerryHowe/ansible-modules-hashivault/issues.'.format(key))
-        else:
+        elif value is not None:
             try:
                 value = normalize[config_type](value)
-            except Exception:
-                return {'changed': False, 'failed': True,
-                        'msg': 'config item \'{}\' has wrong data format'.format(key)}
+            except Exception as e:
+                raise Exception({
+                    'changed': False,
+                    'failed': True,
+                    'msg':
+                        'config item \'{}\' with value \'{}\' could not be converted to \'{}\': {}'
+                        .format(key, value, config_type, "\n".join(e.args))})
 
         desired_state[key] = value
 
