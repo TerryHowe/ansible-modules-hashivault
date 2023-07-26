@@ -20,7 +20,7 @@ options:
         default: present
     name:
         description:
-            - secret name.
+            - role name
     mount_point:
         description:
             - mount point for role
@@ -106,9 +106,9 @@ def hashivault_approle_role_secret(module):
                                                             metadata=metadata,
                                                             cidr_list=cidr_list)
 
-        response_key = 'data'
-
-        return {'changed': True, response_key: result.get(response_key, {})}
+        data = result.get('data', {})
+        secret_id = data.get('secret_id', '')
+        return {'changed': True, 'data': data, 'id': secret_id}
     elif state == 'absent':
         secret = params.get('secret')
         if module.check_mode:
