@@ -24,7 +24,8 @@ def hashivault_argspec():
         role_id=dict(required=False, fallback=(env_fallback, ['VAULT_ROLE_ID']), type='str', no_log=True),
         secret_id=dict(required=False, fallback=(env_fallback, ['VAULT_SECRET_ID']), type='str', no_log=True),
         aws_header=dict(required=False, fallback=(env_fallback, ['VAULT_AWS_HEADER']), type='str', no_log=True),
-        namespace=dict(required=False, default=os.environ.get('VAULT_NAMESPACE', None), type='str')
+        namespace=dict(required=False, default=os.environ.get('VAULT_NAMESPACE', None), type='str'),
+        timeout=dict(required=False, default=30, type=int)
     )
     return argument_spec
 
@@ -99,6 +100,7 @@ def hashivault_client(params):
     cert = (client_cert, client_key)
     check_verify = params.get('verify')
     namespace = params.get('namespace', None)
+    timeout = params.get('timeout')
     if check_verify == '' or check_verify:
         if ca_cert:
             verify = ca_cert
@@ -108,7 +110,7 @@ def hashivault_client(params):
             verify = check_verify
     else:
         verify = check_verify
-    client = hvac.Client(url=url, cert=cert, verify=verify, namespace=namespace)
+    client = hvac.Client(url=url, cert=cert, verify=verify, namespace=namespace, timeout=timeout)
     return client
 
 
