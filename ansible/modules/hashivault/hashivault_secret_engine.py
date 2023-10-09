@@ -115,7 +115,7 @@ def main():
     argspec['options'] = dict(required=False, type='dict', default={})
     argspec['cas_required'] = dict(required=False, type='bool')
     argspec['max_versions'] = dict(required=False, type='int')
-    argspec['seal_wrap'] = dict(required=False, type='bool')
+    argspec['seal_wrap'] = dict(required=False, type='bool', default=False)
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_secret_engine(module)
     if result.get('failed'):
