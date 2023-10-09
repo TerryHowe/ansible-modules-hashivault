@@ -81,7 +81,7 @@ options:
             - Max versions for secret engine for kv version 2 only
     seal_wrap:
         description:
-            - Enable seal wrapping for secret engine. Enterprise feature
+            - Enable seal wrapping for secret engine. Can only be adjusted when creating new engine. Enterprise feature
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -239,8 +239,7 @@ def hashivault_secret_engine(module):
                 client.secrets.kv.v2.configure(
                     mount_point=name,
                     cas_required=cas_required,
-                    max_versions=max_versions,
-                    seal_wrap=seal_wrap
+                    max_versions=max_versions
                 )
         else:
             client.sys.enable_secrets_engine(
@@ -259,7 +258,6 @@ def hashivault_secret_engine(module):
                 path=name,
                 description=description,
                 options=options,
-                seal_wrap=seal_wrap,
                 **config
             )
             if new_engine_configuration:
@@ -267,13 +265,11 @@ def hashivault_secret_engine(module):
                     mount_point=name,
                     cas_required=cas_required,
                     max_versions=max_versions,
-                    seal_wrap=seal_wrap
                 )
         else:
             client.sys.tune_mount_configuration(
                 path=name,
                 description=description,
-                seal_wrap=seal_wrap,
                 **config
             )
 
