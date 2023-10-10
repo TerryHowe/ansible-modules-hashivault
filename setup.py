@@ -27,7 +27,7 @@ setup(
     packages=files,
     install_requires=[
         'ansible>=5.0.0',
-        'hvac>=1.0.0',
+        'hvac>=1.2.1',
         'requests',
     ],
 )
