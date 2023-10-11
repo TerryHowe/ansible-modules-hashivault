@@ -2,6 +2,30 @@ Changelog
 =========
 
 
+5.1.2 (2023-10-11)
+------------------
+- Update hvac requirement. [Terry Howe]
+- Issue #451 - added user filter parameter to ldap configuration. [Emory
+  Otott]
+- Issue #450 - fixed issue where I was adding unsupported seal_wrap
+  param to kv v2 configuration and tune mount configuration method
+  resulting in failed tests. [Emory Otott]
+- Issue #450 added default value of false for parameter seal_wrap.
+  [Emory Otott]
+- #450 added seal wrap parameter to hashivault secret engine. [Emory
+  Otott]
+- Add general parameter timeout. [Sebi]
+  Default value of 30, as it is in hvac, to prevent inconsistency.
+- Add timeout as a general parameter. [Sebi]
+- Fix output hashivault_approle_role_secret format. [Aleksey Zhukov]
+- Token_role: correctly add new values instead of overriding. [Benjamin
+  Demarteau]
+- Hashivault_normalize_from_doc: don't swallow exceptions. [Benjamin
+  Demarteau]
+- Ssh_role,token_role: don't fail when encountering unknown options.
+  [Benjamin Demarteau]
+
+
 5.1.1 (2023-06-13)
 ------------------
 - Add plugin_version params for the vault api. [Ankit]
