@@ -124,7 +124,7 @@ options:
                     - Although this parameter could take a string with comma-delimited items, it's highly advised to
                       not do so as it would break idempotency.
             allowed_other_sans:
-                type: type
+                type: list
                 description:
                     - Defines allowed custom OID/UTF8-string SANs
                     - Each item of the list has the same format as OpenSSL `<oid>;<type>:<value>`, but the only valid
