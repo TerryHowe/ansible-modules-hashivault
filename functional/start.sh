@@ -36,7 +36,7 @@ chmod a+r $TMP_CONFIG
 TAG=latest
 TAG=1.13.3
 docker stop $DOCKER_NAME 2>/dev/null || true
-docker rm $DOCKER_NAME 2>/dev/null || true
+docker rm -f $DOCKER_NAME 2>/dev/null || true
 docker run --name $DOCKER_NAME -h $DOCKER_NAME -d \
     --cap-add IPC_LOCK \
 	-p 127.0.0.1:${PORT}:${PORT} \
