@@ -13,6 +13,10 @@ short_description: Hashicorp Vault init enable module
 description:
     - Module to init Hashicorp Vault.
 options:
+    seal_method:
+        description:
+            - specifies if `secret_*` or `recovery_*` options should be used.
+        default: secret
     secret_shares:
         description:
             - specifies the number of shares to split the master key into.
@@ -36,11 +40,11 @@ options:
     recovery_shares:
         description:
             - specifies the number of shares to split the recovery key into.
-        default: None
+        default: 5
     recovery_threshold:
         description:
             - specifies the number of shares required to reconstruct the recovery key.
-        default: None
+        default: 3
     recovery_pgp_keys:
         description:
             - specifies an array of PGP public keys used to encrypt the output recovery keys.
@@ -63,8 +67,11 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['secret_shares'] = dict(required=False, type='int', default=5)
-    argspec['secret_threshold'] = dict(required=False, type='int', default=3)
+    argspec['seal_method'] = dict(
+        required=False, type='str', default='secret', choices=['secret', 'recovery']
+    )
+    argspec['secret_shares'] = dict(required=False, type='int', default=None)
+    argspec['secret_threshold'] = dict(required=False, type='int', default=None)
     argspec['pgp_keys'] = dict(required=False, type='list', default=None)
     argspec['root_token_pgp_key'] = dict(required=False, type='str', default=None)
     argspec['stored_shares'] = dict(required=False, type='int', default=None)
@@ -72,11 +79,56 @@ def main():
     argspec['recovery_threshold'] = dict(required=False, type='int', default=None)
     argspec['recovery_pgp_keys'] = dict(required=False, type='list', default=None)
     module = hashivault_init(argspec)
+    additional_parameter_handling(module)
     result = hashivault_initialize(module.params)
     if result.get('failed'):
         module.fail_json(**result)
     else:
         module.exit_json(**result)
+
+
+def additional_parameter_handling(module):
+    '''Additional parameter validation'''
+
+    # Default shares and thresholds depending on the seal method
+    if module.params.get('seal_method') == 'secret':
+        module.params['secret_shares'] = (
+            5
+            if module.params.get('secret_shares') is None
+            else module.params.get('secret_shares')
+        )
+        module.params['secret_threshold'] = (
+            3
+            if module.params.get('secret_threshold') is None
+            else module.params.get('secret_threshold')
+        )
+
+        if (
+            module.params.get('recovery_shares')
+            or module.params.get('recovery_threshold')
+            or module.params.get('recovery_pgp_keys')
+        ):
+            module.fail_json(
+                msg="'recovery_*' options are only valid if 'seal_method' == 'recovery'",
+                changed=False,
+            )
+    else:
+        module.params['recovery_shares'] = (
+            5
+            if module.params.get('recovery_shares') is None
+            else module.params.get('recovery_shares')
+        )
+        module.params['recovery_threshold'] = (
+            3
+            if module.params.get('recovery_threshold') is None
+            else module.params.get('recovery_threshold')
+        )
+
+        if module.params.get('secret_shares') or module.params.get('secret_threshold'):
+            module.fail_json(
+                msg="'secret_*' options are only valid if 'seal_method' == 'secret'",
+                changed=False,
+            )
 
 
 @hashiwrapper
