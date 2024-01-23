@@ -134,7 +134,7 @@ def hashivault_auth(client, params):
     elif authtype == 'approle':
         client = AppRoleClient(client, role_id, secret_id, mount_point=login_mount_point)
     elif authtype == 'tls':
-        client.auth_tls()
+        client.auth.cert.login()
     elif authtype == 'aws':
         credentials = get_ec2_iam_credentials(params.get['aws_header'], role_id)
         client.auth_aws_iam(**credentials)
