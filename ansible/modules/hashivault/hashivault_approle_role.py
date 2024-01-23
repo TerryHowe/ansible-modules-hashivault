@@ -36,16 +36,16 @@ options:
             - Number of times any particular SecretID can be used.
     secret_id_ttl:
         description:
-            - Duration after which any SecretID expires.
+            - Duration after which any SecretID expires, in seconds
     enable_local_secret_ids:
         description:
             - If set, the secret IDs generated using this role will be cluster local.
     token_ttl:
         description:
-            - Duration to set as the TTL for issued tokens and at renewal time.
+            - Duration to set as the TTL for issued tokens and at renewal time, in seconds.
     token_max_ttl:
         description:
-            - Duration after which the issued token can no longer be renewed.
+            - Duration after which the issued token can no longer be renewed, in seconds.
     policies:
         description:
             - Policies for the role.
@@ -60,7 +60,7 @@ options:
             - Comma-separated string or list of CIDR blocks.
     token_explicit_max_ttl:
         description:
-            - Encode this value onto the token.
+            - Encode this value onto the token, in seconds..
     token_no_default_policy:
         description:
             - Default policy will not be set on generated tokens.
@@ -102,10 +102,10 @@ def main():
     argspec['bind_secret_id'] = dict(required=False, type='bool', no_log=True)
     argspec['secret_id_bound_cidrs'] = dict(required=False, type='list')
     argspec['secret_id_num_uses'] = dict(required=False, type='str')
-    argspec['secret_id_ttl'] = dict(required=False, type='str')
+    argspec['secret_id_ttl'] = dict(required=False, type='int')
     argspec['enable_local_secret_ids'] = dict(required=False, type='bool')
-    argspec['token_ttl'] = dict(required=False, type='str')
-    argspec['token_max_ttl'] = dict(required=False, type='str')
+    argspec['token_ttl'] = dict(required=False, type='int')
+    argspec['token_max_ttl'] = dict(required=False, type='int')
     argspec['policies'] = dict(required=False, type='list')
     argspec['token_policies'] = dict(required=False, type='list', default=[])
     argspec['token_bound_cidrs'] = dict(required=False, type='list')
@@ -113,8 +113,8 @@ def main():
     argspec['token_explicit_max_ttl'] = dict(required=False, type='str')
     argspec['token_no_default_policy'] = dict(required=False, type='bool')
     argspec['token_num_uses'] = dict(required=False, type='int')
-    argspec['period'] = dict(required=False, type='str')
-    argspec['token_period'] = dict(required=False, type='str')
+    argspec['period'] = dict(required=False, type='int')
+    argspec['token_period'] = dict(required=False, type='int')
     argspec['token_type'] = dict(required=False, type='str')
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_approle_role(module)
