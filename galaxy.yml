@@ -1,0 +1,12 @@
+---
+authors:
+  - Terry Howe
+license_file: LICENSE
+name: hashivault
+namespace: terryhowe
+description: Ansible Collection for Hashicorp Vault
+readme: README.md
+repository: https://github.com/TerryHowe/ansible-modules-hashivault
+issues: https://github.com/TerryHowe/ansible-modules-hashivault/issues
+tags: [vault]
+version: "5.1.2"
