@@ -2,6 +2,7 @@
 #
 # This test runs a vault container on the host network port 8201.
 #
+[ -d ~/.docker ] && export DOCKER_CONFIG=~/.docker
 cd "$(dirname "$0")"
 HOMEDIR=$(dirname $(dirname $PWD))
 HOME=${HOME:-${HOMEDIR}}
