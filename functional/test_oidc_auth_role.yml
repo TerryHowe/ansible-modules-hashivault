@@ -30,7 +30,7 @@
         token_policies: ["test"]
       register: success_config
 
-    - assert: { that: "{{ success_config.changed }} == True" }
+    - assert: { that: "success_config is changed" }
 
     - name: idempotently create role
       hashivault_oidc_auth_role:
@@ -40,7 +40,7 @@
         token_policies: ["test"]
       register: idem_config
 
-    - assert: { that: "{{ idem_config.changed }} == False" }
+    - assert: { that: "idem_config is not changed" }
 
     - name: delete role
       hashivault_oidc_auth_role:
@@ -49,4 +49,4 @@
         allowed_redirect_uris: ["https://123456.com/callback"]
       register: del_config
 
-    - assert: { that: "{{ del_config.changed }} == True" }
+    - assert: { that: "del_config is changed" }

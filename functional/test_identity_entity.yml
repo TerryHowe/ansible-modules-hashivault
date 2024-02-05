@@ -14,32 +14,32 @@
         name: bob
         policies: bob
       register: vault_identity
-    - assert: { that: "{{vault_identity.changed}} == True" }
-    - assert: { that: "{{vault_identity.rc}} == 0" }
+    - assert: { that: "vault_identity is changed" }
+    - assert: { that: "vault_identity.rc == 0" }
 
     - name: Update no change
       hashivault_identity_entity:
         name: bob
         policies: bob
       register: vault_identity
-    - assert: { that: "{{vault_identity.changed}} == False" }
-    - assert: { that: "{{vault_identity.rc}} == 0" }
+    - assert: { that: "vault_identity is not changed" }
+    - assert: { that: "vault_identity.rc == 0" }
 
     - name: Update remove policy
       hashivault_identity_entity:
         name: bob
         policies: null
       register: vault_identity
-    - assert: { that: "{{vault_identity.changed}} == False" }
-    - assert: { that: "{{vault_identity.rc}} == 0" }
+    - assert: { that: "vault_identity is not changed" }
+    - assert: { that: "vault_identity.rc == 0" }
 
     - name: Update readd policy
       hashivault_identity_entity:
         name: bob
         policies: bob
       register: vault_identity
-    - assert: { that: "{{vault_identity.changed}} == False" }
-    - assert: { that: "{{vault_identity.rc}} == 0" }
+    - assert: { that: "vault_identity is not changed" }
+    - assert: { that: "vault_identity.rc == 0" }
 
     - name: Update
       hashivault_identity_entity:
@@ -50,43 +50,43 @@
           c: d
         disabled: True
       register: vault_identity
-    - assert: { that: "{{vault_identity.changed}} == True" }
-    - assert: { that: "{{vault_identity.rc}} == 0" }
+    - assert: { that: "vault_identity is changed" }
+    - assert: { that: "vault_identity.rc == 0" }
 
     - name: Delete it for the first time
       hashivault_identity_entity:
         name: bob
         state: absent
       register: vault_identity
-    - assert: { that: "{{vault_identity.changed}} == True" }
-    - assert: { that: "{{vault_identity.rc}} == 0" }
+    - assert: { that: "vault_identity is changed" }
+    - assert: { that: "vault_identity.rc == 0" }
 
     - name: Delete it again
       hashivault_identity_entity:
         name: bob
         state: absent
       register: vault_identity
-    - assert: { that: "{{vault_identity.changed}} == False" }
-    - assert: { that: "{{vault_identity.rc}} == 0" }
+    - assert: { that: "vault_identity is not changed" }
+    - assert: { that: "vault_identity.rc == 0" }
 
     - name: Create new one
       hashivault_identity_entity:
         name: sam
         policies: sam
       register: vault_identity
-    - assert: { that: "{{vault_identity.changed}} == True" }
-    - assert: { that: "{{vault_identity.rc}} == 0" }
+    - assert: { that: "vault_identity is changed" }
+    - assert: { that: "vault_identity.rc == 0" }
 
     - hashivault_identity_entity_alias:
         name: sammy
         entity_name: sam
       register: vault_identity_alias
-    - assert: { that: "{{vault_identity_alias.changed}} == True" }
-    - assert: { that: "{{vault_identity_alias.rc}} == 0" }
+    - assert: { that: "vault_identity_alias is changed" }
+    - assert: { that: "vault_identity_alias.rc == 0" }
     - hashivault_identity_entity_alias:
         name: sammy
         entity_name: sam
         state: absent
       register: vault_identity_alias
-    - assert: { that: "{{vault_identity_alias.changed}} == True" }
-    - assert: { that: "{{vault_identity_alias.rc}} == 0" }
+    - assert: { that: "vault_identity_alias is changed" }
+    - assert: { that: "vault_identity_alias.rc == 0" }

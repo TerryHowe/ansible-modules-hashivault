@@ -17,14 +17,14 @@
         secret: test_delete_permanent
         permanent: true
       register: vault_delete
-    - assert: { that: "{{vault_delete.changed}} == True" }
-    - assert: { that: "{{vault_delete.rc}} == 0" }
-    - assert: { that: "'{{vault_delete.msg}}' == 'Secret secret/test_delete_permanent deleted'" }
+    - assert: { that: "vault_delete is changed" }
+    - assert: { that: "vault_delete.rc == 0" }
+    - assert: { that: "vault_delete.msg == 'Secret secret/test_delete_permanent deleted'" }
 
     - name: Make sure secret value is gone
       hashivault_read:
         secret: test_delete_permanent
       register: vault_read
       failed_when: False
-    - assert: { that: "{{vault_read.changed}} == False" }
-    - assert: { that: "'{{vault_read.msg}}' == 'Secret secret/test_delete_permanent is not in vault'" }
+    - assert: { that: "vault_read is not changed" }
+    - assert: { that: "vault_read.msg == 'Secret secret/test_delete_permanent is not in vault'" }

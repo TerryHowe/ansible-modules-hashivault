@@ -16,14 +16,14 @@
         name: "approle_test_policy_original"
         rules: "{{rules}}"
       register: vault_policy
-    - assert: { that: "{{vault_policy.rc}} == 0" }
+    - assert: { that: "vault_policy.rc == 0" }
 
     - name: Set another approle policy
       hashivault_policy:
         name: "approle_test_policy"
         rules: "{{rules}}"
       register: vault_policy
-    - assert: { that: "{{vault_policy.rc}} == 0" }
+    - assert: { that: "vault_policy.rc == 0" }
 
     - name: enable approle authentication
       hashivault_auth_method:
@@ -44,17 +44,17 @@
           - approle_test_policy_original
         state: present
       register: 'vault_role_create_bound_cidrs'
-    - assert: { that: "{{vault_role_create_bound_cidrs.changed}} == True" }
-    - assert: { that: "{{vault_role_create_bound_cidrs.rc}} == 0" }
+    - assert: { that: "vault_role_create_bound_cidrs is changed" }
+    - assert: { that: "vault_role_create_bound_cidrs.rc == 0" }
 
     - name: get role with token_bound_cidrs and secret_id_bound_cidrs
       hashivault_approle_role_get:
         name: testrole_bound_cidrs
       register: 'vault_role_get_bound_cidrs'
-    - assert: { that: "{{vault_role_get_bound_cidrs.changed}} == False" }
-    - assert: { that: "{{vault_role_get_bound_cidrs.rc}} == 0" }
-    - assert: { that: "'{{vault_role_get_bound_cidrs.role.data.token_bound_cidrs[0]}}' == '127.0.0.1'" }
-    - assert: { that: "'{{vault_role_get_bound_cidrs.role.data.secret_id_bound_cidrs[0]}}' == '127.0.0.1/32'" }
+    - assert: { that: "vault_role_get_bound_cidrs is not changed" }
+    - assert: { that: "vault_role_get_bound_cidrs.rc == 0" }
+    - assert: { that: "vault_role_get_bound_cidrs.role.data.token_bound_cidrs[0] == '127.0.0.1'" }
+    - assert: { that: "vault_role_get_bound_cidrs.role.data.secret_id_bound_cidrs[0] == '127.0.0.1/32'" }
 
     - name: create role
       hashivault_approle_role:
@@ -63,8 +63,8 @@
           - approle_test_policy_original
         state: present
       register: 'vault_role_create'
-    - assert: { that: "{{vault_role_create.changed}} == True" }
-    - assert: { that: "{{vault_role_create.rc}} == 0" }
+    - assert: { that: "vault_role_create is changed" }
+    - assert: { that: "vault_role_create.rc == 0" }
 
     - name: update role
       hashivault_approle_role:
@@ -73,8 +73,8 @@
           - approle_test_policy
         state: present
       register: 'vault_role_update'
-    - assert: { that: "{{vault_role_update.changed}} == True" }
-    - assert: { that: "{{vault_role_update.rc}} == 0" }
+    - assert: { that: "vault_role_update is changed" }
+    - assert: { that: "vault_role_update.rc == 0" }
 
     - name: update role idempotent
       hashivault_approle_role:
@@ -83,14 +83,14 @@
           - approle_test_policy
         state: present
       register: 'vault_role_update'
-    - assert: { that: "{{vault_role_update.changed}} == False" }
-    - assert: { that: "{{vault_role_update.rc}} == 0" }
+    - assert: { that: "vault_role_update is not changed" }
+    - assert: { that: "vault_role_update.rc == 0" }
 
     - name: list roles
       hashivault_approle_role_list:
       register: 'vault_role_list'
-    - assert: { that: "{{vault_role_list.changed}} == False" }
-    - assert: { that: "{{vault_role_list.rc}} == 0" }
+    - assert: { that: "vault_role_list is not changed" }
+    - assert: { that: "vault_role_list.rc == 0" }
     - fail: msg="role testrole not in list {{vault_role_list.roles}}"
       when: '"testrole" not in vault_role_list.roles'
 
@@ -98,15 +98,15 @@
       hashivault_approle_role_get:
         name: testrole
       register: 'vault_role'
-    - assert: { that: "{{vault_role.changed}} == False" }
-    - assert: { that: "{{vault_role.rc}} == 0" }
+    - assert: { that: "vault_role is not changed" }
+    - assert: { that: "vault_role.rc == 0" }
 
     - name: get role id
       hashivault_approle_role_id:
         name: testrole
       register: 'vault_role_id'
-    - assert: { that: "{{vault_role_id.changed}} == False" }
-    - assert: { that: "{{vault_role_id.rc}} == 0" }
+    - assert: { that: "vault_role_id is not changed" }
+    - assert: { that: "vault_role_id.rc == 0" }
     - assert:
         that:
           - vault_role_id.id|default('') != ''
@@ -120,8 +120,8 @@
         name: testrole
         state: present
       register: 'vault_role_secret_create'
-    - assert: { that: "{{vault_role_secret_create.changed}} == True" }
-    - assert: { that: "{{vault_role_secret_create.rc}} == 0" }
+    - assert: { that: "vault_role_secret_create is changed" }
+    - assert: { that: "vault_role_secret_create.rc == 0" }
     - assert:
         that:
           - vault_role_secret_create.data.secret_id_accessor|default('') != ''
@@ -140,8 +140,8 @@
       hashivault_approle_role_secret_list:
         name: testrole
       register: 'vault_role_secret_list'
-    - assert: { that: "{{vault_role_secret_list.changed}} == False" }
-    - assert: { that: "{{vault_role_secret_list.rc}} == 0" }
+    - assert: { that: "vault_role_secret_list is not changed" }
+    - assert: { that: "vault_role_secret_list.rc == 0" }
     - fail: msg="secret {{approle_secret_id_accessor}} not in list"
       when: approle_secret_id_accessor not in vault_role_secret_list.secrets
 
@@ -150,26 +150,26 @@
         name: testrole
         secret: "{{approle_secret_id}}"
       register: 'vault_role_secret_get'
-    - assert: { that: "{{vault_role_secret_get.changed}} == False" }
-    - assert: { that: "{{vault_role_secret_get.rc}} == 0" }
-    - assert: { that: "'{{vault_role_secret_get.secret.secret_id_accessor}}' == '{{approle_secret_id_accessor}}'" }
+    - assert: { that: "vault_role_secret_get is not changed" }
+    - assert: { that: "vault_role_secret_get.rc == 0" }
+    - assert: { that: "vault_role_secret_get.secret.secret_id_accessor == approle_secret_id_accessor" }
 
     - name: get non existing secret
       hashivault_approle_role_secret_get:
         name: testrole
         secret: "1-2-3-4"
       register: 'vault_role_secret_get_not_existing'
-    - assert: { that: "'{{vault_role_secret_get_not_existing.status}}' == 'absent'" }
-    - assert: { that: "{{vault_role_secret_get_not_existing.rc}} == 0" }
+    - assert: { that: "vault_role_secret_get_not_existing.status == 'absent'" }
+    - assert: { that: "vault_role_secret_get_not_existing.rc == 0" }
 
     - name: get secret accessor
       hashivault_approle_role_secret_accessor_get:
         name: testrole
         accessor: "{{approle_secret_id_accessor}}"
       register: 'vault_role_secret_accessor_get'
-    - assert: { that: "{{vault_role_secret_accessor_get.changed}} == False" }
-    - assert: { that: "{{vault_role_secret_accessor_get.rc}} == 0" }
-    - assert: { that: "'{{vault_role_secret_accessor_get.secret.secret_id_accessor}}' != ''" }
+    - assert: { that: "vault_role_secret_accessor_get is not changed" }
+    - assert: { that: "vault_role_secret_accessor_get.rc == 0" }
+    - assert: { that: "vault_role_secret_accessor_get.secret.secret_id_accessor != ''" }
 
     - name: create secret to delete
       hashivault_approle_role_secret:
@@ -187,14 +187,14 @@
         secret: "{{approle_secret_id}}"
         state: absent
       register: 'vault_role_secret_delete'
-    - assert: { that: "{{vault_role_secret_delete.changed}} == True" }
-    - assert: { that: "{{vault_role_secret_delete.rc}} == 0" }
+    - assert: { that: "vault_role_secret_delete is changed" }
+    - assert: { that: "vault_role_secret_delete.rc == 0" }
 
     - name: make sure secret is gone
       hashivault_approle_role_secret_list:
         name: testrole
       register: 'vault_role_secret_list'
-    - assert: { that: "{{vault_role_secret_list.changed}} == False" }
-    - assert: { that: "{{vault_role_secret_list.rc}} == 0" }
+    - assert: { that: "vault_role_secret_list is not changed" }
+    - assert: { that: "vault_role_secret_list.rc == 0" }
     - fail: msg="secret {{approle_secret_id_accessor}} shoud not be in list"
       when: approle_secret_id_accessor in vault_role_secret_list.secrets

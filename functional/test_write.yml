@@ -35,9 +35,9 @@
             foo: 'foe'
             fie: 'fum'
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == True" }
-    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/{{name_root}} written'" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is changed" }
+    - assert: { that: "vault_write.msg == 'Secret secret/' + name_root + ' written'" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Write again no update verify changed
       hashivault_write:
@@ -46,9 +46,9 @@
           foo: 'foe'
           fie: 'fum'
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == True" }
-    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/{{name_root}} written'" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is changed" }
+    - assert: { that: "vault_write.msg == 'Secret secret/' + name_root + ' written'" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Update again and verify no change
       hashivault_write:
@@ -58,8 +58,8 @@
           foo: 'foe'
           fie: 'fum'
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == False" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is not changed" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Update new value and detect change
       hashivault_write:
@@ -69,9 +69,9 @@
           foo: 'new'
           fie: 'fum'
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == True" }
-    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/{{name_root}} written'" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is changed" }
+    - assert: { that: "vault_write.msg == 'Secret secret/' + name_root + ' written'" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Update a brand new secret in folder
       hashivault_write:
@@ -80,17 +80,17 @@
         data:
           height: tall
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == True" }
-    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/{{name_folder}} written'" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is changed" }
+    - assert: { that: "vault_write.msg == 'Secret secret/' + name_folder + ' written'" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Write secret dictionary
       hashivault_write:
         update: True
         secret: '{{name_dict}}'
         data: "{{ dict_value }}"
-    - assert: { that: "{{vault_write.changed}} == True" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is changed" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Update again secret dictionary and verify no change
       hashivault_write:
@@ -98,20 +98,20 @@
         secret: '{{name_dict}}'
         data: "{{ dict_value }}"
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == False" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is not changed" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Update new value in dictionary and detect change
       hashivault_write:
         update: True
         secret: '{{name_dict}}'
-        data: 
+        data:
           foo: 'bar'
           baz: 'stuff'
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == True" }
-    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/{{name_dict}} written'" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is changed" }
+    - assert: { that: "vault_write.msg == 'Secret secret/' + name_dict + ' written'" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Write array type secret
       hashivault_write:
@@ -126,8 +126,8 @@
         data:
           value: "{{ array_of_dicts_value }}"
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == True" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is changed" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Update again array of dicts secret and verify no change
       hashivault_write:
@@ -136,8 +136,8 @@
         data:
           value: "{{ array_of_dicts_value }}"
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == False" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is not changed" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Update new value in array of dicts and detect change
       hashivault_write:
@@ -149,9 +149,9 @@
            - name: item-two
            - name: item-new
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == True" }
-    - assert: { that: "'{{vault_write.msg}}' == 'Secret secret/{{name_array_of_dicts}} written'" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is changed" }
+    - assert: { that: "vault_write.msg == 'Secret secret/' + name_array_of_dicts + ' written'" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Initial ttl values
       hashivault_write:
@@ -161,7 +161,7 @@
           ttl:      36000s
           max_ttl: 480s
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == True" }
+    - assert: { that: "vault_write is changed" }
 
     - name: Update minute ttl secret
       hashivault_write:
@@ -170,7 +170,7 @@
         data:
           ttl:      600m
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == False" }
+    - assert: { that: "vault_write is not changed" }
 
     - name: Update hour ttl secret
       hashivault_write:
@@ -179,7 +179,7 @@
         data:
           ttl:      10h
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == False" }
+    - assert: { that: "vault_write is not changed" }
 
     - name: Update second ttl secret
       hashivault_write:
@@ -188,7 +188,7 @@
         data:
           ttl:      36000s
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == False" }
+    - assert: { that: "vault_write is not changed" }
 
     - name: Update second ttl secret no s
       hashivault_write:
@@ -197,7 +197,7 @@
         data:
           ttl:      36000
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == False" }
+    - assert: { that: "vault_write is not changed" }
 
     - name: Update second ttl secret new value
       hashivault_write:
@@ -206,7 +206,7 @@
         data:
           ttl:      36001s
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == True" }
+    - assert: { that: "vault_write is changed" }
 
     - hashivault_delete:
         secret: '{{namespace}}no_log'
@@ -223,8 +223,8 @@
           false: False
           true: True
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == True" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is changed" }
+    - assert: { that: "vault_write.rc == 0" }
 
     - name: Write a secret to mess up no_log again
       hashivault_write:
@@ -238,5 +238,5 @@
           false: False
           true: True
       register: vault_write
-    - assert: { that: "{{vault_write.changed}} == False" }
-    - assert: { that: "{{vault_write.rc}} == 0" }
+    - assert: { that: "vault_write is not changed" }
+    - assert: { that: "vault_write.rc == 0" }

@@ -19,23 +19,23 @@
       - 'two'
       - 'three'
   tasks:
-    - assert: { that: "'{{vars_foo}}' == 'new'" }
+    - assert: { that: "vars_foo == 'new'" }
 
     - set_fact:
         a_set_fie: "{{lookup('hashivault', '{{name_root}}', 'fie')}}"
-    - assert: { that: "'{{a_set_fie}}' == 'fum'" }
+    - assert: { that: "a_set_fie == 'fum'" }
 
     - set_fact:
         a_set_fie: "{{lookup('hashivault', '{{name_folder}}', 'height')}}"
-    - assert: { that: "'{{a_set_fie}}' == 'tall'" }
+    - assert: { that: "a_set_fie == 'tall'" }
 
     - set_fact:
         a_set_dict: "{{lookup('hashivault', '{{name_dict}}', 'foo')}}"
-    - assert: { that: "'{{a_set_dict}}' == 'bar'" }
+    - assert: { that: "a_set_dict == 'bar'" }
 
     - set_fact:
         a_set_array: "{{lookup('hashivault', '{{name_array}}', 'value') | first}}"
-    - assert: { that: "'{{a_set_array}}' == 'one'" }
+    - assert: { that: "a_set_array == 'one'" }
 
     - set_fact:
         a_set_dict_all: "{{lookup('hashivault', '{{name_dict}}')}}"
@@ -47,8 +47,8 @@
 
     - set_fact:
         looky_secret: "{{lookup('hashivault', '{{namespace}}fourofour/notfound', 'value', default='noob')}}"
-    - assert: { that: "'{{looky_secret}}' == 'noob'" }
+    - assert: { that: "looky_secret == 'noob'" }
 
     - set_fact:
         looky_secret: "{{lookup('hashivault', '{{name_root}}', 'fie', url='http://bogus', errors='ignore')}}"
-    - assert: { that: "'{{looky_secret}}' == ''" }
+    - assert: { that: "looky_secret == ''" }

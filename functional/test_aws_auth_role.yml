@@ -16,12 +16,12 @@
         inferred_aws_region: eu-west-1
         bound_iam_role_arn: arn:aws:iam::12345678:role/ec2-role
       register: aws_result
-    - assert: { that: "{{aws_result.changed}} == True" }
-    - assert: { that: "{{aws_result.rc}} == 0" }
+    - assert: { that: "aws_result is changed" }
+    - assert: { that: "aws_result.rc == 0" }
 
     - hashivault_aws_auth_role:
         name: ec2-role
         state: absent
       register: aws_result
-    - assert: { that: "{{aws_result.changed}} == True" }
-    - assert: { that: "{{aws_result.rc}} == 0" }
+    - assert: { that: "aws_result is changed" }
+    - assert: { that: "aws_result.rc == 0" }

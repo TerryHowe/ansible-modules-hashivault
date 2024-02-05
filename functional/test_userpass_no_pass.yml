@@ -43,8 +43,8 @@
         policies: ["policy-bob"]
       register: hashivault_userpass
       no_log: True
-    - assert: { that: "{{hashivault_userpass.changed}} == True" }
-    - assert: { that: "{{hashivault_userpass.rc}} == 0" }
+    - assert: { that: "hashivault_userpass is changed" }
+    - assert: { that: "hashivault_userpass.rc == 0" }
 
     - name: Create token
       hashivault_token_create:
@@ -54,8 +54,8 @@
         policies: ["policy-bob"]
         password: "{{userpass}}"
       register: 'hashivault_userpass_update_no_pass_token'
-    - assert: { that: "{{hashivault_userpass_update_no_pass_token.changed}} == True" }
-    - assert: { that: "{{hashivault_userpass_update_no_pass_token.rc}} == 0" }
+    - assert: { that: "hashivault_userpass_update_no_pass_token is changed" }
+    - assert: { that: "hashivault_userpass_update_no_pass_token.rc == 0" }
 
     - name: Change policies without pass
       hashivault_userpass:
@@ -63,8 +63,8 @@
         password: ""
         policies: ["policy-bob", "default"]
       register: 'hashivault_userpass_update_no_pass'
-    - assert: { that: "{{hashivault_userpass_update_no_pass.changed}} == True" }
-    - assert: { that: "{{hashivault_userpass_update_no_pass.rc}} == 0" }
+    - assert: { that: "hashivault_userpass_update_no_pass is changed" }
+    - assert: { that: "hashivault_userpass_update_no_pass.rc == 0" }
 
     - name: Set cidr without pass is not possible
       hashivault_userpass:
@@ -75,9 +75,9 @@
       register: 'hashivault_userpass_update_no_pass_err'
     - debug:
         var: hashivault_userpass_update_no_pass_err
-    - assert: { that: "{{hashivault_userpass_update_no_pass_err.changed}} == False" }
-    - assert: { that: "{{hashivault_userpass_update_no_pass_err.rc}} == 1" }
-    - assert: { that: "'token_bound_cidrs can only be changed if user_pass is specified and user_pass_update is True' == '{{hashivault_userpass_update_no_pass_err.msg}}'" }
+    - assert: { that: "hashivault_userpass_update_no_pass_err is not changed" }
+    - assert: { that: "hashivault_userpass_update_no_pass_err.rc == 1" }
+    - assert: { that: "'token_bound_cidrs can only be changed if user_pass is specified and user_pass_update is True' == hashivault_userpass_update_no_pass_err.msg" }
 
     - name: Create token with updated user
       hashivault_token_create:
@@ -87,5 +87,5 @@
         policies: ["policy-bob"]
         password: "{{userpass}}"
       register: 'hashivault_userpass_update_no_pass_token'
-    - assert: { that: "{{hashivault_userpass_update_no_pass_token.changed}} == True" }
-    - assert: { that: "{{hashivault_userpass_update_no_pass_token.rc}} == 0" }
+    - assert: { that: "hashivault_userpass_update_no_pass_token is changed" }
+    - assert: { that: "hashivault_userpass_update_no_pass_token.rc == 0" }
