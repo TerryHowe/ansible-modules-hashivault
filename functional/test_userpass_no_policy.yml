@@ -52,5 +52,5 @@
         password: ""
         policies: ["policy-bob", "default"]
       register: 'hashivault_userpass_update_policies'
-    - assert: { that: "{{hashivault_userpass_update_policies.changed}} == True" }
-    - assert: { that: "{{hashivault_userpass_update_policies.rc}} == 0" }
+    - assert: { that: "hashivault_userpass_update_policies is changed" }
+    - assert: { that: "hashivault_userpass_update_policies.rc == 0" }

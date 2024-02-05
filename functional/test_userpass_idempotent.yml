@@ -18,8 +18,8 @@
         policies: bob
       register: hashivault_userpass
       no_log: True
-    - assert: { that: "{{hashivault_userpass.changed}} == True" }
-    - assert: { that: "{{hashivault_userpass.rc}} == 0" }
+    - assert: { that: "hashivault_userpass is changed" }
+    - assert: { that: "hashivault_userpass.rc == 0" }
 
     - name: Set token_bound_cidr for userpass
       hashivault_userpass:
@@ -28,8 +28,8 @@
         policies: "default"
         token_bound_cidrs: "127.0.0.1"
       register: 'hashivault_userpass_token_bound_cidr'
-    - assert: { that: "{{hashivault_userpass_token_bound_cidr.changed}} == True" }
-    - assert: { that: "{{hashivault_userpass_token_bound_cidr.rc}} == 0" }
+    - assert: { that: "hashivault_userpass_token_bound_cidr is changed" }
+    - assert: { that: "hashivault_userpass_token_bound_cidr.rc == 0" }
 
     - name: Set token_bound_cidr for userpass (idempotent)
       hashivault_userpass:
@@ -38,5 +38,5 @@
         policies: "default"
         token_bound_cidrs: "127.0.0.1"
       register: 'hashivault_userpass_token_bound_cidr'
-    - assert: { that: "{{hashivault_userpass_token_bound_cidr.changed}} == False" }
-    - assert: { that: "{{hashivault_userpass_token_bound_cidr.rc}} == 0" }
+    - assert: { that: "hashivault_userpass_token_bound_cidr is not changed" }
+    - assert: { that: "hashivault_userpass_token_bound_cidr.rc == 0" }

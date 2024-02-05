@@ -22,8 +22,8 @@
         options:
           path: "/tmp/vault.log"
       register: audit_module
-    - assert: { that: "{{audit_module.changed}} == True" }
-    - assert: { that: "{{audit_module.rc}} == 0" }
+    - assert: { that: "audit_module is changed" }
+    - assert: { that: "audit_module.rc == 0" }
 
     - name: Create audit idempotent (Vault does not support update at the moment anyway)
       hashivault_audit:
@@ -31,8 +31,8 @@
         options:
           path: "/tmp/vault.log"
       register: audit_module
-    - assert: { that: "{{audit_module.changed}} == False" }
-    - assert: { that: "{{audit_module.rc}} == 0" }
+    - assert: { that: "audit_module is not changed" }
+    - assert: { that: "audit_module.rc == 0" }
 
     - name: Create audit path
       hashivault_audit:
@@ -41,8 +41,8 @@
         options:
           path: "/tmp/path_vault.log"
       register: audit_module
-    - assert: { that: "{{audit_module.changed}} == True" }
-    - assert: { that: "{{audit_module.rc}} == 0" }
+    - assert: { that: "audit_module is changed" }
+    - assert: { that: "audit_module.rc == 0" }
 
     - name: Create audit path again
       hashivault_audit:
@@ -51,16 +51,16 @@
         options:
           path: "/tmp/path_vault.log"
       register: audit_module
-    - assert: { that: "{{audit_module.changed}} == False" }
-    - assert: { that: "{{audit_module.rc}} == 0" }
+    - assert: { that: "audit_module is not changed" }
+    - assert: { that: "audit_module.rc == 0" }
 
     - name: Delete audit
       hashivault_audit:
         device_type: file
         state: absent
       register: audit_module
-    - assert: { that: "{{audit_module.changed}} == True" }
-    - assert: { that: "{{audit_module.rc}} == 0" }
+    - assert: { that: "audit_module is changed" }
+    - assert: { that: "audit_module.rc == 0" }
 
     - name: Delete audit path
       hashivault_audit:
@@ -68,13 +68,13 @@
         path: pathy
         state: absent
       register: audit_module
-    - assert: { that: "{{audit_module.changed}} == True" }
-    - assert: { that: "{{audit_module.rc}} == 0" }
+    - assert: { that: "audit_module is changed" }
+    - assert: { that: "audit_module.rc == 0" }
 
     - name: Delete audit idempotent
       hashivault_audit:
         device_type: file
         state: absent
       register: audit_module
-    - assert: { that: "{{audit_module.changed}} == False" }
-    - assert: { that: "{{audit_module.rc}} == 0" }
+    - assert: { that: "audit_module is not changed" }
+    - assert: { that: "audit_module.rc == 0" }

@@ -23,28 +23,28 @@
         secret: '{{name_root}}'
         key: foo
       register: vault_read
-    - assert: { that: "'{{vault_read.value}}' == 'new'" }
+    - assert: { that: "vault_read.value == 'new'" }
 
     - name: Read other secret value
       hashivault_read:
         secret: '{{name_root}}'
         key: fie
       register: vault_read
-    - assert: { that: "'{{vault_read.value}}' == 'fum'" }
+    - assert: { that: "vault_read.value == 'fum'" }
 
     - name: Read other secret folder
       hashivault_read:
         secret: '{{name_folder}}'
         key: height
       register: vault_read
-    - assert: { that: "'{{vault_read.value}}' == 'tall'" }
+    - assert: { that: "vault_read.value == 'tall'" }
 
     - name: Read secret dictionary
       hashivault_read:
         secret: '{{name_dict}}'
       register: vault_read
     - assert: { that: "vault_read.value == dict_value" }
-    - assert: { that: "{{vault_read.rc}} == 0" }
+    - assert: { that: "vault_read.rc == 0" }
 
     - name: Read array type secret and make sure it matches
       hashivault_read:
@@ -52,10 +52,10 @@
         key: value
       register: vault_read
     - assert: { that: "vault_read.value == array_value" }
-    - assert: { that: "'{{vault_read.value[0]}}' == '{{array_value[0]}}'" }
-    - assert: { that: "'{{vault_read.value[1]}}' == '{{array_value[1]}}'" }
-    - assert: { that: "'{{vault_read.value[2]}}' == '{{array_value[2]}}'" }
+    - assert: { that: "vault_read.value[0] == array_value[0]" }
+    - assert: { that: "vault_read.value[1] == array_value[1]" }
+    - assert: { that: "vault_read.value[2] == array_value[2]" }
 
     - set_fact:
         looky_secret: "{{lookup('hashivault', '{{name_array}}', 'value') | first}}"
-    - assert: { that: "'{{looky_secret}}' == 'one'" }
+    - assert: { that: "looky_secret == 'one'" }
