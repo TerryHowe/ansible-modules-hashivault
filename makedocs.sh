@@ -29,5 +29,5 @@ set -x
 # hacky test build broken
 MODULES=$MODULES make config cli keywords modules
 # hacky -j $CPUS option not working right on mac
-sphinx-build -M html "rst" "_build"  -n -w rst_warnings
-touch _build/html/.nojekyll
+echo 'sphinx-build -M html "rst" "_build"  -n -w rst_warnings'
+echo 'touch _build/html/.nojekyll'
