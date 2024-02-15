@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 from hvac.exceptions import InvalidPath
 
 from ansible.module_utils.hashivault import is_state_changed

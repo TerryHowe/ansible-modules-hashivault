@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-#
-# Vault Lookup Plugin
-#
 # A simple example of using the vault plugin in a role:
 #    ---
 #    - debug: msg="{{lookup('vault', 'ldapadmin', 'password', mount_point='kv2')}}"

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
