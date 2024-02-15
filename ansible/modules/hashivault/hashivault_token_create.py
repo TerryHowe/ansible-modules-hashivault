@@ -28,9 +28,6 @@ options:
     no_parent:
         description:
             - If specified, the token will have no parent
-    lease:
-        description:
-            - If specified, the lease time will be this value. (e.g. 1h)
     display_name:
         description:
             - A display name to associate with this token
@@ -47,10 +44,6 @@ options:
     wrap_ttl:
         description:
             - Indicates that the response should be wrapped in a cubbyhole token with the requested TTL.
-    orphan:
-        description:
-            - "If specified, the token will have no parent. Only This prevents the new token from being revoked with\
-             your token."
     renewable:
         description:
             - Whether or not the token is renewable to extend its TTL up to Vault's configured maximum TTL for tokens
@@ -84,13 +77,11 @@ def main():
     argspec['policies'] = dict(required=True, type='list')
     argspec['metadata'] = dict(required=False, type='str')
     argspec['no_parent'] = dict(required=False, type='bool', default=False)
-    argspec['lease'] = dict(required=False, type='str')
     argspec['display_name'] = dict(required=True, type='str')
     argspec['num_uses'] = dict(required=False, type='str')
     argspec['no_default_policy'] = dict(required=False, type='bool', default=False)
     argspec['ttl'] = dict(required=False, type='str')
     argspec['wrap_ttl'] = dict(required=False, type='str')
-    argspec['orphan'] = dict(required=False, type='bool', default=False)
     argspec['renewable'] = dict(required=False, type='bool')
     argspec['explicit_max_ttl'] = dict(required=False, type='str')
     argspec['period'] = dict(required=False, type='str')
@@ -110,30 +101,26 @@ def hashivault_token_create(params):
     policies = params.get('policies')
     metadata = params.get('metadata')
     no_parent = params.get('no_parent')
-    lease = params.get('lease')
     display_name = params.get('display_name')
     num_uses = params.get('num_uses')
     no_default_policy = params.get('no_default_policy')
     ttl = params.get('ttl')
     wrap_ttl = params.get('wrap_ttl')
-    orphan = params.get('orphan')
     renewable = params.get('renewable')
     period = params.get('period')
     explicit_max_ttl = params.get('explicit_max_ttl')
 
-    token = client.create_token(
-        role=role,
-        token_id=token_id,
+    token = client.auth.token.create(
+        role_name=role,
+        id=token_id,
         policies=policies,
         meta=metadata,
         no_parent=no_parent,
-        lease=lease,
         display_name=display_name,
         num_uses=num_uses,
         no_default_policy=no_default_policy,
         ttl=ttl,
         wrap_ttl=wrap_ttl,
-        orphan=orphan,
         renewable=renewable,
         explicit_max_ttl=explicit_max_ttl,
         period=period

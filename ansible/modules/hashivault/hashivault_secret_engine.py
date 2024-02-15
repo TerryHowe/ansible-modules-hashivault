@@ -79,6 +79,9 @@ options:
     max_versions:
         description:
             - Max versions for secret engine for kv version 2 only
+    seal_wrap:
+        description:
+            - Enable seal wrapping for secret engine. Can only be adjusted when creating new engine. Enterprise feature
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -88,6 +91,14 @@ EXAMPLES = '''
     - hashivault_secret_engine:
         name: ephemeral
         backend: generic
+- hosts: localhost
+  tasks:
+    - hashivault_secret_engine:
+        name: my_kv
+        backend: kv
+        config:
+            version: 2
+        seal_wrap: true
 '''
 
 
@@ -104,7 +115,8 @@ def main():
     argspec['options'] = dict(required=False, type='dict', default={})
     argspec['cas_required'] = dict(required=False, type='bool')
     argspec['max_versions'] = dict(required=False, type='int')
-    module = hashivault_init(argspec)
+    argspec['seal_wrap'] = dict(required=False, type='bool', default=False)
+    module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_secret_engine(module)
     if result.get('failed'):
         module.fail_json(**result)
@@ -151,6 +163,7 @@ def hashivault_secret_engine(module):
     options = params.get('options')
     cas_required = params.get('cas_required')
     max_versions = params.get('max_versions')
+    seal_wrap = params.get('seal_wrap')
     new_engine_configuration = {}
     if str(options.get('version', None)) == '2' or backend == 'kv-v2':
         if cas_required:
@@ -172,6 +185,12 @@ def hashivault_secret_engine(module):
     except Exception:
         # doesn't exist
         pass
+
+    desired_state = {
+        **config,
+        'options': options if 'version' in options else {},
+        'description': description
+    }
 
     # doesnt exist and should or does exist and shouldnt
     if (exists and state == 'disabled'):
@@ -208,28 +227,64 @@ def hashivault_secret_engine(module):
     # create
     if changed and not exists and state == 'enabled' and not module.check_mode:
         if backend == 'kv' or backend == 'kv-v2':
-            client.sys.enable_secrets_engine(backend, description=description, path=name, config=config,
-                                             options=options)
+            client.sys.enable_secrets_engine(
+                backend,
+                description=description,
+                path=name,
+                config=config,
+                options=options,
+                seal_wrap=seal_wrap
+            )
             if new_engine_configuration:
-                client.secrets.kv.v2.configure(mount_point=name, cas_required=cas_required, max_versions=max_versions)
+                client.secrets.kv.v2.configure(
+                    mount_point=name,
+                    cas_required=cas_required,
+                    max_versions=max_versions
+                )
         else:
-            client.sys.enable_secrets_engine(backend, description=description, path=name, config=config)
+            client.sys.enable_secrets_engine(
+                backend,
+                description=description,
+                path=name,
+                config=config,
+                seal_wrap=seal_wrap
+            )
         created = True
 
     # update
     elif changed and exists and state == 'enabled' and not module.check_mode:
         if backend == 'kv' or backend == 'kv-v2':
-            client.sys.tune_mount_configuration(path=name, description=description, options=options, **config)
+            client.sys.tune_mount_configuration(
+                path=name,
+                description=description,
+                options=options,
+                **config
+            )
             if new_engine_configuration:
-                client.secrets.kv.v2.configure(mount_point=name, cas_required=cas_required, max_versions=max_versions)
+                client.secrets.kv.v2.configure(
+                    mount_point=name,
+                    cas_required=cas_required,
+                    max_versions=max_versions,
+                )
         else:
-            client.sys.tune_mount_configuration(path=name, description=description, **config)
+            client.sys.tune_mount_configuration(
+                path=name,
+                description=description,
+                **config
+            )
 
     # delete
     elif changed and state == 'disabled' and not module.check_mode:
         client.sys.disable_secrets_engine(path=name)
 
-    return {'changed': changed, 'created': created}
+    return {
+        "changed": changed,
+        "created": created,
+        "diff": {
+            "before": current_state,
+            "after": desired_state,
+        },
+    }
 
 
 if __name__ == '__main__':

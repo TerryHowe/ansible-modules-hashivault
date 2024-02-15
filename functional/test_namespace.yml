@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: localhost
   tasks:
-    
+
     - hashivault_namespace:
         name: hvtest
         state: absent
@@ -11,48 +11,48 @@
         name: hvtest
       register: first_create
 
-    - assert: { that: "{{first_create.changed}} == True" }
+    - assert: { that: "first_create is changed" }
 
     - hashivault_namespace:
         name: hvtest
       register: idem_create
 
-    - assert: { that: "{{idem_create.changed}} == False" }
+    - assert: { that: "idem_create is not changed" }
 
     - hashivault_namespace:
         name: child
         namespace: hvtest
       register: second_create
 
-    - assert: { that: "{{second_create.changed}} == True" }
-    
+    - assert: { that: "second_create is changed" }
+
     - hashivault_namespace:
         name: child
         namespace: hvtest
       register: second_idem_create
 
-    - assert: { that: "{{second_idem_create.changed}} == False" }
+    - assert: { that: "second_idem_create is not changed" }
 
     - hashivault_namespace:
         name: child2
         namespace: hvtest/child
       register: third_create
 
-    - assert: { that: "{{third_create.changed}} == True" }
+    - assert: { that: "third_create is changed" }
 
     - hashivault_namespace:
         name: child2
         namespace: hvtest/child
       register: third_idem_create
 
-    - assert: { that: "{{third_idem_create.changed}} == False" }
+    - assert: { that: "third_idem_create is not changed" }
 
     - hashivault_namespace:
         name: hvtest
         state: absent
       register: delete_fail
       failed_when: False
-    - assert: { that: "{{delete_fail.rc}} != 0" }
+    - assert: { that: "delete_fail.rc != 0" }
 
 
     - hashivault_namespace:
@@ -61,7 +61,7 @@
         state: absent
       register: delete_one
 
-    - assert: { that: "{{delete_one.changed}} == True" }
+    - assert: { that: "delete_one is changed" }
 
     - hashivault_namespace:
         name: child
@@ -69,18 +69,18 @@
         state: absent
       register: delete_two
 
-    - assert: { that: "{{delete_two.changed}} == True" }
+    - assert: { that: "delete_two is changed" }
 
     - hashivault_namespace:
         name: hvtest
         state: absent
       register: delete_three
 
-    - assert: { that: "{{delete_three.changed}} == True" }
+    - assert: { that: "delete_three is changed" }
 
     - hashivault_namespace:
         name: hvtest
         state: absent
       register: delete_idem
 
-    - assert: { that: "{{delete_idem.changed}} == False" }
+    - assert: { that: "delete_idem is not changed" }

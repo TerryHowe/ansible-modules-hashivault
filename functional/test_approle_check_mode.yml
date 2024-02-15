@@ -10,8 +10,8 @@
         state: present
       check_mode: true
       register: 'vault_role_create'
-    - assert: { that: "{{vault_role_create.changed}} == False" }
-    - assert: { that: "{{vault_role_create.rc}} == 0" }
+    - assert: { that: "vault_role_create is not changed" }
+    - assert: { that: "vault_role_create.rc == 0" }
 
     - name: create role check_mode does not exist
       hashivault_approle_role:
@@ -21,8 +21,8 @@
         state: present
       check_mode: true
       register: 'vault_role_create'
-    - assert: { that: "{{vault_role_create.changed}} == True" }
-    - assert: { that: "{{vault_role_create.rc}} == 0" }
+    - assert: { that: "vault_role_create is changed" }
+    - assert: { that: "vault_role_create.rc == 0" }
 
     - name: delete role check_mode exists
       hashivault_approle_role:
@@ -30,8 +30,8 @@
         state: absent
       check_mode: true
       register: 'vault_role_create'
-    - assert: { that: "{{vault_role_create.changed}} == True" }
-    - assert: { that: "{{vault_role_create.rc}} == 0" }
+    - assert: { that: "vault_role_create is changed" }
+    - assert: { that: "vault_role_create.rc == 0" }
 
     - name: delete role check_mode does not exist
       hashivault_approle_role:
@@ -39,8 +39,8 @@
         state: absent
       check_mode: true
       register: 'vault_role_create'
-    - assert: { that: "{{vault_role_create.changed}} == False" }
-    - assert: { that: "{{vault_role_create.rc}} == 0" }
+    - assert: { that: "vault_role_create is not changed" }
+    - assert: { that: "vault_role_create.rc == 0" }
 
     - name: create secret for check_mode test
       hashivault_approle_role_secret:
@@ -59,8 +59,8 @@
         state: absent
       check_mode: true
       register: 'vault_role_secret_delete'
-    - assert: { that: "{{vault_role_secret_delete.changed}} == True" }
-    - assert: { that: "{{vault_role_secret_delete.rc}} == 0" }
+    - assert: { that: "vault_role_secret_delete is changed" }
+    - assert: { that: "vault_role_secret_delete.rc == 0" }
 
     - name: delete secret does not exist check_mode
       hashivault_approle_role_secret:
@@ -69,5 +69,5 @@
         state: absent
       check_mode: true
       register: 'vault_role_secret_delete'
-    - assert: { that: "{{vault_role_secret_delete.changed}} == False" }
-    - assert: { that: "{{vault_role_secret_delete.rc}} == 0" }
+    - assert: { that: "vault_role_secret_delete is not changed" }
+    - assert: { that: "vault_role_secret_delete.rc == 0" }

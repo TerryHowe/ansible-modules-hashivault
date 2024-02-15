@@ -17,8 +17,8 @@
         kubernetes_host: http://127.0.0.1:8443
         kubernetes_ca_cert: "{{ lookup('file', './cacert.pem') }}"
         token_reviewer_jwt: "{{ lookup('file', './jwt.jws') }}"
-    - assert: { that: "{{ k8s_module.changed }} == True" }
-    - assert: { that: "{{ k8s_module.rc }} == 0" }
+    - assert: { that: "k8s_module is changed" }
+    - assert: { that: "k8s_module.rc == 0" }
 
     - name: idempotent create config
       register: k8s_module
@@ -26,8 +26,8 @@
         kubernetes_host: http://127.0.0.1:8443
         kubernetes_ca_cert: "{{ lookup('file', './cacert.pem') }}"
         token_reviewer_jwt: "{{ lookup('file', './jwt.jws') }}"
-    - assert: { that: "{{ k8s_module.changed }} == False" }
-    - assert: { that: "{{ k8s_module.rc }} == 0" }
+    - assert: { that: "k8s_module is not changed" }
+    - assert: { that: "k8s_module.rc == 0" }
 
     - name: update config
       register: k8s_module
@@ -36,8 +36,8 @@
         kubernetes_ca_cert: "{{ lookup('file', './cacert.pem') }}"
         token_reviewer_jwt: "{{ lookup('file', './jwt.jws') }}"
         # issuer: bob hvac 0.10.2
-    - assert: { that: "{{ k8s_module.changed }} == True" }
-    - assert: { that: "{{ k8s_module.rc }} == 0" }
+    - assert: { that: "k8s_module is changed" }
+    - assert: { that: "k8s_module.rc == 0" }
 
     - name: create role delete
       hashivault_k8s_auth_role:
@@ -52,8 +52,8 @@
         bound_service_account_namespaces: ["default", "some-app"]
         token_type: service
       register: k8s_module
-    - assert: { that: "{{ k8s_module.changed }} == True" }
-    - assert: { that: "{{ k8s_module.rc }} == 0" }
+    - assert: { that: "k8s_module is changed" }
+    - assert: { that: "k8s_module.rc == 0" }
 
     - name: read role
       hashivault_read:
@@ -66,7 +66,7 @@
           - k8s_module.value.bound_service_account_names|sort == ["vault-auth"]|sort
           - k8s_module.value.bound_service_account_namespaces|sort == ["some-app","default"]|sort
           - k8s_module.value.token_type == 'service'
-    - assert: { that: "{{ k8s_module.rc }} == 0" }
+    - assert: { that: "k8s_module.rc == 0" }
 
     - name: create role idempotent
       hashivault_k8s_auth_role:
@@ -76,13 +76,13 @@
         bound_service_account_namespaces: ["default", "some-app"]
         token_type: service
       register: k8s_module
-    - assert: { that: "{{ k8s_module.changed }} == False" }
-    - assert: { that: "{{ k8s_module.rc }} == 0" }
+    - assert: { that: "k8s_module is not changed" }
+    - assert: { that: "k8s_module.rc == 0" }
 
     - name: create role delete
       hashivault_k8s_auth_role:
         name: "testk8srole"
         state: absent
       register: k8s_module
-    - assert: { that: "{{ k8s_module.changed }} == True" }
-    - assert: { that: "{{ k8s_module.rc }} == 0" }
+    - assert: { that: "k8s_module is changed" }
+    - assert: { that: "k8s_module.rc == 0" }

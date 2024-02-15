@@ -4,9 +4,10 @@ import copy
 
 import yaml
 
-from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
+from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
+from ansible.module_utils.hashivault import hashivault_normalize_from_doc
 from ansible.module_utils.hashivault import hashiwrapper
 
 
@@ -310,14 +311,6 @@ EXAMPLES = r"""
         role_file: "/opt/vault/etc/roles/ssh-tester.json"
         state: "present"
 """
-normalize = {
-    "list": list,
-    "str": str,
-    "dict": dict,
-    "bool": bool,
-    "int": int,
-    "duration": str,
-}
 
 
 def main():
@@ -394,21 +387,12 @@ def hashivault_ssh_role(module):
             # normalize some keys. This is a quirk of the vault api that it
             # expects a different data format in the PUT/POST endpoint than
             # it returns in the GET endpoint.
-            data = {}
-
             doc = yaml.safe_load(DOCUMENTATION)
-            args = doc.get("options").get("config").get("suboptions").items()
-            for key, value in args:
-                arg = desired_state.get(key)
-                if arg is not None:
-                    try:
-                        data[key] = normalize[value.get("type")](arg)
-                    except Exception:
-                        return {
-                            "changed": False,
-                            "failed": True,
-                            "msg": "config item '{}' has wrong data format".format(key),
-                        }
+            args = doc.get("options").get("config").get("suboptions")
+            try:
+                data = hashivault_normalize_from_doc(module, desired_state, args)
+            except Exception as e:
+                return e.args[0]
             # create or update
             client.secrets.kv.v1.create_or_update_secret(
                 mount_point=mount_point,

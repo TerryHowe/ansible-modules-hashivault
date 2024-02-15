@@ -17,7 +17,7 @@
         state: present
       register: success_config
 
-    - assert: { that: "{{ success_config.changed }} == True" }
+    - assert: { that: "success_config is changed" }
 
     - name: skip with config defaults
       hashivault_secret_engine:
@@ -25,7 +25,7 @@
         state: present
       register: skip_config
 
-    - assert: { that: "{{ skip_config.changed }} == False" }
+    - assert: { that: "skip_config is not changed" }
 
     - name: changed with config vars
       hashivault_secret_engine:
@@ -34,7 +34,7 @@
         config: {'default_lease_ttl': 1234567}
       register: chg_config
 
-    - assert: { that: "{{ chg_config.changed }} == True" }
+    - assert: { that: "chg_config is changed" }
 
     - name: changed to version 2
       hashivault_secret_engine:
@@ -44,7 +44,7 @@
         options: {'version': '2'}
       register: chg_version
 
-    - assert: { that: "{{ chg_version.changed }} == True" }
+    - assert: { that: "chg_version is changed" }
 
     - name: dont fail when options passed to non kv
       hashivault_secret_engine:
@@ -55,7 +55,7 @@
         options: {'version': '2'}
       register: dont_pass_options
 
-    - assert: { that: "{{ dont_pass_options.changed }} == True" }
+    - assert: { that: "dont_pass_options is changed" }
 
     - name: cleanup 1
       hashivault_secret_engine:
@@ -66,7 +66,7 @@
         options: {'version': '2'}
       register: disable
 
-    - assert: { that: "{{ disable.changed }} == True" }
+    - assert: { that: "disable is changed" }
 
     - name: cleanup 2
       hashivault_secret_engine:
@@ -77,4 +77,4 @@
         options: {'version': '2'}
       register: disable2
 
-    - assert: { that: "{{ disable2.changed }} == True" }
+    - assert: { that: "disable2 is changed" }

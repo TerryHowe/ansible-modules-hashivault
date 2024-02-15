@@ -98,6 +98,9 @@ options:
         description:
             - The maximum lifetime for generated tokens
         default: ''
+    userfilter:
+        description:
+            - LDAP filter that will determine if a user has permission to authenticate to Vault
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -112,11 +115,22 @@ EXAMPLES = '''
         insecure_tls: "{{ auth_ldap_insecure_tls }}"
         group_filter: "{{ auth_ldap_groupfilter }}"
         upn_domain: "{{ auth_ldap_upndomain }}"
+- hosts: localhost
+  tasks:
+    - hashivault_auth_ldap:
+        certificate: "{{ my_certificate }}"
+        user_dn: 'ou=person,dc=my-dc'
+        group_dn: 'ou=group,dc=my-dc'
+        bind_dn: 'cn=bind-account,ou=my-ou,dc=my-dc'
+        ldap_url: 'ldap://my-ldap-instance:389'
+        group_filter: "(&(objectClass=GroupOC)(memberuid={{ '{{' }}.Username {{  '}}' }}))"
+        userfilter: "(&(objectClass=UserOC)(uid={{ '{{' }}.Username {{  '}}' }})(isMemberOf=cn=group,ou=group,dc=dc)"
 '''
 
 
 def main():
     # separate long default value to pass linting
+    default_userfilter = '({{.UserAttr}}={{.Username}})'
     default_group_filter = '(|(memberUid={{.Username}})(member={{.UserDN}})(uniqueMember={{.UserDN}}))'
     argspec = hashivault_argspec()
     argspec['description'] = dict(required=False, type='str')
@@ -130,6 +144,7 @@ def main():
     argspec['certificate'] = dict(required=False, type='str', default='')
     argspec['bind_dn'] = dict(required=False, type='str', default='')
     argspec['bind_pass'] = dict(required=False, type='str', default=None, no_log=True)
+    argspec['userfilter'] = dict(required=False, type='str', default=default_userfilter)
     argspec['user_attr'] = dict(required=False, type='str', default='cn')
     argspec['user_dn'] = dict(required=False, type='str', default='')
     argspec['discover_dn'] = dict(required=False, type='bool', default=False)
@@ -166,6 +181,7 @@ def hashivault_auth_ldap(module):
     desired_state['certificate'] = params.get('certificate')
     desired_state['bind_dn'] = params.get('bind_dn')
     desired_state['bind_pass'] = params.get('bind_pass')
+    desired_state['userfilter'] = params.get('userfilter')
     desired_state['user_attr'] = params.get('user_attr')
     desired_state['user_dn'] = params.get('user_dn')
     desired_state['discover_dn'] = params.get('discover_dn')
@@ -190,6 +206,7 @@ def hashivault_auth_ldap(module):
         # some keys need to be remapped to match desired state (and HVAC implementation)
         current_state['discover_dn'] = result['discoverdn']
         current_state['group_attr'] = result['groupattr']
+        current_state['userfilter'] = result['userfilter']
         current_state['user_attr'] = result['userattr']
         current_state['group_dn'] = result['groupdn']
         current_state['upn_domain'] = result['upndomain']

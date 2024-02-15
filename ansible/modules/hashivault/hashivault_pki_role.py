@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
+from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
-from ansible.module_utils.hashivault import is_state_changed
+from ansible.module_utils.hashivault import hashivault_normalize_from_doc
 from ansible.module_utils.hashivault import hashiwrapper
+from ansible.module_utils.hashivault import is_state_changed
 
 ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = r'''
@@ -123,7 +124,7 @@ options:
                     - Although this parameter could take a string with comma-delimited items, it's highly advised to
                       not do so as it would break idempotency.
             allowed_other_sans:
-                type: type
+                type: list
                 description:
                     - Defines allowed custom OID/UTF8-string SANs
                     - Each item of the list has the same format as OpenSSL `<oid>;<type>:<value>`, but the only valid
@@ -309,7 +310,6 @@ EXAMPLES = r'''
         role_file: "/opt/vault/etc/roles/pki-tester.json"
         state: "present"
 '''
-normalize = {'list': list, 'str': str, 'dict': dict, 'bool': bool, 'int': int, 'duration': str}
 
 
 def main():
@@ -351,15 +351,11 @@ def hashivault_pki_role(module):
     elif config:
         import yaml
         doc = yaml.safe_load(DOCUMENTATION)
-        args = doc.get('options').get('config').get('suboptions').items()
-        for key, value in args:
-            arg = config.get(key)
-            if arg is not None:
-                try:
-                    desired_state[key] = normalize[value.get('type')](arg)
-                except Exception:
-                    return {'changed': False, 'failed': True,
-                            'msg': 'config item \'{}\' has wrong data format'.format(key)}
+        args = doc.get('options').get('config').get('suboptions')
+        try:
+            desired_state = hashivault_normalize_from_doc(module, config, args)
+        except Exception as e:
+            return e.args[0]
 
     changed = False
     try:

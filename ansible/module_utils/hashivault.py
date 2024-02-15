@@ -5,6 +5,8 @@ import requests
 from ansible.module_utils.basic import AnsibleModule, env_fallback
 from hvac.exceptions import InvalidPath
 
+normalize = {'list': list, 'str': str, 'dict': dict, 'bool': bool, 'int': int, 'duration': str}
+
 
 def hashivault_argspec():
     argument_spec = dict(
@@ -22,7 +24,8 @@ def hashivault_argspec():
         role_id=dict(required=False, fallback=(env_fallback, ['VAULT_ROLE_ID']), type='str', no_log=True),
         secret_id=dict(required=False, fallback=(env_fallback, ['VAULT_SECRET_ID']), type='str', no_log=True),
         aws_header=dict(required=False, fallback=(env_fallback, ['VAULT_AWS_HEADER']), type='str', no_log=True),
-        namespace=dict(required=False, default=os.environ.get('VAULT_NAMESPACE', None), type='str')
+        namespace=dict(required=False, default=os.environ.get('VAULT_NAMESPACE', None), type='str'),
+        timeout=dict(required=False, default=30, type=int)
     )
     return argument_spec
 
@@ -40,6 +43,29 @@ def hashivault_init(argument_spec, supports_check_mode=False, required_if=None, 
     module.no_log_values.discard(False)
     module.no_log_values.discard('ttl')
     return module
+
+
+def hashivault_normalize_from_doc(module, options, documentation):
+    desired_state = {}
+    for key, value in options.items():
+        config_type = documentation.get(key, {}).get('type')
+        if config_type is None:
+            module.warn('Unknown option "{}". Make sure this is not a typo, if it is not, please open an '
+                        'issue at https://github.com/TerryHowe/ansible-modules-hashivault/issues.'.format(key))
+        elif value is not None:
+            try:
+                value = normalize[config_type](value)
+            except Exception as e:
+                raise Exception({
+                    'changed': False,
+                    'failed': True,
+                    'msg':
+                        'config item \'{}\' with value \'{}\' could not be converted to \'{}\': {}'
+                        .format(key, value, config_type, "\n".join(e.args))})
+
+        desired_state[key] = value
+
+    return desired_state
 
 
 def get_ec2_iam_role():
@@ -74,6 +100,7 @@ def hashivault_client(params):
     cert = (client_cert, client_key)
     check_verify = params.get('verify')
     namespace = params.get('namespace', None)
+    timeout = params.get('timeout')
     if check_verify == '' or check_verify:
         if ca_cert:
             verify = ca_cert
@@ -83,7 +110,7 @@ def hashivault_client(params):
             verify = check_verify
     else:
         verify = check_verify
-    client = hvac.Client(url=url, cert=cert, verify=verify, namespace=namespace)
+    client = hvac.Client(url=url, cert=cert, verify=verify, namespace=namespace, timeout=timeout)
     return client
 
 
@@ -107,7 +134,7 @@ def hashivault_auth(client, params):
     elif authtype == 'approle':
         client = AppRoleClient(client, role_id, secret_id, mount_point=login_mount_point)
     elif authtype == 'tls':
-        client.auth_tls()
+        client.auth.cert.login()
     elif authtype == 'aws':
         credentials = get_ec2_iam_credentials(params.get['aws_header'], role_id)
         client.auth_aws_iam(**credentials)

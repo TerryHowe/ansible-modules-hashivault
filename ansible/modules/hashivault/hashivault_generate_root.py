@@ -48,7 +48,7 @@ def hashivault_generate_root(params):
     key = params.get('key')
     nonce = params.get('nonce')
     client = hashivault_client(params)
-    return {'status': client.generate_root(key, nonce), 'changed': True}
+    return {'status': client.sys.generate_root(key, nonce), 'changed': True}
 
 
 if __name__ == '__main__':

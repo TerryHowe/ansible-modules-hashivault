@@ -16,14 +16,14 @@
         name: "tokenrole_test_policy_original"
         rules: "{{rules}}"
       register: vault_policy
-    - assert: { that: "{{vault_policy.rc}} == 0" }
+    - assert: { that: "vault_policy.rc == 0" }
 
     - name: Set another token role policy
       hashivault_policy:
         name: "tokenrole_test_policy"
         rules: "{{rules}}"
       register: vault_policy
-    - assert: { that: "{{vault_policy.rc}} == 0" }
+    - assert: { that: "vault_policy.rc == 0" }
 
     - name: delete role
       hashivault_token_role:
@@ -34,9 +34,9 @@
     - name: list token roles empty
       hashivault_token_role_list:
       register: 'vault_role_list'
-    - assert: { that: "{{vault_role_list.changed}} == False" }
-    - assert: { that: "{{vault_role_list.rc}} == 0" }
-    - assert: { that: "{{vault_role_list.data|length}} == 0"}
+    - assert: { that: "vault_role_list is not changed" }
+    - assert: { that: "vault_role_list.rc == 0" }
+    - assert: { that: "vault_role_list.data|length == 0"}
 
     - name: create role
       hashivault_token_role:
@@ -46,8 +46,8 @@
             - tokenrole_test_policy_original
         state: present
       register: 'vault_role_create'
-    - assert: { that: "{{vault_role_create.changed}} == True" }
-    - assert: { that: "{{vault_role_create.rc}} == 0" }
+    - assert: { that: "vault_role_create is changed" }
+    - assert: { that: "vault_role_create.rc == 0" }
 
     - name: update role
       hashivault_token_role:
@@ -57,8 +57,8 @@
             - tokenrole_test_policy
         state: present
       register: 'vault_role_update'
-    - assert: { that: "{{vault_role_update.changed}} == True" }
-    - assert: { that: "{{vault_role_update.rc}} == 0" }
+    - assert: { that: "vault_role_update is changed" }
+    - assert: { that: "vault_role_update.rc == 0" }
 
     - name: update role idempotent
       hashivault_token_role:
@@ -68,13 +68,13 @@
             - tokenrole_test_policy
         state: present
       register: 'vault_role_update'
-    - assert: { that: "{{vault_role_update.changed}} == False" }
-    - assert: { that: "{{vault_role_update.rc}} == 0" }
+    - assert: { that: "vault_role_update is not changed" }
+    - assert: { that: "vault_role_update.rc == 0" }
 
     - name: list token roles
       hashivault_token_role_list:
       register: 'vault_role_list'
-    - assert: { that: "{{vault_role_list.changed}} == False" }
-    - assert: { that: "{{vault_role_list.rc}} == 0" }
+    - assert: { that: "vault_role_list is not changed" }
+    - assert: { that: "vault_role_list.rc == 0" }
     - fail: msg="role testrole not in list {{vault_role_list.data}}"
       when: '"testrole" not in vault_role_list.data'

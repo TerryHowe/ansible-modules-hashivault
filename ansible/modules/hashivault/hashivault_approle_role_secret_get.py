@@ -58,7 +58,7 @@ def hashivault_approle_role_secret_get(params):
         mount_point = params.get('mount_point')
         secret = params.get('secret')
         client = hashivault_auth_client(params)
-        response = client.get_role_secret_id(name, secret, mount_point=mount_point)
+        response = client.auth.approle.read_secret_id(name, secret, mount_point=mount_point)
         if type(response) is not dict and response.status_code == 204:  # No content
             return {'secret': {}, 'status': 'absent'}
         else:

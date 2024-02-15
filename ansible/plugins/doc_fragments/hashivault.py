@@ -61,4 +61,8 @@ class ModuleDocFragment(object):
             description:
                 - namespace for vault
             default: to environment variable VAULT_NAMESPACE
+        timeout:
+            description:
+                - The timeout value (seconds) for requests sent to Vault.
+            default: 30
 '''

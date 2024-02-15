@@ -138,7 +138,7 @@ def main():
     argspec['not_before_leeway'] = dict(required=False, type='int', default=0)
     argspec['role_type'] = dict(required=False, type='str', default='oidc', choices=['oidc', 'jwt'])
 
-    module = hashivault_init(argspec)
+    module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_oidc_auth_role(module)
     if result.get('failed'):
         module.fail_json(**result)
@@ -204,7 +204,14 @@ def hashivault_oidc_auth_role(module):
             client.auth.oidc.create_role(name=name, **desired_state)
         elif current_state and state == 'absent':
             client.auth.oidc.delete_role(name=name)
-    return {'changed': changed, 'old_state': current_state, 'new_state': desired_state}
+
+    return {
+        'changed': changed,
+        "diff": {
+            "before": current_state,
+            "after": desired_state,
+        }
+    }
 
 
 if __name__ == '__main__':

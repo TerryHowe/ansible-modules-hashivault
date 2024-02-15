@@ -26,24 +26,24 @@
         name: "{{ role_name }}"
       register: fail_write
       failed_when: false
-    - assert: { that: "{{ fail_write.rc }} == 1" }
-    - assert: { that: "{{ fail_write.changed }} == False" }
+    - assert: { that: "fail_write.rc == 1" }
+    - assert: { that: "fail_write is not changed" }
 
     - name: successfully write a role
       hashivault_consul_secret_engine_role:
         name: "{{ role_name }}"
         policy: "{{ policy }}"
       register: success_write
-    - assert: { that: "{{ success_write.rc }} == 0" }
-    - assert: { that: "{{ success_write.changed }} == True" }
+    - assert: { that: "success_write.rc == 0" }
+    - assert: { that: "success_write is changed" }
 
     - name: idempotent write a role
       hashivault_consul_secret_engine_role:
         name: "{{ role_name }}"
         policy: "{{ policy }}"
       register: idem_write
-    - assert: { that: "{{ idem_write.rc }} == 0" }
-    - assert: { that: "{{ idem_write.changed }} == False" }
+    - assert: { that: "idem_write.rc == 0" }
+    - assert: { that: "idem_write is not changed" }
 
     - name: successfully update a role
       hashivault_consul_secret_engine_role:
@@ -51,21 +51,21 @@
         policy: "{{ policy }}"
         max_ttl: 12345
       register: success_write
-    - assert: { that: "{{ success_write.rc }} == 0" }
-    - assert: { that: "{{ success_write.changed }} == True" }
+    - assert: { that: "success_write.rc == 0" }
+    - assert: { that: "success_write is changed" }
 
     - name: delete role
       hashivault_consul_secret_engine_role:
         name: "{{ role_name }}"
         state: absent
       register: success_del
-    - assert: { that: "{{ success_del.rc }} == 0" }
-    - assert: { that: "{{ success_del.changed }} == True" }
+    - assert: { that: "success_del.rc == 0" }
+    - assert: { that: "success_del is changed" }
 
     - name: idempotent delete role
       hashivault_consul_secret_engine_role:
         name: "{{ role_name }}"
         state: absent
       register: success_del
-    - assert: { that: "{{ success_del.rc }} == 0" }
-    - assert: { that: "{{ success_del.changed }} == False" }
+    - assert: { that: "success_del.rc == 0" }
+    - assert: { that: "success_del is not changed" }

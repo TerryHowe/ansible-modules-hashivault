@@ -4,9 +4,10 @@ import copy
 
 import yaml
 
-from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_argspec
+from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
+from ansible.module_utils.hashivault import hashivault_normalize_from_doc
 from ansible.module_utils.hashivault import hashiwrapper
 
 
@@ -186,14 +187,6 @@ EXAMPLES = r"""
         role_file: "/opt/vault/etc/roles/token-tester-bot.json"
         state: "present"
 """
-normalize = {
-    "list": list,
-    "str": str,
-    "dict": dict,
-    "bool": bool,
-    "int": int,
-    "duration": str,
-}
 
 
 def main():
@@ -272,18 +265,11 @@ def hashivault_token_role(module):
             extra_params = {}
 
             doc = yaml.safe_load(DOCUMENTATION)
-            args = doc.get("options").get("config").get("suboptions").items()
-            for key, value in args:
-                arg = desired_state.get(key)
-                if arg is not None:
-                    try:
-                        extra_params[key] = normalize[value.get("type")](arg)
-                    except Exception:
-                        return {
-                            "changed": False,
-                            "failed": True,
-                            "msg": "config item '{}' has wrong data format".format(key),
-                        }
+            args = doc.get("options").get("config").get("suboptions")
+            try:
+                extra_params = hashivault_normalize_from_doc(module, desired_state, args)
+            except Exception as e:
+                return e.args[0]
             # create or update
             api_path = f"/v1/auth/{mount_point}/roles/{name}"
             client.auth.token._adapter.post(url=api_path, json=extra_params)
