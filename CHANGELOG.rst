@@ -2,6 +2,20 @@ Changelog
 =========
 
 
+5.2.0 (2024-02-17)
+------------------
+- Add option in hashivault_init to pass only `secret_*` or `recovery_*`
+  options. [DaazKu]
+- HVAC 1.0.0+ have all authentication methods as subclasses of
+  client.auth Update login code to call the appropriate subclass for
+  tls/cert auth. [Andrew Hamilton]
+- Don't use nested jinja. [bendem]
+- Depend on ansible-core instead of ansible. [bendem]
+- Fix wrong type (#449) [Sebastian Schmitt]
+- Adding unit test for Group Alias Length Check. [Adam Wallis]
+- Add support for Listing Group Aliases. [Adam Wallis]
+
+
 5.1.2 (2023-10-11)
 ------------------
 - Update hvac requirement. [Terry Howe]
