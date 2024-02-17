@@ -2,6 +2,107 @@ Changelog
 =========
 
 
+5.1.2 (2023-10-11)
+------------------
+- Update hvac requirement. [Terry Howe]
+- Issue #451 - added user filter parameter to ldap configuration. [Emory
+  Otott]
+- Issue #450 - fixed issue where I was adding unsupported seal_wrap
+  param to kv v2 configuration and tune mount configuration method
+  resulting in failed tests. [Emory Otott]
+- Issue #450 added default value of false for parameter seal_wrap.
+  [Emory Otott]
+- #450 added seal wrap parameter to hashivault secret engine. [Emory
+  Otott]
+- Add general parameter timeout. [Sebi]
+  Default value of 30, as it is in hvac, to prevent inconsistency.
+- Add timeout as a general parameter. [Sebi]
+- Fix output hashivault_approle_role_secret format. [Aleksey Zhukov]
+- Token_role: correctly add new values instead of overriding. [Benjamin
+  Demarteau]
+- Hashivault_normalize_from_doc: don't swallow exceptions. [Benjamin
+  Demarteau]
+- Ssh_role,token_role: don't fail when encountering unknown options.
+  [Benjamin Demarteau]
+
+
+5.1.1 (2023-06-13)
+------------------
+- Add plugin_version params for the vault api. [Ankit]
+  Ref https://github.com/TerryHowe/ansible-modules-hashivault/issues/442
+
+
+5.1.0 (2023-04-18)
+------------------
+- Refactor policy module. [Cees Moerkerken]
+- Add diff, fixes #439. [Cees Moerkerken]
+- Add path to return values. [Cees Moerkerken]
+- Fix line length linting. [Cees Moerkerken]
+- Only call enable or tune when changed. add comments. [Cees Moerkerken]
+- Add result to return values, fixes #435. [Cees Moerkerken]
+- Add diff, fixes #436. [Cees Moerkerken]
+- Replace whitelist_externals with allowlist_externals. [Cees
+  Moerkerken]
+- Prevent keyerror on inconsistencies between the current and desired
+  state. [Cees Moerkerken]
+- Add diff and enable check mode support. [Cees Moerkerken]
+- Warn user when an unknown value is processed by the option
+  normalization. [Benjamin Demarteau]
+- Extract option normalisation to module_utils and reverse logic to
+  allow for unknown options. [Benjamin Demarteau]
+- Create SECURITY.md. [Terry Howe]
+
+
+5.0.0 (2022-11-08)
+------------------
+- Remove deprecated modules. [Terry Howe]
+  * hashivault_approle_role_create
+  * hashivault_approle_role_secret_create
+  * hashivault_approle_role_secret_delete
+  * hashivault_audit_enable
+  * hashivault_auth_enable
+  * hashivault_aws_ec2_role_create
+  * hashivault_mount_tune
+  * hashivault_policy_delete
+  * hashivault_policy_set
+  * hashivault_policy_set_from_file
+  * hashivault_secret_disable
+  * hashivault_secret_enable
+  * hashivault_userpass_create
+  * hashivault_userpass_delete
+- Changes for hvac 1.x. [Terry Howe]
+- Breaking Changes:
+  * hashivault_approle_role_secret removed wrap_ttl for now
+  * hashivault_generate_root_init otp added
+  * hashivault_token_create removed lease and orphan (use no_parent)
+  * ansible 5 only now
+
+
+
+4.7.1 (2022-11-07)
+------------------
+- Disable hvac 1.x support for now. [Terry Howe]
+- Update configuration. [Terry Howe]
+- Add idempotency test to test_ldap_group. [Matt Harlum]
+- Fix "enable ldap authentication" in test_ldap_group. [Matt Harlum]
+- Fixup idempotency of hashivault_auth_ldap. [Matt Harlum]
+- Add self_renew for hashivault_token_renew. [Terry Howe]
+- Fix PKI tests from new hvac. [Terry Howe]
+
+
+4.7.0 (2022-06-19)
+------------------
+- Add a hashivault_ssh_role_list module. [Szymon Soloch]
+- Add a hashivault_ssh_role module. [Szymon Soloch]
+- Add a hashivault_token_role_list module. [Szymon Soloch]
+- Add a hashivault_token_role module. [Szymon Soloch]
+- Get better auth method tests. [Terry Howe]
+- Fix auth_method idempotency. [ayav09]
+- Fix tests. [Terry Howe]
+- Fix docs build. [Terry Howe]
+- Fix state comparison of lists. [Jarno Antikainen]
+
+
 4.6.8 (2022-02-19)
 ------------------
 - Allow create nonexistent secret when state is update. [Pavel Ezhov]

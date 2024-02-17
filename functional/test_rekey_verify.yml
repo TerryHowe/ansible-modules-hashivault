@@ -7,15 +7,15 @@
     - name: Check rekey status
       hashivault_rekey_status:
       register: 'vault_rekey_status'
-    - assert: { that: "{{vault_rekey_status.changed}} == False" }
-    - assert: { that: "{{vault_rekey_status.rc}} == 0" }
+    - assert: { that: "vault_rekey_status is not changed" }
+    - assert: { that: "vault_rekey_status.rc == 0" }
 
     - block:
         - name: Cancel the rekey if one was started
           hashivault_rekey_cancel:
           register: 'vault_rekey_cancel'
-        - assert: { that: "{{vault_rekey_cancel.changed}} == True" }
-        - assert: { that: "{{vault_rekey_cancel.rc}} == 0" }
+        - assert: { that: "vault_rekey_cancel is changed" }
+        - assert: { that: "vault_rekey_cancel.rc == 0" }
       when: "vault_rekey_status.status.started == True"
 
     - name: Start a rekey
@@ -24,25 +24,25 @@
         secret_threshold: 1
         verification_required: True
       register: 'vault_rekey_init'
-    - assert: { that: "{{vault_rekey_init.changed}} == True" }
-    - assert: { that: "{{vault_rekey_init.status.progress}} == 0" }
-    - assert: { that: "{{vault_rekey_init.status.started}} == True" }
-    - assert: { that: "{{vault_rekey_init.rc}} == 0" }
-    - assert: { that: "{{vault_rekey_init.status.verification_required}} == True" }
+    - assert: { that: "vault_rekey_init is changed" }
+    - assert: { that: "vault_rekey_init.status.progress == 0" }
+    - assert: { that: "vault_rekey_init.status.started == True" }
+    - assert: { that: "vault_rekey_init.rc == 0" }
+    - assert: { that: "vault_rekey_init.status.verification_required == True" }
 
     - name: Make sure the rekey started
       hashivault_rekey_status:
       register: 'vault_rekey_status'
-    - assert: { that: "{{vault_rekey_status.changed}} == False" }
-    - assert: { that: "{{vault_rekey_status.rc}} == 0" }
-    - assert: { that: "{{vault_rekey_init.status.progress}} == 0" }
-    - assert: { that: "{{vault_rekey_status.status.started}} == True" }
+    - assert: { that: "vault_rekey_status is not changed" }
+    - assert: { that: "vault_rekey_status.rc == 0" }
+    - assert: { that: "vault_rekey_init.status.progress == 0" }
+    - assert: { that: "vault_rekey_status.status.started == True" }
 
     - name: Canel the rekey
       hashivault_rekey_cancel:
       register: 'vault_rekey_cancel'
-    - assert: { that: "{{vault_rekey_cancel.changed}} == True" }
-    - assert: { that: "{{vault_rekey_cancel.rc}} == 0" }
+    - assert: { that: "vault_rekey_cancel is changed" }
+    - assert: { that: "vault_rekey_cancel.rc == 0" }
 
     - name: Restart that rekey again
       hashivault_rekey_init:
@@ -50,31 +50,31 @@
         secret_threshold: 1
         verification_required: True
       register: 'vault_rekey_init'
-    - assert: { that: "{{vault_rekey_init.changed}} == True" }
-    - assert: { that: "{{vault_rekey_init.status.progress}} == 0" }
-    - assert: { that: "{{vault_rekey_init.status.started}} == True" }
-    - assert: { that: "{{vault_rekey_init.rc}} == 0" }
-    - assert: { that: "{{vault_rekey_init.status.verification_required}} == True" }
+    - assert: { that: "vault_rekey_init is changed" }
+    - assert: { that: "vault_rekey_init.status.progress == 0" }
+    - assert: { that: "vault_rekey_init.status.started == True" }
+    - assert: { that: "vault_rekey_init.rc == 0" }
+    - assert: { that: "vault_rekey_init.status.verification_required == True" }
 
     - name: Update the rekey
       hashivault_rekey:
         key: "{{ unseal_key }}"
         nonce: "{{ vault_rekey_init.status.nonce }}"
       register: 'vault_rekey'
-    - assert: { that: "{{vault_rekey.changed}} == True" }
-    - assert: { that: "{{vault_rekey.rc}} == 0" }
-    - assert: { that: "{{vault_rekey.status.complete}} == True" }
-    - assert: { that: "{{vault_rekey.status.verification_required}} == True" }
+    - assert: { that: "vault_rekey is changed" }
+    - assert: { that: "vault_rekey.rc == 0" }
+    - assert: { that: "vault_rekey.status.complete == True" }
+    - assert: { that: "vault_rekey.status.verification_required == True" }
 
     - name: Verify the rekey
       hashivault_rekey_verify:
         key: "{{ vault_rekey['status']['keys'][0] }}"
         nonce: "{{ vault_rekey.status.verification_nonce }}"
       register: 'vault_rekey_verify'
-    - assert: { that: "{{vault_rekey_verify.changed}} == True" }
-    - assert: { that: "{{vault_rekey_verify.rc}} == 0" }
-    - assert: { that: "{{vault_rekey_verify.status.complete}} == True" }
-    - assert: { that: "'{{vault_rekey_verify.status.nonce}}' == '{{vault_rekey.status.verification_nonce}}'" }
+    - assert: { that: "vault_rekey_verify is changed" }
+    - assert: { that: "vault_rekey_verify.rc == 0" }
+    - assert: { that: "vault_rekey_verify.status.complete == True" }
+    - assert: { that: "vault_rekey_verify.status.nonce == vault_rekey.status.verification_nonce" }
 
     - name: Update vaultenv.sh with new keys
       lineinfile:

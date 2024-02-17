@@ -13,9 +13,9 @@
         key: 'value'
       register: 'vault_read'
       failed_when: False
-    - assert: { that: "{{vault_read.failed}} == False" }
-    - assert: { that: "{{vault_read.rc}} == 1" }
-    - assert: { that: "'{{vault_read.msg}}' == 'Secret secret/fourofour/nothome is not in vault'" }
+    - assert: { that: "vault_read.failed == False" }
+    - assert: { that: "vault_read.rc == 1" }
+    - assert: { that: "vault_read.msg == 'Secret secret/fourofour/nothome is not in vault'" }
 
     - name: Nonexistent secret path with empty default
       hashivault_read:
@@ -23,9 +23,9 @@
         key: 'value'
         default: ''
       register: 'vault_read'
-    - assert: { that: "'{{vault_read.value}}' == ''" }
-    - assert: { that: "{{vault_read.failed}} == False" }
-    - assert: { that: "{{vault_read.rc}} == 0" }
+    - assert: { that: "vault_read.value == ''" }
+    - assert: { that: "vault_read.failed == False" }
+    - assert: { that: "vault_read.rc == 0" }
 
     - name: Nonexistent secret path with default
       hashivault_read:
@@ -33,11 +33,11 @@
         key: 'value'
         default: 'carseat'
       register: 'vault_read'
-    - assert: { that: "'{{vault_read.value}}' == 'carseat'" }
+    - assert: { that: "vault_read.value == 'carseat'" }
 
     - set_fact:
         looky_secret: "{{lookup('hashivault', '{{secret_name}}', 'value', default='headrest')}}"
-    - assert: { that: "'{{looky_secret}}' == 'headrest'" }
+    - assert: { that: "looky_secret == 'headrest'" }
 
     - name: Write new different value to secret store
       hashivault_write:
@@ -51,12 +51,12 @@
         key: 'value'
         default: 'better'
       register: 'vault_read'
-    - assert: { that: "'{{vault_read.value}}' == 'better'" }
+    - assert: { that: "vault_read.value == 'better'" }
 
     - set_fact:
         looky_secret: "{{lookup('hashivault', '{{secret_name}}', 'othervalue', default='noob')}}"
-    - assert: { that: "'{{looky_secret}}' == 'one'" }
+    - assert: { that: "looky_secret == 'one'" }
 
     - set_fact:
         looky_secret: "{{lookup('hashivault', '{{secret_name}}', 'value', default='noob')}}"
-    - assert: { that: "'{{looky_secret}}' == 'noob'" }
+    - assert: { that: "looky_secret == 'noob'" }

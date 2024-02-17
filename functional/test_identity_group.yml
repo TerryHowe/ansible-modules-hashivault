@@ -23,7 +23,7 @@
         state: present
       register: success_config
 
-    - assert: { that: "{{ success_config.changed }} == True" }
+    - assert: { that: "success_config is changed" }
 
     - name: chg metadata
       hashivault_identity_group:
@@ -33,7 +33,7 @@
           functional: testing
       register: chg_metadata
 
-    - assert: { that: "{{ chg_metadata.changed }} == True" }
+    - assert: { that: "chg_metadata is changed" }
 
     - name: duplicate metadata
       hashivault_identity_group:
@@ -43,7 +43,7 @@
           functional: testing
       register: chg_metadata
 
-    - assert: { that: "{{ chg_metadata.changed }} == False" }
+    - assert: { that: "chg_metadata is not changed" }
 
     - name: chg policies - add functional_testing_policy_one
       hashivault_identity_group:
@@ -53,7 +53,7 @@
           - functional_testing_policy_one
       register: chg_policies
 
-    - assert: { that: "{{ chg_policies.changed }} == True" }
+    - assert: { that: "chg_policies is changed" }
 
     - name: duplicate policies
       hashivault_identity_group:
@@ -63,7 +63,7 @@
           - functional_testing_policy_one
       register: chg_policies
 
-    - assert: { that: "{{ chg_policies.changed }} == False" }
+    - assert: { that: "chg_policies is not changed" }
 
     - name: chg policies - add functional_testing_policy_two
       hashivault_identity_group:
@@ -74,7 +74,7 @@
           - functional_testing_policy_two
       register: chg_policies
 
-    - assert: { that: "{{ chg_policies.changed }} == True" }
+    - assert: { that: "chg_policies is changed" }
 
     - name: chg policies - remove functional_testing_policy_one
       hashivault_identity_group:
@@ -84,34 +84,34 @@
           - functional_testing_policy_two
       register: chg_policies
 
-    - assert: { that: "{{ chg_policies.changed }} == True" }
+    - assert: { that: "chg_policies is changed" }
 
     - name: add external identity group
       hashivault_identity_group:
         name: extest
         group_type: external
       register: vault_identity_group
-    - assert: { that: "{{vault_identity_group.changed}} == True" }
-    - assert: { that: "{{vault_identity_group.rc}} == 0" }
+    - assert: { that: "vault_identity_group is changed" }
+    - assert: { that: "vault_identity_group.rc == 0" }
 
     - hashivault_identity_group_alias:
         name: "extest alias"
         group_name: extest
       register: vault_identity_alias
-    - assert: { that: "{{vault_identity_alias.changed}} == True" }
-    - assert: { that: "{{vault_identity_alias.rc}} == 0" }
+    - assert: { that: "vault_identity_alias is changed" }
+    - assert: { that: "vault_identity_alias.rc == 0" }
   
     - hashivault_identity_group_alias_list:
       register: vault_identity_alias_list
     - assert:
         that: 
           - vault_identity_alias_list.rc  == 0
-          - "{{ vault_identity_alias_list.group_aliases['keys'] | length > 0 }}"
+          - "vault_identity_alias_list.group_aliases['keys'] | length > 0"
 
     - hashivault_identity_group_alias:
         name: "extest alias"
         group_name: extest
         state: absent
       register: vault_identity_alias
-    - assert: { that: "{{vault_identity_alias.changed}} == True" }
-    - assert: { that: "{{vault_identity_alias.rc}} == 0" }
+    - assert: { that: "vault_identity_alias is changed" }
+    - assert: { that: "vault_identity_alias.rc == 0" }

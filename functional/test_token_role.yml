@@ -1,0 +1,80 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    namespace: 'application'
+    rules: >
+        path "token/{{namespace}}/*" {
+          capabilities = ["create", "read", "update", "delete", "list"]
+        }
+        path "token/{{namespace}}" {
+          capabilities = ["list"]
+        }
+  tasks:
+    - name: Set token role policy
+      hashivault_policy:
+        name: "tokenrole_test_policy_original"
+        rules: "{{rules}}"
+      register: vault_policy
+    - assert: { that: "vault_policy.rc == 0" }
+
+    - name: Set another token role policy
+      hashivault_policy:
+        name: "tokenrole_test_policy"
+        rules: "{{rules}}"
+      register: vault_policy
+    - assert: { that: "vault_policy.rc == 0" }
+
+    - name: delete role
+      hashivault_token_role:
+        name: testrole
+        state: absent
+      failed_when: false
+
+    - name: list token roles empty
+      hashivault_token_role_list:
+      register: 'vault_role_list'
+    - assert: { that: "vault_role_list is not changed" }
+    - assert: { that: "vault_role_list.rc == 0" }
+    - assert: { that: "vault_role_list.data|length == 0"}
+
+    - name: create role
+      hashivault_token_role:
+        name: testrole
+        config:
+          allowed_policies:
+            - tokenrole_test_policy_original
+        state: present
+      register: 'vault_role_create'
+    - assert: { that: "vault_role_create is changed" }
+    - assert: { that: "vault_role_create.rc == 0" }
+
+    - name: update role
+      hashivault_token_role:
+        name: testrole
+        config:
+          allowed_policies:
+            - tokenrole_test_policy
+        state: present
+      register: 'vault_role_update'
+    - assert: { that: "vault_role_update is changed" }
+    - assert: { that: "vault_role_update.rc == 0" }
+
+    - name: update role idempotent
+      hashivault_token_role:
+        name: testrole
+        config:
+          allowed_policies:
+            - tokenrole_test_policy
+        state: present
+      register: 'vault_role_update'
+    - assert: { that: "vault_role_update is not changed" }
+    - assert: { that: "vault_role_update.rc == 0" }
+
+    - name: list token roles
+      hashivault_token_role_list:
+      register: 'vault_role_list'
+    - assert: { that: "vault_role_list is not changed" }
+    - assert: { that: "vault_role_list.rc == 0" }
+    - fail: msg="role testrole not in list {{vault_role_list.data}}"
+      when: '"testrole" not in vault_role_list.data'

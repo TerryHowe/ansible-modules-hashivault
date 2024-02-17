@@ -43,7 +43,7 @@
         secret: 'whatutalkinbout'
       register: vault_list
       failed_when: False
-    - assert: { that: "vault_list.changed == False" }
+    - assert: { that: "vault_list is not changed" }
     - assert: { that: "vault_list.rc == 1" }
     - assert: { that: "vault_list.msg == 'Secret does not exist: secret/whatutalkinbout'" }
 
@@ -89,7 +89,7 @@
         version: 2
       register: vault_list
       failed_when: False
-    - assert: { that: "vault_list.changed == False" }
+    - assert: { that: "vault_list is not changed" }
     - assert: { that: "vault_list.rc == 1" }
     - assert: { that: "vault_list.msg == 'Secret does not exist: dummyv2/whatutalkinbout'" }
 

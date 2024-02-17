@@ -11,9 +11,10 @@
       connection_url: "postgresql://{{'{{username}}'}}:{{'{{password}}'}}@cool-modern-db-name"
   tasks:
     - name: start with engine disabled
-      hashivault_secret_disable:
+      hashivault_secret_engine:
         name: database
-         
+        state: disable
+
     - name: make sure test fails when no mount exists
       hashivault_db_secret_engine_config:
         name: test
@@ -25,13 +26,13 @@
       register: fail_config
       failed_when: false
 
-    - assert: { that: "{{ fail_config.changed }} == False" }
-    
+    - assert: { that: "fail_config is not changed" }
+
     - name: enable database secret engine
-      hashivault_secret_enable:
+      hashivault_secret_engine:
         name: database
         backend: database
-         
+
     - name: successfully configure
       hashivault_db_secret_engine_config:
         name: test
@@ -42,7 +43,7 @@
         connection_url: "{{ connection_url }}"
       register: success_config
 
-    - assert: { that: "{{ success_config.changed }} == True" }
+    - assert: { that: "success_config is changed" }
 
     - name: successfully write a role
       hashivault_db_secret_engine_role:
@@ -50,8 +51,8 @@
         db_name: test
         creation_statements: []
       register: success_write
-    
-    - assert: { that: "{{ success_write.changed }} == True" }
+
+    - assert: { that: "success_write is changed" }
 
     - name: skip write a role
       hashivault_db_secret_engine_role:
@@ -59,8 +60,8 @@
         db_name: test
         creation_statements: []
       register: idem_write
-    
-    - assert: { that: "{{ idem_write.changed }} == False" }
+
+    - assert: { that: "idem_write is not changed" }
 
     - name: delete role
       hashivault_db_secret_engine_role:
@@ -68,8 +69,8 @@
         db_name: test
         state: absent
       register: success_del
-    
-    - assert: { that: "{{ success_del.changed }} == True" }
+
+    - assert: { that: "success_del is changed" }
 
     - name: skip delete role
       hashivault_db_secret_engine_role:
@@ -77,5 +78,5 @@
         db_name: test
         state: absent
       register: success_del
-    
-    - assert: { that: "{{ success_del.changed }} == False" }
+
+    - assert: { that: "success_del is not changed" }

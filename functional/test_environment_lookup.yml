@@ -1,4 +1,4 @@
-#   
+#
 # This test depends on successful test_write run
 #
 ---
@@ -24,4 +24,4 @@
   tasks:
     - set_fact:
         a_set_fie: "{{lookup('hashivault', '{{name_root}}', 'fie')}}"
-    - assert: { that: "'{{a_set_fie}}' == 'fum'" }
+    - assert: { that: "a_set_fie == 'fum'" }

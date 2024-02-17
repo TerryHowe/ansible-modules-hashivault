@@ -42,6 +42,17 @@ EXAMPLES = '''
         method_type: userpass
 '''
 
+RETURN = r'''
+path:
+    description: The path of the auth method.
+    type: str
+    returned: always
+result:
+    description: The current configuration of the auth method if it exists.
+    type: dict
+    returned: always
+'''
+
 DEFAULT_TTL = 2764800
 DEFAULT_CONFIG = {
     'default_lease_ttl': DEFAULT_TTL,
@@ -83,10 +94,16 @@ def hashivault_auth_method(module):
     exists = False
     changed = False
     create = False
+    current_state = {}
+    desired_state = {
+        'config': config,
+        'description': description
+    }
 
     if mount_point is None:
         mount_point = method_type
 
+    # Get current auth methods
     try:
         result = client.sys.list_auth_methods()
         auth_methods = result.get('data', result)
@@ -95,33 +112,49 @@ def hashivault_auth_method(module):
     except Exception:
         pass
 
+    # Check required actions
     if state == 'enabled' and not exists:
         changed = True
         create = True
     elif state == 'disabled' and exists:
         changed = True
     elif exists and state == 'enabled':
-        current_state = client.sys.read_auth_method_tuning(path=mount_point)['data']
-        if 'description' in current_state:
-            if description != current_state['description']:
-                changed = True
-        if not changed:
-            changed = is_state_changed(config, current_state)
+        auth_method = auth_methods[mount_point + u"/"]
+        current_state = {
+            'config': auth_method['config'],
+            'description': auth_method['description']
+        }
+        changed = description != auth_method['description'] or is_state_changed(config, auth_method['config'])
 
-    if module.check_mode:
-        return {'changed': changed, 'created': create, 'state': state}
-    if not changed:
-        return {'changed': changed, 'created': False, 'state': state}
-
-    if state == 'enabled':
+    # create
+    if state == 'enabled' and changed and not module.check_mode:
         if create:
             client.sys.enable_auth_method(method_type, description=description, path=mount_point, config=config)
+        # update
         else:
             client.sys.tune_auth_method(description=description, path=mount_point, **config)
-    if state == 'disabled':
+    # delete
+    elif state == 'disabled' and changed and not module.check_mode:
         client.sys.disable_auth_method(path=mount_point)
 
-    return {'changed': changed, 'created': create}
+    # Get resulting auth method
+    try:
+        final_result = client.sys.list_auth_methods()
+        retval = final_result['data'][mount_point + u"/"]
+    except Exception:
+        retval = {}
+        pass
+
+    return {
+        "changed": changed,
+        "created": create,
+        "path": mount_point,
+        "result": retval,
+        "diff": {
+            "before": current_state,
+            "after": desired_state,
+        },
+    }
 
 
 if __name__ == '__main__':

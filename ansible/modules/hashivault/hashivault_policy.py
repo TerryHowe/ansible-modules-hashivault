@@ -47,8 +47,8 @@ def main():
     argspec['rules_file'] = dict(required=False, type='str')
     argspec['state'] = dict(required=False, choices=['present', 'absent'], default='present')
     mutually_exclusive = [['rules', 'rules_file']]
-    module = hashivault_init(argspec, mutually_exclusive=mutually_exclusive)
-    result = hashivault_policy(module.params)
+    module = hashivault_init(argspec, mutually_exclusive=mutually_exclusive, supports_check_mode=True)
+    result = hashivault_policy(module)
     if result.get('failed'):
         module.fail_json(**result)
     else:
@@ -56,35 +56,60 @@ def main():
 
 
 @hashiwrapper
-def hashivault_policy(params):
+def hashivault_policy(module):
+    params = module.params
     client = hashivault_auth_client(params)
     state = params.get('state')
     name = params.get('name')
-    if state == 'present':
-        rules_file = params.get('rules_file')
-        if rules_file:
-            try:
-                rules = open(rules_file, 'r').read()
-            except Exception as e:
-                return {'changed': False,
-                        'failed': True,
-                        'msg': 'Error opening rules file <%s>: %s' % (rules_file, str(e))}
-        else:
-            rules = params.get('rules')
-        current = client.get_policy(name)
-        if current == rules:
-            return {'changed': False}
-        client.sys.create_or_update_policy(name, rules)
-        return {'changed': True}
+    exists = False
+    changed = False
+    current_state = {}
+    desired_state = {}
 
+    # get current policies
     current_policies = client.sys.list_policies()
     if isinstance(current_policies, dict):
-        current_policies = current_policies.get('data', current_policies)
         current_policies = current_policies.get('policies', current_policies)
-    if name not in current_policies:
-        return {'changed': False}
-    client.sys.delete_policy(name)
-    return {'changed': True}
+    if name in current_policies:
+        exists = True
+        current_state = client.get_policy(name)
+
+    # Define desired rules
+    rules_file = params.get('rules_file')
+    if rules_file:
+        try:
+            desired_state = open(rules_file, 'r').read()
+        except Exception as e:
+            return {'changed': False,
+                    'failed': True,
+                    'msg': 'Error opening rules file <%s>: %s' % (rules_file, str(e))}
+    else:
+        desired_state = params.get('rules')
+
+    # Check required actions
+    if state == 'present' and not exists:
+        changed = True
+    elif state == 'absent' and exists:
+        changed = True
+    elif state == 'present' and exists:
+        if current_state != desired_state:
+            changed = True
+
+    if changed and not module.check_mode:
+        # create or update
+        if state == 'present':
+            client.sys.create_or_update_policy(name, desired_state)
+        # delete
+        elif state == 'absent':
+            client.sys.delete_policy(name)
+
+    return {
+        "changed": changed,
+        "diff": {
+            "before": current_state,
+            "after": desired_state,
+        },
+    }
 
 
 if __name__ == '__main__':

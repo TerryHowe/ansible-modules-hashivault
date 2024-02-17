@@ -20,7 +20,7 @@
       register: fail_config
       failed_when: false
 
-    - assert: { that: "{{ fail_config.changed }} == False" }
+    - assert: { that: "fail_config is not changed" }
 
     - name: enable oidc auth method
       hashivault_auth_method:
@@ -33,7 +33,7 @@
         oidc_client_secret: "{{ oidc_client_secret }}"
       register: success_config
 
-    - assert: { that: "{{ success_config.changed }} == True" }
+    - assert: { that: "success_config is changed" }
 
     - name: attempt 2nd config with same values
       hashivault_oidc_auth_method_config:
@@ -41,7 +41,7 @@
         oidc_client_id: "{{ oidc_client_id }}"
       register: idem_config
 
-    - assert: { that: "{{ idem_config.changed }} == False" }
+    - assert: { that: "idem_config is not changed" }
 
     - name: attempt 3rd config with different values
       hashivault_oidc_auth_method_config:
@@ -50,4 +50,4 @@
         oidc_client_secret: pineapple
       register: overwrite_config
 
-    - assert: { that: "{{ overwrite_config.changed }} == True" }
+    - assert: { that: "overwrite_config is changed" }

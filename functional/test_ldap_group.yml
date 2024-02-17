@@ -18,10 +18,16 @@
 
     - name: ldap configuration
       hashivault_auth_ldap:
-        ldap_url: ldap://127.0.0.1
+        ldap_url: ldap://localhost
       register: ldap_module
-    - assert: { that: "{{ ldap_module.changed }} == True" }
-    - assert: { that: "{{ ldap_module.rc }} == 0" }
+    - assert: { that: "ldap_module is changed" }
+    - assert: { that: "ldap_module.rc == 0" }
+
+    - name: ldap configuration is idempotent
+      hashivault_auth_ldap:
+        ldap_url: ldap://localhost
+      register: ldap_module_idempotent
+    - assert: { that: "ldap_module_idempotent is not changed" }
 
     - name: remove ldap group
       hashivault_ldap_group:
@@ -34,7 +40,7 @@
         state: present
       register: success_config
 
-    - assert: { that: "{{ success_config.changed }} == True" }
+    - assert: { that: "success_config is changed" }
 
     - name: chg policies - add functional_testing_policy_one
       hashivault_ldap_group:
@@ -44,7 +50,7 @@
           - functional_testing_policy_one
       register: chg_policies
 
-    - assert: { that: "{{ chg_policies.changed }} == True" }
+    - assert: { that: "chg_policies is changed" }
 
     - name: duplicate policies
       hashivault_ldap_group:
@@ -54,7 +60,7 @@
           - functional_testing_policy_one
       register: chg_policies
 
-    - assert: { that: "{{ chg_policies.changed }} == False" }
+    - assert: { that: "chg_policies is not changed" }
 
     - name: chg policies - add functional_testing_policy_two
       hashivault_ldap_group:
@@ -65,7 +71,7 @@
           - functional_testing_policy_two
       register: chg_policies
 
-    - assert: { that: "{{ chg_policies.changed }} == True" }
+    - assert: { that: "chg_policies is changed" }
 
     - name: chg policies - remove functional_testing_policy_one
       hashivault_ldap_group:
@@ -75,4 +81,4 @@
           - functional_testing_policy_two
       register: chg_policies
 
-    - assert: { that: "{{ chg_policies.changed }} == True" }
+    - assert: { that: "chg_policies is changed" }

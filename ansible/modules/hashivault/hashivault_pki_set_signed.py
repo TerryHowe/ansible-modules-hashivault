@@ -81,8 +81,11 @@ def hashivault_pki_set_signed(module):
 
     result = {"changed": False, "rc": 0}
     try:
-        result['changed'] = client.secrets.pki.set_signed_intermediate(certificate=certificate,
-                                                                       mount_point=mount_point).ok
+        response = client.secrets.pki.set_signed_intermediate(certificate=certificate, mount_point=mount_point)
+        if isinstance(response, dict):
+            result['changed'] = True
+        else:
+            result['changed'] = response.ok
     except Exception as e:
         result['rc'] = 1
         result['failed'] = True

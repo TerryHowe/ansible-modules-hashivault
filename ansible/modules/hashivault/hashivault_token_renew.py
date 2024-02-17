@@ -21,6 +21,9 @@ options:
         description:
             - "Request a specific increment for renewal. Vault is not required to honor this request. If not supplied,\
              Vault will use the default TTL."
+    self_renew:
+        description:
+            - Self renew token
     wrap_ttl:
         description:
             - Indicates that the response should be wrapped in a cubbyhole token with the requested TTL.
@@ -42,6 +45,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['renew_token'] = dict(required=False, type='str', no_log=True)
     argspec['increment'] = dict(required=False, type='str', default=None)
+    argspec['self_renew'] = dict(required=False, type='bool', default=False)
     argspec['wrap_ttl'] = dict(required=False, type='int')
     module = hashivault_init(argspec)
     result = hashivault_token_renew(module.params)
@@ -56,10 +60,14 @@ def hashivault_token_renew(params):
     client = hashivault_auth_client(params)
     renew_token = params.get('renew_token')
     increment = params.get('increment')
+    self_renew = params.get('self_renew')
     if renew_token is None:
         renew_token = params.get('token')
     wrap_ttl = params.get('wrap_ttl')
-    renew = client.renew_token(token=renew_token, increment=increment, wrap_ttl=wrap_ttl)
+    if self_renew is True:
+        renew = client.renew_self_token(increment=increment, wrap_ttl=wrap_ttl)
+    else:
+        renew = client.renew_token(token=renew_token, increment=increment, wrap_ttl=wrap_ttl)
     return {'changed': True, 'renew': renew}
 
 

@@ -24,7 +24,11 @@ options:
     pgp_key:
         description:
             - specifies PGP public keys used to encrypt the output root token.
-        default: ''
+        default: None
+    otp:
+        description:
+            - must specify either pgp_key or otp
+        default: None
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -38,7 +42,8 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['pgp_key'] = dict(required=False, type='str', default='')
+    argspec['pgp_key'] = dict(required=False, type='str', default=None)
+    argspec['otp'] = dict(required=False, type='str', default=None)
     module = hashivault_init(argspec)
     result = hashivault_generate_root_init(module.params)
     if result.get('failed'):
@@ -51,11 +56,12 @@ def main():
 def hashivault_generate_root_init(params):
     client = hashivault_client(params)
     # Check if rekey is on-going
-    status = client.generate_root_status
+    status = client.sys.read_root_generation_progress()
     if status['started']:
         return {'changed': False}
-    pgp = params.get('pgp_key')
-    return {'status': client.start_generate_root(pgp, otp=False), 'changed': True}
+    pgp_key = params.get('pgp_key')
+    otp = params.get('otp')
+    return {'status': client.sys.start_root_token_generation(otp=otp, pgp_key=pgp_key), 'changed': True}
 
 
 if __name__ == '__main__':

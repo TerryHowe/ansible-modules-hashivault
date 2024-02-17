@@ -49,7 +49,7 @@ def main():
 def hashivault_approle_role_get(params):
     name = params.get('name')
     client = hashivault_auth_client(params)
-    result = client.get_role(name, mount_point=params.get('mount_point'))
+    result = client.auth.approle.read_role(name, mount_point=params.get('mount_point'))
     return {'role': result}
 
 

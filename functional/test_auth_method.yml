@@ -15,54 +15,66 @@
         method_type: azure
         state: disabled
       register: disable_idem
-    - assert: { that: "{{ disable_idem.changed }} == False" }
+    - assert: { that: "disable_idem is not changed" }
 
     - name: enable azure secret engine
       hashivault_auth_method:
         method_type: azure
       register: enable_chg
-    - assert: { that: "{{ enable_chg.changed }} == True" }
+    - assert: { that: "enable_chg is changed" }
 
     - name: disable azure
       hashivault_auth_method:
         method_type: azure
         state: disabled
       register: disable_chg
-    - assert: { that: "{{ disable_chg.changed }} == True" }
+    - assert: { that: "disable_chg is changed" }
 
     - name: "Enable OIDC auth method"
       hashivault_auth_method:
         method_type: oidc
         state: enabled
+        config:
+          default_lease_ttl: 0
+          max_lease_ttl: 0
       register: oidc_idempotent
-    - assert: { that: "{{ oidc_idempotent.rc }} == 0" }
-    - assert: { that: "{{ oidc_idempotent.changed }} == True" }
+    - assert: { that: "oidc_idempotent.rc == 0" }
+    - assert: { that: "oidc_idempotent is changed" }
 
     - name: "Enable OIDC auth method idempotent"
       hashivault_auth_method:
         method_type: oidc
         state: enabled
+        config:
+          default_lease_ttl: 0
+          max_lease_ttl: 0
       register: oidc_idempotent
-    - assert: { that: "{{ oidc_idempotent.rc }} == 0" }
-    - assert: { that: "{{ oidc_idempotent.changed }} == False" }
+    - assert: { that: "oidc_idempotent.rc == 0" }
+    - assert: { that: "oidc_idempotent is not changed" }
 
     - name: "Enable OIDC auth method update"
       hashivault_auth_method:
         method_type: oidc
         state: enabled
+        config:
+          default_lease_ttl: 0
+          max_lease_ttl: 0
         description: 'my oidc'
       register: oidc_idempotent
-    - assert: { that: "{{ oidc_idempotent.rc }} == 0" }
-    - assert: { that: "{{ oidc_idempotent.changed }} == True" }
+    - assert: { that: "oidc_idempotent.rc == 0" }
+    - assert: { that: "oidc_idempotent is changed" }
 
     - name: "Enable OIDC auth method update description idempotent"
       hashivault_auth_method:
         method_type: oidc
         state: enabled
+        config:
+          default_lease_ttl: 0
+          max_lease_ttl: 0
         description: 'my oidc'
       register: oidc_idempotent
-    - assert: { that: "{{ oidc_idempotent.rc }} == 0" }
-    - assert: { that: "{{ oidc_idempotent.changed }} == False" }
+    - assert: { that: "oidc_idempotent.rc == 0" }
+    - assert: { that: "oidc_idempotent is not changed" }
 
     - name: "Enable OIDC auth method update"
       hashivault_auth_method:
@@ -71,8 +83,8 @@
         config:
           default_lease_ttl: 2764799
       register: oidc_idempotent
-    - assert: { that: "{{ oidc_idempotent.rc }} == 0" }
-    - assert: { that: "{{ oidc_idempotent.changed }} == True" }
+    - assert: { that: "oidc_idempotent.rc == 0" }
+    - assert: { that: "oidc_idempotent is changed" }
 
     - name: "Enable OIDC auth method update idempotent"
       hashivault_auth_method:
@@ -81,5 +93,5 @@
         config:
           default_lease_ttl: 2764799
       register: oidc_idempotent
-    - assert: { that: "{{ oidc_idempotent.rc }} == 0" }
-    - assert: { that: "{{ oidc_idempotent.changed }} == False" }
+    - assert: { that: "oidc_idempotent.rc == 0" }
+    - assert: { that: "oidc_idempotent is not changed" }

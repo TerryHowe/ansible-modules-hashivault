@@ -34,7 +34,7 @@
 
     - assert:
         that:
-          - "{{vault_write_from_file.changed}} == True"
+          - "vault_write_from_file is changed"
 
     - name: read file with hashivault_read
       hashivault_read:
@@ -44,7 +44,7 @@
 
     - assert:
         that:
-          - "'{{ gen_file_encoded.content }}' == '{{ secret_contents.value }}'"
+          - "gen_file_encoded.content == secret_contents.value"
     ########################################################
 
 
@@ -81,7 +81,7 @@
 
     - assert:
         that:
-          - "{{ results.failed }} == True"
+          - "results.failed == True"
 
     - name: read file with hashivault_read_to_file
       hashivault_read_to_file:
@@ -93,7 +93,7 @@
 
     - assert:
         that:
-          - "{{ results.rc }} == 0"
+          - "results.rc == 0"
     ########################################################
 
 
@@ -110,7 +110,7 @@
 
     - assert:
         that:
-          - "'{{ results.mode }}' == '0777'"
+          - "results.mode == '0777'"
     ########################################################
 
 
@@ -126,8 +126,8 @@
 
     - assert:
         that:
-          - "{{vault_write.changed}} == True"
-          - "'{{vault_write.msg}}' == 'Secret secret/old_secret written'"
+          - "vault_write is changed"
+          - "vault_write.msg == 'Secret secret/old_secret written'"
 
     - name: write file to old secret
       hashivault_write_from_file:
@@ -138,7 +138,7 @@
 
     - assert:
         that:
-          - "{{vault_write_from_file.changed}} == True"
+          - "vault_write_from_file is changed"
 
     - name: read file with hashivault_read
       hashivault_read:
@@ -148,7 +148,7 @@
 
     - assert:
         that:
-          - "'{{ gen_file_encoded.content }}' == '{{ secret_contents.value }}'"
+          - "gen_file_encoded.content == secret_contents.value"
 
     - name: read old key with hashivault_read
       hashivault_read:
@@ -158,7 +158,7 @@
 
     - assert:
         that:
-          - "'{{ secret_contents.value }}' == 'foo'"
+          - "secret_contents.value == 'foo'"
     ########################################################
 
 
@@ -174,7 +174,7 @@
 
     - assert:
         that:
-          - "{{vault_write_from_file.changed}} == True"
+          - "vault_write_from_file is changed"
 
     - name: write key with update == False (should remove old_key)
       hashivault_write_from_file:
@@ -186,7 +186,7 @@
 
     - assert:
         that:
-          - "{{vault_write_from_file.changed}} == True"
+          - "vault_write_from_file is changed"
 
     - name: read missing key
       hashivault_read:
@@ -197,7 +197,7 @@
 
     - assert:
         that:
-          - "{{ results.failed }} == True"
+          - "results.failed == True"
     ########################################################
 
     - name: hashivault_read_to_file with non base64 secret
@@ -208,9 +208,9 @@
         force: True
       register: results
       failed_when: False
-    - assert: { that: "{{results.changed}} == False" }
-    - assert: { that: "{{results.rc}} == 1" }
-    - assert: { that: "'{{results.msg}}' == 'Error base64 decoding secret old_secret/old_key: Incorrect padding'" }
+    - assert: { that: "results is not changed" }
+    - assert: { that: "results.rc == 1" }
+    - assert: { that: "results.msg == 'Error base64 decoding secret old_secret/old_key: Incorrect padding'" }
 
 
     - name: success hashivault_read_to_file with non base64 secret
@@ -221,9 +221,9 @@
         force: True
         base64: False
       register: results
-    - assert: { that: "{{results.changed}} == True" }
-    - assert: { that: "{{results.rc}} == 0" }
-    - assert: { that: "{{results.failed}} == False" }
+    - assert: { that: "results is changed" }
+    - assert: { that: "results.rc == 0" }
+    - assert: { that: "results.failed == False" }
 
     ########################################################
     # Clean up test files.
