@@ -100,6 +100,13 @@
       register: vault_identity_alias
     - assert: { that: "vault_identity_alias is changed" }
     - assert: { that: "vault_identity_alias.rc == 0" }
+  
+    - hashivault_identity_group_alias_list:
+      register: vault_identity_alias_list
+    - assert:
+        that: 
+          - vault_identity_alias_list.rc  == 0
+          - "vault_identity_alias_list.group_aliases['keys'] | length > 0"
 
     - hashivault_identity_group_alias:
         name: "extest alias"
