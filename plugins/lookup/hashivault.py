@@ -4,7 +4,7 @@
 #
 # A simple example of using the vault plugin in a role:
 #    ---
-#    - debug: msg="{{lookup('vault', 'ldapadmin', 'password', mount_point='kv2')}}"
+#    - debug: msg="{{lookup('terryhowe.hashivault.hashivault', 'ldapadmin', 'password', mount_point='kv2')}}"
 #
 # The plugin must be run with VAULT_ADDR and VAULT_TOKEN set and
 # exported.
@@ -22,6 +22,7 @@ from ansible.plugins.lookup import LookupBase
 from ansible_collections.terryhowe.hashivault.plugins.module_utils.hashivault import (
     hashivault_default_token,
     hashivault_read,
+    hashivault_argspec,
 )
 
 

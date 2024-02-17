@@ -89,7 +89,7 @@
     - assert: { that: 'vault_read.value == {"value": "kv2_stuff"}' }
 
     - set_fact:
-       looky_kv2: "{{lookup('hashivault', 'name', 'value', version=2, mount_point='kv2')}}"
+       looky_kv2: "{{lookup('terryhowe.hashivault.hashivault', 'name', 'value', version=2, mount_point='kv2')}}"
     - assert: { that: "'{{looky_kv2}}' == 'kv2_stuff'" }
 
     - name: Delete kv2 secret
