@@ -44,7 +44,9 @@ def main():
 @hashiwrapper
 def hashivault_identity_group_alias_list(params):
     client = hashivault_auth_client(params)
-    result = client.secrets.identity.list_group_aliases(mount_point=params.get('mount_point'), method=params.get('method').upper())
+    result = client.secrets.identity.list_group_aliases(
+            mount_point=params.get('mount_point'),
+            method=params.get('method').upper())
     if isinstance(result, dict):
         result = result.get('data', result)
     return {'changed': False, 'group_aliases': result}
