@@ -29,5 +29,7 @@ set -x
 # hacky test build broken
 MODULES=$MODULES make config cli keywords modules
 # hacky -j $CPUS option not working right on mac
-echo 'sphinx-build -M html "rst" "_build"  -n -w rst_warnings'
-echo 'touch _build/html/.nojekyll'
+pip install 'Sphinx>=5.1,<6'
+sed -i -e 's/AnsibleOutputLexer(startinline=True)/AnsibleOutputPrimaryLexer(startinline=True)/g' _extensions/pygments_lexer.py
+sphinx-build -M html "rst" "_build"  -n -w rst_warnings
+touch _build/html/.nojekyll
