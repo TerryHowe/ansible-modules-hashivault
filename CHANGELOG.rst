@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+5.2.1 (2024-02-20)
+------------------
+- Add utf-8 encoding. [Terry Howe]
+- Updating shebang. [Grzegorz Bialas]
+- Hacky fix for docs. [Terry Howe]
+
+
 5.2.0 (2024-02-17)
 ------------------
 - Add option in hashivault_init to pass only `secret_*` or `recovery_*`
