@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 from hvac.exceptions import InvalidPath
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client

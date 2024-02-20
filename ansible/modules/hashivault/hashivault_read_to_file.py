@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
 ---
