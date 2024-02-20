@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 from hvac.exceptions import InvalidPath
 
 from ansible.module_utils.hashivault import is_state_changed
