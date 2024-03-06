@@ -133,6 +133,8 @@ def hashivault_k8s_auth_role(module):
             current_state['max_ttl'] = current_state['token_max_ttl']
         if 'period' not in current_state and 'token_period' in current_state:
             current_state['period'] = current_state['token_period']
+        if 'policies' not in current_state and 'token_policies' in current_state:
+            current_state['policies'] = current_state['token_policies']
         for key in desired_state.keys():
             if key in current_state and desired_state[key] != current_state[key]:
                 changed = True
