@@ -1,0 +1,143 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    namespace: 'terry'
+    rules: >
+        path "secret/{{namespace}}/*" {
+          capabilities = ["create", "read", "update", "delete", "list"]
+        }
+        path "secret/{{namespace}}" {
+          capabilities = ["list"]
+        }
+    expected: "{{rules | regex_replace('\n', '')}}"
+    bobs_rules: >
+        path "secret/bob/*" {
+          capabilities = ["create", "read", "update", "delete", "list"]
+        }
+        path "secret/bob" {
+          capabilities = ["list"]
+        }
+    bobs_expected: "{{bobs_rules | regex_replace('\n', '') | regex_replace(' ', '')}}"
+  tasks:
+    - hashivault_acl_policy:
+        name: '{{namespace}}'
+        state: absent
+    - hashivault_acl_policy:
+        name: bob
+        state: absent
+
+    - hashivault_acl_policy_list:
+      register: 'vault_acl_policy_list'
+    - assert: { that: "vault_acl_policy_list is not changed" }
+    - assert: { that: "vault_acl_policy_list.rc == 0" }
+
+    - name: Delete a policy that doesn't exist and check that doesn't change or fail
+      hashivault_acl_policy:
+        name: '{{namespace}}'
+        state: absent
+      register: 'vault_acl_policy_delete'
+    - assert: { that: "vault_acl_policy_delete is not changed" }
+    - assert: { that: "vault_acl_policy_delete.rc == 0" }
+
+    - name: Set new policy
+      hashivault_acl_policy:
+        name: "{{namespace}}"
+        rules: "{{rules}}"
+      register: 'vault_acl_policy'
+    - assert: { that: "vault_acl_policy is changed" }
+    - assert: { that: "vault_acl_policy.rc == 0" }
+
+    - name: Set policy again and check that it doesn't change
+      hashivault_acl_policy:
+        name: "{{namespace}}"
+        rules: "{{rules}}"
+      register: 'vault_acl_policy_twice'
+    - assert: { that: "vault_acl_policy_twice is not changed" }
+    - assert: { that: "vault_acl_policy_twice.rc == 0" }
+
+    - name: Get policy and make sure it set properly
+      hashivault_acl_policy_get:
+        name: '{{namespace}}'
+      register: 'vault_acl_policy_get'
+    - assert: { that: "vault_acl_policy_get is not changed" }
+    - set_fact:
+        actual: "{{vault_acl_policy_get.rules | regex_replace('\n', '')}}"
+    - assert: { that: "expected == actual" }
+    - assert: { that: "vault_acl_policy_get.rc == 0" }
+
+    - name: Make sure our new policy is in list
+      hashivault_acl_policy_list:
+      register: 'vault_acl_policy_list'
+    - assert: { that: "vault_acl_policy_list is not changed" }
+    - fail: msg="policy {{namespace}} not in list"
+      when: namespace not in vault_acl_policy_list.policies
+    - assert: { that: "vault_acl_policy_list.rc == 0" }
+
+    - name: Set new policy from file
+      hashivault_acl_policy:
+        name: "{{namespace}}"
+        rules_file: "templates/policy_rules.hcl"
+      register: 'vault_acl_policy'
+    - assert: { that: "vault_acl_policy is changed" }
+    - assert: { that: "vault_acl_policy.rc == 0" }
+
+    - name: Validate file policy
+      hashivault_acl_policy_get:
+        name: "{{namespace}}"
+      register: 'vault_acl_policy_get'
+    - set_fact:
+        actual: "{{vault_acl_policy_get.rules | regex_replace('\n', '') | regex_replace(' ', '')}}"
+    - assert: { that: "bobs_expected == actual" }
+
+    - name: Get rid of our new policy
+      hashivault_acl_policy:
+        name: '{{namespace}}'
+        state: absent
+      register: 'vault_acl_policy_delete'
+    - assert: { that: "vault_acl_policy_delete is changed" }
+    - assert: { that: "vault_acl_policy_delete.rc == 0" }
+
+    - name: Make sure our new policy is gone
+      hashivault_acl_policy_list:
+      register: 'vault_acl_policy_list'
+    - assert: { that: "vault_acl_policy_list is not changed" }
+    - fail: msg="policy {{namespace}} in list"
+      when: namespace in vault_acl_policy_list.policies
+    - assert: { that: "vault_acl_policy_list.rc == 0" }
+
+    - name: Get bogus policy
+      hashivault_acl_policy_get:
+        name: '{{namespace}}bogus'
+      register: 'vault_acl_policy_get'
+      failed_when: False
+    - assert: { that: "vault_acl_policy_get is not changed" }
+    - assert: { that: "vault_acl_policy_get.rc == 1" }
+    - assert: { that: "vault_acl_policy_get.failed == False" }
+    - assert: { that: "vault_acl_policy_get.msg == 'Policy \"terrybogus\" does not exist.'" }
+
+    - name: Set new policy from file
+      hashivault_acl_policy:
+        name: bob
+        rules_file: "templates/policy_rules.hcl"
+      register: 'vault_acl_policy'
+    - assert: { that: "vault_acl_policy is changed" }
+    - assert: { that: "vault_acl_policy.rc == 0" }
+
+    - name: Get new from file policy and make sure it set properly
+      hashivault_acl_policy_get:
+        name: bob
+      register: 'vault_acl_policy_get'
+    - assert: { that: "vault_acl_policy_get is not changed" }
+    - set_fact:
+        actual: "{{vault_acl_policy_get.rules | regex_replace('\n', '') | regex_replace(' ', '')}}"
+    - assert: { that: "bobs_expected == actual" }
+    - assert: { that: "vault_acl_policy_get.rc == 0" }
+
+    - name: Delete our new policy from file
+      hashivault_acl_policy:
+        name: bob
+        state: absent
+      register: 'vault_acl_policy_delete'
+    - assert: { that: "vault_acl_policy_delete is changed" }
+    - assert: { that: "vault_acl_policy_delete.rc == 0" }
