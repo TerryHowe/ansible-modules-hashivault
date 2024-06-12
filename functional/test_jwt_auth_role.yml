@@ -1,0 +1,52 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+    oidc_discovery_url: https://samples.auth0.com/
+    oidc_client_id: dont
+    oidc_client_secret: matter
+  tasks:
+    - hashivault_auth_method:
+        method_type: jwt
+        state: disabled
+      failed_when: false
+
+    - name: enable jwt secret engine
+      hashivault_auth_method:
+        method_type: jwt
+
+    - name: successfully configure mount
+      hashivault_jwt_auth_method_config:
+        oidc_discovery_url: "{{ oidc_discovery_url }}"
+        oidc_client_id: "{{ oidc_client_id }}"
+        oidc_client_secret: "{{ oidc_client_secret }}"
+
+    - name: create 1st role
+      hashivault_jwt_auth_role:
+        name: "test"
+        bound_audiences: ["123456"]
+        allowed_redirect_uris: ["https://123456.com/callback"]
+        token_policies: ["test"]
+      register: success_config
+
+    - assert: { that: "success_config is changed" }
+
+    - name: idempotently create role
+      hashivault_jwt_auth_role:
+        name: "test"
+        bound_audiences: ["123456"]
+        allowed_redirect_uris: ["https://123456.com/callback"]
+        token_policies: ["test"]
+      register: idem_config
+
+    - assert: { that: "idem_config is not changed" }
+
+    - name: delete role
+      hashivault_jwt_auth_role:
+        name: "test"
+        state: absent
+        allowed_redirect_uris: ["https://123456.com/callback"]
+      register: del_config
+
+    - assert: { that: "del_config is changed" }
