@@ -1,0 +1,53 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+    oidc_discovery_url: https://samples.auth0.com/
+    oidc_client_id: dont
+    oidc_client_secret: matter
+  tasks:
+    - hashivault_auth_method:
+        method_type: jwt
+        state: disabled
+      failed_when: false
+
+    - name: make sure test fails when no mount exists
+      hashivault_jwt_auth_method_config:
+        oidc_discovery_url: "{{ oidc_discovery_url }}"
+        oidc_client_id: "{{ oidc_client_id }}"
+        oidc_client_secret: "{{ oidc_client_secret }}"
+      register: fail_config
+      failed_when: false
+
+    - assert: { that: "fail_config is not changed" }
+
+    - name: enable oidc auth method
+      hashivault_auth_method:
+        method_type: jwt
+
+    - name: successfully configure method
+      hashivault_jwt_auth_method_config:
+        oidc_discovery_url: "{{ oidc_discovery_url }}"
+        oidc_client_id: "{{ oidc_client_id }}"
+        oidc_client_secret: "{{ oidc_client_secret }}"
+      register: success_config
+
+    - assert: { that: "success_config is changed" }
+
+    - name: attempt 2nd config with same values
+      hashivault_jwt_auth_method_config:
+        oidc_discovery_url: "{{ oidc_discovery_url }}"
+        oidc_client_id: "{{ oidc_client_id }}"
+      register: idem_config
+
+    - assert: { that: "idem_config is not changed" }
+
+    - name: attempt 3rd config with different values
+      hashivault_jwt_auth_method_config:
+        oidc_discovery_url: "{{ oidc_discovery_url }}"
+        oidc_client_id: mango
+        oidc_client_secret: pineapple
+      register: overwrite_config
+
+    - assert: { that: "overwrite_config is changed" }
