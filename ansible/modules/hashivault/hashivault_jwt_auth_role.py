@@ -98,7 +98,7 @@ EXAMPLES = '''
     - hashivault_jwt_auth_role:
         name: "gmail"
         bound_audiences: ["123-456.apps.googleusercontent.com"]
-        allowed_redirect_uris: ["https://vault.com:8200/ui/vault/auth/jwt/jwt/callback"]
+        allowed_redirect_uris: ["https://vault.com:8200/ui/vault/auth/jwt/oidc/callback"]
         token_policies: ["test"]
 
 - hosts: localhost
@@ -106,7 +106,7 @@ EXAMPLES = '''
     - hashivault_jwt_auth_role:
         name: nested_ns_role
         bound_audiences: ["123-456.apps.googleusercontent.com"]
-        allowed_redirect_uris: ["https://vault.com:8200/ui/jwt/jwt/callback?namespace=namespaceone%2Fnamespacetwo"]
+        allowed_redirect_uris: ["https://vault.com:8200/ui/jwt/oidc/callback?namespace=namespaceone%2Fnamespacetwo"]
         token_policies: ["test"]
 '''
 
@@ -202,6 +202,9 @@ def hashivault_jwt_auth_role(module):
 
     if changed and not module.check_mode:
         if not current_state and state == 'present':
+            client.auth.jwt.create_role(name=name, **desired_state)
+        if current_state and state == 'present':
+            client.auth.jwt.delete_role(name=name)
             client.auth.jwt.create_role(name=name, **desired_state)
         elif current_state and state == 'absent':
             client.auth.jwt.delete_role(name=name)
