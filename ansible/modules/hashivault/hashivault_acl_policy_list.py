@@ -41,7 +41,7 @@ def hashivault_acl_policy_list(params):
     current_policies = client.sys.list_acl_policies()
     if isinstance(current_policies, dict):
         current_policies = current_policies.get('data', current_policies)
-        current_policies = current_policies.get('policies', current_policies)
+        current_policies = current_policies.get('keys', current_policies)
     return {'policies': current_policies}
 
 

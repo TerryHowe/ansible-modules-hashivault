@@ -70,10 +70,11 @@ def hashivault_acl_policy(module):
     # get current policies
     current_policies = client.sys.list_acl_policies()
     if isinstance(current_policies, dict):
-        current_policies = current_policies.get('policies', current_policies)
+        current_policies = current_policies.get('data', current_policies).get('keys', current_policies)
     if name in current_policies:
         exists = True
-        current_state = client.read_acl_policy(name)
+        current_state = client.sys.read_acl_policy(name)
+        current_state = current_state.get('data', current_state).get('policy', current_state)
 
     # Define desired rules
     rules_file = params.get('rules_file')
