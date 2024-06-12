@@ -42,6 +42,16 @@
 
     - assert: { that: "idem_config is not changed" }
 
+    - name: update role
+      hashivault_jwt_auth_role:
+        name: "test"
+        bound_audiences: ["123456"]
+        allowed_redirect_uris: ["https://123456.com/callback"]
+        token_policies: ["test","test2"]
+      register: new_config
+
+    - assert: { that: "new_config is changed" }
+
     - name: delete role
       hashivault_jwt_auth_role:
         name: "test"
