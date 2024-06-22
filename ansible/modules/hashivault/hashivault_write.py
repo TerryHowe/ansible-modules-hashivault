@@ -133,7 +133,7 @@ def hashivault_write(module):
                     returned_data = client.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, cas=cas,
                                                                                  path=secret, secret=write_data)
                 else:
-                    returned_data = client.write(secret_path, **write_data)
+                    returned_data = client.write_data(secret_path, data=write_data)
                 if returned_data:
                     from requests.models import Response
                     if isinstance(returned_data, Response):
