@@ -2,8 +2,8 @@ class ModuleDocFragment(object):
     # Standard documentation
     DOCUMENTATION = r'''
     requirements:
-        - hvac>=0.10.1
-        - ansible>=2.0.0
+        - hvac>=2.1.0
+        - ansible>=2.12.0
         - requests
     options:
         url:

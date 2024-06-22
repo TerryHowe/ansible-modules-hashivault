@@ -24,7 +24,7 @@ Install this Ansible module:
 
   pip install ansible-modules-hashivault
 
-* via ``ansible-galaxy`` (requires ``hvac>=0.7.2``):
+* via ``ansible-galaxy`` (requires ``hvac>=2.1.0``):
 
 ::
 
