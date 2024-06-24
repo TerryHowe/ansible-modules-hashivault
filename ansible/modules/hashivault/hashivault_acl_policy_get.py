@@ -4,6 +4,7 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
+from hvac.exceptions import InvalidPath
 
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = '''
@@ -45,15 +46,18 @@ def main():
 def hashivault_acl_policy_get(params):
     name = params.get('name')
     client = hashivault_auth_client(params)
-    policy = client.sys.read_acl_policy(name)
-    policy = policy.get('data', policy).get('policy', policy)
+    try:
+        policy = client.sys.read_acl_policy(name)
+        policy = policy.get('data', policy).get('policy', policy)
+    except InvalidPath as e:
+        policy = None
+    
     if policy is None:
         result = {"changed": False, "rc": 1, "failed": True}
         result['msg'] = u"Policy \"%s\" does not exist." % name
         return result
     else:
         return {'rules': policy}
-
 
 if __name__ == '__main__':
     main()
