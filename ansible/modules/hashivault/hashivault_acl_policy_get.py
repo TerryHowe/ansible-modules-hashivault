@@ -51,13 +51,14 @@ def hashivault_acl_policy_get(params):
         policy = policy.get('data', policy).get('policy', policy)
     except InvalidPath as e:
         policy = None
-    
+
     if policy is None:
         result = {"changed": False, "rc": 1, "failed": True}
         result['msg'] = u"Policy \"%s\" does not exist." % name
         return result
     else:
         return {'rules': policy}
+
 
 if __name__ == '__main__':
     main()
