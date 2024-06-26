@@ -2,6 +2,16 @@ Changelog
 =========
 
 
+5.3.0 (2024-06-26)
+------------------
+- Add support for JWT role. [mleneveut]
+- Add support for ACL policies. [mleneveut]
+- Use hvac write_data method. [Terry Howe]
+- Update hvac and tox docs. [Terry Howe]
+- Fix hashivault_k8s_auth_role not detecting policy changes. [Philipp
+  Hossner]
+
+
 5.2.1 (2024-02-20)
 ------------------
 - Add utf-8 encoding. [Terry Howe]
