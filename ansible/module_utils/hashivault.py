@@ -399,3 +399,22 @@ def is_state_changed(desired_state, current_state, ignore=None):
     :rtype: bool
     """
     return(len(get_keys_updated(desired_state, current_state)) > 0)
+
+def parse_duration(duration, fallback=None):
+    if isinstance(duration, int):
+        return duration
+    elif not isinstance(duration, str):
+        return fallback
+
+    if duration.endswith('d'):
+        return int(duration[:-1]) * 60 * 60 * 24
+    if duration.endswith('h'):
+        return int(duration[:-1]) * 60 * 60
+    if duration.endswith('m'):
+        return int(duration[:-1]) * 60
+    if duration.endswith('s'):
+        return int(duration[:-1])
+    if duration != "":
+        return int(duration)
+
+    return fallback

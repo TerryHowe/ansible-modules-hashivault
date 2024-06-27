@@ -28,7 +28,7 @@
 
     - debug:
         msg: "mount_root:\t{{ mount_root }}\nmount_inter:\t{{ mount_inter }}\nrole_name:\t{{ role }}"
-    - name: Enabele PKI secrets engine
+    - name: Enable PKI secrets engine
       hashivault_secret_engine:
         name: "{{mount_root}}"
         backend: "pki"
@@ -56,7 +56,7 @@
           - response.rc == 0
           - response.changed == False
 
-    - name: Enabele PKI secrets engine
+    - name: Enable PKI secrets engine
       hashivault_secret_engine:
         name: "{{mount_inter}}"
         backend: "pki"
@@ -253,6 +253,17 @@
         that:
           - response.rc == 0
           - response.changed == True
+    - name: Create/Update Role check_mode
+      hashivault_pki_role:
+        mount_point: "{{mount_inter}}"
+        name: "{{role}}"
+      check_mode: true
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.diff.before == response.diff.after
     - name: Create/Update Role
       hashivault_pki_role:
         mount_point: "{{mount_inter}}"
@@ -262,6 +273,60 @@
         that:
           - response.rc == 0
           - response.changed == False
+          - response.diff.before == response.diff.after
+    - name: Create/Update Role
+      hashivault_pki_role:
+        mount_point: "{{mount_inter}}"
+        name: "{{role}}"
+        config:
+          max_ttl: "153"
+          ttl: "150"
+          not_before_duration: "45s"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+          - response.diff.before.max_ttl != response.diff.after.max_ttl
+          - response.diff.before.ttl != response.diff.after.ttl
+          - response.diff.before.not_before_duration != response.diff.after.not_before_duration
+    - name: Create/Update Role
+      hashivault_pki_role:
+        mount_point: "{{mount_inter}}"
+        name: "{{role}}"
+        config:
+          max_ttl: "153"
+          ttl: "150"
+          not_before_duration: "45s"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.diff.before == response.diff.after
+    - name: Create/Update Role check_mode
+      hashivault_pki_role:
+        mount_point: "{{mount_inter}}"
+        name: "{{role}}"
+        config:
+          allow_bare_domains: True
+          allow_subdomains: True
+          allow_any_name: True
+          not_before_duration: "15s"
+      check_mode: true
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == True
+          - response.diff.before != response.diff.after
+          - response.diff.before.allow_bare_domains == False
+          - response.diff.after.allow_bare_domains == True
+          - response.diff.before.allow_subdomains == False
+          - response.diff.after.allow_subdomains == True
+          - response.diff.before.allow_any_name == False
+          - response.diff.after.allow_any_name == True
+          - response.diff.before.not_before_duration != response.diff.after.not_before_duration
     - name: Create/Update Role
       hashivault_pki_role:
         mount_point: "{{mount_inter}}"
@@ -276,6 +341,29 @@
         that:
           - response.rc == 0
           - response.changed == True
+          - response.diff.before != response.diff.after
+          - response.diff.before.allow_bare_domains == False
+          - response.diff.after.allow_bare_domains == True
+          - response.diff.before.allow_subdomains == False
+          - response.diff.after.allow_subdomains == True
+          - response.diff.before.allow_any_name == False
+          - response.diff.after.allow_any_name == True
+          - response.diff.before.not_before_duration != response.diff.after.not_before_duration
+    - name: Create/Update Role, no diff
+      hashivault_pki_role:
+        mount_point: "{{mount_inter}}"
+        name: "{{role}}"
+        config:
+          allow_bare_domains: True
+          allow_subdomains: True
+          allow_any_name: True
+          not_before_duration: "15s"
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.diff.before == response.diff.after
 
     - name: List Roles
       hashivault_pki_role_list:

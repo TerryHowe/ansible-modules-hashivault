@@ -1,11 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import copy
+
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashivault_normalize_from_doc
 from ansible.module_utils.hashivault import hashiwrapper
-from ansible.module_utils.hashivault import is_state_changed
+from ansible.module_utils.hashivault import parse_duration
 
 ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = r'''
@@ -25,7 +27,7 @@ options:
         description:
             - location where secrets engine is mounted. also known as path
     name:
-        recuired: true
+        required: true
         description:
             - Specifies the name of the role to create.
     role_file:
@@ -358,6 +360,24 @@ def hashivault_pki_role(module):
         except Exception as e:
             return e.args[0]
 
+    # For EC and ED25519 this field is ignored and leads to misleading diff.
+    if desired_state.get("key_type") in ("ed25519", "ec"):
+        desired_state.pop("signature_bits")
+
+    # Normalize some keys. This is a quirk of the vault api that it
+    # expects a different data format in the PUT/POST endpoint than
+    # it returns in the GET endpoint.
+    # Thus we'll keep desired_state_comp for the diff purposes and use
+    # desired_state as the actual params to be POSTed
+    desired_state_comp = copy.deepcopy(desired_state)
+
+    if desired_state_comp.get('ttl'):
+        desired_state_comp['ttl'] = parse_duration(desired_state_comp['ttl'])
+    if desired_state_comp.get('max_ttl'):
+        desired_state_comp['max_ttl'] = parse_duration(desired_state_comp['max_ttl'])
+    if desired_state_comp.get('not_before_duration'):
+        desired_state_comp['not_before_duration'] = parse_duration(desired_state_comp['not_before_duration'])
+
     changed = False
     try:
         current_state = client.secrets.pki.read_role(name=name, mount_point=mount_point).get('data')
@@ -369,18 +389,33 @@ def hashivault_pki_role(module):
     if (exists and state == 'absent') or (not exists and state == 'present'):
         changed = True
 
-    # compare current_state to desired_state
-    if exists and state == 'present' and not changed:
-        changed = is_state_changed(desired_state, current_state)
+    # compare current_state to desired_state_comp
+    if exists and state == "present" and not changed:
+        # Update all keys not present in the desired_state_comp with data from the
+        # current_state, to ensure a proper diff output.
+        for key in current_state:
+            if desired_state_comp.get(key) is None:
+                desired_state_comp[key] = current_state[key]
+
+        changed = desired_state_comp != current_state
 
     # make the changes!
     if changed and state == 'present' and not module.check_mode:
         client.secrets.pki.create_or_update_role(name=name, mount_point=mount_point, extra_params=desired_state)
 
-    elif changed and state == 'absent' and not module.check_mode:
-        client.secrets.pki.delete_role(name=name, mount_point=mount_point)
+    elif changed and state == 'absent':
+        if not module.check_mode:
+            client.secrets.pki.delete_role(name=name, mount_point=mount_point)
+        # after deleting it the item is no more
+        desired_state_comp = {}
 
-    return {'changed': changed}
+    return {
+        "changed": changed,
+        "diff": {
+            "before": current_state,
+            "after": desired_state_comp,
+        },
+    }
 
 
 if __name__ == '__main__':
