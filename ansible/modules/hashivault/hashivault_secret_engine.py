@@ -5,6 +5,7 @@ from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashiwrapper
+from ansible.module_utils.hashivault import parse_duration
 
 DEFAULT_TTL = 2764800
 ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '1.1'}
@@ -125,26 +126,6 @@ def main():
         module.exit_json(**result)
 
 
-def parse_duration(duration):
-    if isinstance(duration, int):
-        return duration
-    elif not isinstance(duration, str):
-        return DEFAULT_TTL
-
-    if duration.endswith('d'):
-        return int(duration[:-1]) * 60 * 60 * 24
-    if duration.endswith('h'):
-        return int(duration[:-1]) * 60 * 60
-    if duration.endswith('m'):
-        return int(duration[:-1]) * 60
-    if duration.endswith('s'):
-        return int(duration[:-1])
-    if duration != "":
-        return int(duration)
-
-    return DEFAULT_TTL
-
-
 @hashiwrapper
 def hashivault_secret_engine(module):
     params = module.params
@@ -154,9 +135,10 @@ def hashivault_secret_engine(module):
     description = params.get('description')
     config = params.get('config')
     if 'default_lease_ttl' in config:
-        config['default_lease_ttl'] = parse_duration(config['default_lease_ttl'])
+        config['default_lease_ttl'] = parse_duration(config['default_lease_ttl'], DEFAULT_TTL)
     if 'max_lease_ttl' in config:
-        config['max_lease_ttl'] = parse_duration(config['max_lease_ttl'])
+        config['max_lease_ttl'] = parse_duration(config['max_lease_ttl'],
+                                                 DEFAULT_TTL)
     if params.get('state') in ['present', 'enabled']:
         state = 'enabled'
     else:
