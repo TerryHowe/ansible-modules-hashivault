@@ -44,7 +44,7 @@ def main():
     argspec = hashivault_argspec()
     argspec['mount_point'] = dict(required=False, type='str', default='pki')
 
-    module = hashivault_init(argspec)
+    module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_pki_role_list(module)
 
     if result.get('failed'):
@@ -62,8 +62,8 @@ def hashivault_pki_role_list(module):
 
     try:
         return {'data': client.secrets.pki.list_roles(mount_point=mount_point).get('data').get('keys')}
-    except Exception:
-        return {'data': []}
+    except Exception as e:
+        return {'failed': True, 'data': [], 'msg': str(e)}
 
 
 if __name__ == '__main__':

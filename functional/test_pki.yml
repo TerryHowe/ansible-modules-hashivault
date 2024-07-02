@@ -277,6 +277,32 @@
           - response.rc == 0
           - response.changed == True
 
+    - name: List Roles check_mode expect_fail
+      hashivault_pki_role_list:
+        mount_point: "no_such_mount_point"
+      check_mode: true
+      register: response
+      failed_when: not response.failed
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.msg is defined
+          - response.msg != None
+          - |
+            "no_such_mount_point" in response.msg
+    - name: List Roles check_mode
+      hashivault_pki_role_list:
+        mount_point: "{{mount_inter}}"
+      check_mode: true
+      register: response
+    - assert:
+        that:
+          - response.rc == 0
+          - response.changed == False
+          - response.data is defined
+          - response.data != None
+          - role in response.data
     - name: List Roles
       hashivault_pki_role_list:
         mount_point: "{{mount_inter}}"
@@ -288,6 +314,7 @@
           - response.data is defined
           - response.data != None
           - role in response.data
+
     - name: Read Role
       hashivault_pki_role_get:
         mount_point: "{{mount_inter}}"
