@@ -1,11 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import copy
+
 from ansible.module_utils.hashivault import hashivault_argspec
 from ansible.module_utils.hashivault import hashivault_auth_client
 from ansible.module_utils.hashivault import hashivault_init
 from ansible.module_utils.hashivault import hashivault_normalize_from_doc
 from ansible.module_utils.hashivault import hashiwrapper
-from ansible.module_utils.hashivault import is_state_changed
+from ansible.module_utils.hashivault import parse_duration
 
 ANSIBLE_METADATA = {'status': ['preview'], 'supported_by': 'community', 'version': '1.1'}
 DOCUMENTATION = r'''
@@ -25,7 +27,7 @@ options:
         description:
             - location where secrets engine is mounted. also known as path
     name:
-        recuired: true
+        required: true
         description:
             - Specifies the name of the role to create.
     role_file:
@@ -96,6 +98,13 @@ options:
                 description:
                     - Allows names specified in `allowed_domains` to contain glob patterns (e.g. `ftp*.example.com`)
                     - Clients will be allowed to request certificates with names matching the glob patterns.
+            allow_wildcard_certificates:
+                type: bool
+                default: true
+                description:
+                    - Allows the issuance of certificates with RFC 6125 wildcards in the CN field.
+                    - When set to false, this prevents wildcards from being issued even if they would've
+                    - been allowed by an option above.
             allow_any_name:
                 type: bool
                 default: false
@@ -124,6 +133,12 @@ options:
                     - Values can contain glob patterns (e.g. `spiffe://hostname/*`).
                     - Although this parameter could take a string with comma-delimited items, it's highly advised to
                       not do so as it would break idempotency.
+            allowed_uri_sans_template:
+                type: bool
+                default: false
+                description:
+                    - When set, allowed_uri_sans may contain templates, as with ACL Path Templating.
+                    - Non-templated domains are also still permitted.
             allowed_other_sans:
                 type: list
                 description:
@@ -135,6 +150,14 @@ options:
                       `(bool)` Specifies if certificates are flagged for server use.
                     - Although this parameter could take a string with comma-delimited items, it's highly advised to
                       not do so as it would break idempotency.
+            allowed_serial_numbers:
+                type: list
+                default: ""
+                description:
+                    - If set, an array of allowed serial numbers to be requested during certificate issuance.
+                    - These values support shell-style globbing.
+                    - When empty, custom-specified serial numbers will be forbidden.
+                    - It is strongly recommended to allow Vault to generate random serial numbers instead.
             server_flag:
                 type: bool
                 default: true
@@ -165,10 +188,26 @@ options:
                       keys of either type and with any bit size (subject to > 1024 bits for RSA keys).
             key_bits:
                 type: int
-                default: 2048
+                default: 0
+                description:
+                    - Specifies the number of bits to use for the generated keys.
+                    - Allowed values are 0 (universal default);
+                    - with key_type=rsa, allowed values are: 2048 (default), 3072, 4096 or 8192;
+                    - with key_type=ec, allowed values are: 224, 256 (default), 384, or 521;
+                    - ignored with key_type=ed25519 or in signing operations when key_type=any.
+            signature_bits:
+                type: int
+                default: 0
                 description:
                     - Specifies the number of bits to use for the generated keys
                     - This will need to be changed for `ec` keys, e.g., 224 or 521.
+            use_pss:
+                type: bool
+                default: false
+                description:
+                    - Specifies whether or not to use PSS signatures over PKCS#1v1.5 signatures when a RSA-type issuer
+                    - is used.
+                    - Ignored for ECDSA/Ed25519 issuers.
             key_usage:
                 type: list
                 default: ["DigitalSignature", "KeyAgreement", "KeyEncipherment"]
@@ -294,6 +333,25 @@ options:
                 default: "30s"
                 description:
                     - Specifies the duration by which to backdate the NotBefore property.
+            not_after:
+                type: string
+                description:
+                    - Set the Not After field of the certificate with specified date value.
+                    - The value format should be given in UTC format YYYY-MM-ddTHH:MM:SSZ.
+                    - Supports the Y10K end date for IEEE 802.1AR-2018 standard devices, 9999-12-31T23:59:59Z.
+            cn_validations:
+                type: list
+                default: ["email", "hostname"]
+                description:
+                    - Validations to run on the Common Name field of the certificate.
+            allowed_user_ids:
+                type: string
+                default: ""
+                description:
+                    - Comma separated, globbing list of User ID Subject components to allow on requests.
+                    - By default, no user IDs are allowed.
+                    - Use the bare wildcard * value to allow any value.
+                    - See also the user_ids request parameter.
 extends_documentation_fragment:
     - hashivault
 '''
@@ -358,6 +416,24 @@ def hashivault_pki_role(module):
         except Exception as e:
             return e.args[0]
 
+    # For EC and ED25519 this field is ignored and leads to misleading diff.
+    if desired_state.get("key_type", None) in ("ed25519", "ec"):
+        desired_state.pop("signature_bits", None)
+
+    # Normalize some keys. This is a quirk of the vault api that it
+    # expects a different data format in the PUT/POST endpoint than
+    # it returns in the GET endpoint.
+    # Thus we'll keep desired_state_comp for the diff purposes and use
+    # desired_state as the actual params to be POSTed
+    desired_state_comp = copy.deepcopy(desired_state)
+
+    if desired_state_comp.get('ttl', None):
+        desired_state_comp['ttl'] = parse_duration(desired_state_comp['ttl'])
+    if desired_state_comp.get('max_ttl', None):
+        desired_state_comp['max_ttl'] = parse_duration(desired_state_comp['max_ttl'])
+    if desired_state_comp.get('not_before_duration', None):
+        desired_state_comp['not_before_duration'] = parse_duration(desired_state_comp['not_before_duration'])
+
     changed = False
     try:
         current_state = client.secrets.pki.read_role(name=name, mount_point=mount_point).get('data')
@@ -369,18 +445,33 @@ def hashivault_pki_role(module):
     if (exists and state == 'absent') or (not exists and state == 'present'):
         changed = True
 
-    # compare current_state to desired_state
-    if exists and state == 'present' and not changed:
-        changed = is_state_changed(desired_state, current_state)
+    # compare current_state to desired_state_comp
+    if exists and state == "present" and not changed:
+        # Update all keys not present in the desired_state_comp with data from the
+        # current_state, to ensure a proper diff output.
+        for key in current_state:
+            if key not in desired_state_comp:
+                desired_state_comp[key] = current_state[key]
+
+        changed = desired_state_comp != current_state
 
     # make the changes!
     if changed and state == 'present' and not module.check_mode:
         client.secrets.pki.create_or_update_role(name=name, mount_point=mount_point, extra_params=desired_state)
 
-    elif changed and state == 'absent' and not module.check_mode:
-        client.secrets.pki.delete_role(name=name, mount_point=mount_point)
+    elif changed and state == 'absent':
+        if not module.check_mode:
+            client.secrets.pki.delete_role(name=name, mount_point=mount_point)
+        # after deleting it the item is no more
+        desired_state_comp = {}
 
-    return {'changed': changed}
+    return {
+        "changed": changed,
+        "diff": {
+            "before": current_state,
+            "after": desired_state_comp,
+        },
+    }
 
 
 if __name__ == '__main__':
