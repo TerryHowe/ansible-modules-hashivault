@@ -416,7 +416,7 @@ def hashivault_pki_role(module):
 
     # For EC and ED25519 this field is ignored and leads to misleading diff.
     if desired_state.get("key_type") in ("ed25519", "ec"):
-        desired_state.pop("signature_bits")
+        desired_state.pop("signature_bits", None)
 
     # Normalize some keys. This is a quirk of the vault api that it
     # expects a different data format in the PUT/POST endpoint than
