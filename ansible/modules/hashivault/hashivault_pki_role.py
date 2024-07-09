@@ -415,7 +415,7 @@ def hashivault_pki_role(module):
             return e.args[0]
 
     # For EC and ED25519 this field is ignored and leads to misleading diff.
-    if desired_state.get("key_type") in ("ed25519", "ec"):
+    if desired_state.get("key_type", None) in ("ed25519", "ec"):
         desired_state.pop("signature_bits", None)
 
     # Normalize some keys. This is a quirk of the vault api that it
@@ -425,11 +425,11 @@ def hashivault_pki_role(module):
     # desired_state as the actual params to be POSTed
     desired_state_comp = copy.deepcopy(desired_state)
 
-    if desired_state_comp.get('ttl'):
+    if desired_state_comp.get('ttl', None):
         desired_state_comp['ttl'] = parse_duration(desired_state_comp['ttl'])
-    if desired_state_comp.get('max_ttl'):
+    if desired_state_comp.get('max_ttl', None):
         desired_state_comp['max_ttl'] = parse_duration(desired_state_comp['max_ttl'])
-    if desired_state_comp.get('not_before_duration'):
+    if desired_state_comp.get('not_before_duration', None):
         desired_state_comp['not_before_duration'] = parse_duration(desired_state_comp['not_before_duration'])
 
     changed = False
@@ -448,7 +448,7 @@ def hashivault_pki_role(module):
         # Update all keys not present in the desired_state_comp with data from the
         # current_state, to ensure a proper diff output.
         for key in current_state:
-            if desired_state_comp.get(key) is None:
+            if key not in desired_state_comp:
                 desired_state_comp[key] = current_state[key]
 
         changed = desired_state_comp != current_state
