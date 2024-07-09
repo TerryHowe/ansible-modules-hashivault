@@ -400,6 +400,7 @@ def is_state_changed(desired_state, current_state, ignore=None):
     """
     return(len(get_keys_updated(desired_state, current_state)) > 0)
 
+
 def parse_duration(duration, fallback=None):
     if isinstance(duration, int):
         return duration

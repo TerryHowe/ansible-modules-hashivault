@@ -103,7 +103,8 @@ options:
                 default: true
                 description:
                     - Allows the issuance of certificates with RFC 6125 wildcards in the CN field.
-                    - When set to false, this prevents wildcards from being issued even if they would've been allowed by an option above.
+                    - When set to false, this prevents wildcards from being issued even if they would've
+                    - been allowed by an option above.
             allow_any_name:
                 type: bool
                 default: false
@@ -204,7 +205,8 @@ options:
                 type: bool
                 default: false
                 description:
-                    - Specifies whether or not to use PSS signatures over PKCS#1v1.5 signatures when a RSA-type issuer is used.
+                    - Specifies whether or not to use PSS signatures over PKCS#1v1.5 signatures when a RSA-type issuer
+                    - is used.
                     - Ignored for ECDSA/Ed25519 issuers.
             key_usage:
                 type: list
