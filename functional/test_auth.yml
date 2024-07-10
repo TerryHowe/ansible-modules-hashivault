@@ -2,6 +2,10 @@
 - hosts: localhost
   gather_facts: no
   tasks:
+    - hashivault_auth_list:
+      register: auth_list
+    - assert: { that: "'token/' in auth_list.backends" }
+    - assert: { that: "'userpass/' not in auth_list.backends" }
     - name: Delete any lingering userpass
       hashivault_auth_method:
         method_type: "userpass"
@@ -16,6 +20,10 @@
     - assert: { that: "vault_auth.created == True" }
     - assert: { that: "vault_auth.failed == False" }
     - assert: { that: "vault_auth.rc == 0" }
+    - hashivault_auth_list:
+      check_mode: true
+      register: auth_list
+    - assert: { that: "'userpass/' in auth_list.backends" }
     - name: Enable userpass when it is already enabled
       hashivault_auth_method:
         method_type: "userpass"
