@@ -27,7 +27,7 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    module = hashivault_init(argspec)
+    module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_policy_list(module.params)
     if result.get('failed'):
         module.fail_json(**result)
