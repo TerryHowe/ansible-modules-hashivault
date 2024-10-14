@@ -1,0 +1,87 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Make sure ephemeral secret store is disabled
+      hashivault_secret_engine:
+        name: "ephemeral"
+        state: disabled
+      failed_when: False
+    - name: Enable ephemeral secret store
+      hashivault_secret_engine:
+        name: "ephemeral"
+        backend: "generic"
+        state: enabled
+      register: 'vault_secret_enable'
+    - assert: { that: "{{vault_secret_enable.changed}} == True" }
+    - assert: { that: "{{vault_secret_enable.rc}} == 0" }
+
+    - name: Enable same secret store again and check it doesn't fail
+      hashivault_secret_engine:
+        name: "ephemeral"
+        backend: "generic"
+        state: enabled
+      register: 'vault_secret_enable_twice'
+    - assert: { that: "{{vault_secret_enable_twice.changed}} == False" }
+    - assert: { that: "{{vault_secret_enable_twice.rc}} == 0" }
+
+    - name: Write a value to the ephemeral store
+      hashivault_write:
+        secret: '/ephemeral/name'
+        data:
+            value: 'ephemeral_stuff'
+
+    - name: Read the ephemeral value
+      hashivault_read:
+        secret: '/ephemeral/name'
+        key: 'value'
+      register: 'vault_read'
+    - assert: { that: "'{{vault_read.value}}' == 'ephemeral_stuff'" }
+
+    - set_fact:
+        looky_ephemeral: "{{lookup('terryhowe.hashivault.hashivault', '/ephemeral/name', 'value')}}"
+    - assert: { that: "'{{looky_ephemeral}}' == 'ephemeral_stuff'" }
+
+    - name: Delete ephemeral secret
+      hashivault_delete:
+        secret: '/ephemeral/name'
+      register: 'vault_secret_eph_delete'
+    - assert: { that: "{{vault_secret_eph_delete.changed}} == True" }
+    - assert: { that: "{{vault_secret_eph_delete.rc}} == 0" }
+    - assert: { that: "'{{vault_secret_eph_delete.msg}}' == 'Secret ephemeral/name deleted'" }
+
+    - name: Make sure ephemeral value is gone
+      hashivault_read:
+        secret: '/ephemeral/name'
+      register: 'vault_read'
+      failed_when: False
+    - assert: { that: "{{vault_read.changed}} == False" }
+    - assert: { that: "'{{vault_read.msg}}' == 'Secret ephemeral/name is not in vault'" }
+
+    - name: Tune ephemeral secret store
+      hashivault_secret_engine:
+        name: ephemeral
+        config:
+          default_lease_ttl: 3600
+          max_lease_ttl: 8600
+      register: vault_tune
+    - assert: { that: "{{ vault_tune.changed }} == True" }
+    - assert: { that: "{{ vault_tune.rc }} == 0" }
+
+    - name: Idempotent tuning ephemeral secret store
+      hashivault_secret_engine:
+        name: ephemeral
+        config:
+          default_lease_ttl: 3600
+          max_lease_ttl: 8600
+      register: vault_tune
+    - assert: { that: "{{ vault_tune.changed }} == False" }
+    - assert: { that: "{{ vault_tune.rc }} == 0" }
+
+    - name: Disable ephemeral secret store
+      hashivault_secret_engine:
+        name: "ephemeral"
+        state: disabled
+      register: 'vault_secret_disable'
+    - assert: { that: "{{vault_secret_enable.changed}} == True" }
+    - assert: { that: "{{vault_secret_enable.rc}} == 0" }

@@ -7,7 +7,7 @@ jobs:
     install: pip install pycodestyle==2.5.0
     name: "Linting with pycodestyle"
     python: "3.6"
-    script: pycodestyle --max-line-length=120 ansible
+    script: pycodestyle --max-line-length=120 plugins
   - stage: test
     name: Tests Python 2.7
     sudo: required
@@ -19,6 +19,12 @@ jobs:
     - docker pull vault:latest
     - docker ps -a
     install: pip install tox-travis
+    before_script:
+      # Move the collection into the required path.
+      - cd ../
+      - mkdir -p ansible_collections/$COLLECTION_NAMESPACE
+      - mv ansible-modules-hashivault ansible_collections/$COLLECTION_NAMESPACE/$COLLECTION_NAME
+      - cd ansible_collections/$COLLECTION_NAMESPACE/$COLLECTION_NAME
     script: tox
   - stage: test
     name: Tests Python 3.6
@@ -31,6 +37,12 @@ jobs:
     - docker pull vault:latest
     - docker ps -a
     install: pip install tox-travis
+    before_script:
+      # Move the collection into the required path.
+      - cd ../
+      - mkdir -p ansible_collections/$COLLECTION_NAMESPACE
+      - mv ansible-modules-hashivault ansible_collections/$COLLECTION_NAMESPACE/$COLLECTION_NAME
+      - cd ansible_collections/$COLLECTION_NAMESPACE/$COLLECTION_NAME
     script: tox
   - stage: test
     name: Generating docs
@@ -53,4 +65,6 @@ jobs:
       tags: true
 env:
   global:
-    secure: oCC/bugXphWhcjNNFEGp5Cq7VrSrKiP7Nfw8BL8rNUia1RXD1DxE5jdddLdfWapFO9BRViOInyST9clN4Q67PmJAiTkeOcF0GbkyWzrwA7Tu9g0D7YjlgHo/euqL33hqf0iRst9gW4If0Gq9sa20+US6yNOX9OGa4LHGBjB55S0ayckCzRrOJg+eZNTe1M6YibQuvZXqBPJN3Juj3q37S4QGrIz275RrmdKdezZFs+JHt8W+HRm88lFTOMINSuc3tuoJjnAC0c+jJLiAC2HQ6AKgFS8DNqr8G8gMwhqtvAiSegQrgxot8bFdKmE0sQ61aKKzMF/GOGDPFPPeUlk33rXFyIsFEmEzhqtoGPobyZX/KRlJu55Aqgr/fHgoEAGOkb2wTsLPX9tI2GIuZ/oaV2rxgYsZhIMXG6i4+yXM4U6OBgHfdJPHwZoCpZRX6kixc3/aFny3E9jrVtDVZGwoJHq1e3O0pL0sYB5CHO7icLJrf4mOjI0hoPV9byd9JrJi5ROFwRfXeuMFYYHe/yhcclnYI/Cg91wrzLq+2877+vYWvBFoPEeKvCsLMSz3ko7QLv7s8dAhgV4TXrYNuayLtFcvij4H1s0DQcCTmFIf/LHp3Jnv2YsoNtcSYDLxGrg8w/jq4pgObyw0VXlznj2X6pMvYhufW6ObTUH4aoEQ3OA=
+    - secure: oCC/bugXphWhcjNNFEGp5Cq7VrSrKiP7Nfw8BL8rNUia1RXD1DxE5jdddLdfWapFO9BRViOInyST9clN4Q67PmJAiTkeOcF0GbkyWzrwA7Tu9g0D7YjlgHo/euqL33hqf0iRst9gW4If0Gq9sa20+US6yNOX9OGa4LHGBjB55S0ayckCzRrOJg+eZNTe1M6YibQuvZXqBPJN3Juj3q37S4QGrIz275RrmdKdezZFs+JHt8W+HRm88lFTOMINSuc3tuoJjnAC0c+jJLiAC2HQ6AKgFS8DNqr8G8gMwhqtvAiSegQrgxot8bFdKmE0sQ61aKKzMF/GOGDPFPPeUlk33rXFyIsFEmEzhqtoGPobyZX/KRlJu55Aqgr/fHgoEAGOkb2wTsLPX9tI2GIuZ/oaV2rxgYsZhIMXG6i4+yXM4U6OBgHfdJPHwZoCpZRX6kixc3/aFny3E9jrVtDVZGwoJHq1e3O0pL0sYB5CHO7icLJrf4mOjI0hoPV9byd9JrJi5ROFwRfXeuMFYYHe/yhcclnYI/Cg91wrzLq+2877+vYWvBFoPEeKvCsLMSz3ko7QLv7s8dAhgV4TXrYNuayLtFcvij4H1s0DQcCTmFIf/LHp3Jnv2YsoNtcSYDLxGrg8w/jq4pgObyw0VXlznj2X6pMvYhufW6ObTUH4aoEQ3OA=
+    - COLLECTION_NAMESPACE: terryhowe
+    - COLLECTION_NAME: hashivault

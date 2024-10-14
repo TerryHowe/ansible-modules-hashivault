@@ -1,0 +1,83 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+      plugin_name: blergh
+      allowed_roles: ["flergh"]
+      allowed_roles2: ["splurgh", "doesnt-exist"]
+      username: "user@dbnamer"
+      password: "P@ssw0rd"
+      connection_url: "postgresql://{{'{{username}}'}}:{{'{{password}}'}}@cool-modern-db-name"
+  tasks:
+    - name: start with engine disabled
+      hashivault_secret_engine:
+        name: database
+        state: disabled
+         
+    - name: make sure test fails when no mount exists
+      hashivault_db_secret_engine_config:
+        name: test
+        plugin_name: "{{ plugin_name }}"
+        allowed_roles: "{{ allowed_roles }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        connection_url: "{{ connection_url }}"
+      register: fail_config
+      failed_when: false
+
+    - assert: { that: "{{ fail_config.changed }} == False" }
+    
+    - name: enable database secret engine
+      hashivault_secret_engine:
+        name: database
+        backend: database
+        state: enabled
+         
+    - name: successfully configure
+      hashivault_db_secret_engine_config:
+        name: test
+        plugin_name: "{{ plugin_name }}"
+        allowed_roles: "{{ allowed_roles }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        connection_url: "{{ connection_url }}"
+      register: success_config
+
+    - assert: { that: "{{ success_config.changed }} == True" }
+
+    - name: successfully write a role
+      hashivault_db_secret_engine_role:
+        name: tester
+        db_name: test
+        creation_statements: []
+      register: success_write
+    
+    - assert: { that: "{{ success_write.changed }} == True" }
+
+    - name: skip write a role
+      hashivault_db_secret_engine_role:
+        name: tester
+        db_name: test
+        creation_statements: []
+      register: idem_write
+    
+    - assert: { that: "{{ idem_write.changed }} == False" }
+
+    - name: delete role
+      hashivault_db_secret_engine_role:
+        name: tester
+        db_name: test
+        state: absent
+      register: success_del
+    
+    - assert: { that: "{{ success_del.changed }} == True" }
+
+    - name: skip delete role
+      hashivault_db_secret_engine_role:
+        name: tester
+        db_name: test
+        state: absent
+      register: success_del
+    
+    - assert: { that: "{{ success_del.changed }} == False" }
