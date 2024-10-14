@@ -34,14 +34,14 @@ chmod a+r $TMP_CONFIG
 # # Current is not tagged latest and vault won't push images
 # after 1.14, but this image is okay today
 TAG=latest
-TAG=1.13.3
+TAG=1.18
 docker stop $DOCKER_NAME 2>/dev/null || true
 docker rm -f $DOCKER_NAME 2>/dev/null || true
 docker run --name $DOCKER_NAME -h $DOCKER_NAME -d \
     --cap-add IPC_LOCK \
 	-p 127.0.0.1:${PORT}:${PORT} \
 	-v $TMP_CONFIG:/etc/vault/config.hcl:ro \
-	vault:${TAG} server -config /etc/vault/config.hcl
+	hashicorp/vault:${TAG} server -config /etc/vault/config.hcl
 
 #
 # Wait for vault to come up
