@@ -177,4 +177,4 @@ projects.  Two potential ways to work around this issue are either use the
 License
 -------
 
-`MIT <https://github.com/TerryHowe/ansible-modules-hashivault/blob/master/LICENSE>`_.
+`MIT <https://github.com/TerryHowe/ansible-modules-hashivault/blob/main/LICENSE>`_.
