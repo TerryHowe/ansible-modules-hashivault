@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 
 DOCUMENTATION = '''
 ---
 module: hashivault_acl_policy_list
-version_added: "2.1.0"
+version_added: "5.3.0"
 short_description: Hashicorp Vault ACL policy list module
 description:
     - Module to list ACL policies in Hashicorp Vault.

@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 
 DOCUMENTATION = '''
 ---
 module: hashivault_jwt_auth_method_config
-version_added: "4.1.1"
+version_added: "5.3.0"
 short_description: Hashicorp Vault JWT auth method config
 description:
     - Module to configure an JWT auth mount

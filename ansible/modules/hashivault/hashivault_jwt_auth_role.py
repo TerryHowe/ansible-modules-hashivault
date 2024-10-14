@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 
 DOCUMENTATION = '''
 ---
 module: hashivault_jwt_auth_role
-version_added: "4.1.1"
+version_added: "5.3.0"
 short_description: Hashicorp Vault JWT secret engine role
 description:
     - Module to define an JWT role that vault can generate dynamic credentials for vault

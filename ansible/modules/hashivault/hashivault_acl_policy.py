@@ -9,7 +9,7 @@ ANSIBLE_METADATA = ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported
 DOCUMENTATION = '''
 ---
 module: hashivault_acl_policy
-version_added: "2.1.0"
+version_added: "5.3.0"
 short_description: Hashicorp Vault acl policy set module
 description:
     - Module to set an ACL policy in Hashicorp Vault.
