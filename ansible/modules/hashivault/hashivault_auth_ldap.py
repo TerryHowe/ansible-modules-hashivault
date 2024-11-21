@@ -102,6 +102,10 @@ options:
     userfilter:
         description:
             - LDAP filter that will determine if a user has permission to authenticate to Vault
+    token_bound_cidrs:
+        description:
+            - List of CIDR blocks; if set, specifies blocks of IP addresses which can authenticate successfully, and
+              ties the resulting token to these blocks as well.
 extends_documentation_fragment: hashivault
 '''
 EXAMPLES = '''
@@ -157,6 +161,7 @@ def main():
     argspec['use_token_groups'] = dict(required=False, type='bool', default=False)
     argspec['token_ttl'] = dict(required=False, type='int', default=0)
     argspec['token_max_ttl'] = dict(required=False, type='int', default=0)
+    argspec['token_bound_cidrs'] = dict(required=False, type='list', default=[])
 
     module = hashivault_init(argspec, supports_check_mode=True)
     result = hashivault_auth_ldap(module)
@@ -194,6 +199,7 @@ def hashivault_auth_ldap(module):
     desired_state['use_token_groups'] = params.get('use_token_groups')
     desired_state['token_ttl'] = params.get('token_ttl')
     desired_state['token_max_ttl'] = params.get('token_max_ttl')
+    desired_state['token_bound_cidrs'] = params.get('token_bound_cidrs')
 
     # if bind pass is None, remove it from desired state since we can't compare
     if desired_state['bind_pass'] is None:
@@ -225,6 +231,7 @@ def hashivault_auth_ldap(module):
         current_state['starttls'] = result['starttls']
         current_state['token_ttl'] = result['token_ttl']
         current_state['token_max_ttl'] = result['token_max_ttl']
+        current_state['token_bound_cidrs'] = result['token_bound_cidrs']
     except InvalidPath:
         pass
 
