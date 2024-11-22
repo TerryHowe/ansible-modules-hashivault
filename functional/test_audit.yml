@@ -34,6 +34,15 @@
     - assert: { that: "audit_module is not changed" }
     - assert: { that: "audit_module.rc == 0" }
 
+    - name: Delete audit only one audit allowed
+      hashivault_audit:
+        device_type: file
+        state: absent
+      register: audit_module
+    - assert: { that: "audit_module is changed" }
+    - assert: { that: "audit_module.rc == 0" }
+
+
     - name: Create audit path
       hashivault_audit:
         device_type: file
@@ -52,14 +61,6 @@
           path: "/tmp/path_vault.log"
       register: audit_module
     - assert: { that: "audit_module is not changed" }
-    - assert: { that: "audit_module.rc == 0" }
-
-    - name: Delete audit
-      hashivault_audit:
-        device_type: file
-        state: absent
-      register: audit_module
-    - assert: { that: "audit_module is changed" }
     - assert: { that: "audit_module.rc == 0" }
 
     - name: Delete audit path
