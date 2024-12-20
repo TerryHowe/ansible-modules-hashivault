@@ -10,6 +10,7 @@ export HOME
 ./start.sh
 
 source ./vaultenv.sh
+ansible-playbook -v test_module_defaults.yml
 ansible-playbook -v test_mounts.yml
 ansible-playbook -v test_write.yml
 ansible-playbook -v test_secret.yml
