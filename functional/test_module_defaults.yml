@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  gather_facts: no
+  module_defaults:
+    group/ansible.modules.hashivault.hashivault:
+      secret: test_module_default
+
+  tasks:
+    - name: write to secret defined in module_defaults
+      hashivault_write:
+        data:
+          foo: bar
+
+    - name: Make sure we can read it
+      hashivault_read:
+        key: foo
+      register: vault_read
+
+    - assert: { that: "vault_read.value == bar" }
