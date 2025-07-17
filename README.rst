@@ -139,7 +139,7 @@ You may init the vault::
         - hashivault_init:
           register: vault_init
 
-You may also seal and unseal the vault::
+You may seal and unseal the vault::
 
     ---
     - hosts: localhost
