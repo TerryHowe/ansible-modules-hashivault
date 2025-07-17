@@ -2,6 +2,31 @@ Changelog
 =========
 
 
+5.4.0 (2025-07-17)
+------------------
+
+Fix
+~~~
+- Audit test broken with vault change. [Terry Howe]
+
+Other
+~~~~~
+- Chore: update readme. [Terry Howe]
+- Add support for token_bound_cidrs to hashivault_auth_ldap. [Denis
+  Krienbühl]
+- Update test container image for vault. [Terry Howe]
+- Add disable_local_ca_jwt param in k8s auth config. [Emilien Floret]
+- Add check_mode support to hashivault_secret_list. [dezeroku]
+- Add check_mode support to hashivault_policy_list. [dezeroku]
+- Add check mode support to hashivault_auth_list. [dezeroku]
+- Use fallbacks for hashmap get operations. [dezeroku]
+- Update ansible/modules/hashivault/hashivault_pki_role.py. [Jakub P,
+  Terry Howe]
+- Add missing hashivault_pki_role options. [dezeroku]
+- Add diff mode support to hashivault_pki_role. [dezeroku]
+- Add check_mode support to hashivault_pki_role_list. [dezeroku]
+
+
 5.3.0 (2024-06-26)
 ------------------
 - Add support for JWT role. [mleneveut]
