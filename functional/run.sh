@@ -56,6 +56,8 @@ ansible-playbook -v test_unseal.yml
 ansible-playbook -v test_identity_group.yml
 ansible-playbook -v test_identity_entity.yml
 ansible-playbook -v test_ldap_group.yml
+ansible-playbook -v test_radius_config.yml
+ansible-playbook -v test_radius_user.yml
 ansible-playbook -v test_pki.yml
 ansible-playbook -v test_rekey.yml
 # test_rekey.yml changes unseal keys, need to update VAULT_KEYS
