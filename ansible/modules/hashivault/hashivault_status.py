@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 
 DOCUMENTATION = '''
 ---
 module: hashivault_status
-version_added: "1.2.0"
+version_added: "1.2.1"
 short_description: Hashicorp Vault status module
 description:
     - Module to get status of Hashicorp Vault.
