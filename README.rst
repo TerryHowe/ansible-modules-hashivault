@@ -45,7 +45,7 @@ in order to authenticate to your HashiCorp Vault instance:
 
   * `VAULT_ADDR`: url for vault
   * `VAULT_SKIP_VERIFY=true`: if set, do not verify presented TLS certificate before communicating with Vault server. Setting this variable is not recommended except during testing
-  * `VAULT_AUTHTYPE`: authentication type to use: `token`, `userpass`, `github`, `ldap`, `approle`
+  * `VAULT_AUTHTYPE`: authentication type to use: `token`, `userpass`, `github`, `ldap`, `radius`, `approle`
   * `VAULT_LOGIN_MOUNT_POINT`: mount point for login defaults to auth type
   * `VAULT_TOKEN`: token for vault
   * `VAULT_ROLE_ID`: (required by `approle`)
