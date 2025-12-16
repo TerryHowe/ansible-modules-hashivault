@@ -116,10 +116,15 @@ def hashivault_radius_config(module):
     except InvalidPath:
         pass
 
-    # check if current config matches desired config values, if they match, set changed to false to prevent action
-    for k, v in current_state.items():
-        if k in desired_state and v != desired_state[k]:
-            changed = True
+    # If no current config exists, we need to configure
+    if not current_state:
+        changed = True
+    else:
+        # check if current config matches desired config values, if they match, set changed to false to prevent action
+        for k, v in current_state.items():
+            if k in desired_state and v != desired_state[k]:
+                changed = True
+                break
 
     # if configs dont match and checkmode is off, complete the change
     if changed and not module.check_mode:
