@@ -131,6 +131,8 @@ def hashivault_auth(client, params):
         client.auth.userpass.login(username, password, mount_point=login_mount_point)
     elif authtype == 'ldap':
         client.auth.ldap.login(username, password, mount_point=login_mount_point)
+    elif authtype == 'radius':
+        client.auth.radius.login(username, password, mount_point=login_mount_point)
     elif authtype == 'approle':
         client = AppRoleClient(client, role_id, secret_id, mount_point=login_mount_point)
     elif authtype == 'tls':

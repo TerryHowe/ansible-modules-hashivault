@@ -1,0 +1,52 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: enable radius authentication
+      hashivault_auth_method:
+        method_type: radius
+
+    - name: radius configuration
+      hashivault_radius_config:
+        host: localhost
+        secret: test_secret
+        port: 1812
+        dial_timeout: 10
+        nas_port: 10
+      register: radius_module
+    - assert: { that: "radius_module is changed" }
+    - assert: { that: "radius_module.rc == 0" }
+
+    - name: radius configuration is idempotent
+      hashivault_radius_config:
+        host: localhost
+        secret: test_secret
+        port: 1812
+        dial_timeout: 10
+        nas_port: 10
+      register: radius_module_idempotent
+    - assert: { that: "radius_module_idempotent is not changed" }
+
+    - name: radius configuration with unregistered_user_policies
+      hashivault_radius_config:
+        host: localhost
+        secret: test_secret
+        port: 1812
+        dial_timeout: 10
+        nas_port: 10
+        unregistered_user_policies:
+          - default
+      register: radius_module_policies
+    - assert: { that: "radius_module_policies is changed" }
+
+    - name: radius configuration with unregistered_user_policies is idempotent
+      hashivault_radius_config:
+        host: localhost
+        secret: test_secret
+        port: 1812
+        dial_timeout: 10
+        nas_port: 10
+        unregistered_user_policies:
+          - default
+      register: radius_module_policies_idempotent
+    - assert: { that: "radius_module_policies_idempotent is not changed" }
