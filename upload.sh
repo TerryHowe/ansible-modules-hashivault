@@ -26,7 +26,7 @@ then
     read ANS
 fi
 git tag -a $VERSION -m v$VERSION
-gitchangelog
+GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=log.showsignature GIT_CONFIG_VALUE_0=false gitchangelog
 vi CHANGELOG.rst
 echo "Ready to push $VERSION (cntrl-c to quit)?"
 read ANS
