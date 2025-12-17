@@ -4,6 +4,14 @@ Changelog
 
 5.5.0 (2025-12-16)
 ------------------
+
+Fix
+~~~
+- Changelog generation. [Terry Howe]
+
+Other
+~~~~~
+- Add CLAUDE.md to reference AGENTS.md. [Terry Howe]
 - Add radius authentication
 
 
