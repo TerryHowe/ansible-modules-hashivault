@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ansible-modules-hashivault"
-version = "5.5.0"
+version = "5.6.0"
 description = "Ansible Modules for Hashicorp Vault"
 readme = "README.rst"
 license = "MIT"
