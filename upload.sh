@@ -17,9 +17,10 @@ fi
 git pull
 pip install gitchangelog
 pip install twine
-OLDVERSION=$(grep version setup.py | sed -e "s/.*='//" -e "s/',//")
-vi setup.py
-VERSION=$(grep version setup.py | sed -e "s/.*='//" -e "s/',//")
+pip install build
+OLDVERSION=$(grep '^version' pyproject.toml | sed -e 's/.*= "//' -e 's/"//')
+vi pyproject.toml
+VERSION=$(grep '^version' pyproject.toml | sed -e 's/.*= "//' -e 's/"//')
 if [ "$OLDVERSION" == "$VERSION" ]
 then
     echo "Old version $OLDVERSION same as $VERSION"
@@ -30,7 +31,7 @@ GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=log.showsignature GIT_CONFIG_VALUE_0=false g
 vi CHANGELOG.rst
 echo "Ready to push $VERSION (cntrl-c to quit)?"
 read ANS
-git commit -m "Version $VERSION" CHANGELOG.rst setup.py
+git commit -m "Version $VERSION" CHANGELOG.rst pyproject.toml
 git push origin main
 git tag --force  -a $VERSION -m v$VERSION
 git push origin --tags
@@ -41,5 +42,5 @@ git push origin --tags
 
 # twine
 rm -rf dist
-python setup.py sdist # bdist_wheel
+python3.9 -m build --sdist
 twine upload dist/*

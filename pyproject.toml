@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ansible-modules-hashivault"
+version = "5.5.0"
+description = "Ansible Modules for Hashicorp Vault"
+readme = "README.rst"
+license = "MIT"
+authors = [
+    {name = "Terry Howe", email = "terrylhowe@example.com"}
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "ansible-core>=2.12.0",
+    "hvac>=2.1.0",
+    "requests",
+]
+
+[project.urls]
+Homepage = "https://github.com/TerryHowe/ansible-modules-hashivault"
+
+[tool.setuptools]
+py-modules = [
+    "ansible.module_utils.hashivault",
+    "ansible.plugins.lookup.hashivault",
+    "ansible.plugins.action.hashivault_read_to_file",
+    "ansible.plugins.action.hashivault_write_from_file",
+    "ansible.plugins.doc_fragments.hashivault",
+]
+packages = ["ansible.modules.hashivault"]
