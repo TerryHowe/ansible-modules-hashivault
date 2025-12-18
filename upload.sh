@@ -42,5 +42,5 @@ git push origin --tags
 
 # twine
 rm -rf dist
-python3.9 -m build --sdist
+python3.9 -m build
 twine upload dist/*
