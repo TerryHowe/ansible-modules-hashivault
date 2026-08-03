@@ -7,10 +7,11 @@ DOCKER_NAME=testvault
 PORT=8201
 export VAULT_ADDR="http://127.0.0.1:${PORT}"
 
-TMP_CONFIG=$(mktemp -q /tmp/$0.XXXXXX)
-trap "rm $TMP_CONFIG" EXIT
-
-cat <<EOF > $TMP_CONFIG
+# Pass the config through VAULT_LOCAL_CONFIG rather than bind-mounting a file.
+# Docker Desktop on macOS does not share /tmp, so a single-file bind mount from
+# there silently becomes an empty directory inside the container and vault fails
+# with "A storage backend must be specified".
+VAULT_LOCAL_CONFIG=$(cat <<EOF
 storage "file" {
   path = "/vault/file"
 }
@@ -27,7 +28,8 @@ storage "file" {
 
 "disable_mlock" = true
 EOF
-chmod a+r $TMP_CONFIG
+)
+export VAULT_LOCAL_CONFIG
 
 # Current is not tagged latest and vault won't push images
 # after 1.14, but this image is okay today
@@ -40,8 +42,8 @@ docker rm -f $DOCKER_NAME 2>/dev/null || true
 docker run --name $DOCKER_NAME -h $DOCKER_NAME -d \
     --cap-add IPC_LOCK \
 	-p 127.0.0.1:${PORT}:${PORT} \
-	-v $TMP_CONFIG:/etc/vault/config.hcl:ro \
-	hashicorp/vault:${TAG} server -config /etc/vault/config.hcl
+	-e VAULT_LOCAL_CONFIG \
+	hashicorp/vault:${TAG} server
 
 #
 # Wait for vault to come up
