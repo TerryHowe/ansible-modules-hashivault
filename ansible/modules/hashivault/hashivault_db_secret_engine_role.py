@@ -123,6 +123,7 @@ def hashivault_db_secret_engine_role(module):
         desired_state['creation_statements'] = params.get('creation_statements')
         desired_state['revocation_statements'] = params.get('revocation_statements')
         desired_state['rollback_statements'] = params.get('rollback_statements')
+        desired_state['renew_statements'] = params.get('renew_statements')
         desired_state['db_name'] = params.get('db_name')
 
     # check if role exists
