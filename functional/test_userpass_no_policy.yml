@@ -35,16 +35,19 @@
     #    prompt: "Make sure org.foo.FooOverload exception is not present"
 
     - name: Create userpass for bob via POST to omit the policies field
-      uri:
-        url: "{{ lookup('env','VAULT_ADDR') }}/v1/auth/userpass/users/{{username}}"
-        method: POST
-        return_content: yes
-        body_format: json
-        body:
-          password: "{{userpass}}"
-        headers:
-          X-Vault-Token: "{{ lookup('env','VAULT_TOKEN') }}"
-        status_code: 204
+      # Shell out to curl rather than the uri module: under macOS fork safety
+      # (OBJC_DISABLE_INITIALIZE_FORK_SAFETY) the uri module's Python ssl state
+      # gets corrupted and every request to the plaintext vault port fails with
+      # "[ASN1: NOT_ENOUGH_DATA]". curl avoids that code path entirely.
+      command: >-
+        curl -s -o /dev/null -w "%{http_code}"
+        -X POST
+        -H "X-Vault-Token: {{ lookup('env','VAULT_TOKEN') }}"
+        -d '{"password": "{{userpass}}"}'
+        {{ lookup('env','VAULT_ADDR') }}/v1/auth/userpass/users/{{username}}
+      register: bob_create
+      changed_when: true
+      failed_when: bob_create.stdout != "204"
 
     - name: Update policies
       hashivault_userpass:
