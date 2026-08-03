@@ -2,6 +2,32 @@ Changelog
 =========
 
 
+5.6.1 (2026-08-03)
+------------------
+
+Fix
+~~~
+- Run functional tests on macOS docker desktop. [Claude Opus 4.8 (1M
+  context), Terry Howe]
+
+  Docker Desktop on macOS does not share /tmp, so the single-file bind mount
+  of the vault config in start.sh silently became an empty directory in the
+  container and vault failed with "A storage backend must be specified".
+  Pass the config through VAULT_LOCAL_CONFIG instead so no host path sharing
+  is required; this works on both macOS and Linux CI.
+
+  test_userpass_no_policy.yml was the only test using the uri module, whose
+  Python ssl state gets corrupted under OBJC_DISABLE_INITIALIZE_FORK_SAFETY on
+  macOS, failing every request with "[ASN1: NOT_ENOUGH_DATA]". Shell out to
+  curl for that POST to avoid the broken code path.
+
+Other
+~~~~~
+- Db_secret_engine_role: transfer renew_statements argument to vault.
+  [bendem]
+- Build and publish a wheel. [David Hotham]
+
+
 5.6.0 (2025-12-17)
 ------------------
 
